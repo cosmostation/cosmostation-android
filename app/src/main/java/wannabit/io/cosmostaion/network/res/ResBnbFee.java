@@ -14,7 +14,6 @@ public class ResBnbFee {
     public long fee_for;
 
 
-
     @SerializedName("fixed_fee_params")
     public BnbFixedFeeParam fixed_fee_params;
 

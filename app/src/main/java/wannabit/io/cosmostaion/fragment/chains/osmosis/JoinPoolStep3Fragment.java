@@ -16,20 +16,19 @@ import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickListener{
+public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mJoinInput0Amount, mJoinInput0AmountSymbol;
-    private TextView        mJoinInput1Amount, mJoinInput1AmountSymbol;
-    private TextView        mJoinOutAmount, mJoinOutAmountSymbol;
-    private TextView        mMemo;
-    private int             mDpDecimal = 6;
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mJoinInput0Amount, mJoinInput0AmountSymbol;
+    private TextView mJoinInput1Amount, mJoinInput1AmountSymbol;
+    private TextView mJoinOutAmount, mJoinOutAmountSymbol;
+    private TextView mMemo;
+    private int mDpDecimal = 6;
 
-    private Button          mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static JoinPoolStep3Fragment newInstance(Bundle bundle) {
         JoinPoolStep3Fragment fragment = new JoinPoolStep3Fragment();
@@ -45,17 +44,17 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_join_pool_step3, container, false);
-        mFeeAmount                  = rootView.findViewById(R.id.join_fee_amount);
-        mFeeAmountSymbol            = rootView.findViewById(R.id.join_fee_amount_symbol);
-        mJoinInput0Amount           = rootView.findViewById(R.id.join_input0_amount);
-        mJoinInput0AmountSymbol     = rootView.findViewById(R.id.join_input0_amount_symbol);
-        mJoinInput1Amount           = rootView.findViewById(R.id.join_input1_amount);
-        mJoinInput1AmountSymbol     = rootView.findViewById(R.id.join_input1_amount_symbol);
-        mJoinOutAmount              = rootView.findViewById(R.id.join_out_amount);
-        mJoinOutAmountSymbol        = rootView.findViewById(R.id.join_out_amount_symbol);
-        mMemo                       = rootView.findViewById(R.id.memo);
-        mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.join_fee_amount);
+        mFeeAmountSymbol = rootView.findViewById(R.id.join_fee_amount_symbol);
+        mJoinInput0Amount = rootView.findViewById(R.id.join_input0_amount);
+        mJoinInput0AmountSymbol = rootView.findViewById(R.id.join_input0_amount_symbol);
+        mJoinInput1Amount = rootView.findViewById(R.id.join_input1_amount);
+        mJoinInput1AmountSymbol = rootView.findViewById(R.id.join_input1_amount_symbol);
+        mJoinOutAmount = rootView.findViewById(R.id.join_out_amount);
+        mJoinOutAmountSymbol = rootView.findViewById(R.id.join_out_amount_symbol);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -76,7 +75,7 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinInput0AmountSymbol, InputDenom0), InputAmount0,  mJoinInput0AmountSymbol, mJoinInput0Amount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinInput0AmountSymbol, InputDenom0), InputAmount0, mJoinInput0AmountSymbol, mJoinInput0Amount, BaseChain.OSMOSIS_MAIN);
         WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinInput1AmountSymbol, InputDenom1), InputAmount1, mJoinInput1AmountSymbol, mJoinInput1Amount, BaseChain.OSMOSIS_MAIN);
         WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinOutAmountSymbol, LpTokenSymbol), LpTokenAmount, mJoinOutAmountSymbol, mJoinOutAmount, BaseChain.OSMOSIS_MAIN);
         mMemo.setText(getSActivity().mTxMemo);
@@ -85,7 +84,7 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -94,6 +93,6 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private JoinPoolActivity getSActivity() {
-        return (JoinPoolActivity)getBaseActivity();
+        return (JoinPoolActivity) getBaseActivity();
     }
 }

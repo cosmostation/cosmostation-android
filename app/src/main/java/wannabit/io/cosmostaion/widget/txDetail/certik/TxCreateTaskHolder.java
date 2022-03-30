@@ -17,18 +17,18 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxCreateTaskHolder extends TxHolder {
-    private ImageView   itemCreateTaskImg;
-    private TextView    itemCreateTaskCreator;
-    private TextView    itemCreateTaskContract;
-    private TextView    itemCreateTaskBountryAmount, itemCreateTaskBountrySymbol;
+    private ImageView itemCreateTaskImg;
+    private TextView itemCreateTaskCreator;
+    private TextView itemCreateTaskContract;
+    private TextView itemCreateTaskBountryAmount, itemCreateTaskBountrySymbol;
 
     public TxCreateTaskHolder(@NonNull View itemView) {
         super(itemView);
-        itemCreateTaskImg                   = itemView.findViewById(R.id.tx_create_task_icon);
-        itemCreateTaskCreator               = itemView.findViewById(R.id.tx_create_task_creator);
-        itemCreateTaskContract              = itemView.findViewById(R.id.tx_create_task_contract);
-        itemCreateTaskBountryAmount         = itemView.findViewById(R.id.tx_create_task_bountry_amount);
-        itemCreateTaskBountrySymbol         = itemView.findViewById(R.id.tx_create_task_bountry_symbol);
+        itemCreateTaskImg = itemView.findViewById(R.id.tx_create_task_icon);
+        itemCreateTaskCreator = itemView.findViewById(R.id.tx_create_task_creator);
+        itemCreateTaskContract = itemView.findViewById(R.id.tx_create_task_contract);
+        itemCreateTaskBountryAmount = itemView.findViewById(R.id.tx_create_task_bountry_amount);
+        itemCreateTaskBountrySymbol = itemView.findViewById(R.id.tx_create_task_bountry_symbol);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -43,6 +43,7 @@ public class TxCreateTaskHolder extends TxHolder {
                 coin = new Coin(msg.getBounty(0).getDenom(), msg.getBounty(0).getAmount());
             }
             WDp.showCoinDp(c, baseData, coin, itemCreateTaskBountrySymbol, itemCreateTaskBountryAmount, BaseChain.CERTIK_MAIN);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

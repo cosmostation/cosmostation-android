@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_32">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/dialog_bg"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/main_net"
                 android:layout_width="match_parent"
@@ -20,22 +22,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/cosmos_wh_main"/>
+                    android:src="@drawable/cosmos_wh_main" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_cosmos_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/imversed_net"
                 android:layout_width="match_parent"
@@ -43,23 +49,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/imversed"/>
+                    android:src="@drawable/imversed" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_imversed_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/iris_net"
                 android:layout_width="match_parent"
@@ -67,23 +76,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/irisnet"/>
+                    android:src="@drawable/irisnet" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_iris_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/akash_chain"
                 android:layout_width="match_parent"
@@ -91,23 +103,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/akash_chain_img"/>
+                    android:src="@drawable/akash_chain_img" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_akash_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/axelar_chain"
                 android:layout_width="match_parent"
@@ -115,23 +130,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_axelar"/>
+                    android:src="@drawable/chain_axelar" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_axelar_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/band_chain"
                 android:layout_width="match_parent"
@@ -139,23 +157,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/band_chain_img"/>
+                    android:src="@drawable/band_chain_img" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_band_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/binance_net"
                 android:layout_width="match_parent"
@@ -163,23 +184,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/binance_ch_img"/>
+                    android:src="@drawable/binance_ch_img" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_bnb_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/bitcanna_chain"
                 android:layout_width="match_parent"
@@ -187,23 +211,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_bitcanna"/>
+                    android:src="@drawable/chain_bitcanna" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_bitcanna_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/bitsong_chain"
                 android:layout_width="match_parent"
@@ -211,23 +238,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_bitsong"/>
+                    android:src="@drawable/chain_bitsong" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_bitsong_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/cerberus_chain"
                 android:layout_width="match_parent"
@@ -235,23 +265,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_cerberus"/>
+                    android:src="@drawable/chain_cerberus" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_cerberus_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/certik_chain"
                 android:layout_width="match_parent"
@@ -259,23 +292,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/certik_chain_img"/>
+                    android:src="@drawable/certik_chain_img" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_certik_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/chihuahua_chain"
                 android:layout_width="match_parent"
@@ -283,23 +319,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_chihuahua"/>
+                    android:src="@drawable/chain_chihuahua" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_chihuahua_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/comdex_chain"
                 android:layout_width="match_parent"
@@ -307,23 +346,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_comdex"/>
+                    android:src="@drawable/chain_comdex" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_comdex_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/cryto_chain"
                 android:layout_width="match_parent"
@@ -331,23 +373,25 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chaincrypto"/>
+                    android:src="@drawable/chaincrypto" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_crypto_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
-<!--            <View-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1px"-->
-<!--                android:background="@color/colorGray10"/>-->
+            <!--            <View-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="1px"-->
+            <!--                android:background="@color/colorGray10"/>-->
             <LinearLayout
                 android:id="@+id/cudos_chain"
                 android:layout_width="match_parent"
@@ -356,23 +400,26 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4"
                 android:visibility="gone">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_cudos"/>
+                    android:src="@drawable/chain_cudos" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_cudos_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/desmos_chain"
                 android:layout_width="match_parent"
@@ -380,23 +427,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_desmos"/>
+                    android:src="@drawable/chain_desmos" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_desmos_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/emoney_chain"
                 android:layout_width="match_parent"
@@ -404,23 +454,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_emoney"/>
+                    android:src="@drawable/chain_emoney" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_emoney_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/evmos_chain"
                 android:layout_width="match_parent"
@@ -428,23 +481,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_evmos"/>
+                    android:src="@drawable/chain_evmos" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_evmos_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/fetch_chain"
                 android:layout_width="match_parent"
@@ -452,23 +508,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chainfetchai"/>
+                    android:src="@drawable/chainfetchai" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_fetch_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/grabridge_chain"
                 android:layout_width="match_parent"
@@ -476,23 +535,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_gravitybridge"/>
+                    android:src="@drawable/chain_gravitybridge" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_grabridge_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/inj_chain"
                 android:layout_width="match_parent"
@@ -500,23 +562,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_injective"/>
+                    android:src="@drawable/chain_injective" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_inj_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/juno_chain"
                 android:layout_width="match_parent"
@@ -524,23 +589,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_juno"/>
+                    android:src="@drawable/chain_juno" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_juno_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/kava_net"
                 android:layout_width="match_parent"
@@ -548,23 +616,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/kava_img"/>
+                    android:src="@drawable/kava_img" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_kava_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/ki_chain"
                 android:layout_width="match_parent"
@@ -572,23 +643,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_kifoundation"/>
+                    android:src="@drawable/chain_kifoundation" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_ki_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/konstellation_chain"
                 android:layout_width="match_parent"
@@ -596,23 +670,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_konstellation"/>
+                    android:src="@drawable/chain_konstellation" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_konstellation_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/medi_chain"
                 android:layout_width="match_parent"
@@ -620,23 +697,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chainmedibloc"/>
+                    android:src="@drawable/chainmedibloc" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_medi_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/lum_chain"
                 android:layout_width="match_parent"
@@ -644,23 +724,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_lumnetwork"/>
+                    android:src="@drawable/chain_lumnetwork" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_lum_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/okex_net"
                 android:layout_width="match_parent"
@@ -668,23 +751,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_okx"/>
+                    android:src="@drawable/chain_okx" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_okex_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/omniflix_chain"
                 android:layout_width="match_parent"
@@ -692,23 +778,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_omniflix"/>
+                    android:src="@drawable/chain_omniflix" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_omniflix_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/osmosis_chain"
                 android:layout_width="match_parent"
@@ -716,23 +805,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_osmosis"/>
+                    android:src="@drawable/chain_osmosis" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_osmosis_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/persis_chain"
                 android:layout_width="match_parent"
@@ -740,23 +832,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chainpersistence"/>
+                    android:src="@drawable/chainpersistence" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_persis_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/provenance_chain"
                 android:layout_width="match_parent"
@@ -764,23 +859,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_provenance"/>
+                    android:src="@drawable/chain_provenance" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_provenance_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/regen_chain"
                 android:layout_width="match_parent"
@@ -788,23 +886,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_regen"/>
+                    android:src="@drawable/chain_regen" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_regen_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/rizon_chain"
                 android:layout_width="match_parent"
@@ -812,23 +913,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_rizon"/>
+                    android:src="@drawable/chain_rizon" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_rizon_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/secret_chain"
                 android:layout_width="match_parent"
@@ -836,23 +940,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chainsecret"/>
+                    android:src="@drawable/chainsecret" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_secret_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/sentinel_chain"
                 android:layout_width="match_parent"
@@ -860,23 +967,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chainsentinel"/>
+                    android:src="@drawable/chainsentinel" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_sentinel_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/sif_chain"
                 android:layout_width="match_parent"
@@ -884,23 +994,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chainsifchain"/>
+                    android:src="@drawable/chainsifchain" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_sif_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/stargaze_chain"
                 android:layout_width="match_parent"
@@ -908,23 +1021,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_stargaze"/>
+                    android:src="@drawable/chain_stargaze" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_stargaze_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/iov_net"
                 android:layout_width="match_parent"
@@ -932,25 +1048,26 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_starname"/>
+                    android:src="@drawable/chain_starname" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_iov_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
 
-
-<!--            <View-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1px"-->
-<!--                android:background="@color/colorGray10"/>-->
+            <!--            <View-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="1px"-->
+            <!--                android:background="@color/colorGray10"/>-->
             <LinearLayout
                 android:id="@+id/althea_chain"
                 android:layout_width="match_parent"
@@ -959,23 +1076,26 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4"
                 android:visibility="gone">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_althea"/>
+                    android:src="@drawable/chain_althea" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_althea_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/umee_chain"
                 android:layout_width="match_parent"
@@ -983,17 +1103,19 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="@dimen/space_4">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_umee"/>
+                    android:src="@drawable/chain_umee" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="@string/str_umee_main_net"
-                    style="@style/font_ss_14_gray8"/>
+                    style="@style/font_ss_14_gray8" />
             </LinearLayout>
 
 
@@ -1003,10 +1125,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
+
                 <LinearLayout
                     android:id="@+id/cosmos_test_net"
                     android:layout_width="match_parent"
@@ -1014,17 +1138,19 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_4">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/cosmos_wh_main" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="@string/str_cosmos_test_net"
-                        style="@style/font_ss_14_gray8"/>
+                        style="@style/font_ss_14_gray8" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -1034,10 +1160,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
+
                 <LinearLayout
                     android:id="@+id/iris_test_net"
                     android:layout_width="match_parent"
@@ -1045,17 +1173,19 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_4">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/chain_test_iris"/>
+                        android:src="@drawable/chain_test_iris" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="@string/str_iris_test_net"
-                        style="@style/font_ss_14_gray8"/>
+                        style="@style/font_ss_14_gray8" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -1065,10 +1195,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
+
                 <LinearLayout
                     android:id="@+id/althea_test_net"
                     android:layout_width="match_parent"
@@ -1076,17 +1208,19 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_4">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/testnet_althea"/>
+                        android:src="@drawable/testnet_althea" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="@string/str_althea_test_net"
-                        style="@style/font_ss_14_gray8"/>
+                        style="@style/font_ss_14_gray8" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

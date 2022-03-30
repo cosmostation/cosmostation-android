@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/space_16">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,31 +16,37 @@
             android:layout_marginRight="@dimen/space_16"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_14_gray1"
-                    android:text="@string/str_source_chain"/>
+                    android:text="@string/str_source_chain" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_50"
                     android:layout_marginTop="@dimen/space_4">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
-                        android:background="@drawable/box_gray"/>
+                        android:background="@drawable/box_gray" />
+
                     <ImageView
                         android:id="@+id/img_from_chain"
                         android:layout_width="@dimen/space_32"
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/cosmos_wh_main" />
+
                     <TextView
                         android:id="@+id/txt_from_chain"
                         android:layout_width="wrap_content"
@@ -49,7 +55,7 @@
                         android:layout_toRightOf="@+id/img_from_chain"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_14_white"
-                        android:text="Cosmos"/>
+                        android:text="Cosmos" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -60,35 +66,40 @@
                 android:layout_marginLeft="@dimen/space_8"
                 android:layout_marginRight="@dimen/space_8"
                 android:layout_centerVertical="true"
-                android:src="@drawable/interchain_arrow"/>
+                android:src="@drawable/interchain_arrow" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_14_gray1"
-                    android:text="@string/str_destination_chain"/>
+                    android:text="@string/str_destination_chain" />
+
                 <RelativeLayout
                     android:id="@+id/btn_to_chain"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_50"
                     android:layout_marginTop="@dimen/space_4"
                     android:clickable="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
-                        android:background="@drawable/edittext_box"/>
+                        android:background="@drawable/edittext_box" />
+
                     <ImageView
                         android:id="@+id/img_to_chain"
                         android:layout_width="@dimen/space_32"
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/iris_wh"/>
+                        android:src="@drawable/iris_wh" />
+
                     <TextView
                         android:id="@+id/txt_to_chain"
                         android:layout_width="wrap_content"
@@ -97,14 +108,15 @@
                         android:layout_toRightOf="@+id/img_to_chain"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_14_white"
-                        android:text="Iris"/>
+                        android:text="Iris" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/space_16"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/arrow_down_gr"/>
+                        android:src="@drawable/arrow_down_gr" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -116,7 +128,8 @@
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginLeft="@dimen/space_16"
             style="@style/font_ss_14_gray1"
-            android:text="@string/str_to_swap_coin"/>
+            android:text="@string/str_to_swap_coin" />
+
         <RelativeLayout
             android:id="@+id/btn_to_send_coin"
             android:layout_width="match_parent"
@@ -124,17 +137,20 @@
             android:layout_height="@dimen/space_50"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:background="@drawable/edittext_box"/>
+                android:background="@drawable/edittext_box" />
+
             <ImageView
                 android:id="@+id/img_to_send_coin"
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
                 android:layout_marginLeft="@dimen/space_10"
                 android:layout_centerVertical="true"
-                android:src="@drawable/token_ic"/>
+                android:src="@drawable/token_ic" />
+
             <TextView
                 android:id="@+id/txt_to_send_coin"
                 android:layout_width="wrap_content"
@@ -143,7 +159,8 @@
                 android:layout_toRightOf="@+id/img_to_send_coin"
                 android:layout_marginLeft="@dimen/space_6"
                 style="@style/font_ss_14_white"
-                android:text="Coin"/>
+                android:text="Coin" />
+
             <TextView
                 android:id="@+id/txt_to_send_denom"
                 android:layout_width="wrap_content"
@@ -152,7 +169,8 @@
                 android:layout_toRightOf="@+id/txt_to_send_coin"
                 android:layout_marginLeft="@dimen/space_4"
                 style="@style/font_ss_12_gray1"
-                android:text="()"/>
+                android:text="()" />
+
             <TextView
                 android:id="@+id/txt_to_send_available"
                 android:layout_width="wrap_content"
@@ -164,7 +182,8 @@
                 android:layout_marginLeft="@dimen/space_6"
                 android:layout_marginRight="@dimen/space_6"
                 style="@style/font_ssl_14_white"
-                android:text="-"/>
+                android:text="-" />
+
             <ImageView
                 android:id="@+id/img_send_arrow"
                 android:layout_width="wrap_content"
@@ -172,7 +191,7 @@
                 android:layout_marginRight="@dimen/space_16"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/arrow_down_gr"/>
+                android:src="@drawable/arrow_down_gr" />
         </RelativeLayout>
 
 
@@ -182,7 +201,8 @@
             android:layout_marginTop="@dimen/space_18"
             android:layout_marginLeft="@dimen/space_16"
             style="@style/font_ss_14_gray1"
-            android:text="@string/str_relayer_status"/>
+            android:text="@string/str_relayer_status" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -198,12 +218,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/str_bep3_max_once"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -211,19 +233,21 @@
                     android:layout_centerVertical="true"
                     android:orientation="horizontal"
                     android:gravity="center">
+
                     <TextView
                         android:id="@+id/once_max"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        style="@style/font_ssl_12_white"/>
+                        style="@style/font_ssl_12_white" />
+
                     <TextView
                         android:id="@+id/once_max_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
                         android:text="Coin"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -235,15 +259,18 @@
                 android:layout_marginLeft="@dimen/space_4"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_bep3_system_max"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -251,19 +278,21 @@
                         android:layout_centerVertical="true"
                         android:orientation="horizontal"
                         android:gravity="center">
+
                         <TextView
                             android:id="@+id/system_max_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_white" />
+
                         <TextView
                             android:id="@+id/system_max_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="Coin"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -271,12 +300,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_bep3_remain_cap"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -284,31 +315,28 @@
                         android:layout_centerVertical="true"
                         android:orientation="horizontal"
                         android:gravity="center">
+
                         <TextView
                             android:id="@+id/remain_cap_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_white" />
+
                         <TextView
                             android:id="@+id/remain_cap_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="Coin"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
 
 
-
     </LinearLayout>
-
-
-
-
 
 
     <LinearLayout
@@ -320,6 +348,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -330,7 +359,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -342,6 +372,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 </RelativeLayout>

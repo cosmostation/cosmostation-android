@@ -16,15 +16,15 @@ import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class SifIncentiveStep3Frament extends BaseFragment implements View.OnClickListener{
+public class SifIncentiveStep3Frament extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mClaimAddress;
-    private TextView        mClaimType;
-    private TextView        mMemo;
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mClaimAddress;
+    private TextView mClaimType;
+    private TextView mMemo;
 
-    private Button          mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static SifIncentiveStep3Frament newInstance(Bundle bundle) {
         SifIncentiveStep3Frament fragment = new SifIncentiveStep3Frament();
@@ -40,13 +40,13 @@ public class SifIncentiveStep3Frament extends BaseFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sif_incentive_step3, container, false);
-        mFeeAmount              = rootView.findViewById(R.id.tx_fees);
-        mFeeAmountSymbol        = rootView.findViewById(R.id.tx_fees_type);
-        mClaimAddress           = rootView.findViewById(R.id.claim_address);
-        mClaimType              = rootView.findViewById(R.id.incentive_type);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.tx_fees);
+        mFeeAmountSymbol = rootView.findViewById(R.id.tx_fees_type);
+        mClaimAddress = rootView.findViewById(R.id.claim_address);
+        mClaimType = rootView.findViewById(R.id.incentive_type);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -67,12 +67,12 @@ public class SifIncentiveStep3Frament extends BaseFragment implements View.OnCli
     }
 
     private SifIncentiveActivity getSActivity() {
-        return (SifIncentiveActivity)getBaseActivity();
+        return (SifIncentiveActivity) getBaseActivity();
     }
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {

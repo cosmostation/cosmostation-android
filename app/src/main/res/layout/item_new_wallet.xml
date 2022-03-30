@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_new_wallet"
         android:layout_width="match_parent"
@@ -19,47 +18,55 @@
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBgCosmos"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/space_12">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/new_path"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    style="@style/font_ss_11_white"/>
+                    style="@style/font_ss_11_white" />
+
                 <TextView
                     android:id="@+id/new_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:singleLine="true"
-                    style="@style/font_ss_11_white"/>
+                    style="@style/font_ss_11_white" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/new_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
                 android:singleLine="true"
-                style="@style/font_ss_10_mono_gray1"/>
+                style="@style/font_ss_10_mono_gray1" />
+
             <RelativeLayout
                 android:id="@+id/atom_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="ATOM"
-                    style="@style/font_ss_9_atom"/>
+                    style="@style/font_ss_9_atom" />
+
                 <TextView
                     android:id="@+id/atom_amount"
                     android:layout_width="wrap_content"
@@ -68,20 +75,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/photon_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="PHOTON"
-                    style="@style/font_ss_9_photon"/>
+                    style="@style/font_ss_9_photon" />
+
                 <TextView
                     android:id="@+id/photon_amount"
                     android:layout_width="wrap_content"
@@ -90,20 +100,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/iris_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="IRIS"
-                    style="@style/font_ss_9_iris"/>
+                    style="@style/font_ss_9_iris" />
+
                 <TextView
                     android:id="@+id/iris_amount"
                     android:layout_width="wrap_content"
@@ -112,20 +125,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text=""
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/bnb_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="BNB"
-                    style="@style/font_ss_9_bnb"/>
+                    style="@style/font_ss_9_bnb" />
+
                 <TextView
                     android:id="@+id/bnb_amount"
                     android:layout_width="wrap_content"
@@ -134,20 +150,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/kava_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="KAVA"
-                    style="@style/font_ss_9_kava"/>
+                    style="@style/font_ss_9_kava" />
+
                 <TextView
                     android:id="@+id/kava_amount"
                     android:layout_width="wrap_content"
@@ -156,20 +175,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/iov_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="IOV"
-                    style="@style/font_ss_9_iov"/>
+                    style="@style/font_ss_9_iov" />
+
                 <TextView
                     android:id="@+id/iov_amount"
                     android:layout_width="wrap_content"
@@ -178,20 +200,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/band_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="BAND"
-                    style="@style/font_ss_9_band"/>
+                    style="@style/font_ss_9_band" />
+
                 <TextView
                     android:id="@+id/band_amount"
                     android:layout_width="wrap_content"
@@ -200,20 +225,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/ok_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="OKT"
-                    style="@style/font_ss_9_ok"/>
+                    style="@style/font_ss_9_ok" />
+
                 <TextView
                     android:id="@+id/ok_amount"
                     android:layout_width="wrap_content"
@@ -222,20 +250,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/certik_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="CTK"
-                    style="@style/font_ss_9_certik"/>
+                    style="@style/font_ss_9_certik" />
+
                 <TextView
                     android:id="@+id/certik_amount"
                     android:layout_width="wrap_content"
@@ -244,20 +275,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/akash_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="AKT"
-                    style="@style/font_ss_9_akash"/>
+                    style="@style/font_ss_9_akash" />
+
                 <TextView
                     android:id="@+id/akash_amount"
                     android:layout_width="wrap_content"
@@ -266,20 +300,23 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/secret_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="SCRT"
-                    style="@style/font_ss_9_secret"/>
+                    style="@style/font_ss_9_secret" />
+
                 <TextView
                     android:id="@+id/secret_amount"
                     android:layout_width="wrap_content"
@@ -288,21 +325,24 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/coin_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/coin_denom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="ATOM"
-                    style="@style/font_ss_9_atom"/>
+                    style="@style/font_ss_9_atom" />
+
                 <TextView
                     android:id="@+id/coin_amount"
                     android:layout_width="wrap_content"
@@ -311,7 +351,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_white"/>
+                    style="@style/font_ssl_9_white" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

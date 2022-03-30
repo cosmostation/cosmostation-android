@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.DeleteStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 
 public class DeleteStarName3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -37,12 +37,12 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_delete_starname_3, container, false);
-        mBeforeBtn      = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn     = rootView.findViewById(R.id.btn_confirm);
-        mFeeAmount      = rootView.findViewById(R.id.tx_fee_amount);
-        mStarName       = rootView.findViewById(R.id.to_delete_starname);
-        mExpireTime     = rootView.findViewById(R.id.expire_time);
-        mMemo           = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.tx_fee_amount);
+        mStarName = rootView.findViewById(R.id.to_delete_starname);
+        mExpireTime = rootView.findViewById(R.id.expire_time);
+        mMemo = rootView.findViewById(R.id.memo);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -55,7 +55,7 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
 
         if (getSActivity().mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
-            mStarName.setText( "*" + getSActivity().mStarNameDomain);
+            mStarName.setText("*" + getSActivity().mStarNameDomain);
         } else {
             mStarName.setText(getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
         }
@@ -66,7 +66,7 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -76,6 +76,6 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
 
 
     private DeleteStarNameActivity getSActivity() {
-        return (DeleteStarNameActivity)getBaseActivity();
+        return (DeleteStarNameActivity) getBaseActivity();
     }
 }

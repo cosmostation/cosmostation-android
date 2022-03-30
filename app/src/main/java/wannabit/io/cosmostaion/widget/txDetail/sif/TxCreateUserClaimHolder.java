@@ -17,13 +17,13 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxCreateUserClaimHolder extends TxHolder {
     ImageView itemCreateClaimImg;
-    TextView  itemCreateClaimAddress, itemCreateClaimType;
+    TextView itemCreateClaimAddress, itemCreateClaimType;
 
     public TxCreateUserClaimHolder(@NonNull View itemView) {
         super(itemView);
-        itemCreateClaimImg                  = itemView.findViewById(R.id.tx_create_user_claim_icon);
-        itemCreateClaimAddress              = itemView.findViewById(R.id.tx_create_user_claim_address);
-        itemCreateClaimType                 = itemView.findViewById(R.id.tx_create_user_claim_type);
+        itemCreateClaimImg = itemView.findViewById(R.id.tx_create_user_claim_icon);
+        itemCreateClaimAddress = itemView.findViewById(R.id.tx_create_user_claim_address);
+        itemCreateClaimType = itemView.findViewById(R.id.tx_create_user_claim_type);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -34,12 +34,18 @@ public class TxCreateUserClaimHolder extends TxHolder {
             itemCreateClaimAddress.setText(msg.getUserClaimAddress());
             String type = msg.getUserClaimType().getValueDescriptor().getName();
             String value = "";
-            if (type.contains("UNSPECIFIED")) { value = "unspecified"; }
-            else if (type.contains("AIRDROP")) { value = "airdrop"; }
-            else if (type.contains("VALIDATOR_SUBSIDY")) { value = "validatorsubsidy"; }
-            else if (type.contains("LIQUIDITY_MINING")) { value = "liquidityMining"; }
+            if (type.contains("UNSPECIFIED")) {
+                value = "unspecified";
+            } else if (type.contains("AIRDROP")) {
+                value = "airdrop";
+            } else if (type.contains("VALIDATOR_SUBSIDY")) {
+                value = "validatorsubsidy";
+            } else if (type.contains("LIQUIDITY_MINING")) {
+                value = "liquidityMining";
+            }
             itemCreateClaimType.setText(value);
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

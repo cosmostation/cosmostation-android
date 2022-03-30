@@ -40,21 +40,21 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_HTLC_CONFIRM = 9104;
 
-    private CardView    mSendCard;
-    private ImageView   mSendIcon;
-    private TextView    mSendAmountTv, mSendDenomTv;
-    private TextView    mSendFeeAmountTv, mSendFeeDenomTv;
-    private TextView    mReceiveChainTv, mReceiveAddressTv;
-    private CardView    mClaimCard;
-    private ImageView   mClaimIcon;
-    private TextView    mReceiveAmountTv, mReceiveAmountDenomTv;
-    private TextView    mRelayFeeAmountTv, mRelayFeeAmountDenomTv;
-    private TextView    mClaimFeeAmountTv, mClaimFeeDenomTv;
-    private TextView    mClaimAddressTv;
-    private Button      mBeforeBtn, mConfirmBtn;
+    private CardView mSendCard;
+    private ImageView mSendIcon;
+    private TextView mSendAmountTv, mSendDenomTv;
+    private TextView mSendFeeAmountTv, mSendFeeDenomTv;
+    private TextView mReceiveChainTv, mReceiveAddressTv;
+    private CardView mClaimCard;
+    private ImageView mClaimIcon;
+    private TextView mReceiveAmountTv, mReceiveAmountDenomTv;
+    private TextView mRelayFeeAmountTv, mRelayFeeAmountDenomTv;
+    private TextView mClaimFeeAmountTv, mClaimFeeDenomTv;
+    private TextView mClaimAddressTv;
+    private Button mBeforeBtn, mConfirmBtn;
 
-    private int         mDecimal = 8;
-    public String       mToSwapDenom;
+    private int mDecimal = 8;
+    public String mToSwapDenom;
 
     public static HtlcSendStep3Fragment newInstance(Bundle bundle) {
         HtlcSendStep3Fragment fragment = new HtlcSendStep3Fragment();
@@ -101,9 +101,9 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         Fee sendFee = getSActivity().onInitSendFee();
         Fee claimFee = getSActivity().onInitClaimFee();
 
-        BigDecimal toSendAmount         = new BigDecimal(getSActivity().mToSendCoins.get(0).amount);
-        BigDecimal sendFeeAmount        = new BigDecimal(sendFee.amount.get(0).amount);
-        BigDecimal claimFeeAmount       = new BigDecimal(claimFee.amount.get(0).amount);
+        BigDecimal toSendAmount = new BigDecimal(getSActivity().mToSendCoins.get(0).amount);
+        BigDecimal sendFeeAmount = new BigDecimal(sendFee.amount.get(0).amount);
+        BigDecimal claimFeeAmount = new BigDecimal(claimFee.amount.get(0).amount);
 
         // set send card view
         mSendIcon.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -214,6 +214,6 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private HtlcSendActivity getSActivity() {
-        return (HtlcSendActivity)getBaseActivity();
+        return (HtlcSendActivity) getBaseActivity();
     }
 }

@@ -11,9 +11,9 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
 public class OverridePkeyAccountTask extends CommonTask {
-    private String      mPKey;
-    private Account     mAccount;
-    private int         mCustomPath;
+    private String mPKey;
+    private Account mAccount;
+    private int mCustomPath;
 
     public OverridePkeyAccountTask(BaseApplication app, TaskListener listener, String pKey, Account account, int customPath) {
         super(app, listener);
@@ -29,7 +29,7 @@ public class OverridePkeyAccountTask extends CommonTask {
 
             Account oAccount = onModAccount();
             long id = mApp.getBaseDao().onOverrideAccount(oAccount);
-            if(id > 0) {
+            if (id > 0) {
                 mResult.isSuccess = true;
                 mApp.getBaseDao().setLastUser(oAccount.id);
 
@@ -38,7 +38,7 @@ public class OverridePkeyAccountTask extends CommonTask {
                 mResult.errorCode = 7002;
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         return mResult;
@@ -48,16 +48,16 @@ public class OverridePkeyAccountTask extends CommonTask {
         if (mPKey.toLowerCase().startsWith("0x")) {
             mPKey = mPKey.substring(2);
         }
-        EncResult encR          = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mPKey, false);
+        EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mPKey, false);
 
-        mAccount.hasPrivateKey   = true;
-        mAccount.resource        = encR.getEncDataString();
-        mAccount.spec            = encR.getIvDataString();
-        mAccount.fromMnemonic    = false;
-        mAccount.path            = "-1";
-        mAccount.msize           = -1;
-        mAccount.newBip44        = false;
-        mAccount.customPath      = mCustomPath;
+        mAccount.hasPrivateKey = true;
+        mAccount.resource = encR.getEncDataString();
+        mAccount.spec = encR.getIvDataString();
+        mAccount.fromMnemonic = false;
+        mAccount.path = "-1";
+        mAccount.msize = -1;
+        mAccount.newBip44 = false;
+        mAccount.customPath = mCustomPath;
         return mAccount;
     }
 }

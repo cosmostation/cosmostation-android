@@ -11,11 +11,11 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class OkHistoryTask extends CommonTask {
-    private String      mAddress;
+    private String mAddress;
 
     public OkHistoryTask(BaseApplication app, TaskListener listener, String address) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_HISTORY;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_HISTORY;
         this.mAddress = address;
     }
 

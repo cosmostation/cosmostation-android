@@ -30,7 +30,7 @@ public class Dialog_Help_Msg extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_help_msg, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_help_msg, null);
         TextView title1 = view.findViewById(R.id.dialog_title);
         TextView title2 = view.findViewById(R.id.dialog_msg);
         title1.setText(getArguments().getString("title"));

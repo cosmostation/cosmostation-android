@@ -18,16 +18,16 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class GDexSwapStep3Fragment extends BaseFragment implements View.OnClickListener{
+public class GDexSwapStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mSwapFee;
-    private TextView        mSwapInAmount, mSwapInAmountSymbol;
-    private TextView        mSwapOutAmount, mSwapOutAmountSymbol;
-    private RelativeLayout  mSlippageLayer;
-    private TextView        mMemo;
-    private int             mDpDecimal = 6, mInputCoinDecimal = 6, mOutputCoinDecimal =6;
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mSwapFee;
+    private TextView mSwapInAmount, mSwapInAmountSymbol;
+    private TextView mSwapOutAmount, mSwapOutAmountSymbol;
+    private RelativeLayout mSlippageLayer;
+    private TextView mMemo;
+    private int mDpDecimal = 6, mInputCoinDecimal = 6, mOutputCoinDecimal = 6;
 
     private Button mBeforeBtn, mConfirmBtn;
 
@@ -45,17 +45,17 @@ public class GDexSwapStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_swap_step3, container, false);
-        mFeeAmount              = rootView.findViewById(R.id.swap_fee_amount);
-        mFeeAmountSymbol        = rootView.findViewById(R.id.swap_fee_amount_symbol);
-        mSwapFee                = rootView.findViewById(R.id.swap_fee);
-        mSwapInAmount           = rootView.findViewById(R.id.swap_in_amount);
-        mSwapInAmountSymbol     = rootView.findViewById(R.id.swap_in_amount_symbol);
-        mSwapOutAmount          = rootView.findViewById(R.id.swap_out_amount);
-        mSwapOutAmountSymbol    = rootView.findViewById(R.id.swap_out_amount_symbol);
-        mSlippageLayer          = rootView.findViewById(R.id.slippage_layer);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.swap_fee_amount);
+        mFeeAmountSymbol = rootView.findViewById(R.id.swap_fee_amount_symbol);
+        mSwapFee = rootView.findViewById(R.id.swap_fee);
+        mSwapInAmount = rootView.findViewById(R.id.swap_in_amount);
+        mSwapInAmountSymbol = rootView.findViewById(R.id.swap_in_amount_symbol);
+        mSwapOutAmount = rootView.findViewById(R.id.swap_out_amount);
+        mSwapOutAmountSymbol = rootView.findViewById(R.id.swap_out_amount_symbol);
+        mSlippageLayer = rootView.findViewById(R.id.slippage_layer);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -83,7 +83,7 @@ public class GDexSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -92,6 +92,6 @@ public class GDexSwapStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private GravitySwapActivity getSActivity() {
-        return (GravitySwapActivity)getBaseActivity();
+        return (GravitySwapActivity) getBaseActivity();
     }
 }

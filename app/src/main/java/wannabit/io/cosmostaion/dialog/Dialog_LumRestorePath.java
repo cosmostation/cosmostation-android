@@ -34,13 +34,13 @@ public class Dialog_LumRestorePath extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_lum_restore_path, null);
 
-        mBasicPath      = view.findViewById(R.id.basic_path);
-        mAirdropPath    = view.findViewById(R.id.airdrop_path);
+        mBasicPath = view.findViewById(R.id.basic_path);
+        mAirdropPath = view.findViewById(R.id.airdrop_path);
 
         mBasicPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingCustomPath(1);
+                ((RestoreActivity) getActivity()).onUsingCustomPath(1);
                 getDialog().dismiss();
             }
         });
@@ -48,7 +48,7 @@ public class Dialog_LumRestorePath extends DialogFragment {
         mAirdropPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingCustomPath(0);
+                ((RestoreActivity) getActivity()).onUsingCustomPath(0);
                 getDialog().dismiss();
             }
         });

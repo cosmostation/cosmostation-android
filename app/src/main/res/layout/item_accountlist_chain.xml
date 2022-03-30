@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <FrameLayout
         android:id="@+id/chainCard"
         android:layout_width="@dimen/space_68"
@@ -13,23 +11,27 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_8">
+
         <LinearLayout
             android:layout_width="@dimen/space_68"
             android:layout_height="@dimen/space_68"
             android:orientation="vertical"
             android:gravity="center">
+
             <LinearLayout
                 android:id="@+id/chainLayer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_68"
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
+
                 <ImageView
                     android:id="@+id/chainImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_5"
-                    android:src="@drawable/cosmos_wh_main"/>
+                    android:src="@drawable/cosmos_wh_main" />
+
                 <TextView
                     android:id="@+id/chainName"
                     android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
                     android:letterSpacing="-0.07"
                     android:layout_marginTop="-4dp"
                     android:gravity="center"
-                    android:text="Cosmos"/>
+                    android:text="Cosmos" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

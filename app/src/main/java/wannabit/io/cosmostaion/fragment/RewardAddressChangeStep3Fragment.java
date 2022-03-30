@@ -23,10 +23,10 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
     public final static int CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG = 6016;
 
-    private TextView        mFeeAmount, mFeeType;
-    private TextView        mCurrentAddress, mNewAddress, mMemo;
-    private Button          mBeforeBtn, mConfirmBtn;
-    private int             mDpDecimal = 6;
+    private TextView mFeeAmount, mFeeType;
+    private TextView mCurrentAddress, mNewAddress, mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
+    private int mDpDecimal = 6;
 
     public static RewardAddressChangeStep3Fragment newInstance(Bundle bundle) {
         RewardAddressChangeStep3Fragment fragment = new RewardAddressChangeStep3Fragment();
@@ -42,13 +42,13 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reward_address_change_step3, container, false);
-        mFeeAmount              = rootView.findViewById(R.id.change_reward_address_fees);
-        mFeeType                = rootView.findViewById(R.id.change_reward_address_type);
-        mCurrentAddress         = rootView.findViewById(R.id.current_reward_address);
-        mNewAddress             = rootView.findViewById(R.id.new_reward_address);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.change_reward_address_fees);
+        mFeeType = rootView.findViewById(R.id.change_reward_address_type);
+        mCurrentAddress = rootView.findViewById(R.id.current_reward_address);
+        mNewAddress = rootView.findViewById(R.id.new_reward_address);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeType);
 
@@ -69,7 +69,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -81,12 +81,12 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
     }
 
     private RewardAddressChangeActivity getSActivity() {
-        return (RewardAddressChangeActivity)getBaseActivity();
+        return (RewardAddressChangeActivity) getBaseActivity();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onStartRewardAddressChange();
         }
     }

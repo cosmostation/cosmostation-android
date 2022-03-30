@@ -74,7 +74,7 @@ public class TxTransferHolder extends TxHolder {
                 itemSendRecieveTv.setText(R.string.tx_receive);
             }
             ArrayList<Coin> toDpCoin = new ArrayList<>();
-            for (CoinOuterClass.Coin coin: msg.getAmountList()) {
+            for (CoinOuterClass.Coin coin : msg.getAmountList()) {
                 toDpCoin.add(new Coin(coin.getDenom(), coin.getAmount()));
             }
             itemMultiCoinLayer.setVisibility(View.VISIBLE);
@@ -96,6 +96,7 @@ public class TxTransferHolder extends TxHolder {
                 itemAmountLayer4.setVisibility(View.VISIBLE);
                 WDp.showCoinDp(c, baseData, toDpCoin.get(4), itemAmountDenom4, itemAmount4, baseChain);
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

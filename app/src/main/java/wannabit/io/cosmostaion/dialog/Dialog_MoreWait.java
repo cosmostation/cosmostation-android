@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -40,7 +39,7 @@ public class Dialog_MoreWait extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_more_wait, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_more_wait, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
@@ -69,11 +68,13 @@ public class Dialog_MoreWait extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            onListener = (OnTxWaitListener)getTopActivity();
-        } catch (ClassCastException e) { WLog.w("onAttach error"); }
+            onListener = (OnTxWaitListener) getTopActivity();
+        } catch (ClassCastException e) {
+            WLog.w("onAttach error");
+        }
     }
 
     private BaseActivity getTopActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 }

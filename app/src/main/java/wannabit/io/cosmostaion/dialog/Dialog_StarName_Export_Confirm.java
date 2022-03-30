@@ -31,7 +31,7 @@ public class Dialog_StarName_Export_Confirm extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_export_confirm, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_export_confirm, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
         TextView exportMsg = view.findViewById(R.id.tv_export_msg);
@@ -49,7 +49,7 @@ public class Dialog_StarName_Export_Confirm extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((StarNameWalletConnectActivity)getActivity()).onExportAddresses(getArguments().getString("jsonData"));
+                ((StarNameWalletConnectActivity) getActivity()).onExportAddresses(getArguments().getString("jsonData"));
                 getDialog().dismiss();
             }
         });

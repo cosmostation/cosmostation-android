@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
+
 import cosmos.staking.v1beta1.QueryGrpc;
 import cosmos.staking.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -10,8 +12,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
 
 public class ReDelegationsFromToGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -40,7 +40,9 @@ public class ReDelegationsFromToGrpcTask extends CommonTask {
             this.mResult.resultData = response.getRedelegationResponsesList();
 //            WLog.w("ReDelegationsFromToGrpcTask " + response.getRedelegationResponsesList().size());
 
-        } catch (Exception e) { WLog.e( "ReDelegationsFromToGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("ReDelegationsFromToGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 

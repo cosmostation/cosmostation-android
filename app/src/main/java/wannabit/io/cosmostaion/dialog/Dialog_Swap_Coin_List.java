@@ -93,7 +93,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                 if (ibcToken.auth) {
                     holder.chainName.setText(ibcToken.display_denom.toUpperCase());
                 } else {
-                    holder.chainName.setText("UNKNOWN");
+                    holder.chainName.setText(R.string.str_unknown);
                 }
                 try {
                     Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
@@ -133,7 +133,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                     holder.chainName.setText(assets.origin_symbol);
                 }
             } else {
-                holder.chainName.setText("UNKNOWN");
+                holder.chainName.setText(R.string.str_unknown);
                 Picasso.get().cancelRequest(holder.chainImg);
                 holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
             }

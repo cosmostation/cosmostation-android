@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_LIST;
+
 import com.google.protobuf.ByteString;
 
 import java.util.ArrayList;
@@ -17,14 +21,10 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_LIST;
-
 public class NFTokenListGrpcTask extends CommonTask {
-    private BaseChain   mChain;
-    private Account     mAccount;
-    private ByteString  mPageKey;
+    private BaseChain mChain;
+    private Account mAccount;
+    private ByteString mPageKey;
 
     private ArrayList<Nft.IDCollection> mIrisResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mIrisStub;
@@ -70,7 +70,9 @@ public class NFTokenListGrpcTask extends CommonTask {
                 mResult.resultByteData = response.getPagination().getNextKey();
             }
 
-        } catch (Exception e) { WLog.e( "NFTokenListGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("NFTokenListGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 

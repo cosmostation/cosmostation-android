@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.widget.txDetail.nft;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,12 +18,9 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-
 public class TxIssueDenomHolder extends TxHolder {
     ImageView itemIssueDenomImg;
-    TextView  itemIssueDenomId, itemIssueDenomName, itemIssueDenomSchema;
+    TextView itemIssueDenomId, itemIssueDenomName, itemIssueDenomSchema;
 
     public TxIssueDenomHolder(@NonNull View itemView) {
         super(itemView);
@@ -39,14 +39,16 @@ public class TxIssueDenomHolder extends TxHolder {
                 itemIssueDenomId.setText(msg.getId());
                 itemIssueDenomName.setText(msg.getName());
                 itemIssueDenomSchema.setText(msg.getSchema());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         } else if (baseChain.equals(CRYPTO_MAIN)) {
             try {
                 chainmain.nft.v1.Tx.MsgIssueDenom msg = chainmain.nft.v1.Tx.MsgIssueDenom.parseFrom(response.getTx().getBody().getMessages(position).getValue());
                 itemIssueDenomId.setText(msg.getId());
                 itemIssueDenomName.setText(msg.getName());
                 itemIssueDenomSchema.setText(msg.getSchema());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
     }
 }

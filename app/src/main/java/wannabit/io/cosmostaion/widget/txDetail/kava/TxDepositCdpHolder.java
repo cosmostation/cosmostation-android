@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxDepositCdpHolder extends TxHolder {
-    ImageView   itemMsgImg;
-    TextView    itemMsgTitle;
-    TextView    itemOwner, itemDepositor, itemCollateralAmount, itemCollateralDenom;
+    ImageView itemMsgImg;
+    TextView itemMsgTitle;
+    TextView itemOwner, itemDepositor, itemCollateralAmount, itemCollateralDenom;
 
     public TxDepositCdpHolder(@NonNull View itemView) {
         super(itemView);
@@ -39,6 +39,7 @@ public class TxDepositCdpHolder extends TxHolder {
             itemDepositor.setText(msg.getDepositor());
             WDp.showCoinDp(c, baseData, msg.getCollateral().getDenom(), msg.getCollateral().getAmount(), itemCollateralDenom, itemCollateralAmount, BaseChain.KAVA_MAIN);
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

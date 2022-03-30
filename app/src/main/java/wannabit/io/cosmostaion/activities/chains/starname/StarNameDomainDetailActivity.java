@@ -1,5 +1,13 @@
 package wannabit.io.cosmostaion.activities.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -37,42 +45,34 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
-
 public class StarNameDomainDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar                             mToolbar;
-    private TextView                            mToolTitle;
-    private SwipeRefreshLayout                  mSwipeRefreshLayout;
-    private RecyclerView                        mRecyclerView;
-    private Button                              mBtnDelete, mBtnRenew, mBtnEdit;
+    private Toolbar mToolbar;
+    private TextView mToolTitle;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private Button mBtnDelete, mBtnRenew, mBtnEdit;
 
-    private String                              mMyDomain;
-    private MyDomainAdapter                     mAdapter;
-    private Types.Domain                        mDomain_gRPC;
-    private Types.Account                       mDomainResolve_gRPC;
+    private String mMyDomain;
+    private MyDomainAdapter mAdapter;
+    private Types.Domain mDomain_gRPC;
+    private Types.Account mDomainResolve_gRPC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_detail);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolTitle              = findViewById(R.id.tool_title);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnDelete              = findViewById(R.id.btn_delete);
-        mBtnRenew               = findViewById(R.id.btn_renew);
-        mBtnEdit                = findViewById(R.id.btn_edit);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolTitle = findViewById(R.id.tool_title);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnDelete = findViewById(R.id.btn_delete);
+        mBtnRenew = findViewById(R.id.btn_renew);
+        mBtnEdit = findViewById(R.id.btn_edit);
 
-        mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain      = BaseChain.getChain(mAccount.baseChain);
-        mMyDomain       = getIntent().getStringExtra("domain");
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mMyDomain = getIntent().getStringExtra("domain");
         WLog.w("mMyDomain " + mMyDomain);
 
         mToolTitle.setText(getString(R.string.str_domain_detail));
@@ -145,7 +145,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
             }
 
             BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-            BigDecimal starNameFee = getBaseDao().getStarNameRenewDomainFee(mDomain_gRPC.getName(),  mDomain_gRPC.getType());
+            BigDecimal starNameFee = getBaseDao().getStarNameRenewDomainFee(mDomain_gRPC.getName(), mDomain_gRPC.getType());
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_RENEW_DOMAIN, 0);
             if (available.compareTo(starNameFee.add(txFee)) < 0) {
                 Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
@@ -196,12 +196,12 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         if (isFinishing()) return;
         if (result.taskType == TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                mDomain_gRPC = (Types.Domain)result.resultData;
+                mDomain_gRPC = (Types.Domain) result.resultData;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_RESOLVE) {
             if (result.isSuccess && result.resultData != null) {
-                mDomainResolve_gRPC = (Types.Account)result.resultData;
+                mDomainResolve_gRPC = (Types.Account) result.resultData;
             }
 
         }
@@ -215,18 +215,18 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
 
 
     private class MyDomainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_HEADER                = 0;
-        private static final int TYPE_RESOURCE              = 1;
-        private static final int TYPE_EMPTY                 = 2;
+        private static final int TYPE_HEADER = 0;
+        private static final int TYPE_RESOURCE = 1;
+        private static final int TYPE_EMPTY = 2;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if(viewType == TYPE_HEADER) {
+            if (viewType == TYPE_HEADER) {
                 return new MyDomainHeaderHolder(getLayoutInflater().inflate(R.layout.item_domain_detail_header, viewGroup, false));
-            } else if(viewType == TYPE_RESOURCE) {
+            } else if (viewType == TYPE_RESOURCE) {
                 return new MyResourceHolder(getLayoutInflater().inflate(R.layout.item_starname_resource, viewGroup, false));
-            } else if(viewType == TYPE_EMPTY) {
+            } else if (viewType == TYPE_EMPTY) {
                 return new MyResourceEmptyHolder(getLayoutInflater().inflate(R.layout.item_starname_resource_empty, viewGroup, false));
             }
             return null;
@@ -235,7 +235,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_HEADER) {
-                final MyDomainHeaderHolder holder = (MyDomainHeaderHolder)viewHolder;
+                final MyDomainHeaderHolder holder = (MyDomainHeaderHolder) viewHolder;
                 if (mDomain_gRPC != null && mDomainResolve_gRPC != null) {
                     holder.itemDomain.setText("*" + mDomain_gRPC.getName());
                     holder.itemType.setText(mDomain_gRPC.getType().toUpperCase());
@@ -249,14 +249,14 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                     holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://starname.me/" + "*" + mDomain_gRPC.getName()));
+                            Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://starname.me/" + "*" + mDomain_gRPC.getName()));
                             startActivity(guideIntent);
                         }
                     });
                 }
 
-            } else  if (getItemViewType(position) == TYPE_RESOURCE) {
-                final MyResourceHolder holder = (MyResourceHolder)viewHolder;
+            } else if (getItemViewType(position) == TYPE_RESOURCE) {
+                final MyResourceHolder holder = (MyResourceHolder) viewHolder;
                 final Types.Resource resource = mDomainResolve_gRPC.getResources(position - 1);
                 Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.getUri())).fit().into(holder.itemChainImg);
                 holder.itemChainName.setText(StarnameAssets.getStarNameChainName(resource.getUri()));
@@ -294,12 +294,12 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
 
             public MyDomainHeaderHolder(View v) {
                 super(v);
-                itemRoot            = itemView.findViewById(R.id.card_root);
-                itemDomain          = itemView.findViewById(R.id.starname_domain_name);
-                itemBtnWebLink      = itemView.findViewById(R.id.web_detail);
-                itemType            = itemView.findViewById(R.id.domain_type);
-                itemAddressCnt      = itemView.findViewById(R.id.connected_addressed);
-                itemExpireDate      = itemView.findViewById(R.id.expire_date);
+                itemRoot = itemView.findViewById(R.id.card_root);
+                itemDomain = itemView.findViewById(R.id.starname_domain_name);
+                itemBtnWebLink = itemView.findViewById(R.id.web_detail);
+                itemType = itemView.findViewById(R.id.domain_type);
+                itemAddressCnt = itemView.findViewById(R.id.connected_addressed);
+                itemExpireDate = itemView.findViewById(R.id.expire_date);
             }
         }
 
@@ -310,10 +310,10 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
 
             public MyResourceHolder(View v) {
                 super(v);
-                itemRoot        = itemView.findViewById(R.id.card_root);
-                itemChainImg    = itemView.findViewById(R.id.chain_img);
-                itemChainName   = itemView.findViewById(R.id.chain_name);
-                itemAddress     = itemView.findViewById(R.id.chain_address);
+                itemRoot = itemView.findViewById(R.id.card_root);
+                itemChainImg = itemView.findViewById(R.id.chain_img);
+                itemChainName = itemView.findViewById(R.id.chain_name);
+                itemAddress = itemView.findViewById(R.id.chain_address);
             }
         }
 

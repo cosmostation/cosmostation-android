@@ -67,7 +67,7 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
     }
 
     private BaseActivity getBaseActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 
 }

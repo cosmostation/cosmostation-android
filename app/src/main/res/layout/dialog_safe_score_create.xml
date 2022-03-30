@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_32">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
         android:orientation="vertical"
         android:gravity="center_horizontal">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
+
                 <TextView
                     android:id="@+id/dialog_title"
                     android:layout_width="wrap_content"
@@ -27,7 +30,8 @@
                     style="@style/font_ss_17_gray8"
                     android:gravity="center"
                     android:text="Risk Score"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
@@ -35,7 +39,7 @@
                     android:layout_marginRight="@dimen/space_18"
                     android:layout_marginTop="@dimen/space_12"
                     android:src="@drawable/riskscore_img"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
 
                 <LinearLayout
                     android:id="@+id/risk_layer"
@@ -47,20 +51,22 @@
                     android:orientation="vertical"
                     android:background="@drawable/btn_score_safe_fill"
                     android:gravity="center">
+
                     <TextView
                         android:id="@+id/risk_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ssm_12_black"
                         android:gravity="center"
-                        android:text="SAFE"/>
+                        android:text="SAFE" />
+
                     <TextView
                         android:id="@+id/risk_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ss_26_black"
                         android:gravity="center"
-                        android:text="20.00"/>
+                        android:text="20.00" />
                 </LinearLayout>
 
                 <View
@@ -69,7 +75,7 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -77,13 +83,15 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18">
+
                     <TextView
                         android:id="@+id/current_price_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_current_title1"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <TextView
                         android:id="@+id/current_price"
                         android:layout_width="wrap_content"
@@ -92,7 +100,7 @@
                         android:layout_alignParentRight="true"
                         style="@style/font_ssl_14_black"
                         android:gravity="right"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -102,13 +110,15 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18">
+
                     <TextView
                         android:id="@+id/liquidation_price_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_liquidation_title1"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <TextView
                         android:id="@+id/liquidation_price"
                         android:layout_width="wrap_content"
@@ -117,7 +127,7 @@
                         android:layout_alignParentRight="true"
                         style="@style/font_ssl_14_black"
                         android:gravity="right"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <View
@@ -126,7 +136,7 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
 
 
                 <TextView
@@ -137,18 +147,19 @@
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18"
                     style="@style/font_ss_14_gray1"
-                    android:text="@string/str_help_risk"/>
+                    android:text="@string/str_help_risk" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="@dimen/space_24"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <Button
                         android:id="@+id/btn_nega"
                         android:layout_width="0dp"
@@ -157,11 +168,13 @@
                         android:textAllCaps="false"
                         android:background="@drawable/btn_dia_white_left"
                         style="@style/font_ss_14_red"
-                        android:text="@string/str_cancel"/>
+                        android:text="@string/str_cancel" />
+
                     <View
                         android:layout_width="1px"
                         android:layout_height="match_parent"
-                        android:background="@color/colorGray10"/>
+                        android:background="@color/colorGray10" />
+
                     <Button
                         android:id="@+id/btn_posi"
                         android:layout_width="0dp"
@@ -170,7 +183,7 @@
                         android:textAllCaps="false"
                         android:background="@drawable/btn_dia_white_right"
                         style="@style/font_ss_14_gray8"
-                        android:text="@string/str_confirm"/>
+                        android:text="@string/str_confirm" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,10 +7,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_control">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/exit_pool_input_layer"
                 android:layout_width="match_parent"
@@ -20,6 +20,7 @@
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_12">
+
                 <LinearLayout
                     android:id="@+id/exit_pool_input_symbol_layer"
                     android:layout_width="@dimen/space_64"
@@ -27,18 +28,21 @@
                     android:layout_centerVertical="true"
                     android:orientation="vertical"
                     android:gravity="center">
+
                     <ImageView
                         android:id="@+id/exit_pool_input_icon"
                         android:layout_width="@dimen/space_28"
                         android:layout_height="@dimen/space_28"
-                        android:src="@drawable/token_ic"/>
+                        android:src="@drawable/token_ic" />
+
                     <TextView
                         android:id="@+id/exit_pool_input_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="COIN"
-                        style="@style/font_ss_10_white"/>
+                        style="@style/font_ss_10_white" />
                 </LinearLayout>
+
                 <EditText
                     android:id="@+id/exit_pool_input"
                     android:layout_width="match_parent"
@@ -54,7 +58,8 @@
                     style="@style/font_ss_12_white"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionDone"
-                    android:gravity="center_vertical|left"/>
+                    android:gravity="center_vertical|left" />
+
                 <ImageView
                     android:id="@+id/exit_pool_input_clear"
                     android:layout_width="wrap_content"
@@ -62,31 +67,36 @@
                     android:padding="@dimen/space_8"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/close_btn"/>
+                    android:src="@drawable/close_btn" />
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/join_pool_input_action_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2"
                 android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_12">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/exit_pool_input_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             style="@style/font_ss_10_gray1"
-                            android:text="-"/>
+                            android:text="-" />
+
                         <TextView
                             android:id="@+id/exit_pool_input_amount_denom"
                             android:layout_width="wrap_content"
@@ -96,6 +106,7 @@
                             style="@style/font_ss_10_white" />
                     </LinearLayout>
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,6 +114,7 @@
                     android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_4"
                     android:orientation="horizontal">
+
                     <Button
                         android:id="@+id/exit_pool_input_1_4"
                         android:layout_width="0dp"
@@ -112,7 +124,8 @@
                         android:background="@drawable/btn_trans_with_border"
                         style="@style/font_ss_12_white"
                         android:textAllCaps="false"
-                        android:text="@string/str_add_one_fourths"/>
+                        android:text="@string/str_add_one_fourths" />
+
                     <Button
                         android:id="@+id/exit_pool_input_half"
                         android:layout_width="0dp"
@@ -122,7 +135,8 @@
                         android:background="@drawable/btn_trans_with_border"
                         style="@style/font_ss_12_white"
                         android:textAllCaps="false"
-                        android:text="@string/str_add_half"/>
+                        android:text="@string/str_add_half" />
+
                     <Button
                         android:id="@+id/exit_pool_input_3_4"
                         android:layout_width="0dp"
@@ -132,7 +146,8 @@
                         android:background="@drawable/btn_trans_with_border"
                         style="@style/font_ss_12_white"
                         android:textAllCaps="false"
-                        android:text="@string/str_add_three_fourths"/>
+                        android:text="@string/str_add_three_fourths" />
+
                     <Button
                         android:id="@+id/exit_pool_input_max"
                         android:layout_width="0dp"
@@ -142,7 +157,7 @@
                         android:background="@drawable/btn_trans_with_border"
                         style="@style/font_ss_12_white"
                         android:textAllCaps="false"
-                        android:text="@string/str_add_max"/>
+                        android:text="@string/str_add_max" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -157,6 +172,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -167,7 +183,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -179,7 +196,7 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 
     <RelativeLayout
@@ -187,9 +204,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 </RelativeLayout>

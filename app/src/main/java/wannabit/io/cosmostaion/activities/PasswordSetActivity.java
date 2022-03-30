@@ -31,30 +31,30 @@ import wannabit.io.cosmostaion.widget.StopViewPager;
 
 public class PasswordSetActivity extends BaseActivity implements KeyboardListener, TaskListener {
 
-    private LinearLayout                mLayerContents;
-    private TextView                    mPassowrdTitle, mPassowrdMsg1, mPassowrdMsg2;
-    private ImageView[]                 mIvCircle = new ImageView[5];
+    private LinearLayout mLayerContents;
+    private TextView mPassowrdTitle, mPassowrdMsg1, mPassowrdMsg2;
+    private ImageView[] mIvCircle = new ImageView[5];
 
-    private StopViewPager               mViewPager;
-    private KeyboardPagerAdapter        mAdapter;
+    private StopViewPager mViewPager;
+    private KeyboardPagerAdapter mAdapter;
 
-    private String                      mUserInput = "";
-    private String                      mConfirmInput = "";
-    private boolean                     mIsConfirmSequence;
+    private String mUserInput = "";
+    private String mConfirmInput = "";
+    private boolean mIsConfirmSequence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_set);
-        mLayerContents  = findViewById(R.id.layer_contents);
-        mPassowrdTitle  = findViewById(R.id.tv_password_title);
-        mPassowrdMsg1   = findViewById(R.id.tv_password_msg1);
-        mPassowrdMsg2   = findViewById(R.id.tv_password_msg2);
-        mViewPager      = findViewById(R.id.pager_keyboard);
+        mLayerContents = findViewById(R.id.layer_contents);
+        mPassowrdTitle = findViewById(R.id.tv_password_title);
+        mPassowrdMsg1 = findViewById(R.id.tv_password_msg1);
+        mPassowrdMsg2 = findViewById(R.id.tv_password_msg2);
+        mViewPager = findViewById(R.id.pager_keyboard);
         mNeedLeaveTime = false;
 
-        for(int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i , "id", getPackageName()));
+        for (int i = 0; i < mIvCircle.length; i++) {
+            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
         }
 
         mViewPager.setOffscreenPageLimit(2);
@@ -69,19 +69,19 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
         mUserInput = "";
         mConfirmInput = "";
 
-        for(int i = 0; i < mIvCircle.length; i++) {
+        for (int i = 0; i < mIvCircle.length; i++) {
             mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
         }
         mViewPager.setCurrentItem(0, true);
     }
 
     private void onUpdateCnt() {
-        if(mUserInput == null)
+        if (mUserInput == null)
             mUserInput = "";
 
         final int inputLength = mUserInput.length();
-        for(int i = 0; i < mIvCircle.length; i++) {
-            if(i < inputLength)
+        for (int i = 0; i < mIvCircle.length; i++) {
+            if (i < inputLength)
                 mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_pu));
             else
                 mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
@@ -94,7 +94,8 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
         animation.reset();
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) { }
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -102,15 +103,16 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) { }
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
         mLayerContents.startAnimation(animation);
     }
 
     private void onFinishInput() {
-        if(mIsConfirmSequence) {
+        if (mIsConfirmSequence) {
             mPassowrdMsg1.setVisibility(View.INVISIBLE);
-            if(mConfirmInput.equals(mUserInput)) {
+            if (mConfirmInput.equals(mUserInput)) {
                 onShowWaitDialog();
                 new InitPasswordTask(getBaseApplication(), this).execute(mConfirmInput);
 
@@ -121,16 +123,16 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
 
         } else {
             mPassowrdMsg1.setVisibility(View.VISIBLE);
-            if(mAdapter != null && mAdapter.getFragments() != null) {
-                for (KeyboardFragment frag: mAdapter.getFragments()) {
-                    if(frag != null)
+            if (mAdapter != null && mAdapter.getFragments() != null) {
+                for (KeyboardFragment frag : mAdapter.getFragments()) {
+                    if (frag != null)
                         frag.onShuffleKeyboard();
                 }
             }
             mIsConfirmSequence = true;
             mConfirmInput = mUserInput;
             mUserInput = "";
-            for(int i = 0; i < mIvCircle.length; i++) {
+            for (int i = 0; i < mIvCircle.length; i++) {
                 mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
             }
             mViewPager.setCurrentItem(0, true);
@@ -138,10 +140,9 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
     }
 
 
-
     @Override
     public void userInsertKey(char input) {
-        if(mUserInput == null || mUserInput.length() == 0) {
+        if (mUserInput == null || mUserInput.length() == 0) {
             mUserInput = String.valueOf(input);
 
         } else if (mUserInput.length() < 5) {
@@ -164,20 +165,20 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
 
     @Override
     public void userDeleteKey() {
-        if(mUserInput == null || mUserInput.length() <= 0) {
+        if (mUserInput == null || mUserInput.length() <= 0) {
             onBackPressed();
         } else if (mUserInput.length() == 4) {
-            mUserInput = mUserInput.substring(0, mUserInput.length()-1);
+            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
             mViewPager.setCurrentItem(0, true);
         } else {
-            mUserInput = mUserInput.substring(0, mUserInput.length()-1);
+            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
         }
         onUpdateCnt();
     }
 
     @Override
     public void onBackPressed() {
-        if(mUserInput != null && mUserInput.length() > 0) {
+        if (mUserInput != null && mUserInput.length() > 0) {
             userDeleteKey();
         } else if (mIsConfirmSequence) {
             mIsConfirmSequence = false;
@@ -190,7 +191,7 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         onHideWaitDialog();
         onNextPage();
     }

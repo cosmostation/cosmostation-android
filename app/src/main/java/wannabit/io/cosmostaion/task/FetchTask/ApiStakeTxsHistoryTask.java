@@ -26,7 +26,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
 
     public ApiStakeTxsHistoryTask(BaseApplication app, TaskListener listener, String address, String vAddress, BaseChain chain) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_API_STAKE_HISTORY;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_API_STAKE_HISTORY;
         this.mAddress = address;
         this.mValOpAddress = vAddress;
         this.mChain = chain;
@@ -74,7 +74,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAkashApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAkashApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -83,7 +83,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.SENTINEL_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getSentinelApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getSentinelApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -92,7 +92,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(PERSIS_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getPersisApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getPersisApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -101,7 +101,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(CRYPTO_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCryptoApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCryptoApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -110,7 +110,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(OSMOSIS_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getOsmosisApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getOsmosisApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -119,7 +119,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIovApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIovApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -169,56 +169,56 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.BAND_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.RIZON_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getRizonApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getRizonApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.JUNO_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getJunoApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getJunoApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.REGEN_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getRegenApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getRegenApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.BITCANNA_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBitcannaApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBitcannaApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.ALTHEA_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.STARGAZE_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getStargazeApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getStargazeApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.GRABRIDGE_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getGraBridgeApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getGraBridgeApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -367,9 +367,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
-            }
-
-            else if (mChain.equals(BaseChain.COSMOS_TEST)) {
+            } else if (mChain.equals(BaseChain.COSMOS_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

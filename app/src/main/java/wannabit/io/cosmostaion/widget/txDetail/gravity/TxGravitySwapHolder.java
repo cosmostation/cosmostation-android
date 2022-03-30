@@ -20,20 +20,20 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxGravitySwapHolder extends TxHolder {
-    ImageView   itemGravitySwapImg;
-    TextView    itemGravitySwapRequestAddress, itemGravitySwapPoolId,
-                itemGravitySwapDemandDenom, itemGravitySwapOrderPrice,
-                itemGravitySwapOfferAmount, itemGravitySwapOfferSymbol;
+    ImageView itemGravitySwapImg;
+    TextView itemGravitySwapRequestAddress, itemGravitySwapPoolId,
+            itemGravitySwapDemandDenom, itemGravitySwapOrderPrice,
+            itemGravitySwapOfferAmount, itemGravitySwapOfferSymbol;
 
     public TxGravitySwapHolder(@NonNull View itemView) {
         super(itemView);
-        itemGravitySwapImg              = itemView.findViewById(R.id.tx_gravity_swap_icon);
-        itemGravitySwapRequestAddress   = itemView.findViewById(R.id.tx_gravity_swap_request_address);
-        itemGravitySwapPoolId           = itemView.findViewById(R.id.tx_gravity_swap_pool_id);
-        itemGravitySwapDemandDenom      = itemView.findViewById(R.id.tx_gravity_swap_demand_coin_denom);
-        itemGravitySwapOrderPrice       = itemView.findViewById(R.id.tx_gravity_swap_order_price);
-        itemGravitySwapOfferAmount      = itemView.findViewById(R.id.tx_token_swap_amount);
-        itemGravitySwapOfferSymbol      = itemView.findViewById(R.id.tx_token_swap_symbol);
+        itemGravitySwapImg = itemView.findViewById(R.id.tx_gravity_swap_icon);
+        itemGravitySwapRequestAddress = itemView.findViewById(R.id.tx_gravity_swap_request_address);
+        itemGravitySwapPoolId = itemView.findViewById(R.id.tx_gravity_swap_pool_id);
+        itemGravitySwapDemandDenom = itemView.findViewById(R.id.tx_gravity_swap_demand_coin_denom);
+        itemGravitySwapOrderPrice = itemView.findViewById(R.id.tx_gravity_swap_order_price);
+        itemGravitySwapOfferAmount = itemView.findViewById(R.id.tx_token_swap_amount);
+        itemGravitySwapOfferSymbol = itemView.findViewById(R.id.tx_token_swap_symbol);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -44,10 +44,11 @@ public class TxGravitySwapHolder extends TxHolder {
             itemGravitySwapRequestAddress.setText(msg.getSwapRequesterAddress());
             itemGravitySwapPoolId.setText("" + msg.getPoolId());
             WUtil.dpCosmosTokenName(c, baseData, itemGravitySwapDemandDenom, msg.getDemandCoinDenom());
-            itemGravitySwapOrderPrice.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getOrderPrice()),18, 18));
+            itemGravitySwapOrderPrice.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getOrderPrice()), 18, 18));
 
             Coin coin = new Coin(msg.getOfferCoin().getDenom(), msg.getOfferCoin().getAmount());
             WDp.showCoinDp(c, baseData, coin, itemGravitySwapOfferSymbol, itemGravitySwapOfferAmount, BaseChain.COSMOS_MAIN);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

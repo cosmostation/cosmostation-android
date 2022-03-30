@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,35 +34,29 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
-
 public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskListener {
 
-    private ImageView                   mChainBg;
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ImageView                   mIvStep;
-    private TextView                    mTvStep;
-    private ViewPager                   mViewPager;
-    private RewardPageAdapter           mPageAdapter;
+    private ImageView mChainBg;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private RewardPageAdapter mPageAdapter;
 
-    public String                       mWithdrawAddress;
-    private int                         mTaskCount;
+    public String mWithdrawAddress;
+    private int mTaskCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg            = findViewById(R.id.chain_bg);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mTitle              = findViewById(R.id.toolbar_title);
-        mIvStep             = findViewById(R.id.send_step);
-        mTvStep             = findViewById(R.id.send_step_msg);
-        mViewPager          = findViewById(R.id.view_pager);
+        mChainBg = findViewById(R.id.chain_bg);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
+        mIvStep = findViewById(R.id.send_step);
+        mTvStep = findViewById(R.id.send_step_msg);
+        mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_reward_c));
 
         setSupportActionBar(mToolbar);
@@ -78,24 +78,25 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
-                if(i == 0) {
+                if (i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_reward_step_1));
 
-                } else if (i == 1 ) {
+                } else if (i == 1) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_reward_step_2));
 
-                } else if (i == 2 ) {
+                } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_reward_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
 
-                } else if (i == 3 ) {
+                } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_reward_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
@@ -103,7 +104,8 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         mViewPager.setCurrentItem(0);
         onFetchReward();
@@ -129,7 +131,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -137,14 +139,14 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     }
 
     public void onNextStep() {
-        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -153,10 +155,10 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     }
 
     private void onFetchReward() {
-        if(mTaskCount > 0) return;
+        if (mTaskCount > 0) return;
         mTaskCount = 2;
         new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void onStartReward() {
@@ -174,13 +176,15 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     public void onTaskResponse(TaskResult result) {
 //        WLog.w("onTaskResponse " + result.taskType + " " + mTaskCount);
         mTaskCount--;
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
-            if (rewards != null) { getBaseDao().mGrpcRewards = rewards; }
+            if (rewards != null) {
+                getBaseDao().mGrpcRewards = rewards;
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_WITHDRAW_ADDRESS) {
-            mWithdrawAddress = (String)result.resultData;
+            mWithdrawAddress = (String) result.resultData;
 
         }
 

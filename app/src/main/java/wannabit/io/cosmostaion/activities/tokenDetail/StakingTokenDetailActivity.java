@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,57 +37,53 @@ import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingOldHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar                         mToolbar;
-    private ImageView                       mToolbarSymbolImg;
-    private TextView                        mToolbarSymbol;
-    private TextView                        mItemPerPrice;
-    private ImageView                       mItemUpDownImg;
-    private TextView                        mItemUpDownPrice;
+    private Toolbar mToolbar;
+    private ImageView mToolbarSymbolImg;
+    private TextView mToolbarSymbol;
+    private TextView mItemPerPrice;
+    private ImageView mItemUpDownImg;
+    private TextView mItemUpDownPrice;
 
-    private CardView                        mBtnAddressPopup;
-    private ImageView                       mKeyState;
-    private TextView                        mAddress;
-    private TextView                        mTotalValue;
+    private CardView mBtnAddressPopup;
+    private ImageView mKeyState;
+    private TextView mAddress;
+    private TextView mTotalValue;
 
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
 
-    private RelativeLayout                  mBtnBep3Send;
-    private RelativeLayout                  mBtnSend;
+    private RelativeLayout mBtnBep3Send;
+    private RelativeLayout mBtnSend;
 
-    private StakingTokenAdapter             mAdapter;
-    private Boolean                         mHasVesting = false;
-    private String                          mMainDenom;
+    private StakingTokenAdapter mAdapter;
+    private Boolean mHasVesting = false;
+    private String mMainDenom;
 
-    private int                             mDivideDecimal = 6;
-    private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
+    private int mDivideDecimal = 6;
+    private BigDecimal mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail);
 
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
-        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
-        mItemPerPrice           = findViewById(R.id.per_price);
-        mItemUpDownImg          = findViewById(R.id.ic_price_updown);
-        mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mItemPerPrice = findViewById(R.id.per_price);
+        mItemUpDownImg = findViewById(R.id.ic_price_updown);
+        mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
-        mBtnAddressPopup        = findViewById(R.id.card_root);
-        mKeyState               = findViewById(R.id.img_account);
-        mAddress                = findViewById(R.id.account_Address);
-        mTotalValue             = findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnBep3Send            = findViewById(R.id.btn_bep3_send);
-        mBtnSend                = findViewById(R.id.btn_send);
+        mBtnAddressPopup = findViewById(R.id.card_root);
+        mKeyState = findViewById(R.id.img_account);
+        mAddress = findViewById(R.id.account_Address);
+        mTotalValue = findViewById(R.id.total_value);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnBep3Send = findViewById(R.id.btn_bep3_send);
+        mBtnSend = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -162,8 +161,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
-            else { bundle.putString("title", mAccount.nickName); }
+            if (TextUtils.isEmpty(mAccount.nickName)) {
+                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+            } else {
+                bundle.putString("title", mAccount.nickName);
+            }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -191,11 +193,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     }
 
     private class StakingTokenAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_STAKE_OLD             = 0;
+        private static final int TYPE_STAKE_OLD = 0;
 
-        private static final int TYPE_VESTING               = 98;
-        private static final int TYPE_UNBONDING             = 99;
-        private static final int TYPE_HISTORY               = 100;
+        private static final int TYPE_VESTING = 98;
+        private static final int TYPE_UNBONDING = 99;
+        private static final int TYPE_HISTORY = 100;
 
 
         @NonNull
@@ -203,9 +205,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_STAKE_OLD) {
                 return new TokenStakingOldHolder(getLayoutInflater().inflate(R.layout.layout_card_staking_old, viewGroup, false));
-            }
-
-            else if (viewType == TYPE_VESTING) {
+            } else if (viewType == TYPE_VESTING) {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
             } else if (viewType == TYPE_UNBONDING) {
                 return new UnBondingHolder(getLayoutInflater().inflate(R.layout.item_wallet_undelegation, viewGroup, false));
@@ -217,9 +217,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_STAKE_OLD) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
-            }
-
-            else if (getItemViewType(position) == TYPE_VESTING) {
+            } else if (getItemViewType(position) == TYPE_VESTING) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
 
             } else if (getItemViewType(position) == TYPE_UNBONDING) {

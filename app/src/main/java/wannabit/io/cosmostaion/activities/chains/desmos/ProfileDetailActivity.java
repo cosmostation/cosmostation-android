@@ -35,26 +35,26 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class ProfileDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar                 mToolbar;
-    private ImageView               mProfileCoverImg, mProfileImg;
-    private TextView                mProfileDtag;
-    private RelativeLayout          mBtnEdit;
+    private Toolbar mToolbar;
+    private ImageView mProfileCoverImg, mProfileImg;
+    private TextView mProfileDtag;
+    private RelativeLayout mBtnEdit;
 
-    private RecyclerView            mRecyclerView;
-    private ProfileDetailAdapter    mAdapter;
+    private RecyclerView mRecyclerView;
+    private ProfileDetailAdapter mAdapter;
 
-    private ModelsProfile.Profile   mProfile;
+    private ModelsProfile.Profile mProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_detail);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mProfileCoverImg        = findViewById(R.id.profile_cover_img);
-        mProfileImg             = findViewById(R.id.profile_img);
-        mProfileDtag            = findViewById(R.id.profile_dtag);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnEdit                = findViewById(R.id.btn_edit);
+        mToolbar = findViewById(R.id.tool_bar);
+        mProfileCoverImg = findViewById(R.id.profile_cover_img);
+        mProfileImg = findViewById(R.id.profile_img);
+        mProfileDtag = findViewById(R.id.profile_dtag);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnEdit = findViewById(R.id.btn_edit);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -152,9 +152,9 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
 
             public ProfileHolder(@NonNull View itemView) {
                 super(itemView);
-                card_root               = itemView.findViewById(R.id.card_root);
-                profile_nickname        = itemView.findViewById(R.id.profile_nickname);
-                profile_bio             = itemView.findViewById(R.id.profile_bio);
+                card_root = itemView.findViewById(R.id.card_root);
+                profile_nickname = itemView.findViewById(R.id.profile_nickname);
+                profile_bio = itemView.findViewById(R.id.profile_bio);
             }
         }
     }

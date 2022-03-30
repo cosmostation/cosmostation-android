@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,22 +38,19 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByOwnerGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
-
 public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListener {
 
-    private RelativeLayout              mRootView;
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ImageView                   mIvStep;
-    private TextView                    mTvStep;
-    private ViewPager                   mViewPager;
-    private RepayCdpPageAdapter         mPageAdapter;
+    private RelativeLayout mRootView;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private RepayCdpPageAdapter mPageAdapter;
 
-    private String                                      mMaketId;
-    public Genesis.Params                               mCdpParams;
-    public Genesis.CollateralParam                      mCollateralParam;
+    private String mMaketId;
+    public Genesis.Params mCdpParams;
+    public Genesis.CollateralParam mCollateralParam;
     public kava.cdp.v1beta1.QueryOuterClass.CDPResponse mMyCdp;
 
     public BigDecimal mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mRemainLoanAmount;
@@ -59,12 +59,12 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView           = findViewById(R.id.root_view);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mTitle              = findViewById(R.id.toolbar_title);
-        mIvStep             = findViewById(R.id.send_step);
-        mTvStep             = findViewById(R.id.send_step_msg);
-        mViewPager          = findViewById(R.id.view_pager);
+        mRootView = findViewById(R.id.root_view);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
+        mIvStep = findViewById(R.id.send_step);
+        mTvStep = findViewById(R.id.send_step_msg);
+        mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_repay_cdp_c));
 
         setSupportActionBar(mToolbar);
@@ -94,21 +94,22 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
-                if(i == 0) {
+                if (i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_repay_cdp_step_1));
-                } else if (i == 1 ) {
+                } else if (i == 1) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_repay_cdp_step_2));
-                } else if (i == 2 ) {
+                } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_repay_cdp_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 3 ) {
+                } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_repay_cdp_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
@@ -116,7 +117,8 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         mViewPager.setCurrentItem(0);
 
@@ -143,7 +145,7 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -151,14 +153,14 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
     }
 
     public void onNextStep() {
-        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -221,6 +223,7 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
     }
 
     private int mTaskCount = 0;
+
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         mTaskCount = 1;
@@ -229,12 +232,12 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_KAVA_MY_CDPS) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<kava.cdp.v1beta1.QueryOuterClass.CDPResponse> myCdps = (ArrayList<kava.cdp.v1beta1.QueryOuterClass.CDPResponse>) result.resultData;
-                for (kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp: myCdps) {
+                for (kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp : myCdps) {
                     if (myCdp.getType().equalsIgnoreCase(mCollateralType)) {
                         mMyCdp = myCdp;
                         break;

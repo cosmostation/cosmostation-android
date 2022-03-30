@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_DELETE_ACCOUNT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -15,7 +17,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -24,16 +25,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_DELETE_ACCOUNT;
-
 public class SimulDeleteAccountGrpcTask extends CommonTask {
-    private Account     mAccount;
-    private BaseChain   mBaseChain;
-    private String      mDomain, mName, mMemo;
-    private Fee         mFees;
-    private String      mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mDomain, mName, mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
@@ -74,7 +71,7 @@ public class SimulDeleteAccountGrpcTask extends CommonTask {
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e( "DeleteAccountGrpcTask "+ e.getMessage());
+            WLog.e("DeleteAccountGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

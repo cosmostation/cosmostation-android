@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.ibc;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -41,26 +44,22 @@ import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receivable_Accouts;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
-public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickListener{
+public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_ACCOUNT = 9101;
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
-    private TextView        mDesitination;
-    private EditText        mAddressInput;
-    private Button          mCancel, mNextBtn;
-    private LinearLayout    mStarNameLayer;
-    private LinearLayout    mBtnQr, mBtnPaste, mBtnWallet;
+    private TextView mDesitination;
+    private EditText mAddressInput;
+    private Button mCancel, mNextBtn;
+    private LinearLayout mStarNameLayer;
+    private LinearLayout mBtnQr, mBtnPaste, mBtnWallet;
 
-    private BaseChain           mTochain;
-    private ArrayList<Account>  mToAccountList;
-    private Account             mToAccount;
+    private BaseChain mTochain;
+    private ArrayList<Account> mToAccountList;
+    private Account mToAccount;
 
     public static IBCSendStep1Fragment newInstance(Bundle bundle) {
         IBCSendStep1Fragment fragment = new IBCSendStep1Fragment();
@@ -116,7 +115,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                         public void run() {
                             mStarNameLayer.setVisibility(View.VISIBLE);
                         }
-                    },100);
+                    }, 100);
                 }
             }
         });
@@ -136,7 +135,9 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onUpdateView() {
-        if (mToAccount == null) { getSActivity().onBeforeStep(); }
+        if (mToAccount == null) {
+            getSActivity().onBeforeStep();
+        }
         mAddressInput.setText(mToAccount.address);
     }
 
@@ -184,10 +185,10 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -201,13 +202,13 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private IBCSendActivity getSActivity() {
-        return (IBCSendActivity)getBaseActivity();
+        return (IBCSendActivity) getBaseActivity();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
-            mToAccount = mToAccountList.get(data.getIntExtra("position" , 0));
+        if (requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
+            mToAccount = mToAccountList.get(data.getIntExtra("position", 0));
             onUpdateView();
 
         } else if (requestCode == SELECT_STAR_NAME_ADDRESS && resultCode == Activity.RESULT_OK) {
@@ -216,8 +217,8 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if(result != null) {
-                if(result.getContents() != null) {
+            if (result != null) {
+                if (result.getContents() != null) {
                     mAddressInput.setText(result.getContents().trim());
                     mAddressInput.setSelection(mAddressInput.getText().length());
                 }
@@ -270,7 +271,8 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
             }
 
             @Override
-            public void onCompleted() { }
+            public void onCompleted() {
+            }
         });
 
 

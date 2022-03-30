@@ -2,12 +2,8 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONObject;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResKavaBep3Param {
     @SerializedName("height")
@@ -72,7 +68,7 @@ public class ResKavaBep3Param {
 
 
     public KavaBep3AssetParam getSupportedSwapAsset(String denom) {
-        for (KavaBep3AssetParam asset:result.asset_params) {
+        for (KavaBep3AssetParam asset : result.asset_params) {
             if (denom.toLowerCase().startsWith(asset.denom.toLowerCase())) {
                 return asset;
             }
@@ -87,7 +83,8 @@ public class ResKavaBep3Param {
         BigDecimal limit = BigDecimal.ZERO;
         try {
             limit = new BigDecimal(getSupportedSwapAsset(denom).supply_limit.limit);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return limit;
     }
 
@@ -95,17 +92,18 @@ public class ResKavaBep3Param {
         BigDecimal once = BigDecimal.ZERO;
         try {
             once = new BigDecimal(getSupportedSwapAsset(denom).max_swap_amount);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return once;
     }
-
 
 
     public BigDecimal getSupportedSwapAssetMin(String denom) {
         BigDecimal once = BigDecimal.ZERO;
         try {
             once = new BigDecimal(getSupportedSwapAsset(denom).min_swap_amount).add(getSupportedSwapAssetFee(denom));
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return once;
     }
 
@@ -113,7 +111,8 @@ public class ResKavaBep3Param {
         BigDecimal once = BigDecimal.ZERO;
         try {
             once = new BigDecimal(getSupportedSwapAsset(denom).fixed_fee);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return once;
     }
 

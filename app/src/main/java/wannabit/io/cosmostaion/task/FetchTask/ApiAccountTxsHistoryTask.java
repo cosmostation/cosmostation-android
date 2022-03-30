@@ -27,7 +27,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
     public ApiAccountTxsHistoryTask(BaseApplication app, TaskListener listener, String address, BaseChain chain) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY;
         this.mAddress = address;
         this.mChain = chain;
     }
@@ -44,9 +44,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            }
-
-            else if (mChain.equals(COSMOS_MAIN)) {
+            } else if (mChain.equals(COSMOS_MAIN)) {
 //                WLog.w("COSMOS_MAIN " + ApiClient.getCosmosApi(mApp).getAccountTxsCustom(mAddress, "50").request().url());
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
@@ -365,9 +363,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            }
-
-            else if (mChain.equals(COSMOS_TEST)) {
+            } else if (mChain.equals(COSMOS_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

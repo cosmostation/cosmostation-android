@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/space_4"
     android:paddingBottom="@dimen/space_4"
     android:background="@color/colorGray11">
+
     <TextView
         android:layout_below="@+id/market_img"
         android:layout_width="wrap_content"
@@ -15,5 +13,5 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/space_24"
         android:text="@string/str_hard_for_delegator_title"
-        style="@style/font_ss_14_white"/>
+        style="@style/font_ss_14_white" />
 </RelativeLayout>

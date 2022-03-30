@@ -19,12 +19,12 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SifPoolOtherHolder extends BaseHolder {
-    CardView    itemRoot;
-    ImageView   itemExternalImg;
-    TextView    itemPoolType;
-    TextView    itemTotalDepositValue;
-    TextView    itemTotalDepositAmount0, itemTotalDepositSymbol0, itemTotalDepositAmount1, itemTotalDepositSymbol1;
-    TextView    itemMyAvailableAmount0, itemMyAvailableSymbol0, itemMyAvailableAmount1, itemMyAvailableSymbol1;
+    CardView itemRoot;
+    ImageView itemExternalImg;
+    TextView itemPoolType;
+    TextView itemTotalDepositValue;
+    TextView itemTotalDepositAmount0, itemTotalDepositSymbol0, itemTotalDepositAmount1, itemTotalDepositSymbol1;
+    TextView itemMyAvailableAmount0, itemMyAvailableSymbol0, itemMyAvailableAmount1, itemMyAvailableSymbol1;
 
     public SifPoolOtherHolder(@NonNull View itemView) {
         super(itemView);
@@ -72,7 +72,7 @@ public class SifPoolOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SifDexListActivity)activity).onCheckStartDepositPool(otherPool);
+                ((SifDexListActivity) activity).onCheckStartDepositPool(otherPool);
             }
         });
     }

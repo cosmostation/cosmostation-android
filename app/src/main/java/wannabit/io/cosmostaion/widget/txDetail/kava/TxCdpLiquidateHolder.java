@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxCdpLiquidateHolder extends TxHolder {
     ImageView itemMsgImg;
-    TextView  itemKeeper, itemBorrower, itemType;
+    TextView itemKeeper, itemBorrower, itemType;
 
     public TxCdpLiquidateHolder(@NonNull View itemView) {
         super(itemView);
@@ -36,6 +36,7 @@ public class TxCdpLiquidateHolder extends TxHolder {
             itemBorrower.setText(msg.getBorrower());
             itemType.setText(msg.getCollateralType());
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

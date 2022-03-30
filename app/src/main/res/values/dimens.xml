@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <dimen name="main_appbar_height">260dp</dimen>
     <dimen name="main_appbar_contents_height">204dp</dimen>

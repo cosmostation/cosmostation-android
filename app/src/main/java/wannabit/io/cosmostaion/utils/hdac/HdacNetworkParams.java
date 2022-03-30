@@ -37,7 +37,7 @@ public class HdacNetworkParams extends AbstractBitcoinNetParams {
         this.time = (System.currentTimeMillis() / 1000L);
     }
 
-    public static synchronized HdacNetworkParams getDefault()  {
+    public static synchronized HdacNetworkParams getDefault() {
         return new HdacNetworkParams();
     }
 

@@ -56,6 +56,7 @@ public class TxBeginUnlockTokenHolder extends TxHolder {
             } else {
                 itemUnlockTokenCompleteTime.setText("--");
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

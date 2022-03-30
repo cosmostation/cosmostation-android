@@ -22,7 +22,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 public class TxCreatePoolHolder extends TxHolder {
     ImageView itemCreatePoolImg;
     TextView itemCreateSender, itemCreateSwapFee, itemCreateExitFee,
-             itemCreatePoolAssetAmount1, itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount2, itemCreatePoolAssetSymbol2, itemCreatePoolFutureGovernor;
+            itemCreatePoolAssetAmount1, itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount2, itemCreatePoolAssetSymbol2, itemCreatePoolFutureGovernor;
 
     public TxCreatePoolHolder(@NonNull View itemView) {
         super(itemView);
@@ -53,6 +53,7 @@ public class TxCreatePoolHolder extends TxHolder {
             WDp.showCoinDp(c, baseData, coin1, itemCreatePoolAssetSymbol2, itemCreatePoolAssetAmount2, baseChain);
 
             itemCreatePoolFutureGovernor.setText(msg.getFuturePoolGovernor());
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

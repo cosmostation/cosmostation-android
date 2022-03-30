@@ -6,14 +6,14 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 
 public class CommonTask extends AsyncTask<String, Void, TaskResult> {
 
-    protected BaseApplication         mApp;
-    protected TaskListener            mListener;
-    protected TaskResult              mResult;
+    protected BaseApplication mApp;
+    protected TaskListener mListener;
+    protected TaskResult mResult;
 
     public CommonTask(BaseApplication app, TaskListener listener) {
-        this.mApp       = app;
-        this.mListener  = listener;
-        this.mResult    = new TaskResult();
+        this.mApp = app;
+        this.mListener = listener;
+        this.mResult = new TaskResult();
     }
 
     @Override
@@ -24,7 +24,7 @@ public class CommonTask extends AsyncTask<String, Void, TaskResult> {
     @Override
     protected void onPostExecute(TaskResult taskResult) {
         super.onPostExecute(taskResult);
-        if(mListener != null)
+        if (mListener != null)
             mListener.onTaskResponse(taskResult);
     }
 }

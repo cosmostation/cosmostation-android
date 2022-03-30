@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
         android:layout_above="@+id/bottom_control">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:paddingBottom="50dp"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/profile_img_layer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/space_16">
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profile_root"
                     android:layout_width="match_parent"
@@ -25,13 +28,15 @@
                     app:cardBackgroundColor="@color/colorTrans"
                     app:cardCornerRadius="@dimen/space_10"
                     app:cardElevation="0dp">
+
                     <ImageView
                         android:id="@+id/profile_cover_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                         android:background="@drawable/box_dash_line"
-                        android:layerType="software"/>
+                        android:layerType="software" />
+
                     <TextView
                         android:id="@+id/add_btn"
                         android:layout_width="wrap_content"
@@ -41,13 +46,15 @@
                         android:drawableTop="@drawable/icon_addphoto"
                         style="@style/font_ss_14_white"
                         android:padding="@dimen/space_12"
-                        android:text="Add Image"/>
+                        android:text="Add Image" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginTop="@dimen/space_12"
                         android:layout_marginRight="@dimen/space_12">
+
                         <ImageView
                             android:id="@+id/delete_btn"
                             android:layout_width="@dimen/space_28"
@@ -58,22 +65,25 @@
                             android:padding="@dimen/space_4"
                             android:src="@drawable/icon_delete"
                             android:layout_gravity="right"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_below="@+id/profile_img_layer">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_marginLeft="@dimen/space_16"
                     style="@style/font_ss_14_gray1"
-                    android:text="Profile Image"/>
+                    android:text="Profile Image" />
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_img"
                     android:layout_width="@dimen/space_54"
@@ -86,14 +96,16 @@
                     app:civ_border_overlay="true"
                     app:civ_border_width="1dp"
                     app:civ_border_color="@color/colorGray3"
-                    android:fitsSystemWindows="true"/>
+                    android:fitsSystemWindows="true" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_marginLeft="@dimen/space_16"
                     style="@style/font_ss_14_gray1"
-                    android:text="Dtag"/>
+                    android:text="Dtag" />
+
                 <EditText
                     android:id="@+id/profile_dtag"
                     android:layout_width="match_parent"
@@ -103,13 +115,15 @@
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_marginLeft="@dimen/space_16"
                     android:layout_marginRight="@dimen/space_16" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_16"
                     style="@style/font_ss_14_gray1"
-                    android:text="Nickname"/>
+                    android:text="Nickname" />
+
                 <EditText
                     android:id="@+id/profile_nickname"
                     android:layout_width="match_parent"
@@ -119,13 +133,15 @@
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_marginLeft="@dimen/space_16"
                     android:layout_marginRight="@dimen/space_16" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_16"
                     style="@style/font_ss_14_gray1"
-                    android:text="Bio"/>
+                    android:text="Bio" />
+
                 <EditText
                     android:id="@+id/profile_bio"
                     android:layout_width="match_parent"
@@ -135,7 +151,7 @@
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_marginLeft="@dimen/space_16"
                     android:layout_marginRight="@dimen/space_16"
-                    android:gravity="top"/>
+                    android:gravity="top" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
@@ -150,6 +166,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -160,7 +177,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -172,6 +190,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 </RelativeLayout>

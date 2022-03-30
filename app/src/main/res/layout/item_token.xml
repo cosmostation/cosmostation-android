@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/token_card"
         android:layout_width="match_parent"
@@ -19,6 +18,7 @@
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_72">
@@ -30,7 +30,7 @@
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_centerVertical="true"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/token_arrow"
@@ -39,7 +39,7 @@
                 android:src="@drawable/arrow_next_gr"
                 android:layout_marginRight="@dimen/space_8"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -49,15 +49,18 @@
                 android:paddingLeft="@dimen/space_10"
                 android:paddingRight="@dimen/space_8"
                 android:layout_centerVertical="true">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_centerVertical="true">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/token_symbol"
                             android:layout_width="wrap_content"
@@ -66,15 +69,17 @@
                             style="@style/font_ss_14_white"
                             android:singleLine="true"
                             android:ellipsize="middle"
-                            android:text="-"/>
+                            android:text="-" />
+
                         <TextView
                             android:id="@+id/token_inner_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
                             style="@style/font_ss_12_gray1"
-                            android:text="-"/>
+                            android:text="-" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/token_fullname"
                         android:layout_width="wrap_content"
@@ -84,8 +89,9 @@
                         android:maxWidth="@dimen/space_140"
                         android:singleLine="true"
                         style="@style/font_ss_10_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,44 +99,46 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:gravity="right">
+
                     <TextView
                         android:id="@+id/token_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        style="@style/font_ssl_14_white" />
+
                     <TextView
                         android:id="@+id/token_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
                         style="@style/font_ss_12_gray1"
-                        android:text="-"/>
+                        android:text="-" />
 
                 </LinearLayout>
                 <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:layout_marginTop="@dimen/space_2"-->
-                    <!--android:layout_gravity="right">-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginTop="@dimen/space_2"-->
+                <!--android:layout_gravity="right">-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/asset_denom"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="@dimen/space_2"-->
-                        <!--android:text="IRIS"-->
-                        <!--style="@style/font_ss_12_atom"/>-->
+                <!--<TextView-->
+                <!--android:id="@+id/asset_denom"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/space_2"-->
+                <!--android:text="IRIS"-->
+                <!--style="@style/font_ss_12_atom"/>-->
                 <!--</LinearLayout>-->
                 <!--<TextView-->
-                    <!--android:id="@+id/dash_atom_value"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/space_2"-->
-                    <!--android:layout_gravity="right"-->
-                    <!--style="@style/font_ss_14_gray1"-->
-                    <!--android:text="$33.34"/>-->
+                <!--android:id="@+id/dash_atom_value"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/space_2"-->
+                <!--android:layout_gravity="right"-->
+                <!--style="@style/font_ss_14_gray1"-->
+                <!--android:text="$33.34"/>-->
 
             </RelativeLayout>
         </RelativeLayout>

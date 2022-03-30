@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class TxCloseBidHolder extends TxHolder{
+public class TxCloseBidHolder extends TxHolder {
     ImageView itemCloseBidImg;
     TextView itemCloseBidTitle;
     TextView itemProvider, itemOwner, itemDseq, itemGseq, itemOseq;
@@ -39,6 +39,7 @@ public class TxCloseBidHolder extends TxHolder{
             itemDseq.setText("" + WDp.getDecimalFormat(0).format(msg.getBidId().getDseq()));
             itemGseq.setText("" + msg.getBidId().getGseq());
             itemOseq.setText("" + msg.getBidId().getOseq());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

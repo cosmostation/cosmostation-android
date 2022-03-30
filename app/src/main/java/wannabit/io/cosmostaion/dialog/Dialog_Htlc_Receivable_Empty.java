@@ -30,7 +30,7 @@ public class Dialog_Htlc_Receivable_Empty extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_receivable_empty, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_receivable_empty, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         TextView title = view.findViewById(R.id.dialog_title);
         TextView msg = view.findViewById(R.id.dialog_msg);

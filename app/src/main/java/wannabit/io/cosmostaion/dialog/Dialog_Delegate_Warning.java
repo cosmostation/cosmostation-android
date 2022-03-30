@@ -32,7 +32,7 @@ public class Dialog_Delegate_Warning extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_delegate_warn, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_delegate_warn, null);
         ImageView dateImg = view.findViewById(R.id.date_img);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);

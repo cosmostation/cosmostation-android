@@ -29,7 +29,7 @@ public class KavaIncentiveRewardTask extends CommonTask {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResKavaIncentiveReward> response = ApiClient.getKavaChain(mApp).getIncentiveReward5(mAccount.address).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }

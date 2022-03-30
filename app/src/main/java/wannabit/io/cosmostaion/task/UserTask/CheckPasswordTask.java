@@ -8,7 +8,6 @@ import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class CheckPasswordTask extends CommonTask {
 
@@ -18,16 +17,13 @@ public class CheckPasswordTask extends CommonTask {
     }
 
     /**
-     *
-     * @param strings
-     *  strings[0] : password
-     *
+     * @param strings strings[0] : password
      * @return
      */
     @Override
     protected TaskResult doInBackground(String... strings) {
         Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
             mResult.isSuccess = false;
             mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
             return mResult;

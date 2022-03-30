@@ -38,16 +38,16 @@ public class EarningBondedHolder extends RecyclerView.ViewHolder {
 
     public EarningBondedHolder(@NonNull View itemView) {
         super(itemView);
-        itemRoot                = itemView.findViewById(R.id.card_root);
-        itemLockId              = itemView.findViewById(R.id.lock_id);
-        itemLockStatus          = itemView.findViewById(R.id.lock_status);
-        itemUnbondingDuration   = itemView.findViewById(R.id.duration);
-        itemAPR                 = itemView.findViewById(R.id.apr);
-        itemAmount              = itemView.findViewById(R.id.amount);
-        itemAmountDenom         = itemView.findViewById(R.id.amount_denom);
-        itemAmountValue         = itemView.findViewById(R.id.amount_value);
-        itemRewardAmount        = itemView.findViewById(R.id.next_reward_amount);
-        mBtnUnbonding           = itemView.findViewById(R.id.btn_start_unbonding);
+        itemRoot = itemView.findViewById(R.id.card_root);
+        itemLockId = itemView.findViewById(R.id.lock_id);
+        itemLockStatus = itemView.findViewById(R.id.lock_status);
+        itemUnbondingDuration = itemView.findViewById(R.id.duration);
+        itemAPR = itemView.findViewById(R.id.apr);
+        itemAmount = itemView.findViewById(R.id.amount);
+        itemAmountDenom = itemView.findViewById(R.id.amount_denom);
+        itemAmountValue = itemView.findViewById(R.id.amount_value);
+        itemRewardAmount = itemView.findViewById(R.id.next_reward_amount);
+        mBtnUnbonding = itemView.findViewById(R.id.btn_start_unbonding);
     }
 
     public void onBindView(Context c, BaseActivity activity, BaseData baseData,
@@ -97,7 +97,7 @@ public class EarningBondedHolder extends RecyclerView.ViewHolder {
         mBtnUnbonding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((EarningDetailActivity)activity).onCheckUnbonding(lockup);
+                ((EarningDetailActivity) activity).onCheckUnbonding(lockup);
             }
         });
     }

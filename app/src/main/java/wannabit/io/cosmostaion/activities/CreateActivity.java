@@ -1,5 +1,10 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,41 +33,36 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-
 public class CreateActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar             mToolbar;
-    private CardView            mCardAddress, mCardMnemonics;
-    private LinearLayout        mWarnLayer;
+    private Toolbar mToolbar;
+    private CardView mCardAddress, mCardMnemonics;
+    private LinearLayout mWarnLayer;
 
-    private TextView            mAddress;
-    private LinearLayout[]      mWordsLayer = new LinearLayout[24];
-    private TextView[]          mTvWords = new TextView[24];
+    private TextView mAddress;
+    private LinearLayout[] mWordsLayer = new LinearLayout[24];
+    private TextView[] mTvWords = new TextView[24];
 
-    private TextView            mTvWarnMsg;
-    private Button              mBtnNext;
+    private TextView mTvWarnMsg;
+    private Button mBtnNext;
 
-    private BaseChain           mChain;
-    private ArrayList<String>   mWords = new ArrayList<>();
-    private byte[]              mEntropy;
-    private boolean             mCheckPassword;
+    private BaseChain mChain;
+    private ArrayList<String> mWords = new ArrayList<>();
+    private byte[] mEntropy;
+    private boolean mCheckPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_create);
-        mToolbar        = findViewById(R.id.tool_bar);
-        mCardAddress    = findViewById(R.id.card_address_layer);
-        mAddress        = findViewById(R.id.create_address);
-        mCardMnemonics  = findViewById(R.id.card_mnemonic_layer);
-        mWarnLayer      = findViewById(R.id.warn_layer);
-        mTvWarnMsg      = findViewById(R.id.warn_msg);
-        mBtnNext        = findViewById(R.id.btn_next);
+        mToolbar = findViewById(R.id.tool_bar);
+        mCardAddress = findViewById(R.id.card_address_layer);
+        mAddress = findViewById(R.id.create_address);
+        mCardMnemonics = findViewById(R.id.card_mnemonic_layer);
+        mWarnLayer = findViewById(R.id.warn_layer);
+        mTvWarnMsg = findViewById(R.id.warn_msg);
+        mBtnNext = findViewById(R.id.btn_next);
         mBtnNext.setOnClickListener(this);
 
         if (getIntent().getStringExtra("chain") != null) {
@@ -73,9 +73,9 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        for(int i = 0; i < mWordsLayer.length; i++) {
-            mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i , "id", this.getPackageName()));
-            mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i , "id", this.getPackageName()));
+        for (int i = 0; i < mWordsLayer.length; i++) {
+            mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));
+            mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", this.getPackageName()));
         }
         mCheckPassword = false;
     }
@@ -136,11 +136,11 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         mWarnLayer.setVisibility(View.VISIBLE);
         mBtnNext.setVisibility(View.VISIBLE);
         if (getBaseDao().onHasPassword() && mCheckPassword) {
-            for(int i = 0; i < mTvWords.length; i++) {
+            for (int i = 0; i < mTvWords.length; i++) {
                 mTvWords[i].setText(mWords.get(i));
             }
         } else {
-            for(int i = 0; i < mTvWords.length; i++) {
+            for (int i = 0; i < mTvWords.length; i++) {
                 mTvWords[i].setText("");
             }
         }
@@ -157,9 +157,9 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBtnNext)) {
+        if (v.equals(mBtnNext)) {
             if (mBtnNext.getText().equals(getString(R.string.str_show_mnemonic))) {
-                if(!getBaseDao().onHasPassword()) {
+                if (!getBaseDao().onHasPassword()) {
                     Intent intent = new Intent(CreateActivity.this, PasswordSetActivity.class);
                     startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
@@ -171,7 +171,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-                if (mChain.equals(KAVA_MAIN)|| mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
+                if (mChain.equals(KAVA_MAIN) || mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, 1).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 } else if (mChain.equals(OKEX_MAIN)) {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, 2).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
@@ -207,10 +207,10 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 onStartMainActivity(0);
             } else {
                 WLog.w("CREATE ACCOUNT with new mnemonic error : " + result.errorCode);

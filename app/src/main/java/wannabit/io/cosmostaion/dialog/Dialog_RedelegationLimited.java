@@ -27,7 +27,7 @@ public class Dialog_RedelegationLimited extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_redelegationlimited, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_redelegationlimited, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
 
         btn_negative.setOnClickListener(new View.OnClickListener() {

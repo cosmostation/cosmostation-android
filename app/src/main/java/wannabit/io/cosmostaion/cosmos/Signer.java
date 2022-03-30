@@ -93,7 +93,8 @@ public class Signer {
                 ethermint.types.v1.Account.EthAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseAccount().getAddress();
             }
-        }catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return "";
     }
 
@@ -115,7 +116,7 @@ public class Signer {
                 Vesting.DelayedVestingAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
 
-            // injective
+                // injective
             } else if (auth.getAccount().getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
                 injective.types.v1beta1.Account.EthAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseAccount().getAccountNumber();
@@ -144,7 +145,8 @@ public class Signer {
                 return account.getBaseAccount().getAccountNumber();
             }
 
-        }catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return 0;
     }
 
@@ -194,7 +196,8 @@ public class Signer {
                 ethermint.types.v1.Account.EthAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseAccount().getSequence();
             }
-        }catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return 0;
     }
 
@@ -257,7 +260,7 @@ public class Signer {
 
     public static ArrayList<Any> getClaimRewardsMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<String> toValAddresses) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        for (String valAddr: toValAddresses) {
+        for (String valAddr : toValAddresses) {
             cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(valAddr).build();
             Any msgClaimRewardAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward").setValue(msgClaimReward.toByteString()).build();
             msgAnys.add(msgClaimRewardAny);
@@ -442,7 +445,7 @@ public class Signer {
 
     public static ArrayList<Any> getReplaceResourcetMsg(String domain, String name, String owner, ArrayList<Types.Resource> resources) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources msgReplaceResource= starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources.newBuilder().setDomain(domain).setName(name).setOwner(owner).addAllNewResources(resources).build();
+        starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources msgReplaceResource = starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources.newBuilder().setDomain(domain).setName(name).setOwner(owner).addAllNewResources(resources).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgReplaceAccountResources").setValue(msgReplaceResource.toByteString()).build());
         return msgAnys;
     }
@@ -532,7 +535,7 @@ public class Signer {
 
     public static ArrayList<Any> getBeginUnbondingMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<Long> ids) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        for (Long id: ids) {
+        for (Long id : ids) {
             osmosis.lockup.Tx.MsgBeginUnlocking msgBeginUnlocking = osmosis.lockup.Tx.MsgBeginUnlocking.newBuilder().setOwner(onParseAddress(auth)).setID(id).build();
             Any msgBeginUnbondingAny = Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgBeginUnlocking").setValue(msgBeginUnlocking.toByteString()).build();
             msgAnys.add(msgBeginUnbondingAny);
@@ -611,7 +614,7 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSifIncentiveReq(QueryOuterClass.QueryAccountResponse auth, String userClaimAddress, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth,getSifIncentiveMsg(userClaimAddress), fee, memo, pKey, chainId);
+        return getSignTx(auth, getSifIncentiveMsg(userClaimAddress), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcSifIncentiveSimulateReq(QueryOuterClass.QueryAccountResponse auth, String userClaimAddress, Fee fee, String memo, ECKey pKey, String chainId) {
@@ -626,7 +629,7 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSifSwapReq(QueryOuterClass.QueryAccountResponse auth, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth,getSifSwapMsg(signer, inputDenom, inputAmount, outputDenom, outputAmount), fee, memo, pKey, chainId);
+        return getSignTx(auth, getSifSwapMsg(signer, inputDenom, inputAmount, outputDenom, outputAmount), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcSifSwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
@@ -1026,21 +1029,21 @@ public class Signer {
         }
         if (incentiveRewards.getHardRewardDenoms().size() > 0) {
             ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
-            for (String denom: incentiveRewards.getHardRewardDenoms()) {
+            for (String denom : incentiveRewards.getHardRewardDenoms()) {
                 denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
             }
             msgAnys.add(getKavaIncentiveHard(sender, denoms_to_claims));
         }
         if (incentiveRewards.getDelegatorRewardDenoms().size() > 0) {
             ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
-            for (String denom: incentiveRewards.getDelegatorRewardDenoms()) {
+            for (String denom : incentiveRewards.getDelegatorRewardDenoms()) {
                 denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
             }
             msgAnys.add(getKavaIncentiveDelegator(sender, denoms_to_claims));
         }
         if (incentiveRewards.getSwapRewardDenoms().size() > 0) {
             ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
-            for (String denom: incentiveRewards.getSwapRewardDenoms()) {
+            for (String denom : incentiveRewards.getSwapRewardDenoms()) {
                 denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
             }
             msgAnys.add(getKavaIncentiveSwap(sender, denoms_to_claims));
@@ -1055,10 +1058,10 @@ public class Signer {
                 setRecipientOtherChain(to).setRandomNumberHash(randomNumberHash).setTimestamp(timtsStamp).addAmount(Amount).setHeightSpan(24686).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgCreateAtomicSwap").setValue(msgCreateAtomicSwap.toByteString()).build());
 
-        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgAnys, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgAnys, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -1067,10 +1070,10 @@ public class Signer {
         kava.bep3.v1beta1.Tx.MsgClaimAtomicSwap msgClaimAtomicSwap = kava.bep3.v1beta1.Tx.MsgClaimAtomicSwap.newBuilder().setFrom(from).setSwapId(swapId).setRandomNumber(randomNumber).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgClaimAtomicSwap").setValue(msgClaimAtomicSwap.toByteString()).build());
 
-        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgAnys, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgAnys, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -1094,7 +1097,7 @@ public class Signer {
 
     public static TxOuterClass.TxBody getGrpcTxBodys(ArrayList<Any> msgsAny, String memo) {
         TxOuterClass.TxBody.Builder builder = TxOuterClass.TxBody.newBuilder();
-        for (Any msg: msgsAny) {
+        for (Any msg : msgsAny) {
             builder.addMessages(msg);
         }
         return builder.setMemo(memo).build();
@@ -1104,7 +1107,7 @@ public class Signer {
         Any pubKey = WKey.generateGrpcPubKeyFromPriv(auth, pKey.getPrivateKeyAsHex());
         TxOuterClass.ModeInfo.Single singleMode = TxOuterClass.ModeInfo.Single.newBuilder().setMode(SIGN_MODE_DIRECT).build();
         TxOuterClass.ModeInfo modeInfo = TxOuterClass.ModeInfo.newBuilder().setSingle(singleMode).build();
-        return  TxOuterClass.SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo).setSequence(onParseSequenceNumber(auth)).build();
+        return TxOuterClass.SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo).setSequence(onParseSequenceNumber(auth)).build();
     }
 
     public static TxOuterClass.AuthInfo getGrpcAuthInfo(TxOuterClass.SignerInfo signerInfo, Fee fee) {
@@ -1126,18 +1129,18 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getSignTx(QueryOuterClass.QueryAccountResponse auth, ArrayList<Any> msgAnys, Fee fee, String memo, ECKey pKey, String chainId) {
-        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgAnys, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgAnys, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
     public static ServiceOuterClass.SimulateRequest getSignSimulTx(QueryOuterClass.QueryAccountResponse auth, ArrayList<Any> msgAnys, Fee fee, String memo, ECKey pKey, String chainId) {
-        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgAnys, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgAnys, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 

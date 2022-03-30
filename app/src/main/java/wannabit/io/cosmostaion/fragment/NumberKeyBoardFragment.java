@@ -18,12 +18,12 @@ import java.util.Random;
 
 import wannabit.io.cosmostaion.R;
 
-public class NumberKeyBoardFragment extends KeyboardFragment implements View.OnClickListener{
+public class NumberKeyBoardFragment extends KeyboardFragment implements View.OnClickListener {
 
-    private View                mRootView;
-    private Button[]            mNumberBtns = new Button[10];
-    private ImageButton         mBackBtn;
-    private ArrayList<String>   mNumberArray = new ArrayList<>();
+    private View mRootView;
+    private Button[] mNumberBtns = new Button[10];
+    private ImageButton mBackBtn;
+    private ArrayList<String> mNumberArray = new ArrayList<>();
 
     public static NumberKeyBoardFragment newInstance() {
         NumberKeyBoardFragment fragment = new NumberKeyBoardFragment();
@@ -37,11 +37,11 @@ public class NumberKeyBoardFragment extends KeyboardFragment implements View.OnC
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView       = inflater.inflate(R.layout.fragment_keyboard_number, container, false);
-        mNumberArray    = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.password_number)));
+        mRootView = inflater.inflate(R.layout.fragment_keyboard_number, container, false);
+        mNumberArray = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.password_number)));
         Collections.shuffle(mNumberArray, new Random(System.nanoTime()));
-        for(int i = 0; i < mNumberBtns.length; i++) {
-            mNumberBtns[i] = mRootView.findViewById(getResources().getIdentifier("password_number" + i , "id", getBaseActivity().getPackageName()));
+        for (int i = 0; i < mNumberBtns.length; i++) {
+            mNumberBtns[i] = mRootView.findViewById(getResources().getIdentifier("password_number" + i, "id", getBaseActivity().getPackageName()));
             mNumberBtns[i].setText(mNumberArray.get(i));
             mNumberBtns[i].setOnClickListener(this);
         }
@@ -59,19 +59,21 @@ public class NumberKeyBoardFragment extends KeyboardFragment implements View.OnC
         mFadeOutAni.reset();
         mFadeOutAni.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) { }
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 Collections.shuffle(mNumberArray, new Random(System.nanoTime()));
-                for(int i = 0; i < mNumberBtns.length; i++) {
+                for (int i = 0; i < mNumberBtns.length; i++) {
                     mNumberBtns[i].setText(mNumberArray.get(i));
                 }
                 mRootView.startAnimation(mFadeInAni);
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) { }
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
         mRootView.startAnimation(mFadeOutAni);
 
@@ -79,13 +81,13 @@ public class NumberKeyBoardFragment extends KeyboardFragment implements View.OnC
 
     @Override
     public void onClick(View view) {
-        if(view instanceof Button) {
-            if(mListner != null) {
-                mListner.userInsertKey(((Button)view).getText().toString().trim().toCharArray()[0]);
+        if (view instanceof Button) {
+            if (mListner != null) {
+                mListner.userInsertKey(((Button) view).getText().toString().trim().toCharArray()[0]);
             }
 
         } else if (view instanceof ImageButton) {
-            if(mListner != null) {
+            if (mListner != null) {
                 mListner.userDeleteKey();
             }
         }

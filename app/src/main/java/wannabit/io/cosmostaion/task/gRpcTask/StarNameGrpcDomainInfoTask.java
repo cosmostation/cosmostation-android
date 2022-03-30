@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import starnamed.x.starname.v1beta1.QueryGrpc;
@@ -12,12 +15,9 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class StarNameGrpcDomainInfoTask extends CommonTask {
-    private BaseChain                   mBaseChain;
-    private String                      mDomainName;
+    private BaseChain mBaseChain;
+    private String mDomainName;
     private QueryGrpc.QueryBlockingStub mStub;
 
     public StarNameGrpcDomainInfoTask(BaseApplication app, TaskListener listener, BaseChain basecahin, String domainName) {
@@ -37,7 +37,9 @@ public class StarNameGrpcDomainInfoTask extends CommonTask {
             mResult.resultData = response.getDomain();
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "StarNameGrpcDomainInfoTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("StarNameGrpcDomainInfoTask " + e.getMessage());
+        }
         return mResult;
     }
 }

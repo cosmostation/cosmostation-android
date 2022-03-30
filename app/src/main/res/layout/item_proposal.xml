@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_proposal"
         android:layout_width="match_parent"
@@ -19,25 +18,30 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/space_12">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/space_8"
                 android:layout_toLeftOf="@+id/arrow_propose"
                 android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/proposal_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ss_14_white"
-                        android:text="#1"/>
+                        android:text="#1" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -45,17 +49,19 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:gravity="center_vertical">
+
                         <ImageView
                             android:id="@+id/proposal_status_img"
                             android:layout_width="@dimen/space_8"
                             android:layout_height="@dimen/space_8"
-                            android:src="@drawable/ic_rejected_img"/>
+                            android:src="@drawable/ic_rejected_img" />
+
                         <TextView
                             android:id="@+id/proposal_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
-                            style="@style/font_ss_11_white"/>
+                            style="@style/font_ss_11_white" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -67,7 +73,7 @@
                     android:singleLine="true"
                     android:maxLines="1"
                     style="@style/font_ss_14_white"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/proposal_details"
@@ -77,16 +83,17 @@
                     style="@style/font_ss_11_gray1"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end" />
 
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/arrow_propose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/arrow_next_gr"/>
+                android:src="@drawable/arrow_next_gr" />
 
 
         </RelativeLayout>

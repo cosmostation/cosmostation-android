@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,39 +14,46 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
+
                 <ImageView
                     android:id="@+id/tx_exit_pool_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/msgicon_poolremove"/>
+                    android:src="@drawable/msgicon_poolremove" />
+
                 <TextView
                     android:id="@+id/tx_exit_pool_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_osmosis_exit_pool"
-                    style="@style/font_ss_15_white"/>
+                    style="@style/font_ss_15_white" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_sender"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/tx_exit_pool_sender"
                     android:layout_width="match_parent"
@@ -56,13 +62,15 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_pool_id"
                     android:layout_marginTop="@dimen/space_14"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/tx_exit_pool_id"
                     android:layout_width="match_parent"
@@ -71,29 +79,34 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/tx_exit_token_in_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_in"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tx_exit_token_in_title">
+
                     <TextView
                         android:id="@+id/tx_exit_token_in_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
+
                     <TextView
                         android:id="@+id/tx_exit_token_in_amount"
                         android:layout_width="wrap_content"
@@ -102,34 +115,40 @@
                         android:layout_toLeftOf="@+id/tx_exit_token_in_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
                 </RelativeLayout>
             </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/tx_join_token_out_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_out" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="right">
+
                         <TextView
                             android:id="@+id/tx_token_out_amount1"
                             style="@style/font_ssl_12_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
+
                         <TextView
                             android:id="@+id/tx_token_out_symbol1"
                             style="@style/font_ss_12_white"
@@ -138,17 +157,20 @@
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="-" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="right">
+
                         <TextView
                             android:id="@+id/tx_token_out_amount2"
                             style="@style/font_ssl_12_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
+
                         <TextView
                             android:id="@+id/tx_token_out_symbol2"
                             style="@style/font_ss_12_white"

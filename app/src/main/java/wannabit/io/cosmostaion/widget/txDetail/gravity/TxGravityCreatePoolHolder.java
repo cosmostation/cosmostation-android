@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import tendermint.liquidity.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
@@ -47,6 +46,7 @@ public class TxGravityCreatePoolHolder extends TxHolder {
             WDp.showCoinDp(c, baseData, coin0, itemGravityCreatePoolDepositSymbol1, itemGravityCreatePoolDepositAmount1, baseChain);
             WDp.showCoinDp(c, baseData, coin1, itemGravityCreatePoolDepositSymbol2, itemGravityCreatePoolDepositAmount2, baseChain);
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

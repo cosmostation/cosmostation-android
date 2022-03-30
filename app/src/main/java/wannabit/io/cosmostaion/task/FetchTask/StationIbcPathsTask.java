@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_NETWORK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_IBC_PATHS;
+
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -10,19 +13,16 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_NETWORK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_IBC_PATHS;
-
 public class StationIbcPathsTask extends CommonTask {
 
-    private BaseChain   mBaseChain;
-    private String      mChainId;
+    private BaseChain mBaseChain;
+    private String mChainId;
 
     public StationIbcPathsTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String chainId) {
         super(app, listener);
-        this.mBaseChain         = baseChain;
-        this.mChainId           = chainId;
-        this.mResult.taskType   = TASK_FETCH_IBC_PATHS;
+        this.mBaseChain = baseChain;
+        this.mChainId = chainId;
+        this.mResult.taskType = TASK_FETCH_IBC_PATHS;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class StationIbcPathsTask extends CommonTask {
             } else {
                 response = ApiClient.getStation(mApp).getIbcPaths(mChainId).execute();
             }
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;
                 return mResult;

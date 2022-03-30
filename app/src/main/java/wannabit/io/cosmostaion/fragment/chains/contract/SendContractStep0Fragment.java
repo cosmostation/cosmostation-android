@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.contract;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -39,16 +42,13 @@ import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
-public class SendContractStep0Fragment extends BaseFragment implements View.OnClickListener{
+public class SendContractStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
-    private EditText            mAddressInput;
-    private Button              mCancel, mNextBtn;
-    private LinearLayout        mStarNameLayer;
-    private LinearLayout        mBtnQr, mBtnPaste, mBtnHistory;
+    private EditText mAddressInput;
+    private Button mCancel, mNextBtn;
+    private LinearLayout mStarNameLayer;
+    private LinearLayout mBtnQr, mBtnPaste, mBtnHistory;
 
     public static SendContractStep0Fragment newInstance(Bundle bundle) {
         SendContractStep0Fragment fragment = new SendContractStep0Fragment();
@@ -103,7 +103,7 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
                         public void run() {
                             mStarNameLayer.setVisibility(View.VISIBLE);
                         }
-                    },100);
+                    }, 100);
                 }
             }
         });
@@ -142,10 +142,10 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -159,7 +159,7 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
     }
 
     private SendContractActivity getSActivity() {
-        return (SendContractActivity)getBaseActivity();
+        return (SendContractActivity) getBaseActivity();
     }
 
     @Override
@@ -173,8 +173,8 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if(result != null) {
-                if(result.getContents() != null) {
+            if (result != null) {
+                if (result.getContents() != null) {
                     mAddressInput.setText(result.getContents().trim());
                     mAddressInput.setSelection(mAddressInput.getText().length());
                 }
@@ -227,7 +227,8 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
             }
 
             @Override
-            public void onCompleted() { }
+            public void onCompleted() {
+            }
         });
     }
 }

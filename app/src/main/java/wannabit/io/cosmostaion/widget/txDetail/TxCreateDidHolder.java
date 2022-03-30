@@ -14,15 +14,15 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class TxCreateDidHolder extends TxHolder {
-    ImageView   itemCreateDidImg;
-    TextView    itemCreateDid, itemCreateDidMethodId, itemCreateFromAddress;
+    ImageView itemCreateDidImg;
+    TextView itemCreateDid, itemCreateDidMethodId, itemCreateFromAddress;
 
     public TxCreateDidHolder(@NonNull View itemView) {
         super(itemView);
-        itemCreateDidImg                = itemView.findViewById(R.id.tx_create_did_icon);
-        itemCreateDid                   = itemView.findViewById(R.id.tx_create_did);
-        itemCreateDidMethodId           = itemView.findViewById(R.id.tx_create_did_verification_method_id);
-        itemCreateFromAddress           = itemView.findViewById(R.id.tx_create_did_from_address);
+        itemCreateDidImg = itemView.findViewById(R.id.tx_create_did_icon);
+        itemCreateDid = itemView.findViewById(R.id.tx_create_did);
+        itemCreateDidMethodId = itemView.findViewById(R.id.tx_create_did_verification_method_id);
+        itemCreateFromAddress = itemView.findViewById(R.id.tx_create_did_from_address);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -34,6 +34,7 @@ public class TxCreateDidHolder extends TxHolder {
             itemCreateDidMethodId.setText(msg.getVerificationMethodId());
             itemCreateFromAddress.setText(msg.getFromAddress());
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

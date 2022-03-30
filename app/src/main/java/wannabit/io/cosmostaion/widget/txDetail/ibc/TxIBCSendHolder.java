@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import ibc.applications.transfer.v1.Tx;
 import wannabit.io.cosmostaion.R;
@@ -54,6 +53,7 @@ public class TxIBCSendHolder extends TxHolder {
 
             itemIbcSingleCoinLayer.setVisibility(View.VISIBLE);
             WDp.showCoinDp(c, baseData, toDpCoin.get(0), itemIbcAmountDenom, itemIbcAmount, baseChain);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

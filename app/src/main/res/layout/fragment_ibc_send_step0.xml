@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/space_16">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,31 +16,37 @@
             android:layout_marginRight="@dimen/space_16"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_14_gray1"
-                    android:text="@string/str_source_chain"/>
+                    android:text="@string/str_source_chain" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_50"
                     android:layout_marginTop="@dimen/space_4">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
-                        android:background="@drawable/box_gray"/>
+                        android:background="@drawable/box_gray" />
+
                     <ImageView
                         android:id="@+id/img_from_chain"
                         android:layout_width="@dimen/space_32"
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/cosmos_wh_main" />
+
                     <TextView
                         android:id="@+id/txt_from_chain"
                         android:layout_width="wrap_content"
@@ -49,7 +55,7 @@
                         android:layout_toRightOf="@+id/img_from_chain"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_14_white"
-                        android:text="Cosmos"/>
+                        android:text="Cosmos" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -60,35 +66,40 @@
                 android:layout_marginLeft="@dimen/space_8"
                 android:layout_marginRight="@dimen/space_8"
                 android:layout_centerVertical="true"
-                android:src="@drawable/interchain_arrow"/>
+                android:src="@drawable/interchain_arrow" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_14_gray1"
-                    android:text="@string/str_destination_chain"/>
+                    android:text="@string/str_destination_chain" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_50"
                     android:layout_marginTop="@dimen/space_4">
+
                     <LinearLayout
                         android:id="@+id/to_chain_layer"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
                         android:orientation="horizontal"
-                        android:background="@drawable/btn_trans_with_border"/>
+                        android:background="@drawable/btn_trans_with_border" />
+
                     <ImageView
                         android:id="@+id/img_to_chain"
                         android:layout_width="@dimen/space_32"
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/iris_wh"/>
+                        android:src="@drawable/iris_wh" />
+
                     <TextView
                         android:id="@+id/txt_to_chain"
                         android:layout_width="wrap_content"
@@ -97,7 +108,8 @@
                         android:layout_toRightOf="@+id/img_to_chain"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_14_white"
-                        android:text="Iris"/>
+                        android:text="Iris" />
+
                     <ImageView
                         android:id="@+id/dialog_img"
                         android:layout_width="wrap_content"
@@ -105,7 +117,7 @@
                         android:layout_marginRight="@dimen/space_16"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/arrow_down_gr"/>
+                        android:src="@drawable/arrow_down_gr" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -117,7 +129,8 @@
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginLeft="@dimen/space_16"
             style="@style/font_ss_14_gray1"
-            android:text="@string/str_ibc_send_channel"/>
+            android:text="@string/str_ibc_send_channel" />
+
         <RelativeLayout
             android:id="@+id/btn_channel_relayer"
             android:layout_width="match_parent"
@@ -125,10 +138,12 @@
             android:layout_height="@dimen/space_50"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:background="@drawable/btn_trans_with_border"/>
+                android:background="@drawable/btn_trans_with_border" />
+
             <TextView
                 android:id="@+id/txt_to_relayer_channel"
                 android:layout_width="wrap_content"
@@ -136,7 +151,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_16"
                 style="@style/font_ss_14_white"
-                android:text="Channel-14"/>
+                android:text="Channel-14" />
+
             <ImageView
                 android:id="@+id/relayer_img"
                 android:layout_width="wrap_content"
@@ -144,6 +160,7 @@
                 android:layout_toLeftOf="@+id/img_send_arrow"
                 android:layout_centerVertical="true"
                 android:src="@drawable/wellknown" />
+
             <ImageView
                 android:id="@+id/img_send_arrow"
                 android:layout_width="wrap_content"
@@ -152,13 +169,9 @@
                 android:layout_marginLeft="@dimen/space_8"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/arrow_down_gr"/>
+                android:src="@drawable/arrow_down_gr" />
         </RelativeLayout>
     </LinearLayout>
-
-
-
-
 
 
     <LinearLayout
@@ -170,6 +183,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -180,7 +194,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -192,6 +207,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 </RelativeLayout>

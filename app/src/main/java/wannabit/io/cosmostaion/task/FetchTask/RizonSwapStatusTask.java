@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_RIZON_SWAP_STATUS;
+
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -14,8 +16,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_RIZON_SWAP_STATUS;
-
 public class RizonSwapStatusTask extends CommonTask {
 
     private BaseChain mBaseChain;
@@ -23,9 +23,9 @@ public class RizonSwapStatusTask extends CommonTask {
 
     public RizonSwapStatusTask(BaseApplication app, TaskListener listener, BaseChain baseChain, Account account) {
         super(app, listener);
-        this.mBaseChain         = baseChain;
-        this.mAccount           = account;
-        this.mResult.taskType   = TASK_RIZON_SWAP_STATUS;
+        this.mBaseChain = baseChain;
+        this.mAccount = account;
+        this.mResult.taskType = TASK_RIZON_SWAP_STATUS;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RizonSwapStatusTask extends CommonTask {
             } else {
                 response = ApiClient.getRizonSwapStatus(mApp).getSwapStatus(mAccount.address).execute();
             }
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
             }

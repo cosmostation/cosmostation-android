@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@drawable/bg_cosmos" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"
-            android:text="@string/str_nft_c"/>
+            android:text="@string/str_nft_c" />
     </androidx.appcompat.widget.Toolbar>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_create_nft"
         android:layout_below="@+id/tool_bar">
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/layer_refresher"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/empty_nfts"
                     android:layout_width="wrap_content"
@@ -41,7 +46,8 @@
                     android:layout_centerInParent="true"
                     style="@style/font_ss_14_white"
                     android:text="@string/str_no_nfts"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
@@ -65,6 +71,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/btn_trans_with_border"
         android:clickable="true">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,7 +81,7 @@
             android:drawablePadding="@dimen/space_4"
             android:gravity="center"
             style="@style/font_ss_14_photon"
-            android:text="@string/str_create_nfts"/>
+            android:text="@string/str_create_nfts" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -82,16 +89,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:orientation="vertical">
+
             <ProgressBar
                 android:layout_width="@dimen/space_60"
                 android:layout_height="@dimen/space_60"
-                android:indeterminateDrawable="@drawable/loading"/>
+                android:indeterminateDrawable="@drawable/loading" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

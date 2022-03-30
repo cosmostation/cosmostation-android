@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_KAVA_REPAY_HARD;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -26,25 +29,21 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_KAVA_REPAY_HARD;
-
 public class KavaRepayHardGrpcTask extends CommonTask {
 
-    private Account                 mAccount;
-    private BaseChain               mBaseChain;
-    private String                  mSender, mOwner;
-    private ArrayList<Coin>         mRepayCoins;
-    private String                  mMemo;
-    private Fee                     mFees;
-    private String                  mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mSender, mOwner;
+    private ArrayList<Coin> mRepayCoins;
+    private String mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
     public KavaRepayHardGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String owner,
-                                  ArrayList<Coin> repayCoins, String memo, Fee fee, String chainId) {
+                                 ArrayList<Coin> repayCoins, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -94,7 +93,7 @@ public class KavaRepayHardGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "KavaRepayHardGrpcTask "+ e.getMessage());
+            WLog.e("KavaRepayHardGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

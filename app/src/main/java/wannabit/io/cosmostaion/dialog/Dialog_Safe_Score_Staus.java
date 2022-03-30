@@ -34,7 +34,7 @@ public class Dialog_Safe_Score_Staus extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_score_status, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_score_status, null);
 
         LinearLayout risk_layer = view.findViewById(R.id.risk_layer);
         TextView risk_rate = view.findViewById(R.id.risk_rate);
@@ -48,10 +48,10 @@ public class Dialog_Safe_Score_Staus extends DialogFragment {
         WDp.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("riskRate")), risk_rate, risk_score, risk_layer);
 
         current_price_title.setText(String.format(getString(R.string.str_current_title3), getArguments().getString("denom").toUpperCase()));
-        current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")) , 4));
+        current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")), 4));
 
         liquidation_price_title.setText(String.format(getString(R.string.str_liquidation_title3), getArguments().getString("denom").toUpperCase()));
-        liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("liquidationPrice")) , 4));
+        liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("liquidationPrice")), 4));
 
         Button btn_negative = view.findViewById(R.id.btn_nega);
         btn_negative.setOnClickListener(new View.OnClickListener() {

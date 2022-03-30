@@ -20,12 +20,12 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private CardView        mCardReward;
-    private TextView        mTvRewardAmount, mTvRewardDenom;
-    private TextView        mTvFromValidators;
-    private RelativeLayout  mProgressBar;
-    private Button          mCancelBtn, mNextBtn;
-    private int             mDpDecimal = 6;
+    private CardView mCardReward;
+    private TextView mTvRewardAmount, mTvRewardDenom;
+    private TextView mTvFromValidators;
+    private RelativeLayout mProgressBar;
+    private Button mCancelBtn, mNextBtn;
+    private int mDpDecimal = 6;
 
     public static ReInvestStep0Fragment newInstance(Bundle bundle) {
         ReInvestStep0Fragment fragment = new ReInvestStep0Fragment();
@@ -41,13 +41,13 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reinvest_step0, container, false);
-        mCardReward             = rootView.findViewById(R.id.reward_card);
-        mTvRewardAmount         = rootView.findViewById(R.id.reward_amount);
-        mTvRewardDenom          = rootView.findViewById(R.id.reward_amount_title);
-        mTvFromValidators       = rootView.findViewById(R.id.reward_moniker);
-        mProgressBar            = rootView.findViewById(R.id.reward_progress);
-        mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn                = rootView.findViewById(R.id.btn_next);
+        mCardReward = rootView.findViewById(R.id.reward_card);
+        mTvRewardAmount = rootView.findViewById(R.id.reward_amount);
+        mTvRewardDenom = rootView.findViewById(R.id.reward_amount_title);
+        mTvFromValidators = rootView.findViewById(R.id.reward_moniker);
+        mProgressBar = rootView.findViewById(R.id.reward_progress);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvRewardDenom);
 
@@ -82,6 +82,6 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private ReInvestActivity getSActivity() {
-        return (ReInvestActivity)getBaseActivity();
+        return (ReInvestActivity) getBaseActivity();
     }
 }

@@ -4,12 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,10 +23,10 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxJoinPoolHolder extends TxHolder {
-    ImageView       itemJoinPoolImg;
-    TextView        itemJoinSender, itemJoinPoolId,
-                    itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount;
-    LinearLayout    itemJoinPoolTokenLayout2;
+    ImageView itemJoinPoolImg;
+    TextView itemJoinSender, itemJoinPoolId,
+            itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount;
+    LinearLayout itemJoinPoolTokenLayout2;
 
     public TxJoinPoolHolder(@NonNull View itemView) {
         super(itemView);

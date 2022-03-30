@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -13,11 +16,8 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class KavaHardInterestRateGrpcTask extends CommonTask {
-    private BaseChain   mChain;
+    private BaseChain mChain;
     private ArrayList<QueryOuterClass.MoneyMarketInterestRate> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 

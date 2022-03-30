@@ -1,16 +1,6 @@
 package wannabit.io.cosmostaion.network.res;
 
-import android.text.TextUtils;
-import android.widget.TextView;
-
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResBroadTx {
 
@@ -138,11 +128,6 @@ public class ResBroadTx {
         public String message;
     }
     */
-
-
-
-
-
 
 
 //    @SerializedName("code")

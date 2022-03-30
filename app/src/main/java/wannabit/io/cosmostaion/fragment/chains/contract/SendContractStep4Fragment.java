@@ -17,16 +17,16 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class SendContractStep4Fragment extends BaseFragment implements View.OnClickListener{
+public class SendContractStep4Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount, mFeeDenom;
-    private TextView        mSendAmount, mSendDenom;
-    private TextView        mRecipientAddress, mMemo;
-    private Button          mBeforeBtn, mConfirmBtn;
+    private TextView mFeeAmount, mFeeDenom;
+    private TextView mSendAmount, mSendDenom;
+    private TextView mRecipientAddress, mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
 
-    private Cw20Assets      mCw20Assets;
-    private int             mDpdecimal = 6;
-    private int             mCw20Decimal = 6;
+    private Cw20Assets mCw20Assets;
+    private int mDpdecimal = 6;
+    private int mCw20Decimal = 6;
 
     public static SendContractStep4Fragment newInstance(Bundle bundle) {
         SendContractStep4Fragment fragment = new SendContractStep4Fragment();
@@ -41,15 +41,15 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView       = inflater.inflate(R.layout.fragment_send_contract_step4, container, false);
-        mFeeAmount          = rootView.findViewById(R.id.send_fees);
-        mFeeDenom           = rootView.findViewById(R.id.send_fees_type);
-        mSendAmount         = rootView.findViewById(R.id.send_amount);
-        mSendDenom          = rootView.findViewById(R.id.send_amount_title);
-        mRecipientAddress   = rootView.findViewById(R.id.recipient_address);
-        mMemo               = rootView.findViewById(R.id.memo);
-        mBeforeBtn          = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
+        View rootView = inflater.inflate(R.layout.fragment_send_contract_step4, container, false);
+        mFeeAmount = rootView.findViewById(R.id.send_fees);
+        mFeeDenom = rootView.findViewById(R.id.send_fees_type);
+        mSendAmount = rootView.findViewById(R.id.send_amount);
+        mSendDenom = rootView.findViewById(R.id.send_amount_title);
+        mRecipientAddress = rootView.findViewById(R.id.recipient_address);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
 
@@ -61,8 +61,8 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toSendAmount   = new BigDecimal(getSActivity().mAmounts.get(0).amount);
-        BigDecimal feeAmount      = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        BigDecimal toSendAmount = new BigDecimal(getSActivity().mAmounts.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mDpdecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpdecimal, mDpdecimal));
@@ -80,7 +80,7 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
         } else if (v.equals(mConfirmBtn)) {
             getSActivity().onStartSendContract();
@@ -88,6 +88,6 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
     }
 
     private SendContractActivity getSActivity() {
-        return (SendContractActivity)getBaseActivity();
+        return (SendContractActivity) getBaseActivity();
     }
 }

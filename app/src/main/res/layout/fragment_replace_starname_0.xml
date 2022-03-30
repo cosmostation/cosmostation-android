@@ -12,7 +12,7 @@
         android:layout_marginTop="@dimen/space_8"
         android:layout_marginBottom="@dimen/space_8"
         android:clipToPadding="false"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never" />
 
     <LinearLayout
         android:id="@+id/bottom_control"
@@ -23,6 +23,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -33,7 +34,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -45,6 +47,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 </RelativeLayout>

@@ -12,7 +12,8 @@ public class KeyboardFragment extends BaseFragment {
         mListner = listener;
     }
 
-    public void onShuffleKeyboard() { }
+    public void onShuffleKeyboard() {
+    }
 }
 
 

@@ -17,24 +17,24 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenStakingNewHolder extends BaseHolder {
-    private CardView            mCardRoot;
-    private RelativeLayout      mVestingLayer;
+    private CardView mCardRoot;
+    private RelativeLayout mVestingLayer;
 
-    private TextView            mTotalAmount, mAvailableAmount;
-    private TextView            mVestingAmount;
-    private TextView            mDelegatedAmount, mUnbondingAmount, mRewardAmount;
+    private TextView mTotalAmount, mAvailableAmount;
+    private TextView mVestingAmount;
+    private TextView mDelegatedAmount, mUnbondingAmount, mRewardAmount;
 
     public TokenStakingNewHolder(@NonNull View itemView) {
         super(itemView);
-        mCardRoot               = itemView.findViewById(R.id.card_root);
-        mTotalAmount            = itemView.findViewById(R.id.total_amount);
-        mAvailableAmount        = itemView.findViewById(R.id.available_amount);
-        mVestingAmount          = itemView.findViewById(R.id.vesting_amount);
-        mDelegatedAmount        = itemView.findViewById(R.id.delegated_amount);
-        mUnbondingAmount        = itemView.findViewById(R.id.unbonding_amount);
-        mRewardAmount           = itemView.findViewById(R.id.reward_amount);
+        mCardRoot = itemView.findViewById(R.id.card_root);
+        mTotalAmount = itemView.findViewById(R.id.total_amount);
+        mAvailableAmount = itemView.findViewById(R.id.available_amount);
+        mVestingAmount = itemView.findViewById(R.id.vesting_amount);
+        mDelegatedAmount = itemView.findViewById(R.id.delegated_amount);
+        mUnbondingAmount = itemView.findViewById(R.id.unbonding_amount);
+        mRewardAmount = itemView.findViewById(R.id.reward_amount);
 
-        mVestingLayer           = itemView.findViewById(R.id.vesting_layer);
+        mVestingLayer = itemView.findViewById(R.id.vesting_layer);
     }
 
     @Override

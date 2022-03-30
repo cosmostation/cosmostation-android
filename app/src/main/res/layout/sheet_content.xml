@@ -16,8 +16,7 @@
             android:text="A simple content"
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_gravity="center"
-            android:textColor="#000"
-            />
+            android:textColor="#000" />
 
     </FrameLayout>
 

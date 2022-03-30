@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_validator"
         android:layout_width="match_parent"
@@ -19,10 +18,12 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         android:padding="@dimen/space_4"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_72">
+
             <LinearLayout
                 android:id="@+id/views_validator"
                 android:layout_width="@dimen/space_72"
@@ -30,9 +31,11 @@
                 android:layout_marginLeft="@dimen/space_2"
                 android:orientation="vertical"
                 android:gravity="center">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/avatar_validator"
                         android:layout_width="@dimen/space_50"
@@ -40,13 +43,15 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/validator_none_img"
                         app:civ_border_width="1dp"
-                        app:civ_border_color="@color/colorGray3"/>
+                        app:civ_border_color="@color/colorGray3" />
+
                     <ImageView
                         android:id="@+id/avatar_validator_revoke"
                         android:layout_width="@dimen/space_50"
                         android:layout_height="@dimen/space_50"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/jailed_img"/>
+                        android:src="@drawable/jailed_img" />
+
                     <ImageView
                         android:id="@+id/avatar_validator_free"
                         android:layout_width="wrap_content"
@@ -55,7 +60,7 @@
                         android:layout_marginRight="@dimen/space_4"
                         android:layout_marginTop="@dimen/space_4"
                         android:src="@drawable/free_ic"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -66,7 +71,7 @@
                 android:layout_toRightOf="@+id/views_validator"
                 android:background="@color/colorGray3"
                 android:layout_marginTop="@dimen/space_10"
-                android:layout_marginBottom="@dimen/space_10"/>
+                android:layout_marginBottom="@dimen/space_10" />
 
             <ImageView
                 android:id="@+id/checked_validator"
@@ -75,7 +80,7 @@
                 android:src="@drawable/ic_check_off"
                 android:layout_marginRight="@dimen/space_12"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,9 +91,11 @@
                 android:layout_marginRight="@dimen/space_12"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/moniker_validator"
                         android:layout_width="match_parent"
@@ -96,49 +103,54 @@
                         android:singleLine="true"
                         android:ellipsize="end"
                         style="@style/font_ss_12_white"
-                        android:text="moniker"/>
+                        android:text="moniker" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_power_validator"
                         style="@style/font_ss_11_gray1"
-                        android:text="@string/str_voting_power"/>
+                        android:text="@string/str_voting_power" />
+
                     <TextView
                         android:id="@+id/delegate_power_validator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         style="@style/font_ss_11_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_yield_commission"
                         style="@style/font_ss_11_gray1"
-                        android:text="@string/str_average_yield"/>
+                        android:text="@string/str_average_yield" />
+
                     <TextView
                         android:id="@+id/delegate_yield_commission"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         style="@style/font_ss_11_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
             </LinearLayout>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
     <View
         android:id="@+id/check_border"
         android:layout_width="match_parent"
@@ -147,5 +159,5 @@
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/btn_trans_with_border"/>
+        android:background="@drawable/btn_trans_with_border" />
 </RelativeLayout>

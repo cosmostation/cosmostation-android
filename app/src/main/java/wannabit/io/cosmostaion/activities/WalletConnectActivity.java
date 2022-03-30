@@ -1,8 +1,11 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.model.type.BnbParam.TYPE_CANCEL_ORDER;
+import static wannabit.io.cosmostaion.model.type.BnbParam.TYPE_NEW_ORDER;
+import static wannabit.io.cosmostaion.model.type.BnbParam.TYPE_TRANSFER_ORDER;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
@@ -56,37 +59,33 @@ import wannabit.io.cosmostaion.model.type.BnbParam;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.model.type.BnbParam.TYPE_CANCEL_ORDER;
-import static wannabit.io.cosmostaion.model.type.BnbParam.TYPE_NEW_ORDER;
-import static wannabit.io.cosmostaion.model.type.BnbParam.TYPE_TRANSFER_ORDER;
-
 public class WalletConnectActivity extends BaseActivity implements View.OnClickListener {
 
-    private final static int        MSG_WC_CONNECTED  = 0;
-    private final static int        MSG_WC_DISCONNECTED  = 1;
-    private final static int        MSG_WC_APPROVED  = 2;
-    private final static int        MSG_WC_CLOSED  = 3;
-    private final static int        MSG_WC_SESSION_REQUESTED  = 4;
-    private final static int        MSG_WC_SESSION_BNB_SIGN  = 5;
-    private final static int        MSG_WC_SESSION_BNB_CONFIRM  = 6;
+    private final static int MSG_WC_CONNECTED = 0;
+    private final static int MSG_WC_DISCONNECTED = 1;
+    private final static int MSG_WC_APPROVED = 2;
+    private final static int MSG_WC_CLOSED = 3;
+    private final static int MSG_WC_SESSION_REQUESTED = 4;
+    private final static int MSG_WC_SESSION_BNB_SIGN = 5;
+    private final static int MSG_WC_SESSION_BNB_CONFIRM = 6;
 
-    private final static String     METHOD_BNB_SIGN = "bnb_sign";
-    private final static String     METHOD_BNB_TX_CONFIRMATION = "bnb_tx_confirmation";
+    private final static String METHOD_BNB_SIGN = "bnb_sign";
+    private final static String METHOD_BNB_TX_CONFIRMATION = "bnb_tx_confirmation";
 
 
-    private Toolbar                     mToolbar;
-    private RelativeLayout              mWcLayer, mLoadingLayer;
-    private ImageView                   mWcImg;
-    private TextView                    mWcName, mWcUrl, mWcAccount;
-    private Button                      mBtnDisconnect;
-    private Dialog_Wc_Trade             mDialogTrade;
-    private Dialog_Wc_Cancel            mDialogCancel;
-    private Dialog_Wc_Transfer          mDialogTransfer;
+    private Toolbar mToolbar;
+    private RelativeLayout mWcLayer, mLoadingLayer;
+    private ImageView mWcImg;
+    private TextView mWcName, mWcUrl, mWcAccount;
+    private Button mBtnDisconnect;
+    private Dialog_Wc_Trade mDialogTrade;
+    private Dialog_Wc_Cancel mDialogCancel;
+    private Dialog_Wc_Transfer mDialogTransfer;
 
-    private String                      mWcURL;
-    private Session                     mSession;
-    private WcThread                    mWcThread;
-    private Session.MethodCall.Custom   mCustom;
+    private String mWcURL;
+    private Session mSession;
+    private WcThread mWcThread;
+    private Session.MethodCall.Custom mCustom;
 
 
     @SuppressLint("HandlerLeak")
@@ -115,13 +114,13 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                     break;
 
                 case MSG_WC_SESSION_REQUESTED:
-                    Session.MethodCall.SessionRequest sessionRequest = (Session.MethodCall.SessionRequest)msg.obj;
+                    Session.MethodCall.SessionRequest sessionRequest = (Session.MethodCall.SessionRequest) msg.obj;
                     onInitView(sessionRequest);
                     break;
 
                 case MSG_WC_SESSION_BNB_SIGN:
                     onDismissDialog();
-                    mCustom = (Session.MethodCall.Custom)msg.obj;
+                    mCustom = (Session.MethodCall.Custom) msg.obj;
                     if (mCustom.getParams() != null && mCustom.getParams().size() > 0) {
 //                        WLog.w("mCustom.getParams() " + mCustom.getParams().get(0).toString());
                         //TODO decoding rawSingData with memo bug!
@@ -166,14 +165,14 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_connect);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mWcLayer            = findViewById(R.id.wc_layer);
-        mLoadingLayer       = findViewById(R.id.loading_layer);
-        mWcImg              = findViewById(R.id.wc_img);
-        mWcName             = findViewById(R.id.wc_name);
-        mWcUrl              = findViewById(R.id.wc_url);
-        mWcAccount          = findViewById(R.id.wc_address);
-        mBtnDisconnect      = findViewById(R.id.btn_disconnect);
+        mToolbar = findViewById(R.id.tool_bar);
+        mWcLayer = findViewById(R.id.wc_layer);
+        mLoadingLayer = findViewById(R.id.loading_layer);
+        mWcImg = findViewById(R.id.wc_img);
+        mWcName = findViewById(R.id.wc_name);
+        mWcUrl = findViewById(R.id.wc_url);
+        mWcAccount = findViewById(R.id.wc_address);
+        mBtnDisconnect = findViewById(R.id.btn_disconnect);
         mBtnDisconnect.setOnClickListener(this);
 
         setSupportActionBar(mToolbar);
@@ -184,8 +183,8 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mWcThread = new WcThread() ;
-        mWcThread.start() ;
+        mWcThread = new WcThread();
+        mWcThread.start();
 
     }
 
@@ -203,7 +202,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mWcThread != null){
+        if (mWcThread != null) {
             mWcThread.interrupt();
             mWcThread = null;
         }
@@ -225,13 +224,13 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-         if (v.equals(mBtnDisconnect)) {
-             onBackPressed();
-         }
+        if (v.equals(mBtnDisconnect)) {
+            onBackPressed();
+        }
     }
 
     private void onShowNewOrderDialog(Bundle bundle) {
-        mDialogTrade= Dialog_Wc_Trade.newInstance(bundle);
+        mDialogTrade = Dialog_Wc_Trade.newInstance(bundle);
         mDialogTrade.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(mDialogTrade, "dialog").commitNowAllowingStateLoss();
     }
@@ -267,7 +266,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
             super.run();
             try {
                 File fleDir = new File(WalletConnectActivity.this.getFilesDir(), "/build/tmp");
-                if(!fleDir.exists()){
+                if (!fleDir.exists()) {
                     fleDir.mkdirs();
                 }
                 File file = new File(fleDir, "wc_store.json");
@@ -280,7 +279,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 OkHttpClient client = new OkHttpClient.Builder().pingInterval(1000, TimeUnit.MILLISECONDS).build();
                 OkHttpTransport.Builder transportBuilder = new OkHttpTransport.Builder(client, moshi);
                 Session.PeerMeta peerMeta = new Session.PeerMeta(null, null, null, null);
-                mSession = new WCSession(config, adapter,fileStore, transportBuilder, peerMeta, null);
+                mSession = new WCSession(config, adapter, fileStore, transportBuilder, peerMeta, null);
                 mSession.addCallback(new Session.Callback() {
                     @Override
                     public void onStatus(@NotNull Session.Status status) {
@@ -314,7 +313,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                         } else if (call instanceof Session.MethodCall.SessionUpdate) {
 
                         } else if (call instanceof Session.MethodCall.Custom) {
-                            Session.MethodCall.Custom custom = (Session.MethodCall.Custom)call;
+                            Session.MethodCall.Custom custom = (Session.MethodCall.Custom) call;
                             if (custom.getMethod().equals(METHOD_BNB_SIGN)) {
                                 Message msg = mHandler.obtainMessage();
                                 msg.what = MSG_WC_SESSION_BNB_SIGN;
@@ -398,7 +397,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
 
                 } else if (bnbParam.getMsgType() == TYPE_TRANSFER_ORDER) {
                     JsonObject json = new Gson().fromJson(rawString, JsonObject.class);
-                    TransferMessage bean =  new Gson().fromJson(json.getAsJsonArray("msgs").get(0), TransferMessage.class);
+                    TransferMessage bean = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), TransferMessage.class);
                     bdtm[0] = bean;
 
                 } else {
@@ -408,11 +407,11 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
 
                 SignData sd = new SignData();
                 sd.setChainId(bnbParam.chain_id);
-                sd.setAccountNumber(""+bnbParam.account_number);
-                sd.setSequence(""+bnbParam.sequence);
+                sd.setAccountNumber("" + bnbParam.account_number);
+                sd.setSequence("" + bnbParam.sequence);
                 sd.setMemo(memo);
                 sd.setMsgs(bdtm);
-                sd.setSource(""+bnbParam.source);
+                sd.setSource("" + bnbParam.source);
 
                 byte[] signatureBytes = Crypto.sign(EncodeUtils.toJsonEncodeBytes(sd), deterministicKey.getPrivateKeyAsHex());
                 byte[] publicKeyBytes = deterministicKey.decompress().getPubKey();

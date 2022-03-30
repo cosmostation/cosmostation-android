@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -14,9 +17,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class OsmosisActiveGaugesGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -37,13 +37,15 @@ public class OsmosisActiveGaugesGrpcTask extends CommonTask {
             QueryOuterClass.ActiveGaugesRequest request = QueryOuterClass.ActiveGaugesRequest.newBuilder().setPagination(pageRequest).build();
             QueryOuterClass.ActiveGaugesResponse response = mStub.activeGauges(request);
 
-            for (GaugeOuterClass.Gauge gauge: response.getDataList()) {
+            for (GaugeOuterClass.Gauge gauge : response.getDataList()) {
                 mResultData.add(gauge);
             }
             mResult.resultData = mResultData;
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "OsmosisActiveGaugesGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("OsmosisActiveGaugesGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_VALIDATOR_INFO;
+
 import cosmos.staking.v1beta1.QueryGrpc;
 import cosmos.staking.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -10,11 +12,9 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_VALIDATOR_INFO;
-
 public class ValidatorInfoGrpcTask extends CommonTask {
-    private BaseChain   mChain;
-    private String      mValOpAddress;
+    private BaseChain mChain;
+    private String mValOpAddress;
     private QueryGrpc.QueryBlockingStub mStub;
 
     public ValidatorInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String opAddress) {
@@ -35,7 +35,9 @@ public class ValidatorInfoGrpcTask extends CommonTask {
             this.mResult.isSuccess = true;
             this.mResult.resultData = response.getValidator();
 
-        } catch (Exception e) { WLog.e( "ValidatorInfoGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("ValidatorInfoGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 

@@ -42,7 +42,7 @@ public class Dialog_FetchRestorePath extends DialogFragment {
         mCosmosPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingCustomPath(0);
+                ((RestoreActivity) getActivity()).onUsingCustomPath(0);
                 getDialog().dismiss();
             }
         });
@@ -50,7 +50,7 @@ public class Dialog_FetchRestorePath extends DialogFragment {
         mETHNonLedgerPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingCustomPath(1);
+                ((RestoreActivity) getActivity()).onUsingCustomPath(1);
                 getDialog().dismiss();
             }
         });
@@ -58,7 +58,7 @@ public class Dialog_FetchRestorePath extends DialogFragment {
         mETHLedgerLivePAth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingCustomPath(2);
+                ((RestoreActivity) getActivity()).onUsingCustomPath(2);
                 getDialog().dismiss();
             }
         });
@@ -66,7 +66,7 @@ public class Dialog_FetchRestorePath extends DialogFragment {
         mETHLegacyPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingCustomPath(3);
+                ((RestoreActivity) getActivity()).onUsingCustomPath(3);
                 getDialog().dismiss();
             }
         });

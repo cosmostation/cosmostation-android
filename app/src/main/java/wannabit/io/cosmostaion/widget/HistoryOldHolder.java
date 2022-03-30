@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OEC_TX;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
@@ -17,8 +19,6 @@ import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OEC_TX;
 
 public class HistoryOldHolder extends BaseHolder {
     private CardView historyRoot;

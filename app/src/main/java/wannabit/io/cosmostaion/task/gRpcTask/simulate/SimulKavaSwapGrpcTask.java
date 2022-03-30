@@ -1,17 +1,16 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_SWAP;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import kava.swap.v1beta1.Genesis;
-import kava.swap.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -27,20 +26,17 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_SWAP;
-
 public class SimulKavaSwapGrpcTask extends CommonTask {
 
-    private Account                 mAccount;
-    private BaseChain               mBaseChain;
-    private String                  mRequester;
-    private Coin                    mSwapIn, mSwapOut;
-    private String                  mSlippage;
-    private long                    mDeadline;
-    private String                  mMemo;
-    private Fee                     mFees;
-    private String                  mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mRequester;
+    private Coin mSwapIn, mSwapOut;
+    private String mSlippage;
+    private long mDeadline;
+    private String mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

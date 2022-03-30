@@ -34,7 +34,6 @@ public interface KavaChain {
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
 
-
     @GET("bep3/parameters")
     Call<ResKavaBep3Param> getSwapParams2();
 

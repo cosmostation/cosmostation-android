@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +18,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxExitPoolHolder extends TxHolder {
@@ -92,6 +90,7 @@ public class TxExitPoolHolder extends TxHolder {
                 itemExitPoolTokenInAmount.setText("");
                 itemExitPoolTokenInSymbol.setText("");
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

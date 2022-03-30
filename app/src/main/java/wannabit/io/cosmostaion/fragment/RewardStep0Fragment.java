@@ -23,14 +23,14 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class RewardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private CardView        mCardReward;
-    private TextView        mTvRewardAmount, mTvDenomTitle;
-    private TextView        mTvFromValidators;
-    private LinearLayout    mReceiveLayer;
-    private TextView        mTvReceiveAddress;
-    private RelativeLayout  mProgressBar;
-    private Button          mCancelBtn, mNextBtn;
-    private int             mDpDecimal = 6;
+    private CardView mCardReward;
+    private TextView mTvRewardAmount, mTvDenomTitle;
+    private TextView mTvFromValidators;
+    private LinearLayout mReceiveLayer;
+    private TextView mTvReceiveAddress;
+    private RelativeLayout mProgressBar;
+    private Button mCancelBtn, mNextBtn;
+    private int mDpDecimal = 6;
 
     public static RewardStep0Fragment newInstance(Bundle bundle) {
         RewardStep0Fragment fragment = new RewardStep0Fragment();
@@ -46,15 +46,15 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reward_step0, container, false);
-        mCardReward             = rootView.findViewById(R.id.reward_card);
-        mTvRewardAmount         = rootView.findViewById(R.id.reward_amount);
-        mTvDenomTitle           = rootView.findViewById(R.id.reward_denom_title);
-        mTvFromValidators       = rootView.findViewById(R.id.reward_moniker);
-        mReceiveLayer           = rootView.findViewById(R.id.reward_receive_address_layer);
-        mTvReceiveAddress       = rootView.findViewById(R.id.reward_receive_address);
-        mProgressBar            = rootView.findViewById(R.id.reward_progress);
-        mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn                = rootView.findViewById(R.id.btn_next);
+        mCardReward = rootView.findViewById(R.id.reward_card);
+        mTvRewardAmount = rootView.findViewById(R.id.reward_amount);
+        mTvDenomTitle = rootView.findViewById(R.id.reward_denom_title);
+        mTvFromValidators = rootView.findViewById(R.id.reward_moniker);
+        mReceiveLayer = rootView.findViewById(R.id.reward_receive_address_layer);
+        mTvReceiveAddress = rootView.findViewById(R.id.reward_receive_address);
+        mProgressBar = rootView.findViewById(R.id.reward_progress);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvDenomTitle);
 
@@ -68,19 +68,25 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal rewardSum = BigDecimal.ZERO;
-        for (String opAddress: getSActivity().mValAddresses) {
+        for (String opAddress : getSActivity().mValAddresses) {
             rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
         }
         mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
         String monikers = "";
-        for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
+        for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
             boolean isMatch = false;
-            for (String myVal: getSActivity().mValAddresses) {
-                if (myVal.equals(validator.getOperatorAddress())) { isMatch = true; break; }
+            for (String myVal : getSActivity().mValAddresses) {
+                if (myVal.equals(validator.getOperatorAddress())) {
+                    isMatch = true;
+                    break;
+                }
             }
             if (isMatch) {
-                if (TextUtils.isEmpty(monikers)) {  monikers = validator.getDescription().getMoniker(); }
-                else { monikers = monikers + ",    " + validator.getDescription().getMoniker(); }
+                if (TextUtils.isEmpty(monikers)) {
+                    monikers = validator.getDescription().getMoniker();
+                } else {
+                    monikers = monikers + ",    " + validator.getDescription().getMoniker();
+                }
             }
         }
         mTvFromValidators.setText(monikers);
@@ -107,6 +113,6 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     }
 
     private ClaimRewardActivity getSActivity() {
-        return (ClaimRewardActivity)getBaseActivity();
+        return (ClaimRewardActivity) getBaseActivity();
     }
 }

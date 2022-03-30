@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -16,9 +19,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 
 public class DelegationsGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -31,7 +31,8 @@ public class DelegationsGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAccount = account;
         this.mResult.taskType = TASK_GRPC_FETCH_DELEGATIONS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        ;
     }
 
     @Override
@@ -49,7 +50,9 @@ public class DelegationsGrpcTask extends CommonTask {
             this.mResult.resultData = mResultData;
 //            WLog.w("Delegations " + mResultData.size());
 
-        } catch (Exception e) { WLog.e( "DelegationsGrpc "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("DelegationsGrpc " + e.getMessage());
+        }
         return mResult;
     }
 
@@ -63,7 +66,9 @@ public class DelegationsGrpcTask extends CommonTask {
                 pageJob(response.getPagination().getNextKey());
             }
 
-        } catch (Exception e) { WLog.e( "DelegationsGrpc pageJob "+ e.getMessage()); }
-        return  null;
+        } catch (Exception e) {
+            WLog.e("DelegationsGrpc pageJob " + e.getMessage());
+        }
+        return null;
     }
 }

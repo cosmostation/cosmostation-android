@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.DeleteStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 
 public class DeleteStarName0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -43,7 +43,7 @@ public class DeleteStarName0Fragment extends BaseFragment implements View.OnClic
         mConfirmBtn.setOnClickListener(this);
 
         if (getSActivity().mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
-            mStarName.setText( "*" + getSActivity().mStarNameDomain);
+            mStarName.setText("*" + getSActivity().mStarNameDomain);
         } else {
             mStarName.setText(getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
         }
@@ -55,7 +55,7 @@ public class DeleteStarName0Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mCancelBtn)) {
+        if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -66,6 +66,6 @@ public class DeleteStarName0Fragment extends BaseFragment implements View.OnClic
 
 
     private DeleteStarNameActivity getSActivity() {
-        return (DeleteStarNameActivity)getBaseActivity();
+        return (DeleteStarNameActivity) getBaseActivity();
     }
 }

@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.activities.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,29 +28,25 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.MyAccountFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.MyDomainFragment;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcAccountTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
-
 public class StarNameListActivity extends BaseActivity implements TaskListener {
 
-    private Toolbar                     mToolbar;
-    private TextView                    mToolbarTitle;
-    private ViewPager                   mNameServicePager;
-    private TabLayout                   mNameServiceTapLayer;
-    private StarNamePageAdapter         mPageAdapter;
+    private Toolbar mToolbar;
+    private TextView mToolbarTitle;
+    private ViewPager mNameServicePager;
+    private TabLayout mNameServiceTapLayer;
+    private StarNamePageAdapter mPageAdapter;
 
-    public ArrayList<Types.Domain>      mDomains_gRPC = new ArrayList<>();
-    public ArrayList<Types.Account>     mDomainResolves_gRPC = new ArrayList<>();
-    public ArrayList<Types.Account>     mAccounts_gRPC = new ArrayList<>();
+    public ArrayList<Types.Domain> mDomains_gRPC = new ArrayList<>();
+    public ArrayList<Types.Account> mDomainResolves_gRPC = new ArrayList<>();
+    public ArrayList<Types.Account> mAccounts_gRPC = new ArrayList<>();
 
 
     @Override
@@ -90,10 +90,12 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         mNameServicePager.setCurrentItem(0, false);
         mNameServicePager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
 
             @Override
             public void onPageSelected(int i) {
@@ -132,7 +134,7 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
     }
 
     public Types.Account getDomainResolve(String domain) {
-        for (Types.Account resolve: mDomainResolves_gRPC) {
+        for (Types.Account resolve : mDomainResolves_gRPC) {
             if (resolve.getDomain().equals(domain)) {
                 return resolve;
             }
@@ -146,22 +148,22 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         if (isFinishing()) return;
         if (result.taskType == TASK_GRPC_FETCH_STARNAME_ACCOUNT) {
             if (result.isSuccess && result.resultData != null) {
-                mAccounts_gRPC = (ArrayList<Types.Account>)result.resultData;
+                mAccounts_gRPC = (ArrayList<Types.Account>) result.resultData;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_DOMAIN) {
             if (result.isSuccess && result.resultData != null) {
-                mDomains_gRPC = (ArrayList<Types.Domain>)result.resultData;
+                mDomains_gRPC = (ArrayList<Types.Domain>) result.resultData;
 
             }
             mTaskCount = mTaskCount + mDomains_gRPC.size();
-            for (Types.Domain domain: mDomains_gRPC) {
-                new StarNameGrpcResolveTask(getBaseApplication(),this, mBaseChain, "", domain.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            for (Types.Domain domain : mDomains_gRPC) {
+                new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "", domain.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_RESOLVE) {
             if (result.isSuccess && result.resultData != null) {
-                mDomainResolves_gRPC.add((Types.Account)result.resultData);
+                mDomainResolves_gRPC.add((Types.Account) result.resultData);
             }
         }
 

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +21,10 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Hard_Liquidation_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_HARD_WITHDRAW_CHECK = 9107;
 
-    private Button   mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
     private TextView mWithdrawAmount, mWithdrawDenom;
     private TextView mFeesAmount, mFeesDenom;
     private TextView mMemo;
@@ -85,6 +85,6 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
     }
 
     private WithdrawHardActivity getSActivity() {
-        return (WithdrawHardActivity)getBaseActivity();
+        return (WithdrawHardActivity) getBaseActivity();
     }
 }

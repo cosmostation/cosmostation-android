@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+
 import cosmos.distribution.v1beta1.QueryGrpc;
 import cosmos.distribution.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -11,8 +13,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
 public class WithdrawAddressGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -39,7 +39,9 @@ public class WithdrawAddressGrpcTask extends CommonTask {
             this.mResult.isSuccess = true;
             this.mResult.resultData = response.getWithdrawAddress();
 
-        } catch (Exception e) { WLog.e( "ParamMintGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("ParamMintGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

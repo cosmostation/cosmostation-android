@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@drawable/bg_cosmos" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"
-            android:text="@string/str_sif_dex_title"/>
+            android:text="@string/str_sif_dex_title" />
     </androidx.appcompat.widget.Toolbar>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/lab_tab"
             android:layout_width="match_parent"
@@ -36,17 +40,19 @@
             app:tabIndicatorHeight="2dp"
             app:tabIndicatorColor="@color/colorSif"
             app:tabIconTint="@color/colorSif"
-            android:elevation="4dp"/>
+            android:elevation="4dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorGray4"
             android:layout_below="@+id/lab_tab"
-            android:layout_marginTop="-1dp"/>
+            android:layout_marginTop="-1dp" />
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/lab_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/lab_tab"/>
+            android:layout_below="@+id/lab_tab" />
     </RelativeLayout>
 </RelativeLayout>

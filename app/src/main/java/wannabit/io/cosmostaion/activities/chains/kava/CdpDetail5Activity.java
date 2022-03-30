@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_TOTAL_SUPPLY;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,35 +44,31 @@ import wannabit.io.cosmostaion.widget.CdpDetailInfoHolder;
 import wannabit.io.cosmostaion.widget.CdpDetailMyAvailableHolder;
 import wannabit.io.cosmostaion.widget.CdpDetailMyStatusHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_TOTAL_SUPPLY;
-
 public class CdpDetail5Activity extends BaseActivity implements TaskListener, View.OnClickListener {
-    private Toolbar             mToolbar;
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private Button              mBtnOpenCdp;
-    private RelativeLayout      mLoadingLayer;
+    private Toolbar mToolbar;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private Button mBtnOpenCdp;
+    private RelativeLayout mLoadingLayer;
 
-    private Account             mAccount;
-    private CdpDetailAdapter    mAdapter;
+    private Account mAccount;
+    private CdpDetailAdapter mAdapter;
 
-    private String                                          mCollateralType;
-    private Genesis.Params                                  mCdpParams;
-    private QueryOuterClass.CDPResponse                     mMyCdps;
-    private BigDecimal                                      mDebtAmount = BigDecimal.ZERO;
-    private BigDecimal                                      mSelfDepositAmount = BigDecimal.ZERO;
+    private String mCollateralType;
+    private Genesis.Params mCdpParams;
+    private QueryOuterClass.CDPResponse mMyCdps;
+    private BigDecimal mDebtAmount = BigDecimal.ZERO;
+    private BigDecimal mSelfDepositAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cdp_detail5);
-        mToolbar                        = findViewById(R.id.tool_bar);
-        mSwipeRefreshLayout             = findViewById(R.id.layer_refresher);
-        mRecyclerView                   = findViewById(R.id.recycler);
-        mLoadingLayer                   = findViewById(R.id.loadingLayer);
-        mBtnOpenCdp                     = findViewById(R.id.btn_open_cdp);
+        mToolbar = findViewById(R.id.tool_bar);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
+        mBtnOpenCdp = findViewById(R.id.btn_open_cdp);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -112,6 +112,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     }
 
     private int mTaskCount = 0;
+
     public void onFetchCdpData() {
         mTaskCount = 3;
         mMyCdps = null;
@@ -123,12 +124,12 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_KAVA_MY_CDPS) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<QueryOuterClass.CDPResponse> myCdps = (ArrayList<QueryOuterClass.CDPResponse>) result.resultData;
-                for (QueryOuterClass.CDPResponse cdpResponse: myCdps) {
+                for (QueryOuterClass.CDPResponse cdpResponse : myCdps) {
                     if (cdpResponse.getType().equalsIgnoreCase(mCollateralType)) {
                         mMyCdps = cdpResponse;
                         break;
@@ -138,10 +139,10 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
-                ArrayList<CdpDeposit> deposits = (ArrayList<CdpDeposit>)result.resultData;
-                for (CdpDeposit deposit: deposits) {
+                ArrayList<CdpDeposit> deposits = (ArrayList<CdpDeposit>) result.resultData;
+                for (CdpDeposit deposit : deposits) {
                     if (deposit.depositor.equals(mAccount.address)) {
-                        mSelfDepositAmount =  new BigDecimal(deposit.amount.amount);
+                        mSelfDepositAmount = new BigDecimal(deposit.amount.amount);
                     }
                 }
             }
@@ -149,7 +150,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         } else if (result.taskType == TASK_GRPC_FETCH_TOTAL_SUPPLY) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<CoinOuterClass.Coin> supplies = (ArrayList<CoinOuterClass.Coin>) result.resultData;
-                for (CoinOuterClass.Coin coin: supplies) {
+                for (CoinOuterClass.Coin coin : supplies) {
                     if (coin.getDenom().equals("debt")) {
                         mDebtAmount = new BigDecimal(coin.getAmount());
                         break;
@@ -184,13 +185,13 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     public void onCheckStartCreateCdp() {
         if (!onCommonCheck()) return;
 
-        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
-        final String cDenom                                     = collateralParam.getDenom();
-        final String pDenom                                     = collateralParam.getDebtLimit().getDenom();
-        final BigDecimal currentPrice                           = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
-        final BigDecimal cAvailable                             = getBaseDao().getAvailable(cDenom);
-        BigDecimal principalMinAmount                           = new BigDecimal(mCdpParams.getDebtParam().getDebtFloor());
-        BigDecimal collateralMinAmount                          = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(18)).divide(currentPrice, 0, RoundingMode.UP);
+        final Genesis.CollateralParam collateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
+        final String cDenom = collateralParam.getDenom();
+        final String pDenom = collateralParam.getDebtLimit().getDenom();
+        final BigDecimal currentPrice = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
+        final BigDecimal cAvailable = getBaseDao().getAvailable(cDenom);
+        BigDecimal principalMinAmount = new BigDecimal(mCdpParams.getDebtParam().getDebtFloor());
+        BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(18)).divide(currentPrice, 0, RoundingMode.UP);
         if (collateralMinAmount.compareTo(cAvailable) > 0) {
             Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             return;
@@ -209,9 +210,9 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     public void onCheckStartDepositCdp() {
         if (!onCommonCheck()) return;
 
-        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
-        final String cDenom                                     = collateralParam.getDenom();
-        final BigDecimal cAvailable                             = getBaseDao().getAvailable(cDenom);
+        final Genesis.CollateralParam collateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
+        final String cDenom = collateralParam.getDenom();
+        final BigDecimal cAvailable = getBaseDao().getAvailable(cDenom);
 
         if (cAvailable.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enought_deposit_asset, Toast.LENGTH_SHORT).show();
@@ -227,9 +228,9 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     public void onCheckStartWithdrawCdp() {
         if (!onCommonCheck()) return;
 
-        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
-        final BigDecimal currentPrice                           = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
-        final BigDecimal maxWithdrawableAmount                  = WUtil.getWithdrawableAmount(getBaseContext(), getBaseDao(), mMyCdps, collateralParam, currentPrice, mSelfDepositAmount);
+        final Genesis.CollateralParam collateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
+        final BigDecimal currentPrice = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
+        final BigDecimal maxWithdrawableAmount = WUtil.getWithdrawableAmount(getBaseContext(), getBaseDao(), mMyCdps, collateralParam, currentPrice, mSelfDepositAmount);
 
         if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enought_withdraw_asset, Toast.LENGTH_SHORT).show();
@@ -265,9 +266,9 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     public void onCheckStartRepayCdp() {
         if (!onCommonCheck()) return;
 
-        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
-        final String pDenom                                     = collateralParam.getDebtLimit().getDenom();
-        final BigDecimal pAvailable                             = getBaseDao().getAvailable(pDenom);
+        final Genesis.CollateralParam collateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
+        final String pDenom = collateralParam.getDebtLimit().getDenom();
+        final BigDecimal pAvailable = getBaseDao().getAvailable(pDenom);
 
         if (pAvailable.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enought_principal_asset, Toast.LENGTH_SHORT).show();
@@ -276,10 +277,14 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         boolean repayAll = true;
         boolean repayPart = true;
         BigDecimal debtFloor = new BigDecimal(mCdpParams.getDebtParam().getDebtFloor());
-        BigDecimal rawDebt =  new BigDecimal(mMyCdps.getPrincipal().getAmount());
-        BigDecimal totalDebt =  WUtil.getEstimatedTotalDebt(getBaseContext(), mMyCdps, collateralParam);
-        if (totalDebt.compareTo(pAvailable) > 0) { repayAll = false; }
-        if (rawDebt.compareTo(debtFloor) <= 0) { repayPart = false; }
+        BigDecimal rawDebt = new BigDecimal(mMyCdps.getPrincipal().getAmount());
+        BigDecimal totalDebt = WUtil.getEstimatedTotalDebt(getBaseContext(), mMyCdps, collateralParam);
+        if (totalDebt.compareTo(pAvailable) > 0) {
+            repayAll = false;
+        }
+        if (rawDebt.compareTo(debtFloor) <= 0) {
+            repayPart = false;
+        }
         if (!repayAll && !repayPart) {
             Toast.makeText(getBaseContext(), R.string.error_can_not_repay, Toast.LENGTH_SHORT).show();
             return;
@@ -293,7 +298,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
 
     private boolean onCommonCheck() {
-        if(!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
@@ -308,9 +313,9 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     }
 
     private class CdpDetailAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_CDP_INFO          = 0;
-        private static final int TYPE_MY_STATUS         = 1;
-        private static final int TYPE_MY_AVAILABLE      = 2;
+        private static final int TYPE_CDP_INFO = 0;
+        private static final int TYPE_MY_STATUS = 1;
+        private static final int TYPE_MY_AVAILABLE = 2;
 
         @NonNull
         @Override
@@ -338,8 +343,11 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         @Override
         public int getItemCount() {
-            if (mMyCdps == null) { return 2; }
-            else { return 3; }
+            if (mMyCdps == null) {
+                return 2;
+            } else {
+                return 3;
+            }
         }
 
         @Override

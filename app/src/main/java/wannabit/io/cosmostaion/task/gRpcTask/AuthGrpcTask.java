@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import cosmos.auth.v1beta1.QueryGrpc;
@@ -12,9 +15,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class AuthGrpcTask extends CommonTask {
     private BaseChain mChain;
     private String mAddress;
@@ -25,7 +25,8 @@ public class AuthGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAddress = address;
         this.mResult.taskType = TASK_GRPC_FETCH_AUTH;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        ;
     }
 
     @Override
@@ -36,7 +37,9 @@ public class AuthGrpcTask extends CommonTask {
             this.mResult.isSuccess = true;
             this.mResult.resultData = response.getAccount();
 
-        } catch (Exception e) { WLog.e( "AuthGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("AuthGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

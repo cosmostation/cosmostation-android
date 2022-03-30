@@ -27,32 +27,32 @@ import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class SifDexSwapFragment extends BaseFragment implements View.OnClickListener{
+public class SifDexSwapFragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_INPUT_CHAIN = 8500;
     public final static int SELECT_OUTPUT_CHAIN = 8501;
 
-    private RelativeLayout  mBtnInputCoinList, mBtnOutputCoinList;
-    private ImageView       mInputImg;
-    private TextView        mInputCoin, mInputAmount;
-    private TextView        mSwapSlippage;
-    private TextView        mSwapTitle;
-    private ImageView       mOutputImg;
-    private TextView        mOutputCoin;
-    private TextView        mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
-    private TextView        mSwapInputCoinExRate, mSwapInputCoinExSymbol, mSwapOutputCoinExRate, mSwapOutputCoinExSymbol;
+    private RelativeLayout mBtnInputCoinList, mBtnOutputCoinList;
+    private ImageView mInputImg;
+    private TextView mInputCoin, mInputAmount;
+    private TextView mSwapSlippage;
+    private TextView mSwapTitle;
+    private ImageView mOutputImg;
+    private TextView mOutputCoin;
+    private TextView mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
+    private TextView mSwapInputCoinExRate, mSwapInputCoinExSymbol, mSwapOutputCoinExRate, mSwapOutputCoinExSymbol;
 
-    private ImageButton     mBtnToggle;
-    private Button          mBtnSwapStart;
+    private ImageButton mBtnToggle;
+    private Button mBtnSwapStart;
 
-    public ArrayList<Types.Pool>                mPoolList = new ArrayList<>();
-    public ArrayList<String>                    mAllDenoms = new ArrayList<>();
-    public Types.Pool                           mSelectedPool;
-    public ArrayList<String>                    mSwapableDenoms = new ArrayList<>();
+    public ArrayList<Types.Pool> mPoolList = new ArrayList<>();
+    public ArrayList<String> mAllDenoms = new ArrayList<>();
+    public Types.Pool mSelectedPool;
+    public ArrayList<String> mSwapableDenoms = new ArrayList<>();
 
-    public String                               mInputCoinDenom;
-    public String                               mOutputCoinDenom;
-    public int                                  mInPutDecimal = 18;
-    public int                                  mOutPutDecimal = 18;
+    public String mInputCoinDenom;
+    public String mOutputCoinDenom;
+    public int mInPutDecimal = 18;
+    public int mOutPutDecimal = 18;
 
     public static SifDexSwapFragment newInstance(Bundle bundle) {
         SifDexSwapFragment fragment = new SifDexSwapFragment();
@@ -68,29 +68,29 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_swap_list, container, false);
-        mBtnInputCoinList           = rootView.findViewById(R.id.btn_to_input_coin);
-        mBtnOutputCoinList          = rootView.findViewById(R.id.btn_to_output_coin);
+        mBtnInputCoinList = rootView.findViewById(R.id.btn_to_input_coin);
+        mBtnOutputCoinList = rootView.findViewById(R.id.btn_to_output_coin);
 
-        mInputImg                   = rootView.findViewById(R.id.img_input_coin);
-        mInputCoin                  = rootView.findViewById(R.id.txt_input_coin);
-        mInputAmount                = rootView.findViewById(R.id.inpus_amount);
-        mOutputImg                  = rootView.findViewById(R.id.img_output_coin);
-        mOutputCoin                 = rootView.findViewById(R.id.txt_output_coin);
+        mInputImg = rootView.findViewById(R.id.img_input_coin);
+        mInputCoin = rootView.findViewById(R.id.txt_input_coin);
+        mInputAmount = rootView.findViewById(R.id.inpus_amount);
+        mOutputImg = rootView.findViewById(R.id.img_output_coin);
+        mOutputCoin = rootView.findViewById(R.id.txt_output_coin);
 
-        mSwapTitle                  = rootView.findViewById(R.id.swap_title);
-        mSwapInputCoinRate          = rootView.findViewById(R.id.inputs_rate);
-        mSwapInputCoinSymbol        = rootView.findViewById(R.id.inputs_rate_symbol);
-        mSwapOutputCoinRate         = rootView.findViewById(R.id.outputs_rate);
-        mSwapOutputCoinSymbol       = rootView.findViewById(R.id.outputs_rate_symbol);
+        mSwapTitle = rootView.findViewById(R.id.swap_title);
+        mSwapInputCoinRate = rootView.findViewById(R.id.inputs_rate);
+        mSwapInputCoinSymbol = rootView.findViewById(R.id.inputs_rate_symbol);
+        mSwapOutputCoinRate = rootView.findViewById(R.id.outputs_rate);
+        mSwapOutputCoinSymbol = rootView.findViewById(R.id.outputs_rate_symbol);
 
-        mSwapInputCoinExRate        = rootView.findViewById(R.id.global_inputs_rate);
-        mSwapInputCoinExSymbol      = rootView.findViewById(R.id.global_inputs_rate_symbol);
-        mSwapOutputCoinExRate       = rootView.findViewById(R.id.global_outputs_rate);
-        mSwapOutputCoinExSymbol     = rootView.findViewById(R.id.global_outputs_rate_symbol);
+        mSwapInputCoinExRate = rootView.findViewById(R.id.global_inputs_rate);
+        mSwapInputCoinExSymbol = rootView.findViewById(R.id.global_inputs_rate_symbol);
+        mSwapOutputCoinExRate = rootView.findViewById(R.id.global_outputs_rate);
+        mSwapOutputCoinExSymbol = rootView.findViewById(R.id.global_outputs_rate_symbol);
 
-        mSwapSlippage               = rootView.findViewById(R.id.swap_slippage);
-        mBtnToggle                  = rootView.findViewById(R.id.btn_toggle);
-        mBtnSwapStart               = rootView.findViewById(R.id.btn_start_swap);
+        mSwapSlippage = rootView.findViewById(R.id.swap_slippage);
+        mBtnToggle = rootView.findViewById(R.id.btn_toggle);
+        mBtnSwapStart = rootView.findViewById(R.id.btn_start_swap);
 
         mBtnInputCoinList.setOnClickListener(this);
         mBtnOutputCoinList.setOnClickListener(this);
@@ -192,10 +192,10 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
             if (mInputCoinDenom.equals(BaseConstant.TOKEN_SIF)) {
-                mSelectedPool =  mPoolList.get(0);
+                mSelectedPool = mPoolList.get(0);
                 mOutputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
             } else {
-                for (Types.Pool pool: mPoolList) {
+                for (Types.Pool pool : mPoolList) {
                     if (pool.getExternalAsset().getSymbol().equals(mInputCoinDenom)) {
                         mSelectedPool = pool;
                         mOutputCoinDenom = BaseConstant.TOKEN_SIF;
@@ -210,7 +210,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
                 mSelectedPool = mPoolList.get(0);
                 mInputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
             } else {
-                for (Types.Pool pool: mPoolList) {
+                for (Types.Pool pool : mPoolList) {
                     if (pool.getExternalAsset().getSymbol().equals(mOutputCoinDenom)) {
                         mSelectedPool = pool;
                     }
@@ -220,6 +220,8 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private SifDexListActivity getSActivity() { return (SifDexListActivity)getBaseActivity(); }
+    private SifDexListActivity getSActivity() {
+        return (SifDexListActivity) getBaseActivity();
+    }
 }
 

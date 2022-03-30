@@ -17,39 +17,39 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenStakingOldHolder extends BaseHolder {
-    private CardView        mCardRoot;
-    private RelativeLayout  mVestingLayer, mDelegatedLayer, mUnbondingLayer, mRewardLayer;
-    private RelativeLayout  mLockedLayer, mFrozenLayer;
-    private RelativeLayout  mOkStakingLayer, mOkUnbondingLayer;
+    private CardView mCardRoot;
+    private RelativeLayout mVestingLayer, mDelegatedLayer, mUnbondingLayer, mRewardLayer;
+    private RelativeLayout mLockedLayer, mFrozenLayer;
+    private RelativeLayout mOkStakingLayer, mOkUnbondingLayer;
 
-    private TextView        mTotalAmount, mAvailableAmount;
-    private TextView        mDelegatedAmount, mUnbondingAmount, mRewardAmount;
-    private TextView        mlockedAmount, mFrozenAmount;
-    private TextView        mOkStakingAmount, mOkUnbondingAmount;
+    private TextView mTotalAmount, mAvailableAmount;
+    private TextView mDelegatedAmount, mUnbondingAmount, mRewardAmount;
+    private TextView mlockedAmount, mFrozenAmount;
+    private TextView mOkStakingAmount, mOkUnbondingAmount;
 
     public TokenStakingOldHolder(@NonNull View itemView) {
         super(itemView);
-        mCardRoot               = itemView.findViewById(R.id.card_root);
-        mTotalAmount            = itemView.findViewById(R.id.total_amount);
-        mAvailableAmount        = itemView.findViewById(R.id.available_amount);
-        mDelegatedAmount        = itemView.findViewById(R.id.delegated_amount);
-        mUnbondingAmount        = itemView.findViewById(R.id.unbonding_amount);
-        mRewardAmount           = itemView.findViewById(R.id.reward_amount);
+        mCardRoot = itemView.findViewById(R.id.card_root);
+        mTotalAmount = itemView.findViewById(R.id.total_amount);
+        mAvailableAmount = itemView.findViewById(R.id.available_amount);
+        mDelegatedAmount = itemView.findViewById(R.id.delegated_amount);
+        mUnbondingAmount = itemView.findViewById(R.id.unbonding_amount);
+        mRewardAmount = itemView.findViewById(R.id.reward_amount);
 
-        mlockedAmount           = itemView.findViewById(R.id.locked_amount);
-        mFrozenAmount           = itemView.findViewById(R.id.frozen_amount);
+        mlockedAmount = itemView.findViewById(R.id.locked_amount);
+        mFrozenAmount = itemView.findViewById(R.id.frozen_amount);
 
-        mOkStakingAmount        = itemView.findViewById(R.id.ok_staking_amount);
-        mOkUnbondingAmount      = itemView.findViewById(R.id.ok_unbonding_amount);
+        mOkStakingAmount = itemView.findViewById(R.id.ok_staking_amount);
+        mOkUnbondingAmount = itemView.findViewById(R.id.ok_unbonding_amount);
 
-        mVestingLayer           = itemView.findViewById(R.id.vesting_layer);
-        mDelegatedLayer         = itemView.findViewById(R.id.delegated_layer);
-        mUnbondingLayer         = itemView.findViewById(R.id.unbonding_layer);
-        mRewardLayer            = itemView.findViewById(R.id.reward_layer);
-        mLockedLayer            = itemView.findViewById(R.id.locked_layer);
-        mFrozenLayer            = itemView.findViewById(R.id.frozen_layer);
-        mOkStakingLayer         = itemView.findViewById(R.id.ok_staking_layer);
-        mOkUnbondingLayer       = itemView.findViewById(R.id.ok_unbonding_layer);
+        mVestingLayer = itemView.findViewById(R.id.vesting_layer);
+        mDelegatedLayer = itemView.findViewById(R.id.delegated_layer);
+        mUnbondingLayer = itemView.findViewById(R.id.unbonding_layer);
+        mRewardLayer = itemView.findViewById(R.id.reward_layer);
+        mLockedLayer = itemView.findViewById(R.id.locked_layer);
+        mFrozenLayer = itemView.findViewById(R.id.frozen_layer);
+        mOkStakingLayer = itemView.findViewById(R.id.ok_staking_layer);
+        mOkUnbondingLayer = itemView.findViewById(R.id.ok_unbonding_layer);
     }
 
     @Override

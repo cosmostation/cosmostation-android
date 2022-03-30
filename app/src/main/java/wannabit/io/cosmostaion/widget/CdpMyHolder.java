@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -21,8 +23,6 @@ import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
 
 public class CdpMyHolder extends BaseHolder {
     CardView itemRoot;
@@ -58,7 +58,9 @@ public class CdpMyHolder extends BaseHolder {
         final Genesis.CollateralParam collateralParam = baseData.getCollateralParamByType(myCdp.getType());
         final int dpDecimal = WUtil.getKavaCoinDecimal(baseData, myCdp.getPrincipal().getDenom());
 
-        if (collateralParam == null) { return; }
+        if (collateralParam == null) {
+            return;
+        }
 
         BigDecimal currentPrice = BigDecimal.ZERO;
         BigDecimal liquidationPrice = BigDecimal.ZERO;
@@ -91,11 +93,12 @@ public class CdpMyHolder extends BaseHolder {
         itemLiquidationPrice.setText(WDp.getDpRawDollor(c, liquidationPrice, 4));
         itemLiquidationPrice.setTextColor(WDp.getDpRiskColor(c, riskRate));
 
-        WDp.DpRiskRate(c, riskRate, itemRiskScore,  itemImgRisk);
+        WDp.DpRiskRate(c, riskRate, itemRiskScore, itemImgRisk);
 
         try {
             Picasso.get().load(KAVA_CDP_IMG_URL + collateralParam.getType() + ".png").fit().into(itemImgMarket);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import cosmos.bank.v1beta1.QueryGrpc;
@@ -13,9 +16,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class GravityDexManagerGrpcTask extends CommonTask {
     private BaseChain mChain;
     private String mAddress;
@@ -26,7 +26,8 @@ public class GravityDexManagerGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAddress = address;
         this.mResult.taskType = TASK_GRPC_FETCH_GRAVITY_MANAGER;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        ;
     }
 
     @Override
@@ -38,7 +39,9 @@ public class GravityDexManagerGrpcTask extends CommonTask {
             mResult.resultData2 = mAddress;
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "GravityDexManagerGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("GravityDexManagerGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 
@@ -51,7 +54,9 @@ public class GravityDexManagerGrpcTask extends CommonTask {
                 pageJob(response.getPagination().getNextKey());
             }
 
-        } catch (Exception e) { WLog.e( "GravityDexManagerGrpcTask pageJob "+ e.getMessage()); }
-        return  null;
+        } catch (Exception e) {
+            WLog.e("GravityDexManagerGrpcTask pageJob " + e.getMessage());
+        }
+        return null;
     }
 }

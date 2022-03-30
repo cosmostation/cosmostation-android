@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,20 +14,24 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/space_16"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/str_sif_incentive_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -36,43 +39,49 @@
                     android:layout_centerVertical="true"
                     android:orientation="horizontal"
                     android:gravity="center">
+
                     <TextView
                         android:id="@+id/incentive_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        style="@style/font_ssl_14_white" />
+
                     <TextView
                         android:id="@+id/incentive_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         android:text="ROWAN"
-                        style="@style/font_ss_14_sif"/>
+                        style="@style/font_ss_14_sif" />
                 </LinearLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_sif_incentive_type"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:orientation="horizontal"
                     android:gravity="center">
+
                     <TextView
                         android:id="@+id/incentive_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="-"
-                        style="@style/font_ss_14_white"/>
+                        style="@style/font_ss_14_white" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
@@ -86,6 +95,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_reward_program"
             android:layout_width="match_parent"
@@ -97,7 +107,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_sif_reward_program"/>
+            android:text="@string/str_sif_reward_program" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,6 +117,7 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_24">
+
             <Button
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
@@ -116,7 +128,8 @@
                 android:background="@drawable/btn_trans_with_border"
                 style="@style/font_ss_14_white"
                 android:textAllCaps="false"
-                android:text="@string/str_cancel"/>
+                android:text="@string/str_cancel" />
+
             <Button
                 android:id="@+id/btn_next"
                 android:layout_width="0dp"
@@ -127,7 +140,7 @@
                 android:background="@drawable/btn_trans_with_border"
                 style="@style/font_ss_14_photon"
                 android:textAllCaps="false"
-                android:text="@string/str_next"/>
+                android:text="@string/str_next" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

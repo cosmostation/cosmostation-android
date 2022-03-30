@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_UTXO;
+
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -12,12 +14,10 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_UTXO;
-
 public class HdacUtxoTask extends CommonTask {
 
-    private BaseChain               baseChain;
-    private String                  hdacAddress;
+    private BaseChain baseChain;
+    private String hdacAddress;
 
     public HdacUtxoTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String hdacAddress) {
         super(app, listener);

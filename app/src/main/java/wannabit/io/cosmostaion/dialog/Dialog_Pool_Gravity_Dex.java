@@ -31,7 +31,7 @@ public class Dialog_Pool_Gravity_Dex extends BottomSheetDialogFragment {
         mJoinPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((GravityListActivity)getActivity()).onCheckStartDepositPool(getArguments().getLong("poolId"));
+                ((GravityListActivity) getActivity()).onCheckStartDepositPool(getArguments().getLong("poolId"));
                 getDialog().dismiss();
             }
         });
@@ -39,7 +39,7 @@ public class Dialog_Pool_Gravity_Dex extends BottomSheetDialogFragment {
         mExitPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((GravityListActivity)getActivity()).onCheckStartWithdrawPool(getArguments().getLong("poolId"));
+                ((GravityListActivity) getActivity()).onCheckStartWithdrawPool(getArguments().getLong("poolId"));
                 getDialog().dismiss();
             }
         });

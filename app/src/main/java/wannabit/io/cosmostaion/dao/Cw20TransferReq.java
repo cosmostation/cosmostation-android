@@ -7,7 +7,7 @@ public class Cw20TransferReq {
         this.transfer = new TransferReq(recipient, amount);
     }
 
-    public class TransferReq{
+    public class TransferReq {
         public String recipient;
         public String amount;
 

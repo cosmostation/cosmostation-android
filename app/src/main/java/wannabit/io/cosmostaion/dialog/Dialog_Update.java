@@ -29,12 +29,12 @@ public class Dialog_Update extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update, null);
         Button btn_positive = view.findViewById(R.id.btn_posi);
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((IntroActivity)getActivity()).onStartPlaystore();
+                ((IntroActivity) getActivity()).onStartPlaystore();
                 getDialog().dismiss();
             }
         });

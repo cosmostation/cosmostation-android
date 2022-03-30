@@ -51,7 +51,7 @@ public class PushUpdateTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BuildConfig.DEBUG) e.printStackTrace();
+            if (BuildConfig.DEBUG) e.printStackTrace();
 
         }
         return mResult;

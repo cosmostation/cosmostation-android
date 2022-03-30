@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -13,9 +16,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 
 public class SifDexPoolAssetListGrpcTask extends CommonTask {
@@ -42,7 +42,9 @@ public class SifDexPoolAssetListGrpcTask extends CommonTask {
             mResult.isSuccess = true;
             mResult.resultData = mResultData;
 
-        } catch (Exception e) { WLog.e( "SifDexPoolAssetListGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("SifDexPoolAssetListGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

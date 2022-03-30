@@ -24,12 +24,12 @@ import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
 public class ListPoolFragment extends BaseFragment {
 
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private PoolListAdapter     mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private PoolListAdapter mAdapter;
 
-    public ArrayList<BalancerPool.Pool>   mPoolMyList = new ArrayList<>();
-    public ArrayList<BalancerPool.Pool>   mPoolOtherList = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool> mPoolMyList = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool> mPoolOtherList = new ArrayList<>();
 
     public static ListPoolFragment newInstance(Bundle bundle) {
         ListPoolFragment fragment = new ListPoolFragment();
@@ -45,13 +45,15 @@ public class ListPoolFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_pool_list, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() { getSActivity().onFetchPoolListInfo(); }
+            public void onRefresh() {
+                getSActivity().onFetchPoolListInfo();
+            }
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -71,8 +73,8 @@ public class ListPoolFragment extends BaseFragment {
     }
 
     private class PoolListAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_MY_POOL            = 1;
-        private static final int TYPE_OTHER_POOL         = 2;
+        private static final int TYPE_MY_POOL = 1;
+        private static final int TYPE_OTHER_POOL = 2;
 
         @NonNull
         @Override
@@ -90,8 +92,7 @@ public class ListPoolFragment extends BaseFragment {
             if (getItemViewType(position) == TYPE_MY_POOL) {
                 final BalancerPool.Pool myPool = mPoolMyList.get(position);
                 viewHolder.onBindOsmoMyPool(getContext(), getSActivity(), getBaseDao(), myPool);
-            }
-            else if (getItemViewType(position) == TYPE_OTHER_POOL) {
+            } else if (getItemViewType(position) == TYPE_OTHER_POOL) {
                 final BalancerPool.Pool otherPool = mPoolOtherList.get(position - mPoolMyList.size());
                 viewHolder.onBindOsmoOtherPool(getContext(), getSActivity(), getBaseDao(), otherPool);
             }
@@ -112,5 +113,7 @@ public class ListPoolFragment extends BaseFragment {
         }
     }
 
-    private LabsListActivity getSActivity() { return (LabsListActivity)getBaseActivity(); }
+    private LabsListActivity getSActivity() {
+        return (LabsListActivity) getBaseActivity();
+    }
 }

@@ -47,13 +47,13 @@ public class TxDelegateHolder extends TxHolder {
             cosmos.staking.v1beta1.Tx.MsgDelegate msg = cosmos.staking.v1beta1.Tx.MsgDelegate.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemDelegator.setText(msg.getDelegatorAddress());
             itemValidator.setText(msg.getValidatorAddress());
-            itemMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
+            itemMoniker.setText("(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
             itemDelegateAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getAmount().getAmount()), dpDecimal, dpDecimal));
             itemAutoRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseAutoReward(response, msg.getDelegatorAddress(), position), dpDecimal, dpDecimal));
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
-
 
 
 }

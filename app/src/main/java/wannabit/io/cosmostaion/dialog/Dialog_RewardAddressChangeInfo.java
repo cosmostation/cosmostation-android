@@ -29,7 +29,7 @@ public class Dialog_RewardAddressChangeInfo extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_reward_address_change_info, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_reward_address_change_info, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
@@ -43,7 +43,7 @@ public class Dialog_RewardAddressChangeInfo extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AccountDetailActivity)getActivity()).onStartChangeRewardAddress();
+                ((AccountDetailActivity) getActivity()).onStartChangeRewardAddress();
                 getDialog().dismiss();
             }
         });

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResTxInfo {
     @SerializedName("height")
@@ -39,8 +38,6 @@ public class ResTxInfo {
 
     @SerializedName("raw_log")
     public String raw_log;
-
-
 
 
     public boolean isSuccess() {
@@ -96,13 +93,13 @@ public class ResTxInfo {
     public BigDecimal simpleReward(String opAdd, int position) {
         BigDecimal result = BigDecimal.ZERO;
         if (logs != null && logs.get(position) != null) {
-            for (Event event:logs.get(position).events) {
+            for (Event event : logs.get(position).events) {
                 if (event.type.equals("withdraw_rewards")) {
-                    for (int i = 0; i < event.attributes.size(); i ++) {
+                    for (int i = 0; i < event.attributes.size(); i++) {
                         if (event.attributes.get(i).key.equals("validator") && event.attributes.get(i).value.equals(opAdd)) {
-                            if (i-1 < event.attributes.size() && event.attributes.get(i-1) != null && event.attributes.get(i-1).key.equals("amount")) {
-                                if (event.attributes.get(i-1).value != null) {
-                                    String value = event.attributes.get(i-1).value.split(",")[0];
+                            if (i - 1 < event.attributes.size() && event.attributes.get(i - 1) != null && event.attributes.get(i - 1).key.equals("amount")) {
+                                if (event.attributes.get(i - 1).value != null) {
+                                    String value = event.attributes.get(i - 1).value.split(",")[0];
                                     String temp = value.replaceAll("[^0-9]", "");
                                     result = new BigDecimal(temp);
                                 }
@@ -119,11 +116,11 @@ public class ResTxInfo {
     public BigDecimal simpleAutoReward(String Addr, int position) {
         BigDecimal result = BigDecimal.ZERO;
         if (logs != null && logs.get(position) != null) {
-            for (Event event:logs.get(position).events) {
+            for (Event event : logs.get(position).events) {
                 if (event.type.equals("transfer")) {
-                    for (int i = 0; i < event.attributes.size(); i ++) {
+                    for (int i = 0; i < event.attributes.size(); i++) {
                         if (event.attributes.get(i).key.equals("recipient") && event.attributes.get(i).value.equals(Addr)) {
-                            for (int j = i; j < event.attributes.size(); j ++) {
+                            for (int j = i; j < event.attributes.size(); j++) {
                                 if (event.attributes.get(j).key.equals("amount") && event.attributes.get(j).value != null) {
                                     String temp = event.attributes.get(j).value;
                                     String amount = "";
@@ -147,9 +144,9 @@ public class ResTxInfo {
     public BigDecimal simpleCommission(int position) {
         BigDecimal result = BigDecimal.ZERO;
         if (logs != null && logs.get(position) != null) {
-            for (Event event:logs.get(position).events) {
+            for (Event event : logs.get(position).events) {
                 if (event.type.equals("withdraw_commission")) {
-                    for (EventAttribute attr:event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equals("amount")) {
                             if (attr.value != null) {
                                 String value = attr.value.split(",")[0];
@@ -165,11 +162,11 @@ public class ResTxInfo {
     }
 
     public Coin simpleSwapCoin() {
-        Coin coin  = new Coin();
+        Coin coin = new Coin();
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
-            for (Event event:logs.get(0).events) {
+            for (Event event : logs.get(0).events) {
                 if (event.type.equals("transfer")) {
-                    for (EventAttribute attr:event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equals("amount")) {
                             String value = attr.value;
                             String denom = value.replaceAll("[0-9]", "");
@@ -187,9 +184,9 @@ public class ResTxInfo {
     public String simpleSwapId() {
         String result = "";
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
-            for (Event event:logs.get(0).events) {
+            for (Event event : logs.get(0).events) {
                 if (event.type.equals("create_atomic_swap")) {
-                    for (EventAttribute attr:event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equals("atomic_swap_id")) {
                             result = attr.value;
                         }
@@ -201,12 +198,12 @@ public class ResTxInfo {
     }
 
     public Coin simpleIncentive(int position) {
-        Coin coin  = new Coin();
+        Coin coin = new Coin();
         BigDecimal amountSum = BigDecimal.ZERO;
         if (logs != null && logs.get(position) != null) {
-            for (Event event:logs.get(position).events) {
+            for (Event event : logs.get(position).events) {
                 if (event.type.equals("transfer")) {
-                    for (EventAttribute attr:event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equals("amount")) {
                             String value = attr.value;
                             String denom = value.replaceAll("[0-9]", "");
@@ -223,16 +220,16 @@ public class ResTxInfo {
     }
 
     public ArrayList<Coin> simpleIncentives(int position) {
-        ArrayList<Coin> coins  = new ArrayList<>();
+        ArrayList<Coin> coins = new ArrayList<>();
         if (logs != null && logs.get(position) != null) {
-            for (Event event:logs.get(position).events) {
+            for (Event event : logs.get(position).events) {
                 if (event.type.equals("claim_reward")) {
-                    for (EventAttribute attr:event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equals("claim_amount")) {
                             String value = attr.value;
                             String[] splits = value.split(",");
-                            for (String split: splits) {
-                                Coin incenCoin  = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
+                            for (String split : splits) {
+                                Coin incenCoin = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
                                 coins.add(incenCoin);
                             }
                         }
@@ -244,11 +241,11 @@ public class ResTxInfo {
     }
 
     public Coin simpleRefund() {
-        Coin coin  = new Coin();
+        Coin coin = new Coin();
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
-            for (Event event:logs.get(0).events) {
+            for (Event event : logs.get(0).events) {
                 if (event.type.equals("transfer")) {
-                    for (EventAttribute attr:event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equals("amount")) {
                             String value = attr.value;
                             String denom = value.replaceAll("[0-9]", "");
@@ -264,11 +261,11 @@ public class ResTxInfo {
     }
 
     public Coin simpleSwapInCoin() {
-        Coin coin  = new Coin();
+        Coin coin = new Coin();
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
-            for (Event event: logs.get(0).events) {
+            for (Event event : logs.get(0).events) {
                 if (event.type.equals("swap_trade")) {
-                    for (EventAttribute attr: event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equalsIgnoreCase("input")) {
                             String value = attr.value;
                             String denom = value.replaceAll("[0-9]", "");
@@ -284,11 +281,11 @@ public class ResTxInfo {
     }
 
     public Coin simpleSwapOutCoin() {
-        Coin coin  = new Coin();
+        Coin coin = new Coin();
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
-            for (Event event: logs.get(0).events) {
+            for (Event event : logs.get(0).events) {
                 if (event.type.equals("swap_trade")) {
-                    for (EventAttribute attr: event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equalsIgnoreCase("output")) {
                             String value = attr.value;
                             String denom = value.replaceAll("[0-9]", "");
@@ -306,14 +303,14 @@ public class ResTxInfo {
     public ArrayList<Coin> simpleDeposits() {
         ArrayList<Coin> result = new ArrayList<>();
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
-            for (Event event: logs.get(0).events) {
+            for (Event event : logs.get(0).events) {
                 if (event.type.equals("swap_deposit")) {
-                    for (EventAttribute attr: event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equalsIgnoreCase("amount")) {
                             String value = attr.value;
                             String[] splits = value.split(",");
-                            for (String split: splits) {
-                                Coin depositCoin  = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
+                            for (String split : splits) {
+                                Coin depositCoin = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
                                 result.add(depositCoin);
                             }
                         }
@@ -327,14 +324,14 @@ public class ResTxInfo {
     public ArrayList<Coin> simpleWithdraws() {
         ArrayList<Coin> result = new ArrayList<>();
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
-            for (Event event: logs.get(0).events) {
+            for (Event event : logs.get(0).events) {
                 if (event.type.equals("swap_withdraw")) {
-                    for (EventAttribute attr: event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equalsIgnoreCase("amount")) {
                             String value = attr.value;
                             String[] splits = value.split(",");
-                            for (String split: splits) {
-                                Coin depositCoin  = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
+                            for (String split : splits) {
+                                Coin depositCoin = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
                                 result.add(depositCoin);
                             }
                         }
@@ -346,15 +343,14 @@ public class ResTxInfo {
     }
 
 
-
     public Coin simpleHardPoolReward(String denom) {
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
-            for (Event event:logs.get(0).events) {
+            for (Event event : logs.get(0).events) {
                 if (event.type.equals("transfer")) {
-                    for (EventAttribute attr:event.attributes) {
+                    for (EventAttribute attr : event.attributes) {
                         if (attr.key.equals("amount")) {
                             String[] splits = attr.value.split(",");
-                            for (String split: splits) {
+                            for (String split : splits) {
                                 if (split.contains(denom)) {
                                     return new Coin(denom, split.replaceAll("[^0-9]", ""));
                                 }
@@ -366,7 +362,6 @@ public class ResTxInfo {
         }
         return null;
     }
-
 
 
     public class Log {
@@ -455,7 +450,7 @@ public class ResTxInfo {
     public BigDecimal simpleRewardIris() {
         BigDecimal reward = BigDecimal.ZERO;
         if (result != null && result.Tags != null) {
-            for (Tag tag:result.Tags) {
+            for (Tag tag : result.Tags) {
                 if (tag.key.equals("withdraw-reward-total")) {
                     if (tag.value != null) {
                         String temp = tag.value.replaceAll("[^0-9]", "");
@@ -472,7 +467,7 @@ public class ResTxInfo {
     public ArrayList<Tag> rewardValidatorsIris() {
         ArrayList<Tag> validators = new ArrayList<>();
         if (result != null && result.Tags != null) {
-            for (Tag tag:result.Tags) {
+            for (Tag tag : result.Tags) {
                 if (tag.key.startsWith("withdraw-reward-from-validator-")) {
                     validators.add(tag);
                 }
@@ -493,7 +488,7 @@ public class ResTxInfo {
     public BigDecimal simpleCommissionIris() {
         BigDecimal reward = BigDecimal.ZERO;
         if (result != null && result.Tags != null) {
-            for (Tag tag:result.Tags) {
+            for (Tag tag : result.Tags) {
                 if (tag.key.equals("withdraw-reward-commission")) {
                     if (tag.value != null) {
                         String temp = tag.value.replaceAll("[^0-9]", "");

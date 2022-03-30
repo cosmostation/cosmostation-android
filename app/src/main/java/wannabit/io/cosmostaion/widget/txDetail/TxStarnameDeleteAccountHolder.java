@@ -32,6 +32,7 @@ public class TxStarnameDeleteAccountHolder extends TxHolder {
             Tx.MsgDeleteAccount msg = Tx.MsgDeleteAccount.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemAccount.setText(msg.getName() + "*" + msg.getDomain());
             itemOwner.setText(msg.getOwner());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

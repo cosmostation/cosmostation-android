@@ -22,12 +22,12 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_DELEGATE_CHECK = 9106;
 
-    private TextView        mDelegateAmount;
-    private TextView        mFeeAmount;
-    private TextView        mValidatorName, mMemo;
-    private Button          mBeforeBtn, mConfirmBtn;
-    private TextView        mDenomDelegateAmount, mDenomFeeType;
-    private int             mDpDecimal = 6;
+    private TextView mDelegateAmount;
+    private TextView mFeeAmount;
+    private TextView mValidatorName, mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
+    private TextView mDenomDelegateAmount, mDenomFeeType;
+    private int mDpDecimal = 6;
 
 
     public static DelegateStep3Fragment newInstance(Bundle bundle) {
@@ -44,14 +44,14 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_delegate_step3, container, false);
-        mDelegateAmount         = rootView.findViewById(R.id.delegate_atom);
-        mDenomDelegateAmount    = rootView.findViewById(R.id.delegate_amount_title);
-        mFeeAmount              = rootView.findViewById(R.id.delegate_fees);
-        mDenomFeeType           = rootView.findViewById(R.id.delegate_fees_type);
-        mValidatorName          = rootView.findViewById(R.id.to_delegate_moniker);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mDelegateAmount = rootView.findViewById(R.id.delegate_atom);
+        mDenomDelegateAmount = rootView.findViewById(R.id.delegate_amount_title);
+        mFeeAmount = rootView.findViewById(R.id.delegate_fees);
+        mDenomFeeType = rootView.findViewById(R.id.delegate_fees_type);
+        mValidatorName = rootView.findViewById(R.id.to_delegate_moniker);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomDelegateAmount);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
@@ -74,7 +74,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -95,7 +95,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private DelegateActivity getSActivity() {
-        return (DelegateActivity)getBaseActivity();
+        return (DelegateActivity) getBaseActivity();
     }
 
 

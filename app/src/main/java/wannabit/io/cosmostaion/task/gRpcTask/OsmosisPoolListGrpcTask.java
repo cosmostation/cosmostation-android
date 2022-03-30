@@ -1,6 +1,11 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
+import com.google.protobuf2.Any;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -15,11 +20,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
-import com.google.protobuf2.Any;
 
 public class OsmosisPoolListGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -40,13 +40,15 @@ public class OsmosisPoolListGrpcTask extends CommonTask {
             QueryOuterClass.QueryPoolsRequest request = QueryOuterClass.QueryPoolsRequest.newBuilder().setPagination(pageRequest).build();
             QueryOuterClass.QueryPoolsResponse response = mStub.pools(request);
 
-            for (Any pool: response.getPoolsList()) {
+            for (Any pool : response.getPoolsList()) {
                 mResultData.add(BalancerPool.Pool.parseFrom(pool.getValue()));
             }
             mResult.resultData = mResultData;
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "OsmosisGrpcPoolListTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("OsmosisGrpcPoolListTask " + e.getMessage());
+        }
         return mResult;
     }
 

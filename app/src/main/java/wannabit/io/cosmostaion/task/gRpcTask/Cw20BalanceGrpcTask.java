@@ -23,9 +23,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class Cw20BalanceGrpcTask extends CommonTask {
-    private BaseChain   mChain;
-    private Account     mAccount;
-    private String      mContAddress;
+    private BaseChain mChain;
+    private Account mAccount;
+    private String mContAddress;
     private QueryGrpc.QueryBlockingStub mStub;
 
     public Cw20BalanceGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account, String contAddress) {

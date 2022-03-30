@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
-import wannabit.io.cosmostaion.utils.WDp;
 
 public class CdpIncentiveHolder extends BaseHolder {
     TextView itemIncentiveAmount, itemIncentiveAmountDenom;

@@ -17,17 +17,17 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnClickListener{
+public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mExitMyShare;
-    private TextView        mExitOutput0Amount, mExitOutput0AmountSymbol;
-    private TextView        mExitOutput1Amount, mExitOutput1AmountSymbol;
-    private TextView        mMemo;
-    private int             mDpDecimal = 6;
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mExitMyShare;
+    private TextView mExitOutput0Amount, mExitOutput0AmountSymbol;
+    private TextView mExitOutput1Amount, mExitOutput1AmountSymbol;
+    private TextView mMemo;
+    private int mDpDecimal = 6;
 
-    private Button          mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static WithdrawPoolStep3Fragment newInstance(Bundle bundle) {
         WithdrawPoolStep3Fragment fragment = new WithdrawPoolStep3Fragment();
@@ -43,16 +43,16 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_withdraw_pool_step3, container, false);
-        mFeeAmount                  = rootView.findViewById(R.id.exit_fee_amount);
-        mFeeAmountSymbol            = rootView.findViewById(R.id.exit_fee_amount_symbol);
-        mExitMyShare                = rootView.findViewById(R.id.tx_kava_my_share);
-        mExitOutput0Amount          = rootView.findViewById(R.id.tx_kava_withdraw_amount0);
-        mExitOutput0AmountSymbol    = rootView.findViewById(R.id.tx_kava_withdraw_symbol0);
-        mExitOutput1Amount          = rootView.findViewById(R.id.tx_kava_withdraw_amount1);
-        mExitOutput1AmountSymbol    = rootView.findViewById(R.id.tx_kava_withdraw_symbol1);
-        mMemo                       = rootView.findViewById(R.id.memo);
-        mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.exit_fee_amount);
+        mFeeAmountSymbol = rootView.findViewById(R.id.exit_fee_amount_symbol);
+        mExitMyShare = rootView.findViewById(R.id.tx_kava_my_share);
+        mExitOutput0Amount = rootView.findViewById(R.id.tx_kava_withdraw_amount0);
+        mExitOutput0AmountSymbol = rootView.findViewById(R.id.tx_kava_withdraw_symbol0);
+        mExitOutput1Amount = rootView.findViewById(R.id.tx_kava_withdraw_amount1);
+        mExitOutput1AmountSymbol = rootView.findViewById(R.id.tx_kava_withdraw_symbol1);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -76,7 +76,7 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -85,6 +85,6 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
     }
 
     private WithDrawPoolActivity getSActivity() {
-        return (WithDrawPoolActivity)getBaseActivity();
+        return (WithDrawPoolActivity) getBaseActivity();
     }
 }

@@ -40,7 +40,7 @@ public class Dialog_LockTime extends DialogFragment {
         lockTime_immediately.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppLockSetActivity)getActivity()).onUpdateLockTime(0);
+                ((AppLockSetActivity) getActivity()).onUpdateLockTime(0);
                 getDialog().dismiss();
 
             }
@@ -49,7 +49,7 @@ public class Dialog_LockTime extends DialogFragment {
         lockTime_10sec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppLockSetActivity)getActivity()).onUpdateLockTime(1);
+                ((AppLockSetActivity) getActivity()).onUpdateLockTime(1);
                 getDialog().dismiss();
 
             }
@@ -58,7 +58,7 @@ public class Dialog_LockTime extends DialogFragment {
         lockTime_30sec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppLockSetActivity)getActivity()).onUpdateLockTime(2);
+                ((AppLockSetActivity) getActivity()).onUpdateLockTime(2);
                 getDialog().dismiss();
             }
         });
@@ -66,7 +66,7 @@ public class Dialog_LockTime extends DialogFragment {
         lockTime_60sec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppLockSetActivity)getActivity()).onUpdateLockTime(3);
+                ((AppLockSetActivity) getActivity()).onUpdateLockTime(3);
                 getDialog().dismiss();
 
             }

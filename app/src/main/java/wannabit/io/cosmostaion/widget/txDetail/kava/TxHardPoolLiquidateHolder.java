@@ -34,6 +34,7 @@ public class TxHardPoolLiquidateHolder extends TxHolder {
             itemKeeper.setText(msg.getKeeper());
             itemBorrower.setText(msg.getBorrower());
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

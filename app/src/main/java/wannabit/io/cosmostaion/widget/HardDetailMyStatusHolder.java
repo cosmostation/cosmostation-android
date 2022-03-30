@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -23,43 +21,41 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-
 public class HardDetailMyStatusHolder extends BaseHolder {
-    private ImageView       mDepositCoinImg;
-    private TextView        mDepositCoinTitle;
-    private TextView        mDepositAmountTv, mDepositDenomTv, mDepositValueTv;
-    private TextView        mBorrowedAmountTv, mBorrowedDenomTv, mBorrowedValueTv;
-    private TextView        mBorrowableAmountTv, mBorrowableDenomTv, mBorrowableValueTv;
-    private RelativeLayout  mMyBtnSupply, mMyBtnWithdraw, mMyBtnBorrow, mMyBtnRepay;
+    private ImageView mDepositCoinImg;
+    private TextView mDepositCoinTitle;
+    private TextView mDepositAmountTv, mDepositDenomTv, mDepositValueTv;
+    private TextView mBorrowedAmountTv, mBorrowedDenomTv, mBorrowedValueTv;
+    private TextView mBorrowableAmountTv, mBorrowableDenomTv, mBorrowableValueTv;
+    private RelativeLayout mMyBtnSupply, mMyBtnWithdraw, mMyBtnBorrow, mMyBtnRepay;
 
     public HardDetailMyStatusHolder(@NonNull View itemView) {
         super(itemView);
-        mDepositCoinImg         = itemView.findViewById(R.id.deposit_icon);
-        mDepositCoinTitle       = itemView.findViewById(R.id.deposit_denom);
+        mDepositCoinImg = itemView.findViewById(R.id.deposit_icon);
+        mDepositCoinTitle = itemView.findViewById(R.id.deposit_denom);
 
-        mDepositAmountTv        = itemView.findViewById(R.id.deposited_amount);
-        mDepositDenomTv         = itemView.findViewById(R.id.deposited_symbol);
-        mDepositValueTv         = itemView.findViewById(R.id.deposited_value);
-        mBorrowedAmountTv       = itemView.findViewById(R.id.borrowed_amount);
-        mBorrowedDenomTv        = itemView.findViewById(R.id.borrowed_symbol);
-        mBorrowedValueTv        = itemView.findViewById(R.id.borrowed_value);
-        mBorrowableAmountTv     = itemView.findViewById(R.id.borrowable_amount);
-        mBorrowableDenomTv      = itemView.findViewById(R.id.borrowable_symbol);
-        mBorrowableValueTv      = itemView.findViewById(R.id.borrowable_value);
+        mDepositAmountTv = itemView.findViewById(R.id.deposited_amount);
+        mDepositDenomTv = itemView.findViewById(R.id.deposited_symbol);
+        mDepositValueTv = itemView.findViewById(R.id.deposited_value);
+        mBorrowedAmountTv = itemView.findViewById(R.id.borrowed_amount);
+        mBorrowedDenomTv = itemView.findViewById(R.id.borrowed_symbol);
+        mBorrowedValueTv = itemView.findViewById(R.id.borrowed_value);
+        mBorrowableAmountTv = itemView.findViewById(R.id.borrowable_amount);
+        mBorrowableDenomTv = itemView.findViewById(R.id.borrowable_symbol);
+        mBorrowableValueTv = itemView.findViewById(R.id.borrowable_value);
 
-        mMyBtnSupply            = itemView.findViewById(R.id.btn_deposit);
-        mMyBtnWithdraw          = itemView.findViewById(R.id.btn_withdraw);
-        mMyBtnBorrow            = itemView.findViewById(R.id.btn_borrow);
-        mMyBtnRepay             = itemView.findViewById(R.id.btn_repay);
+        mMyBtnSupply = itemView.findViewById(R.id.btn_deposit);
+        mMyBtnWithdraw = itemView.findViewById(R.id.btn_withdraw);
+        mMyBtnBorrow = itemView.findViewById(R.id.btn_borrow);
+        mMyBtnRepay = itemView.findViewById(R.id.btn_repay);
     }
 
     @Override
     public void onBindHardDetailMyStatus(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom, ArrayList<QueryOuterClass.DepositResponse> myDeposit,
                                          ArrayList<QueryOuterClass.BorrowResponse> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<CoinOuterClass.Coin> reserveCoin) {
 
-        final Hard.Params hardParam                         = baseData.mHardParams;
-        final Hard.MoneyMarket hardMoneyMarket              = WUtil.getHardMoneyMarket(hardParam, denom);
+        final Hard.Params hardParam = baseData.mHardParams;
+        final Hard.MoneyMarket hardMoneyMarket = WUtil.getHardMoneyMarket(hardParam, denom);
 
         WUtil.DpKavaTokenImg(baseData, mDepositCoinImg, hardMoneyMarket.getDenom());
         WUtil.dpKavaTokenName(context, baseData, mDepositCoinTitle, hardMoneyMarket.getDenom());

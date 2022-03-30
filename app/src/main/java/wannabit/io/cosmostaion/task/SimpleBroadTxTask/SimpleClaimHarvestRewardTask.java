@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_KAVA_CLAIM_HARVEST;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -28,13 +30,10 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_KAVA_CLAIM_HARVEST;
-
 public class SimpleClaimHarvestRewardTask extends CommonTask {
 
     private Account mAccount;
-//    private String mDepositDenom;
+    //    private String mDepositDenom;
 //    private String mDepositType;
     private String mMultiplierName;
     private String mMemo;

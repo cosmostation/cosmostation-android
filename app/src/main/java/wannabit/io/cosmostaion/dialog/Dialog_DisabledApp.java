@@ -29,12 +29,12 @@ public class Dialog_DisabledApp extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_disabled_app, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_disabled_app, null);
         Button btn_positive = view.findViewById(R.id.btn_posi);
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((IntroActivity)getActivity()).onTerminateApp();
+                ((IntroActivity) getActivity()).onTerminateApp();
                 getDialog().dismiss();
             }
         });

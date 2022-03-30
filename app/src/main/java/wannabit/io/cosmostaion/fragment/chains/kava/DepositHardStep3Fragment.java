@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +18,9 @@ import wannabit.io.cosmostaion.activities.chains.kava.DepositHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class DepositHardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button   mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
     private TextView mDepositAmount, mDepositDenom;
     private TextView mFeesAmount, mFeesDenom;
     private TextView mMemo;
@@ -72,6 +72,6 @@ public class DepositHardStep3Fragment extends BaseFragment implements View.OnCli
     }
 
     private DepositHardActivity getSActivity() {
-        return (DepositHardActivity)getBaseActivity();
+        return (DepositHardActivity) getBaseActivity();
     }
 }

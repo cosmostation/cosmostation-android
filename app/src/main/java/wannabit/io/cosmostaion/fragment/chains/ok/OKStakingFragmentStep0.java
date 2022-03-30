@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -26,25 +32,19 @@ import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-
 public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClickListener {
 
-    private Button      mCancel, mNextBtn;
-    private EditText    mAmountInput;
-    private TextView    mAvailableAmount;
-    private TextView    mAvailableDenom;
-    private ImageView   mClearAll;
-    private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
-    private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
+    private Button mCancel, mNextBtn;
+    private EditText mAmountInput;
+    private TextView mAvailableAmount;
+    private TextView mAvailableDenom;
+    private ImageView mClearAll;
+    private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    private int                 mDpDecimal = 18;
-    private String              mDecimalChecker, mDecimalSetter,
-                                mDecimalDivider2, mDecimalDivider1;
+    private int mDpDecimal = 18;
+    private String mDecimalChecker, mDecimalSetter,
+            mDecimalDivider2, mDecimalDivider1;
 
     public static OKStakingFragmentStep0 newInstance(Bundle bundle) {
         OKStakingFragmentStep0 fragment = new OKStakingFragmentStep0();
@@ -84,15 +84,17 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
 
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
+                if (TextUtils.isEmpty(es)) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -100,7 +102,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
                 } else if (es.endsWith(".")) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mAmountInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mAmountInput.setText("0");
                     mAmountInput.setSelection(1);
                 }
@@ -112,7 +114,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -133,7 +135,8 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
                             }
                         }
 
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -151,7 +154,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
             if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
                 myValidatorCnt = getBaseDao().mOkStaking.validator_address.size();
             }
-            BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
+            BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal("" + myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
             BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK).subtract(feeAmount);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
@@ -164,7 +167,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(isValidateDepositAmount()) {
+            if (isValidateDepositAmount()) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
@@ -173,7 +176,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());
@@ -181,7 +184,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
@@ -189,7 +192,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
@@ -197,7 +200,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
         } else if (v.equals(mAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
@@ -249,17 +252,17 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
         mDecimalSetter = "0.";
         mDecimalDivider2 = "2";
         mDecimalDivider1 = "1";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
             mDecimalDivider2 = mDecimalDivider2 + "0";
             mDecimalDivider1 = mDecimalDivider1 + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
-            mDecimalSetter = mDecimalSetter+"0";
+        for (int i = 0; i < decimals - 1; i++) {
+            mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
     private OKStakingActivity getSActivity() {
-        return (OKStakingActivity)getBaseActivity();
+        return (OKStakingActivity) getBaseActivity();
     }
 }

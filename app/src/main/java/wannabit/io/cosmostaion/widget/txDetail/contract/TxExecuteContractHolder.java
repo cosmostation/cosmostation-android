@@ -21,18 +21,18 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxExecuteContractHolder extends TxHolder {
-    ImageView       itemMsgImg;
-    TextView        itemContractType, itemContractExecutor, itemContractAddress, itemContractMsg, itemContractAmount, itemContractDenom;
+    ImageView itemMsgImg;
+    TextView itemContractType, itemContractExecutor, itemContractAddress, itemContractMsg, itemContractAmount, itemContractDenom;
 
     public TxExecuteContractHolder(@NonNull View itemView) {
         super(itemView);
-        itemMsgImg              = itemView.findViewById(R.id.tx_msg_icon);
-        itemContractType        = itemView.findViewById(R.id.contract_type);
-        itemContractExecutor    = itemView.findViewById(R.id.contract_executor);
-        itemContractAddress     = itemView.findViewById(R.id.contract_address);
-        itemContractMsg         = itemView.findViewById(R.id.contract_msg);
-        itemContractAmount      = itemView.findViewById(R.id.contract_amount);
-        itemContractDenom       = itemView.findViewById(R.id.contract_denom);
+        itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+        itemContractType = itemView.findViewById(R.id.contract_type);
+        itemContractExecutor = itemView.findViewById(R.id.contract_executor);
+        itemContractAddress = itemView.findViewById(R.id.contract_address);
+        itemContractMsg = itemView.findViewById(R.id.contract_msg);
+        itemContractAmount = itemView.findViewById(R.id.contract_amount);
+        itemContractDenom = itemView.findViewById(R.id.contract_denom);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -55,6 +55,7 @@ public class TxExecuteContractHolder extends TxHolder {
                 itemContractDenom.setText("");
             }
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

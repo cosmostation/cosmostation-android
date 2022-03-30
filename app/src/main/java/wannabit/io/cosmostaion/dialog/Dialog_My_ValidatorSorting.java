@@ -23,9 +23,9 @@ public class Dialog_My_ValidatorSorting extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_my_validator_sorting, container, false);
-        Button name      = view.findViewById(R.id.btn_name);
-        Button delegated      = view.findViewById(R.id.btn_delegated);
-        Button reward      = view.findViewById(R.id.btn_reward);
+        Button name = view.findViewById(R.id.btn_name);
+        Button delegated = view.findViewById(R.id.btn_delegated);
+        Button reward = view.findViewById(R.id.btn_reward);
 
 
         name.setOnClickListener(new View.OnClickListener() {

@@ -19,12 +19,12 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView    mRewardAmount, mFeeAmount;
-    private TextView    mRewardDenom, mFeeDenom;
-    private TextView    mValidator, mMemo, mCurrentAmount, mExpectedAmount;
-    private TextView    mCurrentDenom, mExpectedDenom;
-    private Button      mBeforeBtn, mConfirmBtn;
-    private int         mDpDecimal = 6;
+    private TextView mRewardAmount, mFeeAmount;
+    private TextView mRewardDenom, mFeeDenom;
+    private TextView mValidator, mMemo, mCurrentAmount, mExpectedAmount;
+    private TextView mCurrentDenom, mExpectedDenom;
+    private Button mBeforeBtn, mConfirmBtn;
+    private int mDpDecimal = 6;
 
 
     public static ReInvestStep3Fragment newInstance(Bundle bundle) {
@@ -41,19 +41,19 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reinvest_step3, container, false);
-        mRewardAmount       = rootView.findViewById(R.id.reward_amount);
-        mRewardDenom        = rootView.findViewById(R.id.reward_amount_title);
-        mFeeAmount          = rootView.findViewById(R.id.reward_fees);
-        mFeeDenom           = rootView.findViewById(R.id.reward_fees_type);
-        mValidator          = rootView.findViewById(R.id.reward_moniker);
-        mMemo               = rootView.findViewById(R.id.memo);
-        mCurrentAmount      = rootView.findViewById(R.id.current_delegation);
-        mCurrentDenom       = rootView.findViewById(R.id.current_delegation_title);
-        mExpectedAmount     = rootView.findViewById(R.id.expected_delegation);
-        mExpectedDenom      = rootView.findViewById(R.id.expected_delegation_title);
+        mRewardAmount = rootView.findViewById(R.id.reward_amount);
+        mRewardDenom = rootView.findViewById(R.id.reward_amount_title);
+        mFeeAmount = rootView.findViewById(R.id.reward_fees);
+        mFeeDenom = rootView.findViewById(R.id.reward_fees_type);
+        mValidator = rootView.findViewById(R.id.reward_moniker);
+        mMemo = rootView.findViewById(R.id.memo);
+        mCurrentAmount = rootView.findViewById(R.id.current_delegation);
+        mCurrentDenom = rootView.findViewById(R.id.current_delegation_title);
+        mExpectedAmount = rootView.findViewById(R.id.expected_delegation);
+        mExpectedDenom = rootView.findViewById(R.id.expected_delegation_title);
 
-        mBeforeBtn          = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mRewardDenom);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
@@ -81,11 +81,11 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            if(onCheckValidateRewardAndFee()) {
+            if (onCheckValidateRewardAndFee()) {
                 getSActivity().onStartReInvest();
 
             } else {
@@ -99,12 +99,12 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private boolean onCheckValidateRewardAndFee() {
-        BigDecimal reward       = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
-        BigDecimal feeAtom      = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        BigDecimal reward = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
+        BigDecimal feeAtom = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         return feeAtom.compareTo(reward) < 0;
     }
 
     private ReInvestActivity getSActivity() {
-        return (ReInvestActivity)getBaseActivity();
+        return (ReInvestActivity) getBaseActivity();
     }
 }

@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -15,9 +18,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class BalanceGrpcTask extends CommonTask {
     private BaseChain mChain;
     private String mAddress;
@@ -29,7 +29,8 @@ public class BalanceGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAddress = address;
         this.mResult.taskType = TASK_GRPC_FETCH_BALANCE;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        ;
     }
 
     @Override
@@ -48,7 +49,9 @@ public class BalanceGrpcTask extends CommonTask {
             this.mResult.resultData = mResultData;
 //            WLog.w("Balance " + mResultData.size());
 
-        } catch (Exception e) { WLog.e( "BalanceGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("BalanceGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 
@@ -62,7 +65,9 @@ public class BalanceGrpcTask extends CommonTask {
                 pageJob(response.getPagination().getNextKey());
             }
 
-        } catch (Exception e) { WLog.e( "BalanceGrpcTask pageJob "+ e.getMessage()); }
-        return  null;
+        } catch (Exception e) {
+            WLog.e("BalanceGrpcTask pageJob " + e.getMessage());
+        }
+        return null;
     }
 }

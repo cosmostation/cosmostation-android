@@ -25,34 +25,36 @@ import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 
 
 public class HdacUtil {
-    private final static String         HDAC_BURN_ADDRESS_TEST      = "hXXXXXXXXXXXXXXXXXXXXXXXXXXXYHCpEz";
-    private final static String         HDAC_BURN_ADDRESS_MAIN      = "HJXXXXXXXXXXXXXXXXXXXXXXXXXXVarS5i";
+    private final static String HDAC_BURN_ADDRESS_TEST = "hXXXXXXXXXXXXXXXXXXXXXXXXXXXYHCpEz";
+    private final static String HDAC_BURN_ADDRESS_MAIN = "HJXXXXXXXXXXXXXXXXXXXXXXXXXXVarS5i";
 
-    private final static BigDecimal     HDAC_TXFEE                  = new BigDecimal("10000000");
+    private final static BigDecimal HDAC_TXFEE = new BigDecimal("10000000");
 
-    protected final static int          mAddressHeader_Mainnet = 40;
-    protected final static int          mAddressHeader_Testnet = 100;
-    protected final static String       mAddressChecksumValue_Mainnet = "48444143";;
-    protected final static String       mAddressChecksumValue_Testnet = "48545354";
+    protected final static int mAddressHeader_Mainnet = 40;
+    protected final static int mAddressHeader_Testnet = 100;
+    protected final static String mAddressChecksumValue_Mainnet = "48444143";
+    ;
+    protected final static String mAddressChecksumValue_Testnet = "48545354";
 
 
-    private HdacNetworkParams           mParams;
-    private DeterministicHierarchy      mDeterministicHierarchy;
-    private DeterministicKey            mMasterKey;
+    private HdacNetworkParams mParams;
+    private DeterministicHierarchy mDeterministicHierarchy;
+    private DeterministicKey mMasterKey;
 
 
     public HdacUtil(List<String> words) {
         try {
-            DeterministicSeed dSeed         = new DeterministicSeed(words, null, "", 0);
-            this.mParams                    = HdacNetworkParams.getDefault();
-            this.mMasterKey                 = HDKeyDerivation.createMasterPrivateKey(dSeed.getSeedBytes());
-            this.mDeterministicHierarchy    = new DeterministicHierarchy(mMasterKey);
-        } catch (Exception e) {}
+            DeterministicSeed dSeed = new DeterministicSeed(words, null, "", 0);
+            this.mParams = HdacNetworkParams.getDefault();
+            this.mMasterKey = HDKeyDerivation.createMasterPrivateKey(dSeed.getSeedBytes());
+            this.mDeterministicHierarchy = new DeterministicHierarchy(mMasterKey);
+        } catch (Exception e) {
+        }
     }
 
     public DeterministicKey getKey() {
         List<ChildNumber> parentPath = ImmutableList.of(new ChildNumber(44, true), new ChildNumber(200, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-        return mDeterministicHierarchy.deriveChild(parentPath, true, true,  new ChildNumber(0));
+        return mDeterministicHierarchy.deriveChild(parentPath, true, true, new ChildNumber(0));
     }
 
     public String getAddress(BaseChain baseChain) {
@@ -61,7 +63,7 @@ public class HdacUtil {
 
     public BigDecimal getBalance(BaseChain baseChain, ArrayList<HdacUtxo> utxos) {
         BigDecimal result = BigDecimal.ZERO;
-        for (HdacUtxo utxo: utxos){
+        for (HdacUtxo utxo : utxos) {
             if (baseChain.equals(BaseChain.RIZON_TEST)) {
                 if (utxo.satoshis > 0 && utxo.confirmations > 0) {
                     result = result.add(new BigDecimal(utxo.amount));
@@ -77,7 +79,7 @@ public class HdacUtil {
 
     public ArrayList<HdacUtxo> getRemainUtxo(BaseChain baseChain, ArrayList<HdacUtxo> utxos) {
         ArrayList<HdacUtxo> result = new ArrayList<>();
-        for (HdacUtxo utxo: utxos){
+        for (HdacUtxo utxo : utxos) {
             if (baseChain.equals(BaseChain.RIZON_TEST)) {
                 if (utxo.satoshis > 0 && utxo.confirmations >= 1) {
                     result.add(utxo);
@@ -101,7 +103,7 @@ public class HdacUtil {
 
         hdacTx.addOutput(toAddress, send_amount.longValue());
         hdacTx.addOutput(getAddress(baseChain), remain.longValue());
-        for (int i=0; i<utxos.size();i++) {
+        for (int i = 0; i < utxos.size(); i++) {
             UTXO utxo = utxos.get(i).toUTXO();
             hdacTx.addInput(utxo);
         }
@@ -119,10 +121,10 @@ public class HdacUtil {
         hdacTx.addOutput(toAddress, send_amount.longValue());
         hdacTx.addOutput(getAddress(baseChain), remain.longValue());
 
-        for (int i=0; i<utxos.size();i++) {
+        for (int i = 0; i < utxos.size(); i++) {
             UTXO utxo = utxos.get(i).toUTXO();
             ECKey ecKey = ECKey.fromPrivate(new BigInteger(getKey().getPrivateKeyAsHex(), 16));
-            if(ecKey!=null) hdacTx.addSignedInput(utxo, ecKey);
+            if (ecKey != null) hdacTx.addSignedInput(utxo, ecKey);
         }
         txHex = hdacTx.getTxBuilder().toHex();
         return txHex;
@@ -141,7 +143,7 @@ public class HdacUtil {
         }
         hdacTx.addOpReturnOutput(rizonAddress.getBytes());
 
-        for (int i=0; i<utxos.size();i++) {
+        for (int i = 0; i < utxos.size(); i++) {
             UTXO utxo = utxos.get(i).toUTXO();
             hdacTx.addInput(utxo);
         }
@@ -162,26 +164,28 @@ public class HdacUtil {
         }
         hdacTx.addOpReturnOutput(rizonAddress.getBytes());
 
-        for (int i=0; i<utxos.size();i++) {
+        for (int i = 0; i < utxos.size(); i++) {
             UTXO utxo = utxos.get(i).toUTXO();
             ECKey ecKey = ECKey.fromPrivate(new BigInteger(getKey().getPrivateKeyAsHex(), 16));
-            if(ecKey!=null) hdacTx.addSignedInput(utxo, ecKey);
+            if (ecKey != null) hdacTx.addSignedInput(utxo, ecKey);
         }
         txHex = hdacTx.getTxBuilder().toHex();
         return txHex;
     }
 
 
-
     public String convPubkeyToHdacAddress(byte[] buf, BaseChain baseChain) {
         byte[] hash = ripemd160(sha256(buf));
         byte[] payload = new byte[hash.length + 1];
 //        payload[0] = (byte)mParams.getAddressHeader();
-        if (!baseChain.equals(BaseChain.RIZON_TEST)) { payload[0] = (byte)mAddressHeader_Mainnet; }
-        else { payload[0] = (byte)mAddressHeader_Testnet; }
+        if (!baseChain.equals(BaseChain.RIZON_TEST)) {
+            payload[0] = (byte) mAddressHeader_Mainnet;
+        } else {
+            payload[0] = (byte) mAddressHeader_Testnet;
+        }
 
-        for(int i=0;i<hash.length;i++) {
-            payload[i+1] = hash[i];
+        for (int i = 0; i < hash.length; i++) {
+            payload[i + 1] = hash[i];
         }
 
         ByteBuffer payloadHash = ByteBuffer.wrap(sha256(sha256(payload)));
@@ -190,32 +194,35 @@ public class HdacUtil {
         payloadHash.limit(4);
 
         byte[] checksum = new byte[4];
-        for(int cs_id=0;cs_id<checksum.length;cs_id++) {
+        for (int cs_id = 0; cs_id < checksum.length; cs_id++) {
             checksum[cs_id] = payloadHash.get(cs_id);
         }
         ArrayUtils.reverse(checksum);
 
 //        byte[] hdacChecksum = hexToByte(mParams.getAddressChecksumValue());
         byte[] hdacChecksum = null;
-        if (!baseChain.equals(BaseChain.RIZON_TEST)) { hdacChecksum = hexToByte(mAddressChecksumValue_Mainnet); }
-        else { hdacChecksum = hexToByte(mAddressChecksumValue_Testnet); }
+        if (!baseChain.equals(BaseChain.RIZON_TEST)) {
+            hdacChecksum = hexToByte(mAddressChecksumValue_Mainnet);
+        } else {
+            hdacChecksum = hexToByte(mAddressChecksumValue_Testnet);
+        }
 
         ArrayUtils.reverse(hdacChecksum);
         int length = hdacChecksum.length;//Math.max(checksum.length, hdacChecksum.length);
         byte[] checksumBuf = new byte[length];
         for (int i = 0; i < length; ++i) {
-            byte xor = (byte)(0xff & ((int)(i<checksum.length?checksum[i]:0) ^ (int)(i<hdacChecksum.length?hdacChecksum[i]:0)));
+            byte xor = (byte) (0xff & ((int) (i < checksum.length ? checksum[i] : 0) ^ (int) (i < hdacChecksum.length ? hdacChecksum[i] : 0)));
             checksumBuf[i] = xor;
         }
 
         byte[] hdacAddrByte = new byte[payload.length + length];
         int hdacAddrByte_index = 0;
-        for(;hdacAddrByte_index<payload.length;hdacAddrByte_index++) {
+        for (; hdacAddrByte_index < payload.length; hdacAddrByte_index++) {
             hdacAddrByte[hdacAddrByte_index] = payload[hdacAddrByte_index];
         }
 
         ArrayUtils.reverse(checksumBuf);
-        for(int i=0; i<checksumBuf.length; i++) {
+        for (int i = 0; i < checksumBuf.length; i++) {
             hdacAddrByte[hdacAddrByte_index + i] = checksumBuf[i];
         }
         return Base58.encode(hdacAddrByte);
@@ -239,6 +246,6 @@ public class HdacUtil {
     }
 
     public static byte[] hexToByte(String hex) {
-        return new BigInteger(hex,16).toByteArray();
+        return new BigInteger(hex, 16).toByteArray();
     }
 }

@@ -33,6 +33,7 @@ public class TxSetAddressHolder extends TxHolder {
             cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress msg = cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemDelegator.setText(msg.getDelegatorAddress());
             itemWithdrawAddress.setText(msg.getWithdrawAddress());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

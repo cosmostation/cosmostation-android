@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICE_TOKEN;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,39 +39,36 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceTokenGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICE_TOKEN;
-
 public class CreateCdpActivity extends BaseBroadCastActivity implements TaskListener {
 
-    private RelativeLayout              mRootView;
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ImageView                   mIvStep;
-    private TextView                    mTvStep;
-    private ViewPager                   mViewPager;
-    private CreateCdpPageAdapter        mPageAdapter;
+    private RelativeLayout mRootView;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private CreateCdpPageAdapter mPageAdapter;
 
-    private String                                  mMaketId;
-    public Genesis.Params                           mCdpParams;
-    public Genesis.CollateralParam                  mCollateralParam;
-    public QueryOuterClass.CurrentPriceResponse     mKavaTokenPrice;
+    private String mMaketId;
+    public Genesis.Params mCdpParams;
+    public Genesis.CollateralParam mCollateralParam;
+    public QueryOuterClass.CurrentPriceResponse mKavaTokenPrice;
 
-    public BigDecimal                   toCollateralAmount = BigDecimal.ZERO;
-    public BigDecimal                   toPrincipalAmount = BigDecimal.ZERO;
-    public BigDecimal                   mLiquidationPrice = BigDecimal.ZERO;
-    public BigDecimal                   mRiskRate = BigDecimal.ZERO;
+    public BigDecimal toCollateralAmount = BigDecimal.ZERO;
+    public BigDecimal toPrincipalAmount = BigDecimal.ZERO;
+    public BigDecimal mLiquidationPrice = BigDecimal.ZERO;
+    public BigDecimal mRiskRate = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView           = findViewById(R.id.root_view);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mTitle              = findViewById(R.id.toolbar_title);
-        mIvStep             = findViewById(R.id.send_step);
-        mTvStep             = findViewById(R.id.send_step_msg);
-        mViewPager          = findViewById(R.id.view_pager);
+        mRootView = findViewById(R.id.root_view);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
+        mIvStep = findViewById(R.id.send_step);
+        mTvStep = findViewById(R.id.send_step_msg);
+        mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_create_cdp_c));
 
         setSupportActionBar(mToolbar);
@@ -98,21 +98,22 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
-                if(i == 0) {
+                if (i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_create_cdp_step_1));
-                } else if (i == 1 ) {
+                } else if (i == 1) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_create_cdp_step_2));
-                } else if (i == 2 ) {
+                } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_create_cdp_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 3 ) {
+                } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_create_cdp_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
@@ -120,7 +121,8 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         mViewPager.setCurrentItem(0);
 
@@ -149,7 +151,7 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -157,14 +159,14 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
     }
 
     public void onNextStep() {
-        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -228,6 +230,7 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
     }
 
     private int mTaskCount = 0;
+
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         mTaskCount = 1;
@@ -236,7 +239,7 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICE_TOKEN) {
             if (result.isSuccess && result.resultData != null) {

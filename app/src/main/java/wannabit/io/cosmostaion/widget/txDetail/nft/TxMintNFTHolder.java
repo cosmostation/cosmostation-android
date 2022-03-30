@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.widget.txDetail.nft;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,12 +19,9 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-
 public class TxMintNFTHolder extends TxHolder {
     ImageView itemMintNFTImg;
-    TextView  itemMintNFTTokenId, itemMintNFTDenomId, itemMintNFTName, itemMintNFTDescription, itemMintNFTUri;
+    TextView itemMintNFTTokenId, itemMintNFTDenomId, itemMintNFTName, itemMintNFTDescription, itemMintNFTUri;
 
     public TxMintNFTHolder(@NonNull View itemView) {
         super(itemView);
@@ -44,7 +44,8 @@ public class TxMintNFTHolder extends TxHolder {
                 itemMintNFTName.setText(msg.getName());
                 itemMintNFTDescription.setText(WUtil.getNftDescription(msg.getData()));
                 itemMintNFTUri.setText(msg.getUri());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         } else if (baseChain.equals(CRYPTO_MAIN)) {
             try {
                 chainmain.nft.v1.Tx.MsgMintNFT msg = chainmain.nft.v1.Tx.MsgMintNFT.parseFrom(response.getTx().getBody().getMessages(position).getValue());
@@ -53,7 +54,8 @@ public class TxMintNFTHolder extends TxHolder {
                 itemMintNFTName.setText(msg.getName());
                 itemMintNFTDescription.setText(WUtil.getNftDescription(msg.getData()));
                 itemMintNFTUri.setText(msg.getUri());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
     }
 }

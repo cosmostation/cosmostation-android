@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/rootLayer"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout android:id="@+id/rootLayer"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
@@ -12,6 +9,7 @@
     android:paddingTop="@dimen/space_4"
     android:paddingBottom="@dimen/space_4"
     android:clickable="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,16 +17,19 @@
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:background="@drawable/box_et_white">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4">
+
             <ImageView
                 android:id="@+id/accountKeyState"
                 android:layout_width="@dimen/space_24"
                 android:layout_height="@dimen/space_24"
                 android:layout_centerVertical="true"
-                android:src="@drawable/key_off"/>
+                android:src="@drawable/key_off" />
+
             <TextView
                 android:id="@+id/accountName"
                 android:layout_width="wrap_content"
@@ -39,7 +40,8 @@
                 android:layout_centerVertical="true"
                 style="@style/font_ss_14_gray8"
                 android:singleLine="true"
-                android:text="Wallet Name"/>
+                android:text="Wallet Name" />
+
             <TextView
                 android:id="@+id/accountAddress"
                 android:layout_width="match_parent"
@@ -52,8 +54,9 @@
                 android:ellipsize="middle"
                 android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                 android:singleLine="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,13 +64,15 @@
             android:gravity="right"
             android:orientation="horizontal"
             android:layout_marginBottom="@dimen/space_4">
+
             <TextView
                 android:id="@+id/accountAvailable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_2"
                 style="@style/font_ss_14_gray1"
-                android:text="-"/>
+                android:text="-" />
+
             <TextView
                 android:id="@+id/accountDenom"
                 android:layout_width="wrap_content"

@@ -30,7 +30,7 @@ public class Dialog_MoreSwapWait extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_more_swap_wait, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_more_swap_wait, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
@@ -56,6 +56,6 @@ public class Dialog_MoreSwapWait extends DialogFragment {
     }
 
     private HtlcResultActivity getTopActivity() {
-        return (HtlcResultActivity)getActivity();
+        return (HtlcResultActivity) getActivity();
     }
 }

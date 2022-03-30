@@ -146,7 +146,7 @@ public class WDp {
 
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
-                denomTv.setText("Unknown");
+                denomTv.setText(R.string.str_unknown);
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
             }
 
@@ -590,7 +590,7 @@ public class WDp {
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
 
             } else {
-                denomTv.setText("Unknown");
+                denomTv.setText(R.string.str_unknown);
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             }
             denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -1165,7 +1165,7 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_iris_test));
             }
         } else {
-            chainName.setText("Unknown");
+            chainName.setText(R.string.str_unknown);
         }
     }
 

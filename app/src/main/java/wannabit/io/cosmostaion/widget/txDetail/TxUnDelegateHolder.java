@@ -47,11 +47,12 @@ public class TxUnDelegateHolder extends TxHolder {
             cosmos.staking.v1beta1.Tx.MsgUndelegate msg = cosmos.staking.v1beta1.Tx.MsgUndelegate.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemUnDelegator.setText(msg.getDelegatorAddress());
             itemValidator.setText(msg.getValidatorAddress());
-            itemMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
+            itemMoniker.setText("(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
             itemUndelegateAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getAmount().getAmount()), dpDecimal, dpDecimal));
             itemAutoRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseAutoReward(response, msg.getDelegatorAddress(), position), dpDecimal, dpDecimal));
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
 }

@@ -6,9 +6,9 @@ import wannabit.io.cosmostaion.model.type.Coin;
 
 public class ResBnbSwapInfo {
 
-    public static final int BNB_STATUS_OPEN         = 1;
-    public static final int BNB_STATUS_COMPLETED    = 2;
-    public static final int BNB_STATUS_REFUNDED     = 3;
+    public static final int BNB_STATUS_OPEN = 1;
+    public static final int BNB_STATUS_COMPLETED = 2;
+    public static final int BNB_STATUS_REFUNDED = 3;
 
     @SerializedName("swapId")
     public String swapId;
@@ -30,6 +30,6 @@ public class ResBnbSwapInfo {
 
     public Coin getSendCoin() {
         String[] output = outAmount.split(":");
-        return new Coin(output[1].trim(),output[0].trim());
+        return new Coin(output[1].trim(), output[0].trim());
     }
 }

@@ -35,15 +35,15 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView       = inflater.inflate(R.layout.fragment_register_domain3, container, false);
-        mBeforeBtn          = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
-        mFeeAmount          = rootView.findViewById(R.id.tx_fee_amount);
-        mStarnameFeeAmount  = rootView.findViewById(R.id.starname_fee_amount);
-        mDomain             = rootView.findViewById(R.id.domain_name);
-        mExpireTime         = rootView.findViewById(R.id.expire_time);
-        mDomainType         = rootView.findViewById(R.id.domain_type);
-        mMemo               = rootView.findViewById(R.id.memo);
+        View rootView = inflater.inflate(R.layout.fragment_register_domain3, container, false);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.tx_fee_amount);
+        mStarnameFeeAmount = rootView.findViewById(R.id.starname_fee_amount);
+        mDomain = rootView.findViewById(R.id.domain_name);
+        mExpireTime = rootView.findViewById(R.id.expire_time);
+        mDomainType = rootView.findViewById(R.id.domain_type);
+        mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -66,7 +66,7 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -75,6 +75,6 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
     }
 
     private RegisterStarNameDomainActivity getSActivity() {
-        return (RegisterStarNameDomainActivity)getBaseActivity();
+        return (RegisterStarNameDomainActivity) getBaseActivity();
     }
 }

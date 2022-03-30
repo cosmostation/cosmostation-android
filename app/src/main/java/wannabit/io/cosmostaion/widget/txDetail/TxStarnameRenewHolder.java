@@ -38,7 +38,8 @@ public class TxStarnameRenewHolder extends TxHolder {
                 itemStarname.setText(msg.getName() + "*" + msg.getDomain());
                 itemSigner.setText(msg.getSigner());
                 return;
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         } else {
             try {
                 Tx.MsgRenewDomain msg = Tx.MsgRenewDomain.parseFrom(response.getTx().getBody().getMessages(position).getValue());
@@ -48,7 +49,8 @@ public class TxStarnameRenewHolder extends TxHolder {
                 itemStarname.setText("*" + msg.getDomain());
                 itemSigner.setText(msg.getSigner());
                 return;
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
     }
 }

@@ -13,10 +13,10 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class Proposal {
 
-    public final static String PROPOSAL_DEPOSIT         = "DepositPeriod";
-    public final static String PROPOSAL_VOTING          = "VotingPeriod";
-    public final static String PROPOSAL_REJECTED        = "Rejected";
-    public final static String PROPOSAL_PASSED          = "Passed";
+    public final static String PROPOSAL_DEPOSIT = "DepositPeriod";
+    public final static String PROPOSAL_VOTING = "VotingPeriod";
+    public final static String PROPOSAL_REJECTED = "Rejected";
+    public final static String PROPOSAL_PASSED = "Passed";
 
     @SerializedName("id")
     public String id;
@@ -76,11 +76,11 @@ public class Proposal {
     }
 
     public String getTitle() {
-        return "# " + id + ". "  + content.value.title;
+        return "# " + id + ". " + content.value.title;
     }
 
     public String getType() {
-        String[] split =  content.type.split("/");
+        String[] split = content.type.split("/");
         return split[split.length - 1];
 
     }

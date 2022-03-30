@@ -201,7 +201,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 //            startActivity(intent);
 //
         } else if (v.equals(mBtnDiscord)) {
-            Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
+            Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/BW2unf5s8X"));
             startActivity(telegram);
 
         } else if (v.equals(mBtnTerm)) {

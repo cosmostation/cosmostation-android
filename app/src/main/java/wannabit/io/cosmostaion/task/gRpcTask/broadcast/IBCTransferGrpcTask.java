@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -17,7 +21,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -27,25 +30,19 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class IBCTransferGrpcTask extends CommonTask {
 
-    private Account                 mAccount;
-    private BaseChain               mBaseChain;
-    private String                  mSender;
-    private String                  mReceiver;
-    private String                  mTokenDenom, mTokenAmount;
-    private String                  mPortId, mChannelId;
-    private Fee                     mFees;
-    private String                  mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mSender;
+    private String mReceiver;
+    private String mTokenDenom, mTokenAmount;
+    private String mPortId, mChannelId;
+    private Fee mFees;
+    private String mChainId;
 
-    private QueryOuterClass.QueryAccountResponse            mAuthResponse;
-    private ECKey                                           ecKey;
+    private QueryOuterClass.QueryAccountResponse mAuthResponse;
+    private ECKey ecKey;
     private ibc.core.channel.v1.QueryGrpc.QueryBlockingStub mStub;
 
     public IBCTransferGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recevier, String tokenDenom, String tokenAmount,
@@ -106,7 +103,7 @@ public class IBCTransferGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "IBCTransferGrpcTask "+ e.getMessage());
+            WLog.e("IBCTransferGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

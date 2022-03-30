@@ -28,7 +28,7 @@ public class Dialog_Wait extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wait, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wait, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);

@@ -1,16 +1,11 @@
 package wannabit.io.cosmostaion.model.type;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Result {
@@ -39,9 +34,10 @@ public class Result {
 
         }
         try {
-            ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(log), new TypeToken<List<Log>>(){}.getType());
-            for (Log log:temp) {
-                if(!log.success) {
+            ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(log), new TypeToken<List<Log>>() {
+            }.getType());
+            for (Log log : temp) {
+                if (!log.success) {
                     result = false;
                     break;
                 }

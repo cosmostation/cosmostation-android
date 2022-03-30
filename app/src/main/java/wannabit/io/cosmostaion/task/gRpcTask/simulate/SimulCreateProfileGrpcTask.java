@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_CREATE_PROFILE;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -23,16 +25,13 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_CREATE_PROFILE;
-
 public class SimulCreateProfileGrpcTask extends CommonTask {
 
-    private Account             mAccount;
-    private BaseChain           mBaseChain;
-    private String              mDtag, mNickname, mBio, mProfileUri, mCoverUri, mMemo;
-    private Fee                 mFees;
-    private String              mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mDtag, mNickname, mBio, mProfileUri, mCoverUri, mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

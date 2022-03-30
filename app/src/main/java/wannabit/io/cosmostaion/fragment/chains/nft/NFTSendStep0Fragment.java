@@ -45,12 +45,12 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
-    private EditText        mAddressInput;
-    private Button          mCancel, mNextBtn;
-    private LinearLayout    mStarNameLayer;
-    private LinearLayout    mBtnQr, mBtnPaste;
+    private EditText mAddressInput;
+    private Button mCancel, mNextBtn;
+    private LinearLayout mStarNameLayer;
+    private LinearLayout mBtnQr, mBtnPaste;
 
-    private String          mStarName;
+    private String mStarName;
 
     public static NFTSendStep0Fragment newInstance(Bundle bundle) {
         NFTSendStep0Fragment fragment = new NFTSendStep0Fragment();
@@ -103,7 +103,7 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                         public void run() {
                             mStarNameLayer.setVisibility(View.VISIBLE);
                         }
-                    },100);
+                    }, 100);
                 }
             }
         });
@@ -142,10 +142,10 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -160,7 +160,7 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private NFTSendActivity getSActivity() {
-        return (NFTSendActivity)getBaseActivity();
+        return (NFTSendActivity) getBaseActivity();
     }
 
 
@@ -175,8 +175,8 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if(result != null) {
-                if(result.getContents() != null) {
+            if (result != null) {
+                if (result.getContents() != null) {
                     mAddressInput.setText(result.getContents().trim());
                     mAddressInput.setSelection(mAddressInput.getText().length());
                 }
@@ -229,7 +229,8 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
             }
 
             @Override
-            public void onCompleted() { }
+            public void onCompleted() {
+            }
         });
     }
 }

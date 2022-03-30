@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_control">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,18 +23,19 @@
                 android:layout_marginTop="@dimen/space_24"
                 android:text="@string/str_domain_type"
                 style="@style/font_ss_12_gray1"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/domain_type_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     style="@style/font_ss_14_white"
-                    android:text="CLOSED"/>
+                    android:text="CLOSED" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_domain_type"
@@ -43,7 +45,7 @@
                     android:layout_centerVertical="true"
                     android:scaleType="fitXY"
                     android:checked="false"
-                    android:theme="@style/ColorSwitchStylesIov"/>
+                    android:theme="@style/ColorSwitchStylesIov" />
             </RelativeLayout>
 
             <TextView
@@ -51,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/font_ss_12_gray1"
-                android:text="@string/str_description_closed_domain"/>
+                android:text="@string/str_description_closed_domain" />
 
 
             <TextView
@@ -59,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/str_domain_to_register"
                 style="@style/font_ss_12_gray1"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,11 +69,13 @@
                 android:layout_marginTop="@dimen/space_16"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_26_white"
-                    android:text="*"/>
+                    android:text="*" />
+
                 <EditText
                     android:id="@+id/et_user_input"
                     android:layout_width="match_parent"
@@ -84,18 +88,19 @@
                     android:inputType="textNoSuggestions|textVisiblePassword"
                     android:paddingLeft="@dimen/space_4"
                     style="@style/font_ss_26_white"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/domain_valid_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4~32 lowercase alphabet or number"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
 
                 <TextView
                     android:id="@+id/starname_fee_denom"
@@ -103,7 +108,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="IOV"
-                    style="@style/font_ssl_14_iov"/>
+                    style="@style/font_ssl_14_iov" />
+
                 <TextView
                     android:id="@+id/starname_fee_amount"
                     android:layout_width="wrap_content"
@@ -111,14 +117,12 @@
                     android:layout_toLeftOf="@+id/starname_fee_denom"
                     android:layout_marginRight="@dimen/space_2"
                     android:text="-"
-                    style="@style/font_ssl_14_white"/>
+                    style="@style/font_ssl_14_white" />
             </RelativeLayout>
 
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-
 
 
     <LinearLayout
@@ -130,6 +134,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -140,7 +145,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -152,6 +158,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 </RelativeLayout>

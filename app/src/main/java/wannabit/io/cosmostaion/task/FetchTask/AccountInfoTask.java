@@ -23,8 +23,8 @@ public class AccountInfoTask extends CommonTask {
 
     public AccountInfoTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
-        this.mAccount           = account;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_ACCOUNT;
+        this.mAccount = account;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_ACCOUNT;
     }
 
     @Override
@@ -32,11 +32,11 @@ public class AccountInfoTask extends CommonTask {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BNB_MAIN)) {
                 Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
                 } else {
-                    mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
+                    mApp.getBaseDao().onDeleteBalance("" + mAccount.id);
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
@@ -51,7 +51,7 @@ public class AccountInfoTask extends CommonTask {
 
         } catch (Exception e) {
             WLog.w("AccountInfoTask Error " + e.getMessage());
-            mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
+            mApp.getBaseDao().onDeleteBalance("" + mAccount.id);
 
         }
         return mResult;

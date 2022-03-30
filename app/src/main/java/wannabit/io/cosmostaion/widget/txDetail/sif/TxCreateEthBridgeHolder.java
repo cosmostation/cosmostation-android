@@ -18,23 +18,23 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxCreateEthBridgeHolder extends TxHolder {
-    ImageView   itemEthBridgeImg;
-    TextView    itemClaimType,
-                itemBridgeAddress, itemTokenAddress, itemEthSender,
-                itemBridgeValidator, itemBridgeMoniker,
-                itemBridgeAssetAmount, itemBridgeAssetSymbol;
+    ImageView itemEthBridgeImg;
+    TextView itemClaimType,
+            itemBridgeAddress, itemTokenAddress, itemEthSender,
+            itemBridgeValidator, itemBridgeMoniker,
+            itemBridgeAssetAmount, itemBridgeAssetSymbol;
 
     public TxCreateEthBridgeHolder(@NonNull View itemView) {
         super(itemView);
-        itemEthBridgeImg        = itemView.findViewById(R.id.tx_eth_bridge_icon);
-        itemClaimType           = itemView.findViewById(R.id.tx_claim_type);
-        itemBridgeAddress       = itemView.findViewById(R.id.tx_bridge_contract_address);
-        itemTokenAddress        = itemView.findViewById(R.id.tx_token_contract_address);
-        itemEthSender           = itemView.findViewById(R.id.tx_ethereum_sender);
-        itemBridgeValidator     = itemView.findViewById(R.id.tx_bridge_validator);
-        itemBridgeMoniker       = itemView.findViewById(R.id.tx_bridge_moniker);
-        itemBridgeAssetAmount   = itemView.findViewById(R.id.tx_bridge_asset_amount);
-        itemBridgeAssetSymbol   = itemView.findViewById(R.id.tx_bridge_asset_symbol);
+        itemEthBridgeImg = itemView.findViewById(R.id.tx_eth_bridge_icon);
+        itemClaimType = itemView.findViewById(R.id.tx_claim_type);
+        itemBridgeAddress = itemView.findViewById(R.id.tx_bridge_contract_address);
+        itemTokenAddress = itemView.findViewById(R.id.tx_token_contract_address);
+        itemEthSender = itemView.findViewById(R.id.tx_ethereum_sender);
+        itemBridgeValidator = itemView.findViewById(R.id.tx_bridge_validator);
+        itemBridgeMoniker = itemView.findViewById(R.id.tx_bridge_moniker);
+        itemBridgeAssetAmount = itemView.findViewById(R.id.tx_bridge_asset_amount);
+        itemBridgeAssetSymbol = itemView.findViewById(R.id.tx_bridge_asset_symbol);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -47,7 +47,7 @@ public class TxCreateEthBridgeHolder extends TxHolder {
             itemTokenAddress.setText(msg.getEthBridgeClaim().getTokenContractAddress());
             itemEthSender.setText(msg.getEthBridgeClaim().getEthereumSender());
             itemBridgeValidator.setText(msg.getEthBridgeClaim().getValidatorAddress());
-            itemBridgeMoniker.setText( "(" + baseData.getValidatorInfo(msg.getEthBridgeClaim().getValidatorAddress()).getDescription().getMoniker() + ")");
+            itemBridgeMoniker.setText("(" + baseData.getValidatorInfo(msg.getEthBridgeClaim().getValidatorAddress()).getDescription().getMoniker() + ")");
 
             Coin coin = null;
             if (response.getTxResponse().getLogsCount() > position) {

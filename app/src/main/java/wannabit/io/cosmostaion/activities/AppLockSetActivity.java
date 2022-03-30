@@ -22,22 +22,22 @@ import wannabit.io.cosmostaion.dialog.Dialog_LockTime;
 
 public class AppLockSetActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar         mToolbar;
-    private FrameLayout     mBtnUsingAppLock, mBtnUsingFingerprint, mBtnAppLockTime;
-    private SwitchCompat    mSwitchUsingAppLock, mSwitchUsingFingerprint;
-    private TextView        mTvAppLockTime;
+    private Toolbar mToolbar;
+    private FrameLayout mBtnUsingAppLock, mBtnUsingFingerprint, mBtnAppLockTime;
+    private SwitchCompat mSwitchUsingAppLock, mSwitchUsingFingerprint;
+    private TextView mTvAppLockTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applock_set);
-        mToolbar                    = findViewById(R.id.tool_bar);
-        mBtnUsingAppLock            = findViewById(R.id.card_using_applock);
-        mBtnUsingFingerprint        = findViewById(R.id.card_using_fingerprint);
-        mBtnAppLockTime             = findViewById(R.id.card_applock_time);
-        mSwitchUsingAppLock         = findViewById(R.id.switch_using_applock);
-        mSwitchUsingFingerprint     = findViewById(R.id.switch_fingerprint);
-        mTvAppLockTime              = findViewById(R.id.applock_time_text);
+        mToolbar = findViewById(R.id.tool_bar);
+        mBtnUsingAppLock = findViewById(R.id.card_using_applock);
+        mBtnUsingFingerprint = findViewById(R.id.card_using_fingerprint);
+        mBtnAppLockTime = findViewById(R.id.card_applock_time);
+        mSwitchUsingAppLock = findViewById(R.id.switch_using_applock);
+        mSwitchUsingFingerprint = findViewById(R.id.switch_fingerprint);
+        mTvAppLockTime = findViewById(R.id.applock_time_text);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -65,7 +65,7 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
         mSwitchUsingAppLock.setChecked(getBaseDao().getUsingAppLock());
         mSwitchUsingFingerprint.setChecked(getBaseDao().getUsingFingerPrint());
         mTvAppLockTime.setText(getBaseDao().getAppLockLeaveTimeString(getBaseContext()));
-        if(getBaseDao().getUsingAppLock()) {
+        if (getBaseDao().getUsingAppLock()) {
             mBtnAppLockTime.setVisibility(View.VISIBLE);
             FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(this);
             if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
@@ -92,7 +92,7 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnUsingAppLock)) {
-            if(getBaseDao().getUsingAppLock()) {
+            if (getBaseDao().getUsingAppLock()) {
                 Intent intent = new Intent(AppLockSetActivity.this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
                 startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
@@ -100,7 +100,7 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
 
 
             } else {
-                if(getBaseDao().onHasPassword()) {
+                if (getBaseDao().onHasPassword()) {
                     getBaseDao().setUsingAppLock(true);
                     onUpdateView();
                 } else {

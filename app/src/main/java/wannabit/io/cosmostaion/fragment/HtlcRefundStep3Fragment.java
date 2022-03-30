@@ -18,9 +18,9 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class HtlcRefundStep3Fragment extends BaseFragment implements View.OnClickListener  {
+public class HtlcRefundStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button mBtnBack, mBtnConfirm ;
+    private Button mBtnBack, mBtnConfirm;
     private TextView mFeeAmount, mFeeDenom;
     private TextView mSwapId, mRefundAddress, mRefundAmount, mRefundAmountDenom;
 
@@ -84,6 +84,6 @@ public class HtlcRefundStep3Fragment extends BaseFragment implements View.OnClic
 
 
     private HtlcRefundActivity getSActivity() {
-        return (HtlcRefundActivity)getBaseActivity();
+        return (HtlcRefundActivity) getBaseActivity();
     }
 }

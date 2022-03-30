@@ -2,8 +2,9 @@ package wannabit.io.cosmostaion.crypto;
 
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import androidx.annotation.NonNull;
 import android.util.Base64;
+
+import androidx.annotation.NonNull;
 
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
@@ -19,12 +20,12 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class CryptoHelper {
 
-    private static final String KEYSTORE        = "AndroidKeyStore";
-    private static final String TRANSFORMATION  = "AES/GCM/NoPadding";
+    private static final String KEYSTORE = "AndroidKeyStore";
+    private static final String TRANSFORMATION = "AES/GCM/NoPadding";
     private static final String TYPE_RSA = "RSA";
     private static final String SIGNATURE_SHA256withRSA = "SHA256withRSA";
 
-    private static final String PASSWORD_KEY= "PASSWORD_KEY";
+    private static final String PASSWORD_KEY = "PASSWORD_KEY";
     private static final String FINGER_KEY = "FINGER_KEY";
 
 
@@ -41,13 +42,11 @@ public class CryptoHelper {
     }
 
 
-
-
     private static Cipher getEncodeCipher(String alias, boolean withAuth) throws Exception {
         final Cipher encCipher = Cipher.getInstance(TRANSFORMATION);
         final KeyStore keyStore = loadKeyStore();
         generateKeyIfNecessary(keyStore, alias, withAuth);
-        SecretKey key = (SecretKey)keyStore.getKey(alias, null);
+        SecretKey key = (SecretKey) keyStore.getKey(alias, null);
         encCipher.init(Cipher.ENCRYPT_MODE, key);
         return encCipher;
     }
@@ -55,7 +54,7 @@ public class CryptoHelper {
     private static Cipher getDecodeCipher(String alias, byte[] iv) throws Exception {
         final Cipher decCipher = Cipher.getInstance(TRANSFORMATION);
         final KeyStore keyStore = loadKeyStore();
-        SecretKey secretKey = ((KeyStore.SecretKeyEntry)keyStore.getEntry(alias, null)).getSecretKey();
+        SecretKey secretKey = ((KeyStore.SecretKeyEntry) keyStore.getEntry(alias, null)).getSecretKey();
         final GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         decCipher.init(Cipher.DECRYPT_MODE, secretKey, spec);
         return decCipher;
@@ -155,16 +154,16 @@ public class CryptoHelper {
     }
 
 
-    private static boolean generateKey(String alias, boolean withAuth)  {
+    private static boolean generateKey(String alias, boolean withAuth) {
         try {
             final KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, KEYSTORE);
             keyGenerator.init(new
-                                KeyGenParameterSpec.Builder(alias,
-                                KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
-                                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                                .setUserAuthenticationRequired(withAuth)
-                                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                                .build());
+                    KeyGenParameterSpec.Builder(alias,
+                    KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
+                    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                    .setUserAuthenticationRequired(withAuth)
+                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                    .build());
             keyGenerator.generateKey();
             return true;
 
@@ -175,7 +174,7 @@ public class CryptoHelper {
     }
 
 
-    private static boolean generateKeyPair(String alias)  {
+    private static boolean generateKeyPair(String alias) {
         try {
             KeyPairGenerator kpGenerator = KeyPairGenerator.getInstance(TYPE_RSA, KEYSTORE);
             kpGenerator.initialize(new KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_SIGN)
@@ -191,7 +190,7 @@ public class CryptoHelper {
     }
 
 
-    public static boolean isKeystoreContainAlias(String alias) throws Exception{
+    public static boolean isKeystoreContainAlias(String alias) throws Exception {
         final KeyStore keyStore = loadKeyStore();
         try {
             return keyStore.containsAlias(alias);

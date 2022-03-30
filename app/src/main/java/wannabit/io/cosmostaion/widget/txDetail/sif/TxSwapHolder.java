@@ -22,18 +22,18 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxSwapHolder extends TxHolder {
-    ImageView   itemSwapImg;
-    TextView    itemSwapSigner,
-                itemSwapSendAssetAmount, itemSwapSendAssetSymbol, itemSwapReceiveAssetlAmount, itemSwapReceiveAssetSymbol;
+    ImageView itemSwapImg;
+    TextView itemSwapSigner,
+            itemSwapSendAssetAmount, itemSwapSendAssetSymbol, itemSwapReceiveAssetlAmount, itemSwapReceiveAssetSymbol;
 
     public TxSwapHolder(@NonNull View itemView) {
         super(itemView);
-        itemSwapImg                  = itemView.findViewById(R.id.tx_swap_icon);
-        itemSwapSigner               = itemView.findViewById(R.id.tx_swap_signer);
-        itemSwapSendAssetAmount      = itemView.findViewById(R.id.tx_swap_send_asset_amount);
-        itemSwapSendAssetSymbol      = itemView.findViewById(R.id.tx_swap_send_asset_symbol);
-        itemSwapReceiveAssetlAmount  = itemView.findViewById(R.id.tx_swap_received_asset_amount);
-        itemSwapReceiveAssetSymbol   = itemView.findViewById(R.id.tx_swap_received_asset_symbol);
+        itemSwapImg = itemView.findViewById(R.id.tx_swap_icon);
+        itemSwapSigner = itemView.findViewById(R.id.tx_swap_signer);
+        itemSwapSendAssetAmount = itemView.findViewById(R.id.tx_swap_send_asset_amount);
+        itemSwapSendAssetSymbol = itemView.findViewById(R.id.tx_swap_send_asset_symbol);
+        itemSwapReceiveAssetlAmount = itemView.findViewById(R.id.tx_swap_received_asset_amount);
+        itemSwapReceiveAssetSymbol = itemView.findViewById(R.id.tx_swap_received_asset_symbol);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {

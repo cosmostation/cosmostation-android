@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/rootLayer"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout android:id="@+id/rootLayer"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
@@ -12,6 +9,7 @@
     android:paddingTop="@dimen/space_4"
     android:paddingBottom="@dimen/space_4"
     android:clickable="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +17,7 @@
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:background="@drawable/box_et_white">
+
         <ImageView
             android:id="@+id/coinImg"
             android:layout_width="@dimen/space_20"
@@ -26,13 +25,14 @@
             android:layout_marginLeft="@dimen/space_8"
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginBottom="@dimen/space_8"
-            android:src="@drawable/bnb_token_img"/>
+            android:src="@drawable/bnb_token_img" />
+
         <TextView
             android:id="@+id/coinName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_4"
             style="@style/font_ss_14_gray8"
-            android:singleLine="true"/>
+            android:singleLine="true" />
     </LinearLayout>
 </RelativeLayout>

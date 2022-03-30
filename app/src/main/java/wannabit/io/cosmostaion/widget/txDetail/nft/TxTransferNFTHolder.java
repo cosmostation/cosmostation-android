@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.widget.txDetail.nft;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,12 +18,9 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-
 public class TxTransferNFTHolder extends TxHolder {
     ImageView itemSendNFTImg;
-    TextView  itemTitle, itemSendNFTSender, itemSendNFTRecipient, itemSendNFTTokenId, itemSendNFTDenomId;
+    TextView itemTitle, itemSendNFTSender, itemSendNFTRecipient, itemSendNFTTokenId, itemSendNFTDenomId;
 
     public TxTransferNFTHolder(@NonNull View itemView) {
         super(itemView);
@@ -47,7 +47,8 @@ public class TxTransferNFTHolder extends TxHolder {
                 itemSendNFTRecipient.setText(msg.getRecipient());
                 itemSendNFTTokenId.setText(msg.getId());
                 itemSendNFTDenomId.setText(msg.getDenomId());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         } else if (baseChain.equals(CRYPTO_MAIN)) {
             try {
                 chainmain.nft.v1.Tx.MsgTransferNFT msg = chainmain.nft.v1.Tx.MsgTransferNFT.parseFrom(response.getTx().getBody().getMessages(position).getValue());
@@ -60,7 +61,8 @@ public class TxTransferNFTHolder extends TxHolder {
                 itemSendNFTRecipient.setText(msg.getRecipient());
                 itemSendNFTTokenId.setText(msg.getId());
                 itemSendNFTDenomId.setText(msg.getDenomId());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
     }
 }

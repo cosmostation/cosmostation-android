@@ -5,10 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.math.BigDecimal;
-
-import wannabit.io.cosmostaion.dao.Balance;
-
 public class ResBnbTic implements Parcelable {
 
     @SerializedName("symbol")

@@ -46,50 +46,50 @@ import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 public class NativeTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar                         mToolbar;
-    private ImageView                       mToolbarSymbolImg;
-    private TextView                        mToolbarSymbol;
-    private TextView                        mItemPerPrice;
-    private ImageView                       mItemUpDownImg;
-    private TextView                        mItemUpDownPrice;
+    private Toolbar mToolbar;
+    private ImageView mToolbarSymbolImg;
+    private TextView mToolbarSymbol;
+    private TextView mItemPerPrice;
+    private ImageView mItemUpDownImg;
+    private TextView mItemUpDownPrice;
 
-    private CardView                        mBtnAddressPopup;
-    private ImageView                       mKeyState;
-    private TextView                        mTotalValue;
-    private TextView                        mAddress;
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
+    private CardView mBtnAddressPopup;
+    private ImageView mKeyState;
+    private TextView mTotalValue;
+    private TextView mAddress;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
 
-    private RelativeLayout                  mBtnIbcSend;
-    private RelativeLayout                  mBtnBep3Send;
-    private RelativeLayout                  mBtnSend;
+    private RelativeLayout mBtnIbcSend;
+    private RelativeLayout mBtnBep3Send;
+    private RelativeLayout mBtnSend;
 
-    private NativeTokenAdapter              mAdapter;
-    private String                          mDenom;
+    private NativeTokenAdapter mAdapter;
+    private String mDenom;
 
-    private Boolean                         mHasVesting = false;
+    private Boolean mHasVesting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail_native);
 
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
-        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
-        mItemPerPrice           = findViewById(R.id.per_price);
-        mItemUpDownImg          = findViewById(R.id.ic_price_updown);
-        mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mItemPerPrice = findViewById(R.id.per_price);
+        mItemUpDownImg = findViewById(R.id.ic_price_updown);
+        mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
-        mBtnAddressPopup        = findViewById(R.id.card_root);
-        mKeyState               = findViewById(R.id.img_account);
-        mAddress                = findViewById(R.id.account_Address);
-        mTotalValue             = findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
-        mBtnBep3Send            = findViewById(R.id.btn_bep3_send);
-        mBtnSend                = findViewById(R.id.btn_send);
+        mBtnAddressPopup = findViewById(R.id.card_root);
+        mKeyState = findViewById(R.id.img_account);
+        mAddress = findViewById(R.id.account_Address);
+        mTotalValue = findViewById(R.id.total_value);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
+        mBtnBep3Send = findViewById(R.id.btn_bep3_send);
+        mBtnSend = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -100,7 +100,9 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mDenom = getIntent().getStringExtra("denom");
 
         if (mBaseChain.equals(BNB_MAIN)) {
-            if (WUtil.isBep3Coin(mDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
+            if (WUtil.isBep3Coin(mDenom)) {
+                mBtnBep3Send.setVisibility(View.VISIBLE);
+            }
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -167,7 +169,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         } else if (mBaseChain.equals(BNB_MAIN)) {
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(mDenom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(mDenom);
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL +bnbToken.original_symbol+".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(bnbToken.original_symbol.toUpperCase());
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
 
@@ -193,8 +195,11 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
-            else { bundle.putString("title", mAccount.nickName); }
+            if (TextUtils.isEmpty(mAccount.nickName)) {
+                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+            } else {
+                bundle.putString("title", mAccount.nickName);
+            }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -227,11 +232,11 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private class NativeTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_NATIVE                = 0;
+        private static final int TYPE_UNKNOWN = -1;
+        private static final int TYPE_NATIVE = 0;
 
-        private static final int TYPE_VESTING               = 99;
-        private static final int TYPE_HISTORY               = 100;
+        private static final int TYPE_VESTING = 99;
+        private static final int TYPE_HISTORY = 100;
 
         @NonNull
         @Override

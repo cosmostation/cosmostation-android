@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_32">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,12 +20,14 @@
             style="@style/font_ss_17_gray8"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="@string/str_okex_address_title"/>
+            android:text="@string/str_okex_address_title" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/colorGray10"
-            android:layout_marginTop="@dimen/space_16"/>
+            android:layout_marginTop="@dimen/space_16" />
+
         <LinearLayout
             android:id="@+id/old_address"
             android:layout_width="match_parent"
@@ -33,17 +35,20 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:padding="@dimen/space_12">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_8"
                 android:text="@string/str_okex_old_address"
-                style="@style/font_ss_14_gray8"/>
+                style="@style/font_ss_14_gray8" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGray10" />
+
         <LinearLayout
             android:id="@+id/new_address"
             android:layout_width="match_parent"
@@ -51,12 +56,13 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:padding="@dimen/space_12">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_8"
                 android:text="@string/str_okex_new_address"
-                style="@style/font_ss_14_gray8"/>
+                style="@style/font_ss_14_gray8" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

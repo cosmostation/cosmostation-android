@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class TxCreateBidHolder extends TxHolder{
+public class TxCreateBidHolder extends TxHolder {
     ImageView itemCreateBidImg;
     TextView itemCreateBidTitle;
     TextView itemOwner, itemProvider, itemCreateBidPrice, itemCreateBidPriceDenom, itemCreateBidDeposit, itemCreateBidDepositDenom;
@@ -27,9 +27,9 @@ public class TxCreateBidHolder extends TxHolder{
         itemCreateBidTitle = itemView.findViewById(R.id.tx_create_bid_text);
         itemOwner = itemView.findViewById(R.id.tx_create_bid_owner);
         itemProvider = itemView.findViewById(R.id.tx_create_bid_provider);
-        itemCreateBidPrice  = itemView.findViewById(R.id.tx_create_bid_price);
+        itemCreateBidPrice = itemView.findViewById(R.id.tx_create_bid_price);
         itemCreateBidPriceDenom = itemView.findViewById(R.id.tx_create_bid_price_symbol);
-        itemCreateBidDeposit  = itemView.findViewById(R.id.tx_create_bid_deposit);
+        itemCreateBidDeposit = itemView.findViewById(R.id.tx_create_bid_deposit);
         itemCreateBidDepositDenom = itemView.findViewById(R.id.tx_create_bid_deposit_symbol);
     }
 
@@ -45,6 +45,7 @@ public class TxCreateBidHolder extends TxHolder{
             itemProvider.setText(msg.getProvider());
             itemCreateBidPrice.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getPrice().getAmount()), dpDecimal, dpDecimal));
             itemCreateBidDeposit.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getDeposit().getAmount()), dpDecimal, dpDecimal));
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

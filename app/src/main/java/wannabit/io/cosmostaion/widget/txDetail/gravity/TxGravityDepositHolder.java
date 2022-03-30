@@ -46,6 +46,7 @@ public class TxGravityDepositHolder extends TxHolder {
             WDp.showCoinDp(c, baseData, coin0, itemGravityDepositSymbol1, itemGravityDepositAmount1, baseChain);
             WDp.showCoinDp(c, baseData, coin1, itemGravityDepositSymbol2, itemGravityDepositAmount2, baseChain);
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

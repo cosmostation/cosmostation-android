@@ -36,15 +36,15 @@ public class EarningUnbondingHolder extends RecyclerView.ViewHolder {
 
     public EarningUnbondingHolder(@NonNull View itemView) {
         super(itemView);
-        itemRoot            = itemView.findViewById(R.id.card_root);
-        itemLockId          = itemView.findViewById(R.id.lock_id);
-        itemLockStatus      = itemView.findViewById(R.id.lock_status);
-        itemUnbondingTime   = itemView.findViewById(R.id.time);
-        itemUnbondingGap    = itemView.findViewById(R.id.time_gap);
-        itemAmount          = itemView.findViewById(R.id.amount);
-        itemAmountDenom     = itemView.findViewById(R.id.amount_denom);
-        itemAmountValue     = itemView.findViewById(R.id.amount_value);
-        itemRewardAmount    = itemView.findViewById(R.id.next_reward_amount);
+        itemRoot = itemView.findViewById(R.id.card_root);
+        itemLockId = itemView.findViewById(R.id.lock_id);
+        itemLockStatus = itemView.findViewById(R.id.lock_status);
+        itemUnbondingTime = itemView.findViewById(R.id.time);
+        itemUnbondingGap = itemView.findViewById(R.id.time_gap);
+        itemAmount = itemView.findViewById(R.id.amount);
+        itemAmountDenom = itemView.findViewById(R.id.amount_denom);
+        itemAmountValue = itemView.findViewById(R.id.amount_value);
+        itemRewardAmount = itemView.findViewById(R.id.next_reward_amount);
     }
 
     public void onBindView(Context c, BaseActivity activity, BaseData baseData,

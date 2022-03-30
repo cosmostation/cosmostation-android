@@ -27,12 +27,12 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class MyAccountFragment extends BaseFragment implements View.OnClickListener {
-    private SwipeRefreshLayout      mSwipeRefreshLayout;
-    private RecyclerView            mRecyclerView;
-    private TextView                mAccountCnt;
-    private Button                  mRegisterAccount;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private TextView mAccountCnt;
+    private Button mRegisterAccount;
 
-    private MyAccountAdapter        mMyAccountAdapter;
+    private MyAccountAdapter mMyAccountAdapter;
     public ArrayList<Types.Account> mAccounts_gRPC = new ArrayList<>();
 
     public static MyAccountFragment newInstance(Bundle bundle) {
@@ -49,10 +49,10 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_starname_my_account, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mAccountCnt             = rootView.findViewById(R.id.account_cnt);
-        mRegisterAccount        = rootView.findViewById(R.id.btn_register);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mAccountCnt = rootView.findViewById(R.id.account_cnt);
+        mRegisterAccount = rootView.findViewById(R.id.btn_register);
         mRegisterAccount.setOnClickListener(this);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -84,7 +84,7 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
 
 
     public StarNameListActivity getSActivity() {
-        return (StarNameListActivity)getBaseActivity();
+        return (StarNameListActivity) getBaseActivity();
     }
 
     @Override
@@ -105,15 +105,15 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
 
 
     private class MyAccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_MY_ACCOUNT                = 1;
-        private static final int TYPE_PROMOTION                 = 2;
+        private static final int TYPE_MY_ACCOUNT = 1;
+        private static final int TYPE_PROMOTION = 2;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_MY_ACCOUNT) {
                 return new MyAccountHolder(getLayoutInflater().inflate(R.layout.item_starname_account, viewGroup, false));
-            } else if(viewType == TYPE_PROMOTION) {
+            } else if (viewType == TYPE_PROMOTION) {
                 return new MyAccountPromotionHolder(getLayoutInflater().inflate(R.layout.item_starname_account_promotion, viewGroup, false));
             }
             return null;
@@ -123,7 +123,7 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_ACCOUNT) {
                 final Types.Account account = mAccounts_gRPC.get(position);
-                final MyAccountHolder holder = (MyAccountHolder)viewHolder;
+                final MyAccountHolder holder = (MyAccountHolder) viewHolder;
                 holder.itemAccount.setText(account.getName().getValue() + "*" + account.getDomain());
                 holder.itemAddressCnt.setText("" + account.getResourcesCount());
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), account.getValidUntil() * 1000));
@@ -172,10 +172,10 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
 
             public MyAccountHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot            = itemView.findViewById(R.id.card_root);
-                itemAccount         = itemView.findViewById(R.id.starname_account_name);
-                itemAddressCnt      = itemView.findViewById(R.id.connected_addressed);
-                itemExpireDate      = itemView.findViewById(R.id.expire_date);
+                itemRoot = itemView.findViewById(R.id.card_root);
+                itemAccount = itemView.findViewById(R.id.starname_account_name);
+                itemAddressCnt = itemView.findViewById(R.id.connected_addressed);
+                itemExpireDate = itemView.findViewById(R.id.expire_date);
             }
         }
     }

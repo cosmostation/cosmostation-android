@@ -27,17 +27,17 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private RelativeLayout      mProgress;
-    private Button              mCancelBtn, mNextBtn;
+    private RelativeLayout mProgress;
+    private Button mCancelBtn, mNextBtn;
 
-    private EditText            mLpCoinInput;
-    private ImageView           mLpCoinClearBtn;
-    private TextView            mLpCoinAmount, mLpCoinDenom;
-    private Button              mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
+    private EditText mLpCoinInput;
+    private ImageView mLpCoinClearBtn;
+    private TextView mLpCoinAmount, mLpCoinDenom;
+    private Button mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
 
-    private BigDecimal          mAvailableMaxAmount;
-    private int                 mCoinDecimal = 18;
-    private String              mDecimalChecker, mDecimalSetter;
+    private BigDecimal mAvailableMaxAmount;
+    private int mCoinDecimal = 18;
+    private String mDecimalChecker, mDecimalSetter;
 
     public static SifDexWithdrawStep0Fragment newInstance(Bundle bundle) {
         SifDexWithdrawStep0Fragment fragment = new SifDexWithdrawStep0Fragment();
@@ -53,18 +53,18 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sif_withdraw_pool_step0, container, false);
-        mCancelBtn          = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn            = rootView.findViewById(R.id.btn_next);
-        mProgress           = rootView.findViewById(R.id.progress);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mProgress = rootView.findViewById(R.id.progress);
 
-        mLpCoinInput        = rootView.findViewById(R.id.exit_pool_input);
-        mLpCoinClearBtn     = rootView.findViewById(R.id.exit_pool_input_clear);
-        mLpCoinAmount       = rootView.findViewById(R.id.exit_pool_input_amount);
-        mLpCoinDenom        = rootView.findViewById(R.id.exit_pool_input_amount_denom);
-        mLpCoin1_4Btn       = rootView.findViewById(R.id.exit_pool_input_1_4);
-        mLpCoinHalfBtn      = rootView.findViewById(R.id.exit_pool_input_half);
-        mLpCoin3_4Btn       = rootView.findViewById(R.id.exit_pool_input_3_4);
-        mLpCoinMaxBtn       = rootView.findViewById(R.id.exit_pool_input_max);
+        mLpCoinInput = rootView.findViewById(R.id.exit_pool_input);
+        mLpCoinClearBtn = rootView.findViewById(R.id.exit_pool_input_clear);
+        mLpCoinAmount = rootView.findViewById(R.id.exit_pool_input_amount);
+        mLpCoinDenom = rootView.findViewById(R.id.exit_pool_input_amount_denom);
+        mLpCoin1_4Btn = rootView.findViewById(R.id.exit_pool_input_1_4);
+        mLpCoinHalfBtn = rootView.findViewById(R.id.exit_pool_input_half);
+        mLpCoin3_4Btn = rootView.findViewById(R.id.exit_pool_input_3_4);
+        mLpCoinMaxBtn = rootView.findViewById(R.id.exit_pool_input_max);
 
         mLpCoinClearBtn.setOnClickListener(this);
         mLpCoin1_4Btn.setOnClickListener(this);
@@ -91,15 +91,17 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
     private void onAddAmountWatcher() {
         mLpCoinInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
+                if (TextUtils.isEmpty(es)) {
                     mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
                     mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -107,7 +109,7 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
                 } else if (es.endsWith(".")) {
                     mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mLpCoinInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mLpCoinInput.setText("0");
                     mLpCoinInput.setSelection(1);
                 }
@@ -118,7 +120,7 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -138,7 +140,8 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
                             mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                         }
                         mLpCoinInput.setSelection(mLpCoinInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -163,9 +166,7 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
 
         } else if (v.equals(mLpCoinMaxBtn)) {
             mLpCoinInput.setText(mAvailableMaxAmount.movePointLeft(mCoinDecimal).toPlainString());
-        }
-
-        else if (v.equals(mCancelBtn)) {
+        } else if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
@@ -181,7 +182,8 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
         try {
             BigDecimal amountTemp = new BigDecimal(mLpCoinInput.getText().toString().trim());
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
+            if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0)
+                return false;
 
             getSActivity().mSifWithdrawCoin = new Coin(getSActivity().mMyProvider.getLiquidityProvider().getAsset().getSymbol(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
 
@@ -195,13 +197,15 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
     private void setDpDecimals(int decimals) {
         mDecimalChecker = "0.";
         mDecimalSetter = "0.";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
+        for (int i = 0; i < decimals - 1; i++) {
             mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
-    private SifWithdrawPoolActivity getSActivity() { return (SifWithdrawPoolActivity)getBaseActivity(); }
+    private SifWithdrawPoolActivity getSActivity() {
+        return (SifWithdrawPoolActivity) getBaseActivity();
+    }
 }

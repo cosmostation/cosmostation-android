@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/walletCard"
         android:layout_width="match_parent"
@@ -14,12 +13,14 @@
         app:cardPreventCornerOverlap="true"
         app:cardBackgroundColor="@color/zxing_transparent"
         app:cardUseCompatPadding="true">
+
         <RelativeLayout
             android:id="@+id/wallet_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/box_round_darkgray"
             android:padding="@dimen/space_8">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,15 +29,18 @@
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/walletKeyState"
                         android:layout_width="@dimen/space_24"
                         android:layout_height="@dimen/space_24"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/key_off"/>
+                        android:src="@drawable/key_off" />
+
                     <TextView
                         android:id="@+id/walletName"
                         android:layout_width="wrap_content"
@@ -47,7 +51,8 @@
                         android:layout_toLeftOf="@+id/walletAddress"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_14_white"
-                        android:text="Wallet Name"/>
+                        android:text="Wallet Name" />
+
                     <TextView
                         android:id="@+id/walletAddress"
                         android:layout_width="wrap_content"
@@ -59,21 +64,24 @@
                         android:ellipsize="middle"
                         android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                         android:singleLine="true"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="right"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/walletAvailable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
                         style="@style/font_ss_14_white"
-                        android:text="-"/>
+                        android:text="-" />
+
                     <TextView
                         android:id="@+id/walletDenom"
                         android:layout_width="wrap_content"

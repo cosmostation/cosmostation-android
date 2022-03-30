@@ -22,14 +22,14 @@ public class Dialog_Osmo_Lockup_Duration extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_osmo_lockup_duration, container, false);
-        Button day1      = view.findViewById(R.id.btn_1day);
-        Button day7      = view.findViewById(R.id.btn_7day);
-        Button day14      = view.findViewById(R.id.btn_14day);
+        Button day1 = view.findViewById(R.id.btn_1day);
+        Button day7 = view.findViewById(R.id.btn_7day);
+        Button day14 = view.findViewById(R.id.btn_14day);
 
         day1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((EarningDetailActivity)getActivity()).onStartNewEarning(86400l);
+                ((EarningDetailActivity) getActivity()).onStartNewEarning(86400l);
                 dismiss();
             }
         });
@@ -37,7 +37,7 @@ public class Dialog_Osmo_Lockup_Duration extends BottomSheetDialogFragment {
         day7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((EarningDetailActivity)getActivity()).onStartNewEarning(604800);
+                ((EarningDetailActivity) getActivity()).onStartNewEarning(604800);
                 dismiss();
             }
         });
@@ -45,7 +45,7 @@ public class Dialog_Osmo_Lockup_Duration extends BottomSheetDialogFragment {
         day14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((EarningDetailActivity)getActivity()).onStartNewEarning(1209600l);
+                ((EarningDetailActivity) getActivity()).onStartNewEarning(1209600l);
                 dismiss();
             }
         });

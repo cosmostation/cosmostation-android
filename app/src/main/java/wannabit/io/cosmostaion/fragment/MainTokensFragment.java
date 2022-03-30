@@ -835,7 +835,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
         holder.itemInnerSymbol.setText("");
         if (ibcToken == null) {
-            holder.itemSymbol.setText("Unknown");
+            holder.itemSymbol.setText(R.string.str_unknown);
             holder.itemFullName.setText("");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
@@ -866,7 +866,7 @@ public class MainTokensFragment extends BaseFragment {
         final Coin coin = mIbcUnknownGrpc.get(position);
         final IbcToken ibcToken = getBaseDao().getIbcToken(coin.denom);
         holder.itemInnerSymbol.setText("");
-        holder.itemSymbol.setText("Unknown");
+        holder.itemSymbol.setText(R.string.str_unknown);
         if (ibcToken == null) {
             holder.itemFullName.setText("");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
@@ -1044,7 +1044,7 @@ public class MainTokensFragment extends BaseFragment {
     //with Unknown Token gRPC
     private void onBindUnKnownToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mUnknownGrpc.get(position);
-        holder.itemSymbol.setText("UNKNOWN");
+        holder.itemSymbol.setText(R.string.str_unknown);
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");
@@ -1143,7 +1143,7 @@ public class MainTokensFragment extends BaseFragment {
     //with Unknown coin oec, bnb
     private void onBindUnKnownCoin(TokensAdapter.AssetHolder holder, int position) {
         final Balance balance = mUnKnown.get(position);
-        holder.itemSymbol.setText("UNKNOWN");
+        holder.itemSymbol.setText(R.string.str_unknown);
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");

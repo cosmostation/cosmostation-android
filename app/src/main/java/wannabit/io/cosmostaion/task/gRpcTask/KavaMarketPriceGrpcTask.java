@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICES;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -12,9 +15,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICES;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class KavaMarketPriceGrpcTask extends CommonTask {
 
@@ -39,7 +39,9 @@ public class KavaMarketPriceGrpcTask extends CommonTask {
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
 
-        } catch (Exception e) { WLog.e( "KavaMarketPriceGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("KavaMarketPriceGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

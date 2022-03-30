@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REINVEST;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -24,18 +26,15 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REINVEST;
-
 public class SimulReInvestGrpcTask extends CommonTask {
 
-    private BaseChain   mBaseChain;
-    private Account     mAccount;
-    private String      mValidatorAddress;
-    private Coin        mReInvestAmount;
-    private String      mReInvestMemo;
-    private Fee         mReInvestFees;
-    private String      mChainId;
+    private BaseChain mBaseChain;
+    private Account mAccount;
+    private String mValidatorAddress;
+    private Coin mReInvestAmount;
+    private String mReInvestMemo;
+    private Fee mReInvestFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
@@ -49,7 +48,7 @@ public class SimulReInvestGrpcTask extends CommonTask {
         this.mReInvestMemo = mReInvestMemo;
         this.mReInvestFees = mReInvestFees;
         this.mChainId = chainId;
-        this.mResult.taskType   = TASK_GRPC_SIMULATE_REINVEST;
+        this.mResult.taskType = TASK_GRPC_SIMULATE_REINVEST;
     }
 
     @Override
@@ -77,7 +76,7 @@ public class SimulReInvestGrpcTask extends CommonTask {
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e( "SimulReInvestGrpcTask "+ e.getMessage());
+            WLog.e("SimulReInvestGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

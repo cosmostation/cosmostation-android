@@ -41,6 +41,7 @@ public class TxStarnameRegisterAccountHolder extends TxHolder {
             BigDecimal starnameFee = baseData.getStarNameRegisterAccountFee("open");
             itemStarnameFee.setText(WDp.getDpAmount2(c, starnameFee, 6, 6));
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

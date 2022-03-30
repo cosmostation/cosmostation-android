@@ -45,16 +45,16 @@ public class PoolMyHolder extends BaseHolder {
         itemMyTotalDepositAmount1 = itemView.findViewById(R.id.mypool_total_liquidity_amount2);
         itemMyTotalDepositSymbol1 = itemView.findViewById(R.id.mypool_total_liquidity_symbol2);
 
-        itemMypoolDepositValue  = itemView.findViewById(R.id.mypool_deposit_value);
-        itemMyDepositAmount0    = itemView.findViewById(R.id.mypool_deposit_amout0);
-        itemMyDepositSymbol0    = itemView.findViewById(R.id.mypool_deposit_symbol0);
-        itemMyDepositAmount1    = itemView.findViewById(R.id.mypool_deposit_amout1);
-        itemMyDepositSymbol1    = itemView.findViewById(R.id.mypool_deposit_symbol1);
+        itemMypoolDepositValue = itemView.findViewById(R.id.mypool_deposit_value);
+        itemMyDepositAmount0 = itemView.findViewById(R.id.mypool_deposit_amout0);
+        itemMyDepositSymbol0 = itemView.findViewById(R.id.mypool_deposit_symbol0);
+        itemMyDepositAmount1 = itemView.findViewById(R.id.mypool_deposit_amout1);
+        itemMyDepositSymbol1 = itemView.findViewById(R.id.mypool_deposit_symbol1);
 
-        itemMyAvailableAmount0  = itemView.findViewById(R.id.my_available_amount0);
-        itemMyAvailableSymbol0  = itemView.findViewById(R.id.my_available_symbol0);
-        itemMyAvailableAmount1  = itemView.findViewById(R.id.my_available_amount1);
-        itemMyAvailableSymbol1  = itemView.findViewById(R.id.my_available_symbol1);
+        itemMyAvailableAmount0 = itemView.findViewById(R.id.my_available_amount0);
+        itemMyAvailableSymbol0 = itemView.findViewById(R.id.my_available_symbol0);
+        itemMyAvailableAmount1 = itemView.findViewById(R.id.my_available_amount1);
+        itemMyAvailableSymbol1 = itemView.findViewById(R.id.my_available_symbol1);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class PoolMyHolder extends BaseHolder {
         //deposit
         BigDecimal lpCoin = baseData.getAvailable("gamm/pool/" + myPool.getId());
         BigDecimal lpCoinPrice = WUtil.getOsmoLpTokenPerUsdPrice(baseData, myPool);
-        BigDecimal lpCoinValue = new BigDecimal(lpCoin.toPlainString()).multiply(lpCoinPrice).movePointLeft(18).setScale(2,RoundingMode.DOWN);
+        BigDecimal lpCoinValue = new BigDecimal(lpCoin.toPlainString()).multiply(lpCoinPrice).movePointLeft(18).setScale(2, RoundingMode.DOWN);
         itemMypoolDepositValue.setText(WDp.getDpRawDollor(context, lpCoinValue, 2));
 
         BigDecimal coin0MyShareAmount = WUtil.getMyShareLpAmount(baseData, myPool, coin0.denom);
@@ -100,7 +100,7 @@ public class PoolMyHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 WLog.w("PoolMyHolder onClick ");
-                ((LabsListActivity)activity).onClickMyPool(myPool.getId());
+                ((LabsListActivity) activity).onClickMyPool(myPool.getId());
             }
         });
     }
@@ -154,7 +154,7 @@ public class PoolMyHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DAppsList5Activity)activity).onClickMyPool(myPool, myDeposit);
+                ((DAppsList5Activity) activity).onClickMyPool(myPool, myDeposit);
             }
         });
     }

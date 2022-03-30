@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_32">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_17_gray8"
             android:gravity="center"
-            android:text="@string/str_wc_transfer_title"/>
+            android:text="@string/str_wc_transfer_title" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +28,7 @@
             android:layout_marginRight="@dimen/space_40"
             style="@style/font_ss_12_gray1"
             android:gravity="center"
-            android:text="@string/str_wc_transfer_msg"/>
+            android:text="@string/str_wc_transfer_msg" />
 
         <View
             android:layout_width="match_parent"
@@ -37,7 +36,7 @@
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginRight="@dimen/space_20"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGray10" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,11 +46,13 @@
             android:layout_marginRight="@dimen/space_20"
             android:background="@drawable/box_round_gray"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_recipient"
-                style="@style/font_ss_14_black"/>
+                style="@style/font_ss_14_black" />
+
             <TextView
                 android:id="@+id/wc_recipient_address"
                 android:layout_width="match_parent"
@@ -60,7 +61,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 style="@style/font_ssl_12_black"
-                android:text="-"/>
+                android:text="-" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -71,21 +72,25 @@
             android:layout_marginRight="@dimen/space_20"
             android:background="@drawable/box_round_gray"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_to_send_amount"
-                style="@style/font_ss_14_black"/>
+                style="@style/font_ss_14_black" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true">
+
                 <ImageView
                     android:id="@+id/wc_send_coin_icon"
                     android:layout_width="@dimen/space_16"
                     android:layout_height="@dimen/space_16"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_ic" />
+
                 <TextView
                     android:id="@+id/wc_send_coin_symbol"
                     android:layout_width="wrap_content"
@@ -94,7 +99,8 @@
                     android:layout_toRightOf="@+id/wc_send_coin_icon"
                     android:layout_marginLeft="@dimen/space_6"
                     android:text="-"
-                    style="@style/font_ss_14_black"/>
+                    style="@style/font_ss_14_black" />
+
                 <TextView
                     android:id="@+id/wc_send_amount"
                     android:layout_width="match_parent"
@@ -102,7 +108,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black"/>
+                    style="@style/font_ssl_12_black" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -114,11 +120,13 @@
             android:layout_marginRight="@dimen/space_20"
             android:background="@drawable/box_round_gray"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_memo"
-                style="@style/font_ss_14_black"/>
+                style="@style/font_ss_14_black" />
+
             <TextView
                 android:id="@+id/wc_memo"
                 android:layout_width="match_parent"
@@ -127,9 +135,8 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 style="@style/font_ssl_12_black"
-                android:text="-"/>
+                android:text="-" />
         </RelativeLayout>
-
 
 
         <LinearLayout
@@ -137,6 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_nega"
                 android:layout_width="0dp"
@@ -145,11 +153,13 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_left"
                 style="@style/font_ss_14_red"
-                android:text="@string/str_cancel"/>
+                android:text="@string/str_cancel" />
+
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <Button
                 android:id="@+id/btn_posi"
                 android:layout_width="0dp"
@@ -158,7 +168,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_right"
                 style="@style/font_ss_14_gray8"
-                android:text="@string/str_confirm"/>
+                android:text="@string/str_confirm" />
         </LinearLayout>
 
     </LinearLayout>

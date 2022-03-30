@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REGISTER_ACCOUNT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -25,22 +27,19 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REGISTER_ACCOUNT;
-
 public class SimulRegisterAccountGrpcTask extends CommonTask {
-    private BaseChain                   mBaseChain;
-    private Account                     mAccount;
-    private String                      mDomain, mName, mMemo;
-    private ArrayList<Types.Resource>   mResources = new ArrayList();
-    private Fee                         mFees;
-    private String                      mChainId;
+    private BaseChain mBaseChain;
+    private Account mAccount;
+    private String mDomain, mName, mMemo;
+    private ArrayList<Types.Resource> mResources = new ArrayList();
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
     public SimulRegisterAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain,
-                                   String name, ArrayList<Types.Resource> resources, String memo, Fee fee, String chainId) {
+                                        String name, ArrayList<Types.Resource> resources, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -77,7 +76,7 @@ public class SimulRegisterAccountGrpcTask extends CommonTask {
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e( "SimulRegisterAccountGrpcTask "+ e.getMessage());
+            WLog.e("SimulRegisterAccountGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

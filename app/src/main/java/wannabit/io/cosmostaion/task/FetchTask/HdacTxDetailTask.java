@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_TX_DETAIL;
+
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -9,8 +11,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_TX_DETAIL;
 
 public class HdacTxDetailTask extends CommonTask {
 

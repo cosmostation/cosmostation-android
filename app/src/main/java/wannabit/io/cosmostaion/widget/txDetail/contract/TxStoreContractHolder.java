@@ -16,13 +16,13 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxStoreContractHolder extends TxHolder {
-    ImageView   itemMsgImg;
-    TextView    itemContractSender;
+    ImageView itemMsgImg;
+    TextView itemContractSender;
 
     public TxStoreContractHolder(@NonNull View itemView) {
         super(itemView);
-        itemMsgImg              = itemView.findViewById(R.id.tx_msg_icon);
-        itemContractSender      = itemView.findViewById(R.id.contract_sender);
+        itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+        itemContractSender = itemView.findViewById(R.id.contract_sender);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -32,6 +32,7 @@ public class TxStoreContractHolder extends TxHolder {
             Tx.MsgStoreCode msg = Tx.MsgStoreCode.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemContractSender.setText(msg.getSender());
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

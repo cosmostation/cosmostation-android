@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_32">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
         android:orientation="vertical"
         android:gravity="center_horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
             style="@style/font_ss_17_gray8"
             android:gravity="center"
-            android:text="@string/str_star_name_service"/>
+            android:text="@string/str_star_name_service" />
 
 
         <LinearLayout
@@ -28,16 +29,19 @@
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/box_round_gray"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/tv_startname_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     style="@style/font_ss_12_gray1"
-                    android:text="@string/str_star_name"/>
+                    android:text="@string/str_star_name" />
+
                 <TextView
                     android:id="@+id/tv_startname"
                     android:layout_width="wrap_content"
@@ -50,20 +54,22 @@
                     android:ellipsize="middle"
                     android:singleLine="true"
                     style="@style/font_ss_14_gray8"
-                    android:text="hello*startname">
-                </TextView>
+                    android:text="hello*startname"></TextView>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
                     android:id="@+id/tv_address_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     style="@style/font_ss_12_gray1"
-                    android:text="@string/str_address"/>
+                    android:text="@string/str_address" />
+
                 <TextView
                     android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
@@ -76,8 +82,7 @@
                     android:ellipsize="middle"
                     android:singleLine="true"
                     style="@style/font_ss_14_gray8"
-                    android:text="cosmosdskjhfldkshfldshflkdshflkdshflkdshflds">
-                </TextView>
+                    android:text="cosmosdskjhfldkshfldshflkdshflkdshflkdshflds"></TextView>
             </RelativeLayout>
         </LinearLayout>
 
@@ -86,11 +91,13 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="@dimen/space_24"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGray10" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_nega"
                 android:layout_width="0dp"
@@ -99,11 +106,13 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_left"
                 style="@style/font_ss_14_gray8"
-                android:text="@string/str_cancel"/>
+                android:text="@string/str_cancel" />
+
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <Button
                 android:id="@+id/btn_posi"
                 android:layout_width="0dp"
@@ -112,7 +121,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_right"
                 style="@style/font_ss_14_red"
-                android:text="@string/str_confirm"/>
+                android:text="@string/str_confirm" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

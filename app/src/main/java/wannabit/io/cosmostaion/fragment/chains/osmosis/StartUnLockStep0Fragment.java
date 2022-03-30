@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,12 +18,12 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class StartUnLockStep0Fragment extends BaseFragment implements View.OnClickListener{
+public class StartUnLockStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button                  mCancelBtn, mNextBtn;
+    private Button mCancelBtn, mNextBtn;
 
-    private TextView                mToUnLockIds;
-    private TextView                mToUnLockAmount, mToUnLockDenom;
+    private TextView mToUnLockIds;
+    private TextView mToUnLockAmount, mToUnLockDenom;
 
     public static StartUnLockStep0Fragment newInstance(Bundle bundle) {
         StartUnLockStep0Fragment fragment = new StartUnLockStep0Fragment();
@@ -40,12 +39,12 @@ public class StartUnLockStep0Fragment extends BaseFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_start_unlock_step0, container, false);
-        mCancelBtn                  = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn                    = rootView.findViewById(R.id.btn_next);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
 
-        mToUnLockIds                = rootView.findViewById(R.id.unlock_ids);
-        mToUnLockAmount             = rootView.findViewById(R.id.unlock_amount);
-        mToUnLockDenom              = rootView.findViewById(R.id.unlock_amount_symbol);
+        mToUnLockIds = rootView.findViewById(R.id.unlock_ids);
+        mToUnLockAmount = rootView.findViewById(R.id.unlock_amount);
+        mToUnLockDenom = rootView.findViewById(R.id.unlock_amount_symbol);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -58,7 +57,7 @@ public class StartUnLockStep0Fragment extends BaseFragment implements View.OnCli
         String toUnlockDenom = getSActivity().mOsmosisLockups.get(0).getCoins(0).getDenom();
         String ids = "";
         BigDecimal toUnlockAmount = BigDecimal.ZERO;
-        for (Lock.PeriodLock lockup: getSActivity().mOsmosisLockups) {
+        for (Lock.PeriodLock lockup : getSActivity().mOsmosisLockups) {
             ids = ids + "# " + lockup.getID() + "  ";
             toUnlockAmount = toUnlockAmount.add(new BigDecimal(lockup.getCoins(0).getAmount()));
         }
@@ -76,5 +75,7 @@ public class StartUnLockStep0Fragment extends BaseFragment implements View.OnCli
         }
     }
 
-    private StartUnlockActivity getSActivity() { return (StartUnlockActivity)getBaseActivity(); }
+    private StartUnlockActivity getSActivity() {
+        return (StartUnlockActivity) getBaseActivity();
+    }
 }

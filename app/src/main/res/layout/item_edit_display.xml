@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/chain_card"
         android:layout_width="match_parent"
@@ -16,9 +15,11 @@
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/chainSort"
                 android:layout_width="@dimen/space_44"
@@ -28,7 +29,8 @@
                 android:src="@drawable/ic_handle"
                 android:scaleType="center"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,9 +40,11 @@
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/chain_remove_img"
                         android:layout_width="wrap_content"
@@ -48,6 +52,7 @@
                         android:layout_centerVertical="true"
                         android:padding="@dimen/space_6"
                         android:src="@drawable/icon_listdelete" />
+
                     <ImageView
                         android:id="@+id/chain_img"
                         android:layout_width="wrap_content"
@@ -55,7 +60,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/chain_remove_img"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/cosmos_wh_main" />
+
                     <TextView
                         android:id="@+id/chain_name"
                         android:layout_width="wrap_content"
@@ -65,7 +71,7 @@
                         android:layout_toRightOf="@+id/chain_img"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_14_white"
-                        android:text="Wallet Name"/>
+                        android:text="Wallet Name" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>

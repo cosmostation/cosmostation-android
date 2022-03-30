@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,33 +9,37 @@
     app:cardElevation="1.5dp"
     app:cardBackgroundColor="@color/colorTransBgKava"
     app:cardUseCompatPadding="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="@dimen/space_16">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cdp_ic"/>
+                android:src="@drawable/cdp_ic" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
                 style="@style/font_ss_17_white"
-                android:text="@string/str_my_cdp_information"/>
+                android:text="@string/str_my_cdp_information" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorGray3"
-            android:layout_marginTop="@dimen/space_16"/>
+            android:layout_marginTop="@dimen/space_16" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,11 +50,13 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/collateral_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_ic" />
+
                 <TextView
                     android:id="@+id/collateral_denom"
                     android:layout_width="wrap_content"
@@ -59,13 +64,14 @@
                     android:layout_toRightOf="@+id/collateral_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="COIN"
-                    style="@style/font_ss_14_white"/>
+                    style="@style/font_ss_14_white" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <LinearLayout
                     android:id="@+id/self_deposited_amount_layer"
                     android:layout_width="wrap_content"
@@ -74,17 +80,20 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingRight="@dimen/space_4">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_self_deposited_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:src="@drawable/question_ic"/>
+                        android:src="@drawable/question_ic" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/self_deposited_amount"
                     android:layout_width="wrap_content"
@@ -92,8 +101,9 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/self_deposited_value"
                 android:layout_width="match_parent"
@@ -101,12 +111,13 @@
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
                 style="@style/font_ss_12_gray1"
-                android:text="-"/>
+                android:text="-" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2">
+
                 <LinearLayout
                     android:id="@+id/total_deposited_amount_layer"
                     android:layout_width="wrap_content"
@@ -115,17 +126,20 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingRight="@dimen/space_4">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_total_deposited_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:src="@drawable/question_ic"/>
+                        android:src="@drawable/question_ic" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/total_deposited_amount"
                     android:layout_width="wrap_content"
@@ -133,8 +147,9 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/total_deposited_value"
                 android:layout_width="match_parent"
@@ -142,12 +157,13 @@
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
                 style="@style/font_ss_12_gray1"
-                android:text="-"/>
+                android:text="-" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2">
+
                 <LinearLayout
                     android:id="@+id/expected_withdrawable_amount_layer"
                     android:layout_width="wrap_content"
@@ -156,18 +172,21 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingRight="@dimen/space_4">
+
                     <TextView
                         android:id="@+id/expected_withdrawable_amount_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_expected_withdrawable_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:src="@drawable/question_ic"/>
+                        android:src="@drawable/question_ic" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/expected_withdrawable_amount"
                     android:layout_width="wrap_content"
@@ -175,9 +194,10 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
         </LinearLayout>
+
         <TextView
             android:id="@+id/expected_withdrawable_value"
             android:layout_width="match_parent"
@@ -185,7 +205,7 @@
             android:layout_marginTop="-2dp"
             android:gravity="right"
             style="@style/font_ss_12_gray1"
-            android:text="-"/>
+            android:text="-" />
 
         <LinearLayout
             android:id="@+id/collateral_actions_layer"
@@ -193,6 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4"
             android:orientation="horizontal">
+
             <RelativeLayout
                 android:id="@+id/btn_deposit"
                 android:layout_width="0dp"
@@ -202,6 +223,7 @@
                 android:layout_marginRight="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
+
                 <TextView
                     android:id="@+id/btn_deposit_txt"
                     android:layout_width="wrap_content"
@@ -223,6 +245,7 @@
                 android:layout_marginLeft="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
+
                 <TextView
                     android:id="@+id/btn_withdraw_txt"
                     android:layout_width="wrap_content"
@@ -241,14 +264,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/space_28">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/principal_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_ic" />
+
                 <TextView
                     android:id="@+id/principal_denom"
                     android:layout_width="wrap_content"
@@ -256,13 +282,14 @@
                     android:layout_toRightOf="@+id/principal_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="USDX"
-                    style="@style/font_ss_14_white"/>
+                    style="@style/font_ss_14_white" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <LinearLayout
                     android:id="@+id/loaned_amount_layer"
                     android:layout_width="wrap_content"
@@ -271,17 +298,20 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingRight="@dimen/space_4">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_loaned_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:src="@drawable/question_ic"/>
+                        android:src="@drawable/question_ic" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/loaned_amount"
                     android:layout_width="wrap_content"
@@ -289,8 +319,9 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/loaned_value"
                 android:layout_width="match_parent"
@@ -298,12 +329,13 @@
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
                 style="@style/font_ss_12_gray1"
-                android:text="-"/>
+                android:text="-" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2">
+
                 <LinearLayout
                     android:id="@+id/cdp_fee_amount_layer"
                     android:layout_width="wrap_content"
@@ -312,17 +344,20 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingRight="@dimen/space_4">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_cdp_total_fee"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:src="@drawable/question_ic"/>
+                        android:src="@drawable/question_ic" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/cdp_fee_amount"
                     android:layout_width="wrap_content"
@@ -330,8 +365,9 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/fee_value"
                 android:layout_width="match_parent"
@@ -339,12 +375,13 @@
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
                 style="@style/font_ss_12_gray1"
-                android:text="-"/>
+                android:text="-" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2">
+
                 <LinearLayout
                     android:id="@+id/expected_loanable_amount_layer"
                     android:layout_width="wrap_content"
@@ -353,17 +390,20 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingRight="@dimen/space_4">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_expected_loanable_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:src="@drawable/question_ic"/>
+                        android:src="@drawable/question_ic" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/expected_loanable_amount"
                     android:layout_width="wrap_content"
@@ -371,8 +411,9 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/loanable_value"
                 android:layout_width="match_parent"
@@ -380,7 +421,7 @@
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
                 style="@style/font_ss_12_gray1"
-                android:text="-"/>
+                android:text="-" />
         </LinearLayout>
 
         <LinearLayout
@@ -389,6 +430,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4"
             android:orientation="horizontal">
+
             <RelativeLayout
                 android:id="@+id/btn_drawdebt"
                 android:layout_width="0dp"
@@ -398,6 +440,7 @@
                 android:layout_marginRight="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -418,6 +461,7 @@
                 android:layout_marginLeft="@dimen/space_5"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -435,14 +479,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/space_28">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/kava_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/kava_token_img"/>
+                    android:src="@drawable/kava_token_img" />
+
                 <TextView
                     android:id="@+id/kava_denom"
                     android:layout_width="wrap_content"
@@ -450,18 +497,20 @@
                     android:layout_toRightOf="@+id/kava_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="KAVA"
-                    style="@style/font_ss_14_kava"/>
+                    style="@style/font_ss_14_kava" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_unclaimed_incentive"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/incentive_amount"
                     android:layout_width="wrap_content"
@@ -469,7 +518,7 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -481,6 +530,7 @@
             android:layout_marginTop="@dimen/space_10"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

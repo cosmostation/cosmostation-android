@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
@@ -16,23 +15,27 @@
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBgStarname"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16"
-                android:src="@drawable/starname_img"/>
+                android:src="@drawable/starname_img" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10"
                 style="@style/font_ssm_15_white"
-                android:text="@string/str_starname_domain_promotion_title"/>
+                android:text="@string/str_starname_domain_promotion_title" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +45,7 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16"
                 style="@style/font_ss_11_gray1"
-                android:text="@string/str_starname_domain_promotion_msg"/>
+                android:text="@string/str_starname_domain_promotion_msg" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

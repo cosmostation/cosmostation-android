@@ -1,16 +1,17 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
 import java.math.BigInteger;
 
-import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -26,17 +27,13 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE;
-
 public class ChangeRewardAddressGrpcTask extends CommonTask {
-    private BaseChain   mBaseChain;
-    private Account     mAccount;
-    private String      mToRewardAddress;
-    private String      mMemo;
-    private Fee         mFees;
-    private String      mChainId;
+    private BaseChain mBaseChain;
+    private Account mAccount;
+    private String mToRewardAddress;
+    private String mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
@@ -89,7 +86,7 @@ public class ChangeRewardAddressGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "ClaimRewardsGrpcTask "+ e.getMessage());
+            WLog.e("ClaimRewardsGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

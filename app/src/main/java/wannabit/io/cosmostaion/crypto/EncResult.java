@@ -31,7 +31,7 @@ public class EncResult {
     public String getEncDataString() {
         String result = null;
         try {
-            if(getEncData() != null) {
+            if (getEncData() != null) {
                 result = Base64.encodeToString(getEncData(), 0);
             }
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class EncResult {
     public String getIvDataString() {
         String result = null;
         try {
-            if(getIvData() != null) {
+            if (getIvData() != null) {
                 result = Base64.encodeToString(getIvData(), 0);
             }
         } catch (Exception e) {

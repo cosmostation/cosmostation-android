@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -116,26 +119,23 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateUserClaimHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
-
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
-    private Toolbar         mToolbar;
-    private RecyclerView    mTxRecyclerView;
-    private CardView        mErrorCardView;
-    private TextView        mErrorMsgTv;
-    private RelativeLayout  mLoadingLayer;
+    private Toolbar mToolbar;
+    private RecyclerView mTxRecyclerView;
+    private CardView mErrorCardView;
+    private TextView mErrorMsgTv;
+    private RelativeLayout mLoadingLayer;
 
-    private LinearLayout    mControlLayer;
-    private Button          mDismissBtn;
-    private Button          mShareBtn;
-    private Button          mExplorerBtn;
+    private LinearLayout mControlLayer;
+    private Button mDismissBtn;
+    private Button mShareBtn;
+    private Button mExplorerBtn;
 
-    private boolean         mIsGen;
-    private boolean         mIsSuccess;
-    private int             mErrorCode;
-    private String          mErrorMsg;
-    private String          mTxHash;
+    private boolean mIsGen;
+    private boolean mIsSuccess;
+    private int mErrorCode;
+    private String mErrorMsg;
+    private String mTxHash;
 
     private TxDetailgRPCAdapter mAdapter;
     private ServiceOuterClass.GetTxResponse mResponse;
@@ -144,11 +144,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tx_detail_grpc);
-        mToolbar        = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.tool_bar);
         mTxRecyclerView = findViewById(R.id.tx_recycler);
-        mErrorCardView  = findViewById(R.id.error_Card);
-        mErrorMsgTv     = findViewById(R.id.error_details);
-        mLoadingLayer   = findViewById(R.id.loadingLayer);
+        mErrorCardView = findViewById(R.id.error_Card);
+        mErrorMsgTv = findViewById(R.id.error_details);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
 
         mControlLayer = findViewById(R.id.control_layer);
         mShareBtn = findViewById(R.id.btn_share);
@@ -159,13 +159,13 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain  = getChain(mAccount.baseChain);
-        mIsGen      = getIntent().getBooleanExtra("isGen", false);
-        mIsSuccess  = getIntent().getBooleanExtra("isSuccess", false);
-        mErrorCode  = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
-        mErrorMsg   = getIntent().getStringExtra("errorMsg");
-        mTxHash     = getIntent().getStringExtra("txHash");
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = getChain(mAccount.baseChain);
+        mIsGen = getIntent().getBooleanExtra("isGen", false);
+        mIsSuccess = getIntent().getBooleanExtra("isSuccess", false);
+        mErrorCode = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
+        mErrorMsg = getIntent().getStringExtra("errorMsg");
+        mTxHash = getIntent().getStringExtra("txHash");
 
         mShareBtn.setOnClickListener(this);
         mDismissBtn.setOnClickListener(this);
@@ -231,7 +231,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             startActivity(Intent.createChooser(shareIntent, "send"));
 
         } else if (v.equals(mExplorerBtn)) {
-            String url  = WUtil.getTxExplorer(mBaseChain, mResponse.getTxResponse().getTxhash());
+            String url = WUtil.getTxExplorer(mBaseChain, mResponse.getTxResponse().getTxhash());
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         }
@@ -385,9 +385,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_CREATE_CERTIFICATE) {
                 return new TxCreateCertificateHolder(getLayoutInflater().inflate(R.layout.item_tx_create_certificate, viewGroup, false));
 
-            }
-
-            else if (viewType == TYPE_TX_IBC_SEND) {
+            } else if (viewType == TYPE_TX_IBC_SEND) {
                 return new TxIBCSendHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_send, viewGroup, false));
 
             } else if (viewType == TYPE_TX_IBC_RECEIVE) {
@@ -399,9 +397,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_IBC_ACKNOWLEDGE) {
                 return new TxIBCAcknowledgeHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_acknowledge, viewGroup, false));
 
-            }
-
-            else if (viewType == TYPE_STARNAME_REGISTER_DOMAIN) {
+            } else if (viewType == TYPE_STARNAME_REGISTER_DOMAIN) {
                 return new TxStarnameRegisterDomainHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_register_domain, viewGroup, false));
 
             } else if (viewType == TYPE_STARNAME_REGISTER_ACCOUNT) {
@@ -419,9 +415,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME || viewType == TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME) {
                 return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
 
-            }
-
-            else if (viewType == TYPE_TX_CREATE_POOL) {
+            } else if (viewType == TYPE_TX_CREATE_POOL) {
                 return new TxCreatePoolHolder(getLayoutInflater().inflate(R.layout.item_tx_create_pool, viewGroup, false));
 
             } else if (viewType == TYPE_TX_JOIN_POOL) {
@@ -442,9 +436,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL) {
                 return new TxBeginUnlockAllTokensHolder(getLayoutInflater().inflate(R.layout.item_tx_begin_unlock_all_token, viewGroup, false));
 
-            }
-
-            else if (viewType == TYPE_TX_GRAVITY_CREATE_POOL) {
+            } else if (viewType == TYPE_TX_GRAVITY_CREATE_POOL) {
                 return new TxGravityCreatePoolHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_create_pool, viewGroup, false));
 
             } else if (viewType == TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH) {
@@ -455,9 +447,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH) {
                 return new TxGravityWithdrawHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_withdraw_within_batch, viewGroup, false));
-            }
-
-            else if (viewType == TYPE_TX_ADD_RECORD) {
+            } else if (viewType == TYPE_TX_ADD_RECORD) {
                 return new TxAddRecordHolder(getLayoutInflater().inflate(R.layout.item_tx_add_record, viewGroup, false));
 
             } else if (viewType == TYPE_TX_CREATE_DID) {
@@ -598,12 +588,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             if (position == 0) {
-                final TxCommonHolder viewHolder = (TxCommonHolder)holder;
-                viewHolder.onBindCommon(TxDetailgRPCActivity.this, getBaseDao(),  mBaseChain, mResponse, mIsGen);
+                final TxCommonHolder viewHolder = (TxCommonHolder) holder;
+                viewHolder.onBindCommon(TxDetailgRPCActivity.this, getBaseDao(), mBaseChain, mResponse, mIsGen);
 
             } else {
-                final TxHolder viewHolder = (TxHolder)holder;
-                viewHolder.onBindMsg(getBaseContext(), getBaseDao(),  mBaseChain, mResponse, position - 1, mAccount.address, mIsGen);
+                final TxHolder viewHolder = (TxHolder) holder;
+                viewHolder.onBindMsg(getBaseContext(), getBaseDao(), mBaseChain, mResponse, position - 1, mAccount.address, mIsGen);
             }
         }
 
@@ -654,9 +644,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CLOSE_DEPLOYMENT;
                 } else if (msg.getTypeUrl().contains(Cert.MsgCreateCertificate.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_CERTIFICATE;
-                }
-
-                else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
                     return TYPE_TX_IBC_SEND;
                 } else if (msg.getTypeUrl().contains(ibc.core.channel.v1.Tx.MsgRecvPacket.getDescriptor().getFullName())) {
                     return TYPE_TX_IBC_RECEIVE;
@@ -664,9 +652,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_IBC_UPDATE_CLIENT;
                 } else if (msg.getTypeUrl().contains(ibc.core.channel.v1.Tx.MsgAcknowledgement.getDescriptor().getFullName())) {
                     return TYPE_TX_IBC_ACKNOWLEDGE;
-                }
-
-                else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_REGISTER_DOMAIN;
                 } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_REGISTER_ACCOUNT;
@@ -680,17 +666,15 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME;
                 } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME;
-                }
-
-                else if (msg.getTypeUrl().contains(osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinPool.getDescriptor().getFullName()) ||
-                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinSwapExternAmountIn.getDescriptor().getFullName())) {
+                        msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinSwapExternAmountIn.getDescriptor().getFullName())) {
                     return TYPE_TX_JOIN_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgExitPool.getDescriptor().getFullName())) {
                     return TYPE_TX_EXIT_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
-                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
+                        msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
                     return TYPE_TX_SWAP_COIN;
                 } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgLockTokens.getDescriptor().getFullName())) {
                     return TYPE_TX_LOCK_TOKEN;
@@ -698,9 +682,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_BEGIN_UNLOCK_TOKEN;
                 } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlockingAll.getDescriptor().getFullName())) {
                     return TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL;
-                }
-
-                else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
                     return TYPE_TX_GRAVITY_CREATE_POOL;
                 } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch.getDescriptor().getFullName())) {
                     return TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH;
@@ -708,9 +690,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH;
                 } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch.getDescriptor().getFullName())) {
                     return TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH;
-                }
-
-                else if (msg.getTypeUrl().contains(panacea.aol.v2.MsgAddRecord.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(panacea.aol.v2.MsgAddRecord.getDescriptor().getFullName())) {
                     return TYPE_TX_ADD_RECORD;
                 } else if (msg.getTypeUrl().contains(panacea.did.v2.MsgCreateDID.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_DID;
@@ -740,7 +720,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
                 // nft msg
                 else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgIssueDenom.getDescriptor().getFullName()) ||
-                            msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgIssueDenom.getDescriptor().getFullName())) {
+                        msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgIssueDenom.getDescriptor().getFullName())) {
                     return TYPE_TX_ISSUE_DENOM;
                 } else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgMintNFT.getDescriptor().getFullName()) ||
                         msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgMintNFT.getDescriptor().getFullName())) {
@@ -759,7 +739,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
                 //kava msg
                 else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgSwapExactForTokens.getDescriptor().getFullName()) ||
-                            msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgSwapForExactTokens.getDescriptor().getFullName())) {
+                        msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgSwapForExactTokens.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_SWAP;
                 } else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_DEPOSIT_POOL;
@@ -797,9 +777,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_HTLC_CREATE;
                 } else if (msg.getTypeUrl().contains(kava.bep3.v1beta1.Tx.MsgClaimAtomicSwap.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_HTLC_CLAIM;
-                }
-
-                else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgStoreCode.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgStoreCode.getDescriptor().getFullName())) {
                     return TYPE_TX_STORE_CONTRACT;
                 } else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgInstantiateContract.getDescriptor().getFullName())) {
                     return TYPE_TX_INSTANT_CONTRACT;
@@ -812,9 +790,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-
-
     private int FetchCnt = 0;
+
     private void onFetchTx(String hash) {
 //        WLog.w("onFetchTx " + hash);
         ServiceGrpc.ServiceStub mStub = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
@@ -861,7 +838,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             }
 
             @Override
-            public void onCompleted() { }
+            public void onCompleted() {
+            }
         });
 
     }

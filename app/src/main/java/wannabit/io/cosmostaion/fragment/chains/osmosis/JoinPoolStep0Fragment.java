@@ -39,33 +39,32 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
-    private RelativeLayout  mProgress;
-    private Button          mCancelBtn, mNextBtn;
+    private RelativeLayout mProgress;
+    private Button mCancelBtn, mNextBtn;
 
-    private ImageView       mJoinPoolInput0Img;
-    private TextView        mJoinPoolInput0Symbol;
-    private EditText        mJoinPoolInput0;
-    private ImageView       mJoinPoolInput0ClearBtn;
-    private TextView        mJoinPoolInput0Amount, mJoinPoolInput0Denom;
-    private Button          mJoinPoolInput01_4Btn, mJoinPoolInput0HalfBtn, mJoinPoolInput03_4Btn, mJoinPoolInput0MaxBtn;
+    private ImageView mJoinPoolInput0Img;
+    private TextView mJoinPoolInput0Symbol;
+    private EditText mJoinPoolInput0;
+    private ImageView mJoinPoolInput0ClearBtn;
+    private TextView mJoinPoolInput0Amount, mJoinPoolInput0Denom;
+    private Button mJoinPoolInput01_4Btn, mJoinPoolInput0HalfBtn, mJoinPoolInput03_4Btn, mJoinPoolInput0MaxBtn;
 
-    private ImageView       mJoinPoolInput1Img;
-    private TextView        mJoinPoolInput1Symbol;
-    private EditText        mJoinPoolInput1;
-    private ImageView       mJoinPoolInput1ClearBtn;
-    private TextView        mJoinPoolInput1Amount, mJoinPoolInput1Denom;
-    private Button          mJoinPoolInput11_4, mJoinPoolInput1Half, mJoinPoolInput13_4, mJoinPoolInput1Max;
+    private ImageView mJoinPoolInput1Img;
+    private TextView mJoinPoolInput1Symbol;
+    private EditText mJoinPoolInput1;
+    private ImageView mJoinPoolInput1ClearBtn;
+    private TextView mJoinPoolInput1Amount, mJoinPoolInput1Denom;
+    private Button mJoinPoolInput11_4, mJoinPoolInput1Half, mJoinPoolInput13_4, mJoinPoolInput1Max;
 
 
+    private BigDecimal mAvailable0MaxAmount, mAvailable1MaxAmount;
+    private int mCoin0Decimal = 6, mCoin1Decimal = 6;
+    private BigDecimal mDepositRate = BigDecimal.ONE;
 
-    private BigDecimal      mAvailable0MaxAmount, mAvailable1MaxAmount;
-    private int             mCoin0Decimal = 6, mCoin1Decimal = 6;
-    private BigDecimal      mDepositRate = BigDecimal.ONE;
+    private String mInDecimalChecker, mInDecimalSetter;
+    private String mOutDecimalChecker, mOutDecimalSetter;
 
-    private String          mInDecimalChecker, mInDecimalSetter;
-    private String          mOutDecimalChecker,mOutDecimalSetter;
-
-    private boolean         mIsInput0Focused;
+    private boolean mIsInput0Focused;
 
     public static JoinPoolStep0Fragment newInstance(Bundle bundle) {
         JoinPoolStep0Fragment fragment = new JoinPoolStep0Fragment();
@@ -81,31 +80,31 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_join_pool_step0, container, false);
-        mCancelBtn                  = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn                    = rootView.findViewById(R.id.btn_next);
-        mProgress                   = rootView.findViewById(R.id.progress);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mProgress = rootView.findViewById(R.id.progress);
 
-        mJoinPoolInput0Img          = rootView.findViewById(R.id.join_pool_input_icon);
-        mJoinPoolInput0Symbol       = rootView.findViewById(R.id.join_pool_input_symbol);
-        mJoinPoolInput0             = rootView.findViewById(R.id.join_pool_input);
-        mJoinPoolInput0ClearBtn     = rootView.findViewById(R.id.join_pool_input_clear);
-        mJoinPoolInput0Amount       = rootView.findViewById(R.id.join_pool_input_amount);
-        mJoinPoolInput0Denom        = rootView.findViewById(R.id.join_pool_input_amount_denom);
-        mJoinPoolInput01_4Btn       = rootView.findViewById(R.id.join_pool_input_1_4);
-        mJoinPoolInput0HalfBtn      = rootView.findViewById(R.id.join_pool_input_half);
-        mJoinPoolInput03_4Btn       = rootView.findViewById(R.id.join_pool_input_3_4);
-        mJoinPoolInput0MaxBtn       = rootView.findViewById(R.id.join_pool_input_max);
+        mJoinPoolInput0Img = rootView.findViewById(R.id.join_pool_input_icon);
+        mJoinPoolInput0Symbol = rootView.findViewById(R.id.join_pool_input_symbol);
+        mJoinPoolInput0 = rootView.findViewById(R.id.join_pool_input);
+        mJoinPoolInput0ClearBtn = rootView.findViewById(R.id.join_pool_input_clear);
+        mJoinPoolInput0Amount = rootView.findViewById(R.id.join_pool_input_amount);
+        mJoinPoolInput0Denom = rootView.findViewById(R.id.join_pool_input_amount_denom);
+        mJoinPoolInput01_4Btn = rootView.findViewById(R.id.join_pool_input_1_4);
+        mJoinPoolInput0HalfBtn = rootView.findViewById(R.id.join_pool_input_half);
+        mJoinPoolInput03_4Btn = rootView.findViewById(R.id.join_pool_input_3_4);
+        mJoinPoolInput0MaxBtn = rootView.findViewById(R.id.join_pool_input_max);
 
-        mJoinPoolInput1Img          = rootView.findViewById(R.id.join_pool_output_icon);
-        mJoinPoolInput1Symbol       = rootView.findViewById(R.id.join_pool_output_symbol);
-        mJoinPoolInput1             = rootView.findViewById(R.id.join_pool_output);
-        mJoinPoolInput1ClearBtn     = rootView.findViewById(R.id.join_pool_output_clear);
-        mJoinPoolInput1Amount       = rootView.findViewById(R.id.join_pool_output_amount);
-        mJoinPoolInput1Denom        = rootView.findViewById(R.id.join_pool_output_amount_denom);
-        mJoinPoolInput11_4          = rootView.findViewById(R.id.join_pool_output_1_4);
-        mJoinPoolInput1Half         = rootView.findViewById(R.id.join_pool_output_half);
-        mJoinPoolInput13_4          = rootView.findViewById(R.id.join_pool_output_3_4);
-        mJoinPoolInput1Max          = rootView.findViewById(R.id.join_pool_output_max);
+        mJoinPoolInput1Img = rootView.findViewById(R.id.join_pool_output_icon);
+        mJoinPoolInput1Symbol = rootView.findViewById(R.id.join_pool_output_symbol);
+        mJoinPoolInput1 = rootView.findViewById(R.id.join_pool_output);
+        mJoinPoolInput1ClearBtn = rootView.findViewById(R.id.join_pool_output_clear);
+        mJoinPoolInput1Amount = rootView.findViewById(R.id.join_pool_output_amount);
+        mJoinPoolInput1Denom = rootView.findViewById(R.id.join_pool_output_amount_denom);
+        mJoinPoolInput11_4 = rootView.findViewById(R.id.join_pool_output_1_4);
+        mJoinPoolInput1Half = rootView.findViewById(R.id.join_pool_output_half);
+        mJoinPoolInput13_4 = rootView.findViewById(R.id.join_pool_output_3_4);
+        mJoinPoolInput1Max = rootView.findViewById(R.id.join_pool_output_max);
 
         mJoinPoolInput0ClearBtn.setOnClickListener(this);
         mJoinPoolInput01_4Btn.setOnClickListener(this);
@@ -135,9 +134,13 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         String coin1Denom = getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getDenom();
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(coin0Denom);
-        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(txFeeAmount); }
+        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+            mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(txFeeAmount);
+        }
         mAvailable1MaxAmount = getBaseDao().getAvailable(coin1Denom);
-        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount); }
+        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+            mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount);
+        }
 
         mCoin0Decimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), coin0Denom);
         mCoin1Decimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), coin1Denom);
@@ -174,10 +177,12 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private void onAddAmountWatcher() {
         mJoinPoolInput0.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
@@ -191,7 +196,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                 } else if (es.endsWith(".")) {
                     mJoinPoolInput0.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mJoinPoolInput0.setVisibility(View.VISIBLE);
-                } else if(mJoinPoolInput0.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (mJoinPoolInput0.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mJoinPoolInput0.setText("0");
                     mJoinPoolInput0.setSelection(1);
                 }
@@ -202,7 +207,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mJoinPoolInput0.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -223,17 +228,20 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                         }
                         mJoinPoolInput0.setSelection(mJoinPoolInput0.getText().length());
 
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
 
         mJoinPoolInput1.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
@@ -247,7 +255,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                 } else if (es.endsWith(".")) {
                     mJoinPoolInput1.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mJoinPoolInput1.setVisibility(View.VISIBLE);
-                } else if(mJoinPoolInput1.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (mJoinPoolInput1.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mJoinPoolInput1.setText("0");
                     mJoinPoolInput1.setSelection(1);
                 }
@@ -258,7 +266,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mJoinPoolInput1.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -279,7 +287,8 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                         }
                         mJoinPoolInput1.setSelection(mJoinPoolInput1.getText().length());
 
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -290,7 +299,10 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         if (!mIsInput0Focused) {
             try {
                 final BigDecimal outputAmount = new BigDecimal(outputs).movePointRight(mCoin1Decimal);
-                if (outputAmount.equals(BigDecimal.ZERO)) { mJoinPoolInput0.setText(""); return; }
+                if (outputAmount.equals(BigDecimal.ZERO)) {
+                    mJoinPoolInput0.setText("");
+                    return;
+                }
                 BigDecimal inputAmount = outputAmount.divide(mDepositRate, 0, RoundingMode.DOWN);
                 mJoinPoolInput0.setText(inputAmount.movePointLeft(mCoin0Decimal).toPlainString());
 
@@ -305,7 +317,10 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         if (mIsInput0Focused) {
             try {
                 final BigDecimal inputAmount = new BigDecimal(inputs).movePointRight(mCoin0Decimal);
-                if (inputAmount.equals(BigDecimal.ZERO)) { mJoinPoolInput1.setText(""); return; }
+                if (inputAmount.equals(BigDecimal.ZERO)) {
+                    mJoinPoolInput1.setText("");
+                    return;
+                }
                 BigDecimal OutputAmount = inputAmount.multiply(mDepositRate).setScale(0, RoundingMode.DOWN);
                 mJoinPoolInput1.setText(OutputAmount.movePointLeft(mCoin1Decimal).toPlainString());
 
@@ -339,9 +354,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mJoinPoolInput0ClearBtn)) {
             mJoinPoolInput0.requestFocus();
             mJoinPoolInput0.setText("");
-        }
-
-        else if (v.equals(mJoinPoolInput11_4)) {
+        } else if (v.equals(mJoinPoolInput11_4)) {
             mJoinPoolInput1.requestFocus();
             BigDecimal cal = mAvailable1MaxAmount.multiply(new BigDecimal(0.25)).setScale(0, RoundingMode.DOWN);
             mJoinPoolInput1.setText(cal.movePointLeft(mCoin1Decimal).toPlainString());
@@ -363,9 +376,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mJoinPoolInput1ClearBtn)) {
             mJoinPoolInput1.requestFocus();
             mJoinPoolInput1.setText("");
-        }
-
-        else if (v.equals(mCancelBtn)) {
+        } else if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
@@ -381,11 +392,13 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mJoinPoolInput0.getText().toString().trim());
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (InputAmountTemp.compareTo(mAvailable0MaxAmount.movePointLeft(mCoin0Decimal).setScale(mCoin0Decimal, RoundingMode.CEILING)) > 0) return false;
+            if (InputAmountTemp.compareTo(mAvailable0MaxAmount.movePointLeft(mCoin0Decimal).setScale(mCoin0Decimal, RoundingMode.CEILING)) > 0)
+                return false;
 
             BigDecimal OutputAmountTemp = new BigDecimal(mJoinPoolInput1.getText().toString().trim());
             if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (OutputAmountTemp.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal).setScale(mCoin1Decimal, RoundingMode.CEILING)) > 0) return false;
+            if (OutputAmountTemp.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal).setScale(mCoin1Decimal, RoundingMode.CEILING)) > 0)
+                return false;
 
             getSActivity().mPoolCoin0 = new Coin(getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getDenom(), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
             getSActivity().mPoolCoin1 = new Coin(getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getDenom(), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
@@ -410,21 +423,22 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mInDecimalSetter = "0.";
         mOutDecimalChecker = "0.";
         mOutDecimalSetter = "0.";
-        for (int i = 0; i < indecimals; i ++) {
+        for (int i = 0; i < indecimals; i++) {
             mInDecimalChecker = mInDecimalChecker + "0";
         }
-        for (int i = 0; i < indecimals-1; i ++) {
+        for (int i = 0; i < indecimals - 1; i++) {
             mInDecimalSetter = mInDecimalSetter + "0";
         }
-        for (int i = 0; i < outdecimals; i ++) {
+        for (int i = 0; i < outdecimals; i++) {
             mOutDecimalChecker = mOutDecimalChecker + "0";
         }
-        for (int i = 0; i < outdecimals-1; i ++) {
+        for (int i = 0; i < outdecimals - 1; i++) {
             mOutDecimalSetter = mOutDecimalSetter + "0";
         }
     }
 
     private int mTaskCount;
+
     public void onFetchPoolInfo() {
         mTaskCount = 1;
         new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -435,7 +449,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mOsmosisPool = (BalancerPool.Pool)result.resultData;
+                getSActivity().mOsmosisPool = (BalancerPool.Pool) result.resultData;
             }
         }
         if (mTaskCount == 0) {
@@ -443,6 +457,8 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private JoinPoolActivity getSActivity() { return (JoinPoolActivity)getBaseActivity(); }
+    private JoinPoolActivity getSActivity() {
+        return (JoinPoolActivity) getBaseActivity();
+    }
 
 }

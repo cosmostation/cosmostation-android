@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +31,12 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-
 public class DirectVoteFragment0 extends BaseFragment implements View.OnClickListener {
 
-    private Button                  mBefore, mNextBtn;
-    private RecyclerView            mRecyclerView;
-    private TextView                mSelectedValidatorCnt;
-    private ToValidatorAdapter      mToValidatorAdapter;
+    private Button mBefore, mNextBtn;
+    private RecyclerView mRecyclerView;
+    private TextView mSelectedValidatorCnt;
+    private ToValidatorAdapter mToValidatorAdapter;
 
     public static DirectVoteFragment0 newInstance(Bundle bundle) {
         DirectVoteFragment0 fragment = new DirectVoteFragment0();
@@ -53,10 +52,10 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_direct_vote_0, container, false);
-        mBefore                 = rootView.findViewById(R.id.btn_before);
-        mNextBtn                = rootView.findViewById(R.id.btn_next);
-        mSelectedValidatorCnt   = rootView.findViewById(R.id.selected_cnt);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mBefore = rootView.findViewById(R.id.btn_before);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mSelectedValidatorCnt = rootView.findViewById(R.id.selected_cnt);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
         mBefore.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -71,7 +70,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
     }
 
     private void onUpdateCnt() {
-        mSelectedValidatorCnt.setText(""+getSActivity().mValAddesses.size());
+        mSelectedValidatorCnt.setText("" + getSActivity().mValAddesses.size());
     }
 
     @Override
@@ -85,7 +84,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
     }
 
     private OKVoteDirectActivity getSActivity() {
-        return (OKVoteDirectActivity)getBaseActivity();
+        return (OKVoteDirectActivity) getBaseActivity();
     }
 
 
@@ -100,13 +99,14 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
 
         @Override
         public void onBindViewHolder(@NonNull ToValidatorHolder holder, @SuppressLint("RecyclerView") int position) {
-            final Validator validator  = getBaseDao().mAllValidators.get(position);
+            final Validator validator = getBaseDao().mAllValidators.get(position);
             if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
                 holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);
@@ -158,27 +158,27 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
         }
 
         public class ToValidatorHolder extends RecyclerView.ViewHolder {
-            CardView        itemRoot;
+            CardView itemRoot;
             CircleImageView itemAvatar;
-            ImageView       itemRevoked;
-            ImageView       itemFree;
-            ImageView       itemChecked;
-            TextView        itemTvMoniker;
-            TextView        itemTvVotingPower;
-            TextView        itemTvCommission;
-            View            itemCheckedBorder;
+            ImageView itemRevoked;
+            ImageView itemFree;
+            ImageView itemChecked;
+            TextView itemTvMoniker;
+            TextView itemTvVotingPower;
+            TextView itemTvCommission;
+            View itemCheckedBorder;
 
             public ToValidatorHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot            = itemView.findViewById(R.id.card_validator);
-                itemAvatar          = itemView.findViewById(R.id.avatar_validator);
-                itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree            = itemView.findViewById(R.id.avatar_validator_free);
-                itemChecked         = itemView.findViewById(R.id.checked_validator);
-                itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-                itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
-                itemTvCommission    = itemView.findViewById(R.id.delegate_yield_commission);
-                itemCheckedBorder   = itemView.findViewById(R.id.check_border);
+                itemRoot = itemView.findViewById(R.id.card_validator);
+                itemAvatar = itemView.findViewById(R.id.avatar_validator);
+                itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemFree = itemView.findViewById(R.id.avatar_validator_free);
+                itemChecked = itemView.findViewById(R.id.checked_validator);
+                itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
+                itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
+                itemTvCommission = itemView.findViewById(R.id.delegate_yield_commission);
+                itemCheckedBorder = itemView.findViewById(R.id.check_border);
             }
         }
 

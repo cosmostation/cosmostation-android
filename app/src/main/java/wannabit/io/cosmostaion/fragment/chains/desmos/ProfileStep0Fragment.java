@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.desmos;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -41,21 +43,19 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.DesmosProfileGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
-
 public class ProfileStep0Fragment extends BaseFragment implements View.OnClickListener {
-    private File        tempFile;
+    private File tempFile;
 
-    private Button      mCancelBtn, mNextBtn;
+    private Button mCancelBtn, mNextBtn;
 
-    private ImageView   mProfileCoverImg, mProfileImg, mImgDel;
-    private TextView    mImgAdd;
+    private ImageView mProfileCoverImg, mProfileImg, mImgDel;
+    private TextView mImgAdd;
 
-    private EditText    mProfileDtag, mProfileNickname, mProfileBio;
+    private EditText mProfileDtag, mProfileNickname, mProfileBio;
 
-    private boolean                 misProfile = true;
-    private String                  mCoverHash;
-    private String                  mProfileHash;
+    private boolean misProfile = true;
+    private String mCoverHash;
+    private String mProfileHash;
 
     public static ProfileStep0Fragment newInstance(Bundle bundle) {
         ProfileStep0Fragment fragment = new ProfileStep0Fragment();
@@ -71,16 +71,16 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create_profile_step0, container, false);
-        mCancelBtn                  = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn                    = rootView.findViewById(R.id.btn_next);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
 
-        mProfileCoverImg            = rootView.findViewById(R.id.profile_cover_img);
-        mImgAdd                     = rootView.findViewById(R.id.add_btn);
-        mImgDel                     = rootView.findViewById(R.id.delete_btn);
-        mProfileImg                 = rootView.findViewById(R.id.profile_img);
-        mProfileDtag                = rootView.findViewById(R.id.profile_dtag);
-        mProfileNickname            = rootView.findViewById(R.id.profile_nickname);
-        mProfileBio                 = rootView.findViewById(R.id.profile_bio);
+        mProfileCoverImg = rootView.findViewById(R.id.profile_cover_img);
+        mImgAdd = rootView.findViewById(R.id.add_btn);
+        mImgDel = rootView.findViewById(R.id.delete_btn);
+        mProfileImg = rootView.findViewById(R.id.profile_img);
+        mProfileDtag = rootView.findViewById(R.id.profile_dtag);
+        mProfileNickname = rootView.findViewById(R.id.profile_nickname);
+        mProfileBio = rootView.findViewById(R.id.profile_bio);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -283,7 +283,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private ProfileActivity getSActivity() {
-        return (ProfileActivity)getBaseActivity();
+        return (ProfileActivity) getBaseActivity();
     }
 
 }

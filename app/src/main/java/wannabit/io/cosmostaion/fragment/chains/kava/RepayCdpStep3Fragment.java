@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,18 +21,16 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView     mPaymentAmount, mPaymentDenom, mPaymentValue;
-    private TextView     mFeesAmount, mFeesDenom, mFeeValue;
-    private TextView     mBeforeRiskTv, mAfterRiskRateTv;
-    private TextView     mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
-    private TextView     mRemainDebtAmount, mRemainDebtDenom, mRemainDebtValue;
-    private TextView     mMemo;
+    private TextView mPaymentAmount, mPaymentDenom, mPaymentValue;
+    private TextView mFeesAmount, mFeesDenom, mFeeValue;
+    private TextView mBeforeRiskTv, mAfterRiskRateTv;
+    private TextView mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
+    private TextView mRemainDebtAmount, mRemainDebtDenom, mRemainDebtValue;
+    private TextView mMemo;
     private LinearLayout mWarnLayer;
-    private Button       mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static RepayCdpStep3Fragment newInstance(Bundle bundle) {
         RepayCdpStep3Fragment fragment = new RepayCdpStep3Fragment();
@@ -85,14 +85,14 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         BigDecimal kavaValue = WDp.usdValue(getBaseDao(), TOKEN_KAVA, feeAmount, 6);
         mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
-        WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
-        WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
+        WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate, mBeforeRiskTv, null);
+        WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate, mAfterRiskRateTv, null);
 
         mBeforeLiquidationPriceTitle.setText(String.format(getString(R.string.str_before_liquidation_title2), cDenom.toUpperCase()));
-        mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(),  4));
+        mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(), 4));
 
         mAfterLiquidationPriceTitle.setText(String.format(getString(R.string.str_after_liquidation_title2), cDenom.toUpperCase()));
-        mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
+        mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(), 4));
 
         WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mRemainLoanAmount.toPlainString(), mRemainDebtDenom, mRemainDebtAmount, getSActivity().mBaseChain);
         BigDecimal remaindValue = getSActivity().mRemainLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
@@ -115,7 +115,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private RepayCdpActivity getSActivity() {
-        return (RepayCdpActivity)getBaseActivity();
+        return (RepayCdpActivity) getBaseActivity();
     }
 
     private Genesis.CollateralParam getCParam() {

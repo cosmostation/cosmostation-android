@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -27,18 +29,16 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
-
 public class ClaimIncentiveActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout              mRootView;
-    private ImageView                   mChainBg;
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ImageView                   mIvStep;
-    private TextView                    mTvStep;
-    private ViewPager                   mViewPager;
-    private ClaimIncentivePageAdapter   mPageAdapter;
+    private RelativeLayout mRootView;
+    private ImageView mChainBg;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private ClaimIncentivePageAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +70,23 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
-                if(i == 0) {
+                if (i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_incentive_participate_step_0));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 1 ) {
+                } else if (i == 1) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_incentive_participate_step_1));
-                } else if (i == 2 ) {
+                } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_incentive_participate_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 3 ) {
+                } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_incentive_participate_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
@@ -93,7 +94,8 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         mViewPager.setCurrentItem(0);
 
@@ -120,7 +122,7 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -128,14 +130,14 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -152,7 +154,6 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
-
 
 
     private class ClaimIncentivePageAdapter extends FragmentPagerAdapter {

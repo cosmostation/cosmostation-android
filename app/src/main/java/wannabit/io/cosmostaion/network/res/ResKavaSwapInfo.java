@@ -8,10 +8,10 @@ import wannabit.io.cosmostaion.model.type.Coin;
 
 public class ResKavaSwapInfo {
 
-    public static final String STATUS_NULL      = "NULL";
-    public static final String STATUS_OPEN      = "Open";
+    public static final String STATUS_NULL = "NULL";
+    public static final String STATUS_OPEN = "Open";
     public static final String STATUS_COMPLETED = "Completed";
-    public static final String STATUS_EXPIRED   = "Expired";
+    public static final String STATUS_EXPIRED = "Expired";
 
     @SerializedName("height")
     public String height;

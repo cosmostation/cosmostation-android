@@ -1,5 +1,24 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
+
 import com.binance.dex.api.client.BinanceDexApiClientFactory;
 import com.binance.dex.api.client.BinanceDexApiRestClient;
 import com.binance.dex.api.client.BinanceDexEnvironment;
@@ -44,40 +63,20 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-
 public class HtlcCreateTask extends CommonTask {
 
-    private Account         mSendAccount;
-    private Account         mReceiveAccount;
-    private BaseChain       mSendChain;
-    private BaseChain       mReceiveChain;
+    private Account mSendAccount;
+    private Account mReceiveAccount;
+    private BaseChain mSendChain;
+    private BaseChain mReceiveChain;
     private ArrayList<Coin> mToSendCoins;
-    private Fee             mSendFee;
+    private Fee mSendFee;
 
-    private byte[]          mRandomNumberHash;
-    private String          mRandomNumber;
-    private String          mExpectedSwapId;
+    private byte[] mRandomNumberHash;
+    private String mRandomNumber;
+    private String mExpectedSwapId;
 
-    private ECKey           ecKey;
+    private ECKey ecKey;
 
     public HtlcCreateTask(BaseApplication app, TaskListener listener, Account sender, Account recipient, BaseChain sendChain, BaseChain receiveChain, ArrayList<Coin> toSendCoins, Fee sendFee) {
         super(app, listener);
@@ -95,13 +94,13 @@ public class HtlcCreateTask extends CommonTask {
         try {
             if (mSendChain.equals(BaseChain.BNB_MAIN)) {
                 Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mSendAccount.address).execute();
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;
                     return mResult;
                 }
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mSendAccount.id, response.body()));
                 mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromBnbLcd(mSendAccount.id, response.body()));
-                mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
+                mSendAccount = mApp.getBaseDao().onSelectAccount("" + mSendAccount.id);
 
                 if (mSendAccount.fromMnemonic) {
                     String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
@@ -141,7 +140,7 @@ public class HtlcCreateTask extends CommonTask {
                 WLog.w("BNB_MAIN mRandomNumber " + mRandomNumber);
                 WLog.w("BNB_MAIN Send mExpectedSwapId " + mExpectedSwapId);
 
-                TransactionOption options = new TransactionOption(mApp.getString(R.string.str_create_swap_memo_c)  , 82, null);
+                TransactionOption options = new TransactionOption(mApp.getString(R.string.str_create_swap_memo_c), 82, null);
                 BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
                 List<TransactionMetadata> resp = client.htlt(htltReq, wallet, options, true);
                 if (resp.get(0).isOk()) {
@@ -152,7 +151,8 @@ public class HtlcCreateTask extends CommonTask {
                     mResult.isSuccess = true;
 
                 } else {
-                    if (BuildConfig.DEBUG) WLog.w("Send error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
+                    if (BuildConfig.DEBUG)
+                        WLog.w("Send error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
                     mResult.errorCode = resp.get(0).getCode();
                     mResult.errorMsg = resp.get(0).getLog();
                     mResult.isSuccess = false;
@@ -174,7 +174,7 @@ public class HtlcCreateTask extends CommonTask {
                 QueryOuterClass.QueryAccountResponse mAuthResponse = authStub.account(request);
 
                 long timestamp = Calendar.getInstance().getTimeInMillis() / 1000;
-                byte[] randomNumber  = RandomUtils.nextBytes(32);
+                byte[] randomNumber = RandomUtils.nextBytes(32);
                 byte[] originData = ArrayUtils.addAll(randomNumber, WUtil.long2Bytes(timestamp));
 
                 mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
@@ -210,7 +210,7 @@ public class HtlcCreateTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BuildConfig.DEBUG) e.printStackTrace();
+            if (BuildConfig.DEBUG) e.printStackTrace();
         }
         return mResult;
     }

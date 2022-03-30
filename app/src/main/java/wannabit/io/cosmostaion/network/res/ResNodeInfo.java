@@ -14,7 +14,7 @@ public class ResNodeInfo {
     public SyncInfo sync_info;
 
     public long getCHeight() {
-        return  sync_info.latest_block_height;
+        return sync_info.latest_block_height;
     }
 
 }

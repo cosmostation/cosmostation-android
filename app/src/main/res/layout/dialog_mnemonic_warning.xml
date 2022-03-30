@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_30">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_marginTop="@dimen/space_12"
             android:textSize="@dimen/space_18"
             android:textColor="#f31963"
-            android:text="@string/str_mnemonics_warning_title"/>
+            android:text="@string/str_mnemonics_warning_title" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,18 +39,19 @@
             android:textSize="@dimen/text_size_12"
             android:gravity="center_horizontal"
             android:textColor="#191919"
-            android:text="@string/str_mnemonics_warning_msg"/>
+            android:text="@string/str_mnemonics_warning_msg" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="@dimen/space_30"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGray10" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_again"
                 android:layout_width="0dp"
@@ -59,11 +60,13 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_left"
                 style="@style/font_ss_14_red"
-                android:text="@string/str_enter_again"/>
+                android:text="@string/str_enter_again" />
+
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <Button
                 android:id="@+id/btn_ignore"
                 android:layout_width="0dp"
@@ -72,7 +75,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_right"
                 style="@style/font_ss_14_gray8"
-                android:text="@string/str_Ignore"/>
+                android:text="@string/str_Ignore" />
         </LinearLayout>
 
     </LinearLayout>

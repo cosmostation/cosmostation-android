@@ -8,7 +8,7 @@ import starnamed.x.starname.v1beta1.Types;
 public class StarnameResourceWrapper implements Serializable {
     public ArrayList<Types.Resource> array;
 
-    public StarnameResourceWrapper(ArrayList<Types.Resource> a){
+    public StarnameResourceWrapper(ArrayList<Types.Resource> a) {
         array = a;
     }
 }

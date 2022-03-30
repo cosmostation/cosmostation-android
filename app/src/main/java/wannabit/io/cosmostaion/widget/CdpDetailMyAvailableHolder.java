@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,37 +18,35 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class CdpDetailMyAvailableHolder extends BaseHolder {
-    private ImageView   mEmptyCollateralImg, mEmptyPrincipalImg;
-    private TextView    mEmptyCollateralDenom, mEmptyCollateralAmount, mEmptyPrincipalDenom,
-                        mEmptyPrincipalAmount, mEmptyKavaAmount;
-    private TextView    mEmptyCollateralValue, mEmptyPrincipalValue, mEmptyKavaValue;
+    private ImageView mEmptyCollateralImg, mEmptyPrincipalImg;
+    private TextView mEmptyCollateralDenom, mEmptyCollateralAmount, mEmptyPrincipalDenom,
+            mEmptyPrincipalAmount, mEmptyKavaAmount;
+    private TextView mEmptyCollateralValue, mEmptyPrincipalValue, mEmptyKavaValue;
 
     public CdpDetailMyAvailableHolder(@NonNull View itemView) {
         super(itemView);
-        mEmptyCollateralImg             = itemView.findViewById(R.id.collateral_icon);
-        mEmptyCollateralAmount          = itemView.findViewById(R.id.collateral_amount);
-        mEmptyCollateralDenom           = itemView.findViewById(R.id.collateral_denom);
-        mEmptyCollateralValue           = itemView.findViewById(R.id.collateral_value);
-        mEmptyPrincipalImg              = itemView.findViewById(R.id.principal_icon);
-        mEmptyPrincipalAmount           = itemView.findViewById(R.id.principal_amount);
-        mEmptyPrincipalDenom            = itemView.findViewById(R.id.principal_denom);
-        mEmptyPrincipalValue            = itemView.findViewById(R.id.principal_value);
-        mEmptyKavaAmount                = itemView.findViewById(R.id.kava_amount);
-        mEmptyKavaValue                 = itemView.findViewById(R.id.kava_value);
+        mEmptyCollateralImg = itemView.findViewById(R.id.collateral_icon);
+        mEmptyCollateralAmount = itemView.findViewById(R.id.collateral_amount);
+        mEmptyCollateralDenom = itemView.findViewById(R.id.collateral_denom);
+        mEmptyCollateralValue = itemView.findViewById(R.id.collateral_value);
+        mEmptyPrincipalImg = itemView.findViewById(R.id.principal_icon);
+        mEmptyPrincipalAmount = itemView.findViewById(R.id.principal_amount);
+        mEmptyPrincipalDenom = itemView.findViewById(R.id.principal_denom);
+        mEmptyPrincipalValue = itemView.findViewById(R.id.principal_value);
+        mEmptyKavaAmount = itemView.findViewById(R.id.kava_amount);
+        mEmptyKavaValue = itemView.findViewById(R.id.kava_value);
     }
 
     @Override
     public void onBindCdpDetailAvailable(CdpDetail5Activity context, BaseData baseData, String collateralType) {
-        final Genesis.CollateralParam collateralParam   = baseData.getCollateralParamByType(collateralType);
-        final String cDenom                             = collateralParam.getDenom();
-        final String pDenom                             = collateralParam.getDebtLimit().getDenom();
-        final BigDecimal currentPrice                   = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
-        final BigDecimal cAvailable                     = baseData.getAvailable(cDenom);
-        final BigDecimal pAvailable                     = baseData.getAvailable(pDenom);
-        final BigDecimal kAvailable                     = baseData.getAvailable(TOKEN_KAVA);
+        final Genesis.CollateralParam collateralParam = baseData.getCollateralParamByType(collateralType);
+        final String cDenom = collateralParam.getDenom();
+        final String pDenom = collateralParam.getDebtLimit().getDenom();
+        final BigDecimal currentPrice = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
+        final BigDecimal cAvailable = baseData.getAvailable(cDenom);
+        final BigDecimal pAvailable = baseData.getAvailable(pDenom);
+        final BigDecimal kAvailable = baseData.getAvailable(TOKEN_KAVA);
 
 
         mEmptyCollateralDenom.setText(WUtil.getKavaTokenName(baseData, collateralParam.getDenom()));

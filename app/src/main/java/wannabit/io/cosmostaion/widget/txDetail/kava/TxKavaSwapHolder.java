@@ -21,9 +21,9 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxKavaSwapHolder extends TxHolder {
-    ImageView   itemSwapCoinImg;
-    TextView    itemSwapCoinType, itemSwapCoinSender,
-                itemSwapTokenInAmount, itemSwapTokenInAmountSymbol, itemSwapTokenOutAmount, itemSwapTokenOutAmountSymbol;
+    ImageView itemSwapCoinImg;
+    TextView itemSwapCoinType, itemSwapCoinSender,
+            itemSwapTokenInAmount, itemSwapTokenInAmountSymbol, itemSwapTokenOutAmount, itemSwapTokenOutAmountSymbol;
 
     public TxKavaSwapHolder(@NonNull View itemView) {
         super(itemView);
@@ -92,7 +92,8 @@ public class TxKavaSwapHolder extends TxHolder {
                     itemSwapTokenOutAmountSymbol.setText("");
                 }
                 return;
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
 
         } else {
             try {
@@ -148,7 +149,8 @@ public class TxKavaSwapHolder extends TxHolder {
                     itemSwapTokenOutAmountSymbol.setText("");
                 }
                 return;
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
     }
 }

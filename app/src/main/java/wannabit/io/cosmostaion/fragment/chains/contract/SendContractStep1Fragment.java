@@ -28,18 +28,18 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class SendContractStep1Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button              mBefore, mNextBtn;
-    private EditText            mAmountInput;
-    private TextView            mAvailableAmount;
-    private TextView            mDenomTitle;
-    private ImageView           mClearAll;
-    private Button              mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
-    private BigDecimal          mMaxAvailable = BigDecimal.ZERO;
+    private Button mBefore, mNextBtn;
+    private EditText mAmountInput;
+    private TextView mAvailableAmount;
+    private TextView mDenomTitle;
+    private ImageView mClearAll;
+    private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    private Cw20Assets          mCw20Assets;
-    private ArrayList<Coin>     mToSendCoins = new ArrayList<>();
-    private int                 mDpDecimal = 6;
-    private String              mDecimalChecker, mDecimalSetter;
+    private Cw20Assets mCw20Assets;
+    private ArrayList<Coin> mToSendCoins = new ArrayList<>();
+    private int mDpDecimal = 6;
+    private String mDecimalChecker, mDecimalSetter;
 
     public static SendContractStep1Fragment newInstance(Bundle bundle) {
         SendContractStep1Fragment fragment = new SendContractStep1Fragment();
@@ -101,15 +101,17 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
     private void onAddAmountWatcher() {
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
+                if (TextUtils.isEmpty(es)) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -117,7 +119,7 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
                 } else if (es.endsWith(".")) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mAmountInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mAmountInput.setText("0");
                     mAmountInput.setSelection(1);
                 }
@@ -128,7 +130,7 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -148,7 +150,8 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                         }
                         mAmountInput.setSelection(mAmountInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -156,11 +159,11 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBefore)) {
+        if (v.equals(mBefore)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(isValidateSendAmount()) {
+            if (isValidateSendAmount()) {
                 getSActivity().mAmounts = mToSendCoins;
                 getSActivity().onNextStep();
             } else {
@@ -177,7 +180,7 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
@@ -185,7 +188,7 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
@@ -193,7 +196,7 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
         } else if (v.equals(mAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
@@ -216,7 +219,8 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
         try {
             BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
             if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+            if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+                return false;
             Coin coin = new Coin(getSActivity().mDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
             mToSendCoins.add(coin);
             return true;
@@ -230,15 +234,15 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
     private void setDisplayDecimals(int decimals) {
         mDecimalChecker = "0.";
         mDecimalSetter = "0.";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
-            mDecimalSetter = mDecimalSetter+"0";
+        for (int i = 0; i < decimals - 1; i++) {
+            mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
     private SendContractActivity getSActivity() {
-        return (SendContractActivity)getBaseActivity();
+        return (SendContractActivity) getBaseActivity();
     }
 }

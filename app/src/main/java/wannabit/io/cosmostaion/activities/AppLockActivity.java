@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -34,16 +32,16 @@ import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
-public class AppLockActivity extends BaseActivity implements KeyboardListener, TaskListener{
+public class AppLockActivity extends BaseActivity implements KeyboardListener, TaskListener {
 
-    private LinearLayout            mLayerContents;
-    private ImageView               mFingerImage;
-    private TextView                mUnlockMsg;
-    private ImageView[]             mIvCircle = new ImageView[5];
+    private LinearLayout mLayerContents;
+    private ImageView mFingerImage;
+    private TextView mUnlockMsg;
+    private ImageView[] mIvCircle = new ImageView[5];
 
-    private StopViewPager           mViewPager;
-    private KeyboardPagerAdapter    mAdapter;
-    private String                  mUserInput = "";
+    private StopViewPager mViewPager;
+    private KeyboardPagerAdapter mAdapter;
+    private String mUserInput = "";
 
     private FingerprintManagerCompat mFingerprintManagerCompat;
     private CancellationSignal mCancellationSignal;
@@ -52,14 +50,14 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applock);
-        mLayerContents  = findViewById(R.id.layer_contents);
-        mFingerImage    = findViewById(R.id.img_fingerprint);
-        mUnlockMsg      = findViewById(R.id.tv_unlock_msg);
-        mViewPager      = findViewById(R.id.pager_keyboard);
+        mLayerContents = findViewById(R.id.layer_contents);
+        mFingerImage = findViewById(R.id.img_fingerprint);
+        mUnlockMsg = findViewById(R.id.tv_unlock_msg);
+        mViewPager = findViewById(R.id.pager_keyboard);
         mNeedLeaveTime = false;
 
-        for(int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i , "id", getPackageName()));
+        for (int i = 0; i < mIvCircle.length; i++) {
+            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
         }
 
         mViewPager.setOffscreenPageLimit(2);
@@ -83,7 +81,7 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
 
     private void onInitView() {
         mUserInput = "";
-        for(int i = 0; i < mIvCircle.length; i++) {
+        for (int i = 0; i < mIvCircle.length; i++) {
             mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
         }
         mViewPager.setCurrentItem(0, true);
@@ -92,13 +90,13 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
 
     @Override
     public void onBackPressed() {
-        if(mCancellationSignal != null)
+        if (mCancellationSignal != null)
             mCancellationSignal.cancel();
         moveTaskToBack(true);
     }
 
     private void onUnlock() {
-        if(mCancellationSignal != null)
+        if (mCancellationSignal != null)
             mCancellationSignal.cancel();
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
@@ -151,7 +149,7 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
 
     @Override
     public void userInsertKey(char input) {
-        if(mUserInput == null || mUserInput.length() == 0) {
+        if (mUserInput == null || mUserInput.length() == 0) {
             mUserInput = String.valueOf(input);
 
         } else if (mUserInput.length() < 5) {
@@ -173,13 +171,13 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
 
     @Override
     public void userDeleteKey() {
-        if(mUserInput == null || mUserInput.length() <= 0) {
+        if (mUserInput == null || mUserInput.length() <= 0) {
             onBackPressed();
         } else if (mUserInput.length() == 4) {
-            mUserInput = mUserInput.substring(0, mUserInput.length()-1);
+            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
             mViewPager.setCurrentItem(0, true);
         } else {
-            mUserInput = mUserInput.substring(0, mUserInput.length()-1);
+            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
         }
         onUpdateCnt();
     }
@@ -190,12 +188,12 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     }
 
     private void onUpdateCnt() {
-        if(mUserInput == null)
+        if (mUserInput == null)
             mUserInput = "";
 
         final int inputLength = mUserInput.length();
-        for(int i = 0; i < mIvCircle.length; i++) {
-            if(i < inputLength)
+        for (int i = 0; i < mIvCircle.length; i++) {
+            if (i < inputLength)
                 mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_pu));
             else
                 mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
@@ -208,7 +206,8 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
         animation.reset();
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) { }
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -216,7 +215,8 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) { }
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
         mLayerContents.startAnimation(animation);
     }
@@ -225,15 +225,15 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     @Override
     protected void onStop() {
         super.onStop();
-        if(mCancellationSignal != null)
+        if (mCancellationSignal != null)
             mCancellationSignal.cancel();
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         onHideWaitDialog();
-        if(result.isSuccess) {
+        if (result.isSuccess) {
             onUnlock();
         } else {
             onShakeView();
@@ -241,7 +241,6 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
             Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     public class KeyboardPagerAdapter extends FragmentPagerAdapter {

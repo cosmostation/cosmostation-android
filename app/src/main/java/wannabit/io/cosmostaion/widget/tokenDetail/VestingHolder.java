@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.widget.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -17,41 +20,38 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-
 public class VestingHolder extends BaseHolder {
-    private CardView            mVestingRoot;
-    private TextView            mVestingCnt;
-    private RelativeLayout      mVestingLayer0, mVestingLayer1, mVestingLayer2, mVestingLayer3, mVestingLayer4;
-    private TextView            mVestingTime0, mVestingTime1, mVestingTime2, mVestingTime3, mVestingTime4;
-    private TextView            mVestingGap0, mVestingGap1, mVestingGap2, mVestingGap3, mVestingGap4;
-    private TextView            mVestingAmount0, mVestingAmount1, mVestingAmount2, mVestingAmount3, mVestingAmount4;
+    private CardView mVestingRoot;
+    private TextView mVestingCnt;
+    private RelativeLayout mVestingLayer0, mVestingLayer1, mVestingLayer2, mVestingLayer3, mVestingLayer4;
+    private TextView mVestingTime0, mVestingTime1, mVestingTime2, mVestingTime3, mVestingTime4;
+    private TextView mVestingGap0, mVestingGap1, mVestingGap2, mVestingGap3, mVestingGap4;
+    private TextView mVestingAmount0, mVestingAmount1, mVestingAmount2, mVestingAmount3, mVestingAmount4;
 
     public VestingHolder(@NonNull View itemView) {
         super(itemView);
-        mVestingRoot            = itemView.findViewById(R.id.card_root);
-        mVestingCnt             = itemView.findViewById(R.id.vesting_count);
-        mVestingLayer0          = itemView.findViewById(R.id.vesting_layer0);
-        mVestingLayer1          = itemView.findViewById(R.id.vesting_layer1);
-        mVestingLayer2          = itemView.findViewById(R.id.vesting_layer2);
-        mVestingLayer3          = itemView.findViewById(R.id.vesting_layer3);
-        mVestingLayer4          = itemView.findViewById(R.id.vesting_layer4);
-        mVestingTime0           = itemView.findViewById(R.id.vesting_time0);
-        mVestingTime1           = itemView.findViewById(R.id.vesting_time1);
-        mVestingTime2           = itemView.findViewById(R.id.vesting_time2);
-        mVestingTime3           = itemView.findViewById(R.id.vesting_time3);
-        mVestingTime4           = itemView.findViewById(R.id.vesting_time4);
-        mVestingGap0            = itemView.findViewById(R.id.vesting_gap0);
-        mVestingGap1            = itemView.findViewById(R.id.vesting_gap1);
-        mVestingGap2            = itemView.findViewById(R.id.vesting_gap2);
-        mVestingGap3            = itemView.findViewById(R.id.vesting_gap3);
-        mVestingGap4            = itemView.findViewById(R.id.vesting_gap4);
-        mVestingAmount0         = itemView.findViewById(R.id.vesting_amount0);
-        mVestingAmount1         = itemView.findViewById(R.id.vesting_amount1);
-        mVestingAmount2         = itemView.findViewById(R.id.vesting_amount2);
-        mVestingAmount3         = itemView.findViewById(R.id.vesting_amount3);
-        mVestingAmount4         = itemView.findViewById(R.id.vesting_amount4);
+        mVestingRoot = itemView.findViewById(R.id.card_root);
+        mVestingCnt = itemView.findViewById(R.id.vesting_count);
+        mVestingLayer0 = itemView.findViewById(R.id.vesting_layer0);
+        mVestingLayer1 = itemView.findViewById(R.id.vesting_layer1);
+        mVestingLayer2 = itemView.findViewById(R.id.vesting_layer2);
+        mVestingLayer3 = itemView.findViewById(R.id.vesting_layer3);
+        mVestingLayer4 = itemView.findViewById(R.id.vesting_layer4);
+        mVestingTime0 = itemView.findViewById(R.id.vesting_time0);
+        mVestingTime1 = itemView.findViewById(R.id.vesting_time1);
+        mVestingTime2 = itemView.findViewById(R.id.vesting_time2);
+        mVestingTime3 = itemView.findViewById(R.id.vesting_time3);
+        mVestingTime4 = itemView.findViewById(R.id.vesting_time4);
+        mVestingGap0 = itemView.findViewById(R.id.vesting_gap0);
+        mVestingGap1 = itemView.findViewById(R.id.vesting_gap1);
+        mVestingGap2 = itemView.findViewById(R.id.vesting_gap2);
+        mVestingGap3 = itemView.findViewById(R.id.vesting_gap3);
+        mVestingGap4 = itemView.findViewById(R.id.vesting_gap4);
+        mVestingAmount0 = itemView.findViewById(R.id.vesting_amount0);
+        mVestingAmount1 = itemView.findViewById(R.id.vesting_amount1);
+        mVestingAmount2 = itemView.findViewById(R.id.vesting_amount2);
+        mVestingAmount3 = itemView.findViewById(R.id.vesting_amount3);
+        mVestingAmount4 = itemView.findViewById(R.id.vesting_amount4);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class VestingHolder extends BaseHolder {
         onBindGRPC(c, chain, baseData, denom);
     }
 
-    private void onBindGRPC (Context c, BaseChain chain, BaseData baseData, String denom) {
+    private void onBindGRPC(Context c, BaseChain chain, BaseData baseData, String denom) {
         ArrayList<Vesting.Period> vps = baseData.onParseRemainVestingsByDenom(denom);
         mVestingCnt.setText("(" + vps.size() + ")");
 

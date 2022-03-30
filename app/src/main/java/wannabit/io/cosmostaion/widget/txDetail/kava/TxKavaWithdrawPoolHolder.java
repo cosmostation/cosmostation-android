@@ -22,18 +22,18 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxKavaWithdrawPoolHolder extends TxHolder {
-    ImageView   itemWithdrawCoinImg;
-    TextView    itemWithdrawCoinSender,
-                itemWithdrawTokenInAmount0, itemWithdrawTokenInSymbol0, itemWithdrawTokenInAmount1, itemWithdrawTokenInSymbol1;
+    ImageView itemWithdrawCoinImg;
+    TextView itemWithdrawCoinSender,
+            itemWithdrawTokenInAmount0, itemWithdrawTokenInSymbol0, itemWithdrawTokenInAmount1, itemWithdrawTokenInSymbol1;
 
     public TxKavaWithdrawPoolHolder(@NonNull View itemView) {
         super(itemView);
-        itemWithdrawCoinImg          = itemView.findViewById(R.id.tx_exit_pool_icon);
-        itemWithdrawCoinSender       = itemView.findViewById(R.id.tx_exit_pool_sender);
-        itemWithdrawTokenInAmount0   = itemView.findViewById(R.id.tx_token_out_amount1);
-        itemWithdrawTokenInSymbol0   = itemView.findViewById(R.id.tx_token_out_symbol1);
-        itemWithdrawTokenInAmount1   = itemView.findViewById(R.id.tx_token_out_amount2);
-        itemWithdrawTokenInSymbol1   = itemView.findViewById(R.id.tx_token_out_symbol2);
+        itemWithdrawCoinImg = itemView.findViewById(R.id.tx_exit_pool_icon);
+        itemWithdrawCoinSender = itemView.findViewById(R.id.tx_exit_pool_sender);
+        itemWithdrawTokenInAmount0 = itemView.findViewById(R.id.tx_token_out_amount1);
+        itemWithdrawTokenInSymbol0 = itemView.findViewById(R.id.tx_token_out_symbol1);
+        itemWithdrawTokenInAmount1 = itemView.findViewById(R.id.tx_token_out_amount2);
+        itemWithdrawTokenInSymbol1 = itemView.findViewById(R.id.tx_token_out_symbol2);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {

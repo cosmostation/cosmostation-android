@@ -7,14 +7,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class TxUnjailHolder extends TxHolder{
+public class TxUnjailHolder extends TxHolder {
     ImageView itemUnjailImg;
     TextView itemUnjailTitle;
     TextView itemValidator, itemMoniker;
@@ -33,6 +32,7 @@ public class TxUnjailHolder extends TxHolder{
             cosmos.slashing.v1beta1.Tx.MsgUnjail msg = cosmos.slashing.v1beta1.Tx.MsgUnjail.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemValidator.setText(msg.getValidatorAddr());
             itemMoniker.setText("(" + baseData.getValidatorInfo(msg.getValidatorAddr()).getDescription().getMoniker() + ")");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

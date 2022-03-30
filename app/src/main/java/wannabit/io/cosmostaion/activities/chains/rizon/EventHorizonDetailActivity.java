@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.rizon;
 
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,47 +29,45 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-
 
 public class EventHorizonDetailActivity extends BaseBroadCastActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar         mToolbar;
-    private RelativeLayout  mLoadingLayer;
-    private CardView        mCardViewLayer;
-    private LinearLayout    mControlLayer;
-    private TextView        mTxBlockHeight, mTxBlockTime;
-    private TextView        mTxBlockHash, mTxTransHash, mTxHdacBurnAmount, mTxMintRecipientAddress;
+    private Toolbar mToolbar;
+    private RelativeLayout mLoadingLayer;
+    private CardView mCardViewLayer;
+    private LinearLayout mControlLayer;
+    private TextView mTxBlockHeight, mTxBlockTime;
+    private TextView mTxBlockHash, mTxTransHash, mTxHdacBurnAmount, mTxMintRecipientAddress;
 
-    private Button          mDoneBtn, mExplorerBtn;
+    private Button mDoneBtn, mExplorerBtn;
 
-    private String          mTxHash;
-    private boolean         mIsSuccess;
-    private HdacTxInfo      mHdacTxInfo;
+    private String mTxHash;
+    private boolean mIsSuccess;
+    private HdacTxInfo mHdacTxInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_horizon_detail);
-        mToolbar                    = findViewById(R.id.tool_bar);
-        mTxBlockHeight              = findViewById(R.id.tx_block_height);
-        mTxBlockTime                = findViewById(R.id.tx_block_time);
-        mTxBlockHash                = findViewById(R.id.tx_block_hash);
-        mTxTransHash                = findViewById(R.id.tx_transaction_hash);
-        mTxHdacBurnAmount           = findViewById(R.id.tx_hdac_burn_amount);
-        mTxMintRecipientAddress     = findViewById(R.id.tx_mint_recipient_address);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTxBlockHeight = findViewById(R.id.tx_block_height);
+        mTxBlockTime = findViewById(R.id.tx_block_time);
+        mTxBlockHash = findViewById(R.id.tx_block_hash);
+        mTxTransHash = findViewById(R.id.tx_transaction_hash);
+        mTxHdacBurnAmount = findViewById(R.id.tx_hdac_burn_amount);
+        mTxMintRecipientAddress = findViewById(R.id.tx_mint_recipient_address);
 
-        mLoadingLayer               = findViewById(R.id.loadingLayer);
-        mCardViewLayer              = findViewById(R.id.card_status_root);
-        mControlLayer               = findViewById(R.id.control_later);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
+        mCardViewLayer = findViewById(R.id.card_status_root);
+        mControlLayer = findViewById(R.id.control_later);
 
-        mExplorerBtn                = findViewById(R.id.btn_explorer);
-        mDoneBtn                    = findViewById(R.id.btn_done);
+        mExplorerBtn = findViewById(R.id.btn_explorer);
+        mDoneBtn = findViewById(R.id.btn_done);
 
-        mAccount                    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain                  = BaseChain.getChain(mAccount.baseChain);
-        mTxHash                     = getIntent().getStringExtra("txHash");
-        mIsSuccess                  = getIntent().getBooleanExtra("isSuccess", false);
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxHash = getIntent().getStringExtra("txHash");
+        mIsSuccess = getIntent().getBooleanExtra("isSuccess", false);
 
         if (mIsSuccess) {
             onFetchTx(mTxHash);
@@ -109,13 +109,13 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
 
     @Override
     public void onClick(View v) {
-         if (v.equals(mDoneBtn)) {
-             onStartMainActivity(0);
+        if (v.equals(mDoneBtn)) {
+            onStartMainActivity(0);
 
         } else if (v.equals(mExplorerBtn)) {
-             String url = WUtil.getTxExplorer(mBaseChain, mTxHash);
-             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-             startActivity(intent);
+            String url = WUtil.getTxExplorer(mBaseChain, mTxHash);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
         }
     }
 

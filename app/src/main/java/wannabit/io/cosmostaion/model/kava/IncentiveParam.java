@@ -10,7 +10,7 @@ public class IncentiveParam {
     public ArrayList<ClaimMultiplier> claim_multipliers;
 
     public BigDecimal getFactor(String denom, int position) {
-        for (ClaimMultiplier claimMultiplier: claim_multipliers) {
+        for (ClaimMultiplier claimMultiplier : claim_multipliers) {
             if (claimMultiplier.denom.equalsIgnoreCase(denom)) {
                 return new BigDecimal(claimMultiplier.multipliers.get(position).factor);
             }

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_50">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
         android:orientation="vertical"
         android:gravity="center_horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             android:layout_marginTop="@dimen/space_12"
             android:textSize="@dimen/space_18"
             android:textColor="@color/colorBlack"
-            android:text="@string/str_ibc_warning_c"/>
+            android:text="@string/str_ibc_warning_c" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
             android:textSize="@dimen/text_size_12"
             android:gravity="center_horizontal"
             android:textColor="#191919"
-            android:text="@string/str_ibc_warning_msg1"/>
+            android:text="@string/str_ibc_warning_msg1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,18 +43,19 @@
             android:textSize="@dimen/text_size_12"
             android:gravity="center_horizontal"
             android:textColor="#191919"
-            android:text="@string/str_ibc_warning_msg2"/>
+            android:text="@string/str_ibc_warning_msg2" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="@dimen/space_30"
-            android:background="@color/colorGray8"/>
+            android:background="@color/colorGray8" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_continue"
                 android:layout_width="0dp"
@@ -63,7 +64,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white"
                 style="@style/font_ssm_14_dialog"
-                android:text="@string/str_ibc_continue_c"/>
+                android:text="@string/str_ibc_continue_c" />
         </LinearLayout>
 
     </LinearLayout>

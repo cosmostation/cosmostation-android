@@ -28,9 +28,9 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_IBC_Receive_Chain extends DialogFragment {
 
-    private RecyclerView            mRecyclerView;
-    private RelayerListAdapter      mRelayerListAdapter;
-    private ArrayList<IbcPath>      mIbcSendableRelayers = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private RelayerListAdapter mRelayerListAdapter;
+    private ArrayList<IbcPath> mIbcSendableRelayers = new ArrayList<>();
 
     public static Dialog_IBC_Receive_Chain newInstance(Bundle bundle) {
         Dialog_IBC_Receive_Chain frag = new Dialog_IBC_Receive_Chain();
@@ -46,7 +46,7 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_ibc_receive_chain, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_ibc_receive_chain, null);
         mRecyclerView = view.findViewById(R.id.recycler);
         mIbcSendableRelayers = (ArrayList<IbcPath>) getArguments().getSerializable("chain");
 
@@ -94,18 +94,19 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
             LinearLayout rootLayer;
             ImageView chainImg;
             TextView chainName;
+
             public RelayerListHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer   = itemView.findViewById(R.id.rootLayer);
-                chainImg    = itemView.findViewById(R.id.chainImg);
-                chainName   = itemView.findViewById(R.id.chainName);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                chainImg = itemView.findViewById(R.id.chainImg);
+                chainName = itemView.findViewById(R.id.chainName);
             }
         }
 
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 
 }

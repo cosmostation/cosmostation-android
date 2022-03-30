@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import osmosis.gamm.poolmodels.balancer.BalancerPool;
@@ -12,9 +15,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class OsmosisPoolInfoGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -37,7 +37,9 @@ public class OsmosisPoolInfoGrpcTask extends CommonTask {
             mResult.resultData = BalancerPool.Pool.parseFrom(response.getPool().getValue());
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "OsmosisGrpcPoolInfoTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("OsmosisGrpcPoolInfoTask " + e.getMessage());
+        }
         return mResult;
     }
 

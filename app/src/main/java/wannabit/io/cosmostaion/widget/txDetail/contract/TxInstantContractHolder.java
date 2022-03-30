@@ -21,19 +21,19 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxInstantContractHolder extends TxHolder {
-    ImageView   itemMsgImg;
-    TextView    itemContractAdmin, itemContractExecutor, itemContractCodeId, itemContractLabel, itemContractMsg, itemContractAmount, itemContractDenom;
+    ImageView itemMsgImg;
+    TextView itemContractAdmin, itemContractExecutor, itemContractCodeId, itemContractLabel, itemContractMsg, itemContractAmount, itemContractDenom;
 
     public TxInstantContractHolder(@NonNull View itemView) {
         super(itemView);
-        itemMsgImg              = itemView.findViewById(R.id.tx_msg_icon);
-        itemContractAdmin       = itemView.findViewById(R.id.contract_admin);
-        itemContractExecutor    = itemView.findViewById(R.id.contract_executor);
-        itemContractCodeId      = itemView.findViewById(R.id.contract_code_id);
-        itemContractLabel       = itemView.findViewById(R.id.contract_label);
-        itemContractMsg         = itemView.findViewById(R.id.contract_msg);
-        itemContractAmount      = itemView.findViewById(R.id.contract_amount);
-        itemContractDenom       = itemView.findViewById(R.id.contract_denom);
+        itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+        itemContractAdmin = itemView.findViewById(R.id.contract_admin);
+        itemContractExecutor = itemView.findViewById(R.id.contract_executor);
+        itemContractCodeId = itemView.findViewById(R.id.contract_code_id);
+        itemContractLabel = itemView.findViewById(R.id.contract_label);
+        itemContractMsg = itemView.findViewById(R.id.contract_msg);
+        itemContractAmount = itemView.findViewById(R.id.contract_amount);
+        itemContractDenom = itemView.findViewById(R.id.contract_denom);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -57,6 +57,7 @@ public class TxInstantContractHolder extends TxHolder {
                 itemContractDenom.setText("");
             }
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import starnamed.x.starname.v1beta1.QueryGrpc;
@@ -12,13 +15,10 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class StarNameGrpcResolveTask extends CommonTask {
-    private BaseChain                   mBaseChain;
-    private String                      mAccount;
-    private String                      mDomain;
+    private BaseChain mBaseChain;
+    private String mAccount;
+    private String mDomain;
     private QueryGrpc.QueryBlockingStub mStub;
 
     public StarNameGrpcResolveTask(BaseApplication app, TaskListener listener, BaseChain basecahin, String account, String domain) {
@@ -38,7 +38,9 @@ public class StarNameGrpcResolveTask extends CommonTask {
             mResult.resultData = response.getAccount();
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "StarNameGrpcResolveTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("StarNameGrpcResolveTask " + e.getMessage());
+        }
         return mResult;
     }
 }

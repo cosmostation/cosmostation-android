@@ -32,10 +32,10 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SimpleOkDirectVoteTask extends CommonTask {
 
-    private Account             mAccount;
-    private ArrayList<String>   mToValidators;
-    private String              mMemo;
-    private Fee                 mFees;
+    private Account mAccount;
+    private ArrayList<String> mToValidators;
+    private String mMemo;
+    private Fee mFees;
 
     public SimpleOkDirectVoteTask(BaseApplication app, TaskListener listener, Account account, ArrayList<String> toVals, String memo, Fee fees) {
         super(app, listener);
@@ -50,7 +50,7 @@ public class SimpleOkDirectVoteTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Password checkPw = mApp.getBaseDao().onSelectPassword();
-            if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+            if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
@@ -75,12 +75,12 @@ public class SimpleOkDirectVoteTask extends CommonTask {
             }
 
             Msg incentiveMsg = MsgGenerator.genOkVote(mAccount.address, mToValidators);
-            ArrayList<Msg> msgs= new ArrayList<>();
+            ArrayList<Msg> msgs = new ArrayList<>();
             msgs.add(incentiveMsg);
 
             ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
             Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
-            if(response.isSuccessful() && response.body() != null) {
+            if (response.isSuccessful() && response.body() != null) {
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;
                 }
@@ -96,7 +96,7 @@ public class SimpleOkDirectVoteTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BuildConfig.DEBUG) e.printStackTrace();
+            if (BuildConfig.DEBUG) e.printStackTrace();
         }
 
         return mResult;

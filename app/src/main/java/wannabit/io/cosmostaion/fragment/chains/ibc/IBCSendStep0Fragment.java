@@ -31,32 +31,31 @@ import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Unknown_Relayer;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int             SELECT_POPUP_IBC_CHAIN              = 1000;
-    public final static int             SELECT_POPUP_IBC_RELAYER            = 2000;
-    public final static int             SELECT_POPUP_IBC_UNKNOWN_RELAYER    = 3000;
+    public final static int SELECT_POPUP_IBC_CHAIN = 1000;
+    public final static int SELECT_POPUP_IBC_RELAYER = 2000;
+    public final static int SELECT_POPUP_IBC_UNKNOWN_RELAYER = 3000;
 
-    private Button          mBtnCancel, mBtnNext;
+    private Button mBtnCancel, mBtnNext;
 
-    private ImageView       mFromChainImg;
-    private TextView        mFromChainTv;
+    private ImageView mFromChainImg;
+    private TextView mFromChainTv;
 
-    private LinearLayout    mToChainLayer;
-    private ImageView       mToChainImg;
-    private TextView        mToChainTv;
-    private ImageView       mDialogImg;
+    private LinearLayout mToChainLayer;
+    private ImageView mToChainImg;
+    private TextView mToChainTv;
+    private ImageView mDialogImg;
 
-    private RelativeLayout  mToRelayer;
-    private TextView        mRelayerTxt;
-    private ImageView       mRelayerImg;
+    private RelativeLayout mToRelayer;
+    private TextView mRelayerTxt;
+    private ImageView mRelayerImg;
 
-    private ArrayList<IbcPath>              mIbcSendableRelayers = new ArrayList<>();
-    private IbcPath                         mIbcSelectedRelayer;
-    private ArrayList<IbcPath.Path>         mIbcSendablePaths = new ArrayList<>();
-    private IbcPath.Path                    mIbcSelectedPath;
+    private ArrayList<IbcPath> mIbcSendableRelayers = new ArrayList<>();
+    private IbcPath mIbcSelectedRelayer;
+    private ArrayList<IbcPath.Path> mIbcSendablePaths = new ArrayList<>();
+    private IbcPath.Path mIbcSelectedPath;
 
     public static IBCSendStep0Fragment newInstance(Bundle bundle) {
         IBCSendStep0Fragment fragment = new IBCSendStep0Fragment();
@@ -111,7 +110,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         mIbcSelectedRelayer = mIbcSendableRelayers.get(0);
 
         if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
-            for (IbcPath.Path path: mIbcSelectedRelayer.paths) {
+            for (IbcPath.Path path : mIbcSelectedRelayer.paths) {
                 if (path.auth != null && path.auth) {
                     mIbcSendablePaths.add(path);
                 }
@@ -119,7 +118,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else {
             mIbcSendablePaths = mIbcSelectedRelayer.paths;
         }
-        if (mIbcSendablePaths.size() <= 0 ) {
+        if (mIbcSendablePaths.size() <= 0) {
             onForceBack();
             return;
         }
@@ -193,10 +192,10 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         Collections.sort(ibcPaths, new Comparator<IbcPath>() {
             @Override
             public int compare(IbcPath o1, IbcPath o2) {
-                if(o1.chain_id.contains("cosmoshub-")) return -1;
-                if(o2.chain_id.contains("cosmoshub-")) return 1;
-                if(o1.chain_id.contains("osmosis-")) return -1;
-                if(o2.chain_id.contains("osmosis-")) return 1;
+                if (o1.chain_id.contains("cosmoshub-")) return -1;
+                if (o2.chain_id.contains("cosmoshub-")) return 1;
+                if (o1.chain_id.contains("osmosis-")) return -1;
+                if (o2.chain_id.contains("osmosis-")) return 1;
                 return o1.chain_id.compareTo(o2.chain_id);
             }
         });
@@ -206,13 +205,13 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         Collections.sort(paths, new Comparator<IbcPath.Path>() {
             @Override
             public int compare(IbcPath.Path o1, IbcPath.Path o2) {
-                IbcToken ibcToken   = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
+                IbcToken ibcToken = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
                 if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
                     if (o1.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return -1;
                     if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
                 }
-                if(o1.auth != null) return -1;
-                if(o2.auth != null) return 1;
+                if (o1.auth != null) return -1;
+                if (o2.auth != null) return 1;
                 else return 0;
             }
         });
@@ -225,7 +224,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
                 Toast.makeText(getSActivity(), R.string.error_no_relayer_channel, Toast.LENGTH_SHORT).show();
                 getSActivity().onBeforeStep();
             }
-        },610);
+        }, 610);
     }
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
@@ -253,5 +252,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private IBCSendActivity getSActivity() { return (IBCSendActivity)getBaseActivity(); }
+    private IBCSendActivity getSActivity() {
+        return (IBCSendActivity) getBaseActivity();
+    }
 }

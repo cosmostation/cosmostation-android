@@ -40,7 +40,7 @@ public class Dialog_KavaRestorePath extends DialogFragment {
         mOldPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingCustomPath(0);
+                ((RestoreActivity) getActivity()).onUsingCustomPath(0);
                 getDialog().dismiss();
             }
         });
@@ -48,7 +48,7 @@ public class Dialog_KavaRestorePath extends DialogFragment {
         mNewPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingCustomPath(1);
+                ((RestoreActivity) getActivity()).onUsingCustomPath(1);
                 getDialog().dismiss();
             }
         });

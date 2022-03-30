@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResLcdKavaAccountInfo {
     @SerializedName("height")
@@ -62,13 +61,11 @@ public class ResLcdKavaAccountInfo {
         public long end_time;
 
 
-
-
         public ArrayList<VestingPeriod> getCalcurateVesting() {
             ArrayList<VestingPeriod> result = new ArrayList<>();
             if (vesting_periods != null) {
                 long cTime = Calendar.getInstance().getTime().getTime();
-                for (int i = 0; i < vesting_periods.size(); i ++) {
+                for (int i = 0; i < vesting_periods.size(); i++) {
                     long unlockTime = getUnLockTime(i);
                     if (cTime < unlockTime) {
                         VestingPeriod temp = new VestingPeriod();
@@ -87,8 +84,8 @@ public class ResLcdKavaAccountInfo {
 
         public int getCalcurateVestingCntByDenom(String denom) {
             int result = 0;
-            for (VestingPeriod vp: getCalcurateVesting()) {
-                for (Coin coin: vp.amount) {
+            for (VestingPeriod vp : getCalcurateVesting()) {
+                for (Coin coin : vp.amount) {
                     if (coin.denom.equals(denom)) {
                         result = result + 1;
                     }
@@ -99,8 +96,8 @@ public class ResLcdKavaAccountInfo {
 
         public ArrayList<VestingPeriod> getCalcurateVestingByDenom(String denom) {
             ArrayList<VestingPeriod> result = new ArrayList<>();
-            for (VestingPeriod vp: getCalcurateVesting()) {
-                for (Coin coin: vp.amount) {
+            for (VestingPeriod vp : getCalcurateVesting()) {
+                for (Coin coin : vp.amount) {
                     if (coin.denom.equals(denom)) {
                         result.add(vp);
                     }
@@ -116,7 +113,7 @@ public class ResLcdKavaAccountInfo {
         public BigDecimal getCalcurateAmount(String denom, int position) {
             BigDecimal result = BigDecimal.ZERO;
             VestingPeriod period = getCalcurateVestingByDenom(denom).get(position);
-            for (Coin coin: period.amount) {
+            for (Coin coin : period.amount) {
                 if (coin.denom.equals(denom)) {
                     result = new BigDecimal(coin.amount);
                 }
@@ -127,8 +124,8 @@ public class ResLcdKavaAccountInfo {
 
         public BigDecimal getCalcurateVestingAmountSumByDenom(String denom) {
             BigDecimal result = BigDecimal.ZERO;
-            for (VestingPeriod vp: getCalcurateVestingByDenom(denom)) {
-                for (Coin coin: vp.amount) {
+            for (VestingPeriod vp : getCalcurateVestingByDenom(denom)) {
+                for (Coin coin : vp.amount) {
                     if (coin.denom.equals(denom)) {
                         result = result.add(new BigDecimal(coin.amount));
                     }
@@ -139,7 +136,7 @@ public class ResLcdKavaAccountInfo {
 
         public long getUnLockTime(int position) {
             long result = this.start_time;
-            for (int i = 0; i <= position; i ++) {
+            for (int i = 0; i <= position; i++) {
                 result = result + vesting_periods.get(i).length;
             }
             return result * 1000;

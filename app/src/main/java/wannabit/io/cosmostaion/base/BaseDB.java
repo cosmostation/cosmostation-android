@@ -52,7 +52,7 @@ public class BaseDB extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         switch (oldVersion) {
-            case 1 :
+            case 1:
                 try {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_BALANCE + " ADD COLUMN " + "frozen" + " TEXT");
@@ -67,10 +67,10 @@ public class BaseDB extends SQLiteOpenHelper {
                     WLog.e("upgrade error" + e.getMessage());
                 } finally {
                     db.endTransaction();
-                };
+                }
                 break;
 
-            case 2 :
+            case 2:
                 try {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "lastTotal" + " TEXT");
@@ -83,10 +83,10 @@ public class BaseDB extends SQLiteOpenHelper {
                     WLog.e("upgrade error" + e.getMessage());
                 } finally {
                     db.endTransaction();
-                };
+                }
                 break;
 
-            case 3 :
+            case 3:
                 try {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "pushAlarm" + "  INTEGER DEFAULT 0");
@@ -97,9 +97,9 @@ public class BaseDB extends SQLiteOpenHelper {
                     WLog.e("upgrade error" + e.getMessage());
                 } finally {
                     db.endTransaction();
-                };
+                }
                 break;
-            case 4 :
+            case 4:
                 try {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
@@ -109,9 +109,9 @@ public class BaseDB extends SQLiteOpenHelper {
                     WLog.e("upgrade error" + e.getMessage());
                 } finally {
                     db.endTransaction();
-                };
+                }
                 break;
-            case 5 :
+            case 5:
                 try {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
@@ -120,7 +120,7 @@ public class BaseDB extends SQLiteOpenHelper {
                     WLog.e("upgrade error" + e.getMessage());
                 } finally {
                     db.endTransaction();
-                };
+                }
                 break;
         }
     }

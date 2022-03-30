@@ -17,16 +17,16 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class LinkAccountStep3Fragment extends BaseFragment implements View.OnClickListener{
+public class LinkAccountStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mToLinkAddress;
-    private TextView        mAirdropAmount;
-    private TextView        mMemo;
-    private int             mDpDecimal = 6;
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mToLinkAddress;
+    private TextView mAirdropAmount;
+    private TextView mMemo;
+    private int mDpDecimal = 6;
 
-    private Button          mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static LinkAccountStep3Fragment newInstance(Bundle bundle) {
         LinkAccountStep3Fragment fragment = new LinkAccountStep3Fragment();
@@ -42,14 +42,14 @@ public class LinkAccountStep3Fragment extends BaseFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_link_account_step3, container, false);
-        mFeeAmount              = rootView.findViewById(R.id.tx_fee_amount);
-        mFeeAmountSymbol        = rootView.findViewById(R.id.tx_fee_symbol);
-        mToLinkAddress          = rootView.findViewById(R.id.to_link_address);
-        mAirdropAmount          = rootView.findViewById(R.id.airdrop_amount);
+        mFeeAmount = rootView.findViewById(R.id.tx_fee_amount);
+        mFeeAmountSymbol = rootView.findViewById(R.id.tx_fee_symbol);
+        mToLinkAddress = rootView.findViewById(R.id.to_link_address);
+        mAirdropAmount = rootView.findViewById(R.id.airdrop_amount);
 
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -81,6 +81,6 @@ public class LinkAccountStep3Fragment extends BaseFragment implements View.OnCli
     }
 
     private LinkAccountActivity getSActivity() {
-        return (LinkAccountActivity)getBaseActivity();
+        return (LinkAccountActivity) getBaseActivity();
     }
 }

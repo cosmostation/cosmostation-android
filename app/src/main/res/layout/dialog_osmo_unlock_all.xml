@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_16">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
             android:text="Unlock all?"
-            style="@style/font_ss_17_black"/>
+            style="@style/font_ss_17_black" />
 
         <TextView
             android:id="@+id/lock_ids"
@@ -22,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_12"
-            style="@style/font_ss_14_black"/>
+            style="@style/font_ss_14_black" />
 
         <Button
             android:id="@+id/btn_all"
@@ -36,7 +37,7 @@
             style="@style/font_ss_14_white"
             android:text="Unlock All"
             android:textColor="@color/color_bottom_dialog_btn_text"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btn_one"
@@ -50,6 +51,6 @@
             style="@style/font_ss_14_white"
             android:text="Unlock This One"
             android:textColor="@color/color_bottom_dialog_btn_text"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
     </LinearLayout>
 </LinearLayout>

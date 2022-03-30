@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlack">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,10 +12,12 @@
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:id="@+id/btn_import_key"
                 android:layout_weight="1"
@@ -25,26 +27,30 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:background="@drawable/btn_trans_with_border">
+
                 <LinearLayout
                     android:id="@+id/import_key_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-3dp"
                         style="@style/font_ss_9_photon"
-                        android:text="@string/str_import2"/>
+                        android:text="@string/str_import2" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-3dp"
                         style="@style/font_ss_14_white"
-                        android:text="@string/str_private_key"/>
+                        android:text="@string/str_private_key" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/btn_import_mnemonic"
                 android:layout_weight="1"
@@ -55,24 +61,27 @@
                 android:orientation="vertical"
                 android:layout_marginLeft="@dimen/space_12"
                 android:background="@drawable/btn_trans_with_border">
+
                 <LinearLayout
                     android:id="@+id/import_mnemonic_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-3dp"
                         style="@style/font_ss_9_photon"
-                        android:text="@string/str_import2"/>
+                        android:text="@string/str_import2" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-3dp"
                         style="@style/font_ss_14_white"
-                        android:text="@string/str_mnemonic"/>
+                        android:text="@string/str_mnemonic" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -86,24 +95,27 @@
             android:gravity="center"
             android:orientation="vertical"
             android:background="@drawable/btn_trans_with_border">
+
             <LinearLayout
                 android:id="@+id/import_watch_layer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-3dp"
                     style="@style/font_ss_9_photon"
-                    android:text="@string/str_watch"/>
+                    android:text="@string/str_watch" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-3dp"
                     style="@style/font_ss_14_white"
-                    android:text="@string/str_address"/>
+                    android:text="@string/str_address" />
             </LinearLayout>
         </LinearLayout>
 
@@ -115,7 +127,7 @@
             android:minHeight="@dimen/space_45"
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
-            android:text="@string/str_create"/>
+            android:text="@string/str_create" />
 
     </LinearLayout>
 </RelativeLayout>

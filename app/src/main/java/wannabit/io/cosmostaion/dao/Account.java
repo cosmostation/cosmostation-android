@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Account {

@@ -23,12 +23,12 @@ import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
 public class GravityPoolListFragment extends BaseFragment {
 
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private PoolListAdapter     mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private PoolListAdapter mAdapter;
 
-    public ArrayList<Liquidity.Pool>       mPoolMyList = new ArrayList<>();
-    public ArrayList<Liquidity.Pool>       mPoolOtherList = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mPoolMyList = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mPoolOtherList = new ArrayList<>();
 
     public static GravityPoolListFragment newInstance(Bundle bundle) {
         GravityPoolListFragment fragment = new GravityPoolListFragment();
@@ -44,13 +44,15 @@ public class GravityPoolListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_pool_list, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() { getSActivity().onFetchPoolListInfo(); }
+            public void onRefresh() {
+                getSActivity().onFetchPoolListInfo();
+            }
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -70,8 +72,8 @@ public class GravityPoolListFragment extends BaseFragment {
     }
 
     private class PoolListAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_MY_POOL            = 1;
-        private static final int TYPE_OTHER_POOL         = 2;
+        private static final int TYPE_MY_POOL = 1;
+        private static final int TYPE_OTHER_POOL = 2;
 
         @NonNull
         @Override
@@ -89,8 +91,7 @@ public class GravityPoolListFragment extends BaseFragment {
             if (getItemViewType(position) == TYPE_MY_POOL) {
                 final Liquidity.Pool myPool = mPoolMyList.get(position);
                 viewHolder.onBindGDexMyPool(getContext(), getSActivity(), getBaseDao(), myPool);
-            }
-            else if (getItemViewType(position) == TYPE_OTHER_POOL) {
+            } else if (getItemViewType(position) == TYPE_OTHER_POOL) {
                 final Liquidity.Pool otherPool = mPoolOtherList.get(position - mPoolMyList.size());
                 viewHolder.onBindGDexOtherPool(getContext(), getSActivity(), getBaseDao(), otherPool);
             }
@@ -111,5 +112,7 @@ public class GravityPoolListFragment extends BaseFragment {
         }
     }
 
-    private GravityListActivity getSActivity() { return (GravityListActivity)getBaseActivity(); }
+    private GravityListActivity getSActivity() {
+        return (GravityListActivity) getBaseActivity();
+    }
 }

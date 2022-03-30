@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -34,38 +32,36 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-
 public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int CDP_REPAY_CONFIRM_DIALOG = 6018;
 
-    private Button          mBtnCancel, mBtnNext;
+    private Button mBtnCancel, mBtnNext;
 
-    private ImageView       mPrincipalImg;
-    private TextView        mPrincipalSymbol;
-    private EditText        mPrincipalInput;
-    private ImageView       mPrincipalClear;
+    private ImageView mPrincipalImg;
+    private TextView mPrincipalSymbol;
+    private EditText mPrincipalInput;
+    private ImageView mPrincipalClear;
 
 
-    private LinearLayout    mParticalLayer;
-    private TextView        mParticalMaxAmountTx, mParticalMinAmountTx, mParticalDenom;
-    private TextView        mDisableParticalTx;
+    private LinearLayout mParticalLayer;
+    private TextView mParticalMaxAmountTx, mParticalMinAmountTx, mParticalDenom;
+    private TextView mDisableParticalTx;
 
-    private LinearLayout    mAllLayer;
-    private TextView        mAllAmountTx, mAllDenom;
-    private TextView        mDisableAllTx;
-    private Button          mBtn1_3, mBtn2_3, mBtnMax, mBtnAll;
+    private LinearLayout mAllLayer;
+    private TextView mAllAmountTx, mAllDenom;
+    private TextView mDisableAllTx;
+    private Button mBtn1_3, mBtn2_3, mBtnMax, mBtnAll;
 
-    private LinearLayout    mAfterRiskLayer;
-    private TextView        mBeforeRisk, mAfterRisk, mBeforeRiskScore, mAfterRiskScore;
-    private TextView        mBeforePrincipalAmount;
+    private LinearLayout mAfterRiskLayer;
+    private TextView mBeforeRisk, mAfterRisk, mBeforeRiskScore, mAfterRiskScore;
+    private TextView mBeforePrincipalAmount;
 
-    private BigDecimal      mCurrentPrice;
-    private String          cDenom, pDenom;
-    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount;
-    private BigDecimal      pMinAmount, pMaxAmount, pAllAmount, pAvailableAmount;
-    private BigDecimal      mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mRemainLoanAmount, mToPaymentAmount;
-    private String          mPrincipalChecker, mPrincipalSetter;
+    private BigDecimal mCurrentPrice;
+    private String cDenom, pDenom;
+    private BigDecimal mCurrentTotalDebetAmount, mCurrentCollateralAmount;
+    private BigDecimal pMinAmount, pMaxAmount, pAllAmount, pAvailableAmount;
+    private BigDecimal mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mRemainLoanAmount, mToPaymentAmount;
+    private String mPrincipalChecker, mPrincipalSetter;
 
 
     public static RepayCdpStep0Fragment newInstance(Bundle bundle) {
@@ -129,7 +125,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onUpdateInitInfo() {
-        mBeforeLiquidationPrice = mBeforeRiskRate = mAfterLiquidationPrice = mAfterRiskRate = mRemainLoanAmount= BigDecimal.ZERO;
+        mBeforeLiquidationPrice = mBeforeRiskRate = mAfterLiquidationPrice = mAfterRiskRate = mRemainLoanAmount = BigDecimal.ZERO;
 
         cDenom = getCParam().getDenom();
         pDenom = getCParam().getDebtLimit().getDenom();
@@ -140,7 +136,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         pAllAmount = WUtil.getEstimatedTotalDebt(getContext(), getOwenCdp(), getCParam());
 
         BigDecimal debtFloor = new BigDecimal(getCdpParam().getDebtParam().getDebtFloor());
-        BigDecimal rawDebtAmount =  new BigDecimal(getOwenCdp().getPrincipal().getAmount());
+        BigDecimal rawDebtAmount = new BigDecimal(getOwenCdp().getPrincipal().getAmount());
 
         pMaxAmount = rawDebtAmount.subtract(debtFloor);
         pMinAmount = BigDecimal.ONE;
@@ -195,22 +191,24 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
         mPrincipalInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
+                if (TextUtils.isEmpty(es)) {
                     mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
                     mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mPrincipalInput.setText("");
                 } else if (es.endsWith(".")) {
                     mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                } else if(mPrincipalInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (mPrincipalInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mPrincipalInput.setText("0");
                     mPrincipalInput.setSelection(1);
                 }
@@ -221,7 +219,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -234,13 +232,14 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                             mPrincipalInput.setSelection(recover.length());
                             return;
                         }
-                        if ((checkPosition.compareTo(pMinAmount)< 0 || checkPosition.compareTo(pMaxAmount) > 0) &&
+                        if ((checkPosition.compareTo(pMinAmount) < 0 || checkPosition.compareTo(pMaxAmount) > 0) &&
                                 !checkPosition.equals(pAllAmount)) {
                             mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                         }
                         mPrincipalInput.setSelection(mPrincipalInput.getText().length());
 
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
                 onUpdateNextBtn();
             }
@@ -333,7 +332,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 return false;
             }
             if (mToPaymentAmount.equals(BigDecimal.ZERO)) return false;
-            if ((mToPaymentAmount.compareTo(pMinAmount)< 0 || mToPaymentAmount.compareTo(pMaxAmount) > 0) &&
+            if ((mToPaymentAmount.compareTo(pMinAmount) < 0 || mToPaymentAmount.compareTo(pMaxAmount) > 0) &&
                     !mToPaymentAmount.equals(pAllAmount)) {
                 return false;
             }
@@ -375,13 +374,13 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CDP_REPAY_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CDP_REPAY_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onNextStep();
         }
     }
 
     private RepayCdpActivity getSActivity() {
-        return (RepayCdpActivity)getBaseActivity();
+        return (RepayCdpActivity) getBaseActivity();
     }
 
     private Genesis.Params getCdpParam() {
@@ -399,14 +398,13 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     private void setDpDecimals(int pDeciaml) {
         mPrincipalChecker = "0.";
         mPrincipalSetter = "0.";
-        for (int i = 0; i < pDeciaml; i ++) {
-            mPrincipalChecker = mPrincipalChecker+"0";
+        for (int i = 0; i < pDeciaml; i++) {
+            mPrincipalChecker = mPrincipalChecker + "0";
         }
-        for (int i = 0; i < pDeciaml-1; i ++) {
-            mPrincipalSetter = mPrincipalSetter+"0";
+        for (int i = 0; i < pDeciaml - 1; i++) {
+            mPrincipalSetter = mPrincipalSetter + "0";
         }
     }
-
 
 
 }

@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@drawable/bg_cosmos" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/control_layer"
         android:fitsSystemWindows="true">
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
@@ -39,7 +41,7 @@
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="450dp"
-                    android:fitsSystemWindows="true"/>
+                    android:fitsSystemWindows="true" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/tool_bar"
@@ -48,14 +50,16 @@
                     android:background="@color/colorTrans"
                     app:layout_collapseMode="pin"
                     android:theme="@style/AppTheme.AppBarOverlay">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ssm_17_white"
-                        android:text="NFT Detail"/>
+                        android:text="NFT Detail" />
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
@@ -66,6 +70,7 @@
             android:layout_marginRight="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_8" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <LinearLayout
         android:id="@+id/control_layer"
         android:layout_width="match_parent"
@@ -76,6 +81,7 @@
         android:layout_marginBottom="@dimen/space_24"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
+
         <RelativeLayout
             android:id="@+id/btn_ibc_send"
             android:layout_width="0dp"
@@ -86,6 +92,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,6 +103,7 @@
                 style="@style/font_ss_14_white"
                 android:text="@string/str_ibc_send" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_send"
             android:layout_width="0dp"
@@ -106,6 +114,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

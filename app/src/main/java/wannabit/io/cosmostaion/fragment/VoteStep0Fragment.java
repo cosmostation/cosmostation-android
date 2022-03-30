@@ -101,7 +101,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private VoteActivity getSActivity() {
-        return (VoteActivity)getBaseActivity();
+        return (VoteActivity) getBaseActivity();
     }
 
     @Override
@@ -126,7 +126,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (mMyVote.equals(Vote.OPTION_YES) || mMyVote.equals(Vote.OPTION_NO) || mMyVote.equals(Vote.OPTION_VETO) ||mMyVote.equals(Vote.OPTION_ABSTAIN)) {
+            if (mMyVote.equals(Vote.OPTION_YES) || mMyVote.equals(Vote.OPTION_NO) || mMyVote.equals(Vote.OPTION_VETO) || mMyVote.equals(Vote.OPTION_ABSTAIN)) {
                 getSActivity().mOpinion = mMyVote;
                 getSActivity().onNextStep();
 

@@ -35,6 +35,7 @@ public class StopViewPager extends ViewPager {
 
     /**
      * Enable or disable the swipe navigation
+     *
      * @param enabled
      */
     public void setPagingEnabled(boolean enabled) {

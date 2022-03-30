@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.math.BigDecimal;
-
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import osmosis.lockup.Tx;
 import wannabit.io.cosmostaion.R;
@@ -27,7 +25,7 @@ public class TxLockTokenHolder extends TxHolder {
         itemLockTokenImg = itemView.findViewById(R.id.tx_lock_token_icon);
         itemLockTokenOwner = itemView.findViewById(R.id.tx_lock_token_owner);
         itemLockTokenDuration = itemView.findViewById(R.id.tx_lock_token_duration);
-        itemLockTokenAmount= itemView.findViewById(R.id.tx_lock_token_amount);
+        itemLockTokenAmount = itemView.findViewById(R.id.tx_lock_token_amount);
         itemLockTokenSymbol = itemView.findViewById(R.id.tx_lock_token_symbol);
     }
 
@@ -41,6 +39,7 @@ public class TxLockTokenHolder extends TxHolder {
 
             Coin coinLock = new Coin(msg.getCoins(0).getDenom(), msg.getCoins(0).getAmount());
             WDp.showCoinDp(c, baseData, coinLock, itemLockTokenSymbol, itemLockTokenAmount, baseChain);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

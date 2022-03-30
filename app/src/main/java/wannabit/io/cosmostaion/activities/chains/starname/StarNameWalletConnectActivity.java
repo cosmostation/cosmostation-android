@@ -40,24 +40,24 @@ import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class StarNameWalletConnectActivity  extends BaseActivity implements View.OnClickListener {
+public class StarNameWalletConnectActivity extends BaseActivity implements View.OnClickListener {
 
-    private final static int        MSG_WC_CONNECTED            = 0;
-    private final static int        MSG_WC_DISCONNECTED         = 1;
-    private final static int        MSG_WC_APPROVED             = 2;
-    private final static int        MSG_WC_CLOSED               = 3;
-    private final static int        MSG_WC_SESSION_REQUESTED    = 4;
-    private final static int        MSG_ACTIVITY_BACK           = 5;
+    private final static int MSG_WC_CONNECTED = 0;
+    private final static int MSG_WC_DISCONNECTED = 1;
+    private final static int MSG_WC_APPROVED = 2;
+    private final static int MSG_WC_CLOSED = 3;
+    private final static int MSG_WC_SESSION_REQUESTED = 4;
+    private final static int MSG_ACTIVITY_BACK = 5;
 
-    private Toolbar         mToolbar;
-    private RelativeLayout  mWcLayer, mLoadingLayer;
-    private ImageView       mWcImg;
-    private TextView        mWcName, mWcUrl;
-    private Button          mBtnDisconnect;
+    private Toolbar mToolbar;
+    private RelativeLayout mWcLayer, mLoadingLayer;
+    private ImageView mWcImg;
+    private TextView mWcName, mWcUrl;
+    private Button mBtnDisconnect;
 
-    private String                          mWcURL;
-    private Session                         mSession;
-    private StarNameWcThread                mWcThread;
+    private String mWcURL;
+    private Session mSession;
+    private StarNameWcThread mWcThread;
 
     @SuppressLint("HandlerLeak")
     private final Handler mHandler = new Handler() {
@@ -76,7 +76,7 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
                     break;
 
                 case MSG_WC_SESSION_REQUESTED:
-                    Session.MethodCall.SessionRequest sessionRequest = (Session.MethodCall.SessionRequest)msg.obj;
+                    Session.MethodCall.SessionRequest sessionRequest = (Session.MethodCall.SessionRequest) msg.obj;
                     onInitView(sessionRequest);
                     break;
 
@@ -92,13 +92,13 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_wallet_connect);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mWcLayer            = findViewById(R.id.wc_layer);
-        mLoadingLayer       = findViewById(R.id.loading_layer);
-        mWcImg              = findViewById(R.id.wc_img);
-        mWcName             = findViewById(R.id.wc_name);
-        mWcUrl              = findViewById(R.id.wc_url);
-        mBtnDisconnect      = findViewById(R.id.btn_disconnect);
+        mToolbar = findViewById(R.id.tool_bar);
+        mWcLayer = findViewById(R.id.wc_layer);
+        mLoadingLayer = findViewById(R.id.loading_layer);
+        mWcImg = findViewById(R.id.wc_img);
+        mWcName = findViewById(R.id.wc_name);
+        mWcUrl = findViewById(R.id.wc_url);
+        mBtnDisconnect = findViewById(R.id.btn_disconnect);
         mBtnDisconnect.setOnClickListener(this);
 
         setSupportActionBar(mToolbar);
@@ -109,8 +109,8 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mWcThread = new StarNameWcThread() ;
-        mWcThread.start() ;
+        mWcThread = new StarNameWcThread();
+        mWcThread.start();
 
     }
 
@@ -128,7 +128,7 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mWcThread != null){
+        if (mWcThread != null) {
             mWcThread.interrupt();
             mWcThread = null;
         }
@@ -161,7 +161,7 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
             WLog.w("Bundle " + String.valueOf(toExport.addresses.size()));
             bundle.putString("msg", String.valueOf(toExport.addresses.size()));
             bundle.putString("jsonData", jsonData);
-            Dialog_StarName_Export_Confirm exportDialog= Dialog_StarName_Export_Confirm.newInstance(bundle);
+            Dialog_StarName_Export_Confirm exportDialog = Dialog_StarName_Export_Confirm.newInstance(bundle);
             exportDialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(exportDialog, "dialog").commitNowAllowingStateLoss();
         }
@@ -188,7 +188,7 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
             super.run();
             try {
                 File fleDir = new File(StarNameWalletConnectActivity.this.getFilesDir(), "/build/tmp");
-                if(!fleDir.exists()){
+                if (!fleDir.exists()) {
                     fleDir.mkdirs();
                 }
                 File file = new File(fleDir, "wc_store.json");
@@ -201,7 +201,7 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
                 OkHttpClient client = new OkHttpClient.Builder().pingInterval(1000, TimeUnit.MILLISECONDS).build();
                 OkHttpTransport.Builder transportBuilder = new OkHttpTransport.Builder(client, moshi);
                 Session.PeerMeta peerMeta = new Session.PeerMeta(null, null, null, null);
-                mSession = new WCSession(config, adapter,fileStore, transportBuilder, peerMeta, null);
+                mSession = new WCSession(config, adapter, fileStore, transportBuilder, peerMeta, null);
                 mSession.addCallback(new Session.Callback() {
                     @Override
                     public void onStatus(@NotNull Session.Status status) {

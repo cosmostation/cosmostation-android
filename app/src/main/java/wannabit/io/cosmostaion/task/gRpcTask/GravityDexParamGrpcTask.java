@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import tendermint.liquidity.v1beta1.QueryGrpc;
@@ -12,9 +15,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class GravityDexParamGrpcTask extends CommonTask {
     private BaseChain mChain;
     private QueryGrpc.QueryBlockingStub mStub;
@@ -23,7 +23,8 @@ public class GravityDexParamGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_GRAVITY_PARAM;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        ;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class GravityDexParamGrpcTask extends CommonTask {
             mResult.resultData = response.getParams();
 
         } catch (Exception e) {
-            WLog.e( "GravityDexParamGrpcTask "+ e.getMessage());
+            WLog.e("GravityDexParamGrpcTask " + e.getMessage());
         }
         return mResult;
     }

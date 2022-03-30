@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class TxCreateHTLCHolder extends TxHolder {
-    ImageView       itemMsgImg;
-    LinearLayout    itemExpectedLayer, itemStatusLayer;
-    TextView        itemSendAmount, itemSendDenom, itemSender, itemRecipient, itemRandomHash, itemExpectIncome;
+    ImageView itemMsgImg;
+    LinearLayout itemExpectedLayer, itemStatusLayer;
+    TextView itemSendAmount, itemSendDenom, itemSender, itemRecipient, itemRandomHash, itemExpectIncome;
 
     public TxCreateHTLCHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,9 +43,10 @@ public class TxCreateHTLCHolder extends TxHolder {
             itemRandomHash.setText(msg.getRandomNumberHash());
             itemStatusLayer.setVisibility(View.GONE);
             itemExpectedLayer.setVisibility(View.GONE);
-            WDp.showCoinDp(c, baseData, msg.getAmount(0).getDenom() ,msg.getAmount(0).getAmount(), itemSendDenom, itemSendAmount, baseChain);
+            WDp.showCoinDp(c, baseData, msg.getAmount(0).getDenom(), msg.getAmount(0).getAmount(), itemSendDenom, itemSendAmount, baseChain);
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }
 

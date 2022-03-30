@@ -524,7 +524,7 @@ public class ScrollingPagerIndicator extends View {
          * {@link ScrollingPagerIndicator#reattach()} - each time your adapter items change.
          *
          * @param indicator indicator
-         * @param pager pager to attach
+         * @param pager     pager to attach
          */
         void attachToPager(@NonNull ScrollingPagerIndicator indicator, @NonNull T pager);
 

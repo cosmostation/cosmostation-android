@@ -4,18 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import wannabit.io.cosmostaion.network.res.ResBnbTic;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Balance implements Parcelable {
-    public Long         accountId;
-    public String       symbol;
-    public BigDecimal   balance;
-    public Long         fetchTime;
-    public BigDecimal   frozen;
-    public BigDecimal   locked;
+    public Long accountId;
+    public String symbol;
+    public BigDecimal balance;
+    public Long fetchTime;
+    public BigDecimal frozen;
+    public BigDecimal locked;
 
     public Balance() {
     }

@@ -19,11 +19,11 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class TxCommissionHolder extends TxHolder {
-    ImageView       itemCommissionImg;
-    RelativeLayout  commission0Layer, commission1Layer, commission2Layer, commission3Layer;
-    TextView        itemCommissionValidator, itemCommissionValidatorMoniker;
-    TextView        itemCommissionAmount0, itemCommissionDenom0, itemCommissionAmount1, itemCommissionDenom1,
-                    itemCommissionAmount2, itemCommissionDenom2, itemCommissionAmount3, itemCommissionDenom3;
+    ImageView itemCommissionImg;
+    RelativeLayout commission0Layer, commission1Layer, commission2Layer, commission3Layer;
+    TextView itemCommissionValidator, itemCommissionValidatorMoniker;
+    TextView itemCommissionAmount0, itemCommissionDenom0, itemCommissionAmount1, itemCommissionDenom1,
+            itemCommissionAmount2, itemCommissionDenom2, itemCommissionAmount3, itemCommissionDenom3;
 
 
     public TxCommissionHolder(@NonNull View itemView) {
@@ -51,7 +51,7 @@ public class TxCommissionHolder extends TxHolder {
         try {
             Tx.MsgWithdrawValidatorCommission msg = Tx.MsgWithdrawValidatorCommission.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemCommissionValidator.setText(msg.getValidatorAddress());
-            itemCommissionValidatorMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
+            itemCommissionValidatorMoniker.setText("(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
 
             ArrayList<Coin> commissionCoins = WDp.onParseCommission(response, position);
             if (commissionCoins.size() > 0) {
@@ -71,7 +71,8 @@ public class TxCommissionHolder extends TxHolder {
                 WDp.showCoinDp(c, baseData, commissionCoins.get(3), itemCommissionDenom3, itemCommissionAmount3, baseChain);
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
     }
 }

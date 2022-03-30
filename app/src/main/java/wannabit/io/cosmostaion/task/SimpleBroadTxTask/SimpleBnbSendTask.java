@@ -34,16 +34,14 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-
 public class SimpleBnbSendTask extends CommonTask {
-    private Account         mAccount;
-    private String          mToAddress;
+    private Account mAccount;
+    private String mToAddress;
     private ArrayList<Coin> mToSendAmount;
-    private String          mToSendMemo;
-    private Fee             mToFees;
+    private String mToSendMemo;
+    private Fee mToFees;
 
-    private ECKey           ecKey;
+    private ECKey ecKey;
 
     public SimpleBnbSendTask(BaseApplication app, TaskListener listener, Account mAccount, String mToAddress, ArrayList<Coin> mToSendAmount, String mToSendMemo, Fee mToFees) {
         super(app, listener);
@@ -52,14 +50,14 @@ public class SimpleBnbSendTask extends CommonTask {
         this.mToSendAmount = mToSendAmount;
         this.mToSendMemo = mToSendMemo;
         this.mToFees = mToFees;
-        this.mResult.taskType   = BaseConstant.TASK_GEN_TX_BNB_SIMPLE_SEND;
+        this.mResult.taskType = BaseConstant.TASK_GEN_TX_BNB_SIMPLE_SEND;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             Password checkPw = mApp.getBaseDao().onSelectPassword();
-            if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+            if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
@@ -67,13 +65,13 @@ public class SimpleBnbSendTask extends CommonTask {
 
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
                 Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                     return mResult;
                 }
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+                mAccount = mApp.getBaseDao().onSelectAccount("" + mAccount.id);
 
                 if (mAccount.fromMnemonic) {
                     String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -109,7 +107,7 @@ public class SimpleBnbSendTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
 

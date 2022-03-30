@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,14 +31,10 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Starname_Domain;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class RegisterAccount0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int             SELECT_POPUP_STARNAME_DOMAIN = 1000;
+    public final static int SELECT_POPUP_STARNAME_DOMAIN = 1000;
 
     private Button mCancelBtn, mConfirmBtn;
     private EditText mAccountInput;
@@ -76,7 +75,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     }
 
     private RegisterStarNameAccountActivity getSActivity() {
-        return (RegisterStarNameAccountActivity)getBaseActivity();
+        return (RegisterStarNameAccountActivity) getBaseActivity();
     }
 
     @Override
@@ -89,7 +88,8 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
             dialog.setTargetFragment(this, SELECT_POPUP_STARNAME_DOMAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
-        } if (v.equals(mCancelBtn)) {
+        }
+        if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {

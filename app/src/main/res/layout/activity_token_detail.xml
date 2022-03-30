@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -19,21 +19,25 @@
         android:background="@color/colorBlack"
         android:paddingRight="@dimen/space_24"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/toolbar_symbol_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/token_osmosis"/>
+
+            <ImageView
+                android:id="@+id/toolbar_symbol_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/token_osmosis" />
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/toolbar_symbol_img"
                 android:layout_marginLeft="@dimen/space_4"
                 android:layout_centerVertical="true">
+
                 <TextView
                     android:id="@+id/toolbar_symbol"
                     android:layout_width="wrap_content"
@@ -41,7 +45,8 @@
                     android:layout_centerVertical="true"
                     style="@style/font_ssm_17_osmosis"
                     android:layout_marginLeft="@dimen/space_6"
-                    android:text="OSMO"/>
+                    android:text="OSMO" />
+
                 <TextView
                     android:id="@+id/per_price"
                     android:layout_width="wrap_content"
@@ -49,7 +54,8 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     style="@style/font_ssl_14_white"
-                    android:text="-"/>
+                    android:text="-" />
+
                 <LinearLayout
                     android:id="@+id/per_change"
                     android:layout_width="wrap_content"
@@ -59,6 +65,7 @@
                     android:layout_marginTop="@dimen/space_2"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
+
                     <ImageView
                         android:id="@+id/ic_price_updown"
                         android:layout_width="@dimen/space_12"
@@ -66,7 +73,8 @@
                         android:layout_marginTop="@dimen/space_2"
                         android:layout_marginRight="@dimen/space_2"
                         android:src="@drawable/ic_price_down"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/dash_price_updown_tx"
                         android:layout_width="wrap_content"
@@ -74,7 +82,7 @@
                         android:layout_alignParentRight="true"
                         android:gravity="right"
                         style="@style/font_ss_10_white"
-                        android:text="-"/>
+                        android:text="-" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
@@ -93,6 +101,7 @@
         app:cardBackgroundColor="@color/colorTransBgOsmosis"
         app:cardUseCompatPadding="true"
         android:layout_below="@+id/tool_bar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -105,12 +114,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/img_account"
                     android:layout_width="@dimen/space_24"
                     android:layout_height="@dimen/space_24"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/key_off"/>
+                    android:src="@drawable/key_off" />
+
                 <TextView
                     android:id="@+id/account_Address"
                     android:layout_width="match_parent"
@@ -120,8 +131,9 @@
                     android:layout_centerVertical="true"
                     style="@style/font_ss_12_white"
                     android:singleLine="true"
-                    android:text=""/>
+                    android:text="" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/total_value"
                 android:layout_width="match_parent"
@@ -131,7 +143,7 @@
                 style="@style/font_ss_21_white"
                 android:singleLine="true"
                 android:text="0.000"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -141,6 +153,7 @@
         android:layout_above="@+id/control_later"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -164,6 +177,7 @@
         android:layout_marginBottom="@dimen/space_24"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
+
         <RelativeLayout
             android:id="@+id/btn_ibc_send"
             android:layout_width="0dp"
@@ -175,6 +189,7 @@
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -185,6 +200,7 @@
                 style="@style/font_ss_14_white"
                 android:text="@string/str_ibc_send" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_bep3_send"
             android:layout_width="0dp"
@@ -196,6 +212,7 @@
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -206,6 +223,7 @@
                 style="@style/font_ss_14_white"
                 android:text="@string/str_bep3_send" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_send"
             android:layout_width="0dp"
@@ -216,6 +234,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

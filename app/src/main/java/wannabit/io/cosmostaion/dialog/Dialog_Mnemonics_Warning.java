@@ -14,7 +14,6 @@ import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.SendActivity;
 
 public class Dialog_Mnemonics_Warning extends DialogFragment {
 
@@ -31,7 +30,7 @@ public class Dialog_Mnemonics_Warning extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_mnemonic_warning, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_mnemonic_warning, null);
         Button btn_again = view.findViewById(R.id.btn_again);
         Button btn_ignore = view.findViewById(R.id.btn_ignore);
 

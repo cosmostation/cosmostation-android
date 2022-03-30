@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
+
 import com.binance.dex.api.client.BinanceDexApiClientFactory;
 import com.binance.dex.api.client.BinanceDexApiRestClient;
 import com.binance.dex.api.client.BinanceDexEnvironment;
@@ -38,18 +40,15 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
-
 public class HtlcClaimTask extends CommonTask {
 
-    private Account         mReceiveAccount;
-    private BaseChain       mReceiveChain;
-    private Fee             mClaimFee;
-    private String          mExpectedSwapId;
-    private String          mRandomNumber;
+    private Account mReceiveAccount;
+    private BaseChain mReceiveChain;
+    private Fee mClaimFee;
+    private String mExpectedSwapId;
+    private String mRandomNumber;
 
-    private ECKey           ecKey;
+    private ECKey ecKey;
 
     public HtlcClaimTask(BaseApplication app, TaskListener listener, Account recipient, BaseChain receiveChain, Fee claimFee, String expectedSwapId, String randomNumber) {
         super(app, listener);
@@ -68,13 +67,13 @@ public class HtlcClaimTask extends CommonTask {
         try {
             if (mReceiveChain.equals(BaseChain.BNB_MAIN)) {
                 Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mReceiveAccount.address).execute();
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                     return mResult;
                 }
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mReceiveAccount.id, response.body()));
                 mApp.getBaseDao().onUpdateBalances(mReceiveAccount.id, WUtil.getBalancesFromBnbLcd(mReceiveAccount.id, response.body()));
-                mReceiveAccount = mApp.getBaseDao().onSelectAccount(""+mReceiveAccount.id);
+                mReceiveAccount = mApp.getBaseDao().onSelectAccount("" + mReceiveAccount.id);
 
                 if (mReceiveAccount.fromMnemonic) {
                     String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
@@ -92,15 +91,17 @@ public class HtlcClaimTask extends CommonTask {
                 mExpectedSwapId = mExpectedSwapId.toLowerCase();
                 mRandomNumber = mRandomNumber.toLowerCase();
                 BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
-                TransactionOption options = new TransactionOption(mApp.getString(R.string.str_claim_swap_memo_c)  , 82, null);
+                TransactionOption options = new TransactionOption(mApp.getString(R.string.str_claim_swap_memo_c), 82, null);
                 List<TransactionMetadata> resp = client.claimHtlt(mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, options, true);
                 if (resp.get(0).isOk()) {
-                    if (BuildConfig.DEBUG) WLog.w("BNB_MAIN Claim suceess txhash " + resp.get(0).getHash());
+                    if (BuildConfig.DEBUG)
+                        WLog.w("BNB_MAIN Claim suceess txhash " + resp.get(0).getHash());
                     mResult.resultData = resp.get(0).getHash();
                     mResult.isSuccess = true;
 
                 } else {
-                    if (BuildConfig.DEBUG) WLog.w("BNB_MAIN Claim error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
+                    if (BuildConfig.DEBUG)
+                        WLog.w("BNB_MAIN Claim error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
                     mResult.errorCode = resp.get(0).getCode();
                     mResult.errorMsg = resp.get(0).getLog();
                     mResult.isSuccess = false;
@@ -139,7 +140,7 @@ public class HtlcClaimTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BuildConfig.DEBUG) e.printStackTrace();
+            if (BuildConfig.DEBUG) e.printStackTrace();
         }
         return mResult;
     }

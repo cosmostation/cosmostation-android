@@ -8,7 +8,7 @@ import osmosis.lockup.Lock;
 public class OsmosisPeriodLockWrapper implements Serializable {
     public ArrayList<Lock.PeriodLock> array;
 
-    public OsmosisPeriodLockWrapper(ArrayList<Lock.PeriodLock> a){
+    public OsmosisPeriodLockWrapper(ArrayList<Lock.PeriodLock> a) {
         array = a;
     }
 }

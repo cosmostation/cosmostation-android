@@ -16,20 +16,20 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class TxWithdrawLeaseHolder extends TxHolder{
+public class TxWithdrawLeaseHolder extends TxHolder {
     ImageView itemWithdrawLeaseImg;
     TextView itemWithdrawLeaseTitle;
     TextView itemProvider, itemOwner, itemDseq, itemGseq, itemOseq;
 
     public TxWithdrawLeaseHolder(@NonNull View itemView) {
         super(itemView);
-        itemWithdrawLeaseImg        = itemView.findViewById(R.id.tx_withdraw_lease_icon);
-        itemWithdrawLeaseTitle      = itemView.findViewById(R.id.tx_withdraw_lease_text);
-        itemProvider                = itemView.findViewById(R.id.tx_withdraw_lease_provider);
-        itemOwner                   = itemView.findViewById(R.id.tx_withdraw_lease_owner);
-        itemDseq                    = itemView.findViewById(R.id.tx_withdraw_lease_dseq);
-        itemGseq                    = itemView.findViewById(R.id.tx_withdraw_lease_gseq);
-        itemOseq                    = itemView.findViewById(R.id.tx_withdraw_lease_oseq);
+        itemWithdrawLeaseImg = itemView.findViewById(R.id.tx_withdraw_lease_icon);
+        itemWithdrawLeaseTitle = itemView.findViewById(R.id.tx_withdraw_lease_text);
+        itemProvider = itemView.findViewById(R.id.tx_withdraw_lease_provider);
+        itemOwner = itemView.findViewById(R.id.tx_withdraw_lease_owner);
+        itemDseq = itemView.findViewById(R.id.tx_withdraw_lease_dseq);
+        itemGseq = itemView.findViewById(R.id.tx_withdraw_lease_gseq);
+        itemOseq = itemView.findViewById(R.id.tx_withdraw_lease_oseq);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -42,6 +42,7 @@ public class TxWithdrawLeaseHolder extends TxHolder{
             itemDseq.setText("" + format.format(msg.getBidId().getDseq()));
             itemGseq.setText("" + msg.getBidId().getGseq());
             itemOseq.setText("" + msg.getBidId().getOseq());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

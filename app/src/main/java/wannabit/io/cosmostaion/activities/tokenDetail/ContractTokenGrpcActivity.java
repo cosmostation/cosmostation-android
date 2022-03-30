@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,52 +36,50 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
-
 public class ContractTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar                         mToolbar;
-    private ImageView                       mToolbarSymbolImg;
-    private TextView                        mToolbarSymbol;
-    private TextView                        mItemPerPrice;
-    private ImageView                       mItemUpDownImg;
-    private TextView                        mItemUpDownPrice;
+    private Toolbar mToolbar;
+    private ImageView mToolbarSymbolImg;
+    private TextView mToolbarSymbol;
+    private TextView mItemPerPrice;
+    private ImageView mItemUpDownImg;
+    private TextView mItemUpDownPrice;
 
-    private CardView                        mBtnAddressPopup;
-    private ImageView                       mKeyState;
-    private TextView                        mTotalValue;
-    private TextView                        mAddress;
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
+    private CardView mBtnAddressPopup;
+    private ImageView mKeyState;
+    private TextView mTotalValue;
+    private TextView mAddress;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
 
-    private RelativeLayout                  mBtnIbcSend;
-    private RelativeLayout                  mBtnSend;
+    private RelativeLayout mBtnIbcSend;
+    private RelativeLayout mBtnSend;
 
-    private Cw20TokenGrpcAdapter            mAdapter;
+    private Cw20TokenGrpcAdapter mAdapter;
 
-    private Cw20Assets                      mCw20Asset;
-    private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
+    private Cw20Assets mCw20Asset;
+    private BigDecimal mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail);
 
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
-        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
-        mItemPerPrice           = findViewById(R.id.per_price);
-        mItemUpDownImg          = findViewById(R.id.ic_price_updown);
-        mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mItemPerPrice = findViewById(R.id.per_price);
+        mItemUpDownImg = findViewById(R.id.ic_price_updown);
+        mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
-        mBtnAddressPopup        = findViewById(R.id.card_root);
-        mKeyState               = findViewById(R.id.img_account);
-        mAddress                = findViewById(R.id.account_Address);
-        mTotalValue             = findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
-        mBtnSend                = findViewById(R.id.btn_send);
+        mBtnAddressPopup = findViewById(R.id.card_root);
+        mKeyState = findViewById(R.id.img_account);
+        mAddress = findViewById(R.id.account_Address);
+        mTotalValue = findViewById(R.id.total_value);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
+        mBtnSend = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -157,8 +157,11 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
-            else { bundle.putString("title", mAccount.nickName); }
+            if (TextUtils.isEmpty(mAccount.nickName)) {
+                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+            } else {
+                bundle.putString("title", mAccount.nickName);
+            }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -187,10 +190,10 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     }
 
     private class Cw20TokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_CW20                  = 0;
+        private static final int TYPE_UNKNOWN = -1;
+        private static final int TYPE_CW20 = 0;
 
-        private static final int TYPE_HISTORY               = 100;
+        private static final int TYPE_HISTORY = 100;
 
         @NonNull
         @Override
@@ -200,10 +203,6 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             } else if (viewType == TYPE_CW20) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
             }
-
-//            } else if (viewType == TYPE_HISTORY) {
-//                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
-//            }
             return null;
         }
 
@@ -213,10 +212,6 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
                 holder.onBindCw20Token(ContractTokenGrpcActivity.this, mBaseChain, getBaseDao(), mCw20Asset);
             }
-//
-//            } else if (getItemViewType(position) == TYPE_HISTORY) {
-//
-//            } else if (getItemViewType(position) == TYPE_UNKNOWN) {
         }
 
         @Override

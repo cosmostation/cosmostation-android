@@ -34,37 +34,34 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SimpleSendTask extends CommonTask {
 
-    private Account         mAccount;
-    private String          mToAddress;
+    private Account mAccount;
+    private String mToAddress;
     private ArrayList<Coin> mToSendAmount;
-    private String          mToSendMemo;
-    private Fee             mToFees;
+    private String mToSendMemo;
+    private Fee mToFees;
 
     public SimpleSendTask(BaseApplication app, TaskListener listener, Account account,
                           String toAddress, ArrayList<Coin> toSendAmount, String toSendMemo,
                           Fee toFees) {
         super(app, listener);
-        this.mAccount           = account;
-        this.mToAddress         = toAddress;
-        this.mToSendAmount      = toSendAmount;
-        this.mToSendMemo        = toSendMemo;
-        this.mToFees            = toFees;
-        this.mResult.taskType   = TASK_GEN_TX_SIMPLE_SEND;
+        this.mAccount = account;
+        this.mToAddress = toAddress;
+        this.mToSendAmount = toSendAmount;
+        this.mToSendMemo = toSendMemo;
+        this.mToFees = toFees;
+        this.mResult.taskType = TASK_GEN_TX_SIMPLE_SEND;
     }
 
 
     /**
-     *
-     * @param strings
-     *  strings[0] : password
-     *
+     * @param strings strings[0] : password
      * @return
      */
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             Password checkPw = mApp.getBaseDao().onSelectPassword();
-            if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+            if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
@@ -89,12 +86,12 @@ public class SimpleSendTask extends CommonTask {
             }
 
             Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mToSendAmount, getChain(mAccount.baseChain));
-            ArrayList<Msg> msgs= new ArrayList<>();
+            ArrayList<Msg> msgs = new ArrayList<>();
             msgs.add(singleSendMsg);
 
             ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, ecKey, mApp.getBaseDao().getChainId());
             Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
-            if(response.isSuccessful() && response.body() != null) {
+            if (response.isSuccessful() && response.body() != null) {
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;
                 }
@@ -110,7 +107,7 @@ public class SimpleSendTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BuildConfig.DEBUG) e.printStackTrace();
+            if (BuildConfig.DEBUG) e.printStackTrace();
 
         }
         return mResult;

@@ -24,7 +24,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     private TextView mFeeAmount, mDenomFeeType;
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
-    private int             mDpDecimal = 6;
+    private int mDpDecimal = 6;
 
 
     public static VoteStep3Fragment newInstance(Bundle bundle) {
@@ -80,6 +80,6 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private VoteActivity getSActivity() {
-        return (VoteActivity)getBaseActivity();
+        return (VoteActivity) getBaseActivity();
     }
 }

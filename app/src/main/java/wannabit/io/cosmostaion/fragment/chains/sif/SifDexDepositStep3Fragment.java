@@ -17,23 +17,20 @@ import wannabit.io.cosmostaion.activities.chains.sif.SifDepositPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnClickListener{
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mJoinInput0Amount, mJoinInput0AmountSymbol;
+    private TextView mJoinInput1Amount, mJoinInput1AmountSymbol;
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mJoinInput0Amount, mJoinInput0AmountSymbol;
-    private TextView        mJoinInput1Amount, mJoinInput1AmountSymbol;
+    private TextView mLpAmountTitle;
+    private LinearLayout mLpAmountLayer;
+    private TextView mMemo;
+    private int mDpDecimal = 6;
 
-    private TextView        mLpAmountTitle;
-    private LinearLayout    mLpAmountLayer;
-    private TextView        mMemo;
-    private int             mDpDecimal = 6;
-
-    private Button          mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static SifDexDepositStep3Fragment newInstance(Bundle bundle) {
         SifDexDepositStep3Fragment fragment = new SifDexDepositStep3Fragment();
@@ -49,18 +46,18 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_join_pool_step3, container, false);
-        mFeeAmount                  = rootView.findViewById(R.id.join_fee_amount);
-        mFeeAmountSymbol            = rootView.findViewById(R.id.join_fee_amount_symbol);
-        mJoinInput0Amount           = rootView.findViewById(R.id.join_input0_amount);
-        mJoinInput0AmountSymbol     = rootView.findViewById(R.id.join_input0_amount_symbol);
-        mJoinInput1Amount           = rootView.findViewById(R.id.join_input1_amount);
-        mJoinInput1AmountSymbol     = rootView.findViewById(R.id.join_input1_amount_symbol);
+        mFeeAmount = rootView.findViewById(R.id.join_fee_amount);
+        mFeeAmountSymbol = rootView.findViewById(R.id.join_fee_amount_symbol);
+        mJoinInput0Amount = rootView.findViewById(R.id.join_input0_amount);
+        mJoinInput0AmountSymbol = rootView.findViewById(R.id.join_input0_amount_symbol);
+        mJoinInput1Amount = rootView.findViewById(R.id.join_input1_amount);
+        mJoinInput1AmountSymbol = rootView.findViewById(R.id.join_input1_amount_symbol);
 
-        mLpAmountTitle              = rootView.findViewById(R.id.lp_amount_title);
-        mLpAmountLayer              = rootView.findViewById(R.id.lp_amount);
-        mMemo                       = rootView.findViewById(R.id.memo);
-        mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
+        mLpAmountTitle = rootView.findViewById(R.id.lp_amount_title);
+        mLpAmountLayer = rootView.findViewById(R.id.lp_amount);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -87,7 +84,7 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -96,6 +93,6 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
     }
 
     private SifDepositPoolActivity getSActivity() {
-        return (SifDepositPoolActivity)getBaseActivity();
+        return (SifDepositPoolActivity) getBaseActivity();
     }
 }

@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 
-public class Dialog_Buy_Without_Key  extends DialogFragment {
+public class Dialog_Buy_Without_Key extends DialogFragment {
 
     public static Dialog_Buy_Without_Key newInstance() {
         Dialog_Buy_Without_Key frag = new Dialog_Buy_Without_Key();
@@ -29,7 +29,7 @@ public class Dialog_Buy_Without_Key  extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_buy_without_key, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_buy_without_key, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
@@ -54,6 +54,6 @@ public class Dialog_Buy_Without_Key  extends DialogFragment {
     }
 
     private BaseActivity getBaseActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 }

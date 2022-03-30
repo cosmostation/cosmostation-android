@@ -32,8 +32,8 @@ import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
 public class RegisterAccount1Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_ADD_CHAIN    = 9700;
-    public final static int SELECT_ADD_ADDRESS  = 9701;
+    public final static int SELECT_ADD_CHAIN = 9700;
+    public final static int SELECT_ADD_ADDRESS = 9701;
 
     private Button mBefore, mNextBtn;
     private RecyclerView mRecyclerView;
@@ -41,7 +41,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
     private ResourceAdapter mResourceAdapter;
     public ArrayList<Types.Resource> mResources = new ArrayList();
 
-    public static String STARNAME       = "asset:iov";
+    public static String STARNAME = "asset:iov";
 
     public static RegisterAccount1Fragment newInstance(Bundle bundle) {
         RegisterAccount1Fragment fragment = new RegisterAccount1Fragment();
@@ -56,10 +56,10 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView   = inflater.inflate(R.layout.fragment_register_account1, container, false);
-        mBefore         = rootView.findViewById(R.id.btn_before);
-        mNextBtn        = rootView.findViewById(R.id.btn_next);
-        mRecyclerView   = rootView.findViewById(R.id.recycler);
+        View rootView = inflater.inflate(R.layout.fragment_register_account1, container, false);
+        mBefore = rootView.findViewById(R.id.btn_before);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
         mBefore.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
@@ -81,7 +81,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
     }
 
     private RegisterStarNameAccountActivity getSActivity() {
-        return (RegisterStarNameAccountActivity)getBaseActivity();
+        return (RegisterStarNameAccountActivity) getBaseActivity();
     }
 
     @Override
@@ -91,8 +91,8 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
 
         } else if (v.equals(mNextBtn)) {
             ArrayList<Types.Resource> tempResources = new ArrayList();
-            for (Types.Resource resource:mResources) {
-                if (!TextUtils.isEmpty(resource.getResource()) && !TextUtils.isEmpty(resource.getUri())){
+            for (Types.Resource resource : mResources) {
+                if (!TextUtils.isEmpty(resource.getResource()) && !TextUtils.isEmpty(resource.getUri())) {
                     tempResources.add(resource);
                 }
             }
@@ -115,13 +115,14 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 startActivityForResult(intent, SELECT_ADD_ADDRESS);
                 getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
 
         } else if (requestCode == SELECT_ADD_ADDRESS && resultCode == Activity.RESULT_OK) {
             try {
                 Types.Resource temp = Types.Resource.parseFrom(data.getByteArrayExtra("resource"));
                 int position = -1;
-                for (int i = 0 ; i < mResources.size(); i ++) {
+                for (int i = 0; i < mResources.size(); i++) {
                     if (mResources.get(i).getUri().equals(temp.getUri())) {
                         position = i;
                         break;
@@ -135,22 +136,23 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 }
                 mResourceAdapter.notifyDataSetChanged();
 
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
 
         }
     }
 
 
     private class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_RESOURCE          = 1;
-        private static final int TYPE_ADD               = 2;
+        private static final int TYPE_RESOURCE = 1;
+        private static final int TYPE_ADD = 2;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_RESOURCE) {
                 return new ResourceHolder(getLayoutInflater().inflate(R.layout.item_manage_starname_resource, viewGroup, false));
-            } else if(viewType == TYPE_ADD) {
+            } else if (viewType == TYPE_ADD) {
                 return new ResourceAddHolder(getLayoutInflater().inflate(R.layout.item_manage_starname_add, viewGroup, false));
             }
             return null;
@@ -160,7 +162,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_RESOURCE) {
                 final Types.Resource resource = mResources.get(position);
-                final ResourceHolder holder = (ResourceHolder)viewHolder;
+                final ResourceHolder holder = (ResourceHolder) viewHolder;
                 Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.getUri())).fit().into(holder.itemChainImg);
                 holder.itemChainName.setText(StarnameAssets.getStarNameChainName(resource.getUri()));
                 holder.itemChainAddress.setText(resource.getResource());
@@ -174,8 +176,11 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                     }
                 });
 
-                if (mResources.size() <= 1) { holder.itemBtnRemove.setVisibility(View.GONE); }
-                else { holder.itemBtnRemove.setVisibility(View.VISIBLE); }
+                if (mResources.size() <= 1) {
+                    holder.itemBtnRemove.setVisibility(View.GONE);
+                } else {
+                    holder.itemBtnRemove.setVisibility(View.VISIBLE);
+                }
 
                 holder.itemBtnRemove.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -186,7 +191,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 });
 
             } else if (getItemViewType(position) == TYPE_ADD) {
-                final ResourceAddHolder holder = (ResourceAddHolder)viewHolder;
+                final ResourceAddHolder holder = (ResourceAddHolder) viewHolder;
                 holder.itemBtnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -241,11 +246,11 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
 
             public ResourceHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot         = itemView.findViewById(R.id.card_root);
-                itemChainImg     = itemView.findViewById(R.id.chain_img);
-                itemChainName    = itemView.findViewById(R.id.chain_name);
+                itemRoot = itemView.findViewById(R.id.card_root);
+                itemChainImg = itemView.findViewById(R.id.chain_img);
+                itemChainName = itemView.findViewById(R.id.chain_name);
                 itemChainAddress = itemView.findViewById(R.id.chain_address);
-                itemBtnRemove    = itemView.findViewById(R.id.btn_remove);
+                itemBtnRemove = itemView.findViewById(R.id.btn_remove);
             }
         }
     }

@@ -18,18 +18,18 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class GDexDepositStep3Fragment extends BaseFragment implements View.OnClickListener{
+public class GDexDepositStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mJoinInput0Amount, mJoinInput0AmountSymbol;
-    private TextView        mJoinInput1Amount, mJoinInput1AmountSymbol;
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mJoinInput0Amount, mJoinInput0AmountSymbol;
+    private TextView mJoinInput1Amount, mJoinInput1AmountSymbol;
 
-    private TextView        mLpAmount, mLpAmountSymbol;
-    private TextView        mMemo;
-    private int             mDpDecimal = 6;
+    private TextView mLpAmount, mLpAmountSymbol;
+    private TextView mMemo;
+    private int mDpDecimal = 6;
 
-    private Button          mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static GDexDepositStep3Fragment newInstance(Bundle bundle) {
         GDexDepositStep3Fragment fragment = new GDexDepositStep3Fragment();
@@ -45,18 +45,18 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_join_pool_step3, container, false);
-        mFeeAmount                  = rootView.findViewById(R.id.join_fee_amount);
-        mFeeAmountSymbol            = rootView.findViewById(R.id.join_fee_amount_symbol);
-        mJoinInput0Amount           = rootView.findViewById(R.id.join_input0_amount);
-        mJoinInput0AmountSymbol     = rootView.findViewById(R.id.join_input0_amount_symbol);
-        mJoinInput1Amount           = rootView.findViewById(R.id.join_input1_amount);
-        mJoinInput1AmountSymbol     = rootView.findViewById(R.id.join_input1_amount_symbol);
+        mFeeAmount = rootView.findViewById(R.id.join_fee_amount);
+        mFeeAmountSymbol = rootView.findViewById(R.id.join_fee_amount_symbol);
+        mJoinInput0Amount = rootView.findViewById(R.id.join_input0_amount);
+        mJoinInput0AmountSymbol = rootView.findViewById(R.id.join_input0_amount_symbol);
+        mJoinInput1Amount = rootView.findViewById(R.id.join_input1_amount);
+        mJoinInput1AmountSymbol = rootView.findViewById(R.id.join_input1_amount_symbol);
 
-        mLpAmount                   = rootView.findViewById(R.id.join_out_amount);
-        mLpAmountSymbol             = rootView.findViewById(R.id.join_out_amount_symbol);
-        mMemo                       = rootView.findViewById(R.id.memo);
-        mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
+        mLpAmount = rootView.findViewById(R.id.join_out_amount);
+        mLpAmountSymbol = rootView.findViewById(R.id.join_out_amount_symbol);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -87,7 +87,7 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -96,6 +96,6 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
     }
 
     private GravityDepositPoolActivity getSActivity() {
-        return (GravityDepositPoolActivity)getBaseActivity();
+        return (GravityDepositPoolActivity) getBaseActivity();
     }
 }

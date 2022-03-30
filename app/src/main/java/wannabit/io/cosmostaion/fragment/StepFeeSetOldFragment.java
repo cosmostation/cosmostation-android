@@ -32,23 +32,23 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickListener {
 
-    private CardView                mFeeTotalCard;
-    private TextView                mFeeDenom, mFeeAmount, mFeeValue;
+    private CardView mFeeTotalCard;
+    private TextView mFeeDenom, mFeeAmount, mFeeValue;
 
-    private TextView                mGasAmount, mGasRate, mGasFee;
-    private SegmentedButtonGroup    mButtonGroup;
+    private TextView mGasAmount, mGasRate, mGasFee;
+    private SegmentedButtonGroup mButtonGroup;
 
-    private LinearLayout            mSpeedLayer;
-    private ImageView               mSpeedImg;
-    private TextView                mSpeedTxt;
+    private LinearLayout mSpeedLayer;
+    private ImageView mSpeedImg;
+    private TextView mSpeedTxt;
 
-    private LinearLayout            mBottomControlCard;
-    private Button                  mBtnBefore, mBtnNext;
+    private LinearLayout mBottomControlCard;
+    private Button mBtnBefore, mBtnNext;
 
-    private int                     mSelectedGasPosition    = 1;
-    private BigDecimal              mSelectedGasRate        = BigDecimal.ZERO;
-    private BigDecimal              mEstimateGasAmount      = BigDecimal.ZERO;
-    private BigDecimal              mFee                    = BigDecimal.ZERO;
+    private int mSelectedGasPosition = 1;
+    private BigDecimal mSelectedGasRate = BigDecimal.ZERO;
+    private BigDecimal mEstimateGasAmount = BigDecimal.ZERO;
+    private BigDecimal mFee = BigDecimal.ZERO;
 
     public static StepFeeSetOldFragment newInstance(Bundle bundle) {
         StepFeeSetOldFragment fragment = new StepFeeSetOldFragment();
@@ -166,6 +166,6 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     }
 
     private BaseBroadCastActivity getSActivity() {
-        return (BaseBroadCastActivity)getBaseActivity();
+        return (BaseBroadCastActivity) getBaseActivity();
     }
 }

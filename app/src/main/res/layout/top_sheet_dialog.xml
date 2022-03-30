@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +9,7 @@
         android:id="@+id/top_sheet_touch_outside"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:soundEffectsEnabled="false"/>
+        android:soundEffectsEnabled="false" />
 
     <FrameLayout
         android:id="@+id/design_top_sheet"
@@ -20,7 +19,6 @@
         android:layout_gravity="center_horizontal|top"
         android:clickable="true"
         app:layout_behavior="wannabit.io.cosmostaion.dialog.TopSheetBehavior"
-        style="@style/Widget.Design.TopSheet.Modal"
-        />
+        style="@style/Widget.Design.TopSheet.Modal" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

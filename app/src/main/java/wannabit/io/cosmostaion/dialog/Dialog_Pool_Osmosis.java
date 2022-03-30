@@ -1,26 +1,17 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ListFragment;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Dialog_Pool_Osmosis extends BottomSheetDialogFragment {
 
@@ -40,7 +31,7 @@ public class Dialog_Pool_Osmosis extends BottomSheetDialogFragment {
         mJoinPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LabsListActivity)getActivity()).onCheckStartJoinPool(getArguments().getLong("poolId"));
+                ((LabsListActivity) getActivity()).onCheckStartJoinPool(getArguments().getLong("poolId"));
                 getDialog().dismiss();
             }
         });
@@ -48,7 +39,7 @@ public class Dialog_Pool_Osmosis extends BottomSheetDialogFragment {
         mExitPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LabsListActivity)getActivity()).onCheckStartExitPool(getArguments().getLong("poolId"));
+                ((LabsListActivity) getActivity()).onCheckStartExitPool(getArguments().getLong("poolId"));
                 getDialog().dismiss();
             }
         });

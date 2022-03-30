@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_EXECUTE_CONTRACT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -25,23 +27,21 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_EXECUTE_CONTRACT;
-
 public class SimulCw20SendGrpcTask extends CommonTask {
-    private BaseChain       mBaseChain;
-    private Account         mAccount;
-    private String          mFromAddress;
-    private String          mToAddress;
-    private String          mContractAddress;
+    private BaseChain mBaseChain;
+    private Account mAccount;
+    private String mFromAddress;
+    private String mToAddress;
+    private String mContractAddress;
     private ArrayList<Coin> mAmount;
-    private String          mMemo;
-    private Fee             mFees;
-    private String          mChainId;
+    private String mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public SimulCw20SendGrpcTask(BaseApplication app, TaskListener listener,  Account mAccount, BaseChain basechain, String fromaddress, String toAddress, String contractAddress, ArrayList<Coin> amount, String mMemo, Fee mFees, String chainId) {
+    public SimulCw20SendGrpcTask(BaseApplication app, TaskListener listener, Account mAccount, BaseChain basechain, String fromaddress, String toAddress, String contractAddress, ArrayList<Coin> amount, String mMemo, Fee mFees, String chainId) {
         super(app, listener);
         this.mAccount = mAccount;
         this.mBaseChain = basechain;
@@ -80,7 +80,7 @@ public class SimulCw20SendGrpcTask extends CommonTask {
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e( "SimulCw20SendGrpcTask "+ e.getMessage());
+            WLog.e("SimulCw20SendGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -37,18 +39,16 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Mnemonics_Warning;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-
 public class StepMemoFragment extends BaseFragment implements View.OnClickListener {
 
     public final static int AGAIN_MEMO = 9500;
 
-    private EditText        mMemo;
-    private TextView        mMemoCnt;
-    private LinearLayout    mMemoWranLayer;
+    private EditText mMemo;
+    private TextView mMemoCnt;
+    private LinearLayout mMemoWranLayer;
 
-    private Button          mBeforeBtn, mNextBtn;
-    private LinearLayout    mBtnQr, mBtnPaste;
+    private Button mBeforeBtn, mNextBtn;
+    private LinearLayout mBtnQr, mBtnPaste;
 
     public static StepMemoFragment newInstance(Bundle bundle) {
         StepMemoFragment fragment = new StepMemoFragment();
@@ -64,8 +64,8 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
-        mMemo       = rootView.findViewById(R.id.et_memo);
-        mMemoCnt    = rootView.findViewById(R.id.tv_memoCnt);
+        mMemo = rootView.findViewById(R.id.et_memo);
+        mMemoCnt = rootView.findViewById(R.id.tv_memoCnt);
         mMemoWranLayer = rootView.findViewById(R.id.memo_warn_layer);
 
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
@@ -96,7 +96,8 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -161,7 +162,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
@@ -203,7 +204,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
     }
 
     private BaseBroadCastActivity getSActivity() {
-        return (BaseBroadCastActivity)getBaseActivity();
+        return (BaseBroadCastActivity) getBaseActivity();
     }
 
     public boolean isMemohasMenomic(String memo) {
@@ -234,9 +235,9 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (requestCode == AGAIN_MEMO && resultCode == Activity.RESULT_OK) {
-            if(data.getIntExtra("memo" , -1) ==0 ){
+            if (data.getIntExtra("memo", -1) == 0) {
                 mMemo.setText("");
-            }else if(data.getIntExtra("memo" , -1) == 1){
+            } else if (data.getIntExtra("memo", -1) == 1) {
                 getSActivity().mTxMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             }

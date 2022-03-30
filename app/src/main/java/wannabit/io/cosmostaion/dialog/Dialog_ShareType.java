@@ -40,7 +40,7 @@ public class Dialog_ShareType extends DialogFragment {
         mQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onShare(false, getArguments().getString("address"));
+                ((BaseActivity) getActivity()).onShare(false, getArguments().getString("address"));
                 getDialog().dismiss();
             }
         });
@@ -48,7 +48,7 @@ public class Dialog_ShareType extends DialogFragment {
         mText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onShare(true, getArguments().getString("address"));
+                ((BaseActivity) getActivity()).onShare(true, getArguments().getString("address"));
                 getDialog().dismiss();
             }
         });

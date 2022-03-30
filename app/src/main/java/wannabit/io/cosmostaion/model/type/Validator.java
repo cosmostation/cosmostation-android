@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 
 public class Validator implements Parcelable {
 
-    public static final int UNBONDED    = 0;
-    public static final int UNBONDING   = 1;
-    public static final int BONDED      = 2;
+    public static final int UNBONDED = 0;
+    public static final int UNBONDING = 1;
+    public static final int BONDED = 2;
 
     @SerializedName("operator_address")
     public String operator_address;
@@ -103,8 +103,8 @@ public class Validator implements Parcelable {
         dest.writeString(bond_height);
         dest.writeString(unbonding_height);
         dest.writeString(unbonding_time);
-        dest.writeParcelable(description , flags);
-        dest.writeParcelable(commission , flags);
+        dest.writeParcelable(description, flags);
+        dest.writeParcelable(commission, flags);
     }
 
     public static final Creator<Validator> CREATOR = new Creator<Validator>() {
@@ -150,12 +150,11 @@ public class Validator implements Parcelable {
 
 
     @Override
-    public boolean equals(Object object)
-    {
+    public boolean equals(Object object) {
         boolean sameSame = false;
 
         if (object != null && object instanceof Validator) {
-            sameSame = this.description.moniker.equals(((Validator)object).description.moniker);
+            sameSame = this.description.moniker.equals(((Validator) object).description.moniker);
         }
 
         return sameSame;

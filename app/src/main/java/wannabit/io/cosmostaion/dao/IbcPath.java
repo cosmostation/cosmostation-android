@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 
-public class IbcPath implements SerializedName{
+public class IbcPath implements SerializedName {
     @SerializedName("chain_id")
     public String chain_id;
 

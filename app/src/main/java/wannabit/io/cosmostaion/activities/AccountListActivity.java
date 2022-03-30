@@ -25,31 +25,28 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar                     mToolbar;
-    private TextView                    mBtnEdit;
-    private RecyclerView                mChainRecyclerView;
-    private RecyclerView                mAccountRecyclerView;
+    private Toolbar mToolbar;
+    private TextView mBtnEdit;
+    private RecyclerView mChainRecyclerView;
+    private RecyclerView mAccountRecyclerView;
 
-    private ChainListAdapter            mChainListAdapter;
-    private AccountListAdapter          mAccountListAdapter;
-    private BaseChain                   mSelectedChain;
-    private ArrayList<BaseChain>        mDisplayChains = new ArrayList<>();
-    private ArrayList<Account>          mDisplayAccounts = new ArrayList<>();
+    private ChainListAdapter mChainListAdapter;
+    private AccountListAdapter mAccountListAdapter;
+    private BaseChain mSelectedChain;
+    private ArrayList<BaseChain> mDisplayChains = new ArrayList<>();
+    private ArrayList<Account> mDisplayAccounts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_list);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mBtnEdit                = findViewById(R.id.btn_edit);
-        mChainRecyclerView      = findViewById(R.id.chain_recycler);
-        mAccountRecyclerView    = findViewById(R.id.account_recycler);
+        mToolbar = findViewById(R.id.tool_bar);
+        mBtnEdit = findViewById(R.id.btn_edit);
+        mChainRecyclerView = findViewById(R.id.chain_recycler);
+        mAccountRecyclerView = findViewById(R.id.account_recycler);
 
         mSelectedChain = getBaseDao().getLastChain();
 
@@ -128,7 +125,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                                 onChainSelect(chain);
                                 getBaseDao().setUserSortedChains(mDisplayChains);
                             }
-                        },150);
+                        }, 150);
                     }
                 }
             });
@@ -156,14 +153,15 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         public class ChainHolder extends RecyclerView.ViewHolder {
             FrameLayout chainCard;
             LinearLayout chainLayer;
-            ImageView  chainImg;
+            ImageView chainImg;
             TextView chainName;
+
             public ChainHolder(@NonNull View itemView) {
                 super(itemView);
-                chainCard       = itemView.findViewById(R.id.chainCard);
-                chainLayer      = itemView.findViewById(R.id.chainLayer);
-                chainImg        = itemView.findViewById(R.id.chainImg);
-                chainName       = itemView.findViewById(R.id.chainName);
+                chainCard = itemView.findViewById(R.id.chainCard);
+                chainLayer = itemView.findViewById(R.id.chainLayer);
+                chainImg = itemView.findViewById(R.id.chainImg);
+                chainName = itemView.findViewById(R.id.chainName);
             }
         }
     }
@@ -179,7 +177,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            final AccountHolder holder = (AccountHolder)viewHolder;
+            final AccountHolder holder = (AccountHolder) viewHolder;
             final Account account = mDisplayAccounts.get(position);
 
             WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
@@ -190,7 +188,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
             }
 
-            if (TextUtils.isEmpty(account.nickName)){
+            if (TextUtils.isEmpty(account.nickName)) {
                 holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             } else {
                 holder.accountName.setText(account.nickName);
@@ -200,7 +198,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
-                    intent.putExtra("id", ""+account.id);
+                    intent.putExtra("id", "" + account.id);
                     startActivity(intent);
                 }
             });
@@ -214,18 +212,19 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         public class AccountHolder extends RecyclerView.ViewHolder {
             FrameLayout accountCard;
             LinearLayout accountContent;
-            ImageView  accountArrowSort, accountKeyState;
+            ImageView accountArrowSort, accountKeyState;
             TextView accountName, accountAddress, accountAvailable, accountDenom;
+
             public AccountHolder(@NonNull View itemView) {
                 super(itemView);
-                accountCard         = itemView.findViewById(R.id.accountCard);
-                accountArrowSort    = itemView.findViewById(R.id.accountArrowSort);
-                accountContent      = itemView.findViewById(R.id.accountContent);
-                accountKeyState     = itemView.findViewById(R.id.accountKeyState);
-                accountName         = itemView.findViewById(R.id.accountName);
-                accountAddress      = itemView.findViewById(R.id.accountAddress);
-                accountAvailable    = itemView.findViewById(R.id.accountAvailable);
-                accountDenom        = itemView.findViewById(R.id.accountDenom);
+                accountCard = itemView.findViewById(R.id.accountCard);
+                accountArrowSort = itemView.findViewById(R.id.accountArrowSort);
+                accountContent = itemView.findViewById(R.id.accountContent);
+                accountKeyState = itemView.findViewById(R.id.accountKeyState);
+                accountName = itemView.findViewById(R.id.accountName);
+                accountAddress = itemView.findViewById(R.id.accountAddress);
+                accountAvailable = itemView.findViewById(R.id.accountAvailable);
+                accountDenom = itemView.findViewById(R.id.accountDenom);
             }
         }
     }

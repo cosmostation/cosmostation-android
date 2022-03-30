@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_16">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
             android:text="Unbonding Duration"
-            style="@style/font_ss_17_black"/>
+            style="@style/font_ss_17_black" />
 
         <Button
             android:id="@+id/btn_1day"
@@ -28,7 +29,7 @@
             style="@style/font_ss_14_white"
             android:text="1 Day"
             android:textColor="@color/color_bottom_dialog_btn_text"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btn_7day"
@@ -42,7 +43,7 @@
             style="@style/font_ss_14_white"
             android:text="7 Day"
             android:textColor="@color/color_bottom_dialog_btn_text"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btn_14day"
@@ -56,6 +57,6 @@
             style="@style/font_ss_14_white"
             android:text="14 Day"
             android:textColor="@color/color_bottom_dialog_btn_text"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
     </LinearLayout>
 </LinearLayout>

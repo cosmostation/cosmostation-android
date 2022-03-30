@@ -41,6 +41,7 @@ public class TxStarnameRegisterDomainHolder extends TxHolder {
 
             BigDecimal starnameFee = baseData.getStarNameRegisterDomainFee(msg.getName(), msg.getDomainType());
             itemStarnameFee.setText(WDp.getDpAmount2(c, starnameFee, 6, 6));
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

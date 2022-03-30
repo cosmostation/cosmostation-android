@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -16,12 +15,13 @@
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"
-            android:text="@string/str_rizon_event_horizon_status"/>
+            android:text="@string/str_rizon_event_horizon_status" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -33,6 +33,7 @@
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/btn_done"
             style="@style/font_ss_14_photon"
@@ -44,15 +45,18 @@
             android:text="@string/str_done"
             android:textAllCaps="false" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
         android:layout_above="@+id/control_layer">
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/layer_refresher"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

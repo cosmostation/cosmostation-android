@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class TxCreateTokenSwapHolder extends TxHolder {
     ImageView itemCreateTokenSwapImg;
@@ -23,10 +22,10 @@ public class TxCreateTokenSwapHolder extends TxHolder {
 
     public TxCreateTokenSwapHolder(@NonNull View itemView) {
         super(itemView);
-        itemCreateTokenSwapImg              = itemView.findViewById(R.id.tx_create_token_swap_icon);
-        itemCreateTokenSwapHash             = itemView.findViewById(R.id.tx_create_token_swap_hash);
-        itemCreateTokenSwapRecipient        = itemView.findViewById(R.id.tx_create_token_swap_recipient);
-        itemCreateTokenSwapAmount           = itemView.findViewById(R.id.tx_create_token_swap_amount);
+        itemCreateTokenSwapImg = itemView.findViewById(R.id.tx_create_token_swap_icon);
+        itemCreateTokenSwapHash = itemView.findViewById(R.id.tx_create_token_swap_hash);
+        itemCreateTokenSwapRecipient = itemView.findViewById(R.id.tx_create_token_swap_recipient);
+        itemCreateTokenSwapAmount = itemView.findViewById(R.id.tx_create_token_swap_amount);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -39,6 +38,7 @@ public class TxCreateTokenSwapHolder extends TxHolder {
             BigDecimal receiveAmount = new BigDecimal(msg.getAmount()).movePointLeft(18);
             itemCreateTokenSwapAmount.setText(WDp.getDpAmount2(c, receiveAmount, 6, 6));
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

@@ -21,9 +21,9 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class TxClaimHTLCHolder extends TxHolder {
-    ImageView       itemMsgImg;
-    RelativeLayout  itemAmountLayer;
-    TextView        itemReceiveAmount, itemReceiveDenom, itemClaimer, itemRandomNumber, itemSwapId;
+    ImageView itemMsgImg;
+    RelativeLayout itemAmountLayer;
+    TextView itemReceiveAmount, itemReceiveDenom, itemClaimer, itemRandomNumber, itemSwapId;
 
     public TxClaimHTLCHolder(@NonNull View itemView) {
         super(itemView);
@@ -67,6 +67,7 @@ public class TxClaimHTLCHolder extends TxHolder {
             itemRandomNumber.setText(msg.getRandomNumber());
             itemSwapId.setText(msg.getSwapId());
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

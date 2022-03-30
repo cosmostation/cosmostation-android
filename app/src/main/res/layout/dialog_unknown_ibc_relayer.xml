@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_30">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +19,7 @@
             android:layout_marginTop="@dimen/space_12"
             android:textSize="@dimen/space_18"
             android:textColor="@color/colorBlack"
-            android:text="@string/str_ibc_warning_c"/>
+            android:text="@string/str_ibc_warning_c" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,18 +30,19 @@
             android:layout_marginRight="@dimen/space_16"
             android:textSize="@dimen/text_size_12"
             android:gravity="center"
-            android:text="@string/str_ibc_unknown_relayer_msg"/>
+            android:text="@string/str_ibc_unknown_relayer_msg" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="@dimen/space_30"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGray10" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
@@ -51,11 +51,13 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_left"
                 style="@style/font_ssm_14_dialog"
-                android:text="@string/str_cancel"/>
+                android:text="@string/str_cancel" />
+
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <Button
                 android:id="@+id/btn_continue"
                 android:layout_width="0dp"
@@ -64,7 +66,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_right"
                 style="@style/font_ssm_14_dialog"
-                android:text="@string/str_continue"/>
+                android:text="@string/str_continue" />
         </LinearLayout>
 
     </LinearLayout>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
@@ -17,38 +16,44 @@
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBgKava"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/cdp_ic"/>
+                    android:src="@drawable/cdp_ic" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_ss_14_white"
-                    android:text="@string/str_my_harvest_information"/>
+                    android:text="@string/str_my_harvest_information" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
                     android:id="@+id/total_deposit_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_deposit_value"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/total_deposit_value"
                     android:layout_width="wrap_content"
@@ -57,19 +62,21 @@
                     android:layout_alignBaseline="@+id/total_deposit_title"
                     android:layout_toLeftOf="@+id/total_deposit_title"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
                     android:id="@+id/total_borrow_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_ltv_value"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/total_borrow_value"
                     android:layout_width="wrap_content"
@@ -78,25 +85,27 @@
                     android:layout_alignBaseline="@+id/total_borrow_title"
                     android:layout_toLeftOf="@+id/total_borrow_title"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_14"/>
+                android:layout_marginTop="@dimen/space_14" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
                     android:id="@+id/ltv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_borrowed_value"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/ltv_value"
                     android:layout_width="wrap_content"
@@ -105,19 +114,21 @@
                     android:layout_alignBaseline="@+id/ltv_title"
                     android:layout_toLeftOf="@+id/ltv_title"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
                     android:id="@+id/borrowable_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_borrow_limit_value"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/borrowable_value"
                     android:layout_width="wrap_content"
@@ -126,7 +137,7 @@
                     android:layout_alignBaseline="@+id/borrowable_title"
                     android:layout_toLeftOf="@+id/borrowable_title"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
         </LinearLayout>

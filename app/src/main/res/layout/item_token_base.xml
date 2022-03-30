@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
@@ -17,18 +16,22 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/token_icon"
                     android:layout_width="@dimen/space_20"
-                    android:layout_height="@dimen/space_20"/>
+                    android:layout_height="@dimen/space_20" />
+
                 <TextView
                     android:id="@+id/token_title"
                     android:layout_width="wrap_content"
@@ -36,7 +39,8 @@
                     android:layout_toRightOf="@+id/token_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="Coin"
-                    style="@style/font_ss_14_white"/>
+                    style="@style/font_ss_14_white" />
+
                 <TextView
                     android:id="@+id/token_denom"
                     android:layout_width="wrap_content"
@@ -46,27 +50,30 @@
                     android:maxWidth="@dimen/space_180"
                     android:singleLine="true"
                     android:layout_marginLeft="@dimen/space_6"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:orientation="vertical"
                     android:gravity="right">
+
                     <TextView
                         android:id="@+id/token_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_white"/>
+                        style="@style/font_ssm_17_white" />
+
                     <TextView
                         android:id="@+id/token_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         style="@style/font_ss_14_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -74,17 +81,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/token_available"
                     android:layout_width="wrap_content"
@@ -92,7 +101,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -101,11 +110,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_locked"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/token_locked"
                     android:layout_width="wrap_content"
@@ -113,7 +124,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -122,11 +133,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_frozen"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/token_frozen"
                     android:layout_width="wrap_content"
@@ -134,9 +147,8 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
-
 
 
         </LinearLayout>

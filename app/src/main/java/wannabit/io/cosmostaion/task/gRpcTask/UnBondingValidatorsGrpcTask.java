@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_UNBONDING;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -15,10 +19,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_UNBONDING;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class UnBondingValidatorsGrpcTask extends CommonTask {
     private BaseChain mChain;
     private ArrayList<Staking.Validator> mResultData = new ArrayList<>();
@@ -28,9 +28,9 @@ public class UnBondingValidatorsGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        ;
     }
-
 
 
     @Override
@@ -56,7 +56,9 @@ public class UnBondingValidatorsGrpcTask extends CommonTask {
 //            this.mResult.resultData = mResultData;
 //            WLog.w("UnBondingValidators " + mResultData.size());
 
-        } catch (Exception e) { WLog.e( "BondedValidatorsGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("BondedValidatorsGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 
@@ -69,7 +71,9 @@ public class UnBondingValidatorsGrpcTask extends CommonTask {
             if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
                 pageJob(response.getPagination().getNextKey());
             }
-        } catch (Exception e) { WLog.e( "BondedValidatorsGrpcTask pageJob "+ e.getMessage()); }
-        return  null;
+        } catch (Exception e) {
+            WLog.e("BondedValidatorsGrpcTask pageJob " + e.getMessage());
+        }
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +15,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import kava.cdp.v1beta1.Genesis;
-import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.WithdrawCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -30,7 +29,7 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
     private TextView mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
     private TextView mTotalDepositAmount, mTotalDepositDenom, mTotalDepositValue;
     private TextView mMemo;
-    private Button   mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static WithdrawCdpStep3Fragment newInstance(Bundle bundle) {
         WithdrawCdpStep3Fragment fragment = new WithdrawCdpStep3Fragment();
@@ -82,14 +81,14 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         BigDecimal kavaValue = WDp.usdValue(getBaseDao(), TOKEN_KAVA, feeAmount, 6);
         mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
-        WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
-        WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
+        WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate, mBeforeRiskTv, null);
+        WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate, mAfterRiskRateTv, null);
 
         mBeforeLiquidationPriceTitle.setText(String.format(getString(R.string.str_before_liquidation_title2), cDenom.toUpperCase()));
-        mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(),  4));
+        mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(), 4));
 
         mAfterLiquidationPriceTitle.setText(String.format(getString(R.string.str_after_liquidation_title2), cDenom.toUpperCase()));
-        mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
+        mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(), 4));
 
         WDp.showCoinDp(getContext(), getBaseDao(), cDenom, getSActivity().mTotalDepositAmount.toPlainString(), mTotalDepositDenom, mTotalDepositAmount, getSActivity().mBaseChain);
         BigDecimal totalCollateralValue = getSActivity().mTotalDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
@@ -111,7 +110,7 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
     }
 
     private WithdrawCdpActivity getSActivity() {
-        return (WithdrawCdpActivity)getBaseActivity();
+        return (WithdrawCdpActivity) getBaseActivity();
     }
 
     private Genesis.CollateralParam getCParam() {

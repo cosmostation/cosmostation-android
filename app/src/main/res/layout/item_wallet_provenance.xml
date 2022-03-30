@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
@@ -17,19 +16,22 @@
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBgProvenance"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/provenance_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_hash"/>
+                    android:src="@drawable/token_hash" />
 
                 <TextView
                     style="@style/font_ss_14_provenance"
@@ -38,26 +40,29 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:layout_toRightOf="@+id/provenance_icon"
                     android:text="HASH" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:orientation="vertical"
                     android:gravity="right">
+
                     <TextView
                         android:id="@+id/hash_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_white"/>
+                        style="@style/font_ssm_17_white" />
+
                     <TextView
                         android:id="@+id/hash_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         style="@style/font_ss_14_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -65,17 +70,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/hash_available"
                     android:layout_width="wrap_content"
@@ -83,7 +90,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -92,11 +99,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_vesting_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/hash_vesting"
                     android:layout_width="wrap_content"
@@ -104,18 +113,20 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_delegated"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/hash_delegate"
                     android:layout_width="wrap_content"
@@ -123,18 +134,20 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_unbonding"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/hash_unbonding"
                     android:layout_width="wrap_content"
@@ -142,18 +155,20 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_stake_reward"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/hash_reward"
                     android:layout_width="wrap_content"
@@ -161,13 +176,14 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:id="@+id/btn_hash_reward"
                     android:layout_width="0dp"
@@ -178,6 +194,7 @@
                     android:layout_marginRight="@dimen/space_5"
                     android:background="@drawable/btn_trans_with_border"
                     android:clickable="true">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -199,6 +216,7 @@
                     android:layout_marginLeft="@dimen/space_5"
                     android:background="@drawable/btn_trans_with_border"
                     android:clickable="true">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

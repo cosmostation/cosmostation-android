@@ -26,9 +26,9 @@ import wannabit.io.cosmostaion.dao.IbcPath;
 
 public class Dialog_IBC_Relayer_Channel extends DialogFragment {
 
-    private RecyclerView                    mRecyclerView;
-    private RelayerListAdapter              mRelayerListAdapter;
-    private ArrayList<IbcPath.Path>         mIbcSendablePaths = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private RelayerListAdapter mRelayerListAdapter;
+    private ArrayList<IbcPath.Path> mIbcSendablePaths = new ArrayList<>();
 
     public static Dialog_IBC_Relayer_Channel newInstance(Bundle bundle) {
         Dialog_IBC_Relayer_Channel frag = new Dialog_IBC_Relayer_Channel();
@@ -44,7 +44,7 @@ public class Dialog_IBC_Relayer_Channel extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_ibc_transfer_relayer, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_ibc_transfer_relayer, null);
         mRecyclerView = view.findViewById(R.id.recycler);
         mIbcSendablePaths = (ArrayList<IbcPath.Path>) getArguments().getSerializable("channel");
 
@@ -91,20 +91,21 @@ public class Dialog_IBC_Relayer_Channel extends DialogFragment {
         }
 
         public class RelayerListHolder extends RecyclerView.ViewHolder {
-            LinearLayout    rootLayer;
-            TextView        channelTitle;
-            ImageView       channelStatus;
+            LinearLayout rootLayer;
+            TextView channelTitle;
+            ImageView channelStatus;
+
             public RelayerListHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer       = itemView.findViewById(R.id.rootLayer);
-                channelTitle    = itemView.findViewById(R.id.channel_title);
-                channelStatus   = itemView.findViewById(R.id.channel_status);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                channelTitle = itemView.findViewById(R.id.channel_title);
+                channelStatus = itemView.findViewById(R.id.channel_status);
             }
         }
 
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 }

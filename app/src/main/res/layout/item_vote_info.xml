@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +14,7 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -32,11 +33,13 @@
                     android:background="@drawable/box_round_vote"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/vote_status_img"
                         android:layout_width="@dimen/space_6"
                         android:layout_height="@dimen/space_6"
                         android:src="@drawable/ic_rejected_img" />
+
                     <TextView
                         android:id="@+id/vote_status"
                         style="@style/font_ss_14_white"
@@ -45,6 +48,7 @@
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="DepositPeriod" />
                 </LinearLayout>
+
                 <ImageView
                     android:id="@+id/vote_detail"
                     android:layout_width="wrap_content"
@@ -63,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16"/>
+                android:layout_marginRight="@dimen/space_16" />
 
             <RelativeLayout
                 android:id="@+id/vote_proposer_layer"
@@ -72,12 +76,14 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/vote_proposer_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_proposer"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/vote_proposer"
                     android:layout_width="wrap_content"
@@ -89,7 +95,7 @@
                     android:text="-"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -98,12 +104,14 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/vote_type_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_proposal_type"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/vote_type"
                     android:layout_width="wrap_content"
@@ -115,7 +123,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -124,12 +132,14 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/vote_startTime_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_voting_start_time"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/vote_startTime"
                     android:layout_width="wrap_content"
@@ -139,7 +149,7 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -148,12 +158,14 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/vote_endTime_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_voting_end_time"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/vote_endTime"
                     android:layout_width="wrap_content"
@@ -163,7 +175,7 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
 
@@ -175,23 +187,27 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/request_amount_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_request_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/request_amount_title">
+
                     <TextView
                         android:id="@+id/request_amount_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
+                        style="@style/font_ss_12_atom" />
+
                     <TextView
                         android:id="@+id/request_amount"
                         android:layout_width="wrap_content"
@@ -200,7 +216,7 @@
                         android:layout_toLeftOf="@+id/request_amount_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -218,7 +234,7 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16"
                 android:text="@string/str_voting_description"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_ss_12_gray1" />
 
             <TextView
                 android:id="@+id/vote_msg"
@@ -232,14 +248,14 @@
                 android:autoLink="web"
                 android:clickable="true"
                 android:textColorLink="@color/colorPhoton"
-                style="@style/font_ss_11_white"/>
+                style="@style/font_ss_11_white" />
 
             <ImageView
                 android:id="@+id/vote_btn_expend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/space_8"
-                android:src="@drawable/arrow_down_gr"/>
+                android:src="@drawable/arrow_down_gr" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

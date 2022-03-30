@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -13,12 +16,9 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class KavaSwapPoolInfoGrpcTask extends CommonTask {
     private BaseChain mChain;
-    private String    mPoolId;
+    private String mPoolId;
     private ArrayList<QueryOuterClass.PoolResponse> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 
@@ -40,7 +40,9 @@ public class KavaSwapPoolInfoGrpcTask extends CommonTask {
             mResult.resultData = mResultData;
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "KavaSwapPoolInfoGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("KavaSwapPoolInfoGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

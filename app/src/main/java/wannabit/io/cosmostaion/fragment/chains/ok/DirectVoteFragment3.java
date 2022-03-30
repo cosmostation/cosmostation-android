@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +20,12 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-
 public class DirectVoteFragment3 extends BaseFragment implements View.OnClickListener {
 
-    private TextView            mFeeAmount;
-    private TextView            mMemo;
-    private Button              mBeforeBtn, mConfirmBtn;
-    private TextView            mToVoteValidator, mFeeDenom;
+    private TextView mFeeAmount;
+    private TextView mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
+    private TextView mToVoteValidator, mFeeDenom;
 
     public static DirectVoteFragment3 newInstance(Bundle bundle) {
         DirectVoteFragment3 fragment = new DirectVoteFragment3();
@@ -41,12 +41,12 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_direct_vote_3, container, false);
-        mFeeAmount          = rootView.findViewById(R.id.fees_amount);
-        mFeeDenom           = rootView.findViewById(R.id.fees_denom);
-        mToVoteValidator    = rootView.findViewById(R.id.to_vote_validators);
-        mMemo               = rootView.findViewById(R.id.memo);
-        mBeforeBtn          = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.fees_amount);
+        mFeeDenom = rootView.findViewById(R.id.fees_denom);
+        mToVoteValidator = rootView.findViewById(R.id.to_vote_validators);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
 
@@ -65,8 +65,8 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
 
             String monikers = "";
-            for (String valOp:getSActivity().mValAddesses) {
-                for (Validator validator:getBaseDao().mAllValidators) {
+            for (String valOp : getSActivity().mValAddesses) {
+                for (Validator validator : getBaseDao().mAllValidators) {
                     if (validator.operator_address.equals(valOp)) {
                         monikers = monikers + validator.description.moniker + "\n";
                     }
@@ -80,7 +80,7 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -90,7 +90,7 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
     }
 
     private OKVoteDirectActivity getSActivity() {
-        return (OKVoteDirectActivity)getBaseActivity();
+        return (OKVoteDirectActivity) getBaseActivity();
     }
 }
 

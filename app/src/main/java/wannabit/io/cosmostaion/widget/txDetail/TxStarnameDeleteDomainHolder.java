@@ -9,11 +9,9 @@ import androidx.annotation.NonNull;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import starnamed.x.starname.v1beta1.Tx;
-import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class TxStarnameDeleteDomainHolder extends TxHolder {
     ImageView itemMsgImg;
@@ -34,6 +32,7 @@ public class TxStarnameDeleteDomainHolder extends TxHolder {
             Tx.MsgDeleteDomain msg = Tx.MsgDeleteDomain.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemDomain.setText("*" + msg.getDomain());
             itemOwner.setText(msg.getOwner());
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

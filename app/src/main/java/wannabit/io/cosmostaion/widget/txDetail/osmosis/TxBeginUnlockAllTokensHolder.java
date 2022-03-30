@@ -43,6 +43,7 @@ public class TxBeginUnlockAllTokensHolder extends TxHolder {
                 }
             }
             itemUnlockAllTokenCnt.setText("" + unlockCnt);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

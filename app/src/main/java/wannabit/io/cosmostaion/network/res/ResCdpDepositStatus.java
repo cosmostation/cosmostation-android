@@ -16,7 +16,7 @@ public class ResCdpDepositStatus {
     public ArrayList<CdpDeposit> result;
 
     public BigDecimal getSelfDeposit(String address) {
-        for (CdpDeposit deposit:result) {
+        for (CdpDeposit deposit : result) {
             if (deposit.depositor.equals(address)) {
                 return new BigDecimal(deposit.amount.amount);
             }

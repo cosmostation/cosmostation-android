@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.ReNewStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 
 public class RenewStarName0Fragment extends BaseFragment implements View.OnClickListener {
     private Button mCancelBtn, mConfirmBtn;
@@ -41,16 +41,16 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
         mStarName = rootView.findViewById(R.id.to_renew_starname);
         mCurrentExpireTime = rootView.findViewById(R.id.current_expire_time);
         mToExpireTime = rootView.findViewById(R.id.to_renew_expire_time);
-        mStarnameFeeAmount  = rootView.findViewById(R.id.starname_fee_amount);
+        mStarnameFeeAmount = rootView.findViewById(R.id.starname_fee_amount);
         mCancelBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
         BigDecimal starnameFee = BigDecimal.ZERO;
         if (getSActivity().mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
-            mStarName.setText( "*" + getSActivity().mStarNameDomain);
+            mStarName.setText("*" + getSActivity().mStarNameDomain);
             starnameFee = getBaseDao().getStarNameRenewDomainFee(getSActivity().mStarNameDomain, getSActivity().mStarNameDomainType);
         } else {
-            mStarName.setText(  getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
+            mStarName.setText(getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
             starnameFee = getBaseDao().getStarNameRenewAccountFee(getSActivity().mStarNameDomainType);
         }
         mCurrentExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
@@ -60,12 +60,12 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
     }
 
     private ReNewStarNameActivity getSActivity() {
-        return (ReNewStarNameActivity)getBaseActivity();
+        return (ReNewStarNameActivity) getBaseActivity();
     }
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mCancelBtn)) {
+        if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {

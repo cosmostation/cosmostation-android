@@ -22,10 +22,10 @@ public class HardMyStatusHolder extends BaseHolder {
 
     public HardMyStatusHolder(@NonNull View itemView) {
         super(itemView);
-        totalDepositValueTv     = itemView.findViewById(R.id.total_deposit_value);
-        totalBorrowValueTv      = itemView.findViewById(R.id.total_borrow_value);
-        ltvValueTv              = itemView.findViewById(R.id.ltv_value);
-        borrowAbleValueTv       = itemView.findViewById(R.id.borrowable_value);
+        totalDepositValueTv = itemView.findViewById(R.id.total_deposit_value);
+        totalBorrowValueTv = itemView.findViewById(R.id.total_borrow_value);
+        ltvValueTv = itemView.findViewById(R.id.ltv_value);
+        borrowAbleValueTv = itemView.findViewById(R.id.borrowable_value);
     }
 
     @Override
@@ -35,11 +35,11 @@ public class HardMyStatusHolder extends BaseHolder {
         BigDecimal totalLTVValue = BigDecimal.ZERO;
 
         if (myDeposit != null && myDeposit.size() > 0) {
-            for (CoinOuterClass.Coin coin: myDeposit.get(0).getAmountList()) {
-                int decimal             = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
-                BigDecimal LTV          = WUtil.getLTV(hardParams, coin.getDenom());
+            for (CoinOuterClass.Coin coin : myDeposit.get(0).getAmountList()) {
+                int decimal = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
+                BigDecimal LTV = WUtil.getLTV(hardParams, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
-                BigDecimal ltvValue     = BigDecimal.ZERO;
+                BigDecimal ltvValue = BigDecimal.ZERO;
                 if (coin.getDenom().equalsIgnoreCase("usdx") || coin.getDenom().equalsIgnoreCase("busd")) {
                     depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(decimal);
 
@@ -57,8 +57,8 @@ public class HardMyStatusHolder extends BaseHolder {
 
         BigDecimal totalBorrowedValue = BigDecimal.ZERO;
         if (myBorrow != null && myBorrow.size() > 0) {
-            for (CoinOuterClass.Coin coin: myBorrow.get(0).getAmountList()) {
-                int decimal =  WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
+            for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
+                int decimal = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
                 BigDecimal value = BigDecimal.ZERO;
                 if (coin.getDenom().equalsIgnoreCase("usdx") || coin.getDenom().equalsIgnoreCase("busd")) {
                     value = (new BigDecimal(coin.getAmount())).movePointLeft(decimal);

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,43 +14,51 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
+
                 <ImageView
                     android:id="@+id/tx_send_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_tx_send"/>
+                    android:src="@drawable/ic_tx_send" />
+
                 <TextView
                     android:id="@+id/tx_send_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_transfer"
-                    style="@style/font_ss_15_white"/>
+                    style="@style/font_ss_15_white" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_from"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4">
+
                     <TextView
                         android:id="@+id/tx_send_from_address"
                         android:layout_width="match_parent"
@@ -59,7 +66,7 @@
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -68,15 +75,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_to"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4">
+
                     <TextView
                         android:id="@+id/tx_send_to_address"
                         android:layout_width="match_parent"
@@ -84,7 +94,7 @@
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -93,25 +103,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/tx_send_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <RelativeLayout
                     android:id="@+id/tx_send_single_coin_layer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tx_send_title"
                     android:visibility="gone">
+
                     <TextView
                         android:id="@+id/tx_transfer_amount_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="ATOM"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
+
                     <TextView
                         android:id="@+id/tx_transfer_amount"
                         android:layout_width="wrap_content"
@@ -120,7 +134,7 @@
                         android:layout_toLeftOf="@+id/tx_transfer_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -130,19 +144,22 @@
                     android:layout_below="@+id/tx_send_title"
                     android:orientation="vertical"
                     android:visibility="gone">
+
                     <RelativeLayout
                         android:id="@+id/tx_transfer_amount_layer0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
                         android:layout_toRightOf="@+id/tx_transfer_amount_title">
+
                         <TextView
                             android:id="@+id/tx_transfer_amount_symbol0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="ATOM"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
+
                         <TextView
                             android:id="@+id/tx_transfer_amount0"
                             android:layout_width="wrap_content"
@@ -150,8 +167,9 @@
                             android:layout_toLeftOf="@+id/tx_transfer_amount_symbol0"
                             android:layout_marginRight="@dimen/space_4"
                             android:text="-"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/tx_transfer_amount_layer1"
                         android:layout_width="match_parent"
@@ -159,13 +177,15 @@
                         android:layout_marginTop="@dimen/space_2"
                         android:layout_toRightOf="@+id/tx_transfer_amount_title"
                         android:visibility="gone">
+
                         <TextView
                             android:id="@+id/tx_transfer_amount_symbol1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="COIN"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
+
                         <TextView
                             android:id="@+id/tx_transfer_amount1"
                             android:layout_width="wrap_content"
@@ -173,8 +193,9 @@
                             android:layout_toLeftOf="@+id/tx_transfer_amount_symbol1"
                             android:layout_marginRight="@dimen/space_4"
                             android:text="-"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/tx_transfer_amount_layer2"
                         android:layout_width="match_parent"
@@ -182,13 +203,15 @@
                         android:layout_marginTop="@dimen/space_2"
                         android:layout_toRightOf="@+id/tx_transfer_amount_title"
                         android:visibility="gone">
+
                         <TextView
                             android:id="@+id/tx_transfer_amount_symbol2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="COIN"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
+
                         <TextView
                             android:id="@+id/tx_transfer_amount2"
                             android:layout_width="wrap_content"
@@ -196,8 +219,9 @@
                             android:layout_toLeftOf="@+id/tx_transfer_amount_symbol2"
                             android:layout_marginRight="@dimen/space_4"
                             android:text="-"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/tx_transfer_amount_layer3"
                         android:layout_width="match_parent"
@@ -205,13 +229,15 @@
                         android:layout_marginTop="@dimen/space_2"
                         android:layout_toRightOf="@+id/tx_transfer_amount_title"
                         android:visibility="gone">
+
                         <TextView
                             android:id="@+id/tx_transfer_amount_symbol3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="COIN"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
+
                         <TextView
                             android:id="@+id/tx_transfer_amount3"
                             android:layout_width="wrap_content"
@@ -219,8 +245,9 @@
                             android:layout_toLeftOf="@+id/tx_transfer_amount_symbol3"
                             android:layout_marginRight="@dimen/space_4"
                             android:text="-"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/tx_transfer_amount_layer4"
                         android:layout_width="match_parent"
@@ -228,13 +255,15 @@
                         android:layout_marginTop="@dimen/space_2"
                         android:layout_toRightOf="@+id/tx_transfer_amount_title"
                         android:visibility="gone">
+
                         <TextView
                             android:id="@+id/tx_transfer_amount_symbol4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="COIN"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
+
                         <TextView
                             android:id="@+id/tx_transfer_amount4"
                             android:layout_width="wrap_content"
@@ -242,7 +271,7 @@
                             android:layout_toLeftOf="@+id/tx_transfer_amount_symbol4"
                             android:layout_marginRight="@dimen/space_4"
                             android:text="-"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_white" />
                     </RelativeLayout>
                 </LinearLayout>
 

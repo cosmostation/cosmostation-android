@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/root"
         android:layout_width="match_parent"
@@ -15,7 +14,8 @@
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,37 +24,43 @@
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_12"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
+
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
+
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/validator_avatar"
                             android:layout_width="@dimen/space_50"
                             android:layout_height="@dimen/space_50"
                             android:src="@drawable/validator_none_img"
                             app:civ_border_width="1dp"
-                            app:civ_border_color="@color/colorGray3"/>
+                            app:civ_border_color="@color/colorGray3" />
+
                         <ImageView
                             android:id="@+id/avatar_validator_revoke"
                             android:layout_width="@dimen/space_50"
                             android:layout_height="@dimen/space_50"
-                            android:src="@drawable/jailed_img"/>
+                            android:src="@drawable/jailed_img" />
+
                         <ImageView
                             android:id="@+id/avatar_validator_free"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignRight="@+id/validator_avatar"
                             android:src="@drawable/free_ic"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
 
                     <LinearLayout
@@ -63,9 +69,11 @@
                         android:layout_marginLeft="@dimen/space_12"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/validator_moniker"
                                 android:layout_width="match_parent"
@@ -75,7 +83,8 @@
                                 android:singleLine="true"
                                 android:ellipsize="end"
                                 style="@style/font_ss_14_white"
-                                android:text="-"/>
+                                android:text="-" />
+
                             <ImageView
                                 android:id="@+id/band_oracle_off"
                                 android:layout_width="wrap_content"
@@ -83,8 +92,9 @@
                                 android:layout_centerVertical="true"
                                 android:layout_alignParentRight="true"
                                 android:src="@drawable/band_oracleoff_l"
-                                android:visibility="invisible"/>
+                                android:visibility="invisible" />
                         </RelativeLayout>
+
                         <TextView
                             android:id="@+id/validator_address"
                             android:layout_width="wrap_content"
@@ -93,7 +103,8 @@
                             android:singleLine="true"
                             style="@style/font_ss_10_gray1"
                             android:text="-"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/validator_site"
                             android:layout_width="wrap_content"
@@ -103,7 +114,7 @@
                             android:layout_marginTop="@dimen/space_2"
                             android:autoLink="web"
                             android:clickable="true"
-                            android:text="-"/>
+                            android:text="-" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -116,14 +127,14 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     style="@style/font_ss_12_gray1"
-                    android:text="-"/>
+                    android:text="-" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_12"/>
+                android:layout_marginTop="@dimen/space_12" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -131,14 +142,17 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_total_bonded"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <TextView
                         android:id="@+id/validator_total_bonded"
                         android:layout_width="wrap_content"
@@ -146,17 +160,20 @@
                         android:layout_alignParentRight="true"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        style="@style/font_ssl_14_white" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_self_bonded_rate"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <TextView
                         android:id="@+id/validator_self_bond_rate"
                         android:layout_width="wrap_content"
@@ -164,17 +181,20 @@
                         android:layout_alignParentRight="true"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        style="@style/font_ssl_14_white" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_est_apr"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <TextView
                         android:id="@+id/validator_yield"
                         android:layout_width="wrap_content"
@@ -182,17 +202,20 @@
                         android:layout_alignParentRight="true"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssl_14_photon"/>
+                        style="@style/font_ssl_14_photon" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_commission"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <TextView
                         android:id="@+id/validator_commission"
                         android:layout_width="wrap_content"
@@ -200,7 +223,7 @@
                         android:layout_alignParentRight="true"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        style="@style/font_ssl_14_white" />
                 </RelativeLayout>
 
             </LinearLayout>

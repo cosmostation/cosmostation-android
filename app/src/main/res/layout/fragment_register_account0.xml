@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="@string/str_account_to_register"
             style="@style/font_ss_12_gray1"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,6 +27,7 @@
             android:layout_marginTop="@dimen/space_16"
             android:paddingTop="@dimen/space_4"
             android:paddingBottom="@dimen/space_4">
+
             <EditText
                 android:id="@+id/et_user_input"
                 android:layout_width="wrap_content"
@@ -41,7 +42,8 @@
                 android:imeOptions="actionNext"
                 android:singleLine="true"
                 android:layout_centerVertical="true"
-                android:gravity="right"/>
+                android:gravity="right" />
+
             <TextView
                 android:id="@+id/fixed_star"
                 android:layout_width="wrap_content"
@@ -51,12 +53,14 @@
                 android:layout_marginRight="@dimen/space_2"
                 android:layout_toRightOf="@+id/et_user_input"
                 style="@style/font_ss_26_white"
-                android:text="*"/>
+                android:text="*" />
+
             <RelativeLayout
                 android:id="@+id/domain_layer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/fixed_star">
+
                 <LinearLayout
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
@@ -64,6 +68,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="horizontal"
                     android:layout_marginLeft="@dimen/space_10">
+
                     <TextView
                         android:id="@+id/selected_domain"
                         android:layout_width="@dimen/space_120"
@@ -71,14 +76,15 @@
                         android:gravity="center_horizontal"
                         style="@style/font_ss_26_white"
                         android:singleLine="true"
-                        android:text="-"/>
+                        android:text="-" />
+
                     <ImageView
                         android:id="@+id/dialog_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/arrow_down_gr"/>
+                        android:src="@drawable/arrow_down_gr" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
@@ -87,12 +93,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_6"
                 android:text="1~63 lowercase alphabet or number"
-                style="@style/font_ss_12_gray6"/>
+                style="@style/font_ss_12_gray6" />
 
             <TextView
                 android:id="@+id/starname_fee_denom"
@@ -100,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="IOV"
-                style="@style/font_ssl_14_iov"/>
+                style="@style/font_ssl_14_iov" />
+
             <TextView
                 android:id="@+id/starname_fee_amount"
                 android:layout_width="wrap_content"
@@ -108,12 +116,10 @@
                 android:layout_toLeftOf="@+id/starname_fee_denom"
                 android:layout_marginRight="@dimen/space_2"
                 android:text="-"
-                style="@style/font_ssl_14_white"/>
+                style="@style/font_ssl_14_white" />
         </RelativeLayout>
 
     </LinearLayout>
-
-
 
 
     <LinearLayout
@@ -125,6 +131,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -135,7 +142,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -147,6 +155,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 </RelativeLayout>

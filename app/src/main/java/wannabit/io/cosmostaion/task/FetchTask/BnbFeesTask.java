@@ -20,7 +20,7 @@ public class BnbFeesTask extends CommonTask {
     public BnbFeesTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mBaseChain = chain;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_BNB_FEES;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_BNB_FEES;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class BnbFeesTask extends CommonTask {
         try {
             if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 Response<ArrayList<ResBnbFee>> response = ApiClient.getBnbChain(mApp).getFees().execute();
-                if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
+                if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
                     mResult.resultData = response.body();
                 }
 

@@ -34,19 +34,19 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class LinkAccountStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int             SELECT_POPUP_LINK_CHAIN              = 1000;
-    public final static int             SELECT_POPUP_LINK_ACCOUNT            = 2000;
+    public final static int SELECT_POPUP_LINK_CHAIN = 1000;
+    public final static int SELECT_POPUP_LINK_ACCOUNT = 2000;
 
-    private Button          mCancelBtn, mNextBtn;
+    private Button mCancelBtn, mNextBtn;
 
-    private RelativeLayout  mBtnLinkChain, mBtnLinkAccount;
-    private ImageView       mLinkChain;
-    private TextView        mLinkChainTxt;
-    private TextView        mLinkAccountName, mLinkAccountAddress;
-    private TextView        mAirdropAmount;
+    private RelativeLayout mBtnLinkChain, mBtnLinkAccount;
+    private ImageView mLinkChain;
+    private TextView mLinkChainTxt;
+    private TextView mLinkAccountName, mLinkAccountAddress;
+    private TextView mAirdropAmount;
 
-    private BaseChain       mSelectedChain;
-    private Account         mSelectedAccount;
+    private BaseChain mSelectedChain;
+    private Account mSelectedAccount;
 
     private ResAirdropClaimCheck mCheckClaim;
 
@@ -64,18 +64,18 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_link_account_step0, container, false);
-        mCancelBtn          = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn            = rootView.findViewById(R.id.btn_next);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
 
-        mBtnLinkChain       = rootView.findViewById(R.id.btn_link_chain);
-        mLinkChain          = rootView.findViewById(R.id.img_link_chain);
-        mLinkChainTxt       = rootView.findViewById(R.id.txt_link_chain);
+        mBtnLinkChain = rootView.findViewById(R.id.btn_link_chain);
+        mLinkChain = rootView.findViewById(R.id.img_link_chain);
+        mLinkChainTxt = rootView.findViewById(R.id.txt_link_chain);
 
-        mBtnLinkAccount     = rootView.findViewById(R.id.btn_link_account);
-        mLinkAccountName    = rootView.findViewById(R.id.wallet_name);
+        mBtnLinkAccount = rootView.findViewById(R.id.btn_link_account);
+        mLinkAccountName = rootView.findViewById(R.id.wallet_name);
         mLinkAccountAddress = rootView.findViewById(R.id.wallet_address);
 
-        mAirdropAmount      = rootView.findViewById(R.id.airdrop_amount);
+        mAirdropAmount = rootView.findViewById(R.id.airdrop_amount);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -165,7 +165,7 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
     }
 
     private LinkAccountActivity getSActivity() {
-        return (LinkAccountActivity)getBaseActivity();
+        return (LinkAccountActivity) getBaseActivity();
     }
 
 }

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
+
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,22 +31,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.ReDelegationsFromToGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
-
 public class RedelegateStep1Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
-    private Button                  mBefore, mNextBtn;
-    private RecyclerView            mRecyclerView;
-    private ToValidatorAdapter      mToValidatorAdapter;
+    private Button mBefore, mNextBtn;
+    private RecyclerView mRecyclerView;
+    private ToValidatorAdapter mToValidatorAdapter;
 
-    private ArrayList<Staking.Validator>     mGRpcTopValidators = new ArrayList<>();
-    private Staking.Validator                mCheckedGRpcValidator = null;
+    private ArrayList<Staking.Validator> mGRpcTopValidators = new ArrayList<>();
+    private Staking.Validator mCheckedGRpcValidator = null;
 
     public static RedelegateStep1Fragment newInstance(Bundle bundle) {
         RedelegateStep1Fragment fragment = new RedelegateStep1Fragment();
@@ -61,9 +60,9 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_redelegate_step1, container, false);
-        mBefore                 = rootView.findViewById(R.id.btn_before);
-        mNextBtn                = rootView.findViewById(R.id.btn_next);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mBefore = rootView.findViewById(R.id.btn_before);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
         mBefore.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -77,12 +76,12 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
 
     private RedelegateActivity getSActivity() {
-        return (RedelegateActivity)getBaseActivity();
+        return (RedelegateActivity) getBaseActivity();
     }
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBefore)) {
+        if (v.equals(mBefore)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
@@ -97,10 +96,10 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(!isAdded()) return;
-        if (result.taskType == TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO ) {
-            List<Staking.RedelegationResponse> redelegates = (List<Staking.RedelegationResponse>)result.resultData;
-            if (redelegates != null && redelegates.size() > 0 && redelegates.get(0).getEntriesCount() >= 7 ) {
+        if (!isAdded()) return;
+        if (result.taskType == TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO) {
+            List<Staking.RedelegationResponse> redelegates = (List<Staking.RedelegationResponse>) result.resultData;
+            if (redelegates != null && redelegates.size() > 0 && redelegates.get(0).getEntriesCount() >= 7) {
                 Toast.makeText(getContext(), R.string.error_redelegate_cnt_over, Toast.LENGTH_SHORT).show();
                 return;
 
@@ -123,12 +122,13 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
-            final Staking.Validator mGrpcValidator  = mGRpcTopValidators.get(position);
+            final Staking.Validator mGrpcValidator = mGRpcTopValidators.get(position);
             holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), WDp.mainDivideDecimal(getSActivity().mBaseChain), 6));
             holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             try {
                 Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, mGrpcValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -162,27 +162,27 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         }
 
         public class ToValidatorHolder extends RecyclerView.ViewHolder {
-            CardView        itemRoot;
+            CardView itemRoot;
             CircleImageView itemAvatar;
-            ImageView       itemRevoked;
-            ImageView       itemFree;
-            ImageView       itemChecked;
-            TextView        itemTvMoniker;
-            TextView        itemTvVotingPower;
-            TextView        itemTvYieldRate;
-            View            itemCheckedBorder;
+            ImageView itemRevoked;
+            ImageView itemFree;
+            ImageView itemChecked;
+            TextView itemTvMoniker;
+            TextView itemTvVotingPower;
+            TextView itemTvYieldRate;
+            View itemCheckedBorder;
 
             public ToValidatorHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot            = itemView.findViewById(R.id.card_validator);
-                itemAvatar          = itemView.findViewById(R.id.avatar_validator);
-                itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree            = itemView.findViewById(R.id.avatar_validator_free);
-                itemChecked         = itemView.findViewById(R.id.checked_validator);
-                itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-                itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
-                itemTvYieldRate    = itemView.findViewById(R.id.delegate_yield_commission);
-                itemCheckedBorder   = itemView.findViewById(R.id.check_border);
+                itemRoot = itemView.findViewById(R.id.card_validator);
+                itemAvatar = itemView.findViewById(R.id.avatar_validator);
+                itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemFree = itemView.findViewById(R.id.avatar_validator_free);
+                itemChecked = itemView.findViewById(R.id.checked_validator);
+                itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
+                itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
+                itemTvYieldRate = itemView.findViewById(R.id.delegate_yield_commission);
+                itemCheckedBorder = itemView.findViewById(R.id.check_border);
             }
         }
     }

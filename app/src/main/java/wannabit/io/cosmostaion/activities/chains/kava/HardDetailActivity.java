@@ -1,5 +1,13 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_RESERVES;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_TOTAL_BORROW;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_TOTAL_DEPOSIT;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,52 +50,44 @@ import wannabit.io.cosmostaion.widget.HardDetailInfoHolder;
 import wannabit.io.cosmostaion.widget.HardDetailMyAvailableHolder;
 import wannabit.io.cosmostaion.widget.HardDetailMyStatusHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_RESERVES;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_TOTAL_BORROW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_TOTAL_DEPOSIT;
-
 public class HardDetailActivity extends BaseActivity {
-    private Toolbar             mToolbar;
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private RelativeLayout      mLoadingLayer;
+    private Toolbar mToolbar;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private RelativeLayout mLoadingLayer;
 
-    private HardDetailAdapter   mAdapter;
-    private Account             mAccount;
-    private BaseChain           mBaseChain;
+    private HardDetailAdapter mAdapter;
+    private Account mAccount;
+    private BaseChain mBaseChain;
 
-    private String                                              mHardMoneyMarketDenom;
-    private Hard.Params                                         mHardParams;
-    private ArrayList<QueryOuterClass.MoneyMarketInterestRate>  mInterestRates = new ArrayList<>();
-    private ArrayList<Coin>                                     mModuleCoins = new ArrayList<>();
-    private ArrayList<CoinOuterClass.Coin>                      mReserveCoins = new ArrayList<>();
-    private ArrayList<CoinOuterClass.Coin>                      mTotalDeposit = new ArrayList<>();
-    private ArrayList<CoinOuterClass.Coin>                      mTotalBorrow = new ArrayList<>();
-    private ArrayList<QueryOuterClass.DepositResponse>          mMyDeposit = new ArrayList<>();
-    private ArrayList<QueryOuterClass.BorrowResponse>           mMyBorrow = new ArrayList<>();
-    private IncentiveReward                                     mIncentiveRewards;
+    private String mHardMoneyMarketDenom;
+    private Hard.Params mHardParams;
+    private ArrayList<QueryOuterClass.MoneyMarketInterestRate> mInterestRates = new ArrayList<>();
+    private ArrayList<Coin> mModuleCoins = new ArrayList<>();
+    private ArrayList<CoinOuterClass.Coin> mReserveCoins = new ArrayList<>();
+    private ArrayList<CoinOuterClass.Coin> mTotalDeposit = new ArrayList<>();
+    private ArrayList<CoinOuterClass.Coin> mTotalBorrow = new ArrayList<>();
+    private ArrayList<QueryOuterClass.DepositResponse> mMyDeposit = new ArrayList<>();
+    private ArrayList<QueryOuterClass.BorrowResponse> mMyBorrow = new ArrayList<>();
+    private IncentiveReward mIncentiveRewards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hard_detail);
-        mToolbar                        = findViewById(R.id.tool_bar);
-        mSwipeRefreshLayout             = findViewById(R.id.layer_refresher);
-        mRecyclerView                   = findViewById(R.id.recycler);
-        mLoadingLayer                   = findViewById(R.id.loadingLayer);
+        mToolbar = findViewById(R.id.tool_bar);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount                = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain              = BaseChain.getChain(mAccount.baseChain);
-        mHardMoneyMarketDenom   = getIntent().getStringExtra("hard_money_market_denom");
-        mHardParams             = getBaseDao().mHardParams;
-        mIncentiveRewards       = getBaseDao().mIncentiveRewards;
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mHardMoneyMarketDenom = getIntent().getStringExtra("hard_money_market_denom");
+        mHardParams = getBaseDao().mHardParams;
+        mIncentiveRewards = getBaseDao().mIncentiveRewards;
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -121,6 +121,7 @@ public class HardDetailActivity extends BaseActivity {
     }
 
     private int mTaskCount = 0;
+
     public void onFetchHardInfo() {
         mInterestRates.clear();
         mModuleCoins.clear();
@@ -141,7 +142,7 @@ public class HardDetailActivity extends BaseActivity {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE) {
             if (result.isSuccess && result.resultData != null) {
@@ -150,13 +151,13 @@ public class HardDetailActivity extends BaseActivity {
 
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT) {
             if (result.isSuccess && result.resultData != null) {
-                mModuleCoins = (ArrayList<Coin>)result.resultData;
+                mModuleCoins = (ArrayList<Coin>) result.resultData;
                 getBaseDao().mModuleCoins = mModuleCoins;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_RESERVES) {
             if (result.isSuccess && result.resultData != null) {
-                mReserveCoins = (ArrayList<CoinOuterClass.Coin>)result.resultData;
+                mReserveCoins = (ArrayList<CoinOuterClass.Coin>) result.resultData;
                 getBaseDao().mReserveCoins = mReserveCoins;
             }
 
@@ -169,7 +170,7 @@ public class HardDetailActivity extends BaseActivity {
             if (result.isSuccess && result.resultData != null) {
                 mTotalBorrow = (ArrayList<CoinOuterClass.Coin>) result.resultData;
             }
-        
+
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
                 mMyDeposit = (ArrayList<QueryOuterClass.DepositResponse>) result.resultData;
@@ -248,7 +249,7 @@ public class HardDetailActivity extends BaseActivity {
     }
 
     private boolean onCommonCheck() {
-        if(!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
@@ -258,9 +259,9 @@ public class HardDetailActivity extends BaseActivity {
     }
 
     private class HardDetailAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_HARD_INFO         = 0;
-        private static final int TYPE_MY_STATUS         = 1;
-        private static final int TYPE_MY_AVAILABLE      = 2;
+        private static final int TYPE_HARD_INFO = 0;
+        private static final int TYPE_MY_STATUS = 1;
+        private static final int TYPE_MY_AVAILABLE = 2;
 
         @NonNull
         @Override
@@ -295,7 +296,7 @@ public class HardDetailActivity extends BaseActivity {
         public int getItemViewType(int position) {
             if (position == 0) {
                 return TYPE_HARD_INFO;
-            } else if (position == 1)  {
+            } else if (position == 1) {
                 return TYPE_MY_STATUS;
             } else {
                 return TYPE_MY_AVAILABLE;

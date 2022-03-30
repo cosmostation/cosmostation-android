@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/menu_explorer"
-       android:icon="@drawable/icon_explorer"
+        android:icon="@drawable/icon_explorer"
         app:showAsAction="always"
         android:title="@string/str_web" />
 

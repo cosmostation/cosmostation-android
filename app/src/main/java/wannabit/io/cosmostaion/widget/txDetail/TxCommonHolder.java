@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class TxCommonHolder extends TxHolder {
     ImageView itemStatusImg;
     TextView itemStatusTxt, itemFailTxt, itemHash, itemHeight, itemMsgCnt, itemGas,
-            itemTime, itemTimeGap, itemMemo, itemFee, itemFeeDenom , itemFeeUsed, itemFeeUsedDenom,
+            itemTime, itemTimeGap, itemMemo, itemFee, itemFeeDenom, itemFeeUsed, itemFeeUsedDenom,
             itemFeeLimit, itemFeeLimitDenom;
     RelativeLayout itemFeeLayer, itemFeeUsedLayer, itemFeeLimitLayer;
 
@@ -61,7 +61,7 @@ public class TxCommonHolder extends TxHolder {
         }
         itemHeight.setText("" + response.getTxResponse().getHeight());
         itemMsgCnt.setText("" + response.getTx().getBody().getMessagesCount());
-        itemGas.setText(String.format("%s / %s", ""+response.getTxResponse().getGasUsed() , ""+response.getTxResponse().getGasWanted()));
+        itemGas.setText(String.format("%s / %s", "" + response.getTxResponse().getGasUsed(), "" + response.getTxResponse().getGasWanted()));
         itemFee.setText(WDp.getDpAmount2(c, WDp.onParseFee(response), dpDecimal, dpDecimal));
         itemFeeLayer.setVisibility(View.VISIBLE);
         itemTime.setText(WDp.getTimeTxformat(c, response.getTxResponse().getTimestamp()));

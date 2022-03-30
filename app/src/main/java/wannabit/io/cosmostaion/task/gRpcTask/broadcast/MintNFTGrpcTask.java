@@ -1,5 +1,10 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_MINT_NFT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -24,23 +29,17 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_MINT_NFT;
-
 public class MintNFTGrpcTask extends CommonTask {
 
-    private Account                 mAccount;
-    private BaseChain               mBaseChain;
-    private String                  mSigner;
-    private String                  mDenomId, mDenomName;
-    private String                  mId, mName, mUri;
-    private String                  mData;
-    private Fee                     mFees;
-    private String                  mMemo;
-    private String                  mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mSigner;
+    private String mDenomId, mDenomName;
+    private String mId, mName, mUri;
+    private String mData;
+    private Fee mFees;
+    private String mMemo;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
@@ -107,7 +106,7 @@ public class MintNFTGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "MintNFTGrpcTask "+ e.getMessage());
+            WLog.e("MintNFTGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

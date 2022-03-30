@@ -7,7 +7,7 @@
     <alpha
         android:duration="300"
         android:fromAlpha="0"
-        android:toAlpha="1"/>
+        android:toAlpha="1" />
 
     <translate
         android:duration="300"

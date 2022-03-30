@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import wannabit.io.cosmostaion.utils.WLog;
-
 public class Coin implements Parcelable {
 
     @SerializedName("denom")
@@ -64,7 +62,9 @@ public class Coin implements Parcelable {
     }
 
     public String getIbcHash() {
-        if (!isIbc()) { return null; }
+        if (!isIbc()) {
+            return null;
+        }
         return denom.replaceAll("ibc/", "");
     }
 

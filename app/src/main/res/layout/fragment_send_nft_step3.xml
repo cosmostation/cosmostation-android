@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,12 +13,14 @@
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/space_16"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,31 +30,35 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_tx_fee_c"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:orientation="horizontal"
                         android:gravity="center">
+
                         <TextView
                             android:id="@+id/tx_fee_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_white" />
+
                         <TextView
                             android:id="@+id/tx_fee_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_atom"/>
+                            style="@style/font_ss_12_atom" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -62,7 +67,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3" />
 
 
             <LinearLayout
@@ -71,31 +76,36 @@
                 android:paddingTop="@dimen/space_16"
                 android:paddingBottom="@dimen/space_16"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_send_nft_recipient_address"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical">
+
                     <TextView
                         android:id="@+id/nft_recipient_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_white" />
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16"
                     android:text="@string/str_send_nft_denom_id"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/nft_denom_id"
                     android:layout_width="wrap_content"
@@ -104,13 +114,15 @@
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16"
                     android:text="@string/str_send_nft_token_id"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/nft_token_id"
                     android:layout_width="wrap_content"
@@ -119,13 +131,15 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16"
                     android:text="@string/str_memo"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/memo"
                     android:layout_width="wrap_content"
@@ -133,7 +147,7 @@
                     android:layout_marginTop="@dimen/space_8"
                     android:lines="2"
                     android:ellipsize="end"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </LinearLayout>
 
         </LinearLayout>
@@ -148,6 +162,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_before"
             android:layout_width="0dp"
@@ -158,7 +173,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_back"/>
+            android:text="@string/str_back" />
+
         <Button
             android:id="@+id/btn_confirm"
             android:layout_width="0dp"
@@ -170,6 +186,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_confirm"/>
+            android:text="@string/str_confirm" />
     </LinearLayout>
 </RelativeLayout>

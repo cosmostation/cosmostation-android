@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -28,24 +26,20 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button          mBtnCancel, mBtnNext;
-    private ImageView       mWithdrawImg;
-    private TextView        mWithdrawSymbol;
-    private EditText        mWithdrawInput;
-    private ImageView       mWithdrawClear;
-    private TextView        mDWithdrawMaxTx, mWithdrawDenomTx;
-    private Button          mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
+    private Button mBtnCancel, mBtnNext;
+    private ImageView mWithdrawImg;
+    private TextView mWithdrawSymbol;
+    private EditText mWithdrawInput;
+    private ImageView mWithdrawClear;
+    private TextView mDWithdrawMaxTx, mWithdrawDenomTx;
+    private Button mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
 
-    private int             mDpDecimal = 6;
-    public String           mHardMoneyMarketDenom;
-    private String          mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
-    private BigDecimal      mMaxAvailable = BigDecimal.ZERO;
+    private int mDpDecimal = 6;
+    public String mHardMoneyMarketDenom;
+    private String mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
     public static WithdrawHardStep0Fragment newInstance(Bundle bundle) {
         WithdrawHardStep0Fragment fragment = new WithdrawHardStep0Fragment();
@@ -95,15 +89,17 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
 
         mWithdrawInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
+                if (TextUtils.isEmpty(es)) {
                     mWithdrawInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
                     mWithdrawInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -111,7 +107,7 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
                 } else if (es.endsWith(".")) {
                     mWithdrawInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mWithdrawInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mWithdrawInput.setText("0");
                     mWithdrawInput.setSelection(1);
                 }
@@ -122,7 +118,7 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mWithdrawInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -141,7 +137,8 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
                             mWithdrawInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                         }
                         mWithdrawInput.setSelection(mWithdrawInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -158,7 +155,8 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
             BigDecimal inputedAmount = BigDecimal.ZERO;
             try {
                 inputedAmount = new BigDecimal(mWithdrawInput.getText().toString().trim());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             inputedAmount = inputedAmount.add(new BigDecimal("1"));
             mWithdrawInput.setText(inputedAmount.toPlainString());
 
@@ -204,10 +202,11 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
     private boolean isValidateDepositAmount() {
         try {
             BigDecimal amountTemp = new BigDecimal(mWithdrawInput.getText().toString().trim());
-            if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if(amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+            if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+                return false;
             Coin coin = new Coin(mHardMoneyMarketDenom, amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
-            ArrayList<Coin> temp= new ArrayList<>();
+            ArrayList<Coin> temp = new ArrayList<>();
             temp.add(coin);
             getSActivity().mHardPoolCoins = temp;
             return true;
@@ -224,18 +223,18 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
         mDecimalSetter = "0.";
         mDecimalDivider2 = "2";
         mDecimalDivider1 = "1";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
             mDecimalDivider2 = mDecimalDivider2 + "0";
             mDecimalDivider1 = mDecimalDivider1 + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
-            mDecimalSetter = mDecimalSetter+"0";
+        for (int i = 0; i < decimals - 1; i++) {
+            mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
 
     private WithdrawHardActivity getSActivity() {
-        return (WithdrawHardActivity)getBaseActivity();
+        return (WithdrawHardActivity) getBaseActivity();
     }
 }

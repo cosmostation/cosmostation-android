@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_BEGIN_UNBONDING;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -24,17 +26,14 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_BEGIN_UNBONDING;
-
 public class SimulOsmosisBeginUnbondingGrpcTask extends CommonTask {
 
-    private Account             mAccount;
-    private BaseChain           mBaseChain;
-    private ArrayList<Long>     mIds;
-    private Fee                 mFees;
-    private String              mMemo;
-    private String              mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private ArrayList<Long> mIds;
+    private Fee mFees;
+    private String mMemo;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

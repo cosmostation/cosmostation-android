@@ -14,7 +14,6 @@ import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResBnbHistories;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 

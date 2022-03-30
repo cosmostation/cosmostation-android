@@ -560,7 +560,7 @@
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">새 지갑 추가</string>
-    
+
     <string name="str_min_collateral_rate">최소 담보 비율</string>
     <string name="str_stability_fee">연간 수수료</string>
     <string name="str_liquidation_penalty">청산시 추가 수수료</string>
@@ -669,9 +669,9 @@
     <string name="str_cannot_particaly">부분 상환 불가능</string>
     <string name="str_repay_all"><![CDATA[모두 상환: ]]></string>
     <string name="str_cannot_repay_all">모두 상환에 필요한 USDX 부족</string>
-<!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable: ]]></string>-->
+    <!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable: ]]></string>-->
     <string name="str_max_depositable_amount"><![CDATA[최대치: ]]></string>
-<!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable: ]]></string>-->
+    <!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable: ]]></string>-->
     <string name="str_max_withdrawable_amount"><![CDATA[최대치: ]]></string>
     <string name="str_add_min">최소</string>
     <string name="str_add_20">20</string>
@@ -1672,11 +1672,11 @@
     <string name="tx_cosmwasm_instantiate_title">컨트랙트 인스턴트화</string>
     <string name="tx_cosmwasm_execontract_title">컨트랙트 실행</string>
 
-    <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
-    <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
-    <string name="str_dp_time_format3" >HH:mm:ss</string>
+    <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
+    <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>
+    <string name="str_dp_time_format3">HH:mm:ss</string>
     <string name="str_dp_time_format4">yyyy-MM-dd</string>
-    <string name="str_dp_date_format" >yyyy-MM-dd</string>
+    <string name="str_dp_date_format">yyyy-MM-dd</string>
 
     <string name="currency_usd">USD</string>
     <string name="currency_eur">EUR</string>

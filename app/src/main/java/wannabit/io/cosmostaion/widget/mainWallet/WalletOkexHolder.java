@@ -27,21 +27,21 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletOkexHolder extends BaseHolder {
-    private TextView            mOkTotalAmount, mOkTotalValue, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
-    private RelativeLayout      mBtnOkDeposit, mBtnOkWithdraw, mBtnOkVoteForVali, mBtnOkVote;
+    private TextView mOkTotalAmount, mOkTotalValue, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
+    private RelativeLayout mBtnOkDeposit, mBtnOkWithdraw, mBtnOkVoteForVali, mBtnOkVote;
 
     public WalletOkexHolder(@NonNull View itemView) {
         super(itemView);
-        mOkTotalAmount      = itemView.findViewById(R.id.ok_total_amount);
-        mOkTotalValue       = itemView.findViewById(R.id.ok_total_value);
-        mOkAvailable        = itemView.findViewById(R.id.ok_available);
-        mOkLocked           = itemView.findViewById(R.id.ok_locked);
-        mOkDeposit          = itemView.findViewById(R.id.ok_deposit);
-        mOkWithdrawing      = itemView.findViewById(R.id.ok_withdrawing);
-        mBtnOkDeposit       = itemView.findViewById(R.id.btn_ok_deposit);
-        mBtnOkWithdraw      = itemView.findViewById(R.id.btn_ok_withdraw);
-        mBtnOkVoteForVali   = itemView.findViewById(R.id.btn_ok_vote_for_validator);
-        mBtnOkVote          = itemView.findViewById(R.id.btn_ok_vote);
+        mOkTotalAmount = itemView.findViewById(R.id.ok_total_amount);
+        mOkTotalValue = itemView.findViewById(R.id.ok_total_value);
+        mOkAvailable = itemView.findViewById(R.id.ok_available);
+        mOkLocked = itemView.findViewById(R.id.ok_locked);
+        mOkDeposit = itemView.findViewById(R.id.ok_deposit);
+        mOkWithdrawing = itemView.findViewById(R.id.ok_withdrawing);
+        mBtnOkDeposit = itemView.findViewById(R.id.btn_ok_deposit);
+        mBtnOkWithdraw = itemView.findViewById(R.id.btn_ok_withdraw);
+        mBtnOkVoteForVali = itemView.findViewById(R.id.btn_ok_vote_for_validator);
+        mBtnOkVote = itemView.findViewById(R.id.btn_ok_vote);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -66,7 +66,8 @@ public class WalletOkexHolder extends BaseHolder {
         mBtnOkDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0) return;
+                if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0)
+                    return;
                 if (!mainActivity.mAccount.hasPrivateKey) {
                     Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                     add.setCancelable(true);
@@ -77,7 +78,7 @@ public class WalletOkexHolder extends BaseHolder {
                 if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
                     myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
                 }
-                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
+                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal("" + myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
                 BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
                 if (availableAmount.compareTo(feeAmount) <= 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -95,7 +96,8 @@ public class WalletOkexHolder extends BaseHolder {
         mBtnOkWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0) return;
+                if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0)
+                    return;
                 if (!mainActivity.mAccount.hasPrivateKey) {
                     Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                     add.setCancelable(true);
@@ -112,7 +114,7 @@ public class WalletOkexHolder extends BaseHolder {
                 if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
                     myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
                 }
-                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
+                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal("" + myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
                 BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
                 if (availableAmount.compareTo(feeAmount) <= 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();

@@ -1,11 +1,12 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
-import java.util.ArrayList;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SUPPLY_OF_INFO;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import cosmos.bank.v1beta1.QueryGrpc;
 import cosmos.bank.v1beta1.QueryOuterClass;
-import cosmos.base.v1beta1.CoinOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -13,9 +14,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SUPPLY_OF_INFO;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class SupplyOfGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -39,7 +37,9 @@ public class SupplyOfGrpcTask extends CommonTask {
             mResult.isSuccess = true;
             mResult.resultData = response;
 
-        } catch (Exception e) { WLog.e( "SupplyOfGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("SupplyOfGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

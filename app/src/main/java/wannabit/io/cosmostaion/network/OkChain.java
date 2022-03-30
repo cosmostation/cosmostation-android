@@ -10,7 +10,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
-import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
@@ -53,7 +52,6 @@ public interface OkChain {
 
     @GET("v1/okexchain/addresses/{addresses}/transactions/condition")
     Call<ResOkHistory> getNewOecTxs(@Path("addresses") String addresses, @Query("limit") String limit);
-
 
 
     //Broadcast Tx

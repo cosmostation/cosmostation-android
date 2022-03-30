@@ -16,17 +16,17 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxSaveProfileHolder extends TxHolder {
-    ImageView   itemSaveProfileImg;
-    TextView    itemSaveProfileDtag, itemSaveProfileNick, itemSaveProfileBio, itemSaveProfileUrl, itemSaveProfileCoverUrl;
+    ImageView itemSaveProfileImg;
+    TextView itemSaveProfileDtag, itemSaveProfileNick, itemSaveProfileBio, itemSaveProfileUrl, itemSaveProfileCoverUrl;
 
     public TxSaveProfileHolder(@NonNull View itemView) {
         super(itemView);
-        itemSaveProfileImg          = itemView.findViewById(R.id.tx_save_profile_icon);
-        itemSaveProfileDtag         = itemView.findViewById(R.id.tx_save_profile_dtag);
-        itemSaveProfileNick         = itemView.findViewById(R.id.tx_save_profile_nickname);
-        itemSaveProfileBio          = itemView.findViewById(R.id.tx_save_profile_bio);
-        itemSaveProfileUrl          = itemView.findViewById(R.id.tx_save_profile_url);
-        itemSaveProfileCoverUrl     = itemView.findViewById(R.id.tx_save_profile_cover_url);
+        itemSaveProfileImg = itemView.findViewById(R.id.tx_save_profile_icon);
+        itemSaveProfileDtag = itemView.findViewById(R.id.tx_save_profile_dtag);
+        itemSaveProfileNick = itemView.findViewById(R.id.tx_save_profile_nickname);
+        itemSaveProfileBio = itemView.findViewById(R.id.tx_save_profile_bio);
+        itemSaveProfileUrl = itemView.findViewById(R.id.tx_save_profile_url);
+        itemSaveProfileCoverUrl = itemView.findViewById(R.id.tx_save_profile_cover_url);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -40,6 +40,7 @@ public class TxSaveProfileHolder extends TxHolder {
             itemSaveProfileUrl.setText(msg.getProfilePicture());
             itemSaveProfileCoverUrl.setText(msg.getCoverPicture());
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.nft;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,16 +28,14 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.nft.NFTSendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.nft.NFTSendStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
-
 public class NFTSendActivity extends BaseBroadCastActivity {
 
-    private Toolbar             mToolbar;
-    private TextView            mTitle;
-    private ImageView           mIvStep;
-    private TextView            mTvStep;
-    private ViewPager           mViewPager;
-    private NFTSendAdapter      mPageAdapter;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private NFTSendAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +112,7 @@ public class NFTSendActivity extends BaseBroadCastActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -127,7 +127,7 @@ public class NFTSendActivity extends BaseBroadCastActivity {
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {

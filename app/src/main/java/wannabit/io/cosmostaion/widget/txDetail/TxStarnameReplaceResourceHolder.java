@@ -47,6 +47,7 @@ public class TxStarnameReplaceResourceHolder extends TxHolder {
                 itemAddressCnt.setText("" + resources.size());
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

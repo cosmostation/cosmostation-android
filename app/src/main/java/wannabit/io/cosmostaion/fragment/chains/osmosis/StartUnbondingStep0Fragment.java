@@ -17,15 +17,14 @@ import wannabit.io.cosmostaion.activities.chains.osmosis.StartUnbondingActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-public class StartUnbondingStep0Fragment extends BaseFragment implements View.OnClickListener{
+public class StartUnbondingStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button                  mCancelBtn, mNextBtn;
+    private Button mCancelBtn, mNextBtn;
 
-    private TextView                mToUnbondingIds;
-    private TextView                mToUnbondingAmount, mToUnbondingDenom;
-    private TextView                mToUnbondingDuration;
+    private TextView mToUnbondingIds;
+    private TextView mToUnbondingAmount, mToUnbondingDenom;
+    private TextView mToUnbondingDuration;
 
     public static StartUnbondingStep0Fragment newInstance(Bundle bundle) {
         StartUnbondingStep0Fragment fragment = new StartUnbondingStep0Fragment();
@@ -41,13 +40,13 @@ public class StartUnbondingStep0Fragment extends BaseFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_start_unbonding_step0, container, false);
-        mCancelBtn                  = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn                    = rootView.findViewById(R.id.btn_next);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
 
-        mToUnbondingIds             = rootView.findViewById(R.id.unbonding_ids);
-        mToUnbondingAmount          = rootView.findViewById(R.id.unbonding_amount);
-        mToUnbondingDenom           = rootView.findViewById(R.id.unbonding_amount_symbol);
-        mToUnbondingDuration        = rootView.findViewById(R.id.unbonding_duration);
+        mToUnbondingIds = rootView.findViewById(R.id.unbonding_ids);
+        mToUnbondingAmount = rootView.findViewById(R.id.unbonding_amount);
+        mToUnbondingDenom = rootView.findViewById(R.id.unbonding_amount_symbol);
+        mToUnbondingDuration = rootView.findViewById(R.id.unbonding_duration);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -61,7 +60,7 @@ public class StartUnbondingStep0Fragment extends BaseFragment implements View.On
         String toUnbondingDenom = getSActivity().mOsmosisLockups.get(0).getCoins(0).getDenom();
         String ids = "";
         BigDecimal toUnbondingAmount = BigDecimal.ZERO;
-        for (Lock.PeriodLock lockup: getSActivity().mOsmosisLockups) {
+        for (Lock.PeriodLock lockup : getSActivity().mOsmosisLockups) {
             ids = ids + "# " + lockup.getID() + "  ";
             toUnbondingAmount = toUnbondingAmount.add(new BigDecimal(lockup.getCoins(0).getAmount()));
         }
@@ -87,5 +86,7 @@ public class StartUnbondingStep0Fragment extends BaseFragment implements View.On
         }
     }
 
-    private StartUnbondingActivity getSActivity() { return (StartUnbondingActivity)getBaseActivity(); }
+    private StartUnbondingActivity getSActivity() {
+        return (StartUnbondingActivity) getBaseActivity();
+    }
 }

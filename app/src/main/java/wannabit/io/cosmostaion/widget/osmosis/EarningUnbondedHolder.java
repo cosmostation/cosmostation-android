@@ -36,14 +36,14 @@ public class EarningUnbondedHolder extends RecyclerView.ViewHolder {
 
     public EarningUnbondedHolder(@NonNull View itemView) {
         super(itemView);
-        itemRoot                = itemView.findViewById(R.id.card_root);
-        itemLockId              = itemView.findViewById(R.id.lock_id);
-        itemLockStatus          = itemView.findViewById(R.id.lock_status);
-        itemAmount              = itemView.findViewById(R.id.amount);
-        itemAmountDenom         = itemView.findViewById(R.id.amount_denom);
-        itemAmountValue         = itemView.findViewById(R.id.amount_value);
-        itemRewardAmount        = itemView.findViewById(R.id.next_reward_amount);
-        mBtnUnLock              = itemView.findViewById(R.id.btn_start_unlock);
+        itemRoot = itemView.findViewById(R.id.card_root);
+        itemLockId = itemView.findViewById(R.id.lock_id);
+        itemLockStatus = itemView.findViewById(R.id.lock_status);
+        itemAmount = itemView.findViewById(R.id.amount);
+        itemAmountDenom = itemView.findViewById(R.id.amount_denom);
+        itemAmountValue = itemView.findViewById(R.id.amount_value);
+        itemRewardAmount = itemView.findViewById(R.id.next_reward_amount);
+        mBtnUnLock = itemView.findViewById(R.id.btn_start_unlock);
 
     }
 
@@ -71,7 +71,7 @@ public class EarningUnbondedHolder extends RecyclerView.ViewHolder {
         mBtnUnLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               ((EarningDetailActivity)activity).onCheckUnlock(lockup);
+                ((EarningDetailActivity) activity).onCheckUnlock(lockup);
             }
         });
     }

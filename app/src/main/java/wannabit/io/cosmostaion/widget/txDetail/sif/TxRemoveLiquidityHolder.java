@@ -23,18 +23,18 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxRemoveLiquidityHolder extends TxHolder {
-    ImageView   itemRLImg;
-    TextView    itemRLSigner,
-                itemRLNativeAssetAmount, itemRLNativeAssetSymbol, itemRLExternalAssetlAmount, itemRLExternalAssetSymbol;
+    ImageView itemRLImg;
+    TextView itemRLSigner,
+            itemRLNativeAssetAmount, itemRLNativeAssetSymbol, itemRLExternalAssetlAmount, itemRLExternalAssetSymbol;
 
     public TxRemoveLiquidityHolder(@NonNull View itemView) {
         super(itemView);
-        itemRLImg                   = itemView.findViewById(R.id.tx_remove_liquidity_icon);
-        itemRLSigner                = itemView.findViewById(R.id.tx_remove_liquidity_signer);
-        itemRLNativeAssetAmount     = itemView.findViewById(R.id.tx_liquidity_native_amount);
-        itemRLNativeAssetSymbol     = itemView.findViewById(R.id.tx_liquidity_native_symbol);
-        itemRLExternalAssetlAmount  = itemView.findViewById(R.id.tx_liquidity_exteranl_amount);
-        itemRLExternalAssetSymbol   = itemView.findViewById(R.id.tx_liquidity_exteranl_symbol);
+        itemRLImg = itemView.findViewById(R.id.tx_remove_liquidity_icon);
+        itemRLSigner = itemView.findViewById(R.id.tx_remove_liquidity_signer);
+        itemRLNativeAssetAmount = itemView.findViewById(R.id.tx_liquidity_native_amount);
+        itemRLNativeAssetSymbol = itemView.findViewById(R.id.tx_liquidity_native_symbol);
+        itemRLExternalAssetlAmount = itemView.findViewById(R.id.tx_liquidity_exteranl_amount);
+        itemRLExternalAssetSymbol = itemView.findViewById(R.id.tx_liquidity_exteranl_symbol);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {

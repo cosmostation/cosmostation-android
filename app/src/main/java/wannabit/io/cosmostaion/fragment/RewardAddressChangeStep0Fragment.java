@@ -26,10 +26,10 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class RewardAddressChangeStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private EditText        mAddressInput;
-    private LinearLayout    mBtnQr, mBtnPaste;
-    private TextView        mCurrentAddress;
-    private Button          mCancel, mNextBtn;
+    private EditText mAddressInput;
+    private LinearLayout mBtnQr, mBtnPaste;
+    private TextView mCurrentAddress;
+    private Button mCancel, mNextBtn;
 
     public static RewardAddressChangeStep0Fragment newInstance(Bundle bundle) {
         RewardAddressChangeStep0Fragment fragment = new RewardAddressChangeStep0Fragment();
@@ -44,13 +44,13 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView   = inflater.inflate(R.layout.fragment_reward_address_change_step0, container, false);
-        mAddressInput   = rootView.findViewById(R.id.reward_account);
+        View rootView = inflater.inflate(R.layout.fragment_reward_address_change_step0, container, false);
+        mAddressInput = rootView.findViewById(R.id.reward_account);
         mCurrentAddress = rootView.findViewById(R.id.current_address);
-        mBtnQr          = rootView.findViewById(R.id.btn_qr);
-        mBtnPaste       = rootView.findViewById(R.id.btn_paste);
-        mNextBtn        = rootView.findViewById(R.id.btn_next);
-        mCancel         = rootView.findViewById(R.id.btn_cancel);
+        mBtnQr = rootView.findViewById(R.id.btn_qr);
+        mBtnPaste = rootView.findViewById(R.id.btn_paste);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mCancel = rootView.findViewById(R.id.btn_cancel);
 
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -87,10 +87,10 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -104,14 +104,14 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
     }
 
     private RewardAddressChangeActivity getSActivity() {
-        return (RewardAddressChangeActivity)getBaseActivity();
+        return (RewardAddressChangeActivity) getBaseActivity();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() != null) {
+        if (result != null) {
+            if (result.getContents() != null) {
                 mAddressInput.setText(result.getContents().trim());
                 mAddressInput.setSelection(mAddressInput.getText().length());
             }

@@ -25,15 +25,15 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class UndelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button      mCancel, mNextBtn;
-    private EditText    mAmountInput;
-    private TextView    mAvailableAmount;
-    private TextView    mDenomTitle;
-    private ImageView   mClearAll;
-    private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
-    private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
-    private int         mDpDecimal = 6;
-    private String      mDecimalChecker, mDecimalSetter;
+    private Button mCancel, mNextBtn;
+    private EditText mAmountInput;
+    private TextView mAvailableAmount;
+    private TextView mDenomTitle;
+    private ImageView mClearAll;
+    private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
+    private int mDpDecimal = 6;
+    private String mDecimalChecker, mDecimalSetter;
 
     public static UndelegateStep0Fragment newInstance(Bundle bundle) {
         UndelegateStep0Fragment fragment = new UndelegateStep0Fragment();
@@ -76,7 +76,8 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
+        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null)
+            getSActivity().onBackPressed();
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         setDpDecimals(mDpDecimal);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
@@ -89,15 +90,17 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     private void onAddAmountWatcher() {
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(es == null || es.length() == 0) {
+                if (es == null || es.length() == 0) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                 } else if (es.startsWith(".")) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -105,7 +108,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 } else if (es.endsWith(".")) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mAmountInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mAmountInput.setText("0");
                     mAmountInput.setSelection(1);
                 }
@@ -116,7 +119,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -136,7 +139,8 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                         }
                         mAmountInput.setSelection(mAmountInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -158,7 +162,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());
@@ -166,7 +170,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
@@ -174,7 +178,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
@@ -182,7 +186,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
@@ -219,15 +223,15 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     private void setDpDecimals(int decimals) {
         mDecimalChecker = "0.";
         mDecimalSetter = "0.";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
+        for (int i = 0; i < decimals - 1; i++) {
             mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
     private UndelegateActivity getSActivity() {
-        return (UndelegateActivity)getBaseActivity();
+        return (UndelegateActivity) getBaseActivity();
     }
 }

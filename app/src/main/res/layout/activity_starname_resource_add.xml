@@ -18,7 +18,7 @@
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_17_gray8"
             android:gravity="center"
-            android:text="@string/str_add_address_to_chain"/>
+            android:text="@string/str_add_address_to_chain" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,18 +30,20 @@
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:background="@drawable/box_et_gary">
+
             <ImageView
                 android:id="@+id/chainImg"
                 android:layout_width="@dimen/space_18"
                 android:layout_height="@dimen/space_18"
-                android:src="@drawable/cosmos_wh_main"/>
+                android:src="@drawable/cosmos_wh_main" />
+
             <TextView
                 android:id="@+id/chainName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_6"
                 style="@style/font_ssm_14_gray8"
-                android:singleLine="true"/>
+                android:singleLine="true" />
         </LinearLayout>
 
 
@@ -61,7 +63,7 @@
             android:paddingRight="@dimen/space_8"
             android:inputType="textNoSuggestions"
             style="@style/font_ssm_12_black"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,11 +72,12 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_36"
-                android:layout_weight="1">
-            </LinearLayout>
+                android:layout_weight="1"></LinearLayout>
+
             <LinearLayout
                 android:id="@+id/btn_wallet"
                 android:layout_width="0dp"
@@ -84,18 +87,21 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:background="@drawable/btn_trans_with_border">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/list_ic"
-                    app:tint="@color/colorBlack"/>
+                    app:tint="@color/colorBlack" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_ss_9_black"
-                    android:text="Wallet"/>
+                    android:text="Wallet" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/btn_qr"
                 android:layout_width="0dp"
@@ -106,18 +112,21 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:background="@drawable/btn_trans_with_border">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/qr_ic"
-                    app:tint="@color/colorBlack"/>
+                    app:tint="@color/colorBlack" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_ss_9_black"
-                    android:text="Scan"/>
+                    android:text="Scan" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/btn_paste"
                 android:layout_width="0dp"
@@ -128,17 +137,19 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:background="@drawable/btn_trans_with_border">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/copy_ic"
-                    app:tint="@color/colorBlack"/>
+                    app:tint="@color/colorBlack" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_ss_9_black"
-                    android:text="@string/str_paste"/>
+                    android:text="@string/str_paste" />
             </LinearLayout>
         </LinearLayout>
 
@@ -154,6 +165,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -164,7 +176,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_black"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_confirm"
             android:layout_width="0dp"
@@ -176,6 +189,6 @@
             style="@style/font_ss_14_iov"
             android:textColor="@color/colorIov"
             android:textAllCaps="false"
-            android:text="@string/str_confirm"/>
+            android:text="@string/str_confirm" />
     </LinearLayout>
 </RelativeLayout>

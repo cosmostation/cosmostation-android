@@ -30,12 +30,12 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class RegisterAccountGrpcTask extends CommonTask {
-    private BaseChain                   mBaseChain;
-    private Account                     mAccount;
-    private String                      mDomain, mName, mMemo;
-    private ArrayList<Types.Resource>   mResources = new ArrayList();
-    private Fee                         mFees;
-    private String                      mChainId;
+    private BaseChain mBaseChain;
+    private Account mAccount;
+    private String mDomain, mName, mMemo;
+    private ArrayList<Types.Resource> mResources = new ArrayList();
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
@@ -91,7 +91,7 @@ public class RegisterAccountGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "RegisterDomainGrpcTask "+ e.getMessage());
+            WLog.e("RegisterDomainGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

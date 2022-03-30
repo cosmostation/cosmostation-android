@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResKavaSwapSupply {
 
@@ -17,7 +16,7 @@ public class ResKavaSwapSupply {
     public ArrayList<KavaSwapSupply2> result;
 
 
-    public class KavaSwapSupply2{
+    public class KavaSwapSupply2 {
         @SerializedName("incoming_supply")
         public Coin incoming_supply;
 
@@ -38,7 +37,7 @@ public class ResKavaSwapSupply {
 
     public KavaSwapSupply2 getSwapSupply(String denom) {
         if (result != null && result.size() > 0) {
-            for (KavaSwapSupply2 supply:result) {
+            for (KavaSwapSupply2 supply : result) {
                 if (denom.toLowerCase().startsWith(supply.incoming_supply.denom.toLowerCase())) {
                     return supply;
                 }
@@ -58,7 +57,8 @@ public class ResKavaSwapSupply {
             BigDecimal current_supply = new BigDecimal(supply.current_supply.amount);
             remain = supplyLimit.subtract(current_supply).subtract(incoming_supply);
 
-        }catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return remain;
     }
 

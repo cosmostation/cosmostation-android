@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/layer_sort"
         android:layout_width="match_parent"
@@ -12,34 +11,40 @@
         android:paddingRight="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_12">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:orientation="horizontal"
             android:gravity="center">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_validator"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_ss_12_gray1" />
+
             <TextView
                 android:id="@+id/validator_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
                 android:text="0"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_white" />
         </LinearLayout>
     </RelativeLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_below="@+id/layer_sort"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <Button
                 android:id="@+id/btn_vote"
                 android:layout_width="match_parent"
@@ -51,7 +56,8 @@
                 style="@style/font_ss_14_photon"
                 android:textColor="@color/color_btn_photon"
                 android:textAllCaps="false"
-                android:text="@string/str_vote_to"/>
+                android:text="@string/str_vote_to" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"

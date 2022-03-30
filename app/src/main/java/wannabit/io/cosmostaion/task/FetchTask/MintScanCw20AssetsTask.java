@@ -22,9 +22,9 @@ public class MintScanCw20AssetsTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("MintScanCw20AssetsTask Assets URL " +  ApiClient.getMintscan(mApp).getCw20Assets().request().url());
+            WLog.w("MintScanCw20AssetsTask Assets URL " + ApiClient.getMintscan(mApp).getCw20Assets().request().url());
             Response<ResCw20Assets> response = ApiClient.getMintscan(mApp).getCw20Assets().execute();
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;
                 return mResult;

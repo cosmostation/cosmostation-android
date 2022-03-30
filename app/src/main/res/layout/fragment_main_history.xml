@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,15 +24,18 @@
             android:paddingTop="@dimen/space_12"
             android:paddingBottom="@dimen/space_12"
             android:paddingRight="@dimen/space_4">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/img_account"
                     android:layout_width="@dimen/space_24"
                     android:layout_height="@dimen/space_24"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/key_off"/>
+                    android:src="@drawable/key_off" />
+
                 <TextView
                     android:id="@+id/wallet_address"
                     android:layout_width="wrap_content"
@@ -41,8 +45,9 @@
                     android:layout_centerVertical="true"
                     style="@style/font_ss_12_white"
                     android:singleLine="true"
-                    android:text=""/>
+                    android:text="" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/total_value"
                 android:layout_width="match_parent"
@@ -52,17 +57,20 @@
                 style="@style/font_ss_21_white"
                 android:singleLine="true"
                 android:text="0.000"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/card_root">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:id="@+id/empty_history"
                 android:layout_width="wrap_content"
@@ -70,18 +78,20 @@
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
                 android:gravity="center">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/history_none_img"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_centerInParent="true"
                     style="@style/font_ss_14_white"
-                    android:text="@string/str_no_history"/>
+                    android:text="@string/str_no_history" />
             </LinearLayout>
 
 
@@ -93,7 +103,7 @@
                 android:clipToPadding="false"
                 android:overScrollMode="never"
                 android:visibility="gone"
-                android:layout_marginTop="@dimen/space_6"/>
+                android:layout_marginTop="@dimen/space_6" />
 
             <TextView
                 android:id="@+id/text_notyet"
@@ -102,7 +112,7 @@
                 android:layout_marginTop="@dimen/space_6"
                 android:layout_centerInParent="true"
                 style="@style/font_ss_14_white"
-                android:text="Coming Soon!!"/>
+                android:text="Coming Soon!!" />
         </RelativeLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

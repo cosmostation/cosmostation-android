@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +22,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-
 public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mBackBtn, mConfirmBtn;
@@ -29,7 +29,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     private TextView mKavaAmount, mHardAmount, mSwpAmount;
     private TextView mLockTime, mMemo;
 
-    private IncentiveParam  mIncentiveParam;
+    private IncentiveParam mIncentiveParam;
 
 
     public static ClaimIncentiveStep3Fragment newInstance(Bundle bundle) {
@@ -46,15 +46,15 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_claim_incentive_3, container, false);
-        mBackBtn                = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
-        mFee                    = rootView.findViewById(R.id.fee_amount);
-        mFeeDenom               = rootView.findViewById(R.id.fee_denom);
-        mKavaAmount             = rootView.findViewById(R.id.tx_incentive_kava_amount);
-        mHardAmount             = rootView.findViewById(R.id.tx_incentive_hard_amount);
-        mSwpAmount              = rootView.findViewById(R.id.tx_incentive_swp_amount);
-        mLockTime               = rootView.findViewById(R.id.lockup_time);
-        mMemo                   = rootView.findViewById(R.id.memo);
+        mBackBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mFee = rootView.findViewById(R.id.fee_amount);
+        mFeeDenom = rootView.findViewById(R.id.fee_denom);
+        mKavaAmount = rootView.findViewById(R.id.tx_incentive_kava_amount);
+        mHardAmount = rootView.findViewById(R.id.tx_incentive_hard_amount);
+        mSwpAmount = rootView.findViewById(R.id.tx_incentive_swp_amount);
+        mLockTime = rootView.findViewById(R.id.lockup_time);
+        mMemo = rootView.findViewById(R.id.memo);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
 
@@ -71,7 +71,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
 
         BigDecimal kavaIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_KAVA);
         BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_HARD);
-        BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP);
+        BigDecimal swpIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP);
 
         if (getSActivity().mIncentiveMultiplier.equalsIgnoreCase("small")) {
             mLockTime.setText("1 Month");
@@ -104,6 +104,6 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     }
 
     private ClaimIncentiveActivity getSActivity() {
-        return (ClaimIncentiveActivity)getBaseActivity();
+        return (ClaimIncentiveActivity) getBaseActivity();
     }
 }

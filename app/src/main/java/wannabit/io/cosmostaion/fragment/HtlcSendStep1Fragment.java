@@ -29,14 +29,14 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_ACCOUNT = 9101;
 
-    private Button          mBeforeBtn, mNextBtn;
-    private RelativeLayout  mReceiverBtn;
-    private ImageView       mKeyStatusImg;
-    private TextView        mRecipientAddressTv;
-    private TextView        mWarnMSg;
+    private Button mBeforeBtn, mNextBtn;
+    private RelativeLayout mReceiverBtn;
+    private ImageView mKeyStatusImg;
+    private TextView mRecipientAddressTv;
+    private TextView mWarnMSg;
 
-    private ArrayList<Account>  mToAccountList;
-    private Account             mToAccount;
+    private ArrayList<Account> mToAccountList;
+    private Account mToAccount;
 
     public static HtlcSendStep1Fragment newInstance(Bundle bundle) {
         HtlcSendStep1Fragment fragment = new HtlcSendStep1Fragment();
@@ -74,7 +74,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mKeyStatusImg.setVisibility(View.VISIBLE);
@@ -89,7 +89,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
 
-        }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
         }
     }
@@ -137,14 +137,14 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
-            mToAccount = mToAccountList.get(data.getIntExtra("position" , 0));
+        if (requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
+            mToAccount = mToAccountList.get(data.getIntExtra("position", 0));
             onUpdateView();
         }
     }
 
     private HtlcSendActivity getSActivity() {
-        return (HtlcSendActivity)getBaseActivity();
+        return (HtlcSendActivity) getBaseActivity();
     }
 
 

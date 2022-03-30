@@ -26,7 +26,7 @@ public class KavaIncentiveParamTask extends CommonTask {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResKavaIncentiveParam> response = ApiClient.getKavaChain(mApp).getIncentiveParam5().execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 

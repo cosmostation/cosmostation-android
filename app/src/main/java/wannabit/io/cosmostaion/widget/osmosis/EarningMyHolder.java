@@ -85,7 +85,7 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
         BigDecimal unbondedAmount = BigDecimal.ZERO;
         BigDecimal myRewards = BigDecimal.ZERO;
 
-        for (Lock.PeriodLock lockup: lockups) {
+        for (Lock.PeriodLock lockup : lockups) {
             Coin lpCoin = new Coin(lockup.getCoins(0).getDenom(), lockup.getCoins(0).getAmount());
             BigDecimal myShare = new BigDecimal(lpCoin.amount);
             BigDecimal myShareRate = myShare.divide(totalShare, 24, RoundingMode.DOWN);

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +18,12 @@ import wannabit.io.cosmostaion.activities.chains.kava.RepayHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class RepayHardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button      mBeforeBtn, mConfirmBtn;
-    private TextView    mRepayAmount, mRepayDenom;
-    private TextView    mFeesAmount, mFeesDenom;
-    private TextView    mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
+    private TextView mRepayAmount, mRepayDenom;
+    private TextView mFeesAmount, mFeesDenom;
+    private TextView mMemo;
 
     public static RepayHardStep3Fragment newInstance(Bundle bundle) {
         RepayHardStep3Fragment fragment = new RepayHardStep3Fragment();
@@ -72,7 +72,7 @@ public class RepayHardStep3Fragment extends BaseFragment implements View.OnClick
     }
 
     private RepayHardActivity getSActivity() {
-        return (RepayHardActivity)getBaseActivity();
+        return (RepayHardActivity) getBaseActivity();
     }
 }
 

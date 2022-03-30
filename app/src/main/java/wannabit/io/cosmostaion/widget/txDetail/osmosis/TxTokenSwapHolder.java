@@ -18,7 +18,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxTokenSwapHolder extends TxHolder {
@@ -67,7 +66,7 @@ public class TxTokenSwapHolder extends TxHolder {
                     }
                 }
                 if (inCoin != null) {
-                    WDp.showCoinDp(c, baseData, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain );
+                    WDp.showCoinDp(c, baseData, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
                 } else {
                     itemSwapTokenInAmount.setText("");
                     itemSwapTokenInAmountSymbol.setText("");
@@ -97,7 +96,8 @@ public class TxTokenSwapHolder extends TxHolder {
                     itemSwapTokenOutAmountSymbol.setText("");
                 }
                 return;
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
 
         } else {
             try {
@@ -156,7 +156,8 @@ public class TxTokenSwapHolder extends TxHolder {
                     itemSwapTokenOutAmountSymbol.setText("");
                 }
                 return;
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
     }
 }

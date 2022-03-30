@@ -30,7 +30,7 @@ public class Dialog_Htlc_Warning extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_warning, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_warning, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 

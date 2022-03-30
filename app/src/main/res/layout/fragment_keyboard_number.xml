@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginTop="@dimen/space_4"
     android:layout_marginBottom="@dimen/space_36">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center">
+
         <Button
             android:id="@+id/password_number0"
             android:layout_width="0px"
@@ -19,6 +20,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
+
         <Button
             android:id="@+id/password_number1"
             android:layout_width="0px"
@@ -27,6 +29,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
+
         <Button
             android:id="@+id/password_number2"
             android:layout_width="0px"
@@ -36,11 +39,13 @@
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center">
+
         <Button
             android:id="@+id/password_number3"
             android:layout_width="0px"
@@ -49,6 +54,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
+
         <Button
             android:id="@+id/password_number4"
             android:layout_width="0px"
@@ -57,6 +63,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
+
         <Button
             android:id="@+id/password_number5"
             android:layout_width="0px"
@@ -66,11 +73,13 @@
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center">
+
         <Button
             android:id="@+id/password_number6"
             android:layout_width="0px"
@@ -79,6 +88,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
+
         <Button
             android:id="@+id/password_number7"
             android:layout_width="0px"
@@ -87,6 +97,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
+
         <Button
             android:id="@+id/password_number8"
             android:layout_width="0px"
@@ -96,11 +107,13 @@
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center">
+
         <Button
             android:layout_width="0px"
             android:layout_height="match_parent"
@@ -108,6 +121,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             style="@style/font_ssm_keyboard_white"
             android:visibility="invisible" />
+
         <Button
             android:id="@+id/password_number9"
             android:layout_width="0px"
@@ -116,12 +130,13 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             style="@style/font_ssm_keyboard_white"
             android:text="1" />
+
         <ImageButton
             android:id="@+id/password_back"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/password_delete"/>
+            android:src="@drawable/password_delete" />
     </LinearLayout>
 </LinearLayout>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
@@ -17,46 +16,53 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBghard"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/hard_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/ic_hard"/>
+                    android:src="@drawable/ic_hard" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/hard_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="HARD"
-                    style="@style/font_ss_14_hard"/>
+                    style="@style/font_ss_14_hard" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:orientation="vertical"
                     android:gravity="right">
+
                     <TextView
                         android:id="@+id/hard_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_white"/>
+                        style="@style/font_ssm_17_white" />
+
                     <TextView
                         android:id="@+id/hard_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         style="@style/font_ss_14_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -64,17 +70,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/hard_available"
                     android:layout_width="wrap_content"
@@ -82,18 +90,20 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_vesting"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_gray1" />
+
                 <TextView
                     android:id="@+id/hard_vesting"
                     android:layout_width="wrap_content"
@@ -101,7 +111,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_white" />
             </RelativeLayout>
 
 

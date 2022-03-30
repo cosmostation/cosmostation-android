@@ -30,15 +30,15 @@ public class Dialog_Osmo_Unlock_All extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_osmo_unlock_all, container, false);
-        Button btnAll      = view.findViewById(R.id.btn_all);
-        Button btnOne      = view.findViewById(R.id.btn_one);
-        TextView msgTv       = view.findViewById(R.id.lock_ids);
+        Button btnAll = view.findViewById(R.id.btn_all);
+        Button btnOne = view.findViewById(R.id.btn_one);
+        TextView msgTv = view.findViewById(R.id.lock_ids);
 
-        OsmosisPeriodLockWrapper lockupWrapper = (OsmosisPeriodLockWrapper)getArguments().getSerializable("all");
+        OsmosisPeriodLockWrapper lockupWrapper = (OsmosisPeriodLockWrapper) getArguments().getSerializable("all");
         ArrayList<Lock.PeriodLock> lockups = lockupWrapper.array;
 
         String msg = "";
-        for (Lock.PeriodLock lock: lockups) {
+        for (Lock.PeriodLock lock : lockups) {
             msg = msg + "# " + lock.getID() + "  ";
         }
 //        String amount = new BigDecimal(getArguments().getString("amount")).movePointLeft(18).toPlainString();
@@ -48,9 +48,9 @@ public class Dialog_Osmo_Unlock_All extends BottomSheetDialogFragment {
         btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OsmosisPeriodLockWrapper lockupWrapper = (OsmosisPeriodLockWrapper)getArguments().getSerializable("all");
+                OsmosisPeriodLockWrapper lockupWrapper = (OsmosisPeriodLockWrapper) getArguments().getSerializable("all");
                 ArrayList<Lock.PeriodLock> lockups = lockupWrapper.array;
-                ((EarningDetailActivity)getActivity()).onStartUnlock(lockups);
+                ((EarningDetailActivity) getActivity()).onStartUnlock(lockups);
                 dismiss();
             }
         });
@@ -62,9 +62,9 @@ public class Dialog_Osmo_Unlock_All extends BottomSheetDialogFragment {
                     Lock.PeriodLock lockup = Lock.PeriodLock.parseFrom(getArguments().getByteArray("single"));
                     ArrayList<Lock.PeriodLock> lockups = new ArrayList<>();
                     lockups.add(lockup);
-                    ((EarningDetailActivity)getActivity()).onStartUnlock(lockups);
+                    ((EarningDetailActivity) getActivity()).onStartUnlock(lockups);
 
-                } catch (Exception e){
+                } catch (Exception e) {
                     WLog.w("e " + e.getMessage());
                 }
                 dismiss();

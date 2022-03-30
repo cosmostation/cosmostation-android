@@ -25,14 +25,14 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxLinkAccountHolder extends TxHolder {
-    ImageView   itemLinkAccountImg;
-    TextView    itemLinkAccountAddress, itemLinkAccountSigner;
+    ImageView itemLinkAccountImg;
+    TextView itemLinkAccountAddress, itemLinkAccountSigner;
 
     public TxLinkAccountHolder(@NonNull View itemView) {
         super(itemView);
-        itemLinkAccountImg            = itemView.findViewById(R.id.tx_save_profile_icon);
-        itemLinkAccountAddress        = itemView.findViewById(R.id.tx_link_account_address);
-        itemLinkAccountSigner         = itemView.findViewById(R.id.tx_link_account_signer);
+        itemLinkAccountImg = itemView.findViewById(R.id.tx_save_profile_icon);
+        itemLinkAccountAddress = itemView.findViewById(R.id.tx_link_account_address);
+        itemLinkAccountSigner = itemView.findViewById(R.id.tx_link_account_signer);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -45,7 +45,8 @@ public class TxLinkAccountHolder extends TxHolder {
             itemLinkAccountSigner.setText(msg.getSigner());
 
             onDesmosClaimAirdrop(c, msg.getSigner());
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 
     public void onDesmosClaimAirdrop(Context context, String address) {

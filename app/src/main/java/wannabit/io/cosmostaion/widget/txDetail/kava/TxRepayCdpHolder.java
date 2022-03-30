@@ -17,8 +17,8 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxRepayCdpHolder extends TxHolder {
     ImageView itemMsgImg;
-    TextView  itemMsgTitle;
-    TextView  itemSender, itemCdpDenom, itemPaymentAmount, itemPaymentDenom;
+    TextView itemMsgTitle;
+    TextView itemSender, itemCdpDenom, itemPaymentAmount, itemPaymentDenom;
 
     public TxRepayCdpHolder(@NonNull View itemView) {
         super(itemView);
@@ -39,6 +39,7 @@ public class TxRepayCdpHolder extends TxHolder {
             itemCdpDenom.setText(msg.getCollateralType());
             WDp.showCoinDp(c, baseData, msg.getPayment().getDenom(), msg.getPayment().getAmount(), itemPaymentDenom, itemPaymentAmount, BaseChain.KAVA_MAIN);
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

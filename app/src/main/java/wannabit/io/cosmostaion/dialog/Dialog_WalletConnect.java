@@ -44,7 +44,7 @@ public class Dialog_WalletConnect extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).onStartBinanceWalletConnect(getArguments().getString("wcUrl"));
+                ((MainActivity) getActivity()).onStartBinanceWalletConnect(getArguments().getString("wcUrl"));
                 getDialog().dismiss();
             }
         });

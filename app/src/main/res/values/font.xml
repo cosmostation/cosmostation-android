@@ -13,12 +13,12 @@
         <item name="android:textColor">@color/colorPhoton</item>
         <item name="android:textSize">@dimen/text_size_7</item>
     </style>
+
     <style name="font_ss_7_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorAtom</item>
         <item name="android:textSize">@dimen/text_size_7</item>
     </style>
-
 
 
     <style name="font_ss_9_white" parent="@android:style/TextAppearance">
@@ -118,7 +118,6 @@
     </style>
 
 
-
     <style name="font_ss_10_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorAtom</item>
@@ -191,7 +190,6 @@
         <item name="android:textColor">@color/colorRed</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
-
 
 
     <style name="font_ss_12_white" parent="@android:style/TextAppearance">
@@ -325,7 +323,6 @@
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
-
 
 
     <style name="font_ss_14_white" parent="@android:style/TextAppearance">
@@ -734,9 +731,6 @@
     </style>
 
 
-
-
-
     <style name="font_ss_15_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -766,8 +760,6 @@
         <item name="android:textColor">@color/colorPhoton</item>
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
-
-
 
 
     <style name="font_ss_17_black" parent="@android:style/TextAppearance">
@@ -856,7 +848,6 @@
     </style>
 
 
-
     <style name="font_ss_21_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -874,6 +865,7 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/text_size_24</item>
     </style>
+
     <style name="font_ss_24_gray1" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray1</item>

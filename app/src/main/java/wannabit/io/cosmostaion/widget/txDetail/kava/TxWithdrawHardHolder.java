@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxWithdrawHardHolder extends TxHolder {
     ImageView itemMsgImg;
-    TextView  itemDepositor, itemDepositType, itemWithdrawAmount, itemWithdrawAmountDenom;
+    TextView itemDepositor, itemDepositType, itemWithdrawAmount, itemWithdrawAmountDenom;
 
     public TxWithdrawHardHolder(@NonNull View itemView) {
         super(itemView);
@@ -36,6 +36,7 @@ public class TxWithdrawHardHolder extends TxHolder {
             itemDepositor.setText(msg.getDepositor());
             WDp.showCoinDp(c, baseData, msg.getAmount(0).getDenom(), msg.getAmount(0).getAmount(), itemWithdrawAmountDenom, itemWithdrawAmount, BaseChain.KAVA_MAIN);
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

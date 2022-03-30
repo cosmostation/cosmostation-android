@@ -18,16 +18,16 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class ProfileStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mProfileDtag;
-    private TextView        mProfileNick;
-    private TextView        mProfileBio;
-    private TextView        mProfileUri;
-    private TextView        mProfileCoverUri;
-    private TextView        mMemo;
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mProfileDtag;
+    private TextView mProfileNick;
+    private TextView mProfileBio;
+    private TextView mProfileUri;
+    private TextView mProfileCoverUri;
+    private TextView mMemo;
 
-    private int             mDpDecimal = 6;
+    private int mDpDecimal = 6;
     private Button mBeforeBtn, mConfirmBtn;
 
     public static ProfileStep3Fragment newInstance(Bundle bundle) {
@@ -44,17 +44,17 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create_profile_step3, container, false);
-        mFeeAmount              = rootView.findViewById(R.id.tx_fee_amount);
-        mFeeAmountSymbol        = rootView.findViewById(R.id.tx_fee_symbol);
-        mProfileDtag            = rootView.findViewById(R.id.profile_dtag);
-        mProfileNick            = rootView.findViewById(R.id.profile_nickname);
-        mProfileBio             = rootView.findViewById(R.id.profile_bio);
-        mProfileUri             = rootView.findViewById(R.id.profile_uri);
-        mProfileCoverUri        = rootView.findViewById(R.id.profile_cover_uri);
-        mMemo                   = rootView.findViewById(R.id.memo);
+        mFeeAmount = rootView.findViewById(R.id.tx_fee_amount);
+        mFeeAmountSymbol = rootView.findViewById(R.id.tx_fee_symbol);
+        mProfileDtag = rootView.findViewById(R.id.profile_dtag);
+        mProfileNick = rootView.findViewById(R.id.profile_nickname);
+        mProfileBio = rootView.findViewById(R.id.profile_bio);
+        mProfileUri = rootView.findViewById(R.id.profile_uri);
+        mProfileCoverUri = rootView.findViewById(R.id.profile_cover_uri);
+        mMemo = rootView.findViewById(R.id.memo);
 
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -96,6 +96,6 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private ProfileActivity getSActivity() {
-        return (ProfileActivity)getBaseActivity();
+        return (ProfileActivity) getBaseActivity();
     }
 }

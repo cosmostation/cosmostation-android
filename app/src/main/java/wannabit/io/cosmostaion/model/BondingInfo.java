@@ -27,12 +27,14 @@ public class BondingInfo {
             Coin temp = new Gson().fromJson(new Gson().toJson(balance), Coin.class);
             return new BigDecimal(temp.amount);
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         try {
             String temp = new Gson().fromJson(new Gson().toJson(balance), String.class);
             return new BigDecimal(temp);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return BigDecimal.ZERO;
     }

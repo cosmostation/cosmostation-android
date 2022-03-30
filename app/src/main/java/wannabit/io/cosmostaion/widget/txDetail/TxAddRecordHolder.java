@@ -15,15 +15,15 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class TxAddRecordHolder extends TxHolder {
     ImageView itemAddRecordImg;
-    TextView  itemAddRecordTopicName, itemAddRecordWriterAddress, itemAddRecordOwnerAddress, itemAddRecordFeePayerAddress;
+    TextView itemAddRecordTopicName, itemAddRecordWriterAddress, itemAddRecordOwnerAddress, itemAddRecordFeePayerAddress;
 
     public TxAddRecordHolder(@NonNull View itemView) {
         super(itemView);
-        itemAddRecordImg                = itemView.findViewById(R.id.tx_add_record_icon);
-        itemAddRecordTopicName          = itemView.findViewById(R.id.tx_add_record_topic_name);
-        itemAddRecordWriterAddress      = itemView.findViewById(R.id.tx_add_record_writer_address);
-        itemAddRecordOwnerAddress       = itemView.findViewById(R.id.tx_add_record_owner_address);
-        itemAddRecordFeePayerAddress    = itemView.findViewById(R.id.tx_add_record_fee_payer_address);
+        itemAddRecordImg = itemView.findViewById(R.id.tx_add_record_icon);
+        itemAddRecordTopicName = itemView.findViewById(R.id.tx_add_record_topic_name);
+        itemAddRecordWriterAddress = itemView.findViewById(R.id.tx_add_record_writer_address);
+        itemAddRecordOwnerAddress = itemView.findViewById(R.id.tx_add_record_owner_address);
+        itemAddRecordFeePayerAddress = itemView.findViewById(R.id.tx_add_record_fee_payer_address);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -36,6 +36,7 @@ public class TxAddRecordHolder extends TxHolder {
             itemAddRecordOwnerAddress.setText(msg.getOwnerAddress());
             itemAddRecordFeePayerAddress.setText(msg.getFeePayerAddress());
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

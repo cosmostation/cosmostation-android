@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_SEND;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -26,18 +29,14 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_SEND;
-
 public class SendGrpcTask extends CommonTask {
-    private BaseChain       mBaseChain;
-    private Account         mAccount;
-    private String          mToAddress;
+    private BaseChain mBaseChain;
+    private Account mAccount;
+    private String mToAddress;
     private ArrayList<Coin> mAmount;
-    private String          mMemo;
-    private Fee             mFees;
-    private String          mChainId;
+    private String mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
@@ -92,7 +91,7 @@ public class SendGrpcTask extends CommonTask {
 
 
         } catch (Exception e) {
-            WLog.e( "SendGrpcTask "+ e.getMessage());
+            WLog.e("SendGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

@@ -21,106 +21,103 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-
 public class ManageChainSwitchHolder extends BaseHolder {
-    private CardView                    accountCard;
-    private RelativeLayout              accountSelect;
-    private ImageView                   accountChainImg;
-    private TextView                    accountChainName, accountWalletCnt;
-    private LinearLayout                hiddenView;
+    private CardView accountCard;
+    private RelativeLayout accountSelect;
+    private ImageView accountChainImg;
+    private TextView accountChainName, accountWalletCnt;
+    private LinearLayout hiddenView;
 
-    private CardView                    walletCard0;
-    private RelativeLayout              walletLayout0;
-    private ImageView                   walletKeyState0;
-    private TextView                    walletName0;
-    private TextView                    walletAddress0;
-    private TextView                    walletAvailable0;
-    private TextView                    walletDenom0;
+    private CardView walletCard0;
+    private RelativeLayout walletLayout0;
+    private ImageView walletKeyState0;
+    private TextView walletName0;
+    private TextView walletAddress0;
+    private TextView walletAvailable0;
+    private TextView walletDenom0;
 
-    private CardView                    walletCard1;
-    private RelativeLayout              walletLayout1;
-    private ImageView                   walletKeyState1;
-    private TextView                    walletName1;
-    private TextView                    walletAddress1;
-    private TextView                    walletAvailable1;
-    private TextView                    walletDenom1;
+    private CardView walletCard1;
+    private RelativeLayout walletLayout1;
+    private ImageView walletKeyState1;
+    private TextView walletName1;
+    private TextView walletAddress1;
+    private TextView walletAvailable1;
+    private TextView walletDenom1;
 
-    private CardView                    walletCard2;
-    private RelativeLayout              walletLayout2;
-    private ImageView                   walletKeyState2;
-    private TextView                    walletName2;
-    private TextView                    walletAddress2;
-    private TextView                    walletAvailable2;
-    private TextView                    walletDenom2;
+    private CardView walletCard2;
+    private RelativeLayout walletLayout2;
+    private ImageView walletKeyState2;
+    private TextView walletName2;
+    private TextView walletAddress2;
+    private TextView walletAvailable2;
+    private TextView walletDenom2;
 
-    private CardView                    walletCard3;
-    private RelativeLayout              walletLayout3;
-    private ImageView                   walletKeyState3;
-    private TextView                    walletName3;
-    private TextView                    walletAddress3;
-    private TextView                    walletAvailable3;
-    private TextView                    walletDenom3;
+    private CardView walletCard3;
+    private RelativeLayout walletLayout3;
+    private ImageView walletKeyState3;
+    private TextView walletName3;
+    private TextView walletAddress3;
+    private TextView walletAvailable3;
+    private TextView walletDenom3;
 
-    private CardView                    walletCard4;
-    private RelativeLayout              walletLayout4;
-    private ImageView                   walletKeyState4;
-    private TextView                    walletName4;
-    private TextView                    walletAddress4;
-    private TextView                    walletAvailable4;
-    private TextView                    walletDenom4;
+    private CardView walletCard4;
+    private RelativeLayout walletLayout4;
+    private ImageView walletKeyState4;
+    private TextView walletName4;
+    private TextView walletAddress4;
+    private TextView walletAvailable4;
+    private TextView walletDenom4;
 
     public ManageChainSwitchHolder(@NonNull @NotNull View itemView) {
         super(itemView);
-        accountCard         = itemView.findViewById(R.id.card_chain);
-        accountSelect       = itemView.findViewById(R.id.chain_layer);
-        accountChainImg     = itemView.findViewById(R.id.chain_img);
-        accountChainName    = itemView.findViewById(R.id.chain_name);
-        accountWalletCnt    = itemView.findViewById(R.id.wallet_cnt);
-        hiddenView          = itemView.findViewById(R.id.hidden_view);
+        accountCard = itemView.findViewById(R.id.card_chain);
+        accountSelect = itemView.findViewById(R.id.chain_layer);
+        accountChainImg = itemView.findViewById(R.id.chain_img);
+        accountChainName = itemView.findViewById(R.id.chain_name);
+        accountWalletCnt = itemView.findViewById(R.id.wallet_cnt);
+        hiddenView = itemView.findViewById(R.id.hidden_view);
 
-        walletCard0         = itemView.findViewById(R.id.walletCard0);
-        walletLayout0       = itemView.findViewById(R.id.wallet_layout0);
-        walletKeyState0     = itemView.findViewById(R.id.walletKeyState0);
-        walletName0         = itemView.findViewById(R.id.walletName0);
-        walletAddress0      = itemView.findViewById(R.id.walletAddress0);
-        walletAvailable0    = itemView.findViewById(R.id.walletAvailable0);
-        walletDenom0        = itemView.findViewById(R.id.walletDenom0);
+        walletCard0 = itemView.findViewById(R.id.walletCard0);
+        walletLayout0 = itemView.findViewById(R.id.wallet_layout0);
+        walletKeyState0 = itemView.findViewById(R.id.walletKeyState0);
+        walletName0 = itemView.findViewById(R.id.walletName0);
+        walletAddress0 = itemView.findViewById(R.id.walletAddress0);
+        walletAvailable0 = itemView.findViewById(R.id.walletAvailable0);
+        walletDenom0 = itemView.findViewById(R.id.walletDenom0);
 
-        walletCard1         = itemView.findViewById(R.id.walletCard1);
-        walletLayout1       = itemView.findViewById(R.id.wallet_layout1);
-        walletKeyState1     = itemView.findViewById(R.id.walletKeyState1);
-        walletName1         = itemView.findViewById(R.id.walletName1);
-        walletAddress1      = itemView.findViewById(R.id.walletAddress1);
-        walletAvailable1    = itemView.findViewById(R.id.walletAvailable1);
-        walletDenom1        = itemView.findViewById(R.id.walletDenom1);
+        walletCard1 = itemView.findViewById(R.id.walletCard1);
+        walletLayout1 = itemView.findViewById(R.id.wallet_layout1);
+        walletKeyState1 = itemView.findViewById(R.id.walletKeyState1);
+        walletName1 = itemView.findViewById(R.id.walletName1);
+        walletAddress1 = itemView.findViewById(R.id.walletAddress1);
+        walletAvailable1 = itemView.findViewById(R.id.walletAvailable1);
+        walletDenom1 = itemView.findViewById(R.id.walletDenom1);
 
-        walletCard2         = itemView.findViewById(R.id.walletCard2);
-        walletLayout2       = itemView.findViewById(R.id.wallet_layout2);
-        walletKeyState2     = itemView.findViewById(R.id.walletKeyState2);
-        walletName2         = itemView.findViewById(R.id.walletName2);
-        walletAddress2      = itemView.findViewById(R.id.walletAddress2);
-        walletAvailable2    = itemView.findViewById(R.id.walletAvailable2);
-        walletDenom2        = itemView.findViewById(R.id.walletDenom2);
+        walletCard2 = itemView.findViewById(R.id.walletCard2);
+        walletLayout2 = itemView.findViewById(R.id.wallet_layout2);
+        walletKeyState2 = itemView.findViewById(R.id.walletKeyState2);
+        walletName2 = itemView.findViewById(R.id.walletName2);
+        walletAddress2 = itemView.findViewById(R.id.walletAddress2);
+        walletAvailable2 = itemView.findViewById(R.id.walletAvailable2);
+        walletDenom2 = itemView.findViewById(R.id.walletDenom2);
 
-        walletCard3         = itemView.findViewById(R.id.walletCard3);
-        walletLayout3       = itemView.findViewById(R.id.wallet_layout3);
-        walletKeyState3     = itemView.findViewById(R.id.walletKeyState3);
-        walletName3         = itemView.findViewById(R.id.walletName3);
-        walletAddress3      = itemView.findViewById(R.id.walletAddress3);
-        walletAvailable3    = itemView.findViewById(R.id.walletAvailable3);
-        walletDenom3        = itemView.findViewById(R.id.walletDenom3);
+        walletCard3 = itemView.findViewById(R.id.walletCard3);
+        walletLayout3 = itemView.findViewById(R.id.wallet_layout3);
+        walletKeyState3 = itemView.findViewById(R.id.walletKeyState3);
+        walletName3 = itemView.findViewById(R.id.walletName3);
+        walletAddress3 = itemView.findViewById(R.id.walletAddress3);
+        walletAvailable3 = itemView.findViewById(R.id.walletAvailable3);
+        walletDenom3 = itemView.findViewById(R.id.walletDenom3);
 
-        walletCard4         = itemView.findViewById(R.id.walletCard4);
-        walletLayout4       = itemView.findViewById(R.id.wallet_layout4);
-        walletKeyState4     = itemView.findViewById(R.id.walletKeyState4);
-        walletName4         = itemView.findViewById(R.id.walletName4);
-        walletAddress4      = itemView.findViewById(R.id.walletAddress4);
-        walletAvailable4    = itemView.findViewById(R.id.walletAvailable4);
-        walletDenom4        = itemView.findViewById(R.id.walletDenom4);
+        walletCard4 = itemView.findViewById(R.id.walletCard4);
+        walletLayout4 = itemView.findViewById(R.id.wallet_layout4);
+        walletKeyState4 = itemView.findViewById(R.id.walletKeyState4);
+        walletName4 = itemView.findViewById(R.id.walletName4);
+        walletAddress4 = itemView.findViewById(R.id.walletAddress4);
+        walletAvailable4 = itemView.findViewById(R.id.walletAvailable4);
+        walletDenom4 = itemView.findViewById(R.id.walletDenom4);
     }
 
     public void onBindChainSwitch(@NotNull WalletSwitchActivity switchActivity, ChainAccounts data, Account currentAccount) {
@@ -196,7 +193,7 @@ public class ManageChainSwitchHolder extends BaseHolder {
             keyImg.setColorFilter(WDp.getChainColor(switchActivity, BaseChain.getChain(dpAccount.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
-        if (TextUtils.isEmpty(dpAccount.nickName)){
+        if (TextUtils.isEmpty(dpAccount.nickName)) {
             walletName.setText(switchActivity.getString(R.string.str_my_wallet) + dpAccount.id);
         } else {
             walletName.setText(dpAccount.nickName);
@@ -205,7 +202,7 @@ public class ManageChainSwitchHolder extends BaseHolder {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dpAccount.id.equals(currentAccount.id)) {
+                if (dpAccount.id.equals(currentAccount.id)) {
                     switchActivity.finish();
                     return;
                 }

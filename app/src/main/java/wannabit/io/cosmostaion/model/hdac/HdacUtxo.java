@@ -6,13 +6,9 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.UTXO;
 import org.bitcoinj.script.Script;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class HdacUtxo {
     @SerializedName("unspent_hash")
@@ -48,10 +44,10 @@ public class HdacUtxo {
         Script script;
         String address;
         try {
-            txid = new BigInteger(this.txid ,32).toByteArray();
+            txid = new BigInteger(this.txid, 32).toByteArray();
             index = this.vout;
             value = Coin.valueOf(new BigDecimal(this.amount).movePointRight(8).setScale(0).longValue());
-            script = new Script(new BigInteger(this.scriptPubKey ,16).toByteArray());
+            script = new Script(new BigInteger(this.scriptPubKey, 16).toByteArray());
             address = this.address;
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_REPLACE_STARNAME;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -26,16 +29,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_REPLACE_STARNAME;
-
 public class ReplaceStarNameGrpcTask extends CommonTask {
 
     private Account mAccount;
     private BaseChain mBaseChain;
     private String mDomain, mName, mMemo;
-    private ArrayList<Types.Resource>   mResources = new ArrayList();
+    private ArrayList<Types.Resource> mResources = new ArrayList();
     private Fee mFees;
     private String mChainId;
 
@@ -93,7 +92,7 @@ public class ReplaceStarNameGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "ReplaceStarNameGrpcTask "+ e.getMessage());
+            WLog.e("ReplaceStarNameGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

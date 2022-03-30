@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -16,17 +15,20 @@
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_4"
             android:layout_centerVertical="true">
+
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/font_ssm_17_white"
-                android:text="@string/str_edit_chains"/>
+                android:text="@string/str_edit_chains" />
+
             <TextView
                 android:id="@+id/btn_done"
                 android:layout_width="wrap_content"
@@ -36,7 +38,7 @@
                 android:focusable="true"
                 android:layout_marginRight="@dimen/space_16"
                 style="@style/font_ssm_17_white"
-                android:text="@string/str_done"/>
+                android:text="@string/str_done" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -45,29 +47,34 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/str_display_chains"
             style="@style/font_ss_14_gray1"
-            android:layout_margin="@dimen/space_8"/>
+            android:layout_margin="@dimen/space_8" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/display_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:clipToPadding="false"
-            android:overScrollMode="never"/>
+            android:overScrollMode="never" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/str_hide_chains"
             style="@style/font_ss_14_gray1"
             android:layout_margin="@dimen/space_8" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5">
+
             <LinearLayout
                 android:id="@+id/empty_chains"
                 android:layout_width="wrap_content"
@@ -76,12 +83,14 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:visibility="gone">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/history_none_img"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
             </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/hide_recycler"
                 android:layout_width="match_parent"

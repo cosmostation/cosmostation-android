@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_START_LOCK;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -24,18 +26,15 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_START_LOCK;
-
 public class SimulOsmosisStartLockGrpcTask extends CommonTask {
 
-    private Account             mAccount;
-    private BaseChain           mBaseChain;
-    private long                mDuration;
-    private Coin                mLpCoin;
-    private Fee                 mFees;
-    private String              mMemo;
-    private String              mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private long mDuration;
+    private Coin mLpCoin;
+    private Fee mFees;
+    private String mMemo;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

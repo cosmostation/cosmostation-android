@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_INFO;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import sifnode.clp.v1.Querier;
@@ -12,9 +15,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_INFO;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class SifPoolInfoGrpcTask extends CommonTask {
     private BaseChain mChain;
     private String mDenom;
@@ -25,7 +25,8 @@ public class SifPoolInfoGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mDenom = denom;
         this.mResult.taskType = TASK_GRPC_FETCH_SIF_POOL_INFO;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        ;
     }
 
     @Override
@@ -37,7 +38,9 @@ public class SifPoolInfoGrpcTask extends CommonTask {
             mResult.resultData = response.getPool();
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "SifPoolInfoGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("SifPoolInfoGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

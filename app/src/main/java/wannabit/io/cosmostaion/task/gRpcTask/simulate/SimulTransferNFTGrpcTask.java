@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_TRANSFER_NFT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -23,24 +27,19 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_TRANSFER_NFT;
-
 public class SimulTransferNFTGrpcTask extends CommonTask {
 
-    private Account                                      mAccount;
-    private BaseChain                                    mBaseChain;
-    private String                                       mRecipient;
-    private String                                       mDenomId;
-    private String                                       mId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mRecipient;
+    private String mDenomId;
+    private String mId;
     private irismod.nft.QueryOuterClass.QueryNFTResponse mIrisResponse;
-    private Fee                                          mFees;
-    private String                                       mMemo;
-    private String                                       mChainId;
+    private Fee mFees;
+    private String mMemo;
+    private String mChainId;
 
-    private QueryOuterClass.QueryAccountResponse    mAuthResponse;
+    private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
     public SimulTransferNFTGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recipient, String denomId, String id,
@@ -81,7 +80,7 @@ public class SimulTransferNFTGrpcTask extends CommonTask {
             if (mBaseChain.equals(IRIS_MAIN)) {
                 simulateTxRequest = Signer.getGrpcSendNftIrisSimulateReq(mAuthResponse, mAccount.address, mRecipient, mDenomId, mId, mIrisResponse, mFees, mMemo, ecKey, mChainId);
             } else if (mBaseChain.equals(CRYPTO_MAIN)) {
-                simulateTxRequest = Signer.getGrpcSendNftCroSimulateReq(mAuthResponse,mAccount.address, mRecipient, mDenomId,mId, mFees, mMemo, ecKey, mChainId);
+                simulateTxRequest = Signer.getGrpcSendNftCroSimulateReq(mAuthResponse, mAccount.address, mRecipient, mDenomId, mId, mFees, mMemo, ecKey, mChainId);
             }
             if (simulateTxRequest != null) {
                 ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);

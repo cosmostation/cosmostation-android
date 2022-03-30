@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -25,22 +28,18 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class SimulIBCTransferGrpcTask extends CommonTask {
 
-    private Account                 mAccount;
-    private BaseChain               mBaseChain;
-    private String                  mSender;
-    private String                  mReceiver;
-    private String                  mTokenDenom, mTokenAmount;
-    private String                  mPortId, mChannelId;
-    private Fee                     mFees;
-    private String                  mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mSender;
+    private String mReceiver;
+    private String mTokenDenom, mTokenAmount;
+    private String mPortId, mChannelId;
+    private Fee mFees;
+    private String mChainId;
 
-    private QueryOuterClass.QueryAccountResponse    mAuthResponse;
+    private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
     private ibc.core.channel.v1.QueryGrpc.QueryBlockingStub mStub;
 
@@ -54,7 +53,8 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
         this.mTokenDenom = tokenDenom;
         this.mTokenAmount = tokenAmount;
         this.mPortId = portId;
-        this.mChannelId = channelId;;
+        this.mChannelId = channelId;
+        ;
         this.mFees = fee;
         this.mChainId = chainId;
         this.mResult.taskType = TASK_GRPC_SIMULATE_IBC_TRANSFER;

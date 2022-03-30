@@ -26,13 +26,13 @@ public class HistoryNewHolder extends BaseHolder {
 
     public HistoryNewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
-        historyRoot                     = itemView.findViewById(R.id.card_history);
-        historyType                     = itemView.findViewById(R.id.history_type);
-        historySuccess                  = itemView.findViewById(R.id.history_success);
-        history_time                    = itemView.findViewById(R.id.history_time);
-        history_time_gap                = itemView.findViewById(R.id.history_time_gap);
-        history_amount                  = itemView.findViewById(R.id.history_amount);
-        history_amount_symbol           = itemView.findViewById(R.id.history_amount_symobl);
+        historyRoot = itemView.findViewById(R.id.card_history);
+        historyType = itemView.findViewById(R.id.history_type);
+        historySuccess = itemView.findViewById(R.id.history_success);
+        history_time = itemView.findViewById(R.id.history_time);
+        history_time_gap = itemView.findViewById(R.id.history_time_gap);
+        history_amount = itemView.findViewById(R.id.history_amount);
+        history_amount_symbol = itemView.findViewById(R.id.history_amount_symobl);
     }
 
     public void onBindNewHistory(@NotNull MainActivity mainActivity, BaseData baseData, ResApiNewTxListCustom history) {

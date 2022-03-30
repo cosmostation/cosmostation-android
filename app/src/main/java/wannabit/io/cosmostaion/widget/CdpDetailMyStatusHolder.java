@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -23,70 +21,68 @@ import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-
 public class CdpDetailMyStatusHolder extends BaseHolder {
-    private ImageView           mMyCollateralImg;
-    private TextView            mMyCollateralDenom;
-    private LinearLayout        mMySelfDepositLayer;
-    private TextView            mMySelfDepositAmount;
-    private LinearLayout        mMyTotalDepositLayer;
-    private TextView            mMyTotalDepositAmount;
-    private LinearLayout        mMyWithdrawableLayer;
-    private TextView            mMyWithdrawableAmountTitle;
-    private TextView            mMyWithdrawableAmount;
-    private TextView            mMySelfDepositValue, mMyTotalDepositValue, mMyWithdrawableValue;
-    private RelativeLayout      mMyBtnDeposit, mMyBtnWithdraw;
-    private TextView            mMyBtnDepositTxt, mMyBtnWithdrawTxt;
-    private ImageView           mMyPrincipalImg;
-    private TextView            mMyPrincipalDenom;
-    private LinearLayout        mMyLoadnedLayer;
-    private TextView            mMyLoadnedAmount, mMyLoadedValue;
-    private LinearLayout        mMyCdpFeeLayer;
-    private TextView            mMyCdpFeeAmount, mMyCdpFeeValue;
-    private LinearLayout        mMyLoadableLayer;
-    private TextView            mMyLoadableAmount, mMyLoadableValue;
-    private RelativeLayout      mMyBtnDrawdebt, mMyBtnRepay;
+    private ImageView mMyCollateralImg;
+    private TextView mMyCollateralDenom;
+    private LinearLayout mMySelfDepositLayer;
+    private TextView mMySelfDepositAmount;
+    private LinearLayout mMyTotalDepositLayer;
+    private TextView mMyTotalDepositAmount;
+    private LinearLayout mMyWithdrawableLayer;
+    private TextView mMyWithdrawableAmountTitle;
+    private TextView mMyWithdrawableAmount;
+    private TextView mMySelfDepositValue, mMyTotalDepositValue, mMyWithdrawableValue;
+    private RelativeLayout mMyBtnDeposit, mMyBtnWithdraw;
+    private TextView mMyBtnDepositTxt, mMyBtnWithdrawTxt;
+    private ImageView mMyPrincipalImg;
+    private TextView mMyPrincipalDenom;
+    private LinearLayout mMyLoadnedLayer;
+    private TextView mMyLoadnedAmount, mMyLoadedValue;
+    private LinearLayout mMyCdpFeeLayer;
+    private TextView mMyCdpFeeAmount, mMyCdpFeeValue;
+    private LinearLayout mMyLoadableLayer;
+    private TextView mMyLoadableAmount, mMyLoadableValue;
+    private RelativeLayout mMyBtnDrawdebt, mMyBtnRepay;
 
     public CdpDetailMyStatusHolder(@NonNull View itemView) {
         super(itemView);
-        mMyCollateralImg                = itemView.findViewById(R.id.collateral_icon);
-        mMyCollateralDenom              = itemView.findViewById(R.id.collateral_denom);
-        mMySelfDepositLayer             = itemView.findViewById(R.id.self_deposited_amount_layer);
-        mMySelfDepositAmount            = itemView.findViewById(R.id.self_deposited_amount);
-        mMyTotalDepositLayer            = itemView.findViewById(R.id.total_deposited_amount_layer);
-        mMyTotalDepositAmount           = itemView.findViewById(R.id.total_deposited_amount);
-        mMyWithdrawableLayer            = itemView.findViewById(R.id.expected_withdrawable_amount_layer);
-        mMyWithdrawableAmountTitle      = itemView.findViewById(R.id.expected_withdrawable_amount_title);
-        mMyWithdrawableAmount           = itemView.findViewById(R.id.expected_withdrawable_amount);
-        mMySelfDepositValue             = itemView.findViewById(R.id.self_deposited_value);
-        mMyTotalDepositValue            = itemView.findViewById(R.id.total_deposited_value);
-        mMyWithdrawableValue            = itemView.findViewById(R.id.expected_withdrawable_value);
-        mMyBtnDeposit                   = itemView.findViewById(R.id.btn_deposit);
-        mMyBtnDepositTxt                = itemView.findViewById(R.id.btn_deposit_txt);
-        mMyBtnWithdraw                  = itemView.findViewById(R.id.btn_withdraw);
-        mMyBtnWithdrawTxt               = itemView.findViewById(R.id.btn_withdraw_txt);
-        mMyPrincipalImg                 = itemView.findViewById(R.id.principal_icon);
-        mMyPrincipalDenom               = itemView.findViewById(R.id.principal_denom);
-        mMyLoadnedLayer                 = itemView.findViewById(R.id.loaned_amount_layer);
-        mMyLoadnedAmount                = itemView.findViewById(R.id.loaned_amount);
-        mMyLoadedValue                  = itemView.findViewById(R.id.loaned_value);
-        mMyCdpFeeLayer                  = itemView.findViewById(R.id.cdp_fee_amount_layer);
-        mMyCdpFeeAmount                 = itemView.findViewById(R.id.cdp_fee_amount);
-        mMyCdpFeeValue                  = itemView.findViewById(R.id.fee_value);
-        mMyLoadableLayer                = itemView.findViewById(R.id.expected_loanable_amount_layer);
-        mMyLoadableAmount               = itemView.findViewById(R.id.expected_loanable_amount);
-        mMyLoadableValue                = itemView.findViewById(R.id.loanable_value);
-        mMyBtnDrawdebt                  = itemView.findViewById(R.id.btn_drawdebt);
-        mMyBtnRepay                     = itemView.findViewById(R.id.btn_repay);
+        mMyCollateralImg = itemView.findViewById(R.id.collateral_icon);
+        mMyCollateralDenom = itemView.findViewById(R.id.collateral_denom);
+        mMySelfDepositLayer = itemView.findViewById(R.id.self_deposited_amount_layer);
+        mMySelfDepositAmount = itemView.findViewById(R.id.self_deposited_amount);
+        mMyTotalDepositLayer = itemView.findViewById(R.id.total_deposited_amount_layer);
+        mMyTotalDepositAmount = itemView.findViewById(R.id.total_deposited_amount);
+        mMyWithdrawableLayer = itemView.findViewById(R.id.expected_withdrawable_amount_layer);
+        mMyWithdrawableAmountTitle = itemView.findViewById(R.id.expected_withdrawable_amount_title);
+        mMyWithdrawableAmount = itemView.findViewById(R.id.expected_withdrawable_amount);
+        mMySelfDepositValue = itemView.findViewById(R.id.self_deposited_value);
+        mMyTotalDepositValue = itemView.findViewById(R.id.total_deposited_value);
+        mMyWithdrawableValue = itemView.findViewById(R.id.expected_withdrawable_value);
+        mMyBtnDeposit = itemView.findViewById(R.id.btn_deposit);
+        mMyBtnDepositTxt = itemView.findViewById(R.id.btn_deposit_txt);
+        mMyBtnWithdraw = itemView.findViewById(R.id.btn_withdraw);
+        mMyBtnWithdrawTxt = itemView.findViewById(R.id.btn_withdraw_txt);
+        mMyPrincipalImg = itemView.findViewById(R.id.principal_icon);
+        mMyPrincipalDenom = itemView.findViewById(R.id.principal_denom);
+        mMyLoadnedLayer = itemView.findViewById(R.id.loaned_amount_layer);
+        mMyLoadnedAmount = itemView.findViewById(R.id.loaned_amount);
+        mMyLoadedValue = itemView.findViewById(R.id.loaned_value);
+        mMyCdpFeeLayer = itemView.findViewById(R.id.cdp_fee_amount_layer);
+        mMyCdpFeeAmount = itemView.findViewById(R.id.cdp_fee_amount);
+        mMyCdpFeeValue = itemView.findViewById(R.id.fee_value);
+        mMyLoadableLayer = itemView.findViewById(R.id.expected_loanable_amount_layer);
+        mMyLoadableAmount = itemView.findViewById(R.id.expected_loanable_amount);
+        mMyLoadableValue = itemView.findViewById(R.id.loanable_value);
+        mMyBtnDrawdebt = itemView.findViewById(R.id.btn_drawdebt);
+        mMyBtnRepay = itemView.findViewById(R.id.btn_repay);
     }
 
     @Override
     public void onBindCdpDetailMyStatus(CdpDetail5Activity context, BaseData baseData, QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal selfDepositAmount) {
-        final Genesis.CollateralParam collateralParam   = baseData.getCollateralParamByType(collateralType);
-        final String cDenom                             = collateralParam.getDenom();
-        final String pDenom                             = collateralParam.getDebtLimit().getDenom();
-        final BigDecimal currentPrice                   = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
+        final Genesis.CollateralParam collateralParam = baseData.getCollateralParamByType(collateralType);
+        final String cDenom = collateralParam.getDenom();
+        final String pDenom = collateralParam.getDebtLimit().getDenom();
+        final BigDecimal currentPrice = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
 
         mMySelfDepositAmount.setText(WDp.getDpAmount2(context, selfDepositAmount, WUtil.getKavaCoinDecimal(baseData, cDenom), WUtil.getKavaCoinDecimal(baseData, cDenom)));
         BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(baseData, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);

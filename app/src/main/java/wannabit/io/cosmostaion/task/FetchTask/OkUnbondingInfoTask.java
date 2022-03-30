@@ -19,9 +19,9 @@ public class OkUnbondingInfoTask extends CommonTask {
 
     public OkUnbondingInfoTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain) {
         super(app, listener);
-        this.mAccount           = account;
-        this.mChain             = chain;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
+        this.mAccount = account;
+        this.mChain = chain;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
 
     }
 
@@ -31,13 +31,13 @@ public class OkUnbondingInfoTask extends CommonTask {
         try {
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
                 Response<ResOkUnbonding> response = ApiClient.getOkexChain(mApp).getWithdrawInfo(mAccount.address).execute();
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
 
-                if(response.body() != null) {
+                if (response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,30 +28,28 @@ import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-
 public class DelegateActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout              mRootView;
-    private ImageView                   mChainBg;
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ImageView                   mIvStep;
-    private TextView                    mTvStep;
-    private ViewPager                   mViewPager;
-    private DelegatePageAdapter         mPageAdapter;
+    private RelativeLayout mRootView;
+    private ImageView mChainBg;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private DelegatePageAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView           = findViewById(R.id.root_view);
-        mChainBg            = findViewById(R.id.chain_bg);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mTitle              = findViewById(R.id.toolbar_title);
-        mIvStep             = findViewById(R.id.send_step);
-        mTvStep             = findViewById(R.id.send_step_msg);
-        mViewPager          = findViewById(R.id.view_pager);
+        mRootView = findViewById(R.id.root_view);
+        mChainBg = findViewById(R.id.chain_bg);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
+        mIvStep = findViewById(R.id.send_step);
+        mTvStep = findViewById(R.id.send_step_msg);
+        mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_delegate_c));
 
         setSupportActionBar(mToolbar);
@@ -71,21 +71,22 @@ public class DelegateActivity extends BaseBroadCastActivity {
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
-                if(i == 0) {
+                if (i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_delegate_step_1));
-                } else if (i == 1 ) {
+                } else if (i == 1) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_delegate_step_2));
-                } else if (i == 2 ) {
+                } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_delegate_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 3 ) {
+                } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_delegate_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
@@ -93,7 +94,8 @@ public class DelegateActivity extends BaseBroadCastActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         mViewPager.setCurrentItem(0);
 
@@ -126,7 +128,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -141,7 +143,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {

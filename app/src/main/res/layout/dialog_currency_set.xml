@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_64">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,29 +20,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_usd_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_usd"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
             </LinearLayout>
 
             <LinearLayout
@@ -49,29 +54,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_eur_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_eur"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,29 +88,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_krw_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_krw"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
             </LinearLayout>
 
             <LinearLayout
@@ -109,29 +122,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_jpy_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="jpy"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
             </LinearLayout>
 
             <LinearLayout
@@ -139,29 +156,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_cny_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_cny"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray10" />
             </LinearLayout>
 
             <LinearLayout
@@ -169,344 +190,401 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_rub_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_rub"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
 
             <LinearLayout
                 android:id="@+id/gbp_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_gbp_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_gbp"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/inr_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_inr_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_inr"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/brl_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_brl_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_brl"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/idr_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_idr_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_idr"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/dkk_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_dkk_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_dkk"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/nok_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_nok_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_nok"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/sek_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_sek_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_sek"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/chf_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_chf_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_chf"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/aud_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_aud_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_aud"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/cad_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_cad_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_cad"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray10" />
+
             <LinearLayout
                 android:id="@+id/myr_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_16">
+
                     <TextView
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/currency_myr_symbol"
-                        style="@style/font_ss_17_atom"/>
+                        style="@style/font_ss_17_atom" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
                         android:text="@string/currency_myr"
-                        style="@style/font_ss_15_gray8"/>
+                        style="@style/font_ss_15_gray8" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

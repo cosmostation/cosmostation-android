@@ -8,8 +8,7 @@ public class HexUtils {
     /**
      * Encodes an array of bytes as hex symbols.
      *
-     * @param bytes
-     *           the array of bytes to encode
+     * @param bytes the array of bytes to encode
      * @return the resulting hex string
      */
     public static String toHex(byte[] bytes) {
@@ -19,10 +18,8 @@ public class HexUtils {
     /**
      * Encodes an array of bytes as hex symbols.
      *
-     * @param bytes
-     *           the array of bytes to encode
-     * @param separator
-     *           the separator to use between two bytes, can be null
+     * @param bytes     the array of bytes to encode
+     * @param separator the separator to use between two bytes, can be null
      * @return the resulting hex string
      */
     public static String toHex(byte[] bytes, String separator) {
@@ -32,12 +29,9 @@ public class HexUtils {
     /**
      * Encodes an array of bytes as hex symbols.
      *
-     * @param bytes
-     *           the array of bytes to encode
-     * @param offset
-     *           the start offset in the array of bytes
-     * @param length
-     *           the number of bytes to encode
+     * @param bytes  the array of bytes to encode
+     * @param offset the start offset in the array of bytes
+     * @param length the number of bytes to encode
      * @return the resulting hex string
      */
     public static String toHex(byte[] bytes, int offset, int length) {
@@ -60,14 +54,10 @@ public class HexUtils {
     /**
      * Encodes an array of bytes as hex symbols.
      *
-     * @param bytes
-     *           the array of bytes to encode
-     * @param offset
-     *           the start offset in the array of bytes
-     * @param length
-     *           the number of bytes to encode
-     * @param separator
-     *           the separator to use between two bytes, can be null
+     * @param bytes     the array of bytes to encode
+     * @param offset    the start offset in the array of bytes
+     * @param length    the number of bytes to encode
+     * @param separator the separator to use between two bytes, can be null
      * @return the resulting hex string
      */
     public static String toHex(byte[] bytes, int offset, int length, String separator) {
@@ -90,8 +80,7 @@ public class HexUtils {
     /**
      * Get the byte representation of an ASCII-HEX string.
      *
-     * @param hexString
-     *           The string to convert to bytes
+     * @param hexString The string to convert to bytes
      * @return The byte representation of the ASCII-HEX string.
      */
     public static byte[] toBytes(String hexString) {
@@ -104,7 +93,7 @@ public class HexUtils {
         for (int i = 0; i < length; i++) {
             int high = Character.digit(hex[i * 2], 16);
             int low = Character.digit(hex[i * 2 + 1], 16);
-            if (high < 0 || low < 0){
+            if (high < 0 || low < 0) {
                 throw new RuntimeException("Invalid hex digit " + hex[i * 2] + hex[i * 2 + 1]);
             }
             int value = (high << 4) | low;
@@ -115,13 +104,13 @@ public class HexUtils {
         return raw;
     }
 
-    public static byte[] toBytesReversed( String hexString) {
-         byte[] rawBytes = toBytes( hexString );
+    public static byte[] toBytesReversed(String hexString) {
+        byte[] rawBytes = toBytes(hexString);
 
-        for ( int i = 0; i < rawBytes.length / 2;i++ ) {
-            byte temp = rawBytes[ rawBytes.length - i - 1];
-            rawBytes[ rawBytes.length - i - 1] = rawBytes[ i ];
-            rawBytes[ i ] = temp;
+        for (int i = 0; i < rawBytes.length / 2; i++) {
+            byte temp = rawBytes[rawBytes.length - i - 1];
+            rawBytes[rawBytes.length - i - 1] = rawBytes[i];
+            rawBytes[i] = temp;
         }
 
         return rawBytes;

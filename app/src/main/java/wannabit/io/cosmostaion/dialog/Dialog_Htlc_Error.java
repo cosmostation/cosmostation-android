@@ -31,7 +31,7 @@ public class Dialog_Htlc_Error extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_error, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_error, null);
         TextView msg = view.findViewById(R.id.dialog_msg);
         TextView error = view.findViewById(R.id.dialog_error);
 
@@ -53,6 +53,6 @@ public class Dialog_Htlc_Error extends DialogFragment {
     }
 
     private HtlcResultActivity getTopActivity() {
-        return (HtlcResultActivity)getActivity();
+        return (HtlcResultActivity) getActivity();
     }
 }

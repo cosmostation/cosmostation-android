@@ -35,7 +35,7 @@ public class TxVoterHolder extends TxHolder {
         try {
             Tx.MsgVote msg = Tx.MsgVote.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemDelegator.setText(msg.getVoter());
-            itemProposalId.setText("" +  msg.getProposalId());
+            itemProposalId.setText("" + msg.getProposalId());
             if (msg.getOption().equals(Gov.VoteOption.VOTE_OPTION_YES)) {
                 itemOpinion.setText("Yes");
 
@@ -49,6 +49,7 @@ public class TxVoterHolder extends TxHolder {
                 itemOpinion.setText("Abstain");
 
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

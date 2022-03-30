@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,45 +13,52 @@
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/space_16"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/space_16">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_fees"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:orientation="horizontal"
                         android:gravity="center">
+
                         <TextView
                             android:id="@+id/tx_fee_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_white" />
+
                         <TextView
                             android:id="@+id/tx_fee_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="IOV"
-                            style="@style/font_ss_12_iov"/>
+                            style="@style/font_ss_12_iov" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -60,31 +66,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_starnamne_fee"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_12_gray1" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:orientation="horizontal"
                         android:gravity="center">
+
                         <TextView
                             android:id="@+id/starname_fee_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_white" />
+
                         <TextView
                             android:id="@+id/starname_fee_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="IOV"
-                            style="@style/font_ss_12_iov"/>
+                            style="@style/font_ss_12_iov" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -92,54 +102,60 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_to_renew_starname"
                 android:layout_marginTop="@dimen/space_16"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_ss_12_gray1" />
+
             <TextView
                 android:id="@+id/to_renew_starname"
                 android:layout_marginTop="@dimen/space_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_14_white"/>
+                style="@style/font_ss_14_white" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16"
                 android:text="@string/str_expire_date"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_ss_12_gray1" />
+
             <TextView
                 android:id="@+id/current_expire_time"
                 android:layout_marginTop="@dimen/space_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_white" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16"
                 android:text="@string/str_expected_expire_time"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_ss_12_gray1" />
+
             <TextView
                 android:id="@+id/to_renew_expire_time"
                 android:layout_marginTop="@dimen/space_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16"
                 android:text="@string/str_memo"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_ss_12_gray1" />
+
             <TextView
                 android:id="@+id/memo"
                 android:layout_width="wrap_content"
@@ -147,7 +163,7 @@
                 android:lines="2"
                 android:ellipsize="end"
                 android:text="-"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_white" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -161,6 +177,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_before"
             android:layout_width="0dp"
@@ -171,7 +188,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_back"/>
+            android:text="@string/str_back" />
+
         <Button
             android:id="@+id/btn_confirm"
             android:layout_width="0dp"
@@ -182,6 +200,6 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
-            android:text="@string/str_confirm"/>
+            android:text="@string/str_confirm" />
     </LinearLayout>
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARD_POOL_IMG_URL;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -24,35 +26,32 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARD_POOL_IMG_URL;
 
 public class HardPoolHolder extends BaseHolder {
 
-    CardView            itemRoot;
-    private ImageView   hardPoolImg;
-    private TextView    hardPoolTitle;
-    private TextView    supplyApyTv, borrowApyTv, supplyIncentiveApyTv, borrowIncentiveApyTv;
-    private TextView    depositAmountTv, depositDenomTv, depositValueTv;
-    private TextView    borrowAmountTv, borrowDenomTv, borrowValueTv;
+    CardView itemRoot;
+    private ImageView hardPoolImg;
+    private TextView hardPoolTitle;
+    private TextView supplyApyTv, borrowApyTv, supplyIncentiveApyTv, borrowIncentiveApyTv;
+    private TextView depositAmountTv, depositDenomTv, depositValueTv;
+    private TextView borrowAmountTv, borrowDenomTv, borrowValueTv;
 
     public HardPoolHolder(@NonNull View itemView) {
         super(itemView);
-        itemRoot                = itemView.findViewById(R.id.card_root);
-        hardPoolImg             = itemView.findViewById(R.id.pool_img);
-        hardPoolTitle           = itemView.findViewById(R.id.pool_title);
-        supplyApyTv             = itemView.findViewById(R.id.supply_apy);
-        borrowApyTv             = itemView.findViewById(R.id.borrow_apy);
-        supplyIncentiveApyTv    = itemView.findViewById(R.id.supply_incentive_apy);
-        borrowIncentiveApyTv    = itemView.findViewById(R.id.borrow_incentive_apy);
-        depositAmountTv         = itemView.findViewById(R.id.deposited_amount);
-        depositDenomTv          = itemView.findViewById(R.id.deposited_denom);
-        depositValueTv          = itemView.findViewById(R.id.deposited_value);
-        borrowAmountTv          = itemView.findViewById(R.id.borrow_amount);
-        borrowDenomTv           = itemView.findViewById(R.id.borrow_denom);
-        borrowValueTv           = itemView.findViewById(R.id.borrow_value);
+        itemRoot = itemView.findViewById(R.id.card_root);
+        hardPoolImg = itemView.findViewById(R.id.pool_img);
+        hardPoolTitle = itemView.findViewById(R.id.pool_title);
+        supplyApyTv = itemView.findViewById(R.id.supply_apy);
+        borrowApyTv = itemView.findViewById(R.id.borrow_apy);
+        supplyIncentiveApyTv = itemView.findViewById(R.id.supply_incentive_apy);
+        borrowIncentiveApyTv = itemView.findViewById(R.id.borrow_incentive_apy);
+        depositAmountTv = itemView.findViewById(R.id.deposited_amount);
+        depositDenomTv = itemView.findViewById(R.id.deposited_denom);
+        depositValueTv = itemView.findViewById(R.id.deposited_value);
+        borrowAmountTv = itemView.findViewById(R.id.borrow_amount);
+        borrowDenomTv = itemView.findViewById(R.id.borrow_denom);
+        borrowValueTv = itemView.findViewById(R.id.borrow_value);
     }
 
     @Override
@@ -62,7 +61,8 @@ public class HardPoolHolder extends BaseHolder {
         String baseDenom = baseData.getBaseDenom(hardMoneyMarket.getDenom());
         try {
             Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(hardPoolImg);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
 
         String marketTitle = hardParams.getMoneyMarkets(position).getSpotMarketId().replace(":30", "");
         hardPoolTitle.setText(marketTitle.toUpperCase());
@@ -86,7 +86,7 @@ public class HardPoolHolder extends BaseHolder {
         Coin myDepositCoin = null;
         BigDecimal myDepositValue = BigDecimal.ZERO;
         if (myDeposit != null && myDeposit.size() > 0) {
-            for (CoinOuterClass.Coin coin: myDeposit.get(0).getAmountList()) {
+            for (CoinOuterClass.Coin coin : myDeposit.get(0).getAmountList()) {
                 if (coin.getDenom().equalsIgnoreCase(hardMoneyMarket.getDenom())) {
                     myDepositCoin = new Coin(coin.getDenom(), coin.getAmount());
                 }
@@ -94,7 +94,7 @@ public class HardPoolHolder extends BaseHolder {
         }
         if (myDepositCoin != null) {
             WDp.showCoinDp(context, baseData, myDepositCoin, depositDenomTv, depositAmountTv, chain);
-            int decimal =  WUtil.getKavaCoinDecimal(baseData, myDepositCoin.denom);
+            int decimal = WUtil.getKavaCoinDecimal(baseData, myDepositCoin.denom);
             myDepositValue = (new BigDecimal(myDepositCoin.amount)).movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParams, myDepositCoin.denom)));
 
         } else {
@@ -106,7 +106,7 @@ public class HardPoolHolder extends BaseHolder {
         Coin myBorrowCoin = null;
         BigDecimal myBorrowValue = BigDecimal.ZERO;
         if (myBorrow != null && myBorrow.size() > 0) {
-            for (CoinOuterClass.Coin coin: myBorrow.get(0).getAmountList()) {
+            for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
                 if (coin.getDenom().equalsIgnoreCase(hardMoneyMarket.getDenom())) {
                     myBorrowCoin = new Coin(coin.getDenom(), coin.getAmount());
                 }
@@ -114,7 +114,7 @@ public class HardPoolHolder extends BaseHolder {
         }
         if (myBorrowCoin != null) {
             WDp.showCoinDp(context, baseData, myBorrowCoin, borrowDenomTv, borrowAmountTv, chain);
-            int decimal =  WUtil.getKavaCoinDecimal(baseData, myBorrowCoin.denom);
+            int decimal = WUtil.getKavaCoinDecimal(baseData, myBorrowCoin.denom);
             myBorrowValue = (new BigDecimal(myBorrowCoin.amount)).movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParams, myBorrowCoin.denom)));
 
         } else {

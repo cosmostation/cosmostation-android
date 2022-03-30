@@ -38,14 +38,14 @@ public class Dialog_Bnb_Sign extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_bnb_sign, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_bnb_sign, null);
         TextView tv_request = view.findViewById(R.id.tv_requset_msg);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
 
         try {
-            BnbParam bnbParam = new Gson().fromJson(getArguments().getString("param").replace("memo=, " ,""), BnbParam.class);
+            BnbParam bnbParam = new Gson().fromJson(getArguments().getString("param").replace("memo=, ", ""), BnbParam.class);
             String showMsg = "";
             if (!TextUtils.isEmpty(bnbParam.msgs.get(0).refid)) {
                 showMsg = getString(R.string.str_wc_cancel_order) + "\n" +
@@ -77,7 +77,7 @@ public class Dialog_Bnb_Sign extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((WalletConnectActivity)getActivity()).onBnbSign(getArguments().getLong("id"));
+                ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
                 getDialog().dismiss();
             }
         });

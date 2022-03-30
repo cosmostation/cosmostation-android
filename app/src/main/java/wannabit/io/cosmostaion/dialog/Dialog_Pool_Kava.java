@@ -31,7 +31,7 @@ public class Dialog_Pool_Kava extends BottomSheetDialogFragment {
         mJoinPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DAppsList5Activity)getActivity()).onCheckStartJoinPool((QueryOuterClass.PoolResponse) getArguments().getSerializable("mKavaPool"));
+                ((DAppsList5Activity) getActivity()).onCheckStartJoinPool((QueryOuterClass.PoolResponse) getArguments().getSerializable("mKavaPool"));
                 getDialog().dismiss();
             }
         });
@@ -39,8 +39,8 @@ public class Dialog_Pool_Kava extends BottomSheetDialogFragment {
         mExitPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DAppsList5Activity)getActivity()).onCheckStartExitPool((QueryOuterClass.PoolResponse) getArguments().getSerializable("mKavaPool"),
-                                                                            (QueryOuterClass.DepositResponse) getArguments().getSerializable("mKavaDeposit"));
+                ((DAppsList5Activity) getActivity()).onCheckStartExitPool((QueryOuterClass.PoolResponse) getArguments().getSerializable("mKavaPool"),
+                        (QueryOuterClass.DepositResponse) getArguments().getSerializable("mKavaDeposit"));
                 getDialog().dismiss();
             }
         });

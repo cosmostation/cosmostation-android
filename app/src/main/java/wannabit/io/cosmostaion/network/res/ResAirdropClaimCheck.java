@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -35,13 +34,13 @@ public class ResAirdropClaimCheck {
     public BigDecimal getUnclaimedAirdropAmount() {
         BigDecimal result = BigDecimal.ZERO;
         if (stakingInfos != null && stakingInfos.size() > 0) {
-            for (DesmosAirdropInfo stakingInfo: stakingInfos) {
+            for (DesmosAirdropInfo stakingInfo : stakingInfos) {
                 if (!stakingInfo.claimed) {
                     result = result.add(stakingInfo.dsm_allotted);
                 }
             }
         } else if (lpInfos != null && lpInfos.size() > 0) {
-            for (DesmosAirdropInfo lpInfo: lpInfos) {
+            for (DesmosAirdropInfo lpInfo : lpInfos) {
                 if (!lpInfo.claimed) {
                     result = result.add(lpInfo.dsm_allotted);
                 }

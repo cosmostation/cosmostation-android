@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_FEE;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import starnamed.x.configuration.v1beta1.QueryGrpc;
@@ -11,9 +14,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_FEE;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class StarNameGrpcFeeTask extends CommonTask {
     private BaseChain mChain;
@@ -34,7 +34,9 @@ public class StarNameGrpcFeeTask extends CommonTask {
             mResult.resultData = response.getFees();
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "StarNameGrpcFeeTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("StarNameGrpcFeeTask " + e.getMessage());
+        }
         return mResult;
     }
 }

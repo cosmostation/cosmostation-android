@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -34,29 +32,27 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-
 public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int CDP_WITHDRAW_CONFIRM_DIALOG = 6021;
 
-    private Button          mBtnCancel, mBtnNext;
-    private ImageView       mCollateralImg;
-    private TextView        mCollateralSymbol;
-    private EditText        mCollateralInput;
-    private ImageView       mCollateralClear;
-    private TextView        mCollateralMaxTx, mCollateralDenomTx;
-    private Button          mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
+    private Button mBtnCancel, mBtnNext;
+    private ImageView mCollateralImg;
+    private TextView mCollateralSymbol;
+    private EditText mCollateralInput;
+    private ImageView mCollateralClear;
+    private TextView mCollateralMaxTx, mCollateralDenomTx;
+    private Button mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
 
-    private LinearLayout    mAfterRiskLayer;
-    private TextView        mBeforeRisk, mAfterRisk, mBeforeRiskScore, mAfterRiskScore;
-    private TextView        mBeforeDepositAmount, mAfterDepositAmount;
+    private LinearLayout mAfterRiskLayer;
+    private TextView mBeforeRisk, mAfterRisk, mBeforeRiskScore, mAfterRiskScore;
+    private TextView mBeforeDepositAmount, mAfterDepositAmount;
 
-    private BigDecimal      mCurrentPrice;
-    private String          mCollateralDenom, mPrincipalDenom;
-    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mCanWithdrawMaxMaxAmount, mToWithdrawAmount, mTotalDepositAmount;
-    private BigDecimal      mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate;
+    private BigDecimal mCurrentPrice;
+    private String mCollateralDenom, mPrincipalDenom;
+    private BigDecimal mCurrentTotalDebetAmount, mCurrentCollateralAmount, mCanWithdrawMaxMaxAmount, mToWithdrawAmount, mTotalDepositAmount;
+    private BigDecimal mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate;
 
-    private String          mCollateralDecimalChecker, mCollateralDecimalSetter;
+    private String mCollateralDecimalChecker, mCollateralDecimalSetter;
 
     public static WithdrawCdpStep0Fragment newInstance(Bundle bundle) {
         WithdrawCdpStep0Fragment fragment = new WithdrawCdpStep0Fragment();
@@ -137,15 +133,17 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
         mCollateralInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
+                if (TextUtils.isEmpty(es)) {
                     mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
                     mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -153,7 +151,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                 } else if (es.endsWith(".")) {
                     mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     return;
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mCollateralInput.setText("0");
                     mCollateralInput.setSelection(1);
                 }
@@ -164,7 +162,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
                             mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
@@ -186,7 +184,8 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                         }
                         mCollateralInput.setSelection(mCollateralInput.getText().length());
 
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
                 onDisplayViewUpdate();
             }
@@ -194,7 +193,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
     }
 
     private boolean onDisplayViewUpdate() {
-        mAfterLiquidationPrice = mAfterRiskRate =  null;
+        mAfterLiquidationPrice = mAfterRiskRate = null;
         try {
             mToWithdrawAmount = BigDecimal.ZERO;
             try {
@@ -244,7 +243,8 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
             BigDecimal inputedAmount = BigDecimal.ZERO;
             try {
                 inputedAmount = new BigDecimal(mCollateralInput.getText().toString().trim());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             inputedAmount = inputedAmount.add(new BigDecimal("1"));
             mCollateralInput.setText(inputedAmount.toPlainString());
 
@@ -316,13 +316,13 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CDP_WITHDRAW_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CDP_WITHDRAW_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onNextStep();
         }
     }
 
     private WithdrawCdpActivity getSActivity() {
-        return (WithdrawCdpActivity)getBaseActivity();
+        return (WithdrawCdpActivity) getBaseActivity();
     }
 
     private Genesis.CollateralParam getCParam() {
@@ -336,11 +336,11 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
     private void setDpDecimals(int deciaml) {
         mCollateralDecimalChecker = "0.";
         mCollateralDecimalSetter = "0.";
-        for (int i = 0; i < deciaml; i ++) {
-            mCollateralDecimalChecker = mCollateralDecimalChecker+"0";
+        for (int i = 0; i < deciaml; i++) {
+            mCollateralDecimalChecker = mCollateralDecimalChecker + "0";
         }
-        for (int i = 0; i < deciaml-1; i ++) {
-            mCollateralDecimalSetter = mCollateralDecimalSetter+"0";
+        for (int i = 0; i < deciaml - 1; i++) {
+            mCollateralDecimalSetter = mCollateralDecimalSetter + "0";
         }
     }
 }

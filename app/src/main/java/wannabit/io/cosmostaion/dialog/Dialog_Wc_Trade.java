@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.dialog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
@@ -24,8 +26,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
-
 public class Dialog_Wc_Trade extends DialogFragment {
 
     public static Dialog_Wc_Trade newInstance(Bundle bundle) {
@@ -42,7 +42,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_trade, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_trade, null);
         TextView side_tv = view.findViewById(R.id.wc_trade_side);
         TextView symbol_tv = view.findViewById(R.id.wc_trade_symbol);
         TextView price_tv = view.findViewById(R.id.wc_trade_price);
@@ -58,7 +58,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
 
         JsonObject json = new Gson().fromJson(getArguments().getString("param"), JsonObject.class);
         JsonObject rawMsg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), JsonObject.class);
-        NewOrderMessage msg =  new Gson().fromJson(json.getAsJsonArray("msgs").get(0), NewOrderMessage.class);
+        NewOrderMessage msg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), NewOrderMessage.class);
 
         String[] pair_denom = msg.getSymbol().split("_");
         symbol_tv.setText(pair_denom[0].split("-")[0]);
@@ -72,10 +72,10 @@ public class Dialog_Wc_Trade extends DialogFragment {
             side_tv.setText("BUY");
             side_tv.setTextColor(getResources().getColor(R.color.colorBnbBuy));
 
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL +pair_denom[1].split("-")[0]+".png")
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[1].split("-")[0] + ".png")
                     .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
                     .into(fromCoinImg);
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL +pair_denom[0].split("-")[0]+".png")
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[0].split("-")[0] + ".png")
                     .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
                     .into(toCoinImg);
 
@@ -89,10 +89,10 @@ public class Dialog_Wc_Trade extends DialogFragment {
             side_tv.setText("SELL");
             side_tv.setTextColor(getResources().getColor(R.color.colorBnbSell));
 
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL +pair_denom[0].split("-")[0]+".png")
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[0].split("-")[0] + ".png")
                     .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
                     .into(fromCoinImg);
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL +pair_denom[1].split("-")[0]+".png")
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[1].split("-")[0] + ".png")
                     .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
                     .into(toCoinImg);
 
@@ -114,7 +114,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((WalletConnectActivity)getActivity()).onBnbSign(getArguments().getLong("id"));
+                ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
                 getDialog().dismiss();
             }
         });

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_history"
         android:layout_width="match_parent"
@@ -19,6 +18,7 @@
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_74"
@@ -32,19 +32,21 @@
                 android:layout_width="@dimen/space_100"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/history_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_12_white"
-                    android:text="Send"/>
+                    android:text="Send" />
+
                 <TextView
                     android:id="@+id/history_success"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     style="@style/font_ss_9_red"
-                    android:text="@string/str_failed"/>
+                    android:text="@string/str_failed" />
             </RelativeLayout>
 
 
@@ -53,7 +55,7 @@
                 android:layout_width="1px"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/history_header"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3" />
 
             <ImageView
                 android:id="@+id/arrow_history"
@@ -61,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow_next_gr"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,20 +74,23 @@
                 android:paddingRight="@dimen/space_8"
                 android:orientation="vertical"
                 android:gravity="center_vertical|right">
+
                 <TextView
                     android:id="@+id/history_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     style="@style/font_ss_11_white"
-                    android:text="2018-12-23"/>
+                    android:text="2018-12-23" />
+
                 <TextView
                     android:id="@+id/history_time_gap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     style="@style/font_ss_10_gray1"
-                    android:text="(1D 4H ago)"/>
+                    android:text="(1D 4H ago)" />
+
                 <TextView
                     android:id="@+id/history_block_height"
                     android:layout_width="match_parent"
@@ -95,7 +100,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     style="@style/font_ss_11_gray1"
-                    android:text="13123 block"/>
+                    android:text="13123 block" />
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

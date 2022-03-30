@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,17 +22,14 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Ok_Deposit_warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-
 public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_DEPOSIT_CHECK = 9106;
 
-    private TextView        mDepositAmount;
-    private TextView        mFeeAmount;
-    private TextView        mMemo;
-    private Button          mBeforeBtn, mConfirmBtn;
-    private TextView        mDepositDenom, mFeeDenom;
+    private TextView mDepositAmount;
+    private TextView mFeeAmount;
+    private TextView mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
+    private TextView mDepositDenom, mFeeDenom;
 
     public static OKStakingFragmentStep3 newInstance(Bundle bundle) {
         OKStakingFragmentStep3 fragment = new OKStakingFragmentStep3();
@@ -44,14 +44,14 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView       = inflater.inflate(R.layout.fragment_stake_deposit_3, container, false);
-        mDepositAmount      = rootView.findViewById(R.id.deposit_amount);
-        mDepositDenom       = rootView.findViewById(R.id.deposit_amount_denom);
-        mFeeAmount          = rootView.findViewById(R.id.fees_amount);
-        mFeeDenom           = rootView.findViewById(R.id.fees_denom);
-        mMemo               = rootView.findViewById(R.id.memo);
-        mBeforeBtn          = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
+        View rootView = inflater.inflate(R.layout.fragment_stake_deposit_3, container, false);
+        mDepositAmount = rootView.findViewById(R.id.deposit_amount);
+        mDepositDenom = rootView.findViewById(R.id.deposit_amount_denom);
+        mFeeAmount = rootView.findViewById(R.id.fees_amount);
+        mFeeDenom = rootView.findViewById(R.id.fees_denom);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDepositDenom);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
@@ -78,7 +78,7 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -97,6 +97,6 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
     }
 
     private OKStakingActivity getSActivity() {
-        return (OKStakingActivity)getBaseActivity();
+        return (OKStakingActivity) getBaseActivity();
     }
 }

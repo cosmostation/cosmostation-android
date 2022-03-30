@@ -29,14 +29,14 @@ public class Dialog_Safe_Copy extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_copy, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_copy, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MnemonicCheckActivity)getActivity()).onRawCopy();
+                ((MnemonicCheckActivity) getActivity()).onRawCopy();
                 getDialog().dismiss();
             }
         });
@@ -44,7 +44,7 @@ public class Dialog_Safe_Copy extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MnemonicCheckActivity)getActivity()).onSafeCopy();
+                ((MnemonicCheckActivity) getActivity()).onSafeCopy();
                 getDialog().dismiss();
             }
         });

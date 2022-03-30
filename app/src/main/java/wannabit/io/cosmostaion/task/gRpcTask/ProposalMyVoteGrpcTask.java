@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
+
 import cosmos.gov.v1beta1.QueryGrpc;
 import cosmos.gov.v1beta1.QueryOuterClass;
 import retrofit2.Response;
@@ -8,13 +10,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
-import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
 
 public class ProposalMyVoteGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -36,7 +35,7 @@ public class ProposalMyVoteGrpcTask extends CommonTask {
         try {
             if (mChain.equals(BaseChain.CERTIK_MAIN)) {
                 Response<ResMyProposal> response = ApiClient.getCertikChain(mApp).getCertikProposal(mProposalId, mAddress).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().vote != null && response.body().vote.options != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().vote != null && response.body().vote.options != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 } else {
@@ -48,7 +47,9 @@ public class ProposalMyVoteGrpcTask extends CommonTask {
                 this.mResult.resultData = response.getVote();
             }
 
-        } catch (Exception e) { WLog.e( "ProposalMyVoteGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("ProposalMyVoteGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 

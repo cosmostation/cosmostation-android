@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_INFO;
+
 import irismod.nft.QueryGrpc;
 import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -10,13 +12,11 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_INFO;
-
 public class NFTokenInfoGrpcTask extends CommonTask {
-    private BaseChain   mChain;
-    private String      mDenomId;
-    private String      mTokenId;
-    private QueryGrpc.QueryBlockingStub                  mIrisStub;
+    private BaseChain mChain;
+    private String mDenomId;
+    private String mTokenId;
+    private QueryGrpc.QueryBlockingStub mIrisStub;
     private chainmain.nft.v1.QueryGrpc.QueryBlockingStub mCryptoStub;
 
     public NFTokenInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String denomId, String tokenId) {
@@ -47,7 +47,9 @@ public class NFTokenInfoGrpcTask extends CommonTask {
                 mResult.resultData = response.getNft();
             }
 
-        } catch (Exception e) { WLog.e( "NFTokenInfoGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("NFTokenInfoGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 

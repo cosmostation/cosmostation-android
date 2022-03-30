@@ -38,10 +38,11 @@ public class TxStakingRewardHolder extends TxHolder {
             cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msg = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemDelegator.setText(msg.getDelegatorAddress());
             itemValidator.setText(msg.getValidatorAddress());
-            itemMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
+            itemMoniker.setText("(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
             itemRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseStakeReward(baseChain, response, msg.getValidatorAddress(), position), dpDecimal, dpDecimal));
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
     }
 }

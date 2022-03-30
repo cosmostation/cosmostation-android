@@ -23,13 +23,13 @@ import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
 public class ListKavaPoolFragment extends BaseFragment {
 
-    private SwipeRefreshLayout                  mSwipeRefreshLayout;
-    private RecyclerView                        mRecyclerView;
-    private KavaPoolListAdapter                 mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private KavaPoolListAdapter mAdapter;
 
-    public ArrayList<QueryOuterClass.DepositResponse>       mMySwapDepositList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.PoolResponse>          mMySwapPoolList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.PoolResponse>          mOtherSwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.DepositResponse> mMySwapDepositList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse> mMySwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse> mOtherSwapPoolList = new ArrayList<>();
 
     public static ListKavaPoolFragment newInstance(Bundle bundle) {
         ListKavaPoolFragment fragment = new ListKavaPoolFragment();
@@ -45,13 +45,15 @@ public class ListKavaPoolFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_pool_list, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() { getSActivity().onFetchData(); }
+            public void onRefresh() {
+                getSActivity().onFetchData();
+            }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -71,8 +73,8 @@ public class ListKavaPoolFragment extends BaseFragment {
     }
 
     private class KavaPoolListAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_MY_POOL            = 1;
-        private static final int TYPE_OTHER_POOL         = 2;
+        private static final int TYPE_MY_POOL = 1;
+        private static final int TYPE_OTHER_POOL = 2;
 
         @NonNull
         @Override
@@ -115,5 +117,7 @@ public class ListKavaPoolFragment extends BaseFragment {
         }
     }
 
-    private DAppsList5Activity getSActivity() { return (DAppsList5Activity)getBaseActivity(); }
+    private DAppsList5Activity getSActivity() {
+        return (DAppsList5Activity) getBaseActivity();
+    }
 }

@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxMintingIncentiveHolder extends TxHolder {
     ImageView itemMsgImg;
-    TextView  itemSender, itemMultiplier;
+    TextView itemSender, itemMultiplier;
 
     public TxMintingIncentiveHolder(@NonNull View itemView) {
         super(itemView);
@@ -34,7 +34,8 @@ public class TxMintingIncentiveHolder extends TxHolder {
             itemSender.setText(msg.getSender());
             itemMultiplier.setText(msg.getMultiplierName());
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }
 

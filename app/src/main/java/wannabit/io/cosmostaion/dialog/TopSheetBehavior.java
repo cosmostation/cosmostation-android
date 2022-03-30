@@ -150,7 +150,7 @@ public class TopSheetBehavior<V extends View> extends CoordinatorLayout.Behavior
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BottomSheetBehavior_Layout);
         setPeekHeight(a.getDimensionPixelSize(R.styleable.BottomSheetBehavior_Layout_behavior_peekHeight, 0));
         setHideable(a.getBoolean(R.styleable.BottomSheetBehavior_Layout_behavior_hideable, false));
-        setSkipCollapsed(a.getBoolean(R.styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed,false));
+        setSkipCollapsed(a.getBoolean(R.styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed, false));
 //        TypedArray a = context.obtainStyledAttributes(attrs, com.google.android.material.R.styleable.BottomSheetBehavior_Layout);
 //        setPeekHeight(a.getDimensionPixelSize(com.google.android.material.R.styleable.BottomSheetBehavior_Layout_behavior_peekHeight, 0));
 //        setHideable(a.getBoolean(com.google.android.material.R.styleable.BottomSheetBehavior_Layout_behavior_hideable, false));
@@ -253,7 +253,7 @@ public class TopSheetBehavior<V extends View> extends CoordinatorLayout.Behavior
         return action == MotionEvent.ACTION_MOVE && scroll != null &&
                 !mIgnoreEvents && mState != STATE_DRAGGING &&
                 !parent.isPointInChildBounds(scroll, (int) event.getX(), (int) event.getY()) &&
-                Math.abs(mInitialY - event.getY()) > (mViewDragHelper.getTouchSlop()*20);
+                Math.abs(mInitialY - event.getY()) > (mViewDragHelper.getTouchSlop() * 20);
     }
 
     @Override

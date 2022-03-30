@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-
 import akash.market.v1beta2.LeaseOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
@@ -15,7 +14,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class TxCreateLeaseHolder extends TxHolder{
+public class TxCreateLeaseHolder extends TxHolder {
     ImageView itemCreateLeaseImg;
     TextView itemCreateLeaseTitle;
     TextView itemProvider, itemOwner, itemDseq, itemGseq, itemOseq;
@@ -40,6 +39,7 @@ public class TxCreateLeaseHolder extends TxHolder{
             itemDseq.setText("" + WDp.getDecimalFormat(0).format(msg.getBidId().getDseq()));
             itemGseq.setText("" + msg.getBidId().getGseq());
             itemOseq.setText("" + msg.getBidId().getOseq());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

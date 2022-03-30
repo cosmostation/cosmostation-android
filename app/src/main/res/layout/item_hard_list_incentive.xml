@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
@@ -17,36 +16,40 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBgKava"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/font_ss_14_white"
-                android:text="@string/str_kava_hard_incentive_title"/>
+                android:text="@string/str_kava_hard_incentive_title" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
                 style="@style/font_ss_12_gray1"
-                android:text="@string/str_kava_hard_incentive_msg"/>
+                android:text="@string/str_kava_hard_incentive_msg" />
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/kava_incentive_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="KAVA"
-                    style="@style/font_ss_12_kava"/>
+                    style="@style/font_ss_12_kava" />
+
                 <TextView
                     android:id="@+id/kava_incentive_amount"
                     android:layout_width="wrap_content"
@@ -55,19 +58,22 @@
                     android:layout_toLeftOf="@+id/kava_incentive_symbol"
                     android:layout_marginRight="@dimen/space_2"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4">
+
                 <TextView
                     android:id="@+id/hard_incentive_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="HARD"
-                    style="@style/font_ss_12_hard"/>
+                    style="@style/font_ss_12_hard" />
+
                 <TextView
                     android:id="@+id/hard_incentive_amount"
                     android:layout_width="wrap_content"
@@ -76,7 +82,7 @@
                     android:layout_toLeftOf="@+id/hard_incentive_symbol"
                     android:layout_marginRight="@dimen/space_2"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -87,6 +93,7 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

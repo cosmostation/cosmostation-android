@@ -52,12 +52,11 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 
-
 public class MsgGenerator {
 
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
-        Msg         result      = new Msg();
-        Msg.Value   value       = new Msg.Value();
+        Msg result = new Msg();
+        Msg.Value value = new Msg.Value();
         if (chain.equals(OKEX_MAIN)) {
             try {
                 value.from_address = WKey.convertAddressEthToOkex(fromAddr);
@@ -66,7 +65,9 @@ public class MsgGenerator {
 
                 result.type = BaseConstant.OK_MSG_TYPE_TRANSFER;
                 result.value = value;
-            } catch (Exception e) { e.printStackTrace(); }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } else {
             value.from_address = fromAddr;
@@ -80,7 +81,7 @@ public class MsgGenerator {
     }
 
     public static Msg genRefundAtomicSwap(String from, String swapId, BaseChain chain) {
-        Msg result  = new Msg();
+        Msg result = new Msg();
         Msg.Value value = new Msg.Value();
         if (chain.equals(KAVA_MAIN)) {
             value.from = from;
@@ -135,7 +136,7 @@ public class MsgGenerator {
     }
 
     public static Msg genClaimHardLiquidityProviderMsg(String sender, String multiplierName) {
-        Msg result  = new Msg();
+        Msg result = new Msg();
         Msg.Value value = new Msg.Value();
         value.sender = sender;
         value.multiplier_name = multiplierName;
@@ -145,7 +146,7 @@ public class MsgGenerator {
     }
 
     public static Msg genOkDeposit(String delegator, Coin coin) {
-        Msg result  = new Msg();
+        Msg result = new Msg();
         Msg.Value value = new Msg.Value();
         try {
             value.delegator_address = WKey.convertAddressEthToOkex(delegator);
@@ -153,12 +154,14 @@ public class MsgGenerator {
 
             result.type = BaseConstant.OK_MSG_TYPE_DEPOSIT;
             result.value = value;
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
     public static Msg genOkWithdraw(String delegator, Coin coin) {
-        Msg result  = new Msg();
+        Msg result = new Msg();
         Msg.Value value = new Msg.Value();
         try {
             value.delegator_address = WKey.convertAddressEthToOkex(delegator);
@@ -166,12 +169,14 @@ public class MsgGenerator {
 
             result.type = BaseConstant.OK_MSG_TYPE_WITHDRAW;
             result.value = value;
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
     public static Msg genOkVote(String delegator, ArrayList<String> toVals) {
-        Msg result  = new Msg();
+        Msg result = new Msg();
         Msg.Value value = new Msg.Value();
         try {
             value.delegator_address = WKey.convertAddressEthToOkex(delegator);
@@ -179,7 +184,9 @@ public class MsgGenerator {
 
             result.type = BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
             result.value = value;
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
 
     }
@@ -224,8 +231,8 @@ public class MsgGenerator {
     public static ReqBroadCast getBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
         StdSignMsg tosign = genToSignMsg(
                 chainId,
-                ""+account.accountNumber,
-                ""+account.sequenceNumber,
+                "" + account.accountNumber,
+                "" + account.sequenceNumber,
                 msgs,
                 fee,
                 memo);
@@ -241,20 +248,20 @@ public class MsgGenerator {
         pubKey.value = WKey.getPubKeyValue(key);
         signature.pub_key = pubKey;
         signature.signature = signatureTx;
-        signature.account_number = ""+account.accountNumber;
-        signature.sequence = ""+account.sequenceNumber;
+        signature.account_number = "" + account.accountNumber;
+        signature.sequence = "" + account.sequenceNumber;
 
         ArrayList<Signature> signatures = new ArrayList<>();
         signatures.add(signature);
 
         StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
-        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+        WLog.w("signedTx : " + WUtil.prettyPrinter(signedTx));
 
         ReqBroadCast reqBroadCast = new ReqBroadCast();
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+        WLog.w("ReqBroadCast : " + WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;
@@ -266,7 +273,7 @@ public class MsgGenerator {
             return getBroadcaseReq(account, msgs, fee, memo, key, chainId);
         } else {
             //using Ethermint type sig
-            StdSignMsg tosign = genToSignMsg(chainId, ""+account.accountNumber, ""+account.sequenceNumber, msgs, fee, memo);
+            StdSignMsg tosign = genToSignMsg(chainId, "" + account.accountNumber, "" + account.sequenceNumber, msgs, fee, memo);
             String sig = MsgGenerator.getEthermintSignature(key, tosign.getToSignByte());
 
             Signature signature = new Signature();
@@ -277,8 +284,8 @@ public class MsgGenerator {
             pubKey.value = Strings.fromByteArray(org.bouncycastle.util.encoders.Base64.encode(Hex.decode(pubHex)));
             signature.pub_key = pubKey;
             signature.signature = sig;
-            signature.account_number = ""+account.accountNumber;
-            signature.sequence = ""+account.sequenceNumber;
+            signature.account_number = "" + account.accountNumber;
+            signature.sequence = "" + account.sequenceNumber;
 
             ArrayList<Signature> signatures = new ArrayList<>();
             signatures.add(signature);

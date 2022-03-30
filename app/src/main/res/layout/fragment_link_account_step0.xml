@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/space_16">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,32 +16,38 @@
             android:layout_marginRight="@dimen/space_16"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_14_gray1"
-                    android:text="To Link Chain"/>
+                    android:text="To Link Chain" />
+
                 <RelativeLayout
                     android:id="@+id/btn_link_chain"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_50"
                     android:layout_marginTop="@dimen/space_6">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
-                        android:background="@drawable/btn_trans_with_border"/>
+                        android:background="@drawable/btn_trans_with_border" />
+
                     <ImageView
                         android:id="@+id/img_link_chain"
                         android:layout_width="@dimen/space_32"
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/cosmos_wh_main" />
+
                     <TextView
                         android:id="@+id/txt_link_chain"
                         android:layout_width="wrap_content"
@@ -50,7 +56,8 @@
                         android:layout_toRightOf="@+id/img_link_chain"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_14_white"
-                        android:text="COSMOS"/>
+                        android:text="COSMOS" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -58,7 +65,7 @@
                         android:layout_marginLeft="@dimen/space_8"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/arrow_down_gr"/>
+                        android:src="@drawable/arrow_down_gr" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -69,7 +76,8 @@
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginLeft="@dimen/space_16"
             style="@style/font_ss_14_gray1"
-            android:text="To Link Account"/>
+            android:text="To Link Account" />
+
         <RelativeLayout
             android:id="@+id/btn_link_account"
             android:layout_width="match_parent"
@@ -77,18 +85,21 @@
             android:layout_height="@dimen/space_50"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
                 android:background="@drawable/btn_trans_with_border"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/wallet_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     style="@style/font_ss_12_gray1"
-                    android:text=""/>
+                    android:text="" />
+
                 <TextView
                     android:id="@+id/wallet_address"
                     android:layout_width="wrap_content"
@@ -96,8 +107,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/space_2"
                     style="@style/font_ss_10_white"
-                    android:text=""/>
+                    android:text="" />
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/img_send_arrow"
                 android:layout_width="wrap_content"
@@ -106,7 +118,7 @@
                 android:layout_marginLeft="@dimen/space_8"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/arrow_down_gr"/>
+                android:src="@drawable/arrow_down_gr" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -115,17 +127,20 @@
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16">
+
             <TextView
                 android:id="@+id/airdrop_amount_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="AirDrop Amount"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_ss_12_gray1" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:layout_below="@+id/airdrop_amount_title">
+
                 <TextView
                     android:id="@+id/airdrop_symbol"
                     android:layout_width="wrap_content"
@@ -133,7 +148,8 @@
                     android:layout_alignParentRight="true"
                     android:gravity="end"
                     android:text="DSM"
-                    style="@style/font_ss_14_desmos"/>
+                    style="@style/font_ss_14_desmos" />
+
                 <TextView
                     android:id="@+id/airdrop_amount"
                     android:layout_width="wrap_content"
@@ -142,7 +158,7 @@
                     android:layout_toLeftOf="@+id/airdrop_symbol"
                     android:layout_marginRight="@dimen/space_4"
                     android:text="0"
-                    style="@style/font_ss_14_white"/>
+                    style="@style/font_ss_14_white" />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -156,6 +172,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
@@ -166,7 +183,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_cancel"/>
+            android:text="@string/str_cancel" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -178,6 +196,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 </RelativeLayout>

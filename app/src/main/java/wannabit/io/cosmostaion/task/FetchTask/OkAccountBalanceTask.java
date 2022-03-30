@@ -20,9 +20,9 @@ public class OkAccountBalanceTask extends CommonTask {
 
     public OkAccountBalanceTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain) {
         super(app, listener);
-        this.mAccount           = account;
-        this.mChain             = chain;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
+        this.mAccount = account;
+        this.mChain = chain;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
 
     }
 
@@ -43,7 +43,7 @@ public class OkAccountBalanceTask extends CommonTask {
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromOkLcd(mAccount.id, response.body()));
 
                 } else {
-                    mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
+                    mApp.getBaseDao().onDeleteBalance("" + mAccount.id);
 
                 }
 

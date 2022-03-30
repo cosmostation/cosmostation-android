@@ -35,28 +35,28 @@ import wannabit.io.cosmostaion.utils.WKey;
 
 public class RestoreKeyActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar         mToolbar;
-    private EditText        mInput;
-    private Button          mCancel, mNext;
-    private LinearLayout    mBtnQr, mBtnPaste;
+    private Toolbar mToolbar;
+    private EditText mInput;
+    private Button mCancel, mNext;
+    private LinearLayout mBtnQr, mBtnPaste;
 
-    private String          mUserInput;
+    private String mUserInput;
 
-    private BaseChain       mChain;
-    private String          okAddress = "";
-    private int             mOkAddressType;
+    private BaseChain mChain;
+    private String okAddress = "";
+    private int mOkAddressType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restore_key);
 
-        mToolbar        = findViewById(R.id.tool_bar);
-        mInput          = findViewById(R.id.et_address);
-        mCancel         = findViewById(R.id.btn_cancel);
-        mNext           = findViewById(R.id.btn_next);
-        mBtnQr          = findViewById(R.id.btn_qr);
-        mBtnPaste       = findViewById(R.id.btn_paste);
+        mToolbar = findViewById(R.id.tool_bar);
+        mInput = findViewById(R.id.et_address);
+        mCancel = findViewById(R.id.btn_cancel);
+        mNext = findViewById(R.id.btn_next);
+        mBtnQr = findViewById(R.id.btn_qr);
+        mBtnPaste = findViewById(R.id.btn_paste);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -88,12 +88,12 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
     }
 
     private void onOverridePkeyAccount(String pKey, Account account, int customPath) {
-        new OverridePkeyAccountTask(getBaseApplication(),this, pKey, account, customPath).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OverridePkeyAccountTask(getBaseApplication(), this, pKey, account, customPath).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         if ((result.taskType == BaseConstant.TASK_INIT_PKEY_ACCOUNT || result.taskType == BaseConstant.TASK_OVERRIDE_PKEY_ACCOUNT) && result.isSuccess) {
             onStartMainActivity(0);
         }
@@ -101,7 +101,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mCancel)) {
+        if (v.equals(mCancel)) {
             onBackPressed();
 
         } else if (v.equals(mNext)) {
@@ -171,7 +171,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
     }
 
     private void onCheckPassword() {
-        if(!getBaseDao().onHasPassword()) {
+        if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(RestoreKeyActivity.this, PasswordSetActivity.class);
             startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
@@ -205,7 +205,9 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode != Activity.RESULT_OK) { return; }
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
 
         IntentResult pasteResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (pasteResult != null && pasteResult.getContents() != null) {

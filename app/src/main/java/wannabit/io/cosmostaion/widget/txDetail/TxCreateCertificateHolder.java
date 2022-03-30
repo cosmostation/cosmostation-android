@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-
 import akash.cert.v1beta2.Cert;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
@@ -15,7 +14,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class TxCreateCertificateHolder extends TxHolder{
+public class TxCreateCertificateHolder extends TxHolder {
     ImageView itemCreateCertificateImg;
     TextView itemOwner;
 
@@ -31,6 +30,7 @@ public class TxCreateCertificateHolder extends TxHolder{
         try {
             Cert.MsgCreateCertificate msg = Cert.MsgCreateCertificate.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemOwner.setText(msg.getOwner());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

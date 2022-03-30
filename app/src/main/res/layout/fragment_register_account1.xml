@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +11,7 @@
         android:layout_marginTop="@dimen/space_8"
         android:layout_marginBottom="@dimen/space_8"
         android:clipToPadding="false"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never" />
 
     <LinearLayout
         android:id="@+id/control_layer"
@@ -24,6 +22,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <Button
             android:id="@+id/btn_before"
             android:layout_width="0dp"
@@ -34,7 +33,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_back"/>
+            android:text="@string/str_back" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="0dp"
@@ -46,6 +46,6 @@
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_next"/>
+            android:text="@string/str_next" />
     </LinearLayout>
 </RelativeLayout>

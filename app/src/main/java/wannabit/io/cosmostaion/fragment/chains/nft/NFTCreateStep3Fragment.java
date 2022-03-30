@@ -16,16 +16,16 @@ import wannabit.io.cosmostaion.activities.chains.nft.NFTCreateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class NFTCreateStep3Fragment extends BaseFragment implements View.OnClickListener{
+public class NFTCreateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
-    private TextView        mNftName;
-    private TextView        mNftDescription;
-    private TextView        mNftUri;
-    private TextView        mNftId;
-    private TextView        mMemo;
-    private int             mDpDecimal = 6;
+    private TextView mFeeAmount;
+    private TextView mFeeAmountSymbol;
+    private TextView mNftName;
+    private TextView mNftDescription;
+    private TextView mNftUri;
+    private TextView mNftId;
+    private TextView mMemo;
+    private int mDpDecimal = 6;
 
     private Button mBeforeBtn, mConfirmBtn;
 
@@ -43,15 +43,15 @@ public class NFTCreateStep3Fragment extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_issue_nft_step3, container, false);
-        mFeeAmount              = rootView.findViewById(R.id.tx_fee_amount);
-        mFeeAmountSymbol        = rootView.findViewById(R.id.tx_fee_symbol);
-        mNftName                = rootView.findViewById(R.id.nft_name);
-        mNftDescription         = rootView.findViewById(R.id.nft_description);
-        mNftUri                 = rootView.findViewById(R.id.nft_uri);
-        mNftId                  = rootView.findViewById(R.id.nft_id);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.tx_fee_amount);
+        mFeeAmountSymbol = rootView.findViewById(R.id.tx_fee_symbol);
+        mNftName = rootView.findViewById(R.id.nft_name);
+        mNftDescription = rootView.findViewById(R.id.nft_description);
+        mNftUri = rootView.findViewById(R.id.nft_uri);
+        mNftId = rootView.findViewById(R.id.nft_id);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
@@ -76,7 +76,7 @@ public class NFTCreateStep3Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -85,6 +85,6 @@ public class NFTCreateStep3Fragment extends BaseFragment implements View.OnClick
     }
 
     private NFTCreateActivity getSActivity() {
-        return (NFTCreateActivity)getBaseActivity();
+        return (NFTCreateActivity) getBaseActivity();
     }
 }

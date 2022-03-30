@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_BORROW_HARD;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -25,24 +27,21 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_BORROW_HARD;
-
 public class SimulKavaBorrowHardGrpcTask extends CommonTask {
 
-    private Account                 mAccount;
-    private BaseChain               mBaseChain;
-    private String                  mBorrower;
-    private ArrayList<Coin>         mBorrowCoins;
-    private String                  mMemo;
-    private Fee                     mFees;
-    private String                  mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mBorrower;
+    private ArrayList<Coin> mBorrowCoins;
+    private String mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
     public SimulKavaBorrowHardGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String borrower,
-                                  ArrayList<Coin> borrowCoins, String memo, Fee fee, String chainId) {
+                                       ArrayList<Coin> borrowCoins, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;

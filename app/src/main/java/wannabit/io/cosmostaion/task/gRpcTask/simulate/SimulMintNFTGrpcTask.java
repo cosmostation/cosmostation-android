@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_MINT_NFT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -23,23 +27,19 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_MINT_NFT;
-
 public class SimulMintNFTGrpcTask extends CommonTask {
 
-    private Account                 mAccount;
-    private BaseChain               mBaseChain;
-    private String                  mSigner;
-    private String                  mDenomId, mDenomName;
-    private String                  mId, mName, mUri;
-    private String                  mData;
-    private Fee                     mFees;
-    private String                  mMemo;
-    private String                  mChainId;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mSigner;
+    private String mDenomId, mDenomName;
+    private String mId, mName, mUri;
+    private String mData;
+    private Fee mFees;
+    private String mMemo;
+    private String mChainId;
 
-    private QueryOuterClass.QueryAccountResponse    mAuthResponse;
+    private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
     public SimulMintNFTGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String signer, String denomId, String denomName,

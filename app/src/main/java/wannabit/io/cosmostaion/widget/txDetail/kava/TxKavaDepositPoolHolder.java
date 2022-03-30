@@ -22,18 +22,18 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxKavaDepositPoolHolder extends TxHolder {
-    ImageView   itemDepositCoinImg;
-    TextView    itemDepositCoinSender,
-                itemDepositTokenInAmount0, itemDepositTokenInSymbol0, itemDepositTokenInAmount1, itemDepositTokenInSymbol1;
+    ImageView itemDepositCoinImg;
+    TextView itemDepositCoinSender,
+            itemDepositTokenInAmount0, itemDepositTokenInSymbol0, itemDepositTokenInAmount1, itemDepositTokenInSymbol1;
 
     public TxKavaDepositPoolHolder(@NonNull View itemView) {
         super(itemView);
-        itemDepositCoinImg          = itemView.findViewById(R.id.tx_join_pool_icon);
-        itemDepositCoinSender       = itemView.findViewById(R.id.tx_join_pool_sender);
-        itemDepositTokenInAmount0   = itemView.findViewById(R.id.tx_token_in_amount1);
-        itemDepositTokenInSymbol0   = itemView.findViewById(R.id.tx_token_in_symbol1);
-        itemDepositTokenInAmount1   = itemView.findViewById(R.id.tx_token_in_amount2);
-        itemDepositTokenInSymbol1   = itemView.findViewById(R.id.tx_token_in_symbol2);
+        itemDepositCoinImg = itemView.findViewById(R.id.tx_join_pool_icon);
+        itemDepositCoinSender = itemView.findViewById(R.id.tx_join_pool_sender);
+        itemDepositTokenInAmount0 = itemView.findViewById(R.id.tx_token_in_amount1);
+        itemDepositTokenInSymbol0 = itemView.findViewById(R.id.tx_token_in_symbol1);
+        itemDepositTokenInAmount1 = itemView.findViewById(R.id.tx_token_in_amount2);
+        itemDepositTokenInSymbol1 = itemView.findViewById(R.id.tx_token_in_symbol2);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {

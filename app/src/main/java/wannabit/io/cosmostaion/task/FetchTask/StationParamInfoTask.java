@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PARAM_INFO;
+
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -11,18 +13,16 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PARAM_INFO;
-
 public class StationParamInfoTask extends CommonTask {
 
-    private BaseChain   mBaseChain;
-    private String      mChainId;
+    private BaseChain mBaseChain;
+    private String mChainId;
 
     public StationParamInfoTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String chainId) {
         super(app, listener);
-        this.mBaseChain         = baseChain;
-        this.mChainId           = chainId;
-        this.mResult.taskType   = TASK_FETCH_PARAM_INFO;
+        this.mBaseChain = baseChain;
+        this.mChainId = chainId;
+        this.mResult.taskType = TASK_FETCH_PARAM_INFO;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class StationParamInfoTask extends CommonTask {
             } else {
                 response = ApiClient.getStation(mApp).getParam(mChainId).execute();
             }
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                 return mResult;

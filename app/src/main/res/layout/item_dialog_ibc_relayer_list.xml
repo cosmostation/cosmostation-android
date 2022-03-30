@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
@@ -11,6 +8,7 @@
     android:paddingTop="@dimen/space_4"
     android:paddingBottom="@dimen/space_4"
     android:clickable="true">
+
     <LinearLayout
         android:id="@+id/rootLayer"
         android:layout_width="match_parent"
@@ -19,6 +17,7 @@
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:background="@drawable/box_et_white">
+
         <TextView
             android:id="@+id/channel_title"
             android:layout_width="wrap_content"
@@ -26,16 +25,18 @@
             android:layout_marginLeft="@dimen/space_4"
             style="@style/font_ss_14_black"
             android:singleLine="true"
-            android:text="channel-141"/>
+            android:text="channel-141" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/channel_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/wellknown"/>
+            android:src="@drawable/wellknown" />
 
     </LinearLayout>
 </LinearLayout>

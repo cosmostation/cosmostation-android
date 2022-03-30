@@ -23,40 +23,38 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
-import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class GravitySwapFragment extends BaseFragment implements View.OnClickListener{
+public class GravitySwapFragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_INPUT_CHAIN = 8500;
     public final static int SELECT_OUTPUT_CHAIN = 8501;
 
-    private RelativeLayout  mBtnInputCoinList, mBtnOutputCoinList;
-    private ImageView       mInputImg;
-    private TextView        mInputCoin, mInputAmount;
-    private TextView        mSwapFee, mSwapSlippage;
-    private TextView        mSwapTitle;
-    private ImageView       mOutputImg;
-    private TextView        mOutputCoin;
-    private TextView        mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
-    private TextView        mSwapInputCoinExRate, mSwapInputCoinExSymbol, mSwapOutputCoinExRate, mSwapOutputCoinExSymbol;
+    private RelativeLayout mBtnInputCoinList, mBtnOutputCoinList;
+    private ImageView mInputImg;
+    private TextView mInputCoin, mInputAmount;
+    private TextView mSwapFee, mSwapSlippage;
+    private TextView mSwapTitle;
+    private ImageView mOutputImg;
+    private TextView mOutputCoin;
+    private TextView mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
+    private TextView mSwapInputCoinExRate, mSwapInputCoinExSymbol, mSwapOutputCoinExRate, mSwapOutputCoinExSymbol;
 
-    private ImageButton             mBtnToggle;
-    private Button                  mBtnSwapStart;
+    private ImageButton mBtnToggle;
+    private Button mBtnSwapStart;
 
-    public Liquidity.Params                     mParms;
-    public ArrayList<Liquidity.Pool>            mPoolList = new ArrayList<>();
-    public ArrayList<String>                    mAllDenoms = new ArrayList<>();
-    public ArrayList<Liquidity.Pool>            mSwapablePools = new ArrayList<>();
-    public ArrayList<String>                    mSwapableDenoms = new ArrayList<>();
-    public Liquidity.Pool                       mSelectedPool;
+    public Liquidity.Params mParms;
+    public ArrayList<Liquidity.Pool> mPoolList = new ArrayList<>();
+    public ArrayList<String> mAllDenoms = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mSwapablePools = new ArrayList<>();
+    public ArrayList<String> mSwapableDenoms = new ArrayList<>();
+    public Liquidity.Pool mSelectedPool;
 
-    public String                               mInputCoinDenom;
-    public String                               mOutputCoinDenom;
-    public BigDecimal                           mPoolSwapRate;
-    public int                                  mInPutDecimal = 6;
-    public int                                  mOutPutDecimal = 6;
+    public String mInputCoinDenom;
+    public String mOutputCoinDenom;
+    public BigDecimal mPoolSwapRate;
+    public int mInPutDecimal = 6;
+    public int mOutPutDecimal = 6;
 
     public static GravitySwapFragment newInstance(Bundle bundle) {
         GravitySwapFragment fragment = new GravitySwapFragment();
@@ -72,30 +70,30 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_swap_list, container, false);
-        mBtnInputCoinList           = rootView.findViewById(R.id.btn_to_input_coin);
-        mBtnOutputCoinList          = rootView.findViewById(R.id.btn_to_output_coin);
+        mBtnInputCoinList = rootView.findViewById(R.id.btn_to_input_coin);
+        mBtnOutputCoinList = rootView.findViewById(R.id.btn_to_output_coin);
 
-        mInputImg                   = rootView.findViewById(R.id.img_input_coin);
-        mInputCoin                  = rootView.findViewById(R.id.txt_input_coin);
-        mInputAmount                = rootView.findViewById(R.id.inpus_amount);
-        mOutputImg                  = rootView.findViewById(R.id.img_output_coin);
-        mOutputCoin                 = rootView.findViewById(R.id.txt_output_coin);
+        mInputImg = rootView.findViewById(R.id.img_input_coin);
+        mInputCoin = rootView.findViewById(R.id.txt_input_coin);
+        mInputAmount = rootView.findViewById(R.id.inpus_amount);
+        mOutputImg = rootView.findViewById(R.id.img_output_coin);
+        mOutputCoin = rootView.findViewById(R.id.txt_output_coin);
 
-        mSwapTitle                  = rootView.findViewById(R.id.swap_title);
-        mSwapInputCoinRate          = rootView.findViewById(R.id.inputs_rate);
-        mSwapInputCoinSymbol        = rootView.findViewById(R.id.inputs_rate_symbol);
-        mSwapOutputCoinRate         = rootView.findViewById(R.id.outputs_rate);
-        mSwapOutputCoinSymbol       = rootView.findViewById(R.id.outputs_rate_symbol);
+        mSwapTitle = rootView.findViewById(R.id.swap_title);
+        mSwapInputCoinRate = rootView.findViewById(R.id.inputs_rate);
+        mSwapInputCoinSymbol = rootView.findViewById(R.id.inputs_rate_symbol);
+        mSwapOutputCoinRate = rootView.findViewById(R.id.outputs_rate);
+        mSwapOutputCoinSymbol = rootView.findViewById(R.id.outputs_rate_symbol);
 
-        mSwapInputCoinExRate        = rootView.findViewById(R.id.global_inputs_rate);
-        mSwapInputCoinExSymbol      = rootView.findViewById(R.id.global_inputs_rate_symbol);
-        mSwapOutputCoinExRate       = rootView.findViewById(R.id.global_outputs_rate);
-        mSwapOutputCoinExSymbol     = rootView.findViewById(R.id.global_outputs_rate_symbol);
+        mSwapInputCoinExRate = rootView.findViewById(R.id.global_inputs_rate);
+        mSwapInputCoinExSymbol = rootView.findViewById(R.id.global_inputs_rate_symbol);
+        mSwapOutputCoinExRate = rootView.findViewById(R.id.global_outputs_rate);
+        mSwapOutputCoinExSymbol = rootView.findViewById(R.id.global_outputs_rate_symbol);
 
-        mSwapFee                    = rootView.findViewById(R.id.token_swap_fee);
-        mSwapSlippage               = rootView.findViewById(R.id.swap_slippage);
-        mBtnToggle                  = rootView.findViewById(R.id.btn_toggle);
-        mBtnSwapStart               = rootView.findViewById(R.id.btn_start_swap);
+        mSwapFee = rootView.findViewById(R.id.token_swap_fee);
+        mSwapSlippage = rootView.findViewById(R.id.swap_slippage);
+        mBtnToggle = rootView.findViewById(R.id.btn_toggle);
+        mBtnSwapStart = rootView.findViewById(R.id.btn_start_swap);
 
         mBtnInputCoinList.setOnClickListener(this);
         mBtnOutputCoinList.setOnClickListener(this);
@@ -176,16 +174,16 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnOutputCoinList)) {
             mSwapablePools.clear();
             mSwapableDenoms.clear();
-            for (Liquidity.Pool pool: mPoolList) {
-                for (String denom: pool.getReserveCoinDenomsList()) {
+            for (Liquidity.Pool pool : mPoolList) {
+                for (String denom : pool.getReserveCoinDenomsList()) {
                     if (denom.contains(mInputCoinDenom)) {
                         mSwapablePools.add(pool);
                     }
                 }
             }
 
-            for (Liquidity.Pool pool: mSwapablePools) {
-                for (String denom: pool.getReserveCoinDenomsList()) {
+            for (Liquidity.Pool pool : mSwapablePools) {
+                for (String denom : pool.getReserveCoinDenomsList()) {
                     if (!denom.equalsIgnoreCase(mInputCoinDenom)) {
                         mSwapableDenoms.add(denom);
                     }
@@ -214,15 +212,16 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (Liquidity.Pool pool: mPoolList) {
-                for (String denom: pool.getReserveCoinDenomsList()) {
+            loop:
+            for (Liquidity.Pool pool : mPoolList) {
+                for (String denom : pool.getReserveCoinDenomsList()) {
                     if (denom.equalsIgnoreCase(mInputCoinDenom)) {
                         mSelectedPool = pool;
                         break loop;
                     }
                 }
             }
-            for (String denom: mSelectedPool.getReserveCoinDenomsList()) {
+            for (String denom : mSelectedPool.getReserveCoinDenomsList()) {
                 if (!denom.equalsIgnoreCase(mInputCoinDenom)) {
                     mOutputCoinDenom = denom;
                     break;
@@ -232,8 +231,9 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
 
         } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (Liquidity.Pool pool: mSwapablePools) {
-                for (String denom: pool.getReserveCoinDenomsList()) {
+            loop:
+            for (Liquidity.Pool pool : mSwapablePools) {
+                for (String denom : pool.getReserveCoinDenomsList()) {
                     if (denom.equalsIgnoreCase(mOutputCoinDenom)) {
                         mSelectedPool = pool;
                         break loop;
@@ -244,6 +244,8 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
-    private GravityListActivity getSActivity() { return (GravityListActivity)getBaseActivity(); }
+    private GravityListActivity getSActivity() {
+        return (GravityListActivity) getBaseActivity();
+    }
 
 }

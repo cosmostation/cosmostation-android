@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_SEND;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -25,17 +27,14 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_SEND;
-
 public class SimulSendGrpcTask extends CommonTask {
-    private BaseChain       mBaseChain;
-    private Account         mAccount;
-    private String          mToAddress;
+    private BaseChain mBaseChain;
+    private Account mAccount;
+    private String mToAddress;
     private ArrayList<Coin> mAmount;
-    private String          mMemo;
-    private Fee             mFees;
-    private String          mChainId;
+    private String mMemo;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
@@ -78,7 +77,7 @@ public class SimulSendGrpcTask extends CommonTask {
 
 
         } catch (Exception e) {
-            WLog.e( "SimulSendGrpcTask "+ e.getMessage());
+            WLog.e("SimulSendGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

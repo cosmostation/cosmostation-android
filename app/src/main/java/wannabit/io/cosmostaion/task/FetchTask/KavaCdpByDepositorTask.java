@@ -30,7 +30,7 @@ public class KavaCdpByDepositorTask extends CommonTask {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResCdpDepositStatus> response = ApiClient.getKavaChain(mApp).getCdpDepositStatus(mAddress, mCollateralType).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 

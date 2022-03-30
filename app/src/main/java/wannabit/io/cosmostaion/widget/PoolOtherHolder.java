@@ -42,10 +42,10 @@ public class PoolOtherHolder extends BaseHolder {
         itemTotalDepositAmount1 = itemView.findViewById(R.id.pool_total_liquidity_amount2);
         itemTotalDepositSymbol1 = itemView.findViewById(R.id.pool_total_liquidity_symbol2);
 
-        itemMyAvailableAmount0  = itemView.findViewById(R.id.mypool_amount1);
-        itemMyAvailableSymbol0  = itemView.findViewById(R.id.mypool_symbol1);
-        itemMyAvailableAmount1  = itemView.findViewById(R.id.mypool_amount2);
-        itemMyAvailableSymbol1  = itemView.findViewById(R.id.mypool_symbol2);
+        itemMyAvailableAmount0 = itemView.findViewById(R.id.mypool_amount1);
+        itemMyAvailableSymbol0 = itemView.findViewById(R.id.mypool_symbol1);
+        itemMyAvailableAmount1 = itemView.findViewById(R.id.mypool_amount2);
+        itemMyAvailableSymbol1 = itemView.findViewById(R.id.mypool_symbol2);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class PoolOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LabsListActivity)activity).onCheckStartJoinPool(otherPool.getId());
+                ((LabsListActivity) activity).onCheckStartJoinPool(otherPool.getId());
             }
         });
     }
@@ -115,7 +115,7 @@ public class PoolOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DAppsList5Activity)activity).onCheckStartJoinPool(otherPool);
+                ((DAppsList5Activity) activity).onCheckStartJoinPool(otherPool);
             }
         });
     }

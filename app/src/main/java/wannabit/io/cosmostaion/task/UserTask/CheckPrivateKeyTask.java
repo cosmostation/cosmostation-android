@@ -23,7 +23,7 @@ public class CheckPrivateKeyTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
             mResult.isSuccess = false;
             mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
             return mResult;

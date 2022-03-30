@@ -1,5 +1,14 @@
 package wannabit.io.cosmostaion.activities.chains.rizon;
 
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_HDAC_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_HDAC_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_RIZON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_RIZON_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_TX_DETAIL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_RIZON_SWAP_STATUS;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -33,41 +42,32 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_HDAC_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_HDAC_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_TX_DETAIL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_RIZON_SWAP_STATUS;
-
 
 public class RizonSwapStatusActivity extends BaseBroadCastActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar                             mToolbar;
-    private SwipeRefreshLayout                  mSwipeRefreshLayout;
-    private RecyclerView                        mRecyclerView;
-    private RelativeLayout                      mLoadingLayer;
-    private Button                              mBtnDone;
+    private Toolbar mToolbar;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private RelativeLayout mLoadingLayer;
+    private Button mBtnDone;
 
-    private ArrayList<RizonSwapStatus>          mRizonSwapStatus = new ArrayList<>();
-    private ArrayList<HdacTxInfo>               mHdacTxInfos = new ArrayList<>();
+    private ArrayList<RizonSwapStatus> mRizonSwapStatus = new ArrayList<>();
+    private ArrayList<HdacTxInfo> mHdacTxInfos = new ArrayList<>();
 
-    private EventHorizonStatusAdapter           mEventHorizonStatusAdapter;
+    private EventHorizonStatusAdapter mEventHorizonStatusAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rizon_swap_status);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mLoadingLayer           = findViewById(R.id.loadingLayer);
-        mBtnDone                = findViewById(R.id.btn_done);
+        mToolbar = findViewById(R.id.tool_bar);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
+        mBtnDone = findViewById(R.id.btn_done);
 
-        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain  = BaseChain.getChain(mAccount.baseChain);
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mBtnDone.setOnClickListener(this);
 
@@ -127,14 +127,14 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
                 mRizonSwapStatus = (ArrayList<RizonSwapStatus>) result.resultData;
 
                 mTaskCount = mRizonSwapStatus.size();
-                for(RizonSwapStatus rizonSwapStatus: mRizonSwapStatus) {
+                for (RizonSwapStatus rizonSwapStatus : mRizonSwapStatus) {
                     new HdacTxDetailTask(getBaseApplication(), this, mBaseChain, rizonSwapStatus.hdacTxId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
             }
 
         } else if (result.taskType == TASK_HDAC_TX_DETAIL) {
             if (result.isSuccess) {
-                mHdacTxInfos.add((HdacTxInfo)result.resultData);
+                mHdacTxInfos.add((HdacTxInfo) result.resultData);
             }
 
         }
@@ -192,7 +192,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
                     holder.swap_rizon_status_icon.setVisibility(View.GONE);
                     holder.swap_rizon_status.setText("Success");
                     holder.swap_rizon_status_tx_hash.setText(rizonSwapStatus.rizonTxId);
-                    holder.swap_rizon_status_mint_amount.setText("" + WDp.getDpAmount2(RizonSwapStatusActivity.this, new BigDecimal(rizonSwapStatus.amount), 0, 6 ));
+                    holder.swap_rizon_status_mint_amount.setText("" + WDp.getDpAmount2(RizonSwapStatusActivity.this, new BigDecimal(rizonSwapStatus.amount), 0, 6));
                 } else {
                     holder.swap_rizon_status_icon.setVisibility(View.VISIBLE);
                     holder.swap_rizon_status.setText("Pending");
@@ -210,40 +210,44 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         }
 
         @Override
-        public int getItemCount() { return mRizonSwapStatus.size(); }
+        public int getItemCount() {
+            return mRizonSwapStatus.size();
+        }
 
         public class StatusHolder extends RecyclerView.ViewHolder {
-            private LinearLayout    mHdacRoot, mRizonRoot;
-            private TextView        swap_result_status, swap_result_time, swap_result_id;
-            private ImageView       swap_hdac_status_icon;
-            private TextView        swap_hdac_status, swap_burn_from_address, swap_burn_tx_hash, swap_burn_amount;
-            private ImageView       swap_rizon_status_icon;
-            private TextView        swap_rizon_to_Address, swap_rizon_status, swap_rizon_status_tx_hash, swap_rizon_status_mint_amount;
+            private LinearLayout mHdacRoot, mRizonRoot;
+            private TextView swap_result_status, swap_result_time, swap_result_id;
+            private ImageView swap_hdac_status_icon;
+            private TextView swap_hdac_status, swap_burn_from_address, swap_burn_tx_hash, swap_burn_amount;
+            private ImageView swap_rizon_status_icon;
+            private TextView swap_rizon_to_Address, swap_rizon_status, swap_rizon_status_tx_hash, swap_rizon_status_mint_amount;
 
             public StatusHolder(@NonNull View itemView) {
                 super(itemView);
-                mHdacRoot                       = itemView.findViewById(R.id.hdacLayout);
-                mRizonRoot                      = itemView.findViewById(R.id.rizonLayout);
-                swap_result_status              = itemView.findViewById(R.id.tx_result_status);
-                swap_result_time                = itemView.findViewById(R.id.tx_request_time);
-                swap_result_id                  = itemView.findViewById(R.id.tx_request_id);
-                swap_hdac_status_icon           = itemView.findViewById(R.id.hdac_swap_status_icon);
-                swap_hdac_status                = itemView.findViewById(R.id.hdac_status);
-                swap_burn_from_address          = itemView.findViewById(R.id.burn_from_address);
-                swap_burn_tx_hash               = itemView.findViewById(R.id.burn_tx_hash);
-                swap_burn_amount                = itemView.findViewById(R.id.burn_amount);
-                swap_rizon_status_icon          = itemView.findViewById(R.id.rizon_swap_status_icon);
-                swap_rizon_status               = itemView.findViewById(R.id.rizon_swap_status);
-                swap_rizon_to_Address           = itemView.findViewById(R.id.rizon_to_address);
-                swap_rizon_status_tx_hash       = itemView.findViewById(R.id.rizon_tx_hash);
-                swap_rizon_status_mint_amount   = itemView.findViewById(R.id.rizon_mint_amount);
+                mHdacRoot = itemView.findViewById(R.id.hdacLayout);
+                mRizonRoot = itemView.findViewById(R.id.rizonLayout);
+                swap_result_status = itemView.findViewById(R.id.tx_result_status);
+                swap_result_time = itemView.findViewById(R.id.tx_request_time);
+                swap_result_id = itemView.findViewById(R.id.tx_request_id);
+                swap_hdac_status_icon = itemView.findViewById(R.id.hdac_swap_status_icon);
+                swap_hdac_status = itemView.findViewById(R.id.hdac_status);
+                swap_burn_from_address = itemView.findViewById(R.id.burn_from_address);
+                swap_burn_tx_hash = itemView.findViewById(R.id.burn_tx_hash);
+                swap_burn_amount = itemView.findViewById(R.id.burn_amount);
+                swap_rizon_status_icon = itemView.findViewById(R.id.rizon_swap_status_icon);
+                swap_rizon_status = itemView.findViewById(R.id.rizon_swap_status);
+                swap_rizon_to_Address = itemView.findViewById(R.id.rizon_to_address);
+                swap_rizon_status_tx_hash = itemView.findViewById(R.id.rizon_tx_hash);
+                swap_rizon_status_mint_amount = itemView.findViewById(R.id.rizon_mint_amount);
             }
         }
     }
 
     private HdacTxInfo getHdacTxDetail(String txhash) {
-        if (mHdacTxInfos == null) { return null;}
-        for (HdacTxInfo info: mHdacTxInfos) {
+        if (mHdacTxInfos == null) {
+            return null;
+        }
+        for (HdacTxInfo info : mHdacTxInfos) {
             if (info.txid.equals(txhash)) {
                 return info;
             }
@@ -254,8 +258,11 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     private void onExplorerHdac(RizonSwapStatus rizonSwapStatus) {
         String hash = rizonSwapStatus.hdacTxId;
         String url = "";
-        if (mBaseChain.equals(RIZON_TEST)) { url  = EXPLORER_HDAC_TEST + "tx/" + hash; }
-        else { url  = EXPLORER_HDAC_MAIN + "tx/" + hash; }
+        if (mBaseChain.equals(RIZON_TEST)) {
+            url = EXPLORER_HDAC_TEST + "tx/" + hash;
+        } else {
+            url = EXPLORER_HDAC_MAIN + "tx/" + hash;
+        }
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }
@@ -263,8 +270,11 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     private void onExplorerRizon(RizonSwapStatus rizonSwapStatus) {
         String hash = rizonSwapStatus.rizonTxId;
         String url = "";
-        if (mBaseChain.equals(RIZON_TEST)) { url  = EXPLORER_RIZON_TEST + "txs/" + hash; }
-        else { url  = EXPLORER_RIZON_MAIN + "txs/" + hash; }
+        if (mBaseChain.equals(RIZON_TEST)) {
+            url = EXPLORER_RIZON_TEST + "txs/" + hash;
+        } else {
+            url = EXPLORER_RIZON_MAIN + "txs/" + hash;
+        }
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }

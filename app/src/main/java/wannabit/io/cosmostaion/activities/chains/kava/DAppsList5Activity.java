@@ -1,5 +1,15 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_PARAMS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_PARAMS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,36 +57,26 @@ import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolsGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_PARAMS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_PARAMS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
-    private Toolbar                     mToolbar;
-    private ViewPager                   mDappPager;
-    private TabLayout                   mDappTapLayer;
-    private KavaDApp5PageAdapter        mPageAdapter;
+    private Toolbar mToolbar;
+    private ViewPager mDappPager;
+    private TabLayout mDappTapLayer;
+    private KavaDApp5PageAdapter mPageAdapter;
 
-    public ArrayList<String>                                            mAllDenoms = new ArrayList<>();
-    public ArrayList<QueryOuterClass.PoolResponse>                      mSwapPoolList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.DepositResponse>                   mMySwapDepositList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.PoolResponse>                      mMySwapPoolList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.PoolResponse>                      mOtherSwapPoolList = new ArrayList<>();
+    public ArrayList<String> mAllDenoms = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse> mSwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.DepositResponse> mMySwapDepositList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse> mMySwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse> mOtherSwapPoolList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dapp_list);
-        mToolbar        = findViewById(R.id.tool_bar);
-        mDappTapLayer   = findViewById(R.id.validator_tab);
-        mDappPager      = findViewById(R.id.validator_view_pager);
+        mToolbar = findViewById(R.id.tool_bar);
+        mDappTapLayer = findViewById(R.id.validator_tab);
+        mDappPager = findViewById(R.id.validator_view_pager);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -119,10 +119,12 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
         mDappPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
 
             @Override
             public void onPageSelected(int i) {
@@ -186,11 +188,15 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         String coin1Denom = myPool.getCoins(1).getDenom();
 
         BigDecimal available0MaxAmount = getBaseDao().getAvailable(coin0Denom);
-        if (coin0Denom.equalsIgnoreCase(TOKEN_KAVA)) { available0MaxAmount = available0MaxAmount.subtract(feeAmount); }
+        if (coin0Denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            available0MaxAmount = available0MaxAmount.subtract(feeAmount);
+        }
         BigDecimal available1MaxAmount = getBaseDao().getAvailable(coin1Denom);
-        if (coin1Denom.equalsIgnoreCase(TOKEN_KAVA)) { available1MaxAmount = available1MaxAmount.subtract(feeAmount); }
+        if (coin1Denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            available1MaxAmount = available1MaxAmount.subtract(feeAmount);
+        }
 
-        if (available0MaxAmount.compareTo(BigDecimal.ZERO) <= 0 || available1MaxAmount.compareTo(BigDecimal.ZERO) <=0 ) {
+        if (available0MaxAmount.compareTo(BigDecimal.ZERO) <= 0 || available1MaxAmount.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(DAppsList5Activity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -222,6 +228,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     }
 
     private int mTaskCount = 0;
+
     public void onFetchData() {
         mTaskCount = 5;
         getBaseDao().mSwapParams = null;
@@ -267,21 +274,24 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         }
 
         if (mTaskCount == 0) {
-            for (QueryOuterClass.PoolResponse pool: mSwapPoolList) {
-                for (CoinOuterClass.Coin coin: pool.getCoinsList()) {
+            for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
+                for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
                     if (!mAllDenoms.contains(coin.getDenom())) {
                         mAllDenoms.add(coin.getDenom());
                         WUtil.onSortingDenom(mAllDenoms, mBaseChain);
                     }
                 }
                 boolean myPool = false;
-                for (QueryOuterClass.DepositResponse deposit: mMySwapDepositList) {
+                for (QueryOuterClass.DepositResponse deposit : mMySwapDepositList) {
                     if (deposit.getPoolId().equalsIgnoreCase(pool.getName())) {
                         myPool = true;
                     }
                 }
-                if (myPool) { mMySwapPoolList.add(pool); }
-                else { mOtherSwapPoolList.add(pool); }
+                if (myPool) {
+                    mMySwapPoolList.add(pool);
+                } else {
+                    mOtherSwapPoolList.add(pool);
+                }
             }
 
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {

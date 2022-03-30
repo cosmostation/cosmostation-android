@@ -17,7 +17,7 @@ public class GDexManager {
 
     public GDexManager(String address, List<CoinOuterClass.Coin> coins) {
         this.address = address;
-        for (CoinOuterClass.Coin coin: coins) {
+        for (CoinOuterClass.Coin coin : coins) {
             reserve.add(new Coin(coin.getDenom(), coin.getAmount()));
         }
     }

@@ -18,10 +18,10 @@ import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class SifIncentiveStep0Frament extends BaseFragment implements View.OnClickListener{
-    private TextView    mIncentiveAmount;
-    private TextView    mIncentiveType;
-    private Button      mCheckReward, mCancel, mNextBtn;
+public class SifIncentiveStep0Frament extends BaseFragment implements View.OnClickListener {
+    private TextView mIncentiveAmount;
+    private TextView mIncentiveType;
+    private Button mCheckReward, mCancel, mNextBtn;
 
     public static SifIncentiveStep0Frament newInstance(Bundle bundle) {
         SifIncentiveStep0Frament fragment = new SifIncentiveStep0Frament();
@@ -71,6 +71,6 @@ public class SifIncentiveStep0Frament extends BaseFragment implements View.OnCli
     }
 
     private SifIncentiveActivity getSActivity() {
-        return (SifIncentiveActivity)getBaseActivity();
+        return (SifIncentiveActivity) getBaseActivity();
     }
 }

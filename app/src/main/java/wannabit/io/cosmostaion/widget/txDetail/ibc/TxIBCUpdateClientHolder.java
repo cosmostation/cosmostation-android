@@ -30,9 +30,10 @@ public class TxIBCUpdateClientHolder extends TxHolder {
         itemIbcUpdateClienImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 
         try {
-             Tx.MsgUpdateClient msg = Tx.MsgUpdateClient.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-             itemIbcUpdateClientSiner.setText(msg.getSigner());
-             itemIbcUpdateClientId.setText("" + msg.getClientId());
-        } catch (Exception e) {}
+            Tx.MsgUpdateClient msg = Tx.MsgUpdateClient.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+            itemIbcUpdateClientSiner.setText(msg.getSigner());
+            itemIbcUpdateClientId.setText("" + msg.getClientId());
+        } catch (Exception e) {
+        }
     }
 }

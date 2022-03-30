@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-//import com.google.firebase.FirebaseApp;
 import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
@@ -13,8 +12,8 @@ import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 
 public class BaseApplication extends Application {
 
-    private BaseData        mBaseData;
-    private AppStatus       mAppStatus;
+    private BaseData mBaseData;
+    private AppStatus mAppStatus;
 
     @Override
     public void onCreate() {
@@ -43,26 +42,28 @@ public class BaseApplication extends Application {
     }
 
     public boolean needShowLockScreen() {
-        if(!isReturnedForground() ||
+        if (!isReturnedForground() ||
                 !getBaseDao().onHasPassword() ||
                 !getBaseDao().getUsingAppLock() ||
-                (getBaseDao().onSelectAccounts().size() <= 0 )) return false;
+                (getBaseDao().onSelectAccounts().size() <= 0)) return false;
 
         if (getBaseDao().getAppLockTriggerTime() == 0) {
             return true;
         } else if (getBaseDao().getAppLockTriggerTime() == 1) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_10S) >= System.currentTimeMillis()) return false;
+            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_10S) >= System.currentTimeMillis())
+                return false;
 
         } else if (getBaseDao().getAppLockTriggerTime() == 2) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_30S) >= System.currentTimeMillis()) return false;
+            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_30S) >= System.currentTimeMillis())
+                return false;
 
         } else if (getBaseDao().getAppLockTriggerTime() == 3) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_M) >= System.currentTimeMillis()) return false;
+            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_M) >= System.currentTimeMillis())
+                return false;
 
         }
         return true;
     }
-
 
 
     public enum AppStatus {
@@ -96,19 +97,24 @@ public class BaseApplication extends Application {
         }
 
         @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState) { }
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        }
 
         @Override
-        public void onActivityResumed(Activity activity) { }
+        public void onActivityResumed(Activity activity) {
+        }
 
         @Override
-        public void onActivityPaused(Activity activity) { }
+        public void onActivityPaused(Activity activity) {
+        }
 
 
         @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) { }
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        }
 
         @Override
-        public void onActivityDestroyed(Activity activity) { }
+        public void onActivityDestroyed(Activity activity) {
+        }
     }
 }

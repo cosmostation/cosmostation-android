@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,15 +21,13 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Hard_Liquidation_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_HARD_BORROW_CHECK = 9108;
 
-    private Button      mBeforeBtn, mConfirmBtn;
-    private TextView    mBorrowAmount, mBorrowDenom;
-    private TextView    mFeesAmount, mFeesDenom;
-    private TextView    mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
+    private TextView mBorrowAmount, mBorrowDenom;
+    private TextView mFeesAmount, mFeesDenom;
+    private TextView mMemo;
 
     public static BorrowHardStep3Fragment newInstance(Bundle bundle) {
         BorrowHardStep3Fragment fragment = new BorrowHardStep3Fragment();
@@ -85,6 +85,6 @@ public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClic
     }
 
     private BorrowHardActivity getSActivity() {
-        return (BorrowHardActivity)getBaseActivity();
+        return (BorrowHardActivity) getBaseActivity();
     }
 }

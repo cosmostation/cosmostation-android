@@ -1,5 +1,13 @@
 package wannabit.io.cosmostaion.activities.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -28,53 +36,45 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
-import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
+import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
-
 public class StarNameAccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar                             mToolbar;
-    private TextView                            mToolTitle;
-    private SwipeRefreshLayout                  mSwipeRefreshLayout;
-    private RecyclerView                        mRecyclerView;
-    private Button                              mBtnDelete, mBtnRenew, mBtnEdit;
+    private Toolbar mToolbar;
+    private TextView mToolTitle;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private Button mBtnDelete, mBtnRenew, mBtnEdit;
 
-    private String                              mMyDomain;
-    private String                              mMyAccount;
-    private MyAccountAdapter                    mAdapter;
-    private Types.Domain                        mDomain_gRPC;
-    private Types.Account                       mAccountResolve_gRPC;
+    private String mMyDomain;
+    private String mMyAccount;
+    private MyAccountAdapter mAdapter;
+    private Types.Domain mDomain_gRPC;
+    private Types.Account mAccountResolve_gRPC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_detail);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolTitle              = findViewById(R.id.tool_title);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnDelete              = findViewById(R.id.btn_delete);
-        mBtnRenew               = findViewById(R.id.btn_renew);
-        mBtnEdit                = findViewById(R.id.btn_edit);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolTitle = findViewById(R.id.tool_title);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnDelete = findViewById(R.id.btn_delete);
+        mBtnRenew = findViewById(R.id.btn_renew);
+        mBtnEdit = findViewById(R.id.btn_edit);
 
-        mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain      = BaseChain.getChain(mAccount.baseChain);
-        mMyDomain       = getIntent().getStringExtra("domain");
-        mMyAccount      = getIntent().getStringExtra("account");
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mMyDomain = getIntent().getStringExtra("domain");
+        mMyAccount = getIntent().getStringExtra("account");
         WLog.w("mMyDomain " + mMyDomain);
 
         mToolTitle.setText(getString(R.string.str_account_detail));
@@ -197,12 +197,12 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         if (isFinishing()) return;
         if (result.taskType == TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                mDomain_gRPC = (Types.Domain)result.resultData;
+                mDomain_gRPC = (Types.Domain) result.resultData;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_RESOLVE) {
             if (result.isSuccess && result.resultData != null) {
-                mAccountResolve_gRPC = (Types.Account)result.resultData;
+                mAccountResolve_gRPC = (Types.Account) result.resultData;
             }
 
         }
@@ -215,18 +215,18 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
 
     private class MyAccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_HEADER        = 0;
-        private static final int TYPE_RESOURCE      = 1;
-        private static final int TYPE_EMPTY         = 2;
+        private static final int TYPE_HEADER = 0;
+        private static final int TYPE_RESOURCE = 1;
+        private static final int TYPE_EMPTY = 2;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if(viewType == TYPE_HEADER) {
+            if (viewType == TYPE_HEADER) {
                 return new MyAccountHeaderHolder(getLayoutInflater().inflate(R.layout.item_account_detail_header, viewGroup, false));
-            } else if(viewType == TYPE_RESOURCE) {
+            } else if (viewType == TYPE_RESOURCE) {
                 return new MyResourceHolder(getLayoutInflater().inflate(R.layout.item_starname_resource, viewGroup, false));
-            } else if(viewType == TYPE_EMPTY) {
+            } else if (viewType == TYPE_EMPTY) {
                 return new MyResourceEmptyHolder(getLayoutInflater().inflate(R.layout.item_starname_resource_empty, viewGroup, false));
             }
             return null;
@@ -235,7 +235,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_HEADER) {
-                final MyAccountHeaderHolder holder = (MyAccountHeaderHolder)viewHolder;
+                final MyAccountHeaderHolder holder = (MyAccountHeaderHolder) viewHolder;
                 if (mAccountResolve_gRPC != null) {
                     holder.itemStarName.setText(mAccountResolve_gRPC.getName().getValue() + "*" + mAccountResolve_gRPC.getDomain());
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mAccountResolve_gRPC.getValidUntil() * 1000));
@@ -243,14 +243,14 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                     holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://starname.me/" + mAccountResolve_gRPC.getName().getValue() + "*" + mAccountResolve_gRPC.getDomain()));
+                            Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://starname.me/" + mAccountResolve_gRPC.getName().getValue() + "*" + mAccountResolve_gRPC.getDomain()));
                             startActivity(guideIntent);
                         }
                     });
                 }
 
-            } else  if (getItemViewType(position) == TYPE_RESOURCE) {
-                final MyResourceHolder holder = (MyResourceHolder)viewHolder;
+            } else if (getItemViewType(position) == TYPE_RESOURCE) {
+                final MyResourceHolder holder = (MyResourceHolder) viewHolder;
                 final Types.Resource resource = mAccountResolve_gRPC.getResources(position - 1);
                 Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.getUri())).fit().into(holder.itemChainImg);
                 holder.itemChainName.setText(StarnameAssets.getStarNameChainName(resource.getUri()));
@@ -264,7 +264,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
             if (mAccountResolve_gRPC != null && mAccountResolve_gRPC.getResourcesCount() > 0) {
                 return mAccountResolve_gRPC.getResourcesCount() + 1;
             } else {
-                return + 2;
+                return +2;
             }
         }
 
@@ -290,11 +290,11 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
             public MyAccountHeaderHolder(View v) {
                 super(v);
-                itemRoot            = itemView.findViewById(R.id.card_root);
-                itemStarName        = itemView.findViewById(R.id.starname_name);
-                itemBtnWebLink      = itemView.findViewById(R.id.web_detail);
-                itemAddressCnt      = itemView.findViewById(R.id.connected_addressed);
-                itemExpireDate      = itemView.findViewById(R.id.expire_date);
+                itemRoot = itemView.findViewById(R.id.card_root);
+                itemStarName = itemView.findViewById(R.id.starname_name);
+                itemBtnWebLink = itemView.findViewById(R.id.web_detail);
+                itemAddressCnt = itemView.findViewById(R.id.connected_addressed);
+                itemExpireDate = itemView.findViewById(R.id.expire_date);
             }
         }
 
@@ -305,10 +305,10 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
             public MyResourceHolder(View v) {
                 super(v);
-                itemRoot        = itemView.findViewById(R.id.card_root);
-                itemChainImg    = itemView.findViewById(R.id.chain_img);
-                itemChainName   = itemView.findViewById(R.id.chain_name);
-                itemAddress     = itemView.findViewById(R.id.chain_address);
+                itemRoot = itemView.findViewById(R.id.card_root);
+                itemChainImg = itemView.findViewById(R.id.chain_img);
+                itemChainName = itemView.findViewById(R.id.chain_name);
+                itemAddress = itemView.findViewById(R.id.chain_address);
             }
         }
 

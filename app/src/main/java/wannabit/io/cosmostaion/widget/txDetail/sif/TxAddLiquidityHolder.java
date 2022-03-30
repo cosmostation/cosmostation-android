@@ -7,31 +7,29 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxAddLiquidityHolder extends TxHolder {
-    ImageView   itemALImg;
-    TextView    itemALSigner,
-                itemALNativeAssetAmount, itemALNativeAssetSymbol, itemALExternalAssetlAmount, itemALExternalAssetSymbol;
+    ImageView itemALImg;
+    TextView itemALSigner,
+            itemALNativeAssetAmount, itemALNativeAssetSymbol, itemALExternalAssetlAmount, itemALExternalAssetSymbol;
 
     public TxAddLiquidityHolder(@NonNull View itemView) {
         super(itemView);
-        itemALImg                   = itemView.findViewById(R.id.tx_add_liquidity_icon);
-        itemALSigner                = itemView.findViewById(R.id.tx_add_liquidity_signer);
-        itemALNativeAssetAmount     = itemView.findViewById(R.id.tx_liquidity_native_amount);
-        itemALNativeAssetSymbol     = itemView.findViewById(R.id.tx_liquidity_native_symbol);
-        itemALExternalAssetlAmount  = itemView.findViewById(R.id.tx_liquidity_exteranl_amount);
-        itemALExternalAssetSymbol   = itemView.findViewById(R.id.tx_liquidity_exteranl_symbol);
+        itemALImg = itemView.findViewById(R.id.tx_add_liquidity_icon);
+        itemALSigner = itemView.findViewById(R.id.tx_add_liquidity_signer);
+        itemALNativeAssetAmount = itemView.findViewById(R.id.tx_liquidity_native_amount);
+        itemALNativeAssetSymbol = itemView.findViewById(R.id.tx_liquidity_native_symbol);
+        itemALExternalAssetlAmount = itemView.findViewById(R.id.tx_liquidity_exteranl_amount);
+        itemALExternalAssetSymbol = itemView.findViewById(R.id.tx_liquidity_exteranl_symbol);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {

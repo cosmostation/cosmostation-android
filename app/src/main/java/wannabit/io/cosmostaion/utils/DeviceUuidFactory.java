@@ -49,8 +49,7 @@ public class DeviceUuidFactory {
                                         @Override
                                         public void onPermissionGranted() {
                                             try {
-                                                @SuppressLint("MissingPermission")
-                                                final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                                                @SuppressLint("MissingPermission") final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
                                                 uuid = TextUtils.isEmpty(deviceId) ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
                                             } catch (UnsupportedEncodingException e) {
                                                 throw new RuntimeException(e);

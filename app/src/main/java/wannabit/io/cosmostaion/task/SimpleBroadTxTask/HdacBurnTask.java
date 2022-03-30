@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_BROAD_BURN;
+
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -10,8 +12,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_BROAD_BURN;
 
 public class HdacBurnTask extends CommonTask {
 

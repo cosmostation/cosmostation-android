@@ -18,7 +18,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
-import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -26,35 +25,35 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletChainHolder extends BaseHolder {
-    public CardView         mTvChainCard;
-    public ImageView        mTvChainIcon;
-    public TextView         mTvChainDenom;
-    public TextView         mTvChainTotal, mTvChainValue, mTvChainAvailable, mTvChainDelegated, mTvChainUnBonding, mTvChainRewards;
-    public RelativeLayout   mChainVestingLayer;
-    public TextView         mTvChainVesting;
-    public RelativeLayout   mBtnStake, mBtnVote, mBtnDex, mBtnWalletConnect;
-    public TextView         mBtnDexTitle;
+    public CardView mTvChainCard;
+    public ImageView mTvChainIcon;
+    public TextView mTvChainDenom;
+    public TextView mTvChainTotal, mTvChainValue, mTvChainAvailable, mTvChainDelegated, mTvChainUnBonding, mTvChainRewards;
+    public RelativeLayout mChainVestingLayer;
+    public TextView mTvChainVesting;
+    public RelativeLayout mBtnStake, mBtnVote, mBtnDex, mBtnWalletConnect;
+    public TextView mBtnDexTitle;
 
     public WalletChainHolder(@NonNull View itemView) {
         super(itemView);
-        mTvChainCard         = itemView.findViewById(R.id.card_root);
-        mTvChainIcon         = itemView.findViewById(R.id.chain_icon);
-        mTvChainDenom        = itemView.findViewById(R.id.chain_denom);
-        mTvChainTotal        = itemView.findViewById(R.id.chain_amount);
-        mTvChainValue        = itemView.findViewById(R.id.chain_value);
-        mTvChainAvailable    = itemView.findViewById(R.id.chain_available);
-        mTvChainDelegated    = itemView.findViewById(R.id.chain_delegate);
-        mTvChainUnBonding    = itemView.findViewById(R.id.chain_unbonding);
-        mTvChainRewards      = itemView.findViewById(R.id.chain_reward);
+        mTvChainCard = itemView.findViewById(R.id.card_root);
+        mTvChainIcon = itemView.findViewById(R.id.chain_icon);
+        mTvChainDenom = itemView.findViewById(R.id.chain_denom);
+        mTvChainTotal = itemView.findViewById(R.id.chain_amount);
+        mTvChainValue = itemView.findViewById(R.id.chain_value);
+        mTvChainAvailable = itemView.findViewById(R.id.chain_available);
+        mTvChainDelegated = itemView.findViewById(R.id.chain_delegate);
+        mTvChainUnBonding = itemView.findViewById(R.id.chain_unbonding);
+        mTvChainRewards = itemView.findViewById(R.id.chain_reward);
 
-        mChainVestingLayer   = itemView.findViewById(R.id.chain_vesting_layer);
-        mTvChainVesting      = itemView.findViewById(R.id.chain_vesting);
+        mChainVestingLayer = itemView.findViewById(R.id.chain_vesting_layer);
+        mTvChainVesting = itemView.findViewById(R.id.chain_vesting);
 
-        mBtnStake            = itemView.findViewById(R.id.btn_delegate);
-        mBtnVote             = itemView.findViewById(R.id.btn_vote);
-        mBtnDex              = itemView.findViewById(R.id.btn_dex);
-        mBtnDexTitle         = itemView.findViewById(R.id.dex_title);
-        mBtnWalletConnect    = itemView.findViewById(R.id.btn_wallet_connect);
+        mBtnStake = itemView.findViewById(R.id.btn_delegate);
+        mBtnVote = itemView.findViewById(R.id.btn_vote);
+        mBtnDex = itemView.findViewById(R.id.btn_dex);
+        mBtnDexTitle = itemView.findViewById(R.id.dex_title);
+        mBtnWalletConnect = itemView.findViewById(R.id.btn_wallet_connect);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -79,8 +78,11 @@ public class WalletChainHolder extends BaseHolder {
         mTvChainRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, decimal, 6));
         mTvChainValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, decimal));
 
-        if (!vestingAmount.equals(BigDecimal.ZERO)) { mChainVestingLayer.setVisibility(View.VISIBLE);
-        } else { mChainVestingLayer.setVisibility(View.GONE); }
+        if (!vestingAmount.equals(BigDecimal.ZERO)) {
+            mChainVestingLayer.setVisibility(View.VISIBLE);
+        } else {
+            mChainVestingLayer.setVisibility(View.GONE);
+        }
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
@@ -114,7 +116,9 @@ public class WalletChainHolder extends BaseHolder {
 
         if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
-        } else { mBtnWalletConnect.setVisibility(View.GONE); }
+        } else {
+            mBtnWalletConnect.setVisibility(View.GONE);
+        }
         mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

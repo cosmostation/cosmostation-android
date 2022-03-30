@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -43,29 +47,25 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.HistoryNewHolder;
 import wannabit.io.cosmostaion.widget.HistoryOldHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-
 
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
-    private CardView                        mCardView;
-    private ImageView                       itemKeyStatus;
-    private TextView                        mWalletAddress;
-    private TextView                        mTotalValue;
+    private CardView mCardView;
+    private ImageView itemKeyStatus;
+    private TextView mWalletAddress;
+    private TextView mTotalValue;
 
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
-    private LinearLayout                    mEmptyHistory;
-    private HistoryAdapter                  mHistoryAdapter;
-    private TextView                        mNotYet;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private LinearLayout mEmptyHistory;
+    private HistoryAdapter mHistoryAdapter;
+    private TextView mNotYet;
 
-    private ArrayList<BnbHistory>                   mBnbHistory = new ArrayList<>();
-    private ArrayList<ResOkHistory.Data.Hit>        mOkHistory = new ArrayList<>();
-    private ArrayList<ResApiNewTxListCustom>        mApiNewTxCustomHistory = new ArrayList<>();
+    private ArrayList<BnbHistory> mBnbHistory = new ArrayList<>();
+    private ArrayList<ResOkHistory.Data.Hit> mOkHistory = new ArrayList<>();
+    private ArrayList<ResApiNewTxListCustom> mApiNewTxCustomHistory = new ArrayList<>();
 
-    private Account                         mAccount;
-    private BaseChain                       mBaseChain;
+    private Account mAccount;
+    private BaseChain mBaseChain;
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -82,14 +82,14 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
-        mCardView               = rootView.findViewById(R.id.card_root);
-        itemKeyStatus           = rootView.findViewById(R.id.img_account);
-        mWalletAddress          = rootView.findViewById(R.id.wallet_address);
-        mTotalValue             = rootView.findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mEmptyHistory           = rootView.findViewById(R.id.empty_history);
-        mNotYet                 = rootView.findViewById(R.id.text_notyet);
+        mCardView = rootView.findViewById(R.id.card_root);
+        itemKeyStatus = rootView.findViewById(R.id.img_account);
+        mWalletAddress = rootView.findViewById(R.id.wallet_address);
+        mTotalValue = rootView.findViewById(R.id.total_value);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mEmptyHistory = rootView.findViewById(R.id.empty_history);
+        mNotYet = rootView.findViewById(R.id.text_notyet);
         mEmptyHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +145,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     @Override
     public void onRefreshTab() {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         onUpdateView();
         onFetchHistory();
     }
@@ -166,11 +166,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_accounts :
+        switch (item.getItemId()) {
+            case R.id.menu_accounts:
                 getMainActivity().onClickSwitchWallet();
                 break;
-            case R.id.menu_explorer :
+            case R.id.menu_explorer:
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
@@ -185,7 +185,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private void onFetchHistory() {
         mNotYet.setVisibility(View.GONE);
-        if(getMainActivity() == null || getMainActivity().mAccount == null) return;
+        if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
             new BnbHistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
@@ -199,7 +199,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_BNB_HISTORY) {
             mBnbHistory = (ArrayList<BnbHistory>) result.resultData;
             if (mBnbHistory != null && mBnbHistory.size() > 0) {
@@ -213,7 +213,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_OK_HISTORY) {
             mOkHistory = (ArrayList<ResOkHistory.Data.Hit>) result.resultData;
-            if (result.isSuccess && mOkHistory != null && mOkHistory.size() > 0 ) {
+            if (result.isSuccess && mOkHistory != null && mOkHistory.size() > 0) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
@@ -236,11 +236,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    public MainActivity getMainActivity() { return (MainActivity)getBaseActivity(); }
+    public MainActivity getMainActivity() {
+        return (MainActivity) getBaseActivity();
+    }
 
     private class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_OLD_HISTORY           = 0;
-        private static final int TYPE_NEW_HISTORY           = 1;
+        private static final int TYPE_OLD_HISTORY = 0;
+        private static final int TYPE_NEW_HISTORY = 1;
 
         @NonNull
         @Override
@@ -293,10 +295,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     }
 
     public class RecyclerViewHeader extends RecyclerView.ItemDecoration {
-        private final int       topPadding;
+        private final int topPadding;
 
-        private View            headerView;
-        private TextView        mItemCnt;
+        private View headerView;
+        private TextView mItemCnt;
 
         public RecyclerViewHeader(Context context) {
             topPadding = dpToPx(context, 26);
@@ -331,7 +333,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
             int position = parent.getChildAdapterPosition(view);
             if (position == 0) {
-             outRect.top = topPadding;
+                outRect.top = topPadding;
             }
         }
 

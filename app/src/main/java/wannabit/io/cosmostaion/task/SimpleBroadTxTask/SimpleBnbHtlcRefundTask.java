@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
+
 import com.binance.dex.api.client.BinanceDexApiClientFactory;
 import com.binance.dex.api.client.BinanceDexApiRestClient;
 import com.binance.dex.api.client.BinanceDexEnvironment;
@@ -31,19 +33,16 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
-
 public class SimpleBnbHtlcRefundTask extends CommonTask {
 
-    private Account         mAccount;
-    private String          mSwapId;
-    private String          mMemo;
+    private Account mAccount;
+    private String mSwapId;
+    private String mMemo;
 
-    private ECKey           ecKey;
+    private ECKey ecKey;
 
     public SimpleBnbHtlcRefundTask(BaseApplication app, TaskListener listener,
-                                Account account, String swapid, String memo) {
+                                   Account account, String swapid, String memo) {
         super(app, listener);
         this.mAccount = account;
         this.mSwapId = swapid;
@@ -56,7 +55,7 @@ public class SimpleBnbHtlcRefundTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Password checkPw = mApp.getBaseDao().onSelectPassword();
-            if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+            if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
@@ -64,13 +63,13 @@ public class SimpleBnbHtlcRefundTask extends CommonTask {
 
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
                 Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                     return mResult;
                 }
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+                mAccount = mApp.getBaseDao().onSelectAccount("" + mAccount.id);
 
                 if (mAccount.fromMnemonic) {
                     String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -101,7 +100,7 @@ public class SimpleBnbHtlcRefundTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
 

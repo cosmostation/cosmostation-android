@@ -12,9 +12,7 @@ import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class Dialog_IBC_Send_Warning extends DialogFragment {
 
@@ -32,14 +30,14 @@ public class Dialog_IBC_Send_Warning extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_ibc_warning, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_ibc_warning, null);
         Button btn_continue = view.findViewById(R.id.btn_continue);
         final String denom = getArguments().getString("sendTokenDenom");
 
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onCheckIbcTransfer(denom);
+                ((BaseActivity) getActivity()).onCheckIbcTransfer(denom);
                 getDialog().dismiss();
             }
         });

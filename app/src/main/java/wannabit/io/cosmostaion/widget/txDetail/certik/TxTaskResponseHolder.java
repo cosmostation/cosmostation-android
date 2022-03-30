@@ -16,17 +16,17 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxTaskResponseHolder extends TxHolder {
-    private ImageView   itemTaskResponseImg;
-    private TextView    itemTaskResponseOperator;
-    private TextView    itemTaskResponseContract;
-    private TextView    itemTaskResponseScore;
+    private ImageView itemTaskResponseImg;
+    private TextView itemTaskResponseOperator;
+    private TextView itemTaskResponseContract;
+    private TextView itemTaskResponseScore;
 
     public TxTaskResponseHolder(@NonNull View itemView) {
         super(itemView);
-        itemTaskResponseImg             = itemView.findViewById(R.id.tx_task_response_icon);
-        itemTaskResponseOperator        = itemView.findViewById(R.id.tx_task_response_operator);
-        itemTaskResponseContract        = itemView.findViewById(R.id.tx_task_response_contract);
-        itemTaskResponseScore           = itemView.findViewById(R.id.tx_task_response_score);
+        itemTaskResponseImg = itemView.findViewById(R.id.tx_task_response_icon);
+        itemTaskResponseOperator = itemView.findViewById(R.id.tx_task_response_operator);
+        itemTaskResponseContract = itemView.findViewById(R.id.tx_task_response_contract);
+        itemTaskResponseScore = itemView.findViewById(R.id.tx_task_response_score);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -37,6 +37,7 @@ public class TxTaskResponseHolder extends TxHolder {
             itemTaskResponseOperator.setText(msg.getOperator());
             itemTaskResponseContract.setText(msg.getContract());
             itemTaskResponseScore.setText("" + msg.getScore());
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }
