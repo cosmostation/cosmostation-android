@@ -100,7 +100,7 @@ dependencies {
     implementation files('libs/httpclient-4.5.3.jar')
     implementation files('libs/apache-httpcomponents-httpcore.jar')
     //for ed25519
-    implementation "com.github.Cosmostation:wallet-connect-kotlin:1.5.5-cosmostation"
+    implementation "com.github.Cosmostation:wallet-connect-kotlin:1.5.6-cosmostation"
     implementation files('libs/bip32-ed25519-java-1.0.0-SNAPSHOT.jar')
     implementation 'net.i2p.crypto:eddsa:0.3.0'
     //foreground notification

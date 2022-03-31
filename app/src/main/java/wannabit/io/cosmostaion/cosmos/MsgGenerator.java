@@ -20,7 +20,12 @@ import android.util.Base64;
 
 import com.binance.dex.api.client.domain.broadcast.HtltReq;
 import com.binance.dex.api.client.encoding.message.Token;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
@@ -35,6 +40,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.TreeMap;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -261,7 +267,7 @@ public class MsgGenerator {
         return reqBroadCast;
     }
 
-    public static ReqBroadCast getWcBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
+    public static ReqBroadCast getWcTrustBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
         StdSignMsg tosign = genToSignMsg(
                 chainId,
                 ""+account.accountNumber,
@@ -296,6 +302,26 @@ public class MsgGenerator {
 
 
         return reqBroadCast;
+    }
+
+    public static Signature getWcKeplrBroadcaseReq(ECKey key, JsonObject txMsg) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+        try {
+            String signatureTx = MsgGenerator.getSignature(key,mapper.writeValueAsString(new Gson().fromJson(txMsg, TreeMap.class)).getBytes(Charset.forName("UTF-8")));
+
+            Signature signature = new Signature();
+            Pub_key pubKey = new Pub_key();
+            pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+            pubKey.value = WKey.getPubKeyValue(key);
+            signature.pub_key = pubKey;
+            signature.signature = signatureTx;
+
+            return signature;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new Signature();
+        }
     }
 
     public static ReqBroadCast getOKexBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {

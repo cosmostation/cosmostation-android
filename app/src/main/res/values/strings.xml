@@ -773,6 +773,7 @@
     <string name="str_wc_disconnected">Wallet is disconnected.</string>
     <string name="str_wc_approved">Wallet is approved.</string>
     <string name="str_wc_closed">Wallet is closed.</string>
+    <string name="str_wc_request_responsed">Responsed for Request</string>
     <string name="str_wc_sign_title">Request Transaction Sign</string>
     <string name="str_wc_sign_msg">Please check the contents and decide.\nIt affects your assets.</string>
     <string name="str_wc_sign_result_msg">Tx is broadcasted. \nPlese check your Dex screen!</string>
