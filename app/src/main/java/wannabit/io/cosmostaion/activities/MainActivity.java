@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -51,7 +52,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
@@ -311,7 +311,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
     }
 
-    public void onStartBinanceWalletConnect(String wcUrl) {
+    public void onStartWalletConnect(String wcUrl) {
         Intent intent = new Intent(this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
         intent.putExtra("wcUrl", wcUrl);
@@ -420,19 +420,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == CONST_PW_SIMPLE_CHECK && resultCode == RESULT_OK && !TextUtils.isEmpty(data.getStringExtra("wcUrl"))) {
-            Intent wcIntent = new Intent(this, WalletConnectActivity.class);
-            wcIntent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
-            startActivity(wcIntent);
+            Intent wIntent = null;
+            if (mBaseChain.equals(BNB_MAIN)) {
+                wIntent = new Intent(this, WalletConnectActivity.class);
+            } else {
+                wIntent = new Intent(this, ConnectWalletActivity.class);
+            }
+            wIntent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
+            startActivity(wIntent);
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (result != null && result.getContents() != null && result.getContents().trim().contains("wallet-bridge.binance.org")) {
-                Bundle bundle = new Bundle();
-                bundle.putString("wcUrl", result.getContents().trim());
-                Dialog_WalletConnect dialog = Dialog_WalletConnect.newInstance(bundle);
-                dialog.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            if (result != null && result.getContents() != null) {
+                onStartWalletConnect(result.getContents().trim());
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
             }

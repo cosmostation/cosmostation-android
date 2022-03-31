@@ -12,7 +12,7 @@ public class Fee implements Parcelable {
     @SerializedName("gas")
     public String gas;
 
-    @SerializedName("amount")
+    @SerializedName(value = "amount", alternate = {"amounts"})
     public ArrayList<Coin> amount;
 
 

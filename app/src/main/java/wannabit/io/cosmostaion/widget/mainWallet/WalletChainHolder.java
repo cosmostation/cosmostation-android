@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
+import android.Manifest;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,9 +11,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -21,6 +27,7 @@ import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -112,13 +119,40 @@ public class WalletChainHolder extends BaseHolder {
             }
         });
 
-        if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) ||
+                mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
         } else { mBtnWalletConnect.setVisibility(View.GONE); }
         mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mainActivity, mainActivity.getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
+                if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) ||
+                        mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
+                    if (!mainActivity.mAccount.hasPrivateKey) {
+                        Dialog_WatchMode dialog = Dialog_WatchMode.newInstance();
+                        dialog.setCancelable(true);
+                        mainActivity.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                        return;
+                    } else {
+                        new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted() {
+                                IntentIntegrator integrator = new IntentIntegrator(mainActivity);
+                                integrator.setOrientationLocked(true);
+                                integrator.initiateScan();
+                            }
+
+                            @Override
+                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                                Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
+                            }
+                        }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(mainActivity.getString(R.string.str_permission_qr)).check();
+                    }
+
+                } else {
+                    Toast.makeText(mainActivity, mainActivity.getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
     }

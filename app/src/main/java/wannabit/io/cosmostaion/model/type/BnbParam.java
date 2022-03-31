@@ -22,13 +22,13 @@ public class BnbParam {
     public class BnbMsg {
         public String id;
         public String refid;
-        public long ordertype;
+        public long orderType;
         public long price;
         public long quantity;
         public String sender;
         public long side;
         public String symbol;
-        public long timeinforce;
+        public long timeInforce;
         public List<InputOutput> inputs;
         public List<InputOutput> outputs;
     }
