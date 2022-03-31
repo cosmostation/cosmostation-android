@@ -52,7 +52,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
@@ -433,12 +432,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (result != null && result.getContents() != null) {
-                Bundle bundle = new Bundle();
-                bundle.putString("wcUrl", result.getContents().trim());
-                Dialog_WalletConnect dialog = Dialog_WalletConnect.newInstance(bundle);
-                dialog.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+                onStartWalletConnect(result.getContents().trim());
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
             }

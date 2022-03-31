@@ -80,7 +80,11 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     }
 
     private void loadInfo() {
-        mWcURL = getIntent().getStringExtra("wcUrl");
+        if (getIntent().getData() != null && "cosmostation".equals(getIntent().getData().getScheme())) {
+            mWcURL = getIntent().getData().getQuery();
+        } else {
+            mWcURL = getIntent().getStringExtra("wcUrl");
+        }
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mWcCardView.setCardBackgroundColor(WDp.getChainBgColor(this, mBaseChain));
