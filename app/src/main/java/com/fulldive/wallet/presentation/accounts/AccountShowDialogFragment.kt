@@ -15,15 +15,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.DialogFragment
-import com.fulldive.wallet.extensions.safe
-import com.fulldive.wallet.extensions.toBitmap
-import com.fulldive.wallet.extensions.toast
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.qrcode.QRCodeWriter
+import com.fulldive.wallet.presentation.base.BaseMvpDialogFragment
+import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 
-class AccountShowDialogFragment : DialogFragment() {
+class AccountShowDialogFragment : BaseMvpDialogFragment(), AccountShowMoxyView {
 
     private val title by lazy(LazyThreadSafetyMode.NONE) {
         arguments?.getString(KEY_TITLE)
@@ -33,6 +29,12 @@ class AccountShowDialogFragment : DialogFragment() {
     private val address by lazy(LazyThreadSafetyMode.NONE) {
         arguments?.getString(KEY_ADDRESS)
             ?: throw IllegalStateException("argument address can't be null")
+    }
+
+    private val presenter by moxyPresenter {
+        AccountShowPresenter().also {
+            it.address = address
+        }
     }
 
     override fun onCreateView(
@@ -57,28 +59,23 @@ class AccountShowDialogFragment : DialogFragment() {
             dialog?.dismiss()
         }
 
-        safe {
-            view
-                .findViewById<ImageView>(R.id.wallet_address_qr)
-                .setImageBitmap(generateQRCode())
-        }
-
         val builder = AlertDialog.Builder(activity)
         builder.setView(view)
         return builder.create()
     }
 
+    override fun showQRCode(bitmap: Bitmap) {
+        dialog
+            ?.findViewById<ImageView>(R.id.wallet_address_qr)
+            ?.setImageBitmap(bitmap)
+    }
+
     private fun copyAddressToClipboard() {
         (requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
             .setPrimaryClip(ClipData.newPlainText("address", address))
-        activity?.toast(R.string.str_copied)
+        showMessage(R.string.str_copied)
     }
 
-    private fun generateQRCode(): Bitmap {
-        return QRCodeWriter()
-            .encode(address, BarcodeFormat.QR_CODE, 480, 480)
-            .toBitmap()
-    }
 
     private fun onShareType() {
         val add = ShareAccountDialogFragment.newInstance(address)
@@ -88,7 +85,6 @@ class AccountShowDialogFragment : DialogFragment() {
             .add(add, "dialog")
             .commitNowAllowingStateLoss()
     }
-
 
     companion object {
         private const val KEY_TITLE = "title"
