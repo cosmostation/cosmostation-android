@@ -36,7 +36,7 @@ public class TxCreateLeaseHolder extends TxHolder {
             LeaseOuterClass.MsgCreateLease msg = LeaseOuterClass.MsgCreateLease.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemProvider.setText(msg.getBidId().getProvider());
             itemOwner.setText(msg.getBidId().getOwner());
-            itemDseq.setText("" + WDp.getDecimalFormat(0).format(msg.getBidId().getDseq()));
+            itemDseq.setText(WDp.getDecimalFormat(0).format(msg.getBidId().getDseq()));
             itemGseq.setText("" + msg.getBidId().getGseq());
             itemOseq.setText("" + msg.getBidId().getOseq());
         } catch (Exception e) {

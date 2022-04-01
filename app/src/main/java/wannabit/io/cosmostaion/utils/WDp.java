@@ -2484,69 +2484,19 @@ public class WDp {
         NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
         DecimalFormat decimalformat = (DecimalFormat) formatter;
         decimalformat.setRoundingMode(RoundingMode.DOWN);
-        switch (cnt) {
-            case 0:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0");
-                break;
-            case 1:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0");
-                break;
-            case 2:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00");
-                break;
-            case 3:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000");
-                break;
-            case 4:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000");
-                break;
-            case 5:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000");
-                break;
-            case 6:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000");
-                break;
-            case 7:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000000");
-                break;
-            case 8:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000000");
-                break;
-            case 9:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000000");
-                break;
-            case 10:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000000000");
-                break;
-            case 11:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000000000");
-                break;
-            case 12:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000000000");
-                break;
-            case 13:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000000000000");
-                break;
-            case 14:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000000000000");
-                break;
-            case 15:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000000000000");
-                break;
-            case 16:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000000000000000");
-                break;
-            case 17:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000000000000000");
-                break;
-            case 18:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000000000000000");
-                break;
 
-            default:
-                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000");
-                break;
+        StringBuilder stringBuilder = new StringBuilder("###,###,###,###,###,###,###,##0");
+        if (cnt > 0) {
+            if (cnt <= 18) {
+                stringBuilder.append('.');
+                for (int i = 0; i < cnt; i++) {
+                    stringBuilder.append('0');
+                }
+            } else {
+                stringBuilder.append(".000000");
+            }
         }
+        decimalformat.applyLocalizedPattern(stringBuilder.toString());
         return decimalformat;
     }
 

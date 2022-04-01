@@ -29,8 +29,8 @@ public class TxCloseDeploymentHolder extends TxHolder {
         itemCloseDeploymentImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         try {
             DeploymentOuterClass.MsgCloseDeployment msg = DeploymentOuterClass.MsgCloseDeployment.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-            itemCloseDeploymentId.setText("" + msg.getId().getOwner());
-            itemDseq.setText("" + WDp.getDecimalFormat(0).format(msg.getId().getDseq()));
+            itemCloseDeploymentId.setText(msg.getId().getOwner());
+            itemDseq.setText(WDp.getDecimalFormat(0).format(msg.getId().getDseq()));
         } catch (Exception e) {
         }
     }
