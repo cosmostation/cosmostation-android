@@ -28,12 +28,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeInfo;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.NodeInfo;
+import wannabit.io.cosmostaion.presentation.accounts.AccountShowDialogFragment;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -163,7 +163,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         onUpdatePushStatusUI();
         WDp.showChainDp(AccountDetailActivity.this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
-        WDp.getChainImg(AccountDetailActivity.this, mBaseChain, mChainImg);
+        mChainImg.setImageResource(mBaseChain.getChainIcon());
 
         if (mBaseChain.isGRPC()) {
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -172,11 +172,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
-        if (TextUtils.isEmpty(mAccount.nickName)) {
-            mAccountName.setText(getString(R.string.str_my_wallet) + mAccount.id);
-        } else {
-            mAccountName.setText(mAccount.nickName);
-        }
+        mAccountName.setText(mAccount.getAccountTitle(this));
         mAccountAddress.setText(mAccount.address);
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
 
@@ -308,10 +304,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnQr)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
-            bundle.putString("title", mAccountName.getText().toString());
-            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
+                    mAccountName.getText().toString(),
+                    mAccount.address
+            );
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 

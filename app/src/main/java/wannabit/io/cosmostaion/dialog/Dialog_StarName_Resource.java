@@ -79,15 +79,12 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
 
             Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.url)).fit().into(holder.chainImg);
             holder.chainName.setText(StarnameAssets.getStarNameChainName(resource.url));
-            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!alreadyHave(resource)) {
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra("resource", resource);
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                        getDialog().dismiss();
-                    }
+            holder.rootLayer.setOnClickListener(v -> {
+                if (!alreadyHave(resource)) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("resource", resource);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    getDialog().dismiss();
                 }
             });
 

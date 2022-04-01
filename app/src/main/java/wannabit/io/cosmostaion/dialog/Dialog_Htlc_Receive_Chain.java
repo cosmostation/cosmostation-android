@@ -96,9 +96,4 @@ public class Dialog_Htlc_Receive_Chain extends DialogFragment {
         }
 
     }
-
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
-    }
-
 }

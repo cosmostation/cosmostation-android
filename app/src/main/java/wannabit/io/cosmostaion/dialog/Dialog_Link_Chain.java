@@ -70,17 +70,14 @@ public class Dialog_Link_Chain extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull LinkChainAdapter.RelayerListHolder holder, int position) {
             final BaseChain baseChain = mLinkChainList.get(position);
-            WDp.getChainImg(getSActivity(), baseChain, holder.chainImg);
+            holder.chainImg.setImageResource(baseChain.getChainIcon());
             WDp.getChainTitle2(getSActivity(), baseChain, holder.chainName);
 
-            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("position", position);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
-                }
+            holder.rootLayer.setOnClickListener(v -> {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("position", position);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
             });
         }
 

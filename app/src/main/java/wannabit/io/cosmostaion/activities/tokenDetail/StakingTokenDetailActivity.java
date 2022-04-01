@@ -28,7 +28,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.presentation.accounts.AccountShowDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -159,14 +159,10 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) {
-                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-            } else {
-                bundle.putString("title", mAccount.nickName);
-            }
-            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
+                    mAccount.getAccountTitle(this),
+                    mAccount.address
+            );
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 

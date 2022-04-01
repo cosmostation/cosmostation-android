@@ -120,43 +120,40 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         public void onBindViewHolder(@NonNull DisplayListAdapter.DisplayHolder holder, final int position) {
             final BaseChain chain = mDisplayChains.get(position);
             holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
-            WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
+            holder.chainTokenImg.setImageResource(chain.getChainIcon());
             WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
 
-            holder.chainRemoveImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN).size() <= 0) {
-                        int dpAccountSum = 0;
-                        for (BaseChain baseChain : mDisplayChains) {
-                            if (!baseChain.equals(chain)) {
-                                dpAccountSum = dpAccountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
-                            }
-                        }
-                        if (dpAccountSum <= 0) {
-                            Toast.makeText(WalletEditActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
-                            return;
+            holder.chainRemoveImg.setOnClickListener(v -> {
+                if (getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN).size() <= 0) {
+                    int dpAccountSum = 0;
+                    for (BaseChain baseChain : mDisplayChains) {
+                        if (!baseChain.equals(chain)) {
+                            dpAccountSum = dpAccountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
                         }
                     }
-                    int displayChainIndex = mDisplayChains.indexOf(chain);
-                    if (displayChainIndex >= 0) {
-                        mDisplayChains.remove(displayChainIndex);
-                        mHideChains.add(chain);
-                        ArrayList<BaseChain> tempHide = new ArrayList<>();
-                        for (BaseChain baseChain : mAllChains) {
-                            if (mHideChains.contains(baseChain)) {
-                                tempHide.add(baseChain);
-                            }
+                    if (dpAccountSum <= 0) {
+                        Toast.makeText(WalletEditActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                int displayChainIndex = mDisplayChains.indexOf(chain);
+                if (displayChainIndex >= 0) {
+                    mDisplayChains.remove(displayChainIndex);
+                    mHideChains.add(chain);
+                    ArrayList<BaseChain> tempHide = new ArrayList<>();
+                    for (BaseChain baseChain : mAllChains) {
+                        if (mHideChains.contains(baseChain)) {
+                            tempHide.add(baseChain);
                         }
-                        mHideChains = tempHide;
+                    }
+                    mHideChains = tempHide;
 
-                        if (mHideChains.size() > 0) {
-                            mEmptyChains.setVisibility(View.GONE);
-                            mHideRecyclerView.setVisibility(View.VISIBLE);
-                        }
-                        mDisplayListAdapter.notifyDataSetChanged();
-                        mHideListAdapter.notifyDataSetChanged();
+                    if (mHideChains.size() > 0) {
+                        mEmptyChains.setVisibility(View.GONE);
+                        mHideRecyclerView.setVisibility(View.VISIBLE);
                     }
+                    mDisplayListAdapter.notifyDataSetChanged();
+                    mHideListAdapter.notifyDataSetChanged();
                 }
             });
             holder.chainSort.setOnTouchListener(new View.OnTouchListener() {
@@ -214,24 +211,21 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         public void onBindViewHolder(@NonNull HideListAdapter.HideHolder holder, int position) {
             final BaseChain chain = mHideChains.get(position);
             holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
-            WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
+            holder.chainTokenImg.setImageResource(chain.getChainIcon());
             WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
 
-            holder.chainAddImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int hideChainIndex = mHideChains.indexOf(chain);
-                    if (hideChainIndex >= 0) {
-                        mHideChains.remove(hideChainIndex);
-                        mDisplayChains.add(chain);
+            holder.chainAddImg.setOnClickListener(v -> {
+                int hideChainIndex = mHideChains.indexOf(chain);
+                if (hideChainIndex >= 0) {
+                    mHideChains.remove(hideChainIndex);
+                    mDisplayChains.add(chain);
 
-                        if (mHideChains.size() <= 0) {
-                            mEmptyChains.setVisibility(View.VISIBLE);
-                            mHideRecyclerView.setVisibility(View.GONE);
-                        }
-                        mHideListAdapter.notifyDataSetChanged();
-                        mDisplayListAdapter.notifyDataSetChanged();
+                    if (mHideChains.size() <= 0) {
+                        mEmptyChains.setVisibility(View.VISIBLE);
+                        mHideRecyclerView.setVisibility(View.GONE);
                     }
+                    mHideListAdapter.notifyDataSetChanged();
+                    mDisplayListAdapter.notifyDataSetChanged();
                 }
             });
         }

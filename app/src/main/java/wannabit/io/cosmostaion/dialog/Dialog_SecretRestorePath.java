@@ -37,20 +37,14 @@ public class Dialog_SecretRestorePath extends DialogFragment {
         mOldPath = view.findViewById(R.id.old_path);
         mNewPath = view.findViewById(R.id.new_path);
 
-        mOldPath.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((RestoreActivity) getActivity()).onUsingCustomPath(0);
-                getDialog().dismiss();
-            }
+        mOldPath.setOnClickListener(v -> {
+            ((RestoreActivity) getActivity()).onUsingCustomPath(0);
+            getDialog().dismiss();
         });
 
-        mNewPath.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((RestoreActivity) getActivity()).onUsingCustomPath(1);
-                getDialog().dismiss();
-            }
+        mNewPath.setOnClickListener(v -> {
+            ((RestoreActivity) getActivity()).onUsingCustomPath(1);
+            getDialog().dismiss();
         });
 
 

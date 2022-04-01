@@ -97,6 +97,8 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.10'
+    implementation "androidx.core:core-ktx:1.7.0"
+
     implementation 'com.squareup.moshi:moshi:1.8.0'
     implementation files('libs/httpclient-4.5.3.jar')
     implementation files('libs/apache-httpcomponents-httpcore.jar')

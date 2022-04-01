@@ -138,18 +138,20 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
             mToChainLayer.setBackgroundResource(R.drawable.btn_trans_with_border);
             mDialogImg.setVisibility(View.VISIBLE);
         }
-        WDp.getChainImg(getSActivity(), getSActivity().mBaseChain, mFromChainImg);
-        WDp.getChainTitle2(getSActivity(), getSActivity().mBaseChain, mFromChainTv);
+        BaseChain chain = getSActivity().mBaseChain;
+        mFromChainImg.setImageResource(chain.getChainIcon());
+        WDp.getChainTitle2(getSActivity(), chain, mFromChainTv);
 
         BaseChain toChain = WDp.getChainTypeByChainId(mIbcSelectedRelayer.chain_id);
-        WDp.getChainImg(getSActivity(), toChain, mToChainImg);
+        mToChainImg.setImageResource(toChain.getChainIcon());
+
         WDp.getChainTitle2(getSActivity(), toChain, mToChainTv);
 
         mRelayerTxt.setText(mIbcSelectedPath.channel_id);
         if (mIbcSelectedPath.auth == null) {
-            mRelayerImg.setImageDrawable(getSActivity().getDrawable(R.drawable.unknown));
+            mRelayerImg.setImageResource(R.drawable.unknown);
         } else if (mIbcSelectedPath.auth) {
-            mRelayerImg.setImageDrawable(getSActivity().getDrawable(R.drawable.wellknown));
+            mRelayerImg.setImageResource(R.drawable.wellknown);
         }
     }
 
@@ -189,15 +191,12 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onSortRelayer(ArrayList<IbcPath> ibcPaths) {
-        Collections.sort(ibcPaths, new Comparator<IbcPath>() {
-            @Override
-            public int compare(IbcPath o1, IbcPath o2) {
-                if (o1.chain_id.contains("cosmoshub-")) return -1;
-                if (o2.chain_id.contains("cosmoshub-")) return 1;
-                if (o1.chain_id.contains("osmosis-")) return -1;
-                if (o2.chain_id.contains("osmosis-")) return 1;
-                return o1.chain_id.compareTo(o2.chain_id);
-            }
+        Collections.sort(ibcPaths, (o1, o2) -> {
+            if (o1.chain_id.contains("cosmoshub-")) return -1;
+            if (o2.chain_id.contains("cosmoshub-")) return 1;
+            if (o1.chain_id.contains("osmosis-")) return -1;
+            if (o2.chain_id.contains("osmosis-")) return 1;
+            return o1.chain_id.compareTo(o2.chain_id);
         });
     }
 
@@ -218,12 +217,9 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onForceBack() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getSActivity(), R.string.error_no_relayer_channel, Toast.LENGTH_SHORT).show();
-                getSActivity().onBeforeStep();
-            }
+        mHandler.postDelayed(() -> {
+            Toast.makeText(getSActivity(), R.string.error_no_relayer_channel, Toast.LENGTH_SHORT).show();
+            getSActivity().onBeforeStep();
         }, 610);
     }
 

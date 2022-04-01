@@ -17,8 +17,7 @@ import wannabit.io.cosmostaion.activities.PrivateKeyCheckActivity;
 public class Dialog_Safe_Copy_pKey extends DialogFragment {
 
     public static Dialog_Safe_Copy_pKey newInstance() {
-        Dialog_Safe_Copy_pKey frag = new Dialog_Safe_Copy_pKey();
-        return frag;
+        return new Dialog_Safe_Copy_pKey();
     }
 
     @Override
@@ -33,20 +32,14 @@ public class Dialog_Safe_Copy_pKey extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((PrivateKeyCheckActivity) getActivity()).onRawCopy();
-                getDialog().dismiss();
-            }
+        btn_negative.setOnClickListener(v -> {
+            ((PrivateKeyCheckActivity) getActivity()).onRawCopy();
+            getDialog().dismiss();
         });
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((PrivateKeyCheckActivity) getActivity()).onSafeCopy();
-                getDialog().dismiss();
-            }
+        btn_positive.setOnClickListener(v -> {
+            ((PrivateKeyCheckActivity) getActivity()).onSafeCopy();
+            getDialog().dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

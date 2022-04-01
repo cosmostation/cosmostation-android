@@ -39,19 +39,11 @@ public class Dialog_StarName_Export_Confirm extends DialogFragment {
         exportMsg.setText(msg);
 
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
-        });
+        btn_negative.setOnClickListener(v -> getDialog().dismiss());
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((StarNameWalletConnectActivity) getActivity()).onExportAddresses(getArguments().getString("jsonData"));
-                getDialog().dismiss();
-            }
+        btn_positive.setOnClickListener(v -> {
+            ((StarNameWalletConnectActivity) getActivity()).onExportAddresses(getArguments().getString("jsonData"));
+            getDialog().dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

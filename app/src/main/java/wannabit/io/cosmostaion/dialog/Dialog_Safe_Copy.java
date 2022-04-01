@@ -17,8 +17,7 @@ import wannabit.io.cosmostaion.activities.MnemonicCheckActivity;
 public class Dialog_Safe_Copy extends DialogFragment {
 
     public static Dialog_Safe_Copy newInstance() {
-        Dialog_Safe_Copy frag = new Dialog_Safe_Copy();
-        return frag;
+        return new Dialog_Safe_Copy();
     }
 
     @Override
@@ -33,20 +32,14 @@ public class Dialog_Safe_Copy extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MnemonicCheckActivity) getActivity()).onRawCopy();
-                getDialog().dismiss();
-            }
+        btn_negative.setOnClickListener(v -> {
+            ((MnemonicCheckActivity) getActivity()).onRawCopy();
+            getDialog().dismiss();
         });
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MnemonicCheckActivity) getActivity()).onSafeCopy();
-                getDialog().dismiss();
-            }
+        btn_positive.setOnClickListener(v -> {
+            ((MnemonicCheckActivity) getActivity()).onSafeCopy();
+            getDialog().dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

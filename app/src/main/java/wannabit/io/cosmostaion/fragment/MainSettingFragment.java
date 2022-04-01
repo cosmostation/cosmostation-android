@@ -32,8 +32,8 @@ import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
+import wannabit.io.cosmostaion.presentation.chains.choicenet.ChoiceNetDialogFragment;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -155,7 +155,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         if (v.equals(mBtnAddWallet)) {
             Bundle bundle = new Bundle();
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
+            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(bundle);
             dialog.setCancelable(true);
             getMainActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 

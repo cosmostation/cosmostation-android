@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,18 +86,10 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
             if (account.hasPrivateKey) {
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getSActivity(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
             }
-
-            if (TextUtils.isEmpty(account.nickName)) {
-                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
-            } else {
-                holder.accountName.setText(account.nickName);
-            }
-            holder.accountContent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((BaseActivity) getActivity()).onChoiceStarnameResourceAddress(account.address);
-                    getDialog().dismiss();
-                }
+            holder.accountName.setText(account.getAccountTitle(getContext()));
+            holder.accountContent.setOnClickListener(v -> {
+                ((BaseActivity) getActivity()).onChoiceStarnameResourceAddress(account.address);
+                getDialog().dismiss();
             });
 
         }

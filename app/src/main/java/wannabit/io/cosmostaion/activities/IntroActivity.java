@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,7 +17,7 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
 import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
 import wannabit.io.cosmostaion.dialog.Dialog_Update;
@@ -126,7 +125,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         if (v.equals(mStart)) {
             Bundle bundle = new Bundle();
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
+            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(bundle);
             dialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
         }
@@ -184,19 +183,12 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-
     public void onRetryVersionCheck() {
         onCheckAppVersion();
     }
 
     public void onTerminateApp() {
         finish();
-    }
-
-    public void onStartPlaystore() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("market://details?id=" + this.getPackageName()));
-        startActivity(intent);
     }
 
 }

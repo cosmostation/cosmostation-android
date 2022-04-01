@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
@@ -85,7 +85,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     protected void onPostResume() {
         super.onPostResume();
         if (mChain == null) {
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
+            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(null);
             dialog.setCancelable(false);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
         } else {

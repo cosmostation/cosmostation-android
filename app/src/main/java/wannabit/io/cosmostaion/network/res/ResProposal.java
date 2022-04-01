@@ -55,7 +55,7 @@ public class ResProposal {
     @SerializedName("voteMeta")
     public VoteMeta voteMeta;
 
-    public class Content {
+    public static class Content {
         @SerializedName("type")
         public String type;
 
@@ -74,7 +74,7 @@ public class ResProposal {
         }
     }
 
-    public class VoteMeta {
+    public static class VoteMeta {
         @SerializedName("yes")
         public String yes;
 

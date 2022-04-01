@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.View;
@@ -122,7 +121,7 @@ public class ManageChainSwitchHolder extends BaseHolder {
 
     public void onBindChainSwitch(@NotNull WalletSwitchActivity switchActivity, ChainAccounts data, Account currentAccount) {
         accountCard.setCardBackgroundColor(WDp.getChainBgColor(switchActivity, data.baseChain));
-        WDp.getChainImg(switchActivity, data.baseChain, accountChainImg);
+        accountChainImg.setImageResource(data.baseChain.getChainIcon());
         WDp.getChainTitle2(switchActivity, data.baseChain, accountChainName);
         accountWalletCnt.setText(data.accounts.size() + " / 5");
 
@@ -193,21 +192,14 @@ public class ManageChainSwitchHolder extends BaseHolder {
             keyImg.setColorFilter(WDp.getChainColor(switchActivity, BaseChain.getChain(dpAccount.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
-        if (TextUtils.isEmpty(dpAccount.nickName)) {
-            walletName.setText(switchActivity.getString(R.string.str_my_wallet) + dpAccount.id);
-        } else {
-            walletName.setText(dpAccount.nickName);
-        }
+        walletName.setText(dpAccount.getAccountTitle(walletName.getContext()));
 
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dpAccount.id.equals(currentAccount.id)) {
-                    switchActivity.finish();
-                    return;
-                }
-                switchActivity.onChangeWallet(dpAccount.id);
+        layout.setOnClickListener(v -> {
+            if (dpAccount.id.equals(currentAccount.id)) {
+                switchActivity.finish();
+                return;
             }
+            switchActivity.onChangeWallet(dpAccount.id);
         });
     }
 }

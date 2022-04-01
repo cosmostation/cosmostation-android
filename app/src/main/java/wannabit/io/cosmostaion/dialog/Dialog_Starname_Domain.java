@@ -67,14 +67,11 @@ public class Dialog_Starname_Domain extends DialogFragment {
         public void onBindViewHolder(@NonNull DomainListHolder holder, int position) {
             final String domain = mStarnameDomain.get(position);
             holder.domainName.setText(domain);
-            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("position", position);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
-                }
+            holder.rootLayer.setOnClickListener(v -> {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("position", position);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
             });
         }
 
@@ -93,11 +90,5 @@ public class Dialog_Starname_Domain extends DialogFragment {
                 domainName = itemView.findViewById(R.id.domainName);
             }
         }
-
     }
-
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
-    }
-
 }

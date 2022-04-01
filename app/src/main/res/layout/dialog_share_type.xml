@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/share_qr"
+            android:id="@+id/shareQRCodeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -34,7 +34,7 @@
             android:background="@color/colorGray10" />
 
         <LinearLayout
-            android:id="@+id/share_tx"
+            android:id="@+id/shareTextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

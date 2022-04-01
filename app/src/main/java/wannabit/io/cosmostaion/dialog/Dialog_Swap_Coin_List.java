@@ -104,28 +104,28 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                     Picasso.get().load(KAVA_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
                     String baseDenom = WDp.getKavaBaseDenom(mSwapCoinList.get(position));
                     if (baseDenom.equalsIgnoreCase(TOKEN_KAVA)) {
-                        holder.chainName.setText(getString(R.string.str_kava_c));
+                        holder.chainName.setText(R.string.str_kava_c);
                     } else {
                         holder.chainName.setText(mSwapCoinList.get(position).toUpperCase());
                     }
                 } catch (Exception e) {
                 }
             } else if (inputCoin.equals(COSMOS_MAIN.getMainDenom())) {
-                holder.chainName.setText(getString(R.string.str_atom_c));
+                holder.chainName.setText(R.string.str_atom_c);
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
+                holder.chainImg.setImageResource(R.drawable.atom_ic);
             } else if (inputCoin.equals(TOKEN_OSMOSIS)) {
-                holder.chainName.setText(getString(R.string.str_osmosis_c));
+                holder.chainName.setText(R.string.str_osmosis_c);
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+                holder.chainImg.setImageResource(R.drawable.token_osmosis);
             } else if (inputCoin.equals(TOKEN_SIF)) {
-                holder.chainName.setText(getString(R.string.str_sif_c));
+                holder.chainName.setText(R.string.str_sif_c);
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
+                holder.chainImg.setImageResource(R.drawable.tokensifchain);
             } else if (inputCoin.equals(TOKEN_ION)) {
-                holder.chainName.setText(getString(R.string.str_uion_c));
+                holder.chainName.setText(R.string.str_uion_c);
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
+                holder.chainImg.setImageResource(R.drawable.token_ion);
             } else if (inputCoin.startsWith("c")) {
                 final Assets assets = getSActivity().getBaseDao().getAsset(inputCoin);
                 if (assets != null) {
@@ -135,17 +135,14 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
             } else {
                 holder.chainName.setText(R.string.str_unknown);
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+                holder.chainImg.setImageResource(R.drawable.token_ic);
             }
 
-            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("selectedDenom", position);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
-                }
+            holder.rootLayer.setOnClickListener(v -> {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("selectedDenom", position);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
             });
         }
 

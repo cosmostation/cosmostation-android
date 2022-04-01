@@ -1058,14 +1058,6 @@ public class WDp {
         }
     }
 
-    public static void getChainImg(Context c, BaseChain baseChain, ImageView chainImg) {
-        int imageResId = R.drawable.default_chain_img;
-        if (baseChain != null) {
-            imageResId = baseChain.getChainIcon();
-        }
-        chainImg.setImageResource(imageResId);
-    }
-
     public static void getChainTitle(Context context, BaseChain baseChain, TextView chainName) {
         int titleRes = R.string.str_unknown;
         if (baseChain != null) {
@@ -3136,19 +3128,19 @@ public class WDp {
         if (riskRate.floatValue() <= 50) {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));
             if (imageview != null) {
-                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_safe));
+                imageview.setImageResource(R.drawable.img_safe);
             }
 
         } else if (riskRate.floatValue() < 80) {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorCdpStable));
             if (imageview != null) {
-                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_stable));
+                imageview.setImageResource(R.drawable.img_stable);
             }
 
         } else {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorCdpDanger));
             if (imageview != null) {
-                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_danger));
+                imageview.setImageResource(R.drawable.img_danger);
 
             }
         }
@@ -3157,19 +3149,19 @@ public class WDp {
 
     public static void DpRiskButton(Context c, BigDecimal riskRate, Button button) {
         if (riskRate.longValue() <= 50) {
-            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
+            button.setBackgroundResource(R.drawable.btn_score_safe_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
             button.setText("SAFE " + riskRate.toPlainString());
 
         } else if (riskRate.longValue() < 80) {
-            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_stable_fill));
+            button.setBackgroundResource(R.drawable.btn_score_stable_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
             button.setText("STABLE " + riskRate.toPlainString());
 
         } else {
-            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
+            button.setBackgroundResource(R.drawable.btn_score_danger_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
             button.setText("DANGER " + riskRate.toPlainString());
@@ -3178,19 +3170,19 @@ public class WDp {
 
     public static void DpRiskButton2(Context c, BigDecimal riskRate, Button button) {
         if (riskRate.longValue() <= 50) {
-            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
+            button.setBackgroundResource(R.drawable.btn_score_safe_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
             button.setText("SAFE");
 
         } else if (riskRate.longValue() < 80) {
-            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_stable_fill));
+            button.setBackgroundResource(R.drawable.btn_score_stable_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
             button.setText("STABLE");
 
         } else {
-            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
+            button.setBackgroundResource(R.drawable.btn_score_danger_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
             button.setText("DANGER");
@@ -3201,15 +3193,15 @@ public class WDp {
         rate.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
         if (riskRate.longValue() <= 50) {
             text.setText("SAFE");
-            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
+            layer.setBackgroundResource(R.drawable.btn_score_safe_fill);
 
         } else if (riskRate.longValue() < 80) {
             text.setText("STABLE");
-            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_stable_fill));
+            layer.setBackgroundResource(R.drawable.btn_score_stable_fill);
 
         } else {
             text.setText("DANGER");
-            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
+            layer.setBackgroundResource(R.drawable.btn_score_danger_fill);
         }
     }
 
@@ -3397,29 +3389,6 @@ public class WDp {
         } catch (Exception e) {
         }
         return result;
-    }
-
-    public static void getProposalStatus(Context c, ResProposal proposal, ImageView statusImg, TextView status) {
-        if (proposal != null) {
-            if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD") || proposal.proposal_status.equalsIgnoreCase("DepositPeriod")) {
-                statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_deposit_img));
-                status.setText("DepositPeriod");
-
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
-                statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_voting_img));
-                status.setText("VotingPeriod");
-
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_REJECTED") || proposal.proposal_status.equalsIgnoreCase("Rejected")) {
-                statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_rejected_img));
-                status.setText("Rejected");
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_PASSED") || proposal.proposal_status.equalsIgnoreCase("Passed")) {
-                statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_passed_img));
-                status.setText("Passed");
-            }
-        }
     }
 
     public static BigDecimal geTallySum(ResProposal proposal) {

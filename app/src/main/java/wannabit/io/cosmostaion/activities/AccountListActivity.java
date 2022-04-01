@@ -115,21 +115,16 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, final int position) {
             BaseChain chain = mDisplayChains.get(position);
-            holder.chainCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (chain != mSelectedChain) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                onChainSelect(chain);
-                                getBaseDao().setUserSortedChains(mDisplayChains);
-                            }
-                        }, 150);
-                    }
+            holder.chainCard.setOnClickListener(v -> {
+                if (chain != mSelectedChain) {
+                    new Handler().postDelayed(() -> {
+                        onChainSelect(chain);
+                        getBaseDao().setUserSortedChains(mDisplayChains);
+                    }, 150);
                 }
             });
-            WDp.getChainImg(AccountListActivity.this, chain, holder.chainImg);
+            holder.chainImg.setImageResource(chain.getChainIcon());
+
             WDp.getChainTitle2(AccountListActivity.this, chain, holder.chainName);
 
             if (chain.equals(mSelectedChain)) {
@@ -188,19 +183,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
             }
 
-            if (TextUtils.isEmpty(account.nickName)) {
-                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
-            } else {
-                holder.accountName.setText(account.nickName);
-            }
+            holder.accountName.setText(account.getAccountTitle(getBaseContext()));
 
-            holder.accountCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
-                    intent.putExtra("id", "" + account.id);
-                    startActivity(intent);
-                }
+            holder.accountCard.setOnClickListener(v -> {
+                Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
+                intent.putExtra("id", "" + account.id);
+                startActivity(intent);
             });
         }
 

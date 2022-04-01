@@ -38,7 +38,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Export_Confirm;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class StarNameWalletConnectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -146,7 +145,7 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
         mLoadingLayer.setVisibility(View.GONE);
 
         ArrayList<Account> allAccounts = getBaseDao().onSelectAccounts();
-        ExportStarName toExport = WUtil.getExportResource(allAccounts);
+        ExportStarName toExport = getExportResource(allAccounts);
         String jsonData = new Gson().toJson(toExport);
 //        WLog.w("allAccounts "+ allAccounts.size());
 //        WLog.w("jsonData " + jsonData);
@@ -246,5 +245,20 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
                 mSession.kill();
             }
         }
+    }
+
+    private static ExportStarName getExportResource(ArrayList<Account> accounts) {
+        ExportStarName result = new ExportStarName();
+        result.type = "starname";
+        for (Account account : accounts) {
+            BaseChain chain = BaseChain.getChain(account.baseChain);
+            if (chain != null && chain.getTicker() != null) {
+                ExportStarName.ExportResource resource = new ExportStarName.ExportResource();
+                resource.ticker = chain.getTicker();
+                resource.address = account.address;
+                result.addresses.add(resource);
+            }
+        }
+        return result;
     }
 }

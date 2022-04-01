@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_8"
-                android:text="@string/str_cosmos_main_net"
+                android:text="@string/str_cosmos_hub"
                 style="@style/font_ss_14_gray8" />
         </LinearLayout>
 

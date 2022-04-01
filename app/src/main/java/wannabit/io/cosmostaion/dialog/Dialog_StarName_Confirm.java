@@ -41,23 +41,15 @@ public class Dialog_StarName_Confirm extends DialogFragment {
         starnameTv.setText(getArguments().getString("starname"));
         addressTv.setText(getArguments().getString("originAddress"));
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
-        });
+        btn_negative.setOnClickListener(v -> getDialog().dismiss());
 
 
-        btn_posi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("starname", getArguments().getString("starname"));
-                resultIntent.putExtra("originAddress", getArguments().getString("originAddress"));
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-            }
+        btn_posi.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("starname", getArguments().getString("starname"));
+            resultIntent.putExtra("originAddress", getArguments().getString("originAddress"));
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+            getDialog().dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

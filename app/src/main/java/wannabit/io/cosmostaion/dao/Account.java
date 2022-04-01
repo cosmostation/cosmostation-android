@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -85,6 +86,16 @@ public class Account {
         this.pushAlarm = pushAlarm;
         this.newBip44 = newBip;
         this.customPath = customPath;
+    }
+
+    public String getAccountTitle(Context context) {
+        String result;
+        if (TextUtils.isEmpty(nickName)) {
+            result = context.getString(R.string.str_my_wallet) + id;
+        } else {
+            result = nickName;
+        }
+        return result;
     }
 
     public ArrayList<Balance> getBalances() {

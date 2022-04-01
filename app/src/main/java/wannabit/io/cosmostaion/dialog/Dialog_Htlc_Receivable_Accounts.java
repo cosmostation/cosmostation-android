@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,10 +75,8 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
             final BaseChain baseChain = BaseChain.getChain(account.baseChain);
             holder.accountKeyState.setColorFilter(ContextCompat.getColor(requireContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             holder.accountAddress.setText(account.address);
+            holder.accountName.setText(account.getAccountTitle(requireContext()));
 
-            if (TextUtils.isEmpty(account.nickName))
-                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
-            else holder.accountName.setText(account.nickName);
             if (baseChain.equals(BaseChain.BNB_MAIN)) {
                 if (account.hasPrivateKey) {
                     holder.accountKeyState.setColorFilter(ContextCompat.getColor(requireContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);

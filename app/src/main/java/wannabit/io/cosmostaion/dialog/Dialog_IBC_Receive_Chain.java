@@ -71,17 +71,14 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
         public void onBindViewHolder(@NonNull RelayerListHolder holder, int position) {
             final IbcPath ibcPath = mIbcSendableRelayers.get(position);
             final BaseChain toChain = WDp.getChainTypeByChainId(ibcPath.chain_id);
-            WDp.getChainImg(getSActivity(), toChain, holder.chainImg);
+            holder.chainImg.setImageResource(toChain.getChainIcon());
             WDp.getChainTitle2(getSActivity(), toChain, holder.chainName);
 
-            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("position", position);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
-                }
+            holder.rootLayer.setOnClickListener(v -> {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("position", position);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
             });
         }
 

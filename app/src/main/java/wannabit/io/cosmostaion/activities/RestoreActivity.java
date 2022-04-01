@@ -43,7 +43,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_LumRestorePath;
@@ -139,7 +139,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     protected void onPostResume() {
         super.onPostResume();
         if (mChain == null) {
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
+            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(null);
             dialog.setCancelable(false);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 

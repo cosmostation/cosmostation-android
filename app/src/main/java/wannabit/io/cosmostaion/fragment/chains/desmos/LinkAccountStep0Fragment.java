@@ -87,11 +87,12 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
     }
 
     public void onUpdateView() {
-        WDp.getChainImg(getSActivity(), mSelectedChain, mLinkChain);
+        mLinkChain.setImageResource(mSelectedChain.getChainIcon());
         WDp.getChainTitle2(getSActivity(), mSelectedChain, mLinkChainTxt);
 
-        if ((mSelectedAccount != null)) {
-            mLinkAccountName.setText(WUtil.getWalletName(getContext(), mSelectedAccount));
+        if (mSelectedAccount != null) {
+            mLinkAccountName.setText(mSelectedAccount.getAccountTitle(getContext()));
+
             mLinkAccountAddress.setText(mSelectedAccount.address);
             ApiClient.getAirDrop(getContext()).getClaimable(mSelectedAccount.address).enqueue(new Callback<ResAirdropClaimCheck>() {
                 @Override

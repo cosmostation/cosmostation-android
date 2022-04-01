@@ -79,7 +79,8 @@ public class Dialog_Link_Accounts extends DialogFragment {
         public void onBindViewHolder(@NonNull AccountListAdapter.AccountHolder holder, int position) {
             final Account account = mAccounts.get(position);
             holder.accountAddress.setText(account.address);
-            holder.accountName.setText(WUtil.getWalletName(getContext(), account));
+            holder.accountName.setText(account.getAccountTitle(getContext()));
+
             ApiClient.getAirDrop(getContext()).getClaimable(account.address).enqueue(new Callback<ResAirdropClaimCheck>() {
                 @Override
                 public void onResponse(Call<ResAirdropClaimCheck> call, Response<ResAirdropClaimCheck> response) {

@@ -16,8 +16,7 @@ import wannabit.io.cosmostaion.R;
 public class Dialog_Wait extends DialogFragment {
 
     public static Dialog_Wait newInstance() {
-        Dialog_Wait frag = new Dialog_Wait();
-        return frag;
+        return new Dialog_Wait();
     }
 
     @Override

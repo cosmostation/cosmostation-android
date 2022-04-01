@@ -48,10 +48,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -68,7 +64,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
-import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -128,7 +123,6 @@ import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
-import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -707,19 +701,6 @@ public class WUtil {
             throw new RuntimeException(e);
         }
     }
-
-    public static Bitmap toBitmap(BitMatrix matrix) {
-        int height = matrix.getHeight();
-        int width = matrix.getWidth();
-        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                bmp.setPixel(x, y, matrix.get(x, y) ? Color.BLACK : Color.WHITE);
-            }
-        }
-        return bmp;
-    }
-
 
     /**
      * Sorts
@@ -1949,59 +1930,6 @@ public class WUtil {
         }
     }
 
-    public static String getWalletName(Context c, Account account) {
-        if (account == null) {
-            return "";
-        } else if (TextUtils.isEmpty(account.nickName)) {
-            return c.getString(R.string.str_my_wallet) + account.id;
-        } else {
-            return account.nickName;
-        }
-    }
-
-    // photo image rotate
-    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
-        Matrix matrix = new Matrix();
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_NORMAL:
-                return bitmap;
-            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
-                matrix.setScale(-1, 1);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                matrix.setRotate(180);
-                break;
-            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
-                matrix.setRotate(180);
-                matrix.postScale(-1, 1);
-                break;
-            case ExifInterface.ORIENTATION_TRANSPOSE:
-                matrix.setRotate(90);
-                matrix.postScale(-1, 1);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                matrix.setRotate(90);
-                break;
-            case ExifInterface.ORIENTATION_TRANSVERSE:
-                matrix.setRotate(-90);
-                matrix.postScale(-1, 1);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                matrix.setRotate(-90);
-                break;
-            default:
-                return bitmap;
-        }
-        try {
-            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            bitmap.recycle();
-            return bmRotated;
-        } catch (OutOfMemoryError e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     /**
      * About KAVA
      */
@@ -2095,7 +2023,7 @@ public class WUtil {
     }
 
     public static BigDecimal getKavaPrice(BaseData baseData, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
+        BigDecimal result;
         if (denom.equals("usdx")) {
             result = BigDecimal.ONE;
         } else {
@@ -2222,11 +2150,10 @@ public class WUtil {
     public static BigDecimal getHardBorrowableValueByDenom(Context context, BaseData baseData, String denom, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit, ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<CoinOuterClass.Coin> reserveCoin) {
         BigDecimal totalLTVValue = BigDecimal.ZERO;
         BigDecimal totalBorrowedValue = BigDecimal.ZERO;
-        BigDecimal totalBorrowAbleValue = BigDecimal.ZERO;
-        BigDecimal totalBorrowAbleAmount = BigDecimal.ZERO;
+        BigDecimal totalBorrowAbleValue;
 
-        BigDecimal SystemBorrowableAmount = BigDecimal.ZERO;
-        BigDecimal SystemBorrowableValue = BigDecimal.ZERO;
+        BigDecimal SystemBorrowableAmount;
+        BigDecimal SystemBorrowableValue;
         BigDecimal moduleAmount = BigDecimal.ZERO;
         BigDecimal reserveAmount = BigDecimal.ZERO;
 
@@ -2239,8 +2166,8 @@ public class WUtil {
             for (CoinOuterClass.Coin coin : myDeposit.get(0).getAmountList()) {
                 int innnerDecimal = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
                 BigDecimal LTV = WUtil.getLTV(hardParam, coin.getDenom());
-                BigDecimal depositValue = BigDecimal.ZERO;
-                BigDecimal ltvValue = BigDecimal.ZERO;
+                BigDecimal depositValue;
+
                 if (coin.getDenom().equalsIgnoreCase("usdx")) {
                     depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
 
@@ -2249,16 +2176,15 @@ public class WUtil {
                     depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
 
                 }
-                ltvValue = depositValue.multiply(LTV);
+                BigDecimal ltvValue = depositValue.multiply(LTV);
                 totalLTVValue = totalLTVValue.add(ltvValue);
-
             }
         }
 
         if (myBorrow != null && myBorrow.size() > 0) {
             for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
                 int innnerDecimal = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
-                BigDecimal borrowedValue = BigDecimal.ZERO;
+                BigDecimal borrowedValue;
                 if (coin.getDenom().equals("usdx")) {
                     borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
 
@@ -2271,7 +2197,6 @@ public class WUtil {
             }
         }
         totalBorrowAbleValue = (totalLTVValue.subtract(totalBorrowedValue)).max(BigDecimal.ZERO);
-        totalBorrowAbleAmount = totalBorrowAbleValue.movePointRight(decimal).divide(denomPrice, decimal, RoundingMode.DOWN);
 
         if (moduleCoins != null) {
             for (Coin coin : moduleCoins) {
@@ -2295,8 +2220,7 @@ public class WUtil {
         }
         SystemBorrowableValue = SystemBorrowableAmount.movePointLeft(decimal).multiply(denomPrice);
 
-        BigDecimal finalBorrowableValue = totalBorrowAbleValue.min(SystemBorrowableValue);
-        return finalBorrowableValue;
+        return totalBorrowAbleValue.min(SystemBorrowableValue);
     }
 
     public static String getDuputyKavaAddress(String denom) {
@@ -2363,32 +2287,17 @@ public class WUtil {
     public static boolean isBnbBaseMarketToken(String symbol) {
         switch (symbol) {
             case "USDT.B-B7C":
-                return true;
             case "ETH.B-261":
-                return true;
             case "BTC.B-918":
-                return true;
-
-
             case "USDSB-1AC":
-                return true;
             case "THKDB-888":
-                return true;
             case "TUSDB-888":
-                return true;
             case "BTCB-1DE":
-                return true;
-
             case "ETH-1C9":
-                return true;
             case "IDRTB-178":
-                return true;
             case "BUSD-BD1":
-                return true;
             case "TAUDB-888":
                 return true;
-
-
         }
         return false;
     }
@@ -2433,25 +2342,17 @@ public class WUtil {
     }
 
     public static boolean isValidDomain(String starname) {
-        boolean result = false;
-        String regex = "^[mabcdefghijklnopqrstuvwxy][-a-z0-9_]{0,2}$|^[-a-z0-9_]{4,32}$";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(starname);
-        if (m.matches()) {
-            result = true;
-        }
-        return result;
+        return Pattern
+                .compile("^[mabcdefghijklnopqrstuvwxy][-a-z0-9_]{0,2}$|^[-a-z0-9_]{4,32}$")
+                .matcher(starname)
+                .matches();
     }
 
     public static boolean isValidAccount(String starname) {
-        boolean result = false;
-        String regex = "^[-.a-z0-9_]{1,63}$";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(starname);
-        if (m.matches()) {
-            result = true;
-        }
-        return result;
+        return Pattern
+                .compile("^[-.a-z0-9_]{1,63}$")
+                .matcher(starname)
+                .matches();
     }
 
     public static String checkStarnameWithResource(BaseChain chain, List<Types.Resource> resources) {
@@ -2464,275 +2365,16 @@ public class WUtil {
 
     }
 
-    public static ExportStarName getExportResource(ArrayList<Account> accounts) {
-        ExportStarName result = new ExportStarName();
-        result.type = "starname";
-        for (Account account : accounts) {
-            ExportStarName.ExportResource resource = new ExportStarName.ExportResource();
-            if (BaseChain.getChain(account.baseChain).equals(COSMOS_MAIN)) {
-                resource.ticker = "atom";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(IMVERSED_MAIN)) {
-                resource.ticker = "imv";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(IRIS_MAIN)) {
-                resource.ticker = "iris";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(BNB_MAIN)) {
-                resource.ticker = "bnb";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
-                resource.ticker = "okb";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(KAVA_MAIN)) {
-                resource.ticker = "kava";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(BAND_MAIN)) {
-                resource.ticker = "band";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(PERSIS_MAIN)) {
-                resource.ticker = "xprt";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(IOV_MAIN)) {
-                resource.ticker = "iov";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(CERTIK_MAIN)) {
-                resource.ticker = "ctk";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(AKASH_MAIN)) {
-                resource.ticker = "akt";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(SENTINEL_MAIN)) {
-                resource.ticker = "dvpn";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-//            } else if (BaseChain.getChain(account.baseChain).equals(FETCHAI_MAIN)) {
-//                resource.ticker = "fet";
-//                resource.address = account.address;
-//                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(CRYPTO_MAIN)) {
-                resource.ticker = "cro";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(SIF_MAIN)) {
-                resource.ticker = "rowan";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-//            } else if (BaseChain.getChain(account.baseChain).equals(KI_MAIN)) {
-//                resource.ticker = "ki";
-//                resource.address = account.address;
-//                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(RIZON_MAIN)) {
-                resource.ticker = "atolo";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(OSMOSIS_MAIN)) {
-                resource.ticker = "osmo";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-//            } else if (BaseChain.getChain(account.baseChain).equals(MEDI_MAIN)) {
-//                resource.ticker = "med";
-//                resource.address = account.address;
-//                result.addresses.add(resource);
-//
-//            } else if (BaseChain.getChain(account.baseChain).equals(EMONEY_MAIN)) {
-//                resource.ticker = "ngm";
-//                resource.address = account.address;
-//                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(REGEN_MAIN)) {
-                resource.ticker = "regen";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-//            } else if (BaseChain.getChain(account.baseChain).equals(JUNO_MAIN)) {
-//                resource.ticker = "juno";
-//                resource.address = account.address;
-//                result.addresses.add(resource);
-//
-//            } else if (BaseChain.getChain(account.baseChain).equals(BITCANNA_MAIN)) {
-//                resource.ticker = "bcna";
-//                resource.address = account.address;
-//                result.addresses.add(resource);
-//
-//            } else if (BaseChain.getChain(account.baseChain).equals(STARGAZE_MAIN)) {
-//                resource.ticker = "stars";
-//                resource.address = account.address;
-//                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(SECRET_MAIN)) {
-                resource.ticker = "scrt";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Real Block Time
-     */
-    public static BigDecimal getRealBlockTime(BaseChain chain) {
-        if (chain != null) {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                return BLOCK_TIME_COSMOS;
-
-            } else if (chain.equals(IMVERSED_MAIN)) {
-                return BLOCK_TIME_IMVERSED;
-
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                return BLOCK_TIME_IRIS;
-
-            } else if (chain.equals(IOV_MAIN)) {
-                return BLOCK_TIME_IOV;
-
-            } else if (chain.equals(KAVA_MAIN)) {
-                return BLOCK_TIME_KAVA;
-
-            } else if (chain.equals(BAND_MAIN)) {
-                return BLOCK_TIME_BAND;
-
-            } else if (chain.equals(CERTIK_MAIN)) {
-                return BLOCK_TIME_CERTIK;
-
-            } else if (chain.equals(SECRET_MAIN)) {
-                return BLOCK_TIME_SECRET;
-
-            } else if (chain.equals(AKASH_MAIN)) {
-                return BLOCK_TIME_AKASH;
-
-            } else if (chain.equals(SENTINEL_MAIN)) {
-                return BLOCK_TIME_SENTINEL;
-
-            } else if (chain.equals(PERSIS_MAIN)) {
-                return BLOCK_TIME_PERSISTENCE;
-
-            } else if (chain.equals(FETCHAI_MAIN)) {
-                return BLOCK_TIME_FETCH;
-
-            } else if (chain.equals(CRYPTO_MAIN)) {
-                return BLOCK_TIME_CRYPTO;
-
-            } else if (chain.equals(SIF_MAIN)) {
-                return BLOCK_TIME_SIF;
-
-            } else if (chain.equals(KI_MAIN)) {
-                return BLOCK_TIME_KI;
-
-            } else if (chain.equals(MEDI_MAIN)) {
-                return BLOCK_TIME_MEDI;
-
-            } else if (chain.equals(OSMOSIS_MAIN)) {
-                return BLOCK_TIME_OSMOSIS;
-
-            } else if (chain.equals(EMONEY_MAIN)) {
-                return BLOCK_TIME_EMONEY;
-
-            } else if (chain.equals(RIZON_MAIN)) {
-                return BLOCK_TIME_RIZON;
-
-            } else if (chain.equals(JUNO_MAIN)) {
-                return BLOCK_TIME_JUNO;
-
-            } else if (chain.equals(BITCANNA_MAIN)) {
-                return BLOCK_TIME_BITCANNA;
-
-            } else if (chain.equals(REGEN_MAIN)) {
-                return BLOCK_TIME_REGEN;
-
-            } else if (chain.equals(STARGAZE_MAIN)) {
-                return BLOCK_TIME_STARGAZE;
-
-            } else if (chain.equals(INJ_MAIN)) {
-                return BLOCK_TIME_INJECTIVE;
-
-            } else if (chain.equals(BITSONG_MAIN)) {
-                return BLOCK_TIME_BITSONG;
-
-            } else if (chain.equals(OKEX_MAIN)) {
-                return BLOCK_TIME_OKEX;
-
-            } else if (chain.equals(BNB_MAIN)) {
-                return BLOCK_TIME_BNB;
-
-            } else if (chain.equals(COMDEX_MAIN)) {
-                return BLOCK_TIME_COMDEX;
-
-            } else if (chain.equals(DESMOS_MAIN)) {
-                return BLOCK_TIME_DESMOS;
-
-            } else if (chain.equals(GRABRIDGE_MAIN)) {
-                return BLOCK_TIME_GRAV;
-
-            } else if (chain.equals(LUM_MAIN)) {
-                return BLOCK_TIME_LUM;
-
-            } else if (chain.equals(CHIHUAHUA_MAIN)) {
-                return BLOCK_TIME_CHIHUAHUA;
-
-            } else if (chain.equals(AXELAR_MAIN)) {
-                return BLOCK_TIME_AXELAR;
-
-            } else if (chain.equals(KONSTELL_MAIN)) {
-                return BLOCK_TIME_KONSTELLATION;
-
-            } else if (chain.equals(UMEE_MAIN)) {
-                return BLOCK_TIME_UMEE;
-
-            } else if (chain.equals(EVMOS_MAIN)) {
-                return BLOCK_TIME_EVMOS;
-
-            } else if (chain.equals(PROVENANCE_MAIN)) {
-                return BLOCK_TIME_PROVENANCE;
-
-            } else if (chain.equals(CERBERUS_MAIN)) {
-                return BLOCK_TIME_CERBERUS;
-
-            } else if (chain.equals(OMNIFLIX_MAIN)) {
-                return BLOCK_TIME_OMNIFLIX;
-
-            }
-        }
-        return BigDecimal.ZERO;
-    }
-
     public static BigDecimal getRealBlockPerYear(BaseChain chain) {
+        BigDecimal result = BigDecimal.ZERO;
         if (chain != null) {
-            if (getRealBlockTime(chain) == BigDecimal.ZERO) {
-                return BigDecimal.ZERO;
+            BigDecimal blockTime = chain.getBlockTime();
+            if (!blockTime.equals(BigDecimal.ZERO)) {
+                result = YEAR_SEC.divide(blockTime, 2, RoundingMode.DOWN);
             }
         }
-        return YEAR_SEC.divide(getRealBlockTime(chain), 2, RoundingMode.DOWN);
+
+        return result;
     }
 
     /**
@@ -3524,140 +3166,23 @@ public class WUtil {
         return "";
     }
 
+    public static String getExplorerSuffix(BaseChain basechain) {
+        if (basechain.equals(OKEX_MAIN)) return "tx/0x";
+        else if (basechain.equals(IMVERSED_MAIN)) return "transactions/";
+        else return "txs/";
+    }
+
     public static String getTxExplorer(BaseChain basechain, String hash) {
+        String result = "";
         if (hash != null) {
-            if (basechain.equals(BNB_MAIN)) {
-                return EXPLORER_BINANCE_MAIN + "txs/" + hash;
+            String explorer = getExplorer(basechain);
+            String suffix = getExplorerSuffix(basechain);
 
-            } else if (basechain.equals(OKEX_MAIN)) {
-                return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
-
-            } else if (basechain.equals(COSMOS_MAIN)) {
-                return EXPLORER_COSMOS_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(IMVERSED_MAIN)) {
-                return EXPLORER_IMVERSED_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(IRIS_MAIN)) {
-                return EXPLORER_IRIS_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(AKASH_MAIN)) {
-                return EXPLORER_AKASH_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(SENTINEL_MAIN)) {
-                return EXPLORER_SENTINEL_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(PERSIS_MAIN)) {
-                return EXPLORER_PERSIS_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(CRYPTO_MAIN)) {
-                return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(OSMOSIS_MAIN)) {
-                return EXPLORER_OSMOSIS_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(IOV_MAIN)) {
-                return EXPLORER_IOV_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(SIF_MAIN)) {
-                return EXPLORER_SIF_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(BAND_MAIN)) {
-                return EXPLORER_BAND_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(MEDI_MAIN)) {
-                return EXPLORER_MEDI_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(CERTIK_MAIN)) {
-                return EXPLORER_CERTIK_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(EMONEY_MAIN)) {
-                return EXPLORER_EMONEY_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(FETCHAI_MAIN)) {
-                return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(RIZON_MAIN)) {
-                return EXPLORER_RIZON_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(JUNO_MAIN)) {
-                return EXPLORER_JUNO_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(REGEN_MAIN)) {
-                return EXPLORER_REGEN_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(BITCANNA_MAIN)) {
-                return EXPLORER_BITCANNA_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(ALTHEA_MAIN)) {
-                return EXPLORER_ALTHEA_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(STARGAZE_MAIN)) {
-                return EXPLORER_STARGAZE_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(GRABRIDGE_MAIN)) {
-                return EXPLORER_GRABRIDGE_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(KI_MAIN)) {
-                return EXPLORER_KI_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(COMDEX_MAIN)) {
-                return EXPLORER_COMDEX_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(SECRET_MAIN)) {
-                return EXPLORER_SECRET_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(INJ_MAIN)) {
-                return EXPLORER_INJ_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(BITSONG_MAIN)) {
-                return EXPLORER_BITSONG_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(DESMOS_MAIN)) {
-                return EXPLORER_DESMOS_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(LUM_MAIN)) {
-                return EXPLORER_LUM_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(CHIHUAHUA_MAIN)) {
-                return EXPLORER_CHIHUAHUA_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(KAVA_MAIN)) {
-                return EXPLORER_KAVA_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(AXELAR_MAIN)) {
-                return EXPLORER_AXELAR_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(KONSTELL_MAIN)) {
-                return EXPLORER_KONSTELL_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(UMEE_MAIN)) {
-                return EXPLORER_UMEE_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(EVMOS_MAIN)) {
-                return EXPLORER_EVMOS_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(CUDOS_MAIN)) {
-                return EXPLORER_CUDOS_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(PROVENANCE_MAIN)) {
-                return EXPLORER_PROVENANCE_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(CERBERUS_MAIN)) {
-                return EXPLORER_CERBERUS_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(OMNIFLIX_MAIN)) {
-                return EXPLORER_OMNIFLIX_MAIN + "txs/" + hash;
-
-            } else if (basechain.equals(COSMOS_TEST)) {
-                return EXPLORER_COSMOS_TEST + "txs/" + hash;
-
-            } else if (basechain.equals(IRIS_TEST)) {
-                return EXPLORER_IRIS_TEST + "txs/" + hash;
-
+            if (!TextUtils.isEmpty(explorer)) {
+                result = explorer + suffix + hash;
             }
         }
-        return "";
+        return result;
     }
 
     /**

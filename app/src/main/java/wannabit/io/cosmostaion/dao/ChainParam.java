@@ -214,17 +214,26 @@ public class ChainParam {
         }
 
         public BigDecimal getRealApr(BaseChain baseChain) {
-            if (WUtil.getRealBlockPerYear(baseChain) == BigDecimal.ZERO || getBlockPerYear(baseChain) == BigDecimal.ZERO) {
-                return BigDecimal.ZERO;
+            BigDecimal result = BigDecimal.ZERO;
+            BigDecimal realBlockPerYear = WUtil.getRealBlockPerYear(baseChain);
+            if (!realBlockPerYear.equals(BigDecimal.ZERO)) {
+                BigDecimal blockPerYear = getBlockPerYear(baseChain);
+                if (!blockPerYear.equals(BigDecimal.ZERO)) {
+                    result = getApr(baseChain)
+                            .multiply(realBlockPerYear)
+                            .divide(blockPerYear, 6, RoundingMode.DOWN);
+                }
             }
-            return getApr(baseChain).multiply(WUtil.getRealBlockPerYear(baseChain)).divide(getBlockPerYear(baseChain), 6, RoundingMode.DOWN);
+            return result;
         }
 
         public BigDecimal getDpRealApr(BaseChain baseChain) {
-            if (getRealApr(baseChain) == BigDecimal.ZERO) {
-                return BigDecimal.ZERO;
+            BigDecimal result = BigDecimal.ZERO;
+            BigDecimal realApr = getRealApr(baseChain);
+            if (!realApr.equals(BigDecimal.ZERO)) {
+                result = realApr.movePointRight(2);
             }
-            return getRealApr(baseChain).movePointRight(2);
+            return result;
         }
 
         public BigDecimal getBlockPerYear(BaseChain baseChain) {

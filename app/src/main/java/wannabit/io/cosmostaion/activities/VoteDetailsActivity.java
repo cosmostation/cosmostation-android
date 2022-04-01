@@ -85,12 +85,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetch();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(this::onFetch);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -222,7 +217,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         private void onBindVoteInfo(RecyclerView.ViewHolder viewHolder) {
             final VoteInfoHolder holder = (VoteInfoHolder) viewHolder;
             if (mApiProposal != null) {
-                WDp.getProposalStatus(VoteDetailsActivity.this, mApiProposal, holder.itemStatusImg, holder.itemStatusTxt);
+                updateProposalStatus(mApiProposal, holder.itemStatusImg, holder.itemStatusTxt);
+
                 if (mApiProposal.proposer == null) {
                     holder.itemProposerLayer.setVisibility(View.GONE);
                 } else {
@@ -351,6 +347,29 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             }
         }
 
+        public void updateProposalStatus(ResProposal proposal, ImageView statusImg, TextView status) {
+            if (proposal != null) {
+                if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD") || proposal.proposal_status.equalsIgnoreCase("DepositPeriod")) {
+                    statusImg.setImageResource(R.drawable.ic_deposit_img);
+                    status.setText("DepositPeriod");
+
+                } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") ||
+                        proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") ||
+                        proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") ||
+                        proposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
+                    statusImg.setImageResource(R.drawable.ic_voting_img);
+                    status.setText("VotingPeriod");
+
+                } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_REJECTED") || proposal.proposal_status.equalsIgnoreCase("Rejected")) {
+                    statusImg.setImageResource(R.drawable.ic_rejected_img);
+                    status.setText("Rejected");
+                } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_PASSED") || proposal.proposal_status.equalsIgnoreCase("Passed")) {
+                    statusImg.setImageResource(R.drawable.ic_passed_img);
+                    status.setText("Passed");
+                }
+            }
+        }
+
         private void onExplorerLink() {
             String url = WUtil.getExplorer(mBaseChain) + "proposals/" + mProposalId;
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -359,10 +378,10 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onDisplayVote(VoteTallyHolder holder) {
             if (mApiProposal != null) {
-                holder.itemYesCnt.setText("" + mApiProposal.voteMeta.yes);
-                holder.itemNoCnt.setText("" + mApiProposal.voteMeta.no);
-                holder.itemVetoCnt.setText("" + mApiProposal.voteMeta.no_with_veto);
-                holder.itemAbstainCnt.setText("" + mApiProposal.voteMeta.abstain);
+                holder.itemYesCnt.setText(mApiProposal.voteMeta.yes);
+                holder.itemNoCnt.setText(mApiProposal.voteMeta.no);
+                holder.itemVetoCnt.setText(mApiProposal.voteMeta.no_with_veto);
+                holder.itemAbstainCnt.setText(mApiProposal.voteMeta.abstain);
             }
             holder.itemYesCnt.setVisibility(View.VISIBLE);
             holder.itemNoCnt.setVisibility(View.VISIBLE);

@@ -28,34 +28,25 @@ public class Dialog_ValidatorSorting extends BottomSheetDialogFragment {
         Button commision = view.findViewById(R.id.btn_commision);
 
 
-        name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("sorting", 0);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                dismiss();
-            }
+        name.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("sorting", 0);
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+            dismiss();
         });
 
-        power.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("sorting", 1);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                dismiss();
-            }
+        power.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("sorting", 1);
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+            dismiss();
         });
 
-        commision.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("sorting", 2);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                dismiss();
-            }
+        commision.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("sorting", 2);
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+            dismiss();
         });
 
         return view;

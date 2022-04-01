@@ -788,9 +788,8 @@ public class BaseConstant {
     public final static String EMONEY_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
     public final static String ASSET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/assets/images/ethereum/";
 
-
     public final static String EXPLORER_COSMOS_MAIN = "https://www.mintscan.io/cosmos/";
-    public final static String EXPLORER_IMVERSED_MAIN = "https://www.mintscan.io/imversed/"; // TODO Imversed
+    public final static String EXPLORER_IMVERSED_MAIN = "https://tex.imversed.com/"; // TODO Imversed
     public final static String EXPLORER_IRIS_MAIN = "https://www.mintscan.io/iris/";
     public final static String EXPLORER_KAVA_MAIN = "https://www.mintscan.io/kava/";
     public final static String EXPLORER_IOV_MAIN = "https://www.mintscan.io/starname/";
@@ -831,7 +830,6 @@ public class BaseConstant {
     public final static String EXPLORER_CERBERUS_MAIN = "https://www.mintscan.io/cerberus/";
     public final static String EXPLORER_OMNIFLIX_MAIN = "https://www.mintscan.io/omniflix/";
     public final static String EXPLORER_HDAC_MAIN = "https://explorer.as.hdactech.com/hdac-explorer/";
-
     public final static String EXPLORER_OEC_TX = "https://www.oklink.com/oec/";
 
     public final static String NFT_INFURA = "https://ipfs.infura.io/ipfs/";
@@ -885,48 +883,6 @@ public class BaseConstant {
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM = "station";
 
-
     public final static BigDecimal DAY_SEC = new BigDecimal("86400");
-    public final static BigDecimal MONTH_SEC = DAY_SEC.multiply(new BigDecimal("30"));
     public final static BigDecimal YEAR_SEC = DAY_SEC.multiply(new BigDecimal("365"));
-
-    public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.6597");
-    public final static BigDecimal BLOCK_TIME_IMVERSED = new BigDecimal("6.7884"); // TODO Imversed it will be corrected
-    public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.7884");
-    public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.0124");
-    public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("6.7262");
-    public final static BigDecimal BLOCK_TIME_BAND = new BigDecimal("3.0236");
-    public final static BigDecimal BLOCK_TIME_CERTIK = new BigDecimal("5.9740");
-    public final static BigDecimal BLOCK_TIME_SECRET = new BigDecimal("6.0408");
-    public final static BigDecimal BLOCK_TIME_AKASH = new BigDecimal("6.4526");
-    public final static BigDecimal BLOCK_TIME_SENTINEL = new BigDecimal("6.3113");
-    public final static BigDecimal BLOCK_TIME_PERSISTENCE = new BigDecimal("5.7982");
-    public final static BigDecimal BLOCK_TIME_FETCH = new BigDecimal("6.0678");
-    public final static BigDecimal BLOCK_TIME_CRYPTO = new BigDecimal("6.1939");
-    public final static BigDecimal BLOCK_TIME_SIF = new BigDecimal("5.7246");
-    public final static BigDecimal BLOCK_TIME_KI = new BigDecimal("5.7571");
-    public final static BigDecimal BLOCK_TIME_MEDI = new BigDecimal("5.7849");
-    public final static BigDecimal BLOCK_TIME_OSMOSIS = new BigDecimal("6.5324");
-    public final static BigDecimal BLOCK_TIME_EMONEY = new BigDecimal("24.8486");
-    public final static BigDecimal BLOCK_TIME_RIZON = new BigDecimal("5.8850");
-    public final static BigDecimal BLOCK_TIME_JUNO = new BigDecimal("6.3104");
-    public final static BigDecimal BLOCK_TIME_BITCANNA = new BigDecimal("6.0256");
-    public final static BigDecimal BLOCK_TIME_REGEN = new BigDecimal("6.2491");
-    public final static BigDecimal BLOCK_TIME_STARGAZE = new BigDecimal("5.8129");
-    public final static BigDecimal BLOCK_TIME_INJECTIVE = new BigDecimal("2.4865");
-    public final static BigDecimal BLOCK_TIME_BITSONG = new BigDecimal("5.9040");
-    public final static BigDecimal BLOCK_TIME_OKEX = new BigDecimal("4.0286");
-    public final static BigDecimal BLOCK_TIME_BNB = new BigDecimal("0.4124");
-    public final static BigDecimal BLOCK_TIME_COMDEX = new BigDecimal("6.1746");
-    public final static BigDecimal BLOCK_TIME_DESMOS = new BigDecimal("6.1605");
-    public final static BigDecimal BLOCK_TIME_GRAV = new BigDecimal("6.4500");
-    public final static BigDecimal BLOCK_TIME_LUM = new BigDecimal("5.7210");
-    public final static BigDecimal BLOCK_TIME_CHIHUAHUA = new BigDecimal("5.8172");
-    public final static BigDecimal BLOCK_TIME_AXELAR = new BigDecimal("5.5596");
-    public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.376");
-    public final static BigDecimal BLOCK_TIME_UMEE = new BigDecimal("5.658");
-    public final static BigDecimal BLOCK_TIME_EVMOS = new BigDecimal("5.824");
-    public final static BigDecimal BLOCK_TIME_PROVENANCE = new BigDecimal("6.3061");
-    public final static BigDecimal BLOCK_TIME_CERBERUS = new BigDecimal("5.9666");
-    public final static BigDecimal BLOCK_TIME_OMNIFLIX = new BigDecimal("5.7970");
 }

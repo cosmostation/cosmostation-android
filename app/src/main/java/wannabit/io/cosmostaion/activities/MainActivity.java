@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -50,7 +51,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -58,6 +58,7 @@ import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
+import wannabit.io.cosmostaion.presentation.accounts.AccountShowDialogFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -93,12 +94,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTabLayer = findViewById(R.id.bottom_tab);
         mFloatBtn = findViewById(R.id.btn_floating);
 
-        mFloatBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onStartSendMainDenom();
-            }
-        });
+        mFloatBtn.setOnClickListener(v -> onStartSendMainDenom());
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -169,13 +165,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onAddressDialog() {
-        Bundle bundle = new Bundle();
-        bundle.putString("address", mAccount.address);
-        if (TextUtils.isEmpty(mAccount.nickName))
-            bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-        else
-            bundle.putString("title", mAccount.nickName);
-        Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+        AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
+                mAccount.getAccountTitle(this),
+                mAccount.address
+        );
         show.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
     }
@@ -199,8 +192,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onShowWaitDialog();
             onFetchAllData();
 
-            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
-            WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
+            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorWhite));
+            mToolbarChainImg.setImageResource(mBaseChain.getChainIcon());
             WDp.getChainTitle(MainActivity.this, mBaseChain, mToolbarChainName);
             mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));
             WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
@@ -209,9 +202,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onChainSelect(mSelectedChain);
         }
 
-        if (TextUtils.isEmpty(mAccount.nickName))
-            mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
-        else mToolbarTitle.setText(mAccount.nickName);
+        mToolbarTitle.setText(mAccount.getAccountTitle(this));
     }
 
     private void onChainSelect(BaseChain baseChain) {

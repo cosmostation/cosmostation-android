@@ -216,62 +216,6 @@
     <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
     <string name="str_vote_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
 
-    <string name="str_cosmos_main_net" translatable="false">Cosmos</string>
-    <string name="str_cosmos_test_net_12k" translatable="false">COSMOS Testnet (GAIA 12k)</string>
-    <string name="str_cosmos_test_net_13k" translatable="false">COSMOS Testnet (GAIA 13k)</string>
-    <string name="str_imversed_main_net" translatable="false">Imversed</string>
-    <string name="str_iris_main_net" translatable="false">Iris</string>
-    <string name="str_bnb_main_net" translatable="false">Binance</string>
-    <string name="str_iov_main_net" translatable="false">Starname</string>
-    <string name="str_kava_main_net" translatable="false">Kava</string>
-    <string name="str_band_main_net" translatable="false">Band</string>
-    <string name="str_persis_main_net" translatable="false">Persistence</string>
-    <string name="str_secret_main_net" translatable="false">Secret</string>
-    <string name="str_certik_main_net" translatable="false">Certik</string>
-    <string name="str_akash_main_net" translatable="false">Akash</string>
-    <string name="str_okex_main_net" translatable="false">OEC</string>
-    <string name="str_sentinel_main_net" translatable="false">Sentinel</string>
-    <string name="str_fetch_main_net" translatable="false">Fetch.ai</string>
-    <string name="str_crypto_main_net" translatable="false">Crypto.org</string>
-    <string name="str_sif_main_net" translatable="false">SifChain</string>
-    <string name="str_ki_main_net" translatable="false">Ki Foundation</string>
-    <string name="str_osmosis_main_net" translatable="false">Osmosis</string>
-    <string name="str_medi_main_net" translatable="false">Medibloc</string>
-    <string name="str_emoney_main_net" translatable="false">Emoney</string>
-    <string name="str_rizon_main_net" translatable="false">Rizon</string>
-    <string name="str_juno_main_net" translatable="false">Juno</string>
-    <string name="str_regen_main_net" translatable="false">Regen</string>
-    <string name="str_bitcanna_main_net" translatable="false">Bitcanna</string>
-    <string name="str_althea_main_net" translatable="false">Althea</string>
-    <string name="str_stargaze_main_net" translatable="false">Stargaze</string>
-    <string name="str_grabridge_main_net" translatable="false">Gravity Bridge</string>
-    <string name="str_comdex_main_net" translatable="false">Comdex</string>
-    <string name="str_inj_main_net" translatable="false">Injective</string>
-    <string name="str_bitsong_main_net" translatable="false">Bitsong</string>
-    <string name="str_desmos_main_net" translatable="false">Desmos</string>
-    <string name="str_lum_main_net" translatable="false">Lum</string>
-    <string name="str_chihuahua_main_net" translatable="false">Chihuahua</string>
-    <string name="str_axelar_main_net" translatable="false">Axelar</string>
-    <string name="str_konstellation_main_net" translatable="false">Konstellation</string>
-    <string name="str_umee_main_net" translatable="false">Umee</string>
-    <string name="str_evmos_main_net" translatable="false">Evmos</string>
-    <string name="str_cudos_main_net" translatable="false">Cudos</string>
-    <string name="str_provenance_main_net" translatable="false">Provenance</string>
-    <string name="str_cerberus_main_net" translatable="false">Cerberus</string>
-    <string name="str_omniflix_main_net" translatable="false">Omniflix</string>
-    <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
-    <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
-    <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
-    <string name="str_kava_test_net" translatable="false">Kava Testnet</string>
-    <string name="str_iov_test_net" translatable="false">Starname Testnet</string>
-    <string name="str_ok_test_net" translatable="false">Okex Testnet</string>
-    <string name="str_certik_test_net" translatable="false">Certik Testnet</string>
-    <string name="str_rizon_test_net" translatable="false">Rizon Testnet</string>
-    <string name="str_medi_test_net" translatable="false">Medibloc Testnet</string>
-    <string name="str_althea_test_net" translatable="false">Althea Testnet</string>
-    <string name="str_umee_test_net" translatable="false">Umee Testnet</string>
-    <string name="str_axelar_test_net" translatable="false">Axelar Testnet</string>
-
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
 
@@ -502,8 +446,20 @@
     <string name="str_provenance_net" translatable="false">Provenance</string>
     <string name="str_cerberus_net" translatable="false">Cerberus</string>
     <string name="str_omniflix_net" translatable="false">Omniflix</string>
-    <string name="str_althea_chain_test" translatable="false">Althea Testnet</string>
     <string name="str_emoney_net" translatable="false">E-Money</string>
+    <string name="str_althea_chain_test" translatable="false">Althea Testnet</string>
+    <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
+    <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
+    <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
+    <string name="str_kava_test_net" translatable="false">Kava Testnet</string>
+    <string name="str_iov_test_net" translatable="false">Starname Testnet</string>
+    <string name="str_ok_test_net" translatable="false">Okex Testnet</string>
+    <string name="str_certik_test_net" translatable="false">Certik Testnet</string>
+    <string name="str_rizon_test_net" translatable="false">Rizon Testnet</string>
+    <string name="str_medi_test_net" translatable="false">Medibloc Testnet</string>
+    <string name="str_althea_test_net" translatable="false">Althea Testnet</string>
+    <string name="str_umee_test_net" translatable="false">Umee Testnet</string>
+    <string name="str_axelar_test_net" translatable="false">Axelar Testnet</string>
 
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>

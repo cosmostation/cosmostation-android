@@ -70,7 +70,7 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
         WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mToIbcDenom, toSendAmount.toPlainString(), mSendAmountSymbol, mSendAmount, getSActivity().mBaseChain);
 
         BaseChain toChain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
-        WDp.getChainTitle(getSActivity(), toChain, mRecipientChain);
+        WDp.getChainTitle(requireContext(), toChain, mRecipientChain);
         mRecipientChain.setTextColor(WDp.getChainColor(getSActivity(), toChain));
         mRecipientAddress.setText(getSActivity().mToAddress);
     }
