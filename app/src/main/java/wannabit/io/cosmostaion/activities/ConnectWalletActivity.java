@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,8 +11,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,6 +45,7 @@ import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
@@ -68,6 +74,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     private WCClient wcClient;
     private WCSession wcSession;
     private JsonArray mjsonArray;
+    private Boolean isDeepLink = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,16 +82,36 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_connect_wallet);
         initView();
         loadInfo();
-        getKey();
-        initWalletConnect();
-    }
 
-    private void loadInfo() {
         if (getIntent().getData() != null && "cosmostation".equals(getIntent().getData().getScheme())) {
+            isDeepLink = true;
             mWcURL = getIntent().getData().getQuery();
         } else {
             mWcURL = getIntent().getStringExtra("wcUrl");
         }
+
+        if (isDeepLink) {
+            if (Collections2.filter(getBaseDao().onSelectAccounts(), account -> account.hasPrivateKey).isEmpty()) {
+                Toast.makeText(this, "No Private Key", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            if (!getBaseDao().onHasPassword()) {
+                Toast.makeText(this, "No Password", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Intent intent = new Intent(this, PasswordCheckActivity.class);
+                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            }
+        } else {
+            getKey();
+            initWalletConnect();
+        }
+    }
+
+    private void loadInfo() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mWcCardView.setCardBackgroundColor(WDp.getChainBgColor(this, mBaseChain));
@@ -132,7 +159,10 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             return null;
         });
         wcClient.setOnKeplrEnable((id, strings) -> {
-            wcClient.approveRequest(id, strings);
+            runOnUiThread(() -> {
+                wcClient.approveRequest(id, strings);
+            });
+
             return null;
         });
         wcClient.setOnKeplrGetKey((id, strings) -> {
@@ -205,9 +235,13 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
 
     public void approveKeplrRequest(long id) {
         WLog.w("Keplr Request");
-        SignModel signModel = new SignModel(mjsonArray.get(2).getAsJsonObject(), MsgGenerator.getWcKeplrBroadcaseReq(getKey(), mjsonArray.get(2).getAsJsonObject()));
+        SignModel signModel = new SignModel(mjsonArray.get(2).getAsJsonObject(), getKey());
         wcClient.approveRequest(id, Lists.newArrayList(signModel));
         Toast.makeText(getBaseContext(), getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT).show();
+
+        if (isDeepLink) {
+            moveTaskToBack(true);
+        }
     }
 
     @Override
@@ -284,10 +318,18 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         TreeMap<String, Object> signed;
         Signature signature;
 
-        public SignModel(JsonObject signed, Signature signature) {
-            this.signed = new Gson().fromJson(mjsonArray.get(2).getAsJsonObject(), TreeMap.class);
-            this.signature = signature;
+        public SignModel(JsonObject txMsg, ECKey key) {
+            this.signed = new Gson().fromJson(txMsg, TreeMap.class);
+            this.signature = MsgGenerator.getWcKeplrBroadcaseReq(key, txMsg);
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+            getKey();
+            initWalletConnect();
+        }
+    }
 }
