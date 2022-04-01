@@ -37,11 +37,11 @@ class ShareAccountDialogFragment : BaseMvpDialogFragment(), ShareAccountMoxyView
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_share_type, null)
         view.findViewById<View>(R.id.shareQRCodeButton).setOnClickListener {
-            presenter.onShareQRClicked(view.context)
+            presenter.onShareQRClicked(view.context.applicationContext)
         }
         view.findViewById<View>(R.id.shareTextButton).setOnClickListener {
-            presenter.onShareTextClicked(view.context)
-            dialog?.dismiss()
+            presenter.onShareTextClicked(view.context.applicationContext)
+            dismiss()
         }
         val builder = AlertDialog.Builder(activity)
         builder.setView(view)
