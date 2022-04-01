@@ -37,12 +37,12 @@ public class BaseApplication extends Application {
         return mBaseData;
     }
 
-    public boolean isReturnedForground() {
+    public boolean isReturnedForeground() {
         return mAppStatus.ordinal() == AppStatus.RETURNED_TO_FOREGROUND.ordinal();
     }
 
     public boolean needShowLockScreen() {
-        if (!isReturnedForground() ||
+        if (!isReturnedForeground() ||
                 !getBaseDao().onHasPassword() ||
                 !getBaseDao().getUsingAppLock() ||
                 (getBaseDao().onSelectAccounts().size() <= 0)) return false;
@@ -50,17 +50,11 @@ public class BaseApplication extends Application {
         if (getBaseDao().getAppLockTriggerTime() == 0) {
             return true;
         } else if (getBaseDao().getAppLockTriggerTime() == 1) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_10S) >= System.currentTimeMillis())
-                return false;
-
+            return (getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_10S) < System.currentTimeMillis();
         } else if (getBaseDao().getAppLockTriggerTime() == 2) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_30S) >= System.currentTimeMillis())
-                return false;
-
+            return (getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_30S) < System.currentTimeMillis();
         } else if (getBaseDao().getAppLockTriggerTime() == 3) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_M) >= System.currentTimeMillis())
-                return false;
-
+            return (getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_M) < System.currentTimeMillis();
         }
         return true;
     }

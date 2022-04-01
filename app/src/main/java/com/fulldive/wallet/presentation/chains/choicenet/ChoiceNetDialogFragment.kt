@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.presentation.chains.choicenet
+package com.fulldive.wallet.presentation.chains.choicenet
 
 import android.app.AlertDialog
 import android.app.Dialog

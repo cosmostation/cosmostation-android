@@ -7,7 +7,7 @@ public class Cw20BalanceReq {
         this.balance = new BalanceReq(address);
     }
 
-    public class BalanceReq {
+    public static class BalanceReq {
         public String address;
 
         public BalanceReq(String address) {

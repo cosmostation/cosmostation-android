@@ -86,31 +86,22 @@ public class WalletChainHolder extends BaseHolder {
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
-        mBtnStake.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                mainActivity.startActivity(validators);
-            }
+        mBtnStake.setOnClickListener(v -> {
+            Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
+            mainActivity.startActivity(validators);
         });
-        mBtnVote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
-                mainActivity.startActivity(proposals);
-            }
+        mBtnVote.setOnClickListener(v -> {
+            Intent proposals = new Intent(mainActivity, VoteListActivity.class);
+            mainActivity.startActivity(proposals);
         });
 
         // dex, nft, desmos profile setting
         WUtil.getDexTitle(mainActivity.mBaseChain, mBtnDex, mBtnDexTitle);
-        mBtnDex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(BaseChain.DESMOS_MAIN)) {
-                    mainActivity.onClickProfile();
-                } else {
-                    mainActivity.startActivity(WUtil.getDexIntent(mainActivity, mainActivity.mBaseChain));
-                }
+        mBtnDex.setOnClickListener(v -> {
+            if (mainActivity.mBaseChain.equals(BaseChain.DESMOS_MAIN)) {
+                mainActivity.onClickProfile();
+            } else {
+                mainActivity.startActivity(WUtil.getDexIntent(mainActivity, mainActivity.mBaseChain));
             }
         });
 
@@ -119,11 +110,8 @@ public class WalletChainHolder extends BaseHolder {
         } else {
             mBtnWalletConnect.setVisibility(View.GONE);
         }
-        mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mainActivity, mainActivity.getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
-            }
+        mBtnWalletConnect.setOnClickListener(v -> {
+            Toast.makeText(mainActivity, R.string.error_prepare, Toast.LENGTH_SHORT).show();
         });
     }
 }

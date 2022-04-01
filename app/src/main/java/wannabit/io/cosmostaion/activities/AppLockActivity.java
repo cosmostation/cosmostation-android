@@ -63,8 +63,6 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
         mViewPager.setOffscreenPageLimit(2);
         mAdapter = new KeyboardPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
-
-
     }
 
     @Override

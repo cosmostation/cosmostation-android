@@ -25,8 +25,6 @@ import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 
@@ -41,12 +39,6 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindTokenHolder(Context context, BaseChain chain, BaseData baseData, String denom) {
-    }
-
-    public void onBindUsdxIncentive(Context context, ListCdpFragment fragment, IncentiveReward incentiveReward) {
-    }
-
-    public void onBindHardIncentive(Context context, ListHardFragment fragment, IncentiveReward incentiveReward) {
     }
 
     public void onBindMyCdp(Context context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp) {

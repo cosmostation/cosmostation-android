@@ -43,7 +43,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.presentation.chains.choicenet.ChoiceNetDialogFragment;
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_LumRestorePath;

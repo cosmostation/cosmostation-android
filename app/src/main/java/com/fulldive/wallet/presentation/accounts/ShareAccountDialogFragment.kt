@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.presentation.accounts
+package com.fulldive.wallet.presentation.accounts
 
 import android.Manifest
 import android.app.AlertDialog
@@ -15,13 +15,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.fulldive.wallet.extensions.safe
+import com.fulldive.wallet.extensions.toBitmap
 import com.google.zxing.BarcodeFormat
-import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.utils.toBitmap
 
 class ShareAccountDialogFragment : DialogFragment() {
 
@@ -62,7 +62,7 @@ class ShareAccountDialogFragment : DialogFragment() {
             shareIntent.type = "text/plain"
             startActivity(Intent.createChooser(shareIntent, "send"))
         } else {
-            try {
+            safe {
                 val context = requireContext()
                 val contentResolver = context.contentResolver ?: return
                 val mBitmap = QRCodeWriter()
@@ -105,8 +105,6 @@ class ShareAccountDialogFragment : DialogFragment() {
                     .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .setRationaleMessage(getString(R.string.str_permission_qr))
                     .check()
-            } catch (e: WriterException) {
-                e.printStackTrace()
             }
         }
     }

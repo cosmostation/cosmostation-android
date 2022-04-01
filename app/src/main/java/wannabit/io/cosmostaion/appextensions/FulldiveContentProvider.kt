@@ -12,7 +12,7 @@ import java.util.*
 class FulldiveContentProvider : ContentProvider() {
 
     override fun call(method: String, arg: String?, extras: Bundle?): Bundle? {
-        return when (method.toLowerCase(Locale.ENGLISH)) {
+        return when (method.lowercase(Locale.ENGLISH)) {
             AppExtensionWorkType.START.id -> {
                 val context = context
                 if (context != null) {

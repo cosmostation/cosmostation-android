@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.presentation.chains.choicenet.ChoiceNetDialogFragment;
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
 import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
 import wannabit.io.cosmostaion.dialog.Dialog_Update;

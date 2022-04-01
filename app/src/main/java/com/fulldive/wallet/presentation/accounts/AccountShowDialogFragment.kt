@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.presentation.accounts
+package com.fulldive.wallet.presentation.accounts
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -14,14 +14,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.fulldive.wallet.extensions.safe
+import com.fulldive.wallet.extensions.toBitmap
+import com.fulldive.wallet.extensions.toast
 import com.google.zxing.BarcodeFormat
-import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.utils.toBitmap
 
 class AccountShowDialogFragment : DialogFragment() {
 
@@ -57,12 +57,10 @@ class AccountShowDialogFragment : DialogFragment() {
             dialog?.dismiss()
         }
 
-        try {
+        safe {
             view
                 .findViewById<ImageView>(R.id.wallet_address_qr)
                 .setImageBitmap(generateQRCode())
-        } catch (e: WriterException) {
-            e.printStackTrace()
         }
 
         val builder = AlertDialog.Builder(activity)
@@ -71,9 +69,9 @@ class AccountShowDialogFragment : DialogFragment() {
     }
 
     private fun copyAddressToClipboard() {
-        (requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
+        (requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
             .setPrimaryClip(ClipData.newPlainText("address", address))
-        Toast.makeText(activity, R.string.str_copied, Toast.LENGTH_SHORT).show()
+        activity?.toast(R.string.str_copied)
     }
 
     private fun generateQRCode(): Bitmap {

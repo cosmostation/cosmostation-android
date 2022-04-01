@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.utils
+package com.fulldive.wallet.extensions
 
 import android.graphics.Bitmap
 import android.graphics.Color

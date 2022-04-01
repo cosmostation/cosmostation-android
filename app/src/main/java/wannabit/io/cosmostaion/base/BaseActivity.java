@@ -40,23 +40,19 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -70,14 +66,8 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.protobuf2.Any;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.shasin.notificationbanner.Banner;
 
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -183,6 +173,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     protected int mTaskCount;
     private FetchCallBack mFetchCallback;
 
+    private CardView mPushBody;
+    private ImageView mPushType, mPushClose;
+    private TextView mPushTitle, mPushMsg;
+
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -286,28 +280,20 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
         }
 
+        Intent intent = new Intent(getBaseContext(), SendActivity.class);
+        BigDecimal mainAvailable;
         if (mBaseChain.isGRPC()) {
-            Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-            if (mainAvailable.compareTo(feeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            intent.putExtra("sendTokenDenom", mBaseChain.getMainDenom());
-            startActivity(intent);
-
+            mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
         } else {
-            Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-            if (mainAvailable.compareTo(feeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            intent.putExtra("sendTokenDenom", mBaseChain.getMainDenom());
-            startActivity(intent);
+            mainAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
         }
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+        if (mainAvailable.compareTo(feeAmount) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        intent.putExtra("sendTokenDenom", mBaseChain.getMainDenom());
+        startActivity(intent);
 
     }
 
@@ -325,20 +311,20 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
         }
 
-        boolean hasbalance = true;
+        boolean hasBalance = true;
         BigDecimal mainDenomAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
         if (mBaseChain.equals(BNB_MAIN)) {
             if (mainDenomAvailable.compareTo(new BigDecimal(FEE_BNB_SEND)) <= 0) {
-                hasbalance = false;
+                hasBalance = false;
             }
         } else if (mBaseChain.equals(KAVA_MAIN)) {
             BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_HTLS_REFUND, 0);
             if (mainAvailable.subtract(feeAmount).compareTo(BigDecimal.ZERO) <= 0) {
-                hasbalance = false;
+                hasBalance = false;
             }
         }
-        if (!hasbalance) {
+        if (!hasBalance) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget_bep3, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -421,9 +407,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
 
-    private CardView mPushBody;
-    private ImageView mPushType, mPushClose;
-    private TextView mPushTitle, mPushMsg;
 
     public void onDisplayNotification(Intent intent) {
         if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity) && !(this instanceof AppLockActivity)) {
