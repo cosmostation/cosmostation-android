@@ -27,11 +27,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.ReplaceStarNameActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
-public class ReplaceStarName0Fragment extends BaseFragment implements View.OnClickListener {
+public class ReplaceStarName0Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int SELECT_ADD_CHAIN = 9700;
     public final static int SELECT_ADD_ADDRESS = 9701;
 

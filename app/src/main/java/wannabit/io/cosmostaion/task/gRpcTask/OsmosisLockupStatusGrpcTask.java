@@ -27,7 +27,7 @@ public class OsmosisLockupStatusGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAddress = address;
-        this.mResult.taskType = TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS;
+        this.result.taskType = TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -40,12 +40,12 @@ public class OsmosisLockupStatusGrpcTask extends CommonTask {
             for (Lock.PeriodLock lock : response.getLocksList()) {
                 mResultData.add(lock);
             }
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("OsmosisLockupStatusGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

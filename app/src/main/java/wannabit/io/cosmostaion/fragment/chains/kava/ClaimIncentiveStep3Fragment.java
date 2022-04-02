@@ -19,10 +19,11 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private Button mBackBtn, mConfirmBtn;
     private TextView mFee, mFeeDenom;

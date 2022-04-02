@@ -22,7 +22,7 @@ public class StationParamInfoTask extends CommonTask {
         super(app, listener);
         this.mBaseChain = baseChain;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_FETCH_PARAM_INFO;
+        this.result.taskType = TASK_FETCH_PARAM_INFO;
     }
 
     @Override
@@ -30,22 +30,22 @@ public class StationParamInfoTask extends CommonTask {
         try {
             Response<ChainParam> response;
             if (mBaseChain.isTestNet()) {
-                response = ApiClient.getStationTest(mApp).getParam(mChainId).execute();
+                response = ApiClient.getStationTest(context).getParam(mChainId).execute();
             } else {
-                response = ApiClient.getStation(mApp).getParam(mChainId).execute();
+                response = ApiClient.getStation(context).getParam(mChainId).execute();
             }
             if (!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
+                result.isSuccess = false;
+                result.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                return result;
             }
 
             if (response.isSuccessful() && response.body() != null && response.body().params != null) {
-                mApp.getBaseDao().mChainParam = response.body().params;
+                context.getBaseDao().mChainParam = response.body().params;
             }
         } catch (Exception e) {
             WLog.w("StationParamInfoTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

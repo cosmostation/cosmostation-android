@@ -51,25 +51,25 @@ public class RedelegateGrpcTask extends CommonTask {
         this.mMemo = toDelegateMemo;
         this.mFees = toFees;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_BROAD_REDELEGATE;
+        this.result.taskType = TASK_GRPC_BROAD_REDELEGATE;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
+        Password checkPw = context.getBaseDao().onSelectPassword();
+        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, context.getString(R.string.key_password))) {
+            result.isSuccess = false;
+            result.errorCode = ERROR_CODE_INVALID_PASSWORD;
+            return result;
         }
 
         try {
             if (mAccount.fromMnemonic) {
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
                 ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
             } else {
-                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String privateKey = CryptoHelper.doDecryptData(context.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
 
@@ -81,20 +81,20 @@ public class RedelegateGrpcTask extends CommonTask {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReDelegateReq(mAuthResponse, mFromValidatorAddress, mToValidatorAddress, mAmount, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
-            mResult.resultData = response.getTxResponse().getTxhash();
+            result.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {
-                mResult.errorCode = response.getTxResponse().getCode();
-                mResult.errorMsg = response.getTxResponse().getRawLog();
-                mResult.isSuccess = false;
+                result.errorCode = response.getTxResponse().getCode();
+                result.errorMsg = response.getTxResponse().getRawLog();
+                result.isSuccess = false;
             } else {
-                mResult.isSuccess = true;
+                result.isSuccess = true;
             }
 
 
         } catch (Exception e) {
             WLog.e("DelegateGrpcTask " + e.getMessage());
-            mResult.isSuccess = false;
+            result.isSuccess = false;
         }
-        return mResult;
+        return result;
     }
 }

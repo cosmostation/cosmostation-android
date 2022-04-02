@@ -9,12 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.fulldive.wallet.extensions.getColorCompat
+import com.fulldive.wallet.extensions.unsafeLazy
 import com.fulldive.wallet.presentation.base.BaseMvpDialogFragment
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 
 class AddAccountDialogFragment : BaseMvpDialogFragment(), AddAccountMoxyView {
-    private val chain by lazy(LazyThreadSafetyMode.NONE) {
+    private val chain by unsafeLazy {
         arguments?.getString(KEY_CHAIN).orEmpty()
     }
 

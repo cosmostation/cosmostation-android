@@ -28,12 +28,13 @@ import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Create;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int CDP_CREATE_CONFIRM_DIALOG = 6017;
     private final static int STEP_COLLATERAL = 0;
     private final static int STEP_PRINCIPAL = 1;
@@ -152,7 +153,6 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         onUpdateInitInfo();
         onUpdateStep();
     }
@@ -428,7 +428,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                     bundle.putString("currentPrice", getPrice().getPrice());
                     bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Create dialog = Dialog_Safe_Score_Create.newInstance(bundle);
-                            dialog.setTargetFragment(this, CDP_CREATE_CONFIRM_DIALOG);
+                    dialog.setTargetFragment(this, CDP_CREATE_CONFIRM_DIALOG);
                     showDialog(dialog);
 
                 } else {

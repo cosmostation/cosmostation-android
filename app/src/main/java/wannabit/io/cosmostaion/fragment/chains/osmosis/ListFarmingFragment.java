@@ -21,11 +21,12 @@ import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.osmosis.EarningMyHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningOtherHolder;
 
-public class ListFarmingFragment extends BaseFragment {
+public class ListFarmingFragment extends BaseFragment implements IRefreshTabListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;

@@ -30,7 +30,7 @@ public class StarNameGrpcAccountTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAccount = account;
-        this.mResult.taskType = TASK_GRPC_FETCH_STARNAME_ACCOUNT;
+        this.result.taskType = TASK_GRPC_FETCH_STARNAME_ACCOUNT;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -47,12 +47,12 @@ public class StarNameGrpcAccountTask extends CommonTask {
                     returnValue.add(account);
                 }
             }
-            mResult.resultData = returnValue;
-            mResult.isSuccess = true;
+            result.resultData = returnValue;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("StarNameGrpcAccountTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

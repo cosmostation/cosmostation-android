@@ -24,7 +24,7 @@ public class SupplyOfGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mDenom = denom;
-        this.mResult.taskType = TASK_GRPC_FETCH_SUPPLY_OF_INFO;
+        this.result.taskType = TASK_GRPC_FETCH_SUPPLY_OF_INFO;
         this.mStub = cosmos.bank.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -34,12 +34,12 @@ public class SupplyOfGrpcTask extends CommonTask {
             QueryOuterClass.QuerySupplyOfRequest request = QueryOuterClass.QuerySupplyOfRequest.newBuilder().setDenom(mDenom).build();
             QueryOuterClass.QuerySupplyOfResponse response = mStub.supplyOf(request);
 
-            mResult.isSuccess = true;
-            mResult.resultData = response;
+            result.isSuccess = true;
+            result.resultData = response;
 
         } catch (Exception e) {
             WLog.e("SupplyOfGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

@@ -20,7 +20,7 @@ public class OverridePkeyAccountTask extends CommonTask {
         this.mPKey = pKey;
         this.mAccount = account;
         this.mCustomPath = customPath;
-        this.mResult.taskType = BaseConstant.TASK_OVERRIDE_PKEY_ACCOUNT;
+        this.result.taskType = BaseConstant.TASK_OVERRIDE_PKEY_ACCOUNT;
     }
 
     @Override
@@ -28,27 +28,27 @@ public class OverridePkeyAccountTask extends CommonTask {
         try {
 
             Account oAccount = onModAccount();
-            long id = mApp.getBaseDao().onOverrideAccount(oAccount);
+            long id = context.getBaseDao().onOverrideAccount(oAccount);
             if (id > 0) {
-                mResult.isSuccess = true;
-                mApp.getBaseDao().setLastUser(oAccount.id);
+                result.isSuccess = true;
+                context.getBaseDao().setLastUser(oAccount.id);
 
             } else {
-                mResult.errorMsg = "Override error";
-                mResult.errorCode = 7002;
+                result.errorMsg = "Override error";
+                result.errorCode = 7002;
             }
 
         } catch (Exception e) {
 
         }
-        return mResult;
+        return result;
     }
 
     private Account onModAccount() {
         if (mPKey.toLowerCase().startsWith("0x")) {
             mPKey = mPKey.substring(2);
         }
-        EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mPKey, false);
+        EncResult encR = CryptoHelper.doEncryptData(context.getString(R.string.key_private) + mAccount.uuid, mPKey, false);
 
         mAccount.hasPrivateKey = true;
         mAccount.resource = encR.getEncDataString();

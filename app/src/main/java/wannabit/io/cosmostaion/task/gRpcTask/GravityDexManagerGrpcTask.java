@@ -25,7 +25,7 @@ public class GravityDexManagerGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAddress = address;
-        this.mResult.taskType = TASK_GRPC_FETCH_GRAVITY_MANAGER;
+        this.result.taskType = TASK_GRPC_FETCH_GRAVITY_MANAGER;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -35,14 +35,14 @@ public class GravityDexManagerGrpcTask extends CommonTask {
         try {
             QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setAddress(mAddress).build();
             QueryOuterClass.QueryAllBalancesResponse response = mStub.allBalances(request);
-            mResult.resultData = response.getBalancesList();
-            mResult.resultData2 = mAddress;
-            mResult.isSuccess = true;
+            result.resultData = response.getBalancesList();
+            result.resultData2 = mAddress;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("GravityDexManagerGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
     private QueryOuterClass.QueryAllBalancesResponse pageJob(com.google.protobuf.ByteString nextKey) {

@@ -19,9 +19,10 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
+public class SendStep4Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private TextView mSendAmount;
     private TextView mFeeAmount;

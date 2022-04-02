@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep0Fragment;
@@ -107,11 +108,11 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_deposit_cdp_step_3));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_deposit_cdp_step_4));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
 
@@ -255,7 +256,7 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
                 onBackPressed();
                 return;
             }
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
         }
     }
 

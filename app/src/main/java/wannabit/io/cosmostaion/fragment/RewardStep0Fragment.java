@@ -19,9 +19,10 @@ import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class RewardStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class RewardStep0Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private CardView mCardReward;
     private TextView mTvRewardAmount, mTvDenomTitle;

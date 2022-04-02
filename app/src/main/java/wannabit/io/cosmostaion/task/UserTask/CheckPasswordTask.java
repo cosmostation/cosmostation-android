@@ -13,7 +13,7 @@ public class CheckPasswordTask extends CommonTask {
 
     public CheckPasswordTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_PASSWORD_CHECK;
+        this.result.taskType = BaseConstant.TASK_PASSWORD_CHECK;
     }
 
     /**
@@ -22,15 +22,15 @@ public class CheckPasswordTask extends CommonTask {
      */
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
+        Password checkPw = context.getBaseDao().onSelectPassword();
+        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, context.getString(R.string.key_password))) {
+            result.isSuccess = false;
+            result.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+            return result;
         } else {
-            mResult.isSuccess = true;
+            result.isSuccess = true;
         }
 //        WLog.w("CheckPasswordTask : " + mResult.isSuccess);
-        return mResult;
+        return result;
     }
 }

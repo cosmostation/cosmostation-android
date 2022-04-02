@@ -52,18 +52,18 @@ public class SimulKavaWithDrawCdpGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP;
+        this.result.taskType = TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mAccount.fromMnemonic) {
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
                 ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
             } else {
-                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String privateKey = CryptoHelper.doDecryptData(context.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
 
@@ -75,13 +75,13 @@ public class SimulKavaWithDrawCdpGrpcTask extends CommonTask {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcKavaWithdrawCdpSimulateReq(mAuthResponse, mOwner, mDepositor, mCollateral, mCollateralType, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
-            mResult.resultData = response.getGasInfo();
-            mResult.isSuccess = true;
+            result.resultData = response.getGasInfo();
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("SimulKavaWithDrawCdpGrpcTask " + e.getMessage());
-            mResult.isSuccess = false;
+            result.isSuccess = false;
         }
-        return mResult;
+        return result;
     }
 }

@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.fragment.ReInvestStep0Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
@@ -91,11 +92,11 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_reinvest_step_2));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_reinvest_step_3));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
 
@@ -177,7 +178,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             if (rewards != null) {
                 getBaseDao().mGrpcRewards = rewards;
                 mAmount = new Coin(mBaseChain.getMainDenom(), getBaseDao().getReward(mBaseChain.getMainDenom(), mValAddress).toPlainString());
-                mPageAdapter.mCurrentFragment.onRefreshTab();
+                ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
             } else {
                 onBackPressed();
             }

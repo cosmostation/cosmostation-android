@@ -20,24 +20,24 @@ public class BnbTickerTask extends CommonTask {
     public BnbTickerTask(BaseApplication app, TaskListener listener, BaseChain basechain) {
         super(app, listener);
         this.mBaseChain = basechain;
-        this.mResult.taskType = TASK_FETCH_BNB_TICKER;
+        this.result.taskType = TASK_FETCH_BNB_TICKER;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                Response<ArrayList<BnbTicker>> response = ApiClient.getBnbChain(mApp).getTic().execute();
+                Response<ArrayList<BnbTicker>> response = ApiClient.getBnbChain(context).getTic().execute();
                 if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-                    mResult.resultData = response.body();
+                    result.resultData = response.body();
                 }
 
             }
-            mResult.isSuccess = true;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("BnbTickerTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

@@ -43,31 +43,31 @@ public class SimpleHtlcRefundTask extends CommonTask {
         this.mSwapId = swapid;
         this.mMemo = memo;
         this.mFees = fees;
-        this.mResult.taskType = TASK_GEN_TX_HTLC_REFUND;
+        this.result.taskType = TASK_GEN_TX_HTLC_REFUND;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
-                Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaChain(context).getAccountInfo(mAccount.address).execute();
                 if (!response.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
+                    result.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return result;
                 }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount("" + mAccount.id);
+                context.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body()));
+                context.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
+                mAccount = context.getBaseDao().onSelectAccount("" + mAccount.id);
 
             }
 
             ECKey ecKey;
             if (mAccount.fromMnemonic) {
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
                 ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
             } else {
-                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String privateKey = CryptoHelper.doDecryptData(context.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
 
@@ -77,22 +77,22 @@ public class SimpleHtlcRefundTask extends CommonTask {
 
             WLog.w("refundMsg : " + WUtil.prettyPrinter(refundMsg));
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
+            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, context.getBaseDao().getChainId());
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
-                Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
+                Response<ResBroadTx> response = ApiClient.getKavaChain(context).broadTx(reqBroadCast).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
+                        result.resultData = response.body().txhash;
                     }
                     if (response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
+                        result.errorCode = response.body().code;
+                        result.errorMsg = response.body().raw_log;
+                        return result;
                     }
-                    mResult.isSuccess = true;
+                    result.isSuccess = true;
 
                 } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    result.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
 
             }
@@ -100,6 +100,6 @@ public class SimpleHtlcRefundTask extends CommonTask {
         } catch (Exception e) {
             WLog.w("Exception " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

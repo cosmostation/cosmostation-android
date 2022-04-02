@@ -21,11 +21,12 @@ import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Cdp_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int SELECT_CDP_CONFIRM = 9105;
 
     private TextView mCollateralAmount, mCollateralDenom, mCollateralValue;

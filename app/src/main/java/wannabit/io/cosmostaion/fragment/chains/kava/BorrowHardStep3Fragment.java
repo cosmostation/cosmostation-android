@@ -18,10 +18,11 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.BorrowHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Hard_Liquidation_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int SELECT_HARD_BORROW_CHECK = 9108;
 
     private Button mBeforeBtn, mConfirmBtn;

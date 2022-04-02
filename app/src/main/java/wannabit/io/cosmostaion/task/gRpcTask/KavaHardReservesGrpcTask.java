@@ -25,7 +25,7 @@ public class KavaHardReservesGrpcTask extends CommonTask {
     public KavaHardReservesGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_HARD_RESERVES;
+        this.result.taskType = TASK_GRPC_FETCH_KAVA_HARD_RESERVES;
         this.mStub = kava.hard.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -36,13 +36,13 @@ public class KavaHardReservesGrpcTask extends CommonTask {
             QueryOuterClass.QueryReservesResponse response = mStub.reserves(request);
             mResultData.addAll(response.getAmountList());
 
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("KavaHardReservesGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

@@ -26,7 +26,7 @@ public class StarNameGrpcResolveTask extends CommonTask {
         this.mBaseChain = basecahin;
         this.mAccount = account;
         this.mDomain = domain;
-        this.mResult.taskType = TASK_GRPC_FETCH_STARNAME_RESOLVE;
+        this.result.taskType = TASK_GRPC_FETCH_STARNAME_RESOLVE;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -35,12 +35,12 @@ public class StarNameGrpcResolveTask extends CommonTask {
         try {
             QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(mAccount + "*" + mDomain).build();
             QueryOuterClass.QueryStarnameResponse response = mStub.starname(request);
-            mResult.resultData = response.getAccount();
-            mResult.isSuccess = true;
+            result.resultData = response.getAccount();
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("StarNameGrpcResolveTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

@@ -14,9 +14,10 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class UndelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class UndelegateStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private TextView mTvUndelegateAmount;
     private TextView mFeeAmount;

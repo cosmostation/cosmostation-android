@@ -24,10 +24,12 @@ import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccoun
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameAccountDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IBusyFetchListener;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class MyAccountFragment extends BaseFragment implements View.OnClickListener {
+public class MyAccountFragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener, IBusyFetchListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private TextView mAccountCnt;

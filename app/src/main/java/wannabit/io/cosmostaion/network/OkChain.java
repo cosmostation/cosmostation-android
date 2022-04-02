@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.network;
 
 import java.util.ArrayList;
 
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -51,8 +52,7 @@ public interface OkChain {
     Call<ResOkUnbonding> getWithdrawInfo(@Path("address") String address);
 
     @GET("v1/okexchain/addresses/{addresses}/transactions/condition")
-    Call<ResOkHistory> getNewOecTxs(@Path("addresses") String addresses, @Query("limit") String limit);
-
+    Single<ResOkHistory> getNewOecTxsRx(@Path("addresses") String addresses, @Query("limit") int limit);
 
     //Broadcast Tx
     @POST("txs")

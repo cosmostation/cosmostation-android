@@ -21,7 +21,7 @@ public class ValidatorInfoGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mValOpAddress = opAddress;
-        this.mResult.taskType = TASK_GRPC_FETCH_VALIDATOR_INFO;
+        this.result.taskType = TASK_GRPC_FETCH_VALIDATOR_INFO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
 
@@ -32,13 +32,13 @@ public class ValidatorInfoGrpcTask extends CommonTask {
             QueryOuterClass.QueryValidatorRequest request = QueryOuterClass.QueryValidatorRequest.newBuilder().setValidatorAddr(mValOpAddress).build();
             QueryOuterClass.QueryValidatorResponse response = mStub.validator(request);
 
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = response.getValidator();
+            this.result.isSuccess = true;
+            this.result.resultData = response.getValidator();
 
         } catch (Exception e) {
             WLog.e("ValidatorInfoGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

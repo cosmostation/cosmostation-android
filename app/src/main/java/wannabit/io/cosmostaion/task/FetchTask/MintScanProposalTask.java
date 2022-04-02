@@ -21,26 +21,26 @@ public class MintScanProposalTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mProposalId = proposalId;
-        this.mResult.taskType = TASK_FETCH_MINTSCAN_PROPOSAL;
+        this.result.taskType = TASK_FETCH_MINTSCAN_PROPOSAL;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("MinScan Path URL " + ApiClient.getMintscan(mApp).getProposal(mChain, mProposalId).request().url());
-            Response<ResProposal> response = ApiClient.getMintscan(mApp).getProposal(mChain, mProposalId).execute();
+            WLog.w("MinScan Path URL " + ApiClient.getMintscan(context).getProposal(mChain, mProposalId).request().url());
+            Response<ResProposal> response = ApiClient.getMintscan(context).getProposal(mChain, mProposalId).execute();
             if (!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = ERROR_CODE_NETWORK;
-                return mResult;
+                result.isSuccess = false;
+                result.errorCode = ERROR_CODE_NETWORK;
+                return result;
             }
 
             if (response.body() != null) {
-                mResult.resultData = response.body();
+                result.resultData = response.body();
             }
         } catch (Exception e) {
             WLog.w("MintScanProposalTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

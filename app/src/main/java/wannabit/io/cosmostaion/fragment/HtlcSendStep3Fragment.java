@@ -32,12 +32,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Warning;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int SELECT_HTLC_CONFIRM = 9104;
 
     private CardView mSendCard;

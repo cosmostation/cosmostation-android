@@ -24,12 +24,13 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickListener {
+public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private Button mBefore, mNextBtn;
     private EditText mAmountInput;
@@ -85,7 +86,6 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         mToIbcDenom = getSActivity().mToIbcDenom;
         mDpDecimal = WDp.tokenDivideDecimal(getBaseDao(), getSActivity().mBaseChain, mToIbcDenom);
         setDisplayDecimals(mDpDecimal);

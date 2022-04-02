@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.fragment.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
@@ -90,18 +91,18 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
                 } else if (i == 1) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_2_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_1));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_2));
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_3));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 4) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_4));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
 
@@ -197,7 +198,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         }
 
         if (mTaskCount == 0) {
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
         }
     }
 

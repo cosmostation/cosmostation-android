@@ -24,7 +24,7 @@ public class StarNameGrpcDomainInfoTask extends CommonTask {
         super(app, listener);
         this.mBaseChain = basecahin;
         this.mDomainName = domainName;
-        this.mResult.taskType = TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
+        this.result.taskType = TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
 
     }
@@ -34,12 +34,12 @@ public class StarNameGrpcDomainInfoTask extends CommonTask {
         try {
             QueryOuterClass.QueryDomainRequest request = QueryOuterClass.QueryDomainRequest.newBuilder().setName(mDomainName).build();
             QueryOuterClass.QueryDomainResponse response = mStub.domain(request);
-            mResult.resultData = response.getDomain();
-            mResult.isSuccess = true;
+            result.resultData = response.getDomain();
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("StarNameGrpcDomainInfoTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

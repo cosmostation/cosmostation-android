@@ -47,36 +47,36 @@ public class SimpleBnbHtlcRefundTask extends CommonTask {
         this.mAccount = account;
         this.mSwapId = swapid;
         this.mMemo = memo;
-        this.mResult.taskType = TASK_GEN_TX_BNB_HTLC_REFUND;
+        this.result.taskType = TASK_GEN_TX_BNB_HTLC_REFUND;
     }
 
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Password checkPw = mApp.getBaseDao().onSelectPassword();
-            if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-                return mResult;
+            Password checkPw = context.getBaseDao().onSelectPassword();
+            if (!CryptoHelper.verifyData(strings[0], checkPw.resource, context.getString(R.string.key_password))) {
+                result.isSuccess = false;
+                result.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+                return result;
             }
 
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(context).getAccountInfo(mAccount.address).execute();
                 if (!response.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
+                    result.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return result;
                 }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount("" + mAccount.id);
+                context.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
+                context.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
+                mAccount = context.getBaseDao().onSelectAccount("" + mAccount.id);
 
                 if (mAccount.fromMnemonic) {
-                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                    String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                     DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
                     ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
                 } else {
-                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                    String privateKey = CryptoHelper.doDecryptData(context.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
                     ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
                 }
 
@@ -89,12 +89,12 @@ public class SimpleBnbHtlcRefundTask extends CommonTask {
                 List<TransactionMetadata> resp = client.refundHtlt(mSwapId, wallet, options, true);
                 if (resp.get(0).isOk()) {
                     WLog.w("OK " + resp.get(0).getHash());
-                    mResult.resultData = resp.get(0).getHash();
-                    mResult.isSuccess = true;
+                    result.resultData = resp.get(0).getHash();
+                    result.isSuccess = true;
                 } else {
                     WLog.w("ERROR " + resp.get(0).getCode() + " " + resp.get(0).getLog());
-                    mResult.errorCode = resp.get(0).getCode();
-                    mResult.errorMsg = resp.get(0).getLog();
+                    result.errorCode = resp.get(0).getCode();
+                    result.errorMsg = resp.get(0).getLog();
                 }
 
             }
@@ -105,6 +105,6 @@ public class SimpleBnbHtlcRefundTask extends CommonTask {
             }
 
         }
-        return mResult;
+        return result;
     }
 }

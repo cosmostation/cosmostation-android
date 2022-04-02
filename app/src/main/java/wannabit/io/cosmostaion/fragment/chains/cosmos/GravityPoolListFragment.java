@@ -18,11 +18,12 @@ import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.PoolMyHolder;
 import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
-public class GravityPoolListFragment extends BaseFragment {
+public class GravityPoolListFragment extends BaseFragment implements IRefreshTabListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;

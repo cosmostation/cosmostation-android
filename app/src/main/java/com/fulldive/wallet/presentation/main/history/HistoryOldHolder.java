@@ -1,6 +1,4 @@
-package wannabit.io.cosmostaion.widget;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OEC_TX;
+package com.fulldive.wallet.presentation.main.history;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,10 +13,12 @@ import org.jetbrains.annotations.NotNull;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
-import wannabit.io.cosmostaion.network.res.ResOkHistory;
+import wannabit.io.cosmostaion.network.res.ResOkHistoryHit;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class HistoryOldHolder extends BaseHolder {
     private CardView historyRoot;
@@ -40,44 +40,38 @@ public class HistoryOldHolder extends BaseHolder {
         history_time_gap.setText(WDp.getTimeGap(mainActivity, history.timeStamp));
         history_block.setText(history.blockHeight + "block");
         historySuccess.setVisibility(View.GONE);
-        historyRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL") || history.txType.equals("TRANSFER")) {
-                    Intent txDetail = new Intent(mainActivity, TxDetailActivity.class);
-                    txDetail.putExtra("txHash", history.txHash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    txDetail.putExtra("bnbTime", history.timeStamp);
-                    mainActivity.startActivity(txDetail);
+        historyRoot.setOnClickListener(v -> {
+            if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL") || history.txType.equals("TRANSFER")) {
+                Intent txDetail = new Intent(mainActivity, TxDetailActivity.class);
+                txDetail.putExtra("txHash", history.txHash);
+                txDetail.putExtra("isGen", false);
+                txDetail.putExtra("isSuccess", true);
+                txDetail.putExtra("bnbTime", history.timeStamp);
+                mainActivity.startActivity(txDetail);
 
-                } else {
-                    String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.txHash);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    mainActivity.startActivity(intent);
-                }
+            } else {
+                String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.txHash);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                mainActivity.startActivity(intent);
             }
         });
     }
 
-    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ResOkHistory.Data.Hit history) {
-        String type = history.transactionDatas.get(0).type;
+    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ResOkHistoryHit history) {
+        String type = history.getTransactionDatas().get(0).getType();
         if (type.contains("/")) {
             historyType.setText(type.split("/")[type.split("/").length - 1].replace("Msg", ""));
         } else {
             historyType.setText(type);
         }
         historySuccess.setVisibility(View.GONE);
-        history_time.setText(WDp.getDpTime(mainActivity, history.blockTimeU0));
-        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blockTimeU0));
-        history_block.setText(history.hash + "block");
-        historyRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = EXPLORER_OEC_TX + "tx/" + history.hash;
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                mainActivity.startActivity(intent);
-            }
+        history_time.setText(WDp.getDpTime(mainActivity, history.getBlockTimeU0()));
+        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.getBlockTimeU0()));
+        history_block.setText(history.getBlockHash() + "block");
+        historyRoot.setOnClickListener(v -> {
+            String url = BaseConstant.EXPLORER_OEC_TX + "tx/" + history.getHash();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            mainActivity.startActivity(intent);
         });
     }
 }

@@ -25,7 +25,7 @@ public class ProfileInfoGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAddress = address;
-        this.mResult.taskType = TASK_GRPC_FETCH_PROFILE_INFO;
+        this.result.taskType = TASK_GRPC_FETCH_PROFILE_INFO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -36,12 +36,12 @@ public class ProfileInfoGrpcTask extends CommonTask {
             QueryProfile.QueryProfileRequest request = QueryProfile.QueryProfileRequest.newBuilder().setUser(mAddress).build();
             QueryProfile.QueryProfileResponse response = mStub.profile(request);
 
-            mResult.isSuccess = true;
-            mResult.resultData = ModelsProfile.Profile.parseFrom(response.getProfile().getValue());
+            result.isSuccess = true;
+            result.resultData = ModelsProfile.Profile.parseFrom(response.getProfile().getValue());
 
         } catch (Exception e) {
             WLog.e("ProfileInfoGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

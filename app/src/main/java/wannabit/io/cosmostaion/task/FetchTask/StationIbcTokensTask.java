@@ -22,7 +22,7 @@ public class StationIbcTokensTask extends CommonTask {
         super(app, listener);
         this.mBaseChain = baseChain;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_FETCH_IBC_TOKENS;
+        this.result.taskType = TASK_FETCH_IBC_TOKENS;
     }
 
     @Override
@@ -30,22 +30,22 @@ public class StationIbcTokensTask extends CommonTask {
         try {
             Response<ResIbcTokens> response;
             if (mBaseChain.isTestNet()) {
-                response = ApiClient.getStationTest(mApp).getIbcTokens(mChainId).execute();
+                response = ApiClient.getStationTest(context).getIbcTokens(mChainId).execute();
             } else {
-                response = ApiClient.getStation(mApp).getIbcTokens(mChainId).execute();
+                response = ApiClient.getStation(context).getIbcTokens(mChainId).execute();
             }
             if (!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = ERROR_CODE_NETWORK;
-                return mResult;
+                result.isSuccess = false;
+                result.errorCode = ERROR_CODE_NETWORK;
+                return result;
             }
 
             if (response.body() != null && response.body().ibc_tokens != null) {
-                mApp.getBaseDao().mIbcTokens = response.body().ibc_tokens;
+                context.getBaseDao().mIbcTokens = response.body().ibc_tokens;
             }
         } catch (Exception e) {
             WLog.w("StationIbcTokensTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

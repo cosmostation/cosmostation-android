@@ -28,11 +28,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment;
+import com.fulldive.wallet.presentation.main.history.MainHistoryFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -50,12 +52,12 @@ import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
 import wannabit.io.cosmostaion.appextensions.PopupManager;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IBusyFetchListener;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
@@ -143,7 +145,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onPageSelected(int position) {
                 if (mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
@@ -298,9 +300,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void fetchFinished() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            mPageAdapter.getItem(0).onRefreshTab();
-            mPageAdapter.getItem(1).onRefreshTab();
-            mPageAdapter.getItem(2).onRefreshTab();
+            ((IRefreshTabListener) mPageAdapter.getItem(0)).onRefreshTab();
+            ((IRefreshTabListener) mPageAdapter.getItem(1)).onRefreshTab();
+            ((IRefreshTabListener) mPageAdapter.getItem(2)).onRefreshTab();
         }
     }
 
@@ -308,7 +310,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void fetchBusy() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            mPageAdapter.mCurrentFragment.onBusyFetch();
+            Fragment fragment = mPageAdapter.mCurrentFragment;
+            if (fragment instanceof IBusyFetchListener) {
+                ((IBusyFetchListener) mPageAdapter.mCurrentFragment).onBusyFetch();
+            }
         }
     }
 
@@ -352,21 +357,21 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     private static class MainViewPageAdapter extends FragmentPagerAdapter {
 
-        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
+        private final ArrayList<Fragment> mFragments = new ArrayList<>();
+        private Fragment mCurrentFragment;
 
         public MainViewPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
             mFragments.add(MainSendFragment.newInstance(null));
             mFragments.add(MainTokensFragment.newInstance(null));
-            mFragments.add(MainHistoryFragment.newInstance(null));
+            mFragments.add(MainHistoryFragment.Companion.newInstance());
             mFragments.add(MainSettingFragment.newInstance(null));
         }
 
         @NonNull
         @Override
-        public BaseFragment getItem(int position) {
+        public Fragment getItem(int position) {
             return mFragments.get(position);
         }
 
@@ -378,16 +383,16 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         @Override
         public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
+                mCurrentFragment = ((Fragment) object);
             }
             super.setPrimaryItem(container, position, object);
         }
 
-        public BaseFragment getCurrentFragment() {
+        public Fragment getCurrentFragment() {
             return mCurrentFragment;
         }
 
-        public ArrayList<BaseFragment> getFragments() {
+        public ArrayList<Fragment> getFragments() {
             return mFragments;
         }
     }

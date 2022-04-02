@@ -27,7 +27,7 @@ public class UnBondedValidatorsGrpcTask extends CommonTask {
     public UnBondedValidatorsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
+        this.result.taskType = TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -41,8 +41,8 @@ public class UnBondedValidatorsGrpcTask extends CommonTask {
             QueryOuterClass.QueryValidatorsResponse response = mStub.validators(request);
             mResultData.addAll(response.getValidatorsList());
 
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = mResultData;
+            this.result.isSuccess = true;
+            this.result.resultData = mResultData;
 //            WLog.w("UnBondedValidators " + mResultData.size());
 
 
@@ -60,7 +60,7 @@ public class UnBondedValidatorsGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("BondedValidatorsGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
     private QueryOuterClass.QueryValidatorsResponse pageJob(com.google.protobuf.ByteString nextKey) {

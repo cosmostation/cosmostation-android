@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IBusyFetchListener;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -41,7 +43,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletMintHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPriceHolder;
 
-public class MainSendFragment extends BaseFragment {
+public class MainSendFragment extends BaseFragment implements IBusyFetchListener, IRefreshTabListener {
     private CardView mCardView;
     private ImageView itemKeyStatus;
     private TextView mWalletAddress;

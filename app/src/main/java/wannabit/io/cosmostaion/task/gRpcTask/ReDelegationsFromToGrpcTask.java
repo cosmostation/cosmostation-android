@@ -26,7 +26,7 @@ public class ReDelegationsFromToGrpcTask extends CommonTask {
         this.mAccount = account;
         this.mValFromAddress = valFromAddress;
         this.mValToAddress = valToAddress;
-        this.mResult.taskType = TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
+        this.result.taskType = TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
 
@@ -36,14 +36,14 @@ public class ReDelegationsFromToGrpcTask extends CommonTask {
             QueryOuterClass.QueryRedelegationsRequest request = QueryOuterClass.QueryRedelegationsRequest.newBuilder().setDelegatorAddr(mAccount.address).setSrcValidatorAddr(mValFromAddress).setDstValidatorAddr(mValToAddress).build();
             QueryOuterClass.QueryRedelegationsResponse response = mStub.redelegations(request);
 
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = response.getRedelegationResponsesList();
+            this.result.isSuccess = true;
+            this.result.resultData = response.getRedelegationResponsesList();
 //            WLog.w("ReDelegationsFromToGrpcTask " + response.getRedelegationResponsesList().size());
 
         } catch (Exception e) {
             WLog.e("ReDelegationsFromToGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

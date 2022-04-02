@@ -16,9 +16,10 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.RepayHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class RepayHardStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class RepayHardStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mRepayAmount, mRepayDenom;

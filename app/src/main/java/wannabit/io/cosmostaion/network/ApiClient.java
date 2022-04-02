@@ -6,9 +6,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 
 public class ApiClient {
 
@@ -21,6 +23,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_station))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 station = retrofit.create(Station.class);
             }
@@ -37,6 +40,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_station_testnet))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 stationTest = retrofit.create(Station.class);
             }
@@ -53,6 +57,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_mintscan))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 mintscan = retrofit.create(Station.class);
             }
@@ -89,6 +94,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_station_old))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 cosmostation = retrofit.create(Cosmostation.class);
             }
@@ -106,6 +112,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_cosmos_main))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_cosmos = retrofit.create(HistoryApi.class);
             }
@@ -121,8 +128,9 @@ public class ApiClient {
         if (api_imversed == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_iris_main))
+                        .baseUrl(c.getString(R.string.url_api_imversed_main))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_imversed = retrofit.create(HistoryApi.class);
             }
@@ -139,6 +147,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_iris_main))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_iris = retrofit.create(HistoryApi.class);
             }
@@ -156,6 +165,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_main_bnb))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 service_binance = retrofit.create(BinanceChain.class);
             }
@@ -172,6 +182,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_kava_main))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 service_kava = retrofit.create(KavaChain.class);
             }
@@ -188,6 +199,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_certik_main))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 service_certik = retrofit.create(Station.class);
             }
@@ -204,6 +216,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_kava_main))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_kava = retrofit.create(HistoryApi.class);
             }
@@ -220,6 +233,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_iov_main))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_iov = retrofit.create(HistoryApi.class);
             }
@@ -236,6 +250,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_band_main))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_band = retrofit.create(HistoryApi.class);
             }
@@ -253,6 +268,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_ok))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 service_ok = retrofit.create(OkChain.class);
             }
@@ -269,6 +285,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_ok))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_oec = retrofit.create(OkChain.class);
             }
@@ -285,6 +302,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_certik))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_certik = retrofit.create(HistoryApi.class);
             }
@@ -301,6 +319,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_akash))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_akash = retrofit.create(HistoryApi.class);
             }
@@ -317,6 +336,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_persis))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_persis = retrofit.create(HistoryApi.class);
             }
@@ -334,6 +354,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_sentinel))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_sentinel = retrofit.create(HistoryApi.class);
             }
@@ -350,6 +371,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_fetch))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_fetch = retrofit.create(HistoryApi.class);
             }
@@ -367,6 +389,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_crypto))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_crypto = retrofit.create(HistoryApi.class);
             }
@@ -383,6 +406,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_sif))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_sif = retrofit.create(HistoryApi.class);
             }
@@ -399,6 +423,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_ki))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_ki = retrofit.create(HistoryApi.class);
             }
@@ -415,6 +440,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_osmosis))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_osmosis = retrofit.create(HistoryApi.class);
             }
@@ -431,6 +457,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_medibloc))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_medi = retrofit.create(HistoryApi.class);
             }
@@ -447,6 +474,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_emoney))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_emoney = retrofit.create(HistoryApi.class);
             }
@@ -463,6 +491,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_juno))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_juno = retrofit.create(HistoryApi.class);
             }
@@ -479,6 +508,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_regen))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_regen = retrofit.create(HistoryApi.class);
             }
@@ -495,6 +525,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_bitcanna))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_bitcanna = retrofit.create(HistoryApi.class);
             }
@@ -511,6 +542,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_althea))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_althea = retrofit.create(HistoryApi.class);
             }
@@ -527,6 +559,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_stargaze))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_stargaze = retrofit.create(HistoryApi.class);
             }
@@ -543,6 +576,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_grabridge))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_grabridge = retrofit.create(HistoryApi.class);
             }
@@ -559,6 +593,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_comdex))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_comdex = retrofit.create(HistoryApi.class);
             }
@@ -575,6 +610,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_secret))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_secret = retrofit.create(HistoryApi.class);
             }
@@ -591,6 +627,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_inj))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_inj = retrofit.create(HistoryApi.class);
             }
@@ -607,6 +644,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_bitsong))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_bitsong = retrofit.create(HistoryApi.class);
             }
@@ -623,6 +661,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_desmos))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_desmos = retrofit.create(HistoryApi.class);
             }
@@ -639,6 +678,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_lum))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_lum = retrofit.create(HistoryApi.class);
             }
@@ -655,6 +695,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_chihuahua))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_chihuahua = retrofit.create(HistoryApi.class);
             }
@@ -671,6 +712,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_axelar))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_axelar = retrofit.create(HistoryApi.class);
             }
@@ -687,6 +729,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_konstellation))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_konstellation = retrofit.create(HistoryApi.class);
             }
@@ -703,6 +746,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_umee))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_umee = retrofit.create(HistoryApi.class);
             }
@@ -719,6 +763,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_evmos))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_evmos = retrofit.create(HistoryApi.class);
             }
@@ -735,6 +780,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_cudos))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_cudos = retrofit.create(HistoryApi.class);
             }
@@ -751,6 +797,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_provenance))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_provenance = retrofit.create(HistoryApi.class);
             }
@@ -767,6 +814,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_cerberus))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_cerberus = retrofit.create(HistoryApi.class);
             }
@@ -783,6 +831,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_omniflix))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_omniflix = retrofit.create(HistoryApi.class);
             }
@@ -799,6 +848,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_rizon))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_rizon = retrofit.create(HistoryApi.class);
             }
@@ -815,6 +865,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_rizon_swap_status_mainnet))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_rizon_swap_status = retrofit.create(HdacChain.class);
             }
@@ -831,6 +882,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_rizon_swap_status_testnet))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_rizon_swap_test_status = retrofit.create(HdacChain.class);
             }
@@ -847,6 +899,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_althea_test))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_althea_test = retrofit.create(HistoryApi.class);
             }
@@ -863,6 +916,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_cosmos_test))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_cosmos_test = retrofit.create(HistoryApi.class);
             }
@@ -880,6 +934,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_iris_test))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 api_iris_test = retrofit.create(HistoryApi.class);
             }
@@ -897,6 +952,7 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_hdac_mainnet))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 service_hdac_mainnet = retrofit.create(HdacChain.class);
             }
@@ -913,10 +969,145 @@ public class ApiClient {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_hdac_testnet))
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
                 service_hdac_testnet = retrofit.create(HdacChain.class);
             }
         }
         return service_hdac_testnet;
     }
+
+    public static HistoryApi getChainHistoryApi(Context context, BaseChain chain) {
+        HistoryApi historyApi = null;
+        switch (chain) {
+            case KAVA_MAIN:
+                historyApi = ApiClient.getKavaApi(context);
+                break;
+            case COSMOS_MAIN:
+                historyApi = ApiClient.getCosmosApi(context);
+                break;
+            case IMVERSED_MAIN:
+                historyApi = ApiClient.getImversedApi(context);
+                break;
+            case IRIS_MAIN:
+                historyApi = ApiClient.getIrisApi(context);
+                break;
+            case AKASH_MAIN:
+                historyApi = ApiClient.getAkashApi(context);
+                break;
+            case SENTINEL_MAIN:
+                historyApi = ApiClient.getSentinelApi(context);
+                break;
+            case PERSIS_MAIN:
+                historyApi = ApiClient.getPersisApi(context);
+                break;
+            case CRYPTO_MAIN:
+                historyApi = ApiClient.getCryptoApi(context);
+                break;
+            case OSMOSIS_MAIN:
+                historyApi = ApiClient.getOsmosisApi(context);
+                break;
+            case IOV_MAIN:
+                historyApi = ApiClient.getIovApi(context);
+                break;
+            case SIF_MAIN:
+                historyApi = ApiClient.getSifApi(context);
+                break;
+            case MEDI_MAIN:
+                historyApi = ApiClient.getMediblocApi(context);
+                break;
+            case CERTIK_MAIN:
+                historyApi = ApiClient.getCertikApi(context);
+                break;
+            case EMONEY_MAIN:
+                historyApi = ApiClient.getEmoneyApi(context);
+                break;
+            case FETCHAI_MAIN:
+                historyApi = ApiClient.getFetchApi(context);
+                break;
+            case BAND_MAIN:
+                historyApi = ApiClient.getBandApi(context);
+                break;
+            case RIZON_MAIN:
+                historyApi = ApiClient.getRizonApi(context);
+                break;
+            case JUNO_MAIN:
+                historyApi = ApiClient.getJunoApi(context);
+                break;
+            case REGEN_MAIN:
+                historyApi = ApiClient.getRegenApi(context);
+                break;
+            case BITCANNA_MAIN:
+                historyApi = ApiClient.getBitcannaApi(context);
+                break;
+            case ALTHEA_MAIN:
+                historyApi = ApiClient.getAltheaApi(context);
+                break;
+            case STARGAZE_MAIN:
+                historyApi = ApiClient.getStargazeApi(context);
+                break;
+            case GRABRIDGE_MAIN:
+                historyApi = ApiClient.getGraBridgeApi(context);
+                break;
+            case KI_MAIN:
+                historyApi = ApiClient.getKiApi(context);
+                break;
+            case COMDEX_MAIN:
+                historyApi = ApiClient.getComdexApi(context);
+                break;
+            case SECRET_MAIN:
+                historyApi = ApiClient.getSecretApi(context);
+                break;
+            case INJ_MAIN:
+                historyApi = ApiClient.getInjApi(context);
+                break;
+            case BITSONG_MAIN:
+                historyApi = ApiClient.getBitsongApi(context);
+                break;
+            case DESMOS_MAIN:
+                historyApi = ApiClient.getDesmosApi(context);
+                break;
+            case LUM_MAIN:
+                historyApi = ApiClient.getLumApi(context);
+                break;
+            case CHIHUAHUA_MAIN:
+                historyApi = ApiClient.getChihuahuaApi(context);
+                break;
+            case AXELAR_MAIN:
+                historyApi = ApiClient.getAxelarApi(context);
+                break;
+            case KONSTELL_MAIN:
+                historyApi = ApiClient.getKonstellApi(context);
+                break;
+            case UMEE_MAIN:
+                historyApi = ApiClient.getUmeeApi(context);
+                break;
+            case EVMOS_MAIN:
+                historyApi = ApiClient.getEvmosApi(context);
+                break;
+            case CUDOS_MAIN:
+                historyApi = ApiClient.getCudosApi(context);
+                break;
+            case PROVENANCE_MAIN:
+                historyApi = ApiClient.getProvenanceApi(context);
+                break;
+            case CERBERUS_MAIN:
+                historyApi = ApiClient.getCerberusApi(context);
+                break;
+            case OMNIFLIX_MAIN:
+                historyApi = ApiClient.getOmniflixApi(context);
+                break;
+            case COSMOS_TEST:
+                historyApi = ApiClient.getCosmosTestApi(context);
+                break;
+            case IRIS_TEST:
+                historyApi = ApiClient.getIrisTestApi(context);
+                break;
+            case ALTHEA_TEST:
+                historyApi = ApiClient.getAltheaTestApi(context);
+                break;
+        }
+        return historyApi;
+    }
+
 }

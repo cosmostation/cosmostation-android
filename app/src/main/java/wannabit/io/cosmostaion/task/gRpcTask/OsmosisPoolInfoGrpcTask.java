@@ -25,7 +25,7 @@ public class OsmosisPoolInfoGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mPoolId = mPoolId;
-        this.mResult.taskType = TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
+        this.result.taskType = TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -34,13 +34,13 @@ public class OsmosisPoolInfoGrpcTask extends CommonTask {
         try {
             QueryOuterClass.QueryPoolRequest request = QueryOuterClass.QueryPoolRequest.newBuilder().setPoolId(mPoolId).build();
             QueryOuterClass.QueryPoolResponse response = mStub.pool(request);
-            mResult.resultData = BalancerPool.Pool.parseFrom(response.getPool().getValue());
-            mResult.isSuccess = true;
+            result.resultData = BalancerPool.Pool.parseFrom(response.getPool().getValue());
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("OsmosisGrpcPoolInfoTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

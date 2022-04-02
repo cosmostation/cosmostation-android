@@ -27,12 +27,13 @@ import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.BorrowCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int CDP_DRAW_DEBT_CONFIRM_DIALOG = 6019;
 
     private Button mBtnCancel, mBtnNext;
@@ -109,7 +110,6 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         onUpdateInitInfo();
         onDisplayViewUpdate();
     }

@@ -61,3 +61,6 @@ fun Context.longToast(message: CharSequence): Toast = Toast
     .apply {
         show()
     }
+
+inline fun <reified T> unsafeLazy(noinline initializer: () -> T): Lazy<T> =
+    lazy(LazyThreadSafetyMode.NONE, initializer)

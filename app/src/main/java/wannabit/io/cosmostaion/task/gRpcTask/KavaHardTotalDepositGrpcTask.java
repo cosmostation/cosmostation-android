@@ -25,7 +25,7 @@ public class KavaHardTotalDepositGrpcTask extends CommonTask {
     public KavaHardTotalDepositGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_HARD_TOTAL_DEPOSIT;
+        this.result.taskType = TASK_GRPC_FETCH_KAVA_HARD_TOTAL_DEPOSIT;
         this.mStub = kava.hard.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -36,12 +36,12 @@ public class KavaHardTotalDepositGrpcTask extends CommonTask {
             QueryOuterClass.QueryTotalDepositedResponse response = mStub.totalDeposited(request);
             mResultData.addAll(response.getSuppliedCoinsList());
 
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("KavaHardTotalDepositGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

@@ -30,7 +30,7 @@ public class KavaCdpsByDepositorGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAccount = account;
         this.mCollateralType = collateralType;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR;
+        this.result.taskType = TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR;
         this.mStub = kava.cdp.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -41,12 +41,12 @@ public class KavaCdpsByDepositorGrpcTask extends CommonTask {
             QueryOuterClass.QueryDepositsResponse response = mStub.deposits(request);
             mResultData.addAll(response.getDepositsList());
 
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("KavaCdpsByDepositorGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

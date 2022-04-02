@@ -18,11 +18,12 @@ import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.PoolMyHolder;
 import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
-public class ListKavaPoolFragment extends BaseFragment {
+public class ListKavaPoolFragment extends BaseFragment implements IRefreshTabListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;

@@ -14,10 +14,11 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private TextView mRewardAmount, mFeeAmount;
     private TextView mRewardDenom, mFeeDenom;

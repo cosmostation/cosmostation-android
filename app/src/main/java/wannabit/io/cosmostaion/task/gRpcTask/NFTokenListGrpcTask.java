@@ -37,7 +37,7 @@ public class NFTokenListGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAccount = account;
         this.mPageKey = pageKey;
-        this.mResult.taskType = TASK_GRPC_FETCH_NFTOKEN_LIST;
+        this.result.taskType = TASK_GRPC_FETCH_NFTOKEN_LIST;
         this.mIrisStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
         this.mCryptoStub = chainmain.nft.v1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
@@ -56,24 +56,24 @@ public class NFTokenListGrpcTask extends CommonTask {
                 QueryOuterClass.QueryOwnerResponse response = mIrisStub.owner(request);
                 mIrisResultData.addAll(response.getOwner().getIdCollectionsList());
 
-                mResult.isSuccess = true;
-                mResult.resultData = mIrisResultData;
-                mResult.resultByteData = response.getPagination().getNextKey();
+                result.isSuccess = true;
+                result.resultData = mIrisResultData;
+                result.resultByteData = response.getPagination().getNextKey();
 
             } else if (mChain.equals(CRYPTO_MAIN)) {
                 chainmain.nft.v1.QueryOuterClass.QueryOwnerRequest request = chainmain.nft.v1.QueryOuterClass.QueryOwnerRequest.newBuilder().setOwner(mAccount.address).setPagination(pageRequest).build();
                 chainmain.nft.v1.QueryOuterClass.QueryOwnerResponse response = mCryptoStub.owner(request);
                 mCryptoResultData.addAll(response.getOwner().getIdCollectionsList());
 
-                mResult.isSuccess = true;
-                mResult.resultData = mCryptoResultData;
-                mResult.resultByteData = response.getPagination().getNextKey();
+                result.isSuccess = true;
+                result.resultData = mCryptoResultData;
+                result.resultByteData = response.getPagination().getNextKey();
             }
 
         } catch (Exception e) {
             WLog.e("NFTokenListGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

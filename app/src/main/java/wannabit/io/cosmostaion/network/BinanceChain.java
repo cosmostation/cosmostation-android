@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -26,10 +27,10 @@ public interface BinanceChain {
     Call<ResBnbAccountInfo> getAccountInfo(@Path("address") String address);
 
     @GET("api/v1/transactions")
-    Call<ResBnbHistories> getHistory(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime);
+    Single<ResBnbHistories> getHistoryRx(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime);
 
     @GET("api/v1/transactions")
-    Call<ResBnbHistories> getHistoryAsset(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("txAsset") String txAsset);
+    Single<ResBnbHistories> getHistoryAssetRx(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("txAsset") String txAsset);
 
     @GET("api/v1/tokens")
     Call<ArrayList<BnbToken>> getTokens(@Query("limit") String limit);

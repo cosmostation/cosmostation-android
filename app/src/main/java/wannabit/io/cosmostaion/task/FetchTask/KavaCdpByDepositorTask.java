@@ -18,7 +18,7 @@ public class KavaCdpByDepositorTask extends CommonTask {
 
     public KavaCdpByDepositorTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, String collateralType) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
+        this.result.taskType = BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
         this.mChain = chain;
         this.mAddress = address;
         this.mCollateralType = collateralType;
@@ -29,10 +29,10 @@ public class KavaCdpByDepositorTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ResCdpDepositStatus> response = ApiClient.getKavaChain(mApp).getCdpDepositStatus(mAddress, mCollateralType).execute();
+                Response<ResCdpDepositStatus> response = ApiClient.getKavaChain(context).getCdpDepositStatus(mAddress, mCollateralType).execute();
                 if (response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
+                    result.resultData = response.body().result;
+                    result.isSuccess = true;
 
                 } else {
                     WLog.w("KavaCdpByDepositor : NOk");
@@ -43,6 +43,6 @@ public class KavaCdpByDepositorTask extends CommonTask {
         } catch (Exception e) {
             WLog.w("KavaCdpByDepositor Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

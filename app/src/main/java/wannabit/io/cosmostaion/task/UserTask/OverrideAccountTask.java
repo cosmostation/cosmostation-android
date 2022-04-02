@@ -22,7 +22,7 @@ public class OverrideAccountTask extends CommonTask {
         super(app, listener);
         this.mAccount = account;
         this.mCustomPath = customPath;
-        this.mResult.taskType = BaseConstant.TASK_OVERRIDE_ACCOUNT;
+        this.result.taskType = BaseConstant.TASK_OVERRIDE_ACCOUNT;
     }
 
     /**
@@ -36,25 +36,25 @@ public class OverrideAccountTask extends CommonTask {
         try {
 
             Account oAccount = onModAccount(mAccount, strings[1], strings[0], strings[02]);
-            long id = mApp.getBaseDao().onOverrideAccount(oAccount);
+            long id = context.getBaseDao().onOverrideAccount(oAccount);
             if (id > 0) {
-                mResult.isSuccess = true;
-                mApp.getBaseDao().setLastUser(oAccount.id);
+                result.isSuccess = true;
+                context.getBaseDao().setLastUser(oAccount.id);
 
             } else {
-                mResult.errorMsg = "Override error";
-                mResult.errorCode = 7002;
+                result.errorMsg = "Override error";
+                result.errorCode = 7002;
             }
 
         } catch (Exception e) {
 
         }
-        return mResult;
+        return result;
     }
 
     private Account onModAccount(Account account, String entropy, String path, String msize) {
         DeterministicKey dKey = WKey.getCreateKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path), mCustomPath);
-        EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic) + account.uuid, entropy, false);
+        EncResult encR = CryptoHelper.doEncryptData(context.getString(R.string.key_mnemonic) + account.uuid, entropy, false);
         account.address = WKey.getDpAddress(BaseChain.getChain(account.baseChain), dKey.getPublicKeyAsHex());
         account.hasPrivateKey = true;
         account.resource = encR.getEncDataString();

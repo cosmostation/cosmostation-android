@@ -37,12 +37,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickListener {
+public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private Button mBefore, mNextBtn;
     private EditText mAmountInput;
@@ -99,7 +100,6 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         mToSwapDenom = getSActivity().mToSwapDenom;
         mAmountInput.setText("");
         onUpdateInitInfo();

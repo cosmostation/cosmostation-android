@@ -24,36 +24,36 @@ public class AccountInfoTask extends CommonTask {
     public AccountInfoTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
         this.mAccount = account;
-        this.mResult.taskType = BaseConstant.TASK_FETCH_ACCOUNT;
+        this.result.taskType = BaseConstant.TASK_FETCH_ACCOUNT;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BNB_MAIN)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(context).getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
+                    context.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
+                    context.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
                 } else {
-                    mApp.getBaseDao().onDeleteBalance("" + mAccount.id);
+                    context.getBaseDao().onDeleteBalance("" + mAccount.id);
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                Response<ResOkAccountInfo> response = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResOkAccountInfo> response = ApiClient.getOkexChain(context).getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().mOkAccountInfo = response.body();
+                    context.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, response.body()));
+                    context.getBaseDao().mOkAccountInfo = response.body();
                 }
 
             }
-            mResult.isSuccess = true;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("AccountInfoTask Error " + e.getMessage());
-            mApp.getBaseDao().onDeleteBalance("" + mAccount.id);
+            context.getBaseDao().onDeleteBalance("" + mAccount.id);
 
         }
-        return mResult;
+        return result;
     }
 }

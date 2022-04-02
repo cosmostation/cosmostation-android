@@ -16,10 +16,11 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Delegate_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int SELECT_DELEGATE_CHECK = 9106;
 
     private TextView mDelegateAmount;

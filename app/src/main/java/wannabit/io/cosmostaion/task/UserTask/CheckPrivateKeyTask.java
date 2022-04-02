@@ -16,22 +16,22 @@ public class CheckPrivateKeyTask extends CommonTask {
 
     public CheckPrivateKeyTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_CHECK_PRIVATE_KEY;
+        this.result.taskType = BaseConstant.TASK_CHECK_PRIVATE_KEY;
         this.mAccount = account;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
+        Password checkPw = context.getBaseDao().onSelectPassword();
+        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, context.getString(R.string.key_password))) {
+            result.isSuccess = false;
+            result.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+            return result;
         } else {
-            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            mResult.resultData = entropy;
-            mResult.isSuccess = true;
+            String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+            result.resultData = entropy;
+            result.isSuccess = true;
         }
-        return mResult;
+        return result;
     }
 }

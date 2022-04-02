@@ -16,10 +16,11 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class RewardAddressChangeStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class RewardAddressChangeStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     public final static int CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG = 6016;
 

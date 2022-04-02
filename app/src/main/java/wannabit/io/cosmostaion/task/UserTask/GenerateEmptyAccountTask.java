@@ -16,7 +16,7 @@ public class GenerateEmptyAccountTask extends CommonTask {
 
     public GenerateEmptyAccountTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_INIT_EMPTY_ACCOUNT;
+        this.result.taskType = BaseConstant.TASK_INIT_EMPTY_ACCOUNT;
     }
 
     /**
@@ -27,24 +27,24 @@ public class GenerateEmptyAccountTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
 
-        long id = mApp.getBaseDao().onInsertAccount(onGenEmptyAccount(strings[0], strings[1]));
+        long id = context.getBaseDao().onInsertAccount(onGenEmptyAccount(strings[0], strings[1]));
         if (id > 0) {
-            mResult.isSuccess = true;
-            mHideChains = mApp.getBaseDao().userHideChains();
+            result.isSuccess = true;
+            mHideChains = context.getBaseDao().userHideChains();
             if (mHideChains.contains(BaseChain.getChain(strings[0]))) {
                 int position = mHideChains.indexOf(BaseChain.getChain(strings[0]));
                 if (position >= 0) {
                     mHideChains.remove(position);
                 }
-                mApp.getBaseDao().setUserHidenChains(mHideChains);
+                context.getBaseDao().setUserHidenChains(mHideChains);
             }
-            mApp.getBaseDao().setLastUser(id);
-            mApp.getBaseDao().setLastChain(strings[0]);
+            context.getBaseDao().setLastUser(id);
+            context.getBaseDao().setLastChain(strings[0]);
         } else {
-            mResult.errorMsg = "Already existed account";
-            mResult.errorCode = 7001;
+            result.errorMsg = "Already existed account";
+            result.errorCode = 7001;
         }
-        return mResult;
+        return result;
     }
 
     private Account onGenEmptyAccount(String chainType, String address) {

@@ -26,7 +26,7 @@ public class GravityDexPoolGrpcTask extends CommonTask {
     public GravityDexPoolGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_GRAVITY_POOL_LIST;
+        this.result.taskType = TASK_GRPC_FETCH_GRAVITY_POOL_LIST;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -40,13 +40,13 @@ public class GravityDexPoolGrpcTask extends CommonTask {
             for (Liquidity.Pool pool : response.getPoolsList()) {
                 mResultData.add(pool);
             }
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("GravityDexPoolGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }
 

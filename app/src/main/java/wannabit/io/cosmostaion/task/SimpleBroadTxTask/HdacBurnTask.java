@@ -22,7 +22,7 @@ public class HdacBurnTask extends CommonTask {
         super(app, listener);
         this.baseChain = baseChain;
         this.mTxHex = txHex;
-        this.mResult.taskType = TASK_HDAC_BROAD_BURN;
+        this.result.taskType = TASK_HDAC_BROAD_BURN;
     }
 
     @Override
@@ -31,18 +31,18 @@ public class HdacBurnTask extends CommonTask {
             ReqHdacBurn req = new ReqHdacBurn(mTxHex);
             Response<ResHdacBurn> response;
             if (baseChain.equals(BaseChain.RIZON_TEST)) {
-                response = ApiClient.getTestHdac(mApp).broadTx(req).execute();
+                response = ApiClient.getTestHdac(context).broadTx(req).execute();
             } else {
-                response = ApiClient.getMainHdac(mApp).broadTx(req).execute();
+                response = ApiClient.getMainHdac(context).broadTx(req).execute();
             }
             if (response.isSuccessful() && response.body() != null) {
-                mResult.isSuccess = true;
-                mResult.resultData = response.body().txid;
+                result.isSuccess = true;
+                result.resultData = response.body().txid;
             }
         } catch (Exception e) {
             WLog.w("HdacBurnTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

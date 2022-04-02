@@ -24,10 +24,12 @@ import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomain
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameDomainDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IBusyFetchListener;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class MyDomainFragment extends BaseFragment implements View.OnClickListener {
+public class MyDomainFragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener, IBusyFetchListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private TextView mDomainCnt;

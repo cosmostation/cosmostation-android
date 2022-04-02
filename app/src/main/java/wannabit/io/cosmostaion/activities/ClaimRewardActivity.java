@@ -25,6 +25,7 @@ import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.fragment.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
@@ -92,12 +93,12 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
                 } else if (i == 2) {
                     mIvStep.setImageResource(R.drawable.step_4_img_3);
                     mTvStep.setText(R.string.str_reward_step_3);
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
 
                 } else if (i == 3) {
                     mIvStep.setImageResource(R.drawable.step_4_img_4);
                     mTvStep.setText(R.string.str_reward_step_4);
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
 
@@ -187,7 +188,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         }
 
         if (mTaskCount == 0) {
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
         }
     }
 

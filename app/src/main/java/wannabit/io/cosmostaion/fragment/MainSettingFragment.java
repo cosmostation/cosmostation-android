@@ -33,9 +33,10 @@ import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 
-public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
+public class MainSettingFragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     public final static int SELECT_CURRENCY = 9034;
     public final static int SELECT_MARKET = 9035;

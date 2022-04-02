@@ -15,9 +15,10 @@ import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.ReplaceStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class ReplaceStarName3Fragment extends BaseFragment implements View.OnClickListener {
+public class ReplaceStarName3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mFeeAmount, mStarnameFeeAmount;

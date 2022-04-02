@@ -25,10 +25,14 @@ abstract class BaseMoxyPresenter<View : BaseMoxyView>
 
     open inner class OnErrorConsumer : BaseOnErrorConsumer() {
 
-        @MainThread
-        override fun onError(error: Throwable) {
+        protected fun logError(error: Throwable) {
             val errorMessage = error.message.orEmpty()
             WLog.w("$errorMessage >> ${Log.getStackTraceString(error)}")
+        }
+
+        @MainThread
+        override fun onError(error: Throwable) {
+            logError(error)
             when (error) {
                 is UnknownHostException,
                 is IOException -> onNoConnectionError()

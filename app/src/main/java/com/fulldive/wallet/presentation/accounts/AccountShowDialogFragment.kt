@@ -12,18 +12,19 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import com.fulldive.wallet.extensions.unsafeLazy
 import com.fulldive.wallet.presentation.base.BaseMvpDialogFragment
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 
 class AccountShowDialogFragment : BaseMvpDialogFragment(), AccountShowMoxyView {
 
-    private val title by lazy(LazyThreadSafetyMode.NONE) {
+    private val title by unsafeLazy {
         arguments?.getString(KEY_TITLE)
             ?: throw IllegalStateException("argument title can't be null")
     }
 
-    private val address by lazy(LazyThreadSafetyMode.NONE) {
+    private val address by unsafeLazy {
         arguments?.getString(KEY_ADDRESS)
             ?: throw IllegalStateException("argument address can't be null")
     }

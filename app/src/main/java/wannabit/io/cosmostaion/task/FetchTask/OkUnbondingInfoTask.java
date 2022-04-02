@@ -21,7 +21,7 @@ public class OkUnbondingInfoTask extends CommonTask {
         super(app, listener);
         this.mAccount = account;
         this.mChain = chain;
-        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
+        this.result.taskType = BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
 
     }
 
@@ -30,26 +30,26 @@ public class OkUnbondingInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                Response<ResOkUnbonding> response = ApiClient.getOkexChain(mApp).getWithdrawInfo(mAccount.address).execute();
+                Response<ResOkUnbonding> response = ApiClient.getOkexChain(context).getWithdrawInfo(mAccount.address).execute();
                 if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
+                    result.isSuccess = false;
+                    result.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return result;
                 }
 
                 if (response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
+                    result.resultData = response.body();
+                    result.isSuccess = true;
                 }
 
             }
-            mResult.isSuccess = true;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("OkWithdrawTask Error " + e.getMessage());
 
         }
-        return mResult;
+        return result;
     }
 
 }

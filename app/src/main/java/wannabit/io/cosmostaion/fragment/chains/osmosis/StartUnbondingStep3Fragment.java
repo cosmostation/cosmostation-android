@@ -16,9 +16,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.StartUnbondingActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class StartUnbondingStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class StartUnbondingStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     private TextView mFeeAmount;
     private TextView mFeeAmountSymbol;
     private TextView mUnbondingIds;

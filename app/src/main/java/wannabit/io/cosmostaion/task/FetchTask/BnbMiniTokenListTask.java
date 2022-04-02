@@ -21,24 +21,24 @@ public class BnbMiniTokenListTask extends CommonTask {
     public BnbMiniTokenListTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
         this.mAccount = account;
-        this.mResult.taskType = BaseConstant.TASK_FETCH_BNB_MINI_TOKENS;
+        this.result.taskType = BaseConstant.TASK_FETCH_BNB_MINI_TOKENS;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
-                Response<ArrayList<BnbToken>> response = ApiClient.getBnbChain(mApp).getMiniTokens("3000").execute();
+                Response<ArrayList<BnbToken>> response = ApiClient.getBnbChain(context).getMiniTokens("3000").execute();
                 if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-                    mResult.resultData = response.body();
+                    result.resultData = response.body();
                 }
 
             }
-            mResult.isSuccess = true;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("BnbTokenList Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

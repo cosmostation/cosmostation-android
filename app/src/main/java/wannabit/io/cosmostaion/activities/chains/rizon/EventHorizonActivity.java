@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep1Fragment;
 
@@ -77,7 +78,7 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_2));
                     mTvStep.setText(getString(R.string.str_event_horizon_step_1));
                     mClearAll.setVisibility(View.GONE);
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
 

@@ -17,10 +17,11 @@ import wannabit.io.cosmostaion.activities.chains.sif.SifWithdrawPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class SifDexWithdrawStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class SifDexWithdrawStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private TextView mFeeAmount;
     private TextView mFeeAmountSymbol;

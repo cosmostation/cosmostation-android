@@ -29,7 +29,7 @@ public class UnDelegationsGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAccount = account;
-        this.mResult.taskType = TASK_GRPC_FETCH_UNDELEGATIONS;
+        this.result.taskType = TASK_GRPC_FETCH_UNDELEGATIONS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -45,14 +45,14 @@ public class UnDelegationsGrpcTask extends CommonTask {
 //            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
 //                pageJob(response.getPagination().getNextKey());
 //            }
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = mResultData;
+            this.result.isSuccess = true;
+            this.result.resultData = mResultData;
 //            WLog.w("UnDelegations " + mResultData.size());
 
         } catch (Exception e) {
             WLog.e("UnDelegationsGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
     private cosmos.bank.v1beta1.QueryOuterClass.QueryAllBalancesResponse pageJob(com.google.protobuf.ByteString nextKey) {

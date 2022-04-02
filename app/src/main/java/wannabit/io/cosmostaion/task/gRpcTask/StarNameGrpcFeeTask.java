@@ -22,7 +22,7 @@ public class StarNameGrpcFeeTask extends CommonTask {
     public StarNameGrpcFeeTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_STARNAME_FEE;
+        this.result.taskType = TASK_GRPC_FETCH_STARNAME_FEE;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -31,12 +31,12 @@ public class StarNameGrpcFeeTask extends CommonTask {
         try {
             QueryOuterClass.QueryFeesRequest request = QueryOuterClass.QueryFeesRequest.newBuilder().build();
             QueryOuterClass.QueryFeesResponse response = mStub.fees(request);
-            mResult.resultData = response.getFees();
-            mResult.isSuccess = true;
+            result.resultData = response.getFees();
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("StarNameGrpcFeeTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

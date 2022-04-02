@@ -22,7 +22,7 @@ public class StakingPoolGrpcTask extends CommonTask {
     public StakingPoolGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_STAKING_POOL;
+        this.result.taskType = TASK_GRPC_FETCH_STAKING_POOL;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -34,12 +34,12 @@ public class StakingPoolGrpcTask extends CommonTask {
             QueryOuterClass.QueryPoolResponse response = mStub.pool(request);
 //            WLog.w("StakingPool " + response.getPool());
 
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = response.getPool();
+            this.result.isSuccess = true;
+            this.result.resultData = response.getPool();
 
         } catch (Exception e) {
             WLog.e("StakingPoolGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

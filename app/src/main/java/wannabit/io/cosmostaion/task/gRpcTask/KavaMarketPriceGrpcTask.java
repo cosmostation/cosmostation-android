@@ -25,7 +25,7 @@ public class KavaMarketPriceGrpcTask extends CommonTask {
     public KavaMarketPriceGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_PRICES;
+        this.result.taskType = TASK_GRPC_FETCH_KAVA_PRICES;
         this.mStub = kava.pricefeed.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -36,12 +36,12 @@ public class KavaMarketPriceGrpcTask extends CommonTask {
             QueryOuterClass.QueryPricesResponse response = mStub.prices(request);
             mResultData.addAll(response.getPricesList());
 
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = mResultData;
+            this.result.isSuccess = true;
+            this.result.resultData = mResultData;
 
         } catch (Exception e) {
             WLog.e("KavaMarketPriceGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

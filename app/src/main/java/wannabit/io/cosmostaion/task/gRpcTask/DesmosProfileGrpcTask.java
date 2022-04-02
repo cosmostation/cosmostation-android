@@ -24,7 +24,7 @@ public class DesmosProfileGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mDtag = dtag;
-        this.mResult.taskType = TASK_GRPC_FETCH_DESMOS_PROFILE_INFO;
+        this.result.taskType = TASK_GRPC_FETCH_DESMOS_PROFILE_INFO;
         this.mStub = desmos.profiles.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -33,12 +33,12 @@ public class DesmosProfileGrpcTask extends CommonTask {
         try {
             QueryProfile.QueryProfileRequest request = QueryProfile.QueryProfileRequest.newBuilder().setUser(mDtag).build();
             QueryProfile.QueryProfileResponse response = mStub.profile(request);
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = response.getProfile();
+            this.result.isSuccess = true;
+            this.result.resultData = response.getProfile();
 
         } catch (Exception e) {
             WLog.e("DesmosProfileGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

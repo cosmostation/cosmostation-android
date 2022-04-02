@@ -16,27 +16,27 @@ public class MintScanCw20AssetsTask extends CommonTask {
 
     public MintScanCw20AssetsTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = TASK_FETCH_MINTSCAN_CW20_ASSETS;
+        this.result.taskType = TASK_FETCH_MINTSCAN_CW20_ASSETS;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("MintScanCw20AssetsTask Assets URL " + ApiClient.getMintscan(mApp).getCw20Assets().request().url());
-            Response<ResCw20Assets> response = ApiClient.getMintscan(mApp).getCw20Assets().execute();
+            WLog.w("MintScanCw20AssetsTask Assets URL " + ApiClient.getMintscan(context).getCw20Assets().request().url());
+            Response<ResCw20Assets> response = ApiClient.getMintscan(context).getCw20Assets().execute();
             if (!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = ERROR_CODE_NETWORK;
-                return mResult;
+                result.isSuccess = false;
+                result.errorCode = ERROR_CODE_NETWORK;
+                return result;
             }
 
             if (response.body() != null && response.body().assets != null) {
-                mResult.isSuccess = true;
-                mResult.resultData = response.body().assets;
+                result.isSuccess = true;
+                result.resultData = response.body().assets;
             }
         } catch (Exception e) {
             WLog.w("MintScanCw20AssetsTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

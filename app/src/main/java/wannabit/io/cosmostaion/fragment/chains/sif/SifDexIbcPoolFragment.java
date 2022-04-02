@@ -24,6 +24,7 @@ import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.SifDexMyProviderGrpcTask;
@@ -31,7 +32,7 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.SifPoolMyHolder;
 import wannabit.io.cosmostaion.widget.SifPoolOtherHolder;
 
-public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener {
+public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener, IRefreshTabListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;

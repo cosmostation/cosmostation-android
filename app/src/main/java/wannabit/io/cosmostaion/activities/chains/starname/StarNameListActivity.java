@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -26,6 +27,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IBusyFetchListener;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.fragment.chains.starname.MyAccountFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.MyDomainFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -99,7 +102,10 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
 
             @Override
             public void onPageSelected(int i) {
-                mPageAdapter.mFragments.get(i).onRefreshTab();
+                Fragment fragment = mPageAdapter.mFragments.get(i);
+                if (fragment instanceof IRefreshTabListener) {
+                    ((IRefreshTabListener) fragment).onRefreshTab();
+                }
             }
         });
 
@@ -122,7 +128,10 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
 
     public void onFetch() {
         if (mTaskCount > 0) {
-            mPageAdapter.getCurrentFragment().onBusyFetch();
+            Fragment fragment = mPageAdapter.getCurrentFragment();
+            if (fragment instanceof IBusyFetchListener) {
+                ((IBusyFetchListener) mPageAdapter.mCurrentFragment).onBusyFetch();
+            }
         }
         mTaskCount = 2;
         mDomains_gRPC.clear();
@@ -169,14 +178,15 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
-            mPageAdapter.getCurrentFragment().onRefreshTab();
+            ((IRefreshTabListener) mPageAdapter.getCurrentFragment()).onRefreshTab();
+
             WLog.w("mAccounts_gRPC " + mAccounts_gRPC.size());
             WLog.w("mDomains_gRPC " + mDomains_gRPC.size());
             WLog.w("mDomainResolves_gRPC " + mDomainResolves_gRPC.size());
         }
     }
 
-    private class StarNamePageAdapter extends FragmentPagerAdapter {
+    private static class StarNamePageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;

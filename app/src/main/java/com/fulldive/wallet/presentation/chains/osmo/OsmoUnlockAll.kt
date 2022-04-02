@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import com.fulldive.wallet.extensions.safe
+import com.fulldive.wallet.extensions.unsafeLazy
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import osmosis.lockup.Lock.PeriodLock
 import wannabit.io.cosmostaion.R
@@ -15,12 +16,12 @@ import wannabit.io.cosmostaion.activities.chains.osmosis.EarningDetailActivity
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper
 
 class OsmoUnlockAll : BottomSheetDialogFragment() {
-    private val single by lazy(LazyThreadSafetyMode.NONE) {
+    private val single by unsafeLazy {
         arguments?.getByteArray(KEY_SINGLE)
             ?: throw IllegalStateException("argument single can't be null")
     }
 
-    private val data by lazy(LazyThreadSafetyMode.NONE) {
+    private val data by unsafeLazy {
         arguments?.getSerializable(KEY_DATA)
             ?: throw IllegalStateException("argument data can't be null")
     }

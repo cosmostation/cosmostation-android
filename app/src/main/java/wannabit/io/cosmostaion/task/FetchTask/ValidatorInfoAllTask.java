@@ -21,7 +21,7 @@ public class ValidatorInfoAllTask extends CommonTask {
 
     public ValidatorInfoAllTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
-        this.mResult.taskType = TASK_FETCH_OKEX_ALL_VALIDATORS;
+        this.result.taskType = TASK_FETCH_OKEX_ALL_VALIDATORS;
         this.mChain = chain;
     }
 
@@ -29,16 +29,16 @@ public class ValidatorInfoAllTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(OKEX_MAIN)) {
-                Response<ArrayList<Validator>> response = ApiClient.getOkexChain(mApp).getAllValidatorDetailList().execute();
+                Response<ArrayList<Validator>> response = ApiClient.getOkexChain(context).getAllValidatorDetailList().execute();
                 if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
+                    result.isSuccess = false;
+                    result.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return result;
                 }
 
                 if (response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
+                    result.resultData = response.body();
+                    result.isSuccess = true;
                 }
 
             }
@@ -47,6 +47,6 @@ public class ValidatorInfoAllTask extends CommonTask {
             WLog.w("ValidatorInfoAllTask Error " + e.getMessage());
         }
 
-        return mResult;
+        return result;
     }
 }

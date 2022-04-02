@@ -21,12 +21,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Accounts;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Empty;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
+public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int SELECT_ACCOUNT = 9101;
 
     private Button mBeforeBtn, mNextBtn;
@@ -84,7 +85,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         mToAccountList = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(getSActivity().mRecipientChain);
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));

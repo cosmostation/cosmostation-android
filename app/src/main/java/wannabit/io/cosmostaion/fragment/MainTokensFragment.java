@@ -75,6 +75,8 @@ import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IBusyFetchListener;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -86,7 +88,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class MainTokensFragment extends BaseFragment {
+public class MainTokensFragment extends BaseFragment implements IBusyFetchListener, IRefreshTabListener {
 
     public final static int SECTION_NATIVE_GRPC = 0;
     public final static int SECTION_IBC_AUTHED_GRPC = 1;
@@ -254,49 +256,49 @@ public class MainTokensFragment extends BaseFragment {
             @Override
             public String getSectionGrpcHeader(BaseChain baseChain, ArrayList<Coin> coins, int section) {
                 if (section == SECTION_NATIVE_GRPC) {
-                    return getMainActivity().getString(R.string.str_native_token_title);
+                    return getString(R.string.str_native_token_title);
                 } else if (section == SECTION_IBC_AUTHED_GRPC) {
-                    return getMainActivity().getString(R.string.str_ibc_token_title);
+                    return getString(R.string.str_ibc_token_title);
                 } else if (section == SECTION_IBC_UNKNOWN_GRPC) {
-                    return getMainActivity().getString(R.string.str_unknown_ibc_token_title);
+                    return getString(R.string.str_unknown_ibc_token_title);
                 } else if (section == SECTION_UNKNOWN_GRPC) {
-                    return getMainActivity().getString(R.string.str_unknown_token_title);
+                    return getString(R.string.str_unknown_token_title);
                 } else if (section == SECTION_OSMOSIS_POOL_GRPC || section == SECTION_INJECTIVE_POOL_GRPC) {
-                    return getMainActivity().getString(R.string.str_pool_coin_title);
+                    return getString(R.string.str_pool_coin_title);
                 } else if (section == SECTION_ETHER_GRPC) {
-                    return getMainActivity().getString(R.string.str_sif_ether_token_title);
+                    return getString(R.string.str_sif_ether_token_title);
                 } else if (section == SECTION_GRAVICTY_DEX_GRPC) {
-                    return getMainActivity().getString(R.string.str_gravity_dex_token_title);
+                    return getString(R.string.str_gravity_dex_token_title);
                 } else if (section == SECTION_KAVA_BEP2_GRPC) {
-                    return getMainActivity().getString(R.string.str_kava_bep2_token_title);
+                    return getString(R.string.str_kava_bep2_token_title);
                 } else if (section == SECTION_ETC_GRPC) {
-                    return getMainActivity().getString(R.string.str_etc_token_title);
+                    return getString(R.string.str_etc_token_title);
                 }
 
-                return getMainActivity().getString(R.string.str_unknown_token_title);
+                return getString(R.string.str_unknown_token_title);
             }
 
             @Override
             public String getSectionCw20Header(BaseChain baseChain, ArrayList<Cw20Assets> cw20Assets, int section) {
                 if (section == SECTION_CW20_GRPC) {
-                    return getMainActivity().getString(R.string.str_cw20_token_title);
+                    return getString(R.string.str_cw20_token_title);
                 }
-                return getMainActivity().getString(R.string.str_unknown_token_title);
+                return getString(R.string.str_unknown_token_title);
             }
 
             @Override
             public String getSecitonHeader(BaseChain baseChain, ArrayList<Balance> balances, int section) {
                 if (section == SECTION_NATIVE) {
-                    return getMainActivity().getString(R.string.str_native_token_title);
+                    return getString(R.string.str_native_token_title);
                 } else if (section == SECTION_ETC) {
                     if (baseChain.equals(OKEX_MAIN)) {
-                        return getMainActivity().getString(R.string.str_oec_kip10_title);
+                        return getString(R.string.str_oec_kip10_title);
                     }
-                    return getMainActivity().getString(R.string.str_etc_token_title);
+                    return getString(R.string.str_etc_token_title);
                 } else if (section == SECTION_UNKNOWN) {
-                    return getMainActivity().getString(R.string.str_unknown_token_title);
+                    return getString(R.string.str_unknown_token_title);
                 }
-                return getMainActivity().getString(R.string.str_unknown_token_title);
+                return getString(R.string.str_unknown_token_title);
             }
         };
     }

@@ -22,7 +22,7 @@ public class StationIbcPathsTask extends CommonTask {
         super(app, listener);
         this.mBaseChain = baseChain;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_FETCH_IBC_PATHS;
+        this.result.taskType = TASK_FETCH_IBC_PATHS;
     }
 
     @Override
@@ -30,22 +30,22 @@ public class StationIbcPathsTask extends CommonTask {
         try {
             Response<ResIbcPaths> response;
             if (mBaseChain.isTestNet()) {
-                response = ApiClient.getStationTest(mApp).getIbcPaths(mChainId).execute();
+                response = ApiClient.getStationTest(context).getIbcPaths(mChainId).execute();
             } else {
-                response = ApiClient.getStation(mApp).getIbcPaths(mChainId).execute();
+                response = ApiClient.getStation(context).getIbcPaths(mChainId).execute();
             }
             if (!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = ERROR_CODE_NETWORK;
-                return mResult;
+                result.isSuccess = false;
+                result.errorCode = ERROR_CODE_NETWORK;
+                return result;
             }
 
             if (response.body() != null && response.body().sendable != null) {
-                mApp.getBaseDao().mIbcPaths = response.body().sendable;
+                context.getBaseDao().mIbcPaths = response.body().sendable;
             }
         } catch (Exception e) {
             WLog.w("StationIbcPathsTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

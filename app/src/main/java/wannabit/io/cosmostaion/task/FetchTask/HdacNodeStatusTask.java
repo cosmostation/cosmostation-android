@@ -15,19 +15,19 @@ public class HdacNodeStatusTask extends CommonTask {
 
     public HdacNodeStatusTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = TASK_HDAC_NODE_INFO;
+        this.result.taskType = TASK_HDAC_NODE_INFO;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResHdacStatus> response = ApiClient.getTestHdac(mApp).getNodeInfo().execute();
+            Response<ResHdacStatus> response = ApiClient.getTestHdac(context).getNodeInfo().execute();
             if (response.isSuccessful() && response.body().info != null) {
-                mResult.isSuccess = true;
+                result.isSuccess = true;
             }
         } catch (Exception e) {
             WLog.w("HdacNodeStatusTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

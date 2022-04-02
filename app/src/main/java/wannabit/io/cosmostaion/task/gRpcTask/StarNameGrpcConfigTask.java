@@ -22,7 +22,7 @@ public class StarNameGrpcConfigTask extends CommonTask {
     public StarNameGrpcConfigTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_STARNAME_CONFIG;
+        this.result.taskType = TASK_GRPC_FETCH_STARNAME_CONFIG;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -31,12 +31,12 @@ public class StarNameGrpcConfigTask extends CommonTask {
         try {
             QueryOuterClass.QueryConfigRequest request = QueryOuterClass.QueryConfigRequest.newBuilder().build();
             QueryOuterClass.QueryConfigResponse response = mStub.config(request);
-            mResult.resultData = response.getConfig();
-            mResult.isSuccess = true;
+            result.resultData = response.getConfig();
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("StarNameGrpcConfigTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

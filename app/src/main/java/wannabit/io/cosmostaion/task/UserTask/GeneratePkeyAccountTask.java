@@ -27,35 +27,35 @@ public class GeneratePkeyAccountTask extends CommonTask {
         this.mPKey = pKey;
         this.mAddress = address;
         this.mCustomPath = customPath;
-        this.mResult.taskType = BaseConstant.TASK_INIT_PKEY_ACCOUNT;
+        this.result.taskType = BaseConstant.TASK_INIT_PKEY_ACCOUNT;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            long id = mApp.getBaseDao().onInsertAccount(onGenAccount());
+            long id = context.getBaseDao().onInsertAccount(onGenAccount());
             if (id > 0) {
-                mResult.isSuccess = true;
-                mHideChains = mApp.getBaseDao().userHideChains();
+                result.isSuccess = true;
+                mHideChains = context.getBaseDao().userHideChains();
                 if (mHideChains.contains(mBaseChain)) {
                     int position = mHideChains.indexOf(mBaseChain);
                     if (position >= 0) {
                         mHideChains.remove(position);
                     }
-                    mApp.getBaseDao().setUserHidenChains(mHideChains);
+                    context.getBaseDao().setUserHidenChains(mHideChains);
                 }
-                mApp.getBaseDao().setLastUser(id);
-                mApp.getBaseDao().setLastChain(mBaseChain.getChain());
+                context.getBaseDao().setLastUser(id);
+                context.getBaseDao().setLastChain(mBaseChain.getChain());
 
             } else {
-                mResult.errorMsg = "Already existed account";
-                mResult.errorCode = 7001;
+                result.errorMsg = "Already existed account";
+                result.errorCode = 7001;
             }
 
         } catch (Exception e) {
 
         }
-        return mResult;
+        return result;
     }
 
 
@@ -64,7 +64,7 @@ public class GeneratePkeyAccountTask extends CommonTask {
         if (mPKey.toLowerCase().startsWith("0x")) {
             mPKey = mPKey.substring(2);
         }
-        EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + newAccount.uuid, mPKey, false);
+        EncResult encR = CryptoHelper.doEncryptData(context.getString(R.string.key_private) + newAccount.uuid, mPKey, false);
 
         newAccount.baseChain = mBaseChain.getChain();
         newAccount.address = mAddress;

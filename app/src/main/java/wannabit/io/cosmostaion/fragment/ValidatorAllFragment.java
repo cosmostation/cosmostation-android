@@ -33,12 +33,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IBusyFetchListener;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class ValidatorAllFragment extends BaseFragment implements View.OnClickListener {
+public class ValidatorAllFragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener, IBusyFetchListener {
 
     public final static int SELECT_All_VALIDATOR_SORTING = 6002;
 

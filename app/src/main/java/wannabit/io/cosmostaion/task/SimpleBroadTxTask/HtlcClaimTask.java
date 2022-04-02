@@ -57,7 +57,7 @@ public class HtlcClaimTask extends CommonTask {
         this.mClaimFee = claimFee;
         this.mExpectedSwapId = expectedSwapId;
         this.mRandomNumber = randomNumber;
-        this.mResult.taskType = TASK_GEN_TX_HTLC_CLAIM;
+        this.result.taskType = TASK_GEN_TX_HTLC_CLAIM;
     }
 
 
@@ -66,21 +66,21 @@ public class HtlcClaimTask extends CommonTask {
 
         try {
             if (mReceiveChain.equals(BaseChain.BNB_MAIN)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mReceiveAccount.address).execute();
+                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(context).getAccountInfo(mReceiveAccount.address).execute();
                 if (!response.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
+                    result.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return result;
                 }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mReceiveAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mReceiveAccount.id, WUtil.getBalancesFromBnbLcd(mReceiveAccount.id, response.body()));
-                mReceiveAccount = mApp.getBaseDao().onSelectAccount("" + mReceiveAccount.id);
+                context.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mReceiveAccount.id, response.body()));
+                context.getBaseDao().onUpdateBalances(mReceiveAccount.id, WUtil.getBalancesFromBnbLcd(mReceiveAccount.id, response.body()));
+                mReceiveAccount = context.getBaseDao().onSelectAccount("" + mReceiveAccount.id);
 
                 if (mReceiveAccount.fromMnemonic) {
-                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
                     DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mReceiveAccount, entropy);
                     ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
                 } else {
-                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    String privateKey = CryptoHelper.doDecryptData(context.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
                     ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
                 }
 
@@ -91,20 +91,20 @@ public class HtlcClaimTask extends CommonTask {
                 mExpectedSwapId = mExpectedSwapId.toLowerCase();
                 mRandomNumber = mRandomNumber.toLowerCase();
                 BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
-                TransactionOption options = new TransactionOption(mApp.getString(R.string.str_claim_swap_memo_c), 82, null);
+                TransactionOption options = new TransactionOption(context.getString(R.string.str_claim_swap_memo_c), 82, null);
                 List<TransactionMetadata> resp = client.claimHtlt(mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, options, true);
                 if (resp.get(0).isOk()) {
                     if (BuildConfig.DEBUG)
                         WLog.w("BNB_MAIN Claim suceess txhash " + resp.get(0).getHash());
-                    mResult.resultData = resp.get(0).getHash();
-                    mResult.isSuccess = true;
+                    result.resultData = resp.get(0).getHash();
+                    result.isSuccess = true;
 
                 } else {
                     if (BuildConfig.DEBUG)
                         WLog.w("BNB_MAIN Claim error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
-                    mResult.errorCode = resp.get(0).getCode();
-                    mResult.errorMsg = resp.get(0).getLog();
-                    mResult.isSuccess = false;
+                    result.errorCode = resp.get(0).getCode();
+                    result.errorMsg = resp.get(0).getLog();
+                    result.isSuccess = false;
                 }
 
             } else if (mReceiveChain.equals(BaseChain.KAVA_MAIN)) {
@@ -113,11 +113,11 @@ public class HtlcClaimTask extends CommonTask {
                 Query.GetNodeInfoResponse receiveInfo = nodeInfoStub.getNodeInfo(receiveNodeInfo);
 
                 if (mReceiveAccount.fromMnemonic) {
-                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
                     DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mReceiveAccount, entropy);
                     ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
                 } else {
-                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    String privateKey = CryptoHelper.doDecryptData(context.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
                     ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
                 }
 
@@ -127,21 +127,21 @@ public class HtlcClaimTask extends CommonTask {
 
                 //broadCast
                 cosmos.tx.v1beta1.ServiceGrpc.ServiceBlockingStub txService = cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mReceiveChain));
-                ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaClaimHTLCSwapReq(mAuthResponse, mReceiveAccount.address, mExpectedSwapId, mRandomNumber, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), ecKey, receiveInfo.getNodeInfo().getNetwork());
+                ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaClaimHTLCSwapReq(mAuthResponse, mReceiveAccount.address, mExpectedSwapId, mRandomNumber, mClaimFee, context.getString(R.string.str_claim_swap_memo_c), ecKey, receiveInfo.getNodeInfo().getNetwork());
                 ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
-                mResult.resultData = response.getTxResponse().getTxhash();
+                result.resultData = response.getTxResponse().getTxhash();
                 if (response.getTxResponse().getCode() > 0) {
-                    mResult.errorCode = response.getTxResponse().getCode();
-                    mResult.errorMsg = response.getTxResponse().getRawLog();
-                    mResult.isSuccess = false;
+                    result.errorCode = response.getTxResponse().getCode();
+                    result.errorMsg = response.getTxResponse().getRawLog();
+                    result.isSuccess = false;
                 } else {
-                    mResult.isSuccess = true;
+                    result.isSuccess = true;
                 }
             }
 
         } catch (Exception e) {
             if (BuildConfig.DEBUG) e.printStackTrace();
         }
-        return mResult;
+        return result;
     }
 }

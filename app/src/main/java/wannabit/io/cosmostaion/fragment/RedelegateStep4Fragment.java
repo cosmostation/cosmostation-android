@@ -16,10 +16,11 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegateConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
+public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     public final static int REDELEGATE_CONFIRM_DIALOG = 6016;
 

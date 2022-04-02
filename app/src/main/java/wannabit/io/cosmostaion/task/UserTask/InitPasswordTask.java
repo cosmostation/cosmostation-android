@@ -13,7 +13,7 @@ public class InitPasswordTask extends CommonTask {
 
     public InitPasswordTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_INIT_PW;
+        this.result.taskType = BaseConstant.TASK_INIT_PW;
     }
 
     /**
@@ -22,11 +22,11 @@ public class InitPasswordTask extends CommonTask {
      */
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password newPw = new Password(CryptoHelper.signData(strings[0], mApp.getString(R.string.key_password)));
-        long insert = mApp.getBaseDao().onInsertPassword(newPw);
+        Password newPw = new Password(CryptoHelper.signData(strings[0], context.getString(R.string.key_password)));
+        long insert = context.getBaseDao().onInsertPassword(newPw);
         if (insert > 0) {
-            mResult.isSuccess = true;
+            result.isSuccess = true;
         }
-        return mResult;
+        return result;
     }
 }

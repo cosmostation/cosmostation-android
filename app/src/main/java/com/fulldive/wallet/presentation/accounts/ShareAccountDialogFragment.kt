@@ -8,13 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import com.fulldive.wallet.extensions.unsafeLazy
 import com.fulldive.wallet.presentation.base.BaseMvpDialogFragment
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 
 class ShareAccountDialogFragment : BaseMvpDialogFragment(), ShareAccountMoxyView {
 
-    private val address by lazy(LazyThreadSafetyMode.NONE) {
+    private val address by unsafeLazy {
         arguments?.getString(KEY_ADDRESS)
             ?: throw IllegalStateException("argument address can't be null")
     }

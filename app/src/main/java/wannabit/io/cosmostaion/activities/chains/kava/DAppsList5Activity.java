@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -41,6 +42,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Pool_Kava;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
@@ -128,7 +130,10 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
             @Override
             public void onPageSelected(int i) {
-                mPageAdapter.mFragments.get(i).onRefreshTab();
+                Fragment fragment = mPageAdapter.mFragments.get(i);
+                if (fragment instanceof IRefreshTabListener) {
+                    ((IRefreshTabListener) fragment).onRefreshTab();
+                }
             }
         });
         onShowWaitDialog();
@@ -295,7 +300,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
                 @Override
                 public void run() {
                     onHideWaitDialog();
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }, 300);
         }

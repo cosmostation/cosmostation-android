@@ -25,12 +25,13 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickListener {
+public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private CardView mFeeTotalCard;
     private TextView mFeeDenom, mFeeAmount, mFeeValue;
@@ -112,7 +113,6 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         mFeeTotalCard.setVisibility(View.VISIBLE);
         mSpeedLayer.setVisibility(View.VISIBLE);
         mBottomControlCard.setVisibility(View.VISIBLE);

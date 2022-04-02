@@ -27,7 +27,7 @@ public class SifDexPoolListGrpcTask extends CommonTask {
     public SifDexPoolListGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_SIF_POOL_LIST;
+        this.result.taskType = TASK_GRPC_FETCH_SIF_POOL_LIST;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -41,13 +41,13 @@ public class SifDexPoolListGrpcTask extends CommonTask {
             for (Types.Pool pool : response.getPoolsList()) {
                 mResultData.add(pool);
             }
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("SifDexPoolListGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }
 

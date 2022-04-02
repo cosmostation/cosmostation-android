@@ -20,7 +20,7 @@ public class OkDexTickerTask extends CommonTask {
     public OkDexTickerTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_FETCH_OK_DEX_TICKERS;
+        this.result.taskType = TASK_FETCH_OK_DEX_TICKERS;
 
     }
 
@@ -28,25 +28,25 @@ public class OkDexTickerTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                Response<ResOkTickersList> response = ApiClient.getOkexChain(mApp).getDexTickers().execute();
+                Response<ResOkTickersList> response = ApiClient.getOkexChain(context).getDexTickers().execute();
                 if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
+                    result.isSuccess = false;
+                    result.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return result;
                 }
 
                 if (response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
+                    result.resultData = response.body();
+                    result.isSuccess = true;
                 }
 
             }
-            mResult.isSuccess = true;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("OkWithdrawTask Error " + e.getMessage());
 
         }
-        return mResult;
+        return result;
     }
 }

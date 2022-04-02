@@ -21,10 +21,11 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class RedelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class RedelegateStep0Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private Button mCancel, mNextBtn;
     private EditText mAmountInput;

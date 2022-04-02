@@ -21,7 +21,7 @@ public class HdacTxDetailTask extends CommonTask {
         super(app, listener);
         this.baseChain = baseChain;
         this.mTxHash = txHash;
-        this.mResult.taskType = TASK_HDAC_TX_DETAIL;
+        this.result.taskType = TASK_HDAC_TX_DETAIL;
     }
 
     @Override
@@ -29,18 +29,18 @@ public class HdacTxDetailTask extends CommonTask {
         try {
             Response<HdacTxInfo> response;
             if (baseChain.equals(BaseChain.RIZON_TEST)) {
-                response = ApiClient.getTestHdac(mApp).gethdacTxDetail(mTxHash).execute();
+                response = ApiClient.getTestHdac(context).gethdacTxDetail(mTxHash).execute();
             } else {
-                response = ApiClient.getMainHdac(mApp).gethdacTxDetail(mTxHash).execute();
+                response = ApiClient.getMainHdac(context).gethdacTxDetail(mTxHash).execute();
             }
             if (response.isSuccessful() && response.body() != null) {
-                mResult.isSuccess = true;
-                mResult.resultData = response.body();
+                result.isSuccess = true;
+                result.resultData = response.body();
             }
 
         } catch (Exception e) {
             WLog.w("HdacNodeStatusTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

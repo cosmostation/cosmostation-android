@@ -29,7 +29,7 @@ public class AllRewardGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAccount = account;
-        this.mResult.taskType = TASK_GRPC_FETCH_ALL_REWARDS;
+        this.result.taskType = TASK_GRPC_FETCH_ALL_REWARDS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -40,13 +40,13 @@ public class AllRewardGrpcTask extends CommonTask {
             QueryOuterClass.QueryDelegationTotalRewardsRequest request = QueryOuterClass.QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(mAccount.address).build();
             QueryOuterClass.QueryDelegationTotalRewardsResponse response = mStub.delegationTotalRewards(request);
             mResultData.addAll(response.getRewardsList());
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = mResultData;
+            this.result.isSuccess = true;
+            this.result.resultData = mResultData;
 //            WLog.w("AllReward " + mResultData.size());
 
         } catch (Exception e) {
             WLog.e("AllRewardGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

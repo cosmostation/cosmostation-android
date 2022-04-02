@@ -10,11 +10,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.fulldive.wallet.extensions.unsafeLazy
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.AccountDetailActivity
 
 class DeleteConfirmDialogFragment : DialogFragment() {
-    private val accountId by lazy(LazyThreadSafetyMode.NONE) {
+    private val accountId by unsafeLazy {
         arguments?.getLong(KEY_ACCOUNT_ID)
             ?: throw IllegalStateException("argument accountId can't be null")
     }

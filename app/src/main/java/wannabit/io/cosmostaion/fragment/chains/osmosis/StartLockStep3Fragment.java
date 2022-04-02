@@ -15,10 +15,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.StartEarningActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class StartLockStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class StartLockStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private TextView mFeeAmount;
     private TextView mFeeAmountSymbol;

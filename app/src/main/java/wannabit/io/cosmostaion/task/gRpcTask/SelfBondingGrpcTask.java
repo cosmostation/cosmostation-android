@@ -23,7 +23,7 @@ public class SelfBondingGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mValOpAddress = opAddress;
         this.mAddress = address;
-        this.mResult.taskType = TASK_GRPC_FETCH_SELF_BONDING;
+        this.result.taskType = TASK_GRPC_FETCH_SELF_BONDING;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
 
@@ -33,12 +33,12 @@ public class SelfBondingGrpcTask extends CommonTask {
         try {
             QueryOuterClass.QueryDelegationRequest request = QueryOuterClass.QueryDelegationRequest.newBuilder().setValidatorAddr(mValOpAddress).setDelegatorAddr(mAddress).build();
             QueryOuterClass.QueryDelegationResponse response = mStub.delegation(request);
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = response.getDelegationResponse();
+            this.result.isSuccess = true;
+            this.result.resultData = response.getDelegationResponse();
 
         } catch (Exception e) {
             WLog.e("SelfBondingGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

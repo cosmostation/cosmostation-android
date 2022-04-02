@@ -26,7 +26,7 @@ public class TotalSupplyGrpcTask extends CommonTask {
     public TotalSupplyGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_TOTAL_SUPPLY;
+        this.result.taskType = TASK_GRPC_FETCH_TOTAL_SUPPLY;
         this.mStub = cosmos.bank.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -38,8 +38,8 @@ public class TotalSupplyGrpcTask extends CommonTask {
             QueryOuterClass.QueryTotalSupplyResponse response = mStub.totalSupply(request);
             mResultData.addAll(response.getSupplyList());
 
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = mResultData;
+            this.result.isSuccess = true;
+            this.result.resultData = mResultData;
 
 //            mApp.getBaseDao().mGDexPoolTokens.add(new Coin(response.getAmount().getDenom(), response.getAmount().getAmount()));
 //            mResult.resultData = mApp.getBaseDao().mGDexPoolTokens;
@@ -48,6 +48,6 @@ public class TotalSupplyGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("TotalSupplyGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

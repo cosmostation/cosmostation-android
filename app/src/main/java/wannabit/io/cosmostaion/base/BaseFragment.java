@@ -29,12 +29,6 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    public void onRefreshTab() {
-    }
-
-    public void onBusyFetch() {
-    }
-
     public void showDialog(DialogFragment dialogFragment) {
         showDialog(dialogFragment, "dialog", true);
     }

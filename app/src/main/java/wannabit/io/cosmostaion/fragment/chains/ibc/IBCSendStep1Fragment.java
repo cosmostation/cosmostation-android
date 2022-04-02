@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receivable_Accouts;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
@@ -46,7 +47,7 @@ import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickListener {
+public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     public final static int SELECT_ACCOUNT = 9101;
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
@@ -125,7 +126,6 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         mTochain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
         mToAccountList = getBaseDao().onSelectAccountsByChain(mTochain);
         WDp.getChainTitle(requireContext(), mTochain, mDesitination);

@@ -26,7 +26,7 @@ public class ProposalMyVoteGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mProposalId = proposalId;
         this.mAddress = address;
-        this.mResult.taskType = TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
+        this.result.taskType = TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
 
@@ -34,23 +34,23 @@ public class ProposalMyVoteGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.CERTIK_MAIN)) {
-                Response<ResMyProposal> response = ApiClient.getCertikChain(mApp).getCertikProposal(mProposalId, mAddress).execute();
+                Response<ResMyProposal> response = ApiClient.getCertikChain(context).getCertikProposal(mProposalId, mAddress).execute();
                 if (response.isSuccessful() && response.body() != null && response.body().vote != null && response.body().vote.options != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
+                    result.resultData = response.body();
+                    result.isSuccess = true;
                 } else {
-                    mResult.isSuccess = false;
+                    result.isSuccess = false;
                 }
             } else {
                 QueryOuterClass.QueryVoteRequest request = QueryOuterClass.QueryVoteRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).setVoter(mAddress).build();
                 QueryOuterClass.QueryVoteResponse response = mStub.vote(request);
-                this.mResult.resultData = response.getVote();
+                this.result.resultData = response.getVote();
             }
 
         } catch (Exception e) {
             WLog.e("ProposalMyVoteGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

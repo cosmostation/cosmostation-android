@@ -25,7 +25,7 @@ public class RizonSwapStatusTask extends CommonTask {
         super(app, listener);
         this.mBaseChain = baseChain;
         this.mAccount = account;
-        this.mResult.taskType = TASK_RIZON_SWAP_STATUS;
+        this.result.taskType = TASK_RIZON_SWAP_STATUS;
     }
 
     @Override
@@ -33,22 +33,22 @@ public class RizonSwapStatusTask extends CommonTask {
         try {
             Response<ArrayList<RizonSwapStatus>> response;
             if (mBaseChain.equals(BaseChain.RIZON_TEST)) {
-                response = ApiClient.getRizonSwapTestStatus(mApp).getSwapStatus(mAccount.address).execute();
+                response = ApiClient.getRizonSwapTestStatus(context).getSwapStatus(mAccount.address).execute();
             } else {
-                response = ApiClient.getRizonSwapStatus(mApp).getSwapStatus(mAccount.address).execute();
+                response = ApiClient.getRizonSwapStatus(context).getSwapStatus(mAccount.address).execute();
             }
             if (!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                result.isSuccess = false;
+                result.errorCode = BaseConstant.ERROR_CODE_NETWORK;
             }
 
             if (response.isSuccessful() && response.body() != null) {
-                mResult.isSuccess = true;
-                mResult.resultData = response.body();
+                result.isSuccess = true;
+                result.resultData = response.body();
             }
         } catch (Exception e) {
             WLog.w("RizonSwapStatusTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

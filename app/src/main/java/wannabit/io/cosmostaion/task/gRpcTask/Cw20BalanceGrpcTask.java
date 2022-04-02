@@ -23,18 +23,16 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class Cw20BalanceGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private String mContAddress;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final Account mAccount;
+    private final String mContAddress;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public Cw20BalanceGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account, String contAddress) {
         super(app, listener);
-        this.mChain = chain;
         this.mAccount = account;
         this.mContAddress = contAddress;
-        this.mResult.taskType = TASK_GRPC_FETCH_BALANCE_OF_CW20;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        this.result.taskType = TASK_GRPC_FETCH_BALANCE_OF_CW20;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(chain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override
@@ -47,12 +45,12 @@ public class Cw20BalanceGrpcTask extends CommonTask {
             QueryOuterClass.QuerySmartContractStateResponse response = mStub.smartContractState(request);
 
             JSONObject json = new JSONObject(response.getData().toStringUtf8());
-            mApp.getBaseDao().setCw20Balance(mContAddress, json.get("balance").toString());
+            context.getBaseDao().setCw20Balance(mContAddress, json.get("balance").toString());
 
         } catch (Exception e) {
             WLog.e("Cw20BalanceGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
 
     }
 }

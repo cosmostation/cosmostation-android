@@ -5,15 +5,15 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_root"
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        app:cardPreventCornerOverlap="true"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBg"
+        app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -22,8 +22,8 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/space_16"
             android:paddingTop="@dimen/space_12"
-            android:paddingBottom="@dimen/space_12"
-            android:paddingRight="@dimen/space_4">
+            android:paddingRight="@dimen/space_4"
+            android:paddingBottom="@dimen/space_12">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -38,26 +38,26 @@
 
                 <TextView
                     android:id="@+id/wallet_address"
+                    style="@style/font_ss_12_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/img_account"
-                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_white"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_toRightOf="@+id/img_account"
                     android:singleLine="true"
                     android:text="" />
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/total_value"
+                style="@style/font_ss_21_white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_2"
-                style="@style/font_ss_21_white"
+                android:gravity="center_horizontal"
+                android:paddingRight="@dimen/space_12"
                 android:singleLine="true"
-                android:text="0.000"
-                android:gravity="center_horizontal" />
+                android:text="0.000" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -65,7 +65,7 @@
         android:id="@+id/layer_refresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/card_root">
+        android:layout_below="@+id/cardView">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -76,21 +76,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/history_none_img"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/history_none_img" />
 
                 <TextView
+                    style="@style/font_ss_14_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_6"
                     android:layout_centerInParent="true"
-                    style="@style/font_ss_14_white"
+                    android:layout_marginTop="@dimen/space_6"
                     android:text="@string/str_no_history" />
             </LinearLayout>
 
@@ -99,19 +99,19 @@
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/space_4"
+                android:layout_marginTop="@dimen/space_6"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/space_6" />
+                android:paddingTop="@dimen/space_4"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/text_notyet"
+                style="@style/font_ss_14_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6"
                 android:layout_centerInParent="true"
-                style="@style/font_ss_14_white"
+                android:layout_marginTop="@dimen/space_6"
                 android:text="Coming Soon!!" />
         </RelativeLayout>
 

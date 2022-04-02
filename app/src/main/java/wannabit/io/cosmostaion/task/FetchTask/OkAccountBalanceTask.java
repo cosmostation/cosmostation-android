@@ -22,7 +22,7 @@ public class OkAccountBalanceTask extends CommonTask {
         super(app, listener);
         this.mAccount = account;
         this.mChain = chain;
-        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
+        this.result.taskType = BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
 
     }
 
@@ -31,30 +31,30 @@ public class OkAccountBalanceTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                Response<ResOkAccountToken> response = ApiClient.getOkexChain(mApp).getAccountBalance(mAccount.address).execute();
+                Response<ResOkAccountToken> response = ApiClient.getOkexChain(context).getAccountBalance(mAccount.address).execute();
                 if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
+                    result.isSuccess = false;
+                    result.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return result;
                 }
 
                 if (response.body() != null) {
-                    mResult.isSuccess = true;
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromOkLcd(mAccount.id, response.body()));
+                    result.isSuccess = true;
+                    context.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromOkLcd(mAccount.id, response.body()));
 
                 } else {
-                    mApp.getBaseDao().onDeleteBalance("" + mAccount.id);
+                    context.getBaseDao().onDeleteBalance("" + mAccount.id);
 
                 }
 
             }
-            mResult.isSuccess = true;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("OkAccountBalanceTask Error " + e.getMessage());
 
         }
-        return mResult;
+        return result;
     }
 
 }

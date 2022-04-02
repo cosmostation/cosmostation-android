@@ -48,18 +48,18 @@ public class SimulReInvestGrpcTask extends CommonTask {
         this.mReInvestMemo = mReInvestMemo;
         this.mReInvestFees = mReInvestFees;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_REINVEST;
+        this.result.taskType = TASK_GRPC_SIMULATE_REINVEST;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mAccount.fromMnemonic) {
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
                 ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
             } else {
-                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String privateKey = CryptoHelper.doDecryptData(context.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
 
@@ -72,13 +72,13 @@ public class SimulReInvestGrpcTask extends CommonTask {
             ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcReInvestSimulateReq(mAuthResponse, mValidatorAddress, mReInvestAmount, mReInvestFees, mReInvestMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 //            WLog.w("response " +  response);
-            mResult.resultData = response.getGasInfo();
-            mResult.isSuccess = true;
+            result.resultData = response.getGasInfo();
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("SimulReInvestGrpcTask " + e.getMessage());
-            mResult.isSuccess = false;
+            result.isSuccess = false;
         }
-        return mResult;
+        return result;
     }
 }

@@ -24,8 +24,8 @@ public class PushUpdateTask extends CommonTask {
         this.mAccount = account;
         this.mPushToken = token;
         this.mEnable = enable;
-        this.mResult.taskType = BaseConstant.TASK_PUSH_STATUS_UPDATE;
-        this.mResult.resultData = enable;
+        this.result.taskType = BaseConstant.TASK_PUSH_STATUS_UPDATE;
+        this.result.resultData = enable;
     }
 
     @Override
@@ -45,15 +45,15 @@ public class PushUpdateTask extends CommonTask {
             reqPushAlarm.alarm_token = mPushToken;
             reqPushAlarm.alarm_status = mEnable;
 
-            Response<ResPushAlarm> response = ApiClient.getCosmostationOld(mApp).updateAlarm(reqPushAlarm).execute();
+            Response<ResPushAlarm> response = ApiClient.getCosmostationOld(context).updateAlarm(reqPushAlarm).execute();
             if (response.isSuccessful() && response.body() != null && response.body().result == true) {
-                mResult.isSuccess = true;
+                result.isSuccess = true;
             }
 
         } catch (Exception e) {
             if (BuildConfig.DEBUG) e.printStackTrace();
 
         }
-        return mResult;
+        return result;
     }
 }

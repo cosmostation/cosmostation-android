@@ -23,7 +23,7 @@ public class ResApiNewTxListCustom {
     @SerializedName("data")
     public Data data;
 
-    public class Header {
+    public static class Header {
         @SerializedName("id")
         public int id;
 
@@ -34,7 +34,7 @@ public class ResApiNewTxListCustom {
         public int block_id;
     }
 
-    public class Data {
+    public static class Data {
         @SerializedName("height")
         public String height;
 
@@ -69,7 +69,7 @@ public class ResApiNewTxListCustom {
         public ArrayList<Object> logs;
     }
 
-    public class Tx {
+    public static class Tx {
         @SerializedName("@type")
         public String type;
 
@@ -78,10 +78,9 @@ public class ResApiNewTxListCustom {
 
         @SerializedName("value")
         public Body value;
-
     }
 
-    public class Body {
+    public static class Body {
         @SerializedName("messages")
         public ArrayList<Object> messages;
 

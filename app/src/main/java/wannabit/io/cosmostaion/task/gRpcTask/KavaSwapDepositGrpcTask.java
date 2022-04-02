@@ -27,7 +27,7 @@ public class KavaSwapDepositGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAccount = account;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
+        this.result.taskType = TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -38,12 +38,12 @@ public class KavaSwapDepositGrpcTask extends CommonTask {
             QueryOuterClass.QueryDepositsResponse response = mStub.deposits(request);
             mResultData.addAll(response.getDepositsList());
 
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("KavaSwapDepositGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

@@ -24,7 +24,7 @@ public class NFTokenInfoGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mDenomId = denomId;
         this.mTokenId = tokenId;
-        this.mResult.taskType = TASK_GRPC_FETCH_NFTOKEN_INFO;
+        this.result.taskType = TASK_GRPC_FETCH_NFTOKEN_INFO;
         this.mIrisStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
         this.mCryptoStub = chainmain.nft.v1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
@@ -36,21 +36,21 @@ public class NFTokenInfoGrpcTask extends CommonTask {
                 QueryOuterClass.QueryNFTRequest request = QueryOuterClass.QueryNFTRequest.newBuilder().setDenomId(mDenomId).setTokenId(mTokenId).build();
                 QueryOuterClass.QueryNFTResponse response = mIrisStub.nFT(request);
 
-                mResult.isSuccess = true;
-                mResult.resultData = response;
+                result.isSuccess = true;
+                result.resultData = response;
 
             } else if (mChain.equals(BaseChain.CRYPTO_MAIN)) {
                 chainmain.nft.v1.QueryOuterClass.QueryNFTRequest request = chainmain.nft.v1.QueryOuterClass.QueryNFTRequest.newBuilder().setDenomId(mDenomId).setTokenId(mTokenId).build();
                 chainmain.nft.v1.QueryOuterClass.QueryNFTResponse response = mCryptoStub.nFT(request);
 
-                mResult.isSuccess = true;
-                mResult.resultData = response.getNft();
+                result.isSuccess = true;
+                result.resultData = response.getNft();
             }
 
         } catch (Exception e) {
             WLog.e("NFTokenInfoGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.widget;
+package com.fulldive.wallet.presentation.main.history;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,10 +19,11 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class HistoryNewHolder extends BaseHolder {
-    private CardView historyRoot;
-    private TextView historyType, historySuccess, history_time, history_amount, history_amount_symbol, history_time_gap;
+    private final CardView historyRoot;
+    private final TextView historyType, historySuccess, history_time, history_amount, history_amount_symbol, history_time_gap;
 
     public HistoryNewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
@@ -58,20 +59,17 @@ public class HistoryNewHolder extends BaseHolder {
         } else {
             historySuccess.setVisibility(View.VISIBLE);
         }
-        historyRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(history.header.chain_id) && !mainActivity.getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
-                    String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.data.txhash);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    mainActivity.startActivity(intent);
-                } else {
-                    Intent txDetail = new Intent(mainActivity, TxDetailgRPCActivity.class);
-                    txDetail.putExtra("txHash", history.data.txhash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    mainActivity.startActivity(txDetail);
-                }
+        historyRoot.setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(history.header.chain_id) && !mainActivity.getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
+                String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.data.txhash);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                mainActivity.startActivity(intent);
+            } else {
+                Intent txDetail = new Intent(mainActivity, TxDetailgRPCActivity.class);
+                txDetail.putExtra("txHash", history.data.txhash);
+                txDetail.putExtra("isGen", false);
+                txDetail.putExtra("isSuccess", true);
+                mainActivity.startActivity(txDetail);
             }
         });
     }

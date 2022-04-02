@@ -27,7 +27,7 @@ public class SifDexMyProviderGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAccount = account;
         this.mDenom = denom;
-        this.mResult.taskType = TASK_GRPC_FETCH_SIF_MY_PROVIDER;
+        this.result.taskType = TASK_GRPC_FETCH_SIF_MY_PROVIDER;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -37,12 +37,12 @@ public class SifDexMyProviderGrpcTask extends CommonTask {
             Querier.LiquidityProviderReq request = Querier.LiquidityProviderReq.newBuilder().setSymbol(mDenom).setLpAddress(mAccount.address).build();
             Querier.LiquidityProviderRes response = mStub.getLiquidityProvider(request);
 
-            mResult.resultData = response;
-            mResult.isSuccess = true;
+            result.resultData = response;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("SifDexMyProviderGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

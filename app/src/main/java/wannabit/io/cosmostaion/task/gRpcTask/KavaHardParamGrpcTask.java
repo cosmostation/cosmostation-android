@@ -22,7 +22,7 @@ public class KavaHardParamGrpcTask extends CommonTask {
     public KavaHardParamGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
+        this.result.taskType = TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
         this.mStub = kava.hard.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -32,13 +32,13 @@ public class KavaHardParamGrpcTask extends CommonTask {
             QueryOuterClass.QueryParamsRequest request = QueryOuterClass.QueryParamsRequest.newBuilder().build();
             QueryOuterClass.QueryParamsResponse response = mStub.params(request);
 
-            mResult.resultData = response.getParams();
-            mResult.isSuccess = true;
+            result.resultData = response.getParams();
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("KavaHardParamGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
 }

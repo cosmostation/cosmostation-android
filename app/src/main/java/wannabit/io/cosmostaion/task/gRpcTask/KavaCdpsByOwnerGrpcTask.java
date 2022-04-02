@@ -27,7 +27,7 @@ public class KavaCdpsByOwnerGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAccount = account;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_MY_CDPS;
+        this.result.taskType = TASK_GRPC_FETCH_KAVA_MY_CDPS;
         this.mStub = kava.cdp.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -38,12 +38,12 @@ public class KavaCdpsByOwnerGrpcTask extends CommonTask {
             QueryOuterClass.QueryCdpsResponse response = mStub.cdps(request);
             mResultData.addAll(response.getCdpsList());
 
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("KavaCdpsByOwnerGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

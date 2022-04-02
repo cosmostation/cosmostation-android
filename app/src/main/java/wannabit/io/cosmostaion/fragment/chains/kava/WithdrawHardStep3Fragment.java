@@ -18,10 +18,11 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Hard_Liquidation_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int SELECT_HARD_WITHDRAW_CHECK = 9107;
 
     private Button mBeforeBtn, mConfirmBtn;

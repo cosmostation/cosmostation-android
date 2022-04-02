@@ -18,7 +18,7 @@ public class MoonPayTask extends CommonTask {
     public MoonPayTask(BaseApplication app, TaskListener listener, String query) {
         super(app, listener);
         this.mQuery = query;
-        this.mResult.taskType = BaseConstant.TASK_MOON_PAY_SIGNATURE;
+        this.result.taskType = BaseConstant.TASK_MOON_PAY_SIGNATURE;
     }
 
     @Override
@@ -26,16 +26,16 @@ public class MoonPayTask extends CommonTask {
         try {
             ReqMoonPayKey reqMoonPayKey = new ReqMoonPayKey();
             reqMoonPayKey.api_key = mQuery;
-            Response<ResMoonPaySignature> response = ApiClient.getCosmostationOld(mApp).getMoonPay(reqMoonPayKey).execute();
+            Response<ResMoonPaySignature> response = ApiClient.getCosmostationOld(context).getMoonPay(reqMoonPayKey).execute();
             if (response.isSuccessful() && response.body() != null && response.body().signature != null) {
-                mResult.isSuccess = true;
-                mResult.resultData = response.body().signature;
+                result.isSuccess = true;
+                result.resultData = response.body().signature;
             }
 
         } catch (Exception e) {
             if (BuildConfig.DEBUG) e.printStackTrace();
 
         }
-        return mResult;
+        return result;
     }
 }

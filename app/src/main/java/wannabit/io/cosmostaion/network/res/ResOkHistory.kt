@@ -1,50 +1,47 @@
-package wannabit.io.cosmostaion.network.res;
+package wannabit.io.cosmostaion.network.res
 
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName
 
-import java.util.ArrayList;
-
-public class ResOkHistory {
-
+data class ResOkHistory(
     @SerializedName("code")
-    public int code;
+    var code: Int,
 
     @SerializedName("msg")
-    public String msg;
+    var message: String,
 
     @SerializedName("detail_msg")
-    public String detail_msg;
+    var detailMessage: String,
 
     @SerializedName("data")
-    public Data data;
+    var data: ResOkHistoryData
+)
 
-    public class Data {
-        @SerializedName("hits")
-        public ArrayList<Hit> hits;
+class ResOkHistoryData(
+    @SerializedName("hits")
+    var hits: List<ResOkHistoryHit>
+)
 
-        public class Hit {
-            @SerializedName("hash")
-            public String hash;
+class ResOkHistoryHit(
+    @SerializedName("hash")
+    var hash: String,
 
-            @SerializedName("blocktime")
-            public long blocktime;
+    @SerializedName("blocktime")
+    var blocktime: Long,
 
-            @SerializedName("blockHash")
-            public String blockHash;
+    @SerializedName("blockHash")
+    var blockHash: String,
 
-            @SerializedName("blockHeight")
-            public long blockHeight;
+    @SerializedName("blockHeight")
+    var blockHeight: Long,
 
-            @SerializedName("transactionData")
-            public ArrayList<TransactionData> transactionDatas;
+    @SerializedName("transactionData")
+    var transactionDatas: List<ResOkHistoryTransactionData>,
 
-            @SerializedName("blockTimeU0")
-            public long blockTimeU0;
+    @SerializedName("blockTimeU0")
+    var blockTimeU0: Long
+)
 
-            public class TransactionData {
-                @SerializedName("type")
-                public String type;
-            }
-        }
-    }
-}
+class ResOkHistoryTransactionData(
+    @SerializedName("type")
+    var type: String
+)

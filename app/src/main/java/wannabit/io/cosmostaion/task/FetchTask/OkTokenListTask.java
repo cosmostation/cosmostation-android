@@ -18,7 +18,7 @@ public class OkTokenListTask extends CommonTask {
     public OkTokenListTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
+        this.result.taskType = BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
 
     }
 
@@ -27,26 +27,26 @@ public class OkTokenListTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                Response<ResOkTokenList> response = ApiClient.getOkexChain(mApp).getTokenList().execute();
+                Response<ResOkTokenList> response = ApiClient.getOkexChain(context).getTokenList().execute();
                 if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
+                    result.isSuccess = false;
+                    result.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return result;
                 }
 
                 if (response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
+                    result.resultData = response.body();
+                    result.isSuccess = true;
                 }
 
             }
-            mResult.isSuccess = true;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("OkDepositTask Error " + e.getMessage());
 
         }
-        return mResult;
+        return result;
     }
 
 }

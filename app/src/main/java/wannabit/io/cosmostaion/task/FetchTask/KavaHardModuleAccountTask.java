@@ -15,17 +15,17 @@ public class KavaHardModuleAccountTask extends CommonTask {
 
     public KavaHardModuleAccountTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT;
+        this.result.taskType = TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResKavaHardModuleAccount> response = ApiClient.getKavaChain(mApp).getHardModuleAccount().execute();
+            Response<ResKavaHardModuleAccount> response = ApiClient.getKavaChain(context).getHardModuleAccount().execute();
             if (response.isSuccessful() && response.body() != null &&
                     response.body().result != null && response.body().result.size() > 0 && response.body().result.get(0).coins != null) {
-                mResult.resultData = response.body().result.get(0).coins;
-                mResult.isSuccess = true;
+                result.resultData = response.body().result.get(0).coins;
+                result.isSuccess = true;
 
             } else {
                 WLog.w("KavaHardModuleAccountTask : NOk");
@@ -33,6 +33,6 @@ public class KavaHardModuleAccountTask extends CommonTask {
         } catch (Exception e) {
             WLog.w("KavaHardModuleAccountTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

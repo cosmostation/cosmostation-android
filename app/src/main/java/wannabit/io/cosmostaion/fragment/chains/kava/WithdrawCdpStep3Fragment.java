@@ -18,10 +18,11 @@ import kava.cdp.v1beta1.Genesis;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.WithdrawCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private TextView mWithdrawAmount, mWithdrawDenom, mWithdrawValue;
     private TextView mFeesAmount, mFeesDenom, mFeeValue;

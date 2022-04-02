@@ -21,7 +21,7 @@ public class OkStakingInfoTask extends CommonTask {
         super(app, listener);
         this.mAccount = account;
         this.mChain = chain;
-        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_STAKING_INFO;
+        this.result.taskType = BaseConstant.TASK_FETCH_OK_STAKING_INFO;
 
     }
 
@@ -30,26 +30,26 @@ public class OkStakingInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                Response<ResOkStaking> response = ApiClient.getOkexChain(mApp).getDepositInfo(mAccount.address).execute();
+                Response<ResOkStaking> response = ApiClient.getOkexChain(context).getDepositInfo(mAccount.address).execute();
                 if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
+                    result.isSuccess = false;
+                    result.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return result;
                 }
 
                 if (response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
+                    result.resultData = response.body();
+                    result.isSuccess = true;
                 }
 
             }
-            mResult.isSuccess = true;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("OkDepositTask Error " + e.getMessage());
 
         }
-        return mResult;
+        return result;
     }
 
 }

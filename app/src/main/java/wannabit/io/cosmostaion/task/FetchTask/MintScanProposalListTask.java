@@ -21,27 +21,27 @@ public class MintScanProposalListTask extends CommonTask {
     public MintScanProposalListTask(BaseApplication app, TaskListener listener, String chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_FETCH_MINTSCAN_PROPOSAL_LIST;
+        this.result.taskType = TASK_FETCH_MINTSCAN_PROPOSAL_LIST;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("MinScan Path URL " + ApiClient.getMintscan(mApp).getProposalList(mChain).request().url());
-            Response<ArrayList<ResProposal>> response = ApiClient.getMintscan(mApp).getProposalList(mChain).execute();
+            WLog.w("MinScan Path URL " + ApiClient.getMintscan(context).getProposalList(mChain).request().url());
+            Response<ArrayList<ResProposal>> response = ApiClient.getMintscan(context).getProposalList(mChain).execute();
             if (!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = ERROR_CODE_NETWORK;
-                return mResult;
+                result.isSuccess = false;
+                result.errorCode = ERROR_CODE_NETWORK;
+                return result;
             }
 
             if (response.body() != null) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
+                result.resultData = response.body();
+                result.isSuccess = true;
             }
         } catch (Exception e) {
             WLog.w("MintScanProposalListTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

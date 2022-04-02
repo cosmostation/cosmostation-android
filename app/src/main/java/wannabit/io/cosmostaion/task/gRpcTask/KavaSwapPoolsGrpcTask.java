@@ -24,7 +24,7 @@ public class KavaSwapPoolsGrpcTask extends CommonTask {
     public KavaSwapPoolsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_SWAP_POOLS;
+        this.result.taskType = TASK_GRPC_FETCH_KAVA_SWAP_POOLS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -35,12 +35,12 @@ public class KavaSwapPoolsGrpcTask extends CommonTask {
             QueryOuterClass.QueryPoolsResponse response = mStub.pools(request);
             mResultData.addAll(response.getPoolsList());
 
-            mResult.resultData = mResultData;
-            mResult.isSuccess = true;
+            result.resultData = mResultData;
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("KavaSwapParamsGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

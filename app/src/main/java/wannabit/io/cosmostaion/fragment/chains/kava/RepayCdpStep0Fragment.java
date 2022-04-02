@@ -27,12 +27,13 @@ import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.RepayCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int CDP_REPAY_CONFIRM_DIALOG = 6018;
 
     private Button mBtnCancel, mBtnNext;
@@ -119,7 +120,6 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         onUpdateInitInfo();
         onUpdateNextBtn();
     }
@@ -310,7 +310,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                 bundle.putString("denom", cDenom);
                 Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
-                    dialog.setTargetFragment(this, CDP_REPAY_CONFIRM_DIALOG);
+                dialog.setTargetFragment(this, CDP_REPAY_CONFIRM_DIALOG);
                 showDialog(dialog);
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();

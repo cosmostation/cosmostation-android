@@ -22,11 +22,12 @@ import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class GravitySwapFragment extends BaseFragment implements View.OnClickListener {
+public class GravitySwapFragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
     public final static int SELECT_INPUT_CHAIN = 8500;
     public final static int SELECT_OUTPUT_CHAIN = 8501;
 

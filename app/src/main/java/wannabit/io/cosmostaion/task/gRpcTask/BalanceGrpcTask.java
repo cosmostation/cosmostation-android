@@ -28,7 +28,7 @@ public class BalanceGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAddress = address;
-        this.mResult.taskType = TASK_GRPC_FETCH_BALANCE;
+        this.result.taskType = TASK_GRPC_FETCH_BALANCE;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -45,14 +45,14 @@ public class BalanceGrpcTask extends CommonTask {
 //            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
 //                pageJob(response.getPagination().getNextKey());
 //            }
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = mResultData;
+            this.result.isSuccess = true;
+            this.result.resultData = mResultData;
 //            WLog.w("Balance " + mResultData.size());
 
         } catch (Exception e) {
             WLog.e("BalanceGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 
     private QueryOuterClass.QueryAllBalancesResponse pageJob(com.google.protobuf.ByteString nextKey) {

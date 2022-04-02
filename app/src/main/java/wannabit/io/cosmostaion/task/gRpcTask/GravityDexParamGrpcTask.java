@@ -22,7 +22,7 @@ public class GravityDexParamGrpcTask extends CommonTask {
     public GravityDexParamGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_GRAVITY_PARAM;
+        this.result.taskType = TASK_GRPC_FETCH_GRAVITY_PARAM;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
@@ -33,12 +33,12 @@ public class GravityDexParamGrpcTask extends CommonTask {
             QueryOuterClass.QueryParamsRequest request = QueryOuterClass.QueryParamsRequest.newBuilder().build();
             QueryOuterClass.QueryParamsResponse response = mStub.params(request);
 
-            this.mResult.isSuccess = true;
-            mResult.resultData = response.getParams();
+            this.result.isSuccess = true;
+            result.resultData = response.getParams();
 
         } catch (Exception e) {
             WLog.e("GravityDexParamGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

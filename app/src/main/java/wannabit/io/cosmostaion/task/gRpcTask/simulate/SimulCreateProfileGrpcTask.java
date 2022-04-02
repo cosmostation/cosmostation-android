@@ -50,18 +50,18 @@ public class SimulCreateProfileGrpcTask extends CommonTask {
         this.mFees = fee;
         this.mMemo = memo;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_CREATE_PROFILE;
+        this.result.taskType = TASK_GRPC_SIMULATE_CREATE_PROFILE;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mAccount.fromMnemonic) {
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String entropy = CryptoHelper.doDecryptData(context.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
                 ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
             } else {
-                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                String privateKey = CryptoHelper.doDecryptData(context.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
 
@@ -73,13 +73,13 @@ public class SimulCreateProfileGrpcTask extends CommonTask {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCreateProfileSimulateReq(mAuthResponse, mDtag, mNickname, mBio, mProfileUri, mCoverUri, mAccount.address, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
-            mResult.resultData = response.getGasInfo();
-            mResult.isSuccess = true;
+            result.resultData = response.getGasInfo();
+            result.isSuccess = true;
 
         } catch (Exception e) {
             WLog.e("SimulCreateProfileGrpcTask " + e.getMessage());
-            mResult.isSuccess = false;
+            result.isSuccess = false;
         }
-        return mResult;
+        return result;
     }
 }

@@ -20,27 +20,27 @@ public class NodeInfoTask extends CommonTask {
     public NodeInfoTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_FETCH_NODE_INFO;
+        this.result.taskType = TASK_FETCH_NODE_INFO;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BNB_MAIN)) {
-                Response<ResNodeInfo> response = ApiClient.getBnbChain(mApp).getNodeInfo().execute();
+                Response<ResNodeInfo> response = ApiClient.getBnbChain(context).getNodeInfo().execute();
                 if (response.isSuccessful() && response.body() != null && response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
+                    result.resultData = response.body().node_info;
+                    result.isSuccess = true;
 
                 } else {
                     WLog.w("NodeInfoTask : NOk");
                 }
 
             } else if (mChain.equals(OKEX_MAIN)) {
-                Response<ResNodeInfo> response = ApiClient.getOkexChain(mApp).getNodeInfo().execute();
+                Response<ResNodeInfo> response = ApiClient.getOkexChain(context).getNodeInfo().execute();
                 if (response.isSuccessful() && response.body() != null && response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
+                    result.resultData = response.body().node_info;
+                    result.isSuccess = true;
 
                 } else {
                     WLog.w("NodeInfoTask : NOk");
@@ -51,6 +51,6 @@ public class NodeInfoTask extends CommonTask {
         } catch (Exception e) {
             WLog.w("NodeInfoTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

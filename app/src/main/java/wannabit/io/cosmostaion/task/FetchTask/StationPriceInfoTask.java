@@ -21,7 +21,7 @@ public class StationPriceInfoTask extends CommonTask {
     public StationPriceInfoTask(BaseApplication app, TaskListener listener, BaseChain baseChain) {
         super(app, listener);
         this.mBaseChain = baseChain;
-        this.mResult.taskType = TASK_FETCH_PRICE_INFO;
+        this.result.taskType = TASK_FETCH_PRICE_INFO;
     }
 
     @Override
@@ -29,13 +29,13 @@ public class StationPriceInfoTask extends CommonTask {
         try {
             Response<ArrayList<Price>> response;
             if (mBaseChain.isTestNet()) {
-                response = ApiClient.getStationTest(mApp).getPrice().execute();
+                response = ApiClient.getStationTest(context).getPrice().execute();
             } else {
-                response = ApiClient.getStation(mApp).getPrice().execute();
+                response = ApiClient.getStation(context).getPrice().execute();
             }
             if (response.isSuccessful() && response.body() != null) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
+                result.resultData = response.body();
+                result.isSuccess = true;
             }
 //            WLog.w("StationPriceInfoTask " + mApp.getBaseDao().mPrices.size());
 
@@ -43,6 +43,6 @@ public class StationPriceInfoTask extends CommonTask {
             WLog.w("StationPriceInfoTask Error " + e.getMessage());
 
         }
-        return mResult;
+        return result;
     }
 }

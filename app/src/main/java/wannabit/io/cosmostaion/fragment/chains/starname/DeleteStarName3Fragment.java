@@ -16,9 +16,10 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.DeleteStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class DeleteStarName3Fragment extends BaseFragment implements View.OnClickListener {
+public class DeleteStarName3Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mFeeAmount, mStarName, mExpireTime, mMemo;

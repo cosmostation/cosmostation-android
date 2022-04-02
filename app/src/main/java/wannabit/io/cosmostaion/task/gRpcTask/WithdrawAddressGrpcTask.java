@@ -23,7 +23,7 @@ public class WithdrawAddressGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mAccount = account;
-        this.mResult.taskType = TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+        this.result.taskType = TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
 
@@ -36,12 +36,12 @@ public class WithdrawAddressGrpcTask extends CommonTask {
 //            QueryOuterClass.QueryParamsResponse response = mStub.params(request);
 //            WLog.w("getWithdrawAddress " + response.getWithdrawAddress());
 //
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = response.getWithdrawAddress();
+            this.result.isSuccess = true;
+            this.result.resultData = response.getWithdrawAddress();
 
         } catch (Exception e) {
             WLog.e("ParamMintGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

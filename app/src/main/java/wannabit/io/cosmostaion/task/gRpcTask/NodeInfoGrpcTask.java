@@ -22,7 +22,7 @@ public class NodeInfoGrpcTask extends CommonTask {
     public NodeInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_NODE_INFO;
+        this.result.taskType = TASK_GRPC_FETCH_NODE_INFO;
         this.mStub = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -32,12 +32,12 @@ public class NodeInfoGrpcTask extends CommonTask {
             Query.GetNodeInfoRequest request = Query.GetNodeInfoRequest.newBuilder().build();
             Query.GetNodeInfoResponse response = mStub.getNodeInfo(request);
 
-            this.mResult.isSuccess = true;
-            mResult.resultData = response.getNodeInfo();
+            this.result.isSuccess = true;
+            result.resultData = response.getNodeInfo();
 
         } catch (Exception e) {
             WLog.e("NodeInfoGrpcTask " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }

@@ -17,11 +17,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.hdac.HdacUtil;
 
-public class EventHorizonStep1Fragment extends BaseFragment implements View.OnClickListener {
+public class EventHorizonStep1Fragment extends BaseFragment implements View.OnClickListener, IRefreshTabListener {
 
     private TextView mHdacTitle, mRizonTitle;
     private TextView mHdacFromAddress, mHdacBurnAmount, mHdacTxFee;
@@ -70,7 +71,6 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         if (getSActivity().mBaseChain.equals(BaseChain.RIZON_TEST)) {
             mHdacTitle.setText("Hdac Testnet");
             mRizonTitle.setText("Rizon Testnet");

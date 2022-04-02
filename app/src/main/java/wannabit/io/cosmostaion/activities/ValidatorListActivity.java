@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -28,6 +29,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.IBusyFetchListener;
+import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
@@ -101,7 +104,10 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             @Override
             public void onPageSelected(int i) {
-                mPageAdapter.mFragments.get(i).onRefreshTab();
+                Fragment fragment = mPageAdapter.mFragments.get(i);
+                if (fragment instanceof IRefreshTabListener) {
+                    ((IRefreshTabListener) fragment).onRefreshTab();
+                }
             }
         });
     }
@@ -275,7 +281,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     public void fetchFinished() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
         }
 
     }
@@ -284,7 +290,10 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     public void fetchBusy() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            mPageAdapter.mCurrentFragment.onBusyFetch();
+            Fragment fragment = mPageAdapter.mCurrentFragment;
+            if (fragment instanceof IBusyFetchListener) {
+                ((IBusyFetchListener) mPageAdapter.mCurrentFragment).onBusyFetch();
+            }
         }
 
     }

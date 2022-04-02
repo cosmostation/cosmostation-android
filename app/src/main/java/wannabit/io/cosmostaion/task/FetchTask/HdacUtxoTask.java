@@ -23,7 +23,7 @@ public class HdacUtxoTask extends CommonTask {
         super(app, listener);
         this.baseChain = baseChain;
         this.hdacAddress = hdacAddress;
-        this.mResult.taskType = TASK_HDAC_UTXO;
+        this.result.taskType = TASK_HDAC_UTXO;
     }
 
     @Override
@@ -31,17 +31,17 @@ public class HdacUtxoTask extends CommonTask {
         try {
             Response<ArrayList<HdacUtxo>> response;
             if (baseChain.equals(BaseChain.RIZON_TEST)) {
-                response = ApiClient.getTestHdac(mApp).getUtxo(hdacAddress).execute();
+                response = ApiClient.getTestHdac(context).getUtxo(hdacAddress).execute();
             } else {
-                response = ApiClient.getMainHdac(mApp).getUtxo(hdacAddress).execute();
+                response = ApiClient.getMainHdac(context).getUtxo(hdacAddress).execute();
             }
             if (response.isSuccessful()) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
+                result.resultData = response.body();
+                result.isSuccess = true;
             }
         } catch (Exception e) {
             WLog.w("HdacUtxoTask Error " + e.getMessage());
         }
-        return mResult;
+        return result;
     }
 }
