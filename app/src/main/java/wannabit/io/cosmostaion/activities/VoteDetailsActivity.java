@@ -120,9 +120,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         if (v.equals(mVoteBtn)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                return;
+                showDialog(add);                return;
             }
             BigDecimal mainDenomAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);

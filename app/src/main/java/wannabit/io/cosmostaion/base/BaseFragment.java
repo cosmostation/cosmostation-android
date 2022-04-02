@@ -1,8 +1,8 @@
 package wannabit.io.cosmostaion.base;
 
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 public class BaseFragment extends Fragment {
 
@@ -33,7 +33,17 @@ public class BaseFragment extends Fragment {
     }
 
     public void onBusyFetch() {
-
     }
 
+    public void showDialog(DialogFragment dialogFragment) {
+        showDialog(dialogFragment, "dialog", true);
+    }
+
+    public void showDialog(DialogFragment dialogFragment, String tag, boolean cancelable) {
+        dialogFragment.setCancelable(cancelable);
+        getParentFragmentManager()    // maybe we have to use  getChildFragmentManager()
+                .beginTransaction()
+                .add(dialogFragment, tag)
+                .commitNowAllowingStateLoss();
+    }
 }

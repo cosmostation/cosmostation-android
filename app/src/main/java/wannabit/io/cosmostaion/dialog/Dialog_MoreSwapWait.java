@@ -31,23 +31,17 @@ public class Dialog_MoreSwapWait extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_more_swap_wait, null);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getTopActivity().onFinishWithError();
-                getDialog().dismiss();
-            }
+        btn_negative.setOnClickListener(v -> {
+            getTopActivity().onFinishWithError();
+            dismiss();
         });
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getTopActivity().onWaitSwapMore();
-                getDialog().dismiss();
-            }
+        btn_positive.setOnClickListener(v -> {
+            getTopActivity().onWaitSwapMore();
+            dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

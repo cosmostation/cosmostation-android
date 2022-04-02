@@ -116,8 +116,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         if (v.equals(mBtnDelete)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
             if (mDomain_gRPC.getType().equals("open")) {
@@ -139,8 +138,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         } else if (v.equals(mBtnRenew)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
 
@@ -162,8 +160,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         } else if (v.equals(mBtnEdit)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
 

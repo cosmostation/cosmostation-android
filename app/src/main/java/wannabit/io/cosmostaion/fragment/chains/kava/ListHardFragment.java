@@ -137,16 +137,6 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
         }
     }
 
-
-    public void onCheckStartClaimIncentive() {
-        if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-    }
-
     private class HardPoolAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_MY_HARD_STATUS = 1;
         private static final int TYPE_HARD_POOL = 2;

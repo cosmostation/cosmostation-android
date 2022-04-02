@@ -26,7 +26,7 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
+import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -241,9 +241,8 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onShowEmptyBlanaceWarnDialog() {
-        Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
-        dialog.setCancelable(true);
-        dialog.show(getFragmentManager().beginTransaction(), "dialog");
+        Dialog_Empty_Warning dialog = Dialog_Empty_Warning.newInstance();
+        showDialog(dialog);
     }
 
     private void setDpDecimals(int decimals) {

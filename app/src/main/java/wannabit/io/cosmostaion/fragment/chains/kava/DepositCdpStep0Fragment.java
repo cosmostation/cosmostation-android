@@ -308,9 +308,8 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                     bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                     bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
-                    dialog.setCancelable(true);
-                    dialog.setTargetFragment(this, CDP_DEPOSIT_CONFIRM_DIALOG);
-                    dialog.show(getFragmentManager().beginTransaction(), "dialog");
+                            dialog.setTargetFragment(this, CDP_DEPOSIT_CONFIRM_DIALOG);
+                    showDialog(dialog);
 
                 }
             } else {

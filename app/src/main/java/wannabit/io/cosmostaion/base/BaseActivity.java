@@ -63,8 +63,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment;
+import com.fulldive.wallet.presentation.system.WaitDialogFragment;
 import com.google.protobuf2.Any;
 import com.shasin.notificationbanner.Banner;
 
@@ -98,11 +102,9 @@ import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.Price;
-import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
 import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
-import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
@@ -163,7 +165,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     protected BaseApplication mApplication;
     protected BaseData mData;
-    protected Dialog_Wait mDialogWait;
+    protected WaitDialogFragment mDialogWait;
     protected boolean mNeedLeaveTime = true;
 
     public View mRootview;
@@ -237,14 +239,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowWaitDialog() {
         if (mDialogWait == null) {
-            mDialogWait = new Dialog_Wait();
+            mDialogWait = WaitDialogFragment.Companion.newInstance();
         }
-        if (getSupportFragmentManager().findFragmentByTag("wait") != null && getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
-            return;
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("wait");
+        if (fragment == null || !fragment.isAdded()) {
+            showDialog(mDialogWait, "wait", false);
         }
-
-        mDialogWait.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(mDialogWait, "wait").commitNowAllowingStateLoss();
     }
 
     public void onHideWaitDialog() {
@@ -275,8 +275,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -306,8 +305,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -343,11 +341,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
         }
         new Handler().postDelayed(() -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("chain", baseChain.getChain());
-            Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(AddAccountDialogFragment.Companion.newInstance(baseChain.getChain()));
         }, 300);
     }
 
@@ -356,15 +350,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onDeleteAccount(long id) {
         new PushUpdateTask(getBaseApplication(), null, mAccount, getBaseDao().getFCMToken(), false).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        String accountId = "" + id;
+        String uuid = getBaseDao().onSelectAccount(accountId).uuid;
+
         try {
-            CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount("" + id).uuid);
+            CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + uuid);
         } catch (Exception e) {
         }
         try {
-            CryptoHelper.deleteKey(getString(R.string.key_private) + getBaseDao().onSelectAccount("" + id).uuid);
+            CryptoHelper.deleteKey(getString(R.string.key_private) + uuid);
         } catch (Exception e) {
         }
-        getBaseDao().onDeleteAccount("" + id);
+        getBaseDao().onDeleteAccount(accountId);
         getBaseDao().onSelectBalance(id);
 
         if (getBaseDao().onSelectAccounts().size() > 0) {
@@ -405,7 +403,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         intent.putExtra("sendTokenDenom", denom);
         startActivity(intent);
     }
-
 
 
     public void onDisplayNotification(Intent intent) {
@@ -1007,9 +1004,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowPushEnableDialog() {
         Dialog_Push_Enable dialog = new Dialog_Push_Enable();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
-
+        showDialog(dialog, "wait", false);
     }
 
     public void onRedirectPushSet() {
@@ -1030,16 +1025,26 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseContext().startActivity(intent);
     }
 
+    public void showDialog(DialogFragment dialogFragment) {
+        showDialog(dialogFragment, "dialog", true);
+    }
+
+    public void showDialog(DialogFragment dialogFragment, String tag, boolean cancelable) {
+        dialogFragment.setCancelable(cancelable);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(dialogFragment, tag)
+                .commitNowAllowingStateLoss();
+    }
+
     public void onShowBuyWarnNoKey() {
         Dialog_Buy_Without_Key dialog = Dialog_Buy_Without_Key.newInstance();
-        dialog.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        showDialog(dialog, "wait", true);
     }
 
     public void onShowBuySelectFiat() {
         Dialog_Buy_Select_Fiat dialog = Dialog_Buy_Select_Fiat.newInstance();
-        dialog.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        showDialog(dialog, "wait", true);
     }
 
     public void onStartMoonpaySignature(String fiat) {

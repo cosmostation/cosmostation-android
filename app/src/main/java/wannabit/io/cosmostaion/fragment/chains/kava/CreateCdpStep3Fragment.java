@@ -111,7 +111,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mConfirmBtn)) {
             Dialog_Cdp_Warning dialog = Dialog_Cdp_Warning.newInstance();
             dialog.setTargetFragment(CreateCdpStep3Fragment.this, SELECT_CDP_CONFIRM);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
         }
     }
 

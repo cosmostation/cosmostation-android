@@ -39,7 +39,7 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
             @Override
             public void onClick(View v) {
                 getBaseActivity().onStartMoonpaySignature("usd");
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -48,7 +48,7 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
             @Override
             public void onClick(View v) {
                 getBaseActivity().onStartMoonpaySignature("eur");
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -57,7 +57,7 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
             @Override
             public void onClick(View v) {
                 getBaseActivity().onStartMoonpaySignature("gbp");
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

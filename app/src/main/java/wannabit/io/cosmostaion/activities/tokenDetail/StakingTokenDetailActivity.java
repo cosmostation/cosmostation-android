@@ -162,8 +162,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     mAccount.getAccountTitle(this),
                     mAccount.address
             );
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            showDialog(show);
 
         } else if (v.equals(mBtnBep3Send)) {
             onStartHTLCSendActivity(mBaseChain.getMainDenom());
@@ -171,8 +170,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);

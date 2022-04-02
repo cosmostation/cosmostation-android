@@ -177,7 +177,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             bundle.putStringArrayList("denoms", mAllDenoms);
             Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
 
         } else if (v.equals(mBtnOutputCoinList)) {
             mSwapablePools.clear();
@@ -203,9 +203,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
             Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
 
         } else if (v.equals(mBtnToggle)) {
             String temp = mInputCoinDenom;

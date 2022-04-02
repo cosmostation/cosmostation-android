@@ -38,8 +38,8 @@ public class Dialog_Hdac_info extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hdac_info, null);
         TextView hdac_address = view.findViewById(R.id.hdac_address);
         TextView hdac_amount = view.findViewById(R.id.hdac_amount);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
 
         String mHdacAddress = getArguments().getString("hdacAddress");
         String mHdacBalance = getArguments().getString("hdacBalance");
@@ -52,7 +52,7 @@ public class Dialog_Hdac_info extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("hdac", 0);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -62,7 +62,7 @@ public class Dialog_Hdac_info extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("hdac", 1);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });

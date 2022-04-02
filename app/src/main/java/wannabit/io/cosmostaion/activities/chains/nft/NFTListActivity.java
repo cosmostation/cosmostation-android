@@ -92,9 +92,8 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
             public void onClick(View v) {
                 if (mAccount == null) return;
                 if (!mAccount.hasPrivateKey) {
-                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    Dialog_WatchMode dialog = Dialog_WatchMode.newInstance();
+                    showDialog(dialog);
                     return;
                 }
                 Intent intent = new Intent(NFTListActivity.this, NFTCreateActivity.class);

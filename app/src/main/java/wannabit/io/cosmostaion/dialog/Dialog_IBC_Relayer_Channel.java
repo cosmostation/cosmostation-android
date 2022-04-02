@@ -80,7 +80,7 @@ public class Dialog_IBC_Relayer_Channel extends DialogFragment {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("position", position);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
+                    dismiss();
                 }
             });
         }

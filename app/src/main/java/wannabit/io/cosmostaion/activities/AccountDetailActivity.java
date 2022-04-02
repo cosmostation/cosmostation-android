@@ -24,16 +24,17 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
+import com.fulldive.wallet.presentation.accounts.DeleteConfirmDialogFragment;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
-import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeInfo;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.NodeInfo;
-import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -127,23 +128,22 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         onInitView();
     }
 
-    public void onStartDeleteUser() {
+    public void onStartDeleteUser(Long accountId) {
         if (mAccount.hasPrivateKey) {
             Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_DELETE_ACCOUNT);
-            intent.putExtra("id", mAccount.id);
+            intent.putExtra("id", accountId);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
-            onDeleteAccount(mAccount.id);
+            onDeleteAccount(accountId);
         }
     }
 
     public void onStartChangeRewardAddress() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -289,33 +289,25 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 Toast.makeText(AccountDetailActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
                 return;
             }
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", mAccount.id);
-            Dialog_DeleteConfirm delete = Dialog_DeleteConfirm.newInstance(bundle);
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+
+            showDialog(DeleteConfirmDialogFragment.Companion.newInstance(mAccount.id));
 
         } else if (v.equals(mNameEditImg)) {
             Bundle bundle = new Bundle();
             bundle.putLong("id", mAccount.id);
             bundle.putString("name", mAccount.nickName);
-            Dialog_ChangeNickName delete = Dialog_ChangeNickName.newInstance(bundle);
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+            showDialog(Dialog_ChangeNickName.newInstance(bundle));
 
         } else if (v.equals(mBtnQr)) {
             AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
                     mAccountName.getText().toString(),
                     mAccount.address
             );
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
-
+            showDialog(show);
         } else if (v.equals(mBtnRewardAddressChange)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
 
@@ -325,9 +317,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
             Dialog_RewardAddressChangeInfo change = Dialog_RewardAddressChangeInfo.newInstance();
-            change.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(change, "dialog").commitNowAllowingStateLoss();
-
+            showDialog(change);
         }
 
     }

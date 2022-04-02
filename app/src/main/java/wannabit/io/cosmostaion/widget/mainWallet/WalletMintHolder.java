@@ -61,8 +61,7 @@ public class WalletMintHolder extends BaseHolder {
                     bundle.putString("msg4", "" + WDp.getPercentDp(param.getDpRealApr(baseChain)));
                 }
                 Dialog_Help_Mint_Msg dialog = Dialog_Help_Mint_Msg.newInstance(bundle);
-                dialog.setCancelable(true);
-                mainActivity.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                mainActivity.showDialog(dialog);
             }
         });
     }

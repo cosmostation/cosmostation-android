@@ -29,17 +29,17 @@ public class Dialog_Safe_Copy_pKey extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_copy_pkey, null);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
 
         btn_negative.setOnClickListener(v -> {
             ((PrivateKeyCheckActivity) getActivity()).onRawCopy();
-            getDialog().dismiss();
+            dismiss();
         });
 
         btn_positive.setOnClickListener(v -> {
             ((PrivateKeyCheckActivity) getActivity()).onSafeCopy();
-            getDialog().dismiss();
+            dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -32,8 +32,8 @@ public class Dialog_StarName_Export_Confirm extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_export_confirm, null);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
         TextView exportMsg = view.findViewById(R.id.tv_export_msg);
         String msg = String.format(getString(R.string.str_starname_walletconnect_alert_msg2), getArguments().getString("msg"));
         exportMsg.setText(msg);
@@ -43,7 +43,7 @@ public class Dialog_StarName_Export_Confirm extends DialogFragment {
 
         btn_positive.setOnClickListener(v -> {
             ((StarNameWalletConnectActivity) getActivity()).onExportAddresses(getArguments().getString("jsonData"));
-            getDialog().dismiss();
+            dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

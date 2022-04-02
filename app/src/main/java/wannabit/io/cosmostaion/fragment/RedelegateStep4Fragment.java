@@ -86,9 +86,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mConfirmBtn)) {
             Dialog_RedelegateConfirm dialog = Dialog_RedelegateConfirm.newInstance();
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, REDELEGATE_CONFIRM_DIALOG);
-            dialog.show(getFragmentManager().beginTransaction(), "dialog");
+            showDialog(dialog);
 
         }
     }

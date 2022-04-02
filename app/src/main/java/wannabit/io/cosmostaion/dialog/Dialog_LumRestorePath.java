@@ -41,7 +41,7 @@ public class Dialog_LumRestorePath extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((RestoreActivity) getActivity()).onUsingCustomPath(1);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -49,7 +49,7 @@ public class Dialog_LumRestorePath extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((RestoreActivity) getActivity()).onUsingCustomPath(0);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

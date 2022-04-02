@@ -74,9 +74,8 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
         } else if (v.equals(mConfirmBtn)) {
             Dialog_RewardAddressChangeConfirm dialog = Dialog_RewardAddressChangeConfirm.newInstance();
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG);
-            dialog.show(getFragmentManager().beginTransaction(), "dialog");
+            showDialog(dialog);
         }
     }
 

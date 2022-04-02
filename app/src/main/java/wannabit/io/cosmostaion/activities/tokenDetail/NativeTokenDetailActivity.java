@@ -196,8 +196,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                     mAccount.getAccountTitle(this),
                     mAccount.address
             );
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            showDialog(show);
 
         } else if (v.equals(mBtnIbcSend)) {
             Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
@@ -209,8 +208,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);

@@ -121,74 +121,26 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
         WUtil.dpKavaTokenName(context, baseData, mMyCollateralDenom, cDenom);
         WUtil.dpKavaTokenName(context, baseData, mMyPrincipalDenom, pDenom);
 
-        mMySelfDepositLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_help_self_deposited_collateral_t),
-                        String.format(context.getString(R.string.str_help_self_deposited_collateral_), WUtil.getKavaTokenName(baseData, collateralParam.getDenom())));
-            }
+        mMySelfDepositLayer.setOnClickListener(v -> {
+            onShowHelpPopup(context, context.getString(R.string.str_help_self_deposited_collateral_t),
+                    String.format(context.getString(R.string.str_help_self_deposited_collateral_), WUtil.getKavaTokenName(baseData, collateralParam.getDenom())));
         });
-        mMyTotalDepositLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_help_total_deposited_collateral_t),
-                        String.format(context.getString(R.string.str_help_total_deposited_collateral), WUtil.getKavaTokenName(baseData, collateralParam.getDenom())));
-            }
+        mMyTotalDepositLayer.setOnClickListener(v -> {
+            onShowHelpPopup(context, context.getString(R.string.str_help_total_deposited_collateral_t),
+                    String.format(context.getString(R.string.str_help_total_deposited_collateral), WUtil.getKavaTokenName(baseData, collateralParam.getDenom())));
         });
-        mMyWithdrawableLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_expected_withdrawable_amount) + " " + WUtil.getKavaTokenName(baseData, collateralParam.getDenom()),
-                        context.getString(R.string.str_help_withdrawable));
-            }
+        mMyWithdrawableLayer.setOnClickListener(v -> {
+            onShowHelpPopup(context, context.getString(R.string.str_expected_withdrawable_amount) + " " + WUtil.getKavaTokenName(baseData, collateralParam.getDenom()),
+                    context.getString(R.string.str_help_withdrawable));
         });
-        mMyLoadnedLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_help_loaned_amount_t), context.getString(R.string.str_help_loaned_amount));
-            }
-        });
-        mMyCdpFeeLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_help_total_fee_t), context.getString(R.string.str_help_total_fee));
-            }
-        });
-        mMyLoadableLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_help_remaining_loan_capacity_t), context.getString(R.string.str_help_remaining_loan_capacity));
-            }
-        });
+        mMyLoadnedLayer.setOnClickListener(v -> onShowHelpPopup(context, context.getString(R.string.str_help_loaned_amount_t), context.getString(R.string.str_help_loaned_amount)));
+        mMyCdpFeeLayer.setOnClickListener(v -> onShowHelpPopup(context, context.getString(R.string.str_help_total_fee_t), context.getString(R.string.str_help_total_fee)));
+        mMyLoadableLayer.setOnClickListener(v -> onShowHelpPopup(context, context.getString(R.string.str_help_remaining_loan_capacity_t), context.getString(R.string.str_help_remaining_loan_capacity)));
 
-        mMyBtnDeposit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onCheckStartDepositCdp();
-
-            }
-        });
-        mMyBtnWithdraw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onCheckStartWithdrawCdp();
-
-            }
-        });
-        mMyBtnDrawdebt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onCheckStartDrawDebtCdp();
-
-            }
-        });
-        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onCheckStartRepayCdp();
-
-            }
-        });
+        mMyBtnDeposit.setOnClickListener(v -> context.onCheckStartDepositCdp());
+        mMyBtnWithdraw.setOnClickListener(v -> context.onCheckStartWithdrawCdp());
+        mMyBtnDrawdebt.setOnClickListener(v -> context.onCheckStartDrawDebtCdp());
+        mMyBtnRepay.setOnClickListener(v -> context.onCheckStartRepayCdp());
     }
 
     private void onShowHelpPopup(CdpDetail5Activity context, String title, String msg) {
@@ -196,7 +148,6 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
         bundle.putString("title", title);
         bundle.putString("msg", msg);
         Dialog_Help_Msg dialog = Dialog_Help_Msg.newInstance(bundle);
-        dialog.setCancelable(true);
-        context.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        context.showDialog(dialog);
     }
 }

@@ -134,8 +134,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             } else {
                 Toast.makeText(NFTokenDetailActivity.this, R.string.error_prepare, Toast.LENGTH_SHORT).show();
@@ -145,8 +144,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
 
             } else {

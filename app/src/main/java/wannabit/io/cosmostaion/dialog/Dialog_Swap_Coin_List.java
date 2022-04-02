@@ -142,7 +142,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("selectedDenom", position);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             });
         }
 

@@ -428,9 +428,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                     bundle.putString("currentPrice", getPrice().getPrice());
                     bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Create dialog = Dialog_Safe_Score_Create.newInstance(bundle);
-                    dialog.setCancelable(true);
-                    dialog.setTargetFragment(this, CDP_CREATE_CONFIRM_DIALOG);
-                    dialog.show(getFragmentManager().beginTransaction(), "dialog");
+                            dialog.setTargetFragment(this, CDP_CREATE_CONFIRM_DIALOG);
+                    showDialog(dialog);
 
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();

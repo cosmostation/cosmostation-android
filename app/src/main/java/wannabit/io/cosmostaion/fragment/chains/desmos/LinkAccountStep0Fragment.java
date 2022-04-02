@@ -133,9 +133,8 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
 
         } else if (v.equals(mBtnLinkChain)) {
             Dialog_Link_Chain dialog = Dialog_Link_Chain.newInstance(null);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_LINK_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
 
         } else if (v.equals(mBtnLinkAccount)) {
             if (getBaseDao().onSelectAllAccountsByChainWithKey(mSelectedChain).size() <= 0) {
@@ -145,9 +144,8 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
             Bundle bundle = new Bundle();
             bundle.putString("chainName", mSelectedChain.getChain());
             Dialog_Link_Accounts dialog = Dialog_Link_Accounts.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_LINK_ACCOUNT);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
         }
     }
 

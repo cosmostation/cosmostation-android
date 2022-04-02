@@ -84,7 +84,7 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
         } else if (v.equals(mConfirmBtn)) {
             Dialog_Ok_Deposit_warning dialog = Dialog_Ok_Deposit_warning.newInstance();
             dialog.setTargetFragment(OKStakingFragmentStep3.this, SELECT_DEPOSIT_CHECK);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
 
         }
     }

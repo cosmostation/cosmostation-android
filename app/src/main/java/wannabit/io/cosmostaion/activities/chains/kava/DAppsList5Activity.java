@@ -138,8 +138,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, QueryOuterClass.PoolResponse swapPool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
         BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
@@ -173,14 +172,13 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         bundle.putSerializable("mKavaDeposit", mDeposit);
         Dialog_Pool_Kava bottomSheetDialog = Dialog_Pool_Kava.getInstance();
         bottomSheetDialog.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+        showDialog(bottomSheetDialog);
     }
 
     public void onCheckStartJoinPool(QueryOuterClass.PoolResponse myPool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
@@ -208,8 +206,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onCheckStartExitPool(QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 

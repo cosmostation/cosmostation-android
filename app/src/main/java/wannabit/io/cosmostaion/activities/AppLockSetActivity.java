@@ -114,9 +114,7 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
 
         } else if (v.equals(mBtnAppLockTime)) {
             Dialog_LockTime timeUpdate = Dialog_LockTime.newInstance();
-            timeUpdate.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(timeUpdate, "dialog").commitNowAllowingStateLoss();
-
+            showDialog(timeUpdate);
         }
     }
 

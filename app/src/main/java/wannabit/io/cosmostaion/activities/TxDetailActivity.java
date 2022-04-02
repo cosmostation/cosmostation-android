@@ -238,8 +238,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         } else if (v.equals(mRefundBtn)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
 
@@ -1083,8 +1082,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
     private void onShowMoreWait() {
         Dialog_MoreWait waitMore = Dialog_MoreWait.newInstance(null);
-        waitMore.setCancelable(false);
-        waitMore.show(getSupportFragmentManager(), "dialog");
+        showDialog(waitMore, "dialog", false);
     }
 
     public void onWaitMore() {
@@ -1146,12 +1144,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                         onUpdateView();
                     } else {
                         if (mIsSuccess && FetchCnt < 10) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    FetchCnt++;
-                                    onFetchTx(mTxHash);
-                                }
+                            new Handler().postDelayed(() -> {
+                                FetchCnt++;
+                                onFetchTx(mTxHash);
                             }, 6000);
                         } else if (!mIsGen) {
                             onBackPressed();

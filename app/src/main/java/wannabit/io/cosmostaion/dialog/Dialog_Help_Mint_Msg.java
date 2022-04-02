@@ -40,11 +40,11 @@ public class Dialog_Help_Mint_Msg extends DialogFragment {
         msg3.setText(getArguments().getString("msg3"));
         msg4.setText(getArguments().getString("msg4"));
 
-        Button btn_negative = view.findViewById(R.id.btn_nega);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

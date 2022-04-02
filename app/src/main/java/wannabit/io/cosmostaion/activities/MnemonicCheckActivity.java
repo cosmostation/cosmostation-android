@@ -80,8 +80,7 @@ public class MnemonicCheckActivity extends BaseActivity {
 
         mCopy.setOnClickListener(v -> {
             Dialog_Safe_Copy delete = Dialog_Safe_Copy.newInstance();
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+            showDialog(delete);
         });
 
         mOk.setOnClickListener(v -> onStartMainActivity(3));

@@ -55,14 +55,14 @@ public class Dialog_Safe_Score_Create extends DialogFragment {
         liquidation_price_title.setText(String.format(getString(R.string.str_liquidation_title3), getArguments().getString("denom").toUpperCase()));
         liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("liquidationPrice")), 4));
 
-        Button btn_negative = view.findViewById(R.id.btn_nega);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
         btn_negative.setOnClickListener(v -> getDialog().dismiss());
 
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
         btn_positive.setOnClickListener(v -> {
             Intent resultIntent = new Intent();
             getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-            getDialog().dismiss();
+            dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

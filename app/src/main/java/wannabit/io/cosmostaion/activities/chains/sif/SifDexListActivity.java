@@ -126,8 +126,7 @@ public class SifDexListActivity extends BaseActivity {
     public void onStartSwap(String inCoinDenom, String outCoinDenom, Types.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -157,15 +156,14 @@ public class SifDexListActivity extends BaseActivity {
         bundle.putSerializable("myProvider", myProvider);
         Dialog_Pool_Sif_Dex bottomSheetDialog = Dialog_Pool_Sif_Dex.getInstance();
         bottomSheetDialog.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+        showDialog(bottomSheetDialog);
 
     }
 
     public void onCheckStartDepositPool(Types.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -188,8 +186,7 @@ public class SifDexListActivity extends BaseActivity {
     public void onCheckStartWithdrawPool(Types.Pool pool, Querier.LiquidityProviderRes myProvider) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 

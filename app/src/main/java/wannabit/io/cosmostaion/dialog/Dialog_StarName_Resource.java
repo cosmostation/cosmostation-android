@@ -84,7 +84,7 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("resource", resource);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
+                    dismiss();
                 }
             });
 

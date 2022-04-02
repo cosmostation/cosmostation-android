@@ -42,7 +42,7 @@ public class Dialog_Choice_Iris extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity) getActivity()).onChoiceNet(BaseChain.IRIS_MAIN);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -50,7 +50,7 @@ public class Dialog_Choice_Iris extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity) getActivity()).onChoiceNet(BaseChain.IRIS_TEST);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

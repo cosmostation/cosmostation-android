@@ -33,6 +33,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
+
 import org.bitcoinj.crypto.MnemonicCode;
 
 import java.util.ArrayList;
@@ -43,7 +45,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_LumRestorePath;
@@ -140,8 +141,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         super.onPostResume();
         if (mChain == null) {
             ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(null);
-            dialog.setCancelable(false);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog, "dialog", false);
 
         } else {
             onUpdateView();
@@ -294,32 +294,27 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             if (isValidWords()) {
                 if (mChain.equals(KAVA_MAIN)) {
                     Dialog_KavaRestorePath dialog = Dialog_KavaRestorePath.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    showDialog(dialog, "dialog", false);
                     return;
 
                 } else if (mChain.equals(SECRET_MAIN)) {
                     Dialog_SecretRestorePath dialog = Dialog_SecretRestorePath.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    showDialog(dialog, "dialog", false);
                     return;
 
                 } else if (mChain.equals(OKEX_MAIN)) {
                     Dialog_OkexRestoreType dialog = Dialog_OkexRestoreType.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    showDialog(dialog, "dialog", false);
                     return;
 
                 } else if (mChain.equals(FETCHAI_MAIN)) {
                     Dialog_FetchRestorePath dialog = Dialog_FetchRestorePath.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    showDialog(dialog, "dialog", false);
                     return;
 
                 } else if (mChain.equals(LUM_MAIN)) {
                     Dialog_LumRestorePath dialog = Dialog_LumRestorePath.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    showDialog(dialog, "dialog", false);
                     return;
 
                 } else {

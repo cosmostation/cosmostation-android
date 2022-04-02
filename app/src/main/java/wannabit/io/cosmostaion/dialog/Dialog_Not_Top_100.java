@@ -31,13 +31,13 @@ public class Dialog_Not_Top_100 extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_not_top_100, null);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
 
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -45,7 +45,7 @@ public class Dialog_Not_Top_100 extends DialogFragment {
             @Override
             public void onClick(View v) {
                 getTopActivity().onStartDelegate();
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

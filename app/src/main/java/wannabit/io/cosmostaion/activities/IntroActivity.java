@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,7 +19,6 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
 import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
 import wannabit.io.cosmostaion.dialog.Dialog_Update;
@@ -126,8 +127,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         if (v.equals(mStart)) {
             Bundle bundle = new Bundle();
             ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(bundle);
-            dialog.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
         }
     }
 
@@ -165,21 +165,18 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     private void onNetworkDialog() {
         Dialog_NetworkError dialog = new Dialog_NetworkError();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        showDialog(dialog, "wait", false);
     }
 
     private void onDisableDialog() {
         Dialog_DisabledApp dialog = new Dialog_DisabledApp();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        showDialog(dialog, "wait", false);
 
     }
 
     private void onUpdateDialog() {
         Dialog_Update dialog = new Dialog_Update();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        showDialog(dialog, "wait", false);
 
     }
 

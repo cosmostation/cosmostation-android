@@ -37,7 +37,7 @@ public class Dialog_Choice_Type_OKex extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((RestoreKeyActivity) getActivity()).onCheckOecAddressType(0);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -45,7 +45,7 @@ public class Dialog_Choice_Type_OKex extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((RestoreKeyActivity) getActivity()).onCheckOecAddressType(1);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

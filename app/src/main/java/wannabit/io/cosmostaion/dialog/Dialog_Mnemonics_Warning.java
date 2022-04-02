@@ -40,7 +40,7 @@ public class Dialog_Mnemonics_Warning extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("memo", 0);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -50,7 +50,7 @@ public class Dialog_Mnemonics_Warning extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("memo", 1);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

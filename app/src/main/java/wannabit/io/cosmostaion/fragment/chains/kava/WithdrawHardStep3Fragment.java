@@ -72,8 +72,7 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
         } else if (v.equals(mConfirmBtn)) {
             Dialog_Hard_Liquidation_Warning dialog = Dialog_Hard_Liquidation_Warning.newInstance(null);
             dialog.setTargetFragment(WithdrawHardStep3Fragment.this, SELECT_HARD_WITHDRAW_CHECK);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            showDialog(dialog);
         }
     }
 

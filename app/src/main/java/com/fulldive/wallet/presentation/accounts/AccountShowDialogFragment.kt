@@ -69,11 +69,7 @@ class AccountShowDialogFragment : BaseMvpDialogFragment(), AccountShowMoxyView {
     private fun onShareType() {
         val fragment = ShareAccountDialogFragment
             .newInstance(address)
-            .apply { isCancelable = true }
-        parentFragmentManager
-            .beginTransaction()
-            .add(fragment, "dialog")
-            .commitNowAllowingStateLoss()
+        showDialog(fragment)
     }
 
     companion object {

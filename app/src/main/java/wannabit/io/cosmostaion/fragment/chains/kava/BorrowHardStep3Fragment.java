@@ -72,8 +72,7 @@ public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mConfirmBtn)) {
             Dialog_Hard_Liquidation_Warning dialog = Dialog_Hard_Liquidation_Warning.newInstance(null);
             dialog.setTargetFragment(BorrowHardStep3Fragment.this, SELECT_HARD_BORROW_CHECK);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            showDialog(dialog);
         }
     }
 

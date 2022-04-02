@@ -53,7 +53,7 @@ public class Dialog_Safe_Score_Staus extends DialogFragment {
         liquidation_price_title.setText(String.format(getString(R.string.str_liquidation_title3), getArguments().getString("denom").toUpperCase()));
         liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("liquidationPrice")), 4));
 
-        Button btn_negative = view.findViewById(R.id.btn_nega);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
         btn_negative.setOnClickListener(v -> getDialog().dismiss());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

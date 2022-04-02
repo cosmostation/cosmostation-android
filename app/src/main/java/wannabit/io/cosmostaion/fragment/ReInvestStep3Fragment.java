@@ -90,8 +90,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
             } else {
                 Dialog_Reward_Small dialog = Dialog_Reward_Small.newInstance();
-                dialog.setCancelable(true);
-                dialog.show(getFragmentManager().beginTransaction(), "dialog");
+                showDialog(dialog);
             }
 
         }

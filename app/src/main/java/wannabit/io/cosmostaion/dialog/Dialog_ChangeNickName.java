@@ -39,8 +39,8 @@ public class Dialog_ChangeNickName extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_change_nickname, null);
-        btn_nega = view.findViewById(R.id.btn_nega);
-        btn_posi = view.findViewById(R.id.btn_posi);
+        btn_nega = view.findViewById(R.id.negativeButton);
+        btn_posi = view.findViewById(R.id.positiveButton);
         mNameInput = view.findViewById(R.id.et_nickname);
 
         if (!TextUtils.isEmpty(getArguments().getString("name")))
@@ -53,7 +53,7 @@ public class Dialog_ChangeNickName extends DialogFragment {
                 if (imm.isActive()) {
                     imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
                 }
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -67,7 +67,7 @@ public class Dialog_ChangeNickName extends DialogFragment {
                 if (!TextUtils.isEmpty(mNameInput.getText().toString().trim())) {
                     ((AccountDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
                 }
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

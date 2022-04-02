@@ -280,9 +280,8 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
                 bundle.putString("hdacAddress", onHdacAddress(getSActivity().mBaseChain));
                 bundle.putString("hdacBalance", mBalance.toPlainString());
                 Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance(bundle);
-                hdacInfo.setCancelable(true);
                 hdacInfo.setTargetFragment(this, HDAC_INFO_DIALOG);
-                getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
+                showDialog(hdacInfo);
             }
         }
         if (mTaskCount == 0) {

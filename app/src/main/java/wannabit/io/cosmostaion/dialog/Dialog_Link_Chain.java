@@ -77,7 +77,7 @@ public class Dialog_Link_Chain extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("position", position);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             });
         }
 

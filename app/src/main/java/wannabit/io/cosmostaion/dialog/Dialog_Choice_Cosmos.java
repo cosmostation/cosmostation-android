@@ -42,7 +42,7 @@ public class Dialog_Choice_Cosmos extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity) getActivity()).onChoiceNet(BaseChain.COSMOS_MAIN);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -50,7 +50,7 @@ public class Dialog_Choice_Cosmos extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity) getActivity()).onChoiceNet(BaseChain.COSMOS_TEST);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

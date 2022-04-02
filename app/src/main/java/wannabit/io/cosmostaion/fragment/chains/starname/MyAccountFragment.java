@@ -92,8 +92,7 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
         if (v.equals(mRegisterAccount)) {
             if (!getSActivity().mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
 

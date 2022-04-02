@@ -37,7 +37,7 @@ public class Dialog_IBC_Unknown_Relayer extends DialogFragment {
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -47,7 +47,7 @@ public class Dialog_IBC_Unknown_Relayer extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("continue", 0);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

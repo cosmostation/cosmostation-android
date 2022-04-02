@@ -62,8 +62,7 @@ public class WalletBinanceHolder extends BaseHolder {
             public void onClick(View v) {
                 if (!mainActivity.mAccount.hasPrivateKey) {
                     Dialog_WatchMode dialog = Dialog_WatchMode.newInstance();
-                    dialog.setCancelable(true);
-                    mainActivity.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    mainActivity.showDialog(dialog);
                     return;
                 }
                 new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {

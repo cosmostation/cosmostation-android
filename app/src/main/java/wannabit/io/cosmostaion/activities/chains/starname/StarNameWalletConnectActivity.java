@@ -161,8 +161,7 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
             bundle.putString("msg", String.valueOf(toExport.addresses.size()));
             bundle.putString("jsonData", jsonData);
             Dialog_StarName_Export_Confirm exportDialog = Dialog_StarName_Export_Confirm.newInstance(bundle);
-            exportDialog.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(exportDialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(exportDialog);
         }
     }
 

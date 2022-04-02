@@ -173,9 +173,8 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                     getSActivity().onNextStep();
                 } else {
                     Dialog_Mnemonics_Warning warning = Dialog_Mnemonics_Warning.newInstance();
-                    warning.setCancelable(true);
                     warning.setTargetFragment(this, AGAIN_MEMO);
-                    getFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
+                    showDialog(warning);
                 }
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_memo, Toast.LENGTH_SHORT).show();

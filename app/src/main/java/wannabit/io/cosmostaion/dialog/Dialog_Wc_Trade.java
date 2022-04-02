@@ -53,8 +53,8 @@ public class Dialog_Wc_Trade extends DialogFragment {
         ImageView toCoinImg = view.findViewById(R.id.to_coin_icon);
         TextView toCoinSymbol = view.findViewById(R.id.to_coin_symbol);
         TextView toCoinAmount = view.findViewById(R.id.to_coin_amount);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
 
         JsonObject json = new Gson().fromJson(getArguments().getString("param"), JsonObject.class);
         JsonObject rawMsg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), JsonObject.class);
@@ -107,7 +107,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -115,7 +115,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

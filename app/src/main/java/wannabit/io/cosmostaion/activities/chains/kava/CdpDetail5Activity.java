@@ -300,8 +300,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     private boolean onCommonCheck() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return false;
         }
 

@@ -137,9 +137,8 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     public void onStartDelegate() {
         if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            Dialog_WatchMode dialog = Dialog_WatchMode.newInstance();
+            showDialog(dialog);
             return;
         }
         String cosmostation = "";
@@ -184,8 +183,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     public void onStartRewardAll() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 

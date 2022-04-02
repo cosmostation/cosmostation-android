@@ -102,7 +102,7 @@ public class Dialog_Link_Accounts extends DialogFragment {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("position", position);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
+                    dismiss();
                 }
             });
 

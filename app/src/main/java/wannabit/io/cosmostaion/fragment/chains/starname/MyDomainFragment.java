@@ -91,8 +91,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         if (v.equals(mRegisterDomain)) {
             if (!getSActivity().mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
 

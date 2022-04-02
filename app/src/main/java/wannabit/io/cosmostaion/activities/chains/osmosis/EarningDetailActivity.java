@@ -19,6 +19,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fulldive.wallet.presentation.chains.osmo.OsmoLockupDurationDialogFragment;
+import com.fulldive.wallet.presentation.chains.osmo.OsmoUnbondingAllDialogFragment;
+import com.fulldive.wallet.presentation.chains.osmo.OsmoUnlockAll;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -30,9 +34,6 @@ import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Lockup_Duration;
-import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Unbonding_All;
-import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Unlock_All;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
@@ -199,8 +200,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         WLog.w("onCheckNewEarning");
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -210,8 +210,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        Dialog_Osmo_Lockup_Duration bottomSheetDialog = Dialog_Osmo_Lockup_Duration.getInstance();
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+        showDialog(OsmoLockupDurationDialogFragment.Companion.newInstance());
     }
 
     public void onStartNewEarning(long unbondingDuration) {
@@ -227,8 +226,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         WLog.w("onCheckUnbonding " + lockup.getID());
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -243,13 +241,12 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         if (tempLockups.size() > 1) {
             //display dialog for start unbonding all for same class
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("single", lockup.toByteArray());
             OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(tempLockups);
-            bundle.putSerializable("all", lockupsWrapper);
-            bundle.putString("amount", totalToUnbonding.toPlainString());
-            Dialog_Osmo_Unbonding_All bottomSheetDialog = Dialog_Osmo_Unbonding_All.getInstance(bundle);
-            getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+            OsmoUnbondingAllDialogFragment bottomSheetDialog = OsmoUnbondingAllDialogFragment.Companion.netInstance(
+                    lockupsWrapper,
+                    lockup.toByteArray()
+            );
+            showDialog(bottomSheetDialog);
         } else {
             onStartUnbonding(tempLockups);
         }
@@ -267,27 +264,20 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         WLog.w("onCheckUnlock " + lockup.getID());
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
-        ArrayList<Lock.PeriodLock> tempLockups = new ArrayList<>();
-        BigDecimal totalToUnlock = BigDecimal.ZERO;
-        for (Lock.PeriodLock lock : mUnbondedList) {
-            tempLockups.add(lock);
-            totalToUnlock = totalToUnlock.add(new BigDecimal(lock.getCoins(0).getAmount()));
-        }
+        ArrayList<Lock.PeriodLock> tempLockups = new ArrayList<>(mUnbondedList);
+
         if (tempLockups.size() > 1) {
             //TODO display dialog for start unbonding all for same class
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("single", lockup.toByteArray());
             OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(tempLockups);
-            bundle.putSerializable("all", lockupsWrapper);
-            bundle.putString("amount", totalToUnlock.toPlainString());
-            Dialog_Osmo_Unlock_All bottomSheetDialog = Dialog_Osmo_Unlock_All.getInstance(bundle);
-            getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
-
+            OsmoUnlockAll bottomSheetDialog = OsmoUnlockAll.Companion.netInstance(
+                    lockupsWrapper,
+                    lockup.toByteArray()
+            );
+            showDialog(bottomSheetDialog);
         } else {
             onStartUnlock(tempLockups);
         }

@@ -93,8 +93,7 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         if (v.equals(mCopy)) {
             Dialog_Safe_Copy_pKey delete = Dialog_Safe_Copy_pKey.newInstance();
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+            showDialog(delete);
 
         } else if (v.equals(mOk)) {
             onStartMainActivity(3);

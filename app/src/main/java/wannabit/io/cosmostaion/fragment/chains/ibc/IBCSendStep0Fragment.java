@@ -163,9 +163,8 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mBtnNext)) {
             if (mIbcSelectedPath.auth == null) {
                 Dialog_IBC_Unknown_Relayer warning = Dialog_IBC_Unknown_Relayer.newInstance();
-                warning.setCancelable(true);
                 warning.setTargetFragment(this, SELECT_POPUP_IBC_UNKNOWN_RELAYER);
-                getFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
+                showDialog(warning);
             } else if (mIbcSelectedPath.auth) {
                 getSActivity().mIbcSelectedRelayer = mIbcSelectedRelayer;
                 getSActivity().mPath = mIbcSelectedPath;
@@ -176,17 +175,15 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
             Bundle bundle = new Bundle();
             bundle.putSerializable("chain", mIbcSendableRelayers);
             Dialog_IBC_Receive_Chain dialog = Dialog_IBC_Receive_Chain.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
 
         } else if (v.equals(mToRelayer)) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("channel", mIbcSendablePaths);
             Dialog_IBC_Relayer_Channel dialog = Dialog_IBC_Relayer_Channel.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_RELAYER);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
         }
     }
 

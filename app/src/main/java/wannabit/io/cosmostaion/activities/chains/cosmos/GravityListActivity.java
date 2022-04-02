@@ -137,8 +137,7 @@ public class GravityListActivity extends BaseActivity {
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, Liquidity.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -162,15 +161,13 @@ public class GravityListActivity extends BaseActivity {
         bundle.putLong("poolId", poolId);
         Dialog_Pool_Gravity_Dex bottomSheetDialog = Dialog_Pool_Gravity_Dex.getInstance();
         bottomSheetDialog.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
-
+        showDialog(bottomSheetDialog);
     }
 
     public void onCheckStartDepositPool(long poolId) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -205,8 +202,7 @@ public class GravityListActivity extends BaseActivity {
         WLog.w("onCheckStartExitPool " + poolId);
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 

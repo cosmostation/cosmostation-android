@@ -118,8 +118,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         if (v.equals(mBtnDelete)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
             BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
@@ -138,8 +137,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         } else if (v.equals(mBtnRenew)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
 
@@ -162,8 +160,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         } else if (v.equals(mBtnEdit)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
 

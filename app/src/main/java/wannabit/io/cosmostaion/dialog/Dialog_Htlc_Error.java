@@ -38,13 +38,10 @@ public class Dialog_Htlc_Error extends DialogFragment {
         msg.setText(getArguments().getString("msg"));
         error.setText(getArguments().getString("error"));
 
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getTopActivity().onFinishWithError();
-                getDialog().dismiss();
-            }
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        btn_negative.setOnClickListener(v -> {
+            getTopActivity().onFinishWithError();
+            dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

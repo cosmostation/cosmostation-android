@@ -16,8 +16,7 @@ import wannabit.io.cosmostaion.R;
 public class Dialog_Reward_Small extends DialogFragment {
 
     public static Dialog_Reward_Small newInstance() {
-        Dialog_Reward_Small frag = new Dialog_Reward_Small();
-        return frag;
+        return new Dialog_Reward_Small();
     }
 
     @Override
@@ -29,12 +28,12 @@ public class Dialog_Reward_Small extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_reward_small, null);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
 
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

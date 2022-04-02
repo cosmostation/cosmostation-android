@@ -310,9 +310,8 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                 bundle.putString("denom", cDenom);
                 Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
-                dialog.setCancelable(true);
-                dialog.setTargetFragment(this, CDP_REPAY_CONFIRM_DIALOG);
-                dialog.show(getFragmentManager().beginTransaction(), "dialog");
+                    dialog.setTargetFragment(this, CDP_REPAY_CONFIRM_DIALOG);
+                showDialog(dialog);
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }

@@ -41,7 +41,7 @@ public class Dialog_LockTime extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((AppLockSetActivity) getActivity()).onUpdateLockTime(0);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -50,7 +50,7 @@ public class Dialog_LockTime extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((AppLockSetActivity) getActivity()).onUpdateLockTime(1);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -59,7 +59,7 @@ public class Dialog_LockTime extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((AppLockSetActivity) getActivity()).onUpdateLockTime(2);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -67,7 +67,7 @@ public class Dialog_LockTime extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((AppLockSetActivity) getActivity()).onUpdateLockTime(3);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });

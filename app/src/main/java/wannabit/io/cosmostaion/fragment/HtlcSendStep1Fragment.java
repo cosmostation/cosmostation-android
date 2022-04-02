@@ -112,9 +112,8 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", getSActivity().mRecipientChain.getChain());
                 Dialog_Htlc_Receivable_Accounts dialog = Dialog_Htlc_Receivable_Accounts.newInstance(bundle);
-                dialog.setCancelable(true);
-                dialog.setTargetFragment(this, SELECT_ACCOUNT);
-                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    dialog.setTargetFragment(this, SELECT_ACCOUNT);
+                showDialog(dialog);
 
             } else {
                 Bundle bundle = new Bundle();
@@ -128,8 +127,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 bundle.putString("title", title);
                 bundle.putString("msg", msg);
                 Dialog_Htlc_Receivable_Empty dialog = Dialog_Htlc_Receivable_Empty.newInstance(bundle);
-                dialog.setCancelable(true);
-                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    showDialog(dialog);
 
             }
         }

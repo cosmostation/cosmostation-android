@@ -39,12 +39,12 @@ public class Dialog_SecretRestorePath extends DialogFragment {
 
         mOldPath.setOnClickListener(v -> {
             ((RestoreActivity) getActivity()).onUsingCustomPath(0);
-            getDialog().dismiss();
+            dismiss();
         });
 
         mNewPath.setOnClickListener(v -> {
             ((RestoreActivity) getActivity()).onUsingCustomPath(1);
-            getDialog().dismiss();
+            dismiss();
         });
 
 

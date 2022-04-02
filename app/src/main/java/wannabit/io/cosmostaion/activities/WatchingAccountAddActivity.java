@@ -181,13 +181,11 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
     private void onShowCosmosSelect(String input) {
         Dialog_Choice_Cosmos dialog = Dialog_Choice_Cosmos.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        showDialog(dialog, "dialog", false);
     }
 
     private void onShowIrisSelect(String input) {
         Dialog_Choice_Iris dialog = Dialog_Choice_Iris.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        showDialog(dialog, "dialog", false);
     }
 }

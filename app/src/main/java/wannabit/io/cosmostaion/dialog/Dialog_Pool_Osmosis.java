@@ -32,7 +32,7 @@ public class Dialog_Pool_Osmosis extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 ((LabsListActivity) getActivity()).onCheckStartJoinPool(getArguments().getLong("poolId"));
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -40,7 +40,7 @@ public class Dialog_Pool_Osmosis extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 ((LabsListActivity) getActivity()).onCheckStartExitPool(getArguments().getLong("poolId"));
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

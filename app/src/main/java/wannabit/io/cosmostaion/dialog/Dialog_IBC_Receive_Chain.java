@@ -78,7 +78,7 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("position", position);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             });
         }
 

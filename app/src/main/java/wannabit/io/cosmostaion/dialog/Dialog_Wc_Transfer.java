@@ -48,8 +48,8 @@ public class Dialog_Wc_Transfer extends DialogFragment {
         TextView send_coin_symbol = view.findViewById(R.id.wc_send_coin_symbol);
         TextView send_coin_amount = view.findViewById(R.id.wc_send_amount);
         TextView to_memo = view.findViewById(R.id.wc_memo);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
 
         JsonObject json = new Gson().fromJson(getArguments().getString("param"), JsonObject.class);
         TransferMessage msg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), TransferMessage.class);
@@ -73,7 +73,7 @@ public class Dialog_Wc_Transfer extends DialogFragment {
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -81,7 +81,7 @@ public class Dialog_Wc_Transfer extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

@@ -117,8 +117,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
                 Dialog_Choice_Type_OKex dialog = Dialog_Choice_Type_OKex.newInstance();
-                dialog.setCancelable(false);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                showDialog(dialog, "dialog", false);
                 return;
             }
 

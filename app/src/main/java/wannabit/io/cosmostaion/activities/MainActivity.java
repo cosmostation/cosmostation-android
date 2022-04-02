@@ -33,6 +33,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
+import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -53,7 +54,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
-import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
@@ -167,8 +167,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 mAccount.getAccountTitle(this),
                 mAccount.address
         );
-        show.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+        showDialog(show);
     }
 
     public void onAccountSwitched() {
@@ -249,15 +248,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
             return;
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bundle bundle = new Bundle();
-                bundle.putString("chain", baseChain.getChain());
-                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            }
+        new Handler().postDelayed(() -> {
+            showDialog(AddAccountDialogFragment.Companion.newInstance(baseChain.getChain()));
         }, 300);
     }
 
@@ -273,9 +265,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
             } else {
                 if (!mAccount.hasPrivateKey) {
-                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    Dialog_WatchMode dialog = Dialog_WatchMode.newInstance();
+                    showDialog(dialog);
                     return;
                 }
                 BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
@@ -290,8 +281,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
             BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
@@ -334,8 +324,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onClickIncentive() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -425,9 +414,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 Bundle bundle = new Bundle();
                 bundle.putString("wcUrl", result.getContents().trim());
                 Dialog_WalletConnect dialog = Dialog_WalletConnect.newInstance(bundle);
-                dialog.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+                showDialog(dialog);
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
             }

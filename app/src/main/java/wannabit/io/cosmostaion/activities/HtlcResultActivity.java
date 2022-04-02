@@ -522,9 +522,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //SWAP ID LOOP CHECK
     private void onShowMoreSwapWait() {
         Dialog_MoreSwapWait waitSwapMore = Dialog_MoreSwapWait.newInstance(null);
-        waitSwapMore.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(waitSwapMore, "dialog").commitNowAllowingStateLoss();
-
+        showDialog(waitSwapMore, "dialog", false);
     }
 
     public void onWaitSwapMore() {
@@ -548,8 +546,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 bundle.putString("msg", getString(R.string.str_swap_error_msg_create));
                 bundle.putString("error", result.errorMsg);
                 Dialog_Htlc_Error swapError = Dialog_Htlc_Error.newInstance(bundle);
-                swapError.setCancelable(false);
-                getSupportFragmentManager().beginTransaction().add(swapError, "dialog").commitNowAllowingStateLoss();
+                showDialog(swapError, "dialog", false);
 
             }
 
@@ -566,9 +563,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 bundle.putString("msg", getString(R.string.str_swap_error_msg_claim));
                 bundle.putString("error", result.errorMsg);
                 Dialog_Htlc_Error swapError = Dialog_Htlc_Error.newInstance(bundle);
-                swapError.setCancelable(false);
-                getSupportFragmentManager().beginTransaction().add(swapError, "dialog").commitNowAllowingStateLoss();
-
+                showDialog(swapError, "dialog", false);
             }
         }
     }

@@ -86,8 +86,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         super.onPostResume();
         if (mChain == null) {
             ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(null);
-            dialog.setCancelable(false);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog, "dialog", false);
         } else {
             onShowWaitDialog();
             if (mWords == null || mWords.size() != 24) {

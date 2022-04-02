@@ -188,8 +188,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
                     mAccount.getAccountTitle(this),
                     mAccount.address
             );
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            showDialog(show);
 
         } else if (v.equals(mBtnSend)) {
             Toast.makeText(POOLTokenDetailActivity.this, getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();

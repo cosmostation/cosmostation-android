@@ -174,9 +174,8 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", mTochain.getChain());
                 Dialog_IBC_Receivable_Accouts dialog = Dialog_IBC_Receivable_Accouts.newInstance(bundle);
-                dialog.setCancelable(true);
-                dialog.setTargetFragment(this, SELECT_ACCOUNT);
-                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    dialog.setTargetFragment(this, SELECT_ACCOUNT);
+                showDialog(dialog);
             }
 
         } else if (v.equals(mBtnQr)) {
@@ -252,9 +251,8 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                         bundle.putString("starname", userInput);
                         bundle.putString("originAddress", matchAddress);
                         Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
-                        dialog.setCancelable(true);
-                        dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                        getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                                    dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                        showDialog(dialog);
                     }
                 }, 0);
 

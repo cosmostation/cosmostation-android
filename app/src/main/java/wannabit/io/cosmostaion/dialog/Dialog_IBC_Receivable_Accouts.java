@@ -88,7 +88,7 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("position", position);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             });
 
         }

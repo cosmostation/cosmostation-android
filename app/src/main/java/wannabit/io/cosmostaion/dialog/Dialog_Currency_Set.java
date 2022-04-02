@@ -58,7 +58,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 0);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -69,7 +69,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 1);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -80,7 +80,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 2);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -90,7 +90,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 3);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -101,7 +101,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 4);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -112,7 +112,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 5);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -123,7 +123,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 6);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -134,7 +134,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 7);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -145,7 +145,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 8);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -156,7 +156,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 9);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -167,7 +167,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 10);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -178,7 +178,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 11);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -189,7 +189,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 12);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -200,7 +200,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 13);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -211,7 +211,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 14);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -222,7 +222,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 15);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });
@@ -233,7 +233,7 @@ public class Dialog_Currency_Set extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 16);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
 
             }
         });

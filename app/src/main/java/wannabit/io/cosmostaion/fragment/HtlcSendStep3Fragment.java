@@ -200,7 +200,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mConfirmBtn)) {
             Dialog_Htlc_Warning dialog = Dialog_Htlc_Warning.newInstance();
             dialog.setTargetFragment(HtlcSendStep3Fragment.this, SELECT_HTLC_CONFIRM);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(dialog);
 
         }
     }

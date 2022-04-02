@@ -38,7 +38,7 @@ public class Dialog_IBC_Send_Warning extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity) getActivity()).onCheckIbcTransfer(denom);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

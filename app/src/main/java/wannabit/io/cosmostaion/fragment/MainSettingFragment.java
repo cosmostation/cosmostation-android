@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
@@ -33,7 +34,6 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -156,9 +156,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (v.equals(mBtnAddWallet)) {
             Bundle bundle = new Bundle();
             ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(bundle);
-            dialog.setCancelable(true);
-            getMainActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            showDialog(dialog);
         } else if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
 
@@ -170,9 +168,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnCurrency)) {
             Dialog_Currency_Set currency_dialog = Dialog_Currency_Set.newInstance(null);
-            currency_dialog.setCancelable(true);
             currency_dialog.setTargetFragment(this, SELECT_CURRENCY);
-            getFragmentManager().beginTransaction().add(currency_dialog, "dialog").commitNowAllowingStateLoss();
+            showDialog(currency_dialog);
             return;
 
 //        } else if (v.equals(mBtnBasePrice)) {

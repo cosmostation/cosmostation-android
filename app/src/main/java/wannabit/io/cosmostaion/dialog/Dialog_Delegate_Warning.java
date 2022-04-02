@@ -34,44 +34,39 @@ public class Dialog_Delegate_Warning extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_delegate_warn, null);
         ImageView dateImg = view.findViewById(R.id.date_img);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
 
         int dpDay = getArguments().getInt("day", 21);
-        if (dpDay == 21) {
-            dateImg.setImageDrawable(getResources().getDrawable(R.drawable.img_delegate_warning));
-        } else if (dpDay == 3) {
-            dateImg.setImageDrawable(getResources().getDrawable(R.drawable.img_delegate_3_warning));
-        } else if (dpDay == 14) {
-            dateImg.setImageDrawable(getResources().getDrawable(R.drawable.img_delegate_14_warning));
-        } else if (dpDay == 28) {
-            dateImg.setImageDrawable(getResources().getDrawable(R.drawable.img_delegate_28_warning));
-        } else if (dpDay == 7) {
-            dateImg.setImageDrawable(getResources().getDrawable(R.drawable.dialogicon_undelegate_7));
+        switch (dpDay) {
+            case 21:
+                dateImg.setImageResource(R.drawable.img_delegate_warning);
+                break;
+            case 3:
+                dateImg.setImageResource(R.drawable.img_delegate_3_warning);
+                break;
+            case 14:
+                dateImg.setImageResource(R.drawable.img_delegate_14_warning);
+                break;
+            case 28:
+                dateImg.setImageResource(R.drawable.img_delegate_28_warning);
+                break;
+            case 7:
+                dateImg.setImageResource(R.drawable.dialogicon_undelegate_7);
+                break;
         }
 
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
-        });
+        btn_negative.setOnClickListener(v -> dismiss());
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
+        btn_positive.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+            dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
     }
-
-
 }

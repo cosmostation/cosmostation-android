@@ -13,10 +13,10 @@ import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 
-public class Dialog_Empty_Warnning extends DialogFragment {
+public class Dialog_Empty_Warning extends DialogFragment {
 
-    public static Dialog_Empty_Warnning newInstance() {
-        Dialog_Empty_Warnning frag = new Dialog_Empty_Warnning();
+    public static Dialog_Empty_Warning newInstance() {
+        Dialog_Empty_Warning frag = new Dialog_Empty_Warning();
         return frag;
     }
 
@@ -29,14 +29,9 @@ public class Dialog_Empty_Warnning extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_empty_warnning, null);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
+        Button btn_negative = view.findViewById(R.id.negativeButton);
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
-        });
+        btn_negative.setOnClickListener(v -> dismiss());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);

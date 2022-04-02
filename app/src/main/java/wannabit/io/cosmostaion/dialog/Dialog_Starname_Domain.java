@@ -71,7 +71,7 @@ public class Dialog_Starname_Domain extends DialogFragment {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("position", position);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                dismiss();
             });
         }
 

@@ -30,10 +30,10 @@ public class Dialog_Update extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update, null);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_positive = view.findViewById(R.id.positiveButton);
         btn_positive.setOnClickListener(v -> {
             onStartPlaystore();
-            getDialog().dismiss();
+            dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

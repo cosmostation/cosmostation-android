@@ -36,7 +36,7 @@ public class Dialog_Pool_Sif_Dex extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 ((SifDexListActivity) getActivity()).onCheckStartDepositPool(pool);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
@@ -44,7 +44,7 @@ public class Dialog_Pool_Sif_Dex extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 ((SifDexListActivity) getActivity()).onCheckStartWithdrawPool(pool, myProvider);
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

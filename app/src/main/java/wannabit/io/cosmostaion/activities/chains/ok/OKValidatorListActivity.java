@@ -125,8 +125,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
         BigDecimal availableAmount = getBaseDao().availableAmount(TOKEN_OK);

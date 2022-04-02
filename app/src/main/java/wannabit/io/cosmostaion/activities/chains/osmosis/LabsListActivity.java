@@ -147,14 +147,13 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         bundle.putLong("poolId", poolId);
         Dialog_Pool_Osmosis bottomSheetDialog = Dialog_Pool_Osmosis.getInstance();
         bottomSheetDialog.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+        showDialog(bottomSheetDialog);
     }
 
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -176,8 +175,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         WLog.w("onCheckStartJoinPool " + poolId);
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -215,8 +213,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         WLog.w("onCheckStartExitPool " + poolId);
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 

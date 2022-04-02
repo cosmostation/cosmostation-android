@@ -99,7 +99,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_nega"
+                android:id="@+id/negativeButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -114,7 +114,7 @@
                 android:background="@color/colorGray10" />
 
             <Button
-                android:id="@+id/btn_posi"
+                android:id="@+id/positiveButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

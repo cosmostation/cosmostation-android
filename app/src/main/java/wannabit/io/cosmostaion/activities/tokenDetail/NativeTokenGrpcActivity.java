@@ -209,14 +209,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                     mAccount.getAccountTitle(this),
                     mAccount.address
             );
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            showDialog(show);
 
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
             final String mainDenom = mBaseChain.getMainDenom();
@@ -233,14 +231,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             Bundle bundle = new Bundle();
             bundle.putString("sendTokenDenom", mNativeGrpcDenom);
             Dialog_IBC_Send_Warning warning = Dialog_IBC_Send_Warning.newInstance(bundle);
-            warning.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
-
+            showDialog(warning);
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                showDialog(add);
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);

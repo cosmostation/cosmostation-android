@@ -164,8 +164,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onCheckDelegate() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -183,8 +182,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
             Dialog_Not_Top_100 add = Dialog_Not_Top_100.newInstance(null);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
         } else {
             onStartDelegate();
         }
@@ -199,8 +197,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     public void onCheckRedelegate() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 
@@ -218,9 +215,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
             for (Staking.RedelegationResponse data : mGrpcRedelegates) {
                 if (data.getRedelegation().getValidatorDstAddress().equals(mValOpAddress)) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    Dialog_RedelegationLimited dialog = Dialog_RedelegationLimited.newInstance();
+                    showDialog(dialog);
                     return;
                 }
             }
@@ -237,8 +233,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onStartUndelegate() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
         if (getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
@@ -265,8 +260,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onGetReward() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
         BigDecimal availableAmount = getBaseDao().getAvailable(mBaseChain.getMainDenom());
@@ -290,8 +284,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onCheckReInvest() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            showDialog(add);
             return;
         }
 

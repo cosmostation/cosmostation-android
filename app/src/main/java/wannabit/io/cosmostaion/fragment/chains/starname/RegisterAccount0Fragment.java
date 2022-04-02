@@ -84,10 +84,8 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
             Dialog_Starname_Domain dialog = Dialog_Starname_Domain.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_STARNAME_DOMAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            showDialog(dialog);
         }
         if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
