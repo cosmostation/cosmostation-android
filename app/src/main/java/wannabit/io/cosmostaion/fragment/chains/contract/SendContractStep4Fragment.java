@@ -65,12 +65,12 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mDpdecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpdecimal, mDpdecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpdecimal, mDpdecimal));
 
         mCw20Assets = getBaseDao().getCw20_gRPC(getSActivity().mContractAddress);
         if (mCw20Assets != null) {
             mCw20Decimal = mCw20Assets.decimal;
-            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, mCw20Decimal, mCw20Decimal));
+            mSendAmount.setText(WDp.getDpAmount2(toSendAmount, mCw20Decimal, mCw20Decimal));
             mSendDenom.setText(mCw20Assets.denom.toUpperCase());
         }
 

@@ -56,14 +56,14 @@ public class HtlcRefundStep3Fragment extends BaseFragment implements View.OnClic
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mFeeDenom);
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 8));
+            mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 0, 8));
             mSwapId.setText(getSActivity().mSwapId);
             mRefundAddress.setText(getSActivity().mResBnbSwapInfo.fromAddr);
             Coin coin = getSActivity().mResBnbSwapInfo.getSendCoin();
             WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 6, 6));
             mSwapId.setText(getSActivity().mSwapId);
             mRefundAddress.setText(getSActivity().mResKavaSwapInfo.result.sender);
             Coin coin = getSActivity().mResKavaSwapInfo.result.amount.get(0);

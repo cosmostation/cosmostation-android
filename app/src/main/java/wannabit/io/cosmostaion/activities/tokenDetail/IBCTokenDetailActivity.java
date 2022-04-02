@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -33,7 +34,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -282,7 +282,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 Picasso.get().load(getBaseDao().getIbcRelayerImg(mBaseChain, mIbcToken.channel_id)).into(holder.itemRelayer);
             } catch (Exception e) {
             }
-            holder.itemCurrentAmount.setText(WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));
+            holder.itemCurrentAmount.setText(WDp.getDpAmount2(totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));
             holder.itemCurrentDenom.setText("ibc/" + mIbcToken.hash);
 
             holder.itemAcrossChain.setText(mIbcToken.counter_party.chain_id);

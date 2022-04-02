@@ -39,7 +39,7 @@ public class TxStarnameRegisterAccountHolder extends TxHolder {
             itemRegister.setText(msg.getRegisterer());
 
             BigDecimal starnameFee = baseData.getStarNameRegisterAccountFee("open");
-            itemStarnameFee.setText(WDp.getDpAmount2(c, starnameFee, 6, 6));
+            itemStarnameFee.setText(WDp.getDpAmount2(starnameFee, 6, 6));
 
         } catch (Exception e) {
         }

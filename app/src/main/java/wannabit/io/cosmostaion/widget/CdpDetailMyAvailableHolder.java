@@ -50,16 +50,16 @@ public class CdpDetailMyAvailableHolder extends BaseHolder {
 
 
         mEmptyCollateralDenom.setText(WUtil.getKavaTokenName(baseData, collateralParam.getDenom()));
-        mEmptyCollateralAmount.setText(WDp.getDpAmount2(context, cAvailable, WUtil.getKavaCoinDecimal(baseData, cDenom), WUtil.getKavaCoinDecimal(baseData, cDenom)));
+        mEmptyCollateralAmount.setText(WDp.getDpAmount2(cAvailable, WUtil.getKavaCoinDecimal(baseData, cDenom), WUtil.getKavaCoinDecimal(baseData, cDenom)));
         BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mEmptyCollateralValue.setText(WDp.getDpRawDollor(context, collateralValue, 2));
 
         mEmptyPrincipalDenom.setText(WUtil.getKavaTokenName(baseData, collateralParam.getDebtLimit().getDenom()));
-        mEmptyPrincipalAmount.setText(WDp.getDpAmount2(context, pAvailable, WUtil.getKavaCoinDecimal(baseData, pDenom), WUtil.getKavaCoinDecimal(baseData, pDenom)));
+        mEmptyPrincipalAmount.setText(WDp.getDpAmount2(pAvailable, WUtil.getKavaCoinDecimal(baseData, pDenom), WUtil.getKavaCoinDecimal(baseData, pDenom)));
         BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, pDenom)).setScale(2, RoundingMode.DOWN);
         mEmptyPrincipalValue.setText(WDp.getDpRawDollor(context, principalValue, 2));
 
-        mEmptyKavaAmount.setText(WDp.getDpAmount2(context, kAvailable, WUtil.getKavaCoinDecimal(baseData, TOKEN_KAVA), WUtil.getKavaCoinDecimal(baseData, TOKEN_KAVA)));
+        mEmptyKavaAmount.setText(WDp.getDpAmount2(kAvailable, WUtil.getKavaCoinDecimal(baseData, TOKEN_KAVA), WUtil.getKavaCoinDecimal(baseData, TOKEN_KAVA)));
         BigDecimal kavaValue = WDp.usdValue(baseData, TOKEN_KAVA, kAvailable, 6);
         mEmptyKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
 

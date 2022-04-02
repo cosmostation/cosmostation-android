@@ -48,8 +48,8 @@ public class TxUnDelegateHolder extends TxHolder {
             itemUnDelegator.setText(msg.getDelegatorAddress());
             itemValidator.setText(msg.getValidatorAddress());
             itemMoniker.setText("(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
-            itemUndelegateAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getAmount().getAmount()), dpDecimal, dpDecimal));
-            itemAutoRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseAutoReward(response, msg.getDelegatorAddress(), position), dpDecimal, dpDecimal));
+            itemUndelegateAmount.setText(WDp.getDpAmount2(new BigDecimal(msg.getAmount().getAmount()), dpDecimal, dpDecimal));
+            itemAutoRewardAmount.setText(WDp.getDpAmount2(WDp.onParseAutoReward(response, msg.getDelegatorAddress(), position), dpDecimal, dpDecimal));
 
         } catch (Exception e) {
         }

@@ -73,7 +73,7 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         BigDecimal swapFee = new BigDecimal(getBaseDao().mSwapParams.getSwapFee()).movePointLeft(18);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
         WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mKavaSwapIn, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mKavaSwapOut, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);

@@ -64,8 +64,8 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-            mWithdrawAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 18));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
+            mWithdrawAmount.setText(WDp.getDpAmount2(toDeleagteAmount, 0, 18));
+            mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 0, 18));
 
         }
         mTime.setText(WDp.getUnbondTime(getContext(), getBaseDao(), getSActivity().mBaseChain));

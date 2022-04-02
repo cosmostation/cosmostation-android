@@ -123,7 +123,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
         WUtil.DpOsmosisTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
 
-        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
+        mInputAmount.setText(WDp.getDpAmount2(getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
         BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
@@ -150,9 +150,9 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         outputAssetAmount = outputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(getBaseDao(), mOutputCoinDenom));
         BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
 
-        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
+        mSwapInputCoinRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, inputCoinDecimal));
         WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, outCoinDecimal));
+        mSwapOutputCoinRate.setText(WDp.getDpAmount2(swapRate, 0, outCoinDecimal));
         WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
 
         WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
@@ -165,9 +165,9 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             mSwapOutputCoinExRate.setText("??????");
         } else {
             priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, outCoinDecimal));
+            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(priceRate, 0, outCoinDecimal));
         }
-        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, inputCoinDecimal));
     }
 
     @Override

@@ -56,6 +56,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -160,9 +161,9 @@ public class MainTokensFragment extends BaseFragment {
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mEmptyToken = rootView.findViewById(R.id.empty_token);
 
-        mCardView.setOnClickListener(v -> getMainActivity().onAddressDialog());
+        mCardView.setOnClickListener(v -> showAddressDialog());
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(rootView.getContext(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             onUpdateInfo();
             getMainActivity().onFetchAllData();
@@ -811,7 +812,7 @@ public class MainTokensFragment extends BaseFragment {
             divideDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom);
         }
 
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, divideDecimal, displayDecimal));
+        holder.itemBalance.setText(WDp.getDpAmount2(amount, divideDecimal, displayDecimal));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, amount, divider));
 
         holder.itemRoot.setOnClickListener(v -> {
@@ -838,12 +839,12 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(R.string.str_unknown);
             holder.itemFullName.setText("");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
         } else {
             holder.itemSymbol.setText(ibcToken.display_denom.toUpperCase());
             holder.itemFullName.setText(ibcToken.channel_id);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), ibcToken.decimal, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), ibcToken.decimal, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), getBaseDao().getBaseDenom(coin.denom), new BigDecimal(coin.amount), ibcToken.decimal));
             try {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.itemImg);
@@ -870,12 +871,12 @@ public class MainTokensFragment extends BaseFragment {
         if (ibcToken == null) {
             holder.itemFullName.setText("");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
         } else {
             holder.itemFullName.setText(ibcToken.channel_id);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
         }
 
@@ -894,7 +895,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText(coin.denom);
         holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_pool));
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), 18, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 18));
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -911,7 +912,7 @@ public class MainTokensFragment extends BaseFragment {
     private void onBindGravityDexToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mGravityDexGrpc.get(position);
         Picasso.get().load(COSMOS_COIN_IMG_URL + "gravitydex.png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
         holder.itemInnerSymbol.setText("");
         Liquidity.Pool poolInfo = getBaseDao().getGravityPoolByDenom(coin.denom);
@@ -939,7 +940,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("Pool Asset");
         holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), 18, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -964,7 +965,7 @@ public class MainTokensFragment extends BaseFragment {
             Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
 
             BigDecimal totalAmount = getBaseDao().getAvailable(assets.denom);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, assets.decimal, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, assets.decimal, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.origin_symbol, totalAmount, assets.decimal));
 
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -990,7 +991,7 @@ public class MainTokensFragment extends BaseFragment {
         BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
         String baseDenom = WDp.getKavaBaseDenom(coin.denom);
         int bep2decimal = WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom);
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, bep2decimal, 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, bep2decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, totalAmount, bep2decimal));
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -1014,7 +1015,7 @@ public class MainTokensFragment extends BaseFragment {
 
         BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
         BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), coin.denom);
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), KAVA_MAIN.getMainDenom(), convertedKavaAmount, 6));
     }
 
@@ -1028,7 +1029,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemFullName.setText(cw20Asset.contract_address);
 
         int decimal = cw20Asset.decimal;
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), cw20Asset.getAmount(), decimal, 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(cw20Asset.getAmount(), decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), cw20Asset.denom, cw20Asset.getAmount(), decimal));
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -1049,7 +1050,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");
         holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
     }
 
@@ -1067,7 +1068,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemFullName.setText(BNB_MAIN.getFullNameCoin());
                 holder.itemImg.setImageDrawable(ContextCompat.getDrawable(requireContext(), BNB_MAIN.getCoinIcon()));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
+                holder.itemBalance.setText(WDp.getDpAmount2(amount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), BNB_MAIN.getMainDenom(), amount, 0));
             }
             holder.itemRoot.setOnClickListener(v -> {
@@ -1085,7 +1086,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemImg.setImageDrawable(ContextCompat.getDrawable(requireContext(), OKEX_MAIN.getCoinIcon()));
 
                 BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+                holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
             }
             holder.itemRoot.setOnClickListener(v -> {
@@ -1110,7 +1111,7 @@ public class MainTokensFragment extends BaseFragment {
 
             BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
             BigDecimal convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, 0, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), OKEX_MAIN.getMainDenom(), convertAmount, 0));
             holder.itemRoot.setOnClickListener(v -> {
                 Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
@@ -1128,7 +1129,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemFullName.setText(bnbToken.name);
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(amount, 0, 6));
 
             final BigDecimal convertAmount = WUtil.getBnbConvertAmount(getBaseDao(), denom, amount);
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), BNB_MAIN.getMainDenom(), convertAmount, 0));
@@ -1148,8 +1149,16 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");
         holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 6, 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(balance.balance, 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, BigDecimal.ZERO, 6));
+    }
+
+    private void showAddressDialog() {
+        AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
+                mAccount.getAccountTitle(requireContext()),
+                mAccount.address
+        );
+        showDialog(show);
     }
 
     public MainActivity getMainActivity() {

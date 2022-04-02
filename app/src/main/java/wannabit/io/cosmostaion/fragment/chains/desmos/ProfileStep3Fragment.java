@@ -68,7 +68,7 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mProfileDtag.setText(getSActivity().mDtag);
         mProfileNick.setText(getSActivity().mNickname);
         mProfileBio.setText(getSActivity().mBio);

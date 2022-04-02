@@ -131,7 +131,7 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mInputDenom.equals(TOKEN_KAVA)) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
-        mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
+        mSwapAvailAmount.setText(WDp.getDpAmount2(mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
         mSwapRate = mOutputCoinAmount.divide(mInputCoinAmount, 18, RoundingMode.DOWN);

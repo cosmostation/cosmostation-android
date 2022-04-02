@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -75,15 +76,11 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onRizonStatus();
-                mEventHorizonStatusAdapter.notifyDataSetChanged();
-            }
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            onRizonStatus();
+            mEventHorizonStatusAdapter.notifyDataSetChanged();
         });
-
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -192,7 +189,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
                     holder.swap_rizon_status_icon.setVisibility(View.GONE);
                     holder.swap_rizon_status.setText("Success");
                     holder.swap_rizon_status_tx_hash.setText(rizonSwapStatus.rizonTxId);
-                    holder.swap_rizon_status_mint_amount.setText("" + WDp.getDpAmount2(RizonSwapStatusActivity.this, new BigDecimal(rizonSwapStatus.amount), 0, 6));
+                    holder.swap_rizon_status_mint_amount.setText(WDp.getDpAmount2(new BigDecimal(rizonSwapStatus.amount), 0, 6));
                 } else {
                     holder.swap_rizon_status_icon.setVisibility(View.VISIBLE);
                     holder.swap_rizon_status.setText("Pending");
@@ -201,12 +198,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
                 }
             }
 
-            holder.mRizonRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onExplorerRizon(rizonSwapStatus);
-                }
-            });
+            holder.mRizonRoot.setOnClickListener(v -> onExplorerRizon(rizonSwapStatus));
         }
 
         @Override

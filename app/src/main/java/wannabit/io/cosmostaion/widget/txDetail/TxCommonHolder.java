@@ -62,7 +62,7 @@ public class TxCommonHolder extends TxHolder {
         itemHeight.setText("" + response.getTxResponse().getHeight());
         itemMsgCnt.setText("" + response.getTx().getBody().getMessagesCount());
         itemGas.setText(String.format("%s / %s", "" + response.getTxResponse().getGasUsed(), "" + response.getTxResponse().getGasWanted()));
-        itemFee.setText(WDp.getDpAmount2(c, WDp.onParseFee(response), dpDecimal, dpDecimal));
+        itemFee.setText(WDp.getDpAmount2(WDp.onParseFee(response), dpDecimal, dpDecimal));
         itemFeeLayer.setVisibility(View.VISIBLE);
         itemTime.setText(WDp.getTimeTxformat(c, response.getTxResponse().getTimestamp()));
         itemTimeGap.setText(WDp.getTimeTxGap(c, response.getTxResponse().getTimestamp()));

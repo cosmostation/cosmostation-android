@@ -100,8 +100,8 @@ public class PoolOtherHolder extends BaseHolder {
 
         WUtil.dpKavaTokenName(context, baseData, itemTotalDepositSymbol0, coin0.getDenom());
         WUtil.dpKavaTokenName(context, baseData, itemTotalDepositSymbol1, coin1.getDenom());
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
-        itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
+        itemTotalDepositAmount0.setText(WDp.getDpAmount2(new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
+        itemTotalDepositAmount1.setText(WDp.getDpAmount2(new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
 
         // available
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.getDenom());
@@ -109,8 +109,8 @@ public class PoolOtherHolder extends BaseHolder {
 
         WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol0, coin0.getDenom());
         WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol1, coin1.getDenom());
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
+        itemMyAvailableAmount0.setText(WDp.getDpAmount2(availableCoin0, coin0Decimal, 6));
+        itemMyAvailableAmount1.setText(WDp.getDpAmount2(availableCoin1, coin1Decimal, 6));
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +137,8 @@ public class PoolOtherHolder extends BaseHolder {
 
         WUtil.dpCosmosTokenName(context, baseData, itemTotalDepositSymbol0, coin0Denom);
         WUtil.dpCosmosTokenName(context, baseData, itemTotalDepositSymbol1, coin1Denom);
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, coin0Amount, coin0Decimal, 6));
-        itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, coin1Amount, coin1Decimal, 6));
+        itemTotalDepositAmount0.setText(WDp.getDpAmount2(coin0Amount, coin0Decimal, 6));
+        itemTotalDepositAmount1.setText(WDp.getDpAmount2(coin1Amount, coin1Decimal, 6));
 
         BigDecimal availableCoin0 = baseData.getAvailable(coin0Denom);
         Coin Coin0 = new Coin(coin0Denom, availableCoin0.toPlainString());

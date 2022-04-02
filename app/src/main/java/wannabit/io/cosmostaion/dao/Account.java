@@ -168,21 +168,21 @@ public class Account {
         }
         try {
             if (chain.equals(BaseChain.BNB_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
+                return WDp.getDpAmount2(new BigDecimal(lastTotal), 0, 6);
 
             } else if (chain.equals(BaseChain.OKEX_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
+                return WDp.getDpAmount2(new BigDecimal(lastTotal), 0, 6);
 
             } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 6);
+                return WDp.getDpAmount2(new BigDecimal(lastTotal), 18, 6);
 
             } else if (chain.equals(CRYPTO_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 8, 6);
+                return WDp.getDpAmount2(new BigDecimal(lastTotal), 8, 6);
 
             } else if (chain.equals(PROVENANCE_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 9, 6);
+                return WDp.getDpAmount2(new BigDecimal(lastTotal), 9, 6);
             } else {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
+                return WDp.getDpAmount2(new BigDecimal(lastTotal), 6, 6);
             }
 
         } catch (Exception e) {

@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -74,21 +76,13 @@ public class MainSendFragment extends BaseFragment {
         mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
 
-        mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMainActivity().onAddressDialog();
-            }
-        });
+        mCardView.setOnClickListener(v -> showAddressDialog());
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getMainActivity().onFetchAllData();
-                onUpdateView();
-                mMainWalletAdapter.notifyDataSetChanged();
-            }
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(rootView.getContext(), R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            getMainActivity().onFetchAllData();
+            onUpdateView();
+            mMainWalletAdapter.notifyDataSetChanged();
         });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -177,6 +171,13 @@ public class MainSendFragment extends BaseFragment {
         mMainWalletAdapter.notifyDataSetChanged();
     }
 
+    private void showAddressDialog() {
+        AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
+                mAccount.getAccountTitle(requireContext()),
+                mAccount.address
+        );
+        showDialog(show);
+    }
 
     public MainActivity getMainActivity() {
         return (MainActivity) getBaseActivity();

@@ -59,7 +59,7 @@ public class SifIncentiveStep3Frament extends BaseFragment implements View.OnCli
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 18, 18));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 18, 18));
         mClaimAddress.setText(getSActivity().mAccount.address);
         mClaimType.setText("liquidityMining");
 

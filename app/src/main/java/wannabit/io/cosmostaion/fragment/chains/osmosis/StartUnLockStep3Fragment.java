@@ -72,7 +72,7 @@ public class StartUnLockStep3Fragment extends BaseFragment implements View.OnCli
             toUnbondingAmount = toUnbondingAmount.add(new BigDecimal(lockup.getCoins(0).getAmount()));
         }
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mUnLockIds.setText(ids);
         WDp.showCoinDp(getSActivity(), getBaseDao(), toUnbondingDenom, toUnbondingAmount.toPlainString(), mUnLockSymbol, mUnLockAmount, BaseChain.OSMOSIS_MAIN);
         mMemo.setText(getSActivity().mTxMemo);

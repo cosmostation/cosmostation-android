@@ -84,12 +84,12 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
         BigDecimal HdacBalance = getSActivity().mHdacBalance;
 
         mHdacFromAddress.setText(mHdacUtil.getAddress(getSActivity().mBaseChain));
-        mHdacBurnAmount.setText("" + WDp.getDpAmount2(getSActivity(), HdacBalance, 8, 8));
-        mHdacTxFee.setText("" + WDp.getDpAmount2(getSActivity(), new BigDecimal("0.1"), 0, 8));
+        mHdacBurnAmount.setText("" + WDp.getDpAmount2(HdacBalance, 8, 8));
+        mHdacTxFee.setText("" + WDp.getDpAmount2(new BigDecimal("0.1"), 0, 8));
 
         mRizonToAddress.setText(getSActivity().mAccount.address);
         mSendAmount = HdacBalance.subtract(new BigDecimal("0.1").movePointRight(8));
-        mRizonMintAmount.setText("" + WDp.getDpAmount2(getSActivity(), mSendAmount, 8, 6));
+        mRizonMintAmount.setText("" + WDp.getDpAmount2(mSendAmount, 8, 6));
     }
 
     private EventHorizonActivity getSActivity() {

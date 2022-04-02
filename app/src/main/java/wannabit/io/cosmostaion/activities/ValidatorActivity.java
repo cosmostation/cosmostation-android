@@ -33,6 +33,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -107,14 +108,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onInitFetch();
-                onFetchValHistory();
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            onInitFetch();
+            onFetchValHistory();
 
-            }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -300,18 +298,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        new WithdrawAddressGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                String rewardAddress = (String) result.resultData;
-                if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
-                    Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
-                    reinvest.putExtra("valOpAddress", mValOpAddress);
-                    startActivity(reinvest);
-                }
+        new WithdrawAddressGrpcTask(getBaseApplication(), result -> {
+            String rewardAddress = (String) result.resultData;
+            if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
+                Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
+                reinvest.putExtra("valOpAddress", mValOpAddress);
+                startActivity(reinvest);
             }
         }, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -526,7 +521,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
-            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
+            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
             if (mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             } else {
@@ -592,7 +587,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
-            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
+            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
             if (mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             } else {
@@ -613,9 +608,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             final MyActionHolder holder = (MyActionHolder) viewHolder;
             final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mBaseChain));
-            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), getBaseDao().getDelegation(mValOpAddress), dpDecimal, dpDecimal));
-            holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseContext(), getBaseDao().getUndelegation(mValOpAddress), dpDecimal, dpDecimal));
-            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseContext(), getBaseDao().getReward(mBaseChain.getMainDenom(), mValOpAddress), dpDecimal, dpDecimal));
+            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseDao().getDelegation(mValOpAddress), dpDecimal, dpDecimal));
+            holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseDao().getUndelegation(mValOpAddress), dpDecimal, dpDecimal));
+            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseDao().getReward(mBaseChain.getMainDenom(), mValOpAddress), dpDecimal, dpDecimal));
 
             if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED) || mGrpcMyDelegation == null) {
                 holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));

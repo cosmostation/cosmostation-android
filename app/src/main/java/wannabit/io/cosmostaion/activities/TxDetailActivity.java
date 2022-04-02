@@ -413,7 +413,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHeight.setText(mResBnbTxInfo.height);
                 holder.itemMsgCnt.setText(String.valueOf(mResBnbTxInfo.tx.value.msg.size()));
                 holder.itemGas.setText("-");
-                holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(FEE_BNB_SEND), 0, 8));
+                holder.itemFee.setText(WDp.getDpAmount2(new BigDecimal(FEE_BNB_SEND), 0, 8));
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemTime.setText(WDp.getTimeformat(getBaseContext(), mBnbTime));
                 holder.itemTimeGap.setText(WDp.getTimeGap(getBaseContext(), mBnbTime));
@@ -433,7 +433,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHeight.setText(mResTxInfo.height);
                 holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.getMsgs().size()));
                 holder.itemGas.setText(String.format("%s / %s", mResTxInfo.gas_used, mResTxInfo.gas_wanted));
-                holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), 0, 18));
+                holder.itemFee.setText(WDp.getDpAmount2(mResTxInfo.simpleFee(), 0, 18));
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
@@ -458,7 +458,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHeight.setText(mResTxInfo.height);
                 holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.getMsgs().size()));
                 holder.itemGas.setText(String.format("%s / %s", mResTxInfo.gas_used, mResTxInfo.gas_wanted));
-                holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), dpDecimal, dpDecimal));
+                holder.itemFee.setText(WDp.getDpAmount2(mResTxInfo.simpleFee(), dpDecimal, dpDecimal));
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
@@ -655,7 +655,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final Msg msg = mResTxInfo.getMsg(position - 1);
             holder.itemCommissionValidator.setText(msg.value.validator_address);
             holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
-            holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommission(position - 1), dpDecimal, dpDecimal));
+            holder.itemCommissionAmount.setText(WDp.getDpAmount2(mResTxInfo.simpleCommission(position - 1), dpDecimal, dpDecimal));
         }
 
         //Bind KAVA msgs

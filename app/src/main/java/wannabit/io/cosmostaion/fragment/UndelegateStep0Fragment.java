@@ -83,7 +83,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
 
         mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValAddress);
-        mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+        mAvailableAmount.setText(WDp.getDpAmount2(mMaxAvailable, mDpDecimal, mDpDecimal));
         onAddAmountWatcher();
     }
 

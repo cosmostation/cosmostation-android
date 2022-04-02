@@ -68,8 +68,8 @@ public class SifPoolMyHolder extends BaseHolder {
 
         WUtil.dpSifTokenName(context, baseData, itemMyTotalDepositSymbol0, BaseConstant.TOKEN_SIF);
         WUtil.dpSifTokenName(context, baseData, itemMyTotalDepositSymbol1, exteranlDenom);
-        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(context, rowanAmount, rowanDecimal, 6));
-        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
+        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(rowanAmount, rowanDecimal, 6));
+        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(externalAmount, externalDecimal, 6));
 
         //dp my lp info
         if (myPool != null && myProvider != null) {
@@ -77,8 +77,8 @@ public class SifPoolMyHolder extends BaseHolder {
             itemMypoolDepositValue.setText(WDp.getDpRawDollor(context, myShareValue, 2));
             WUtil.dpSifTokenName(context, baseData, itemMyDepositSymbol0, BaseConstant.TOKEN_SIF);
             WUtil.dpSifTokenName(context, baseData, itemMyDepositSymbol1, exteranlDenom);
-            itemMyDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(myProvider.getNativeAssetBalance()), rowanDecimal, 6));
-            itemMyDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(myProvider.getExternalAssetBalance()), externalDecimal, 6));
+            itemMyDepositAmount0.setText(WDp.getDpAmount2(new BigDecimal(myProvider.getNativeAssetBalance()), rowanDecimal, 6));
+            itemMyDepositAmount1.setText(WDp.getDpAmount2(new BigDecimal(myProvider.getExternalAssetBalance()), externalDecimal, 6));
         }
 
         //dp available
@@ -86,8 +86,8 @@ public class SifPoolMyHolder extends BaseHolder {
         BigDecimal availableExternal = baseData.getAvailable(exteranlDenom);
         WUtil.dpSifTokenName(context, baseData, itemMyAvailableSymbol0, BaseConstant.TOKEN_SIF);
         WUtil.dpSifTokenName(context, baseData, itemMyAvailableSymbol1, exteranlDenom);
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
+        itemMyAvailableAmount0.setText(WDp.getDpAmount2(availableRowan, rowanDecimal, 6));
+        itemMyAvailableAmount1.setText(WDp.getDpAmount2(availableExternal, externalDecimal, 6));
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -85,8 +85,8 @@ public class CdpDetailInfoHolder extends BaseHolder {
         mInfoCurrentPriceTitle.setText(String.format(context.getString(R.string.str_current_title3), WUtil.getKavaTokenName(baseData, cDenom)));
         mInfoCurrentPrice.setText(WDp.getDpRawDollor(context, currentPrice, 4));
 
-        mInfoMaxDebtAmount.setText(WDp.getDpAmount2(context, new BigDecimal(baseData.mCdpParams.getGlobalDebtLimit().getAmount()), 6, 6));
-        mInfoRemainDebtAmount.setText(WDp.getDpAmount2(context, new BigDecimal(baseData.mCdpParams.getGlobalDebtLimit().getAmount()).subtract(debtAmount), 6, 6));
+        mInfoMaxDebtAmount.setText(WDp.getDpAmount2(new BigDecimal(baseData.mCdpParams.getGlobalDebtLimit().getAmount()), 6, 6));
+        mInfoRemainDebtAmount.setText(WDp.getDpAmount2(new BigDecimal(baseData.mCdpParams.getGlobalDebtLimit().getAmount()).subtract(debtAmount), 6, 6));
 
         if (myCdp != null) {
             mLiquidationPrice = WUtil.getLiquidationPrice(context, baseData, myCdp, collateralParam);

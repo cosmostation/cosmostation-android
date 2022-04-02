@@ -140,7 +140,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         BigDecimal swapFee = new BigDecimal(mSwapParams.getSwapFee()).movePointLeft(18);
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
-        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, InPutDecimal, InPutDecimal));
+        mInputAmount.setText(WDp.getDpAmount2(availableMaxAmount, InPutDecimal, InPutDecimal));
 
         BigDecimal inputAmount = BigDecimal.ZERO;
         BigDecimal outputAmount = BigDecimal.ZERO;
@@ -158,9 +158,9 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         BigDecimal swapRate = outputAmount.divide(inputAmount, 16, RoundingMode.DOWN);
 
-        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, InPutDecimal));
+        mSwapInputCoinRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, InPutDecimal));
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, OutPutDecimal));
+        mSwapOutputCoinRate.setText(WDp.getDpAmount2(swapRate, 0, OutPutDecimal));
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
 
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
@@ -173,9 +173,9 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             mSwapOutputCoinExRate.setText("?.??????");
         } else {
             priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, OutPutDecimal));
+            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(priceRate, 0, OutPutDecimal));
         }
-        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, InPutDecimal));
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, InPutDecimal));
     }
 
     @Override

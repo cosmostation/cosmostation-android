@@ -42,7 +42,7 @@ public class TxGravityWithdrawHolder extends TxHolder {
 
             Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(msg.getPoolCoin().getDenom());
             if (poolInfo != null) {
-                itemGravityWithdrawAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getPoolCoin().getAmount()), 6, 6));
+                itemGravityWithdrawAmount.setText(WDp.getDpAmount2(new BigDecimal(msg.getPoolCoin().getAmount()), 6, 6));
                 itemGravityWithdrawSymbol.setText("GDEX-" + poolInfo.getId());
             }
 

@@ -74,7 +74,7 @@ public class GDexWithdrawStep3Fragment extends BaseFragment implements View.OnCl
         String lpAmount = getSActivity().mLpToken.amount;
 
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mWithdrawSymbol, lpDenom);
-        mWithdrawAmount.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(lpAmount), mDpDecimal, mDpDecimal));
+        mWithdrawAmount.setText(WDp.getDpAmount2(new BigDecimal(lpAmount), mDpDecimal, mDpDecimal));
 
         String coin0Denom = getSActivity().mGDexPool.getReserveCoinDenoms(0);
         String coin1Denom = getSActivity().mGDexPool.getReserveCoinDenoms(1);
@@ -86,7 +86,7 @@ public class GDexWithdrawStep3Fragment extends BaseFragment implements View.OnCl
         BigDecimal expectCoin0Amount = coin0Amount.multiply(depositRate).setScale(0, RoundingMode.DOWN);
         BigDecimal expectCoin1Amount = coin1Amount.multiply(depositRate).setScale(0, RoundingMode.DOWN);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mMemo.setText(getSActivity().mTxMemo);
         WDp.showCoinDp(getSActivity(), getBaseDao(), coin0Denom, expectCoin0Amount.toPlainString(), mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.COSMOS_MAIN);
         WDp.showCoinDp(getSActivity(), getBaseDao(), coin1Denom, expectCoin1Amount.toPlainString(), mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.COSMOS_MAIN);

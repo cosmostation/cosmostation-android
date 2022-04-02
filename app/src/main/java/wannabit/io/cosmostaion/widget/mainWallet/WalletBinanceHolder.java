@@ -49,10 +49,10 @@ public class WalletBinanceHolder extends BaseHolder {
         final BigDecimal frozenAmount = baseData.frozenAmount(denom);
         final BigDecimal totalAmount = availableAmount.add(lockedAmount).add(frozenAmount);
 
-        mTvBnbTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 0, 6));
-        mTvBnbBalance.setText(WDp.getDpAmount2(mainActivity, availableAmount, 0, 6));
-        mTvBnbLocked.setText(WDp.getDpAmount2(mainActivity, lockedAmount, 0, 6));
-        mTvBnbFrozen.setText(WDp.getDpAmount2(mainActivity, frozenAmount, 0, 6));
+        mTvBnbTotal.setText(WDp.getDpAmount2(totalAmount, 0, 6));
+        mTvBnbBalance.setText(WDp.getDpAmount2(availableAmount, 0, 6));
+        mTvBnbLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 6));
+        mTvBnbFrozen.setText(WDp.getDpAmount2(frozenAmount, 0, 6));
         mTvBnbValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());

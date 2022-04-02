@@ -168,8 +168,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         mCollateralDenomTx.setText(mCollateralDenom.toUpperCase());
         mPrincipalSymbol.setText(mPrincipalDenom.toUpperCase());
         mPrincipalDenomTx.setText(mPrincipalDenom.toUpperCase());
-        mCollateralMinTx.setText(WDp.getDpAmount2(getContext(), mCollateralMinAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)));
-        mCollateralMaxTx.setText(WDp.getDpAmount2(getContext(), mCollateralMaxAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)));
+        mCollateralMinTx.setText(WDp.getDpAmount2(mCollateralMinAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)));
+        mCollateralMaxTx.setText(WDp.getDpAmount2(mCollateralMaxAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)));
         setDpDecimals(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
 
         WUtil.DpKavaTokenImg(getBaseDao(), mCollateralImg, mCollateralDenom);
@@ -258,8 +258,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             mCollateralValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
             mPrincipalMaxAmount = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).multiply(new BigDecimal("0.95")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
-            mPrincipalMinTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMinAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)));
-            mPrincipalMaxTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMaxAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)));
+            mPrincipalMinTx.setText(WDp.getDpAmount2(mPrincipalMinAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)));
+            mPrincipalMaxTx.setText(WDp.getDpAmount2(mPrincipalMaxAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)));
 
             mPrincipalInput.addTextChangedListener(new TextWatcher() {
                 @Override

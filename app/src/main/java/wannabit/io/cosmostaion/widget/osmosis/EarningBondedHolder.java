@@ -88,10 +88,10 @@ public class EarningBondedHolder extends RecyclerView.ViewHolder {
 
         }
 
-        itemAmount.setText(WDp.getDpAmount2(c, myShare, 18, 18));
+        itemAmount.setText(WDp.getDpAmount2(myShare, 18, 18));
         itemAmountDenom.setText("GAMM-" + pool.getId());
         itemAmountValue.setText(WDp.getDpRawDollor(c, myLpCoinValue, 2));
-        itemRewardAmount.setText(WDp.getDpAmount2(c, myReward, 6, 6));
+        itemRewardAmount.setText(WDp.getDpAmount2(myReward, 6, 6));
 
 
         mBtnUnbonding.setOnClickListener(new View.OnClickListener() {

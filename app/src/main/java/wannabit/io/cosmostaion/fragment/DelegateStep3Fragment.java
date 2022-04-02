@@ -66,8 +66,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mDelegateAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, mDpDecimal, mDpDecimal));
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mDelegateAmount.setText(WDp.getDpAmount2(toDeleagteAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
         mMemo.setText(getSActivity().mTxMemo);
     }

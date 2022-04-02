@@ -118,11 +118,11 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
             }
         }
 
-        itemBondedAmount.setText(WDp.getDpAmount2(c, bondedAmount, 18, 6));
+        itemBondedAmount.setText(WDp.getDpAmount2(bondedAmount, 18, 6));
         itemBondedDenom.setText("GAMM-" + pool.getId());
-        itemUnBondingAmount.setText(WDp.getDpAmount2(c, unbondingAmount, 18, 6));
+        itemUnBondingAmount.setText(WDp.getDpAmount2(unbondingAmount, 18, 6));
         itemUnBondingDenom.setText("GAMM-" + pool.getId());
-        itemUnBondedAmount.setText(WDp.getDpAmount2(c, unbondedAmount, 18, 6));
+        itemUnBondedAmount.setText(WDp.getDpAmount2(unbondedAmount, 18, 6));
         itemUnBondedDenom.setText("GAMM-" + pool.getId());
 
         BigDecimal bonedCoinValue = bondedAmount.multiply(lpCoinPrice).movePointLeft(18).setScale(2, RoundingMode.DOWN);
@@ -135,12 +135,12 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
         //display available
         BigDecimal availableAmount = baseData.getAvailable("gamm/pool/" + pool.getId());
         BigDecimal availableValue = availableAmount.multiply(lpCoinPrice).movePointLeft(18).setScale(2, RoundingMode.DOWN);
-        itemAvailableAmount.setText(WDp.getDpAmount2(c, availableAmount, 18, 6));
+        itemAvailableAmount.setText(WDp.getDpAmount2(availableAmount, 18, 6));
         itemAvailableDenom.setText("GAMM-" + pool.getId());
         itemAvailableValue.setText(WDp.getDpRawDollor(c, availableValue, 2));
 
         //display reward
-        itemRewardAmount.setText(WDp.getDpAmount2(c, myRewards, 6, 6));
+        itemRewardAmount.setText(WDp.getDpAmount2(myRewards, 6, 6));
 
 
         itemRoot.setOnClickListener(new View.OnClickListener() {

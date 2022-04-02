@@ -27,6 +27,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -90,31 +92,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mEmptyHistory = rootView.findViewById(R.id.empty_history);
         mNotYet = rootView.findViewById(R.id.text_notyet);
-        mEmptyHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent txDetail = new Intent(getBaseActivity(), TxDetailgRPCActivity.class);
-//                txDetail.putExtra("txHash", "CF91C15F336F06C7966A9DBC0CAE98A07C548FBFAC3CE787EF856A9018F35542");
-//                txDetail.putExtra("isGen", false);
-//                txDetail.putExtra("isSuccess", true);
-//                startActivity(txDetail);
-            }
-        });
 
-        mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMainActivity().onAddressDialog();
-            }
-        });
+        mCardView.setOnClickListener(v -> showAddressDialog());
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchHistory();
-            }
-        });
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(rootView.getContext(), R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(this::onFetchHistory);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -181,6 +163,14 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAddressDialog() {
+        AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
+                mAccount.getAccountTitle(requireContext()),
+                mAccount.address
+        );
+        showDialog(show);
     }
 
     private void onFetchHistory() {

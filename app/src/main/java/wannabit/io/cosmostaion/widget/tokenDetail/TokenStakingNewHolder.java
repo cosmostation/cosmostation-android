@@ -42,16 +42,16 @@ public class TokenStakingNewHolder extends BaseHolder {
         final int stakingDivideDecimal = WDp.mainDivideDecimal(chain);
         final int stakingDisplayDecimal = WDp.mainDisplayDecimal(chain);
         final BigDecimal totalToken = baseData.getAllMainAsset(denom);
-        mTotalAmount.setText(WDp.getDpAmount2(c, totalToken, stakingDivideDecimal, stakingDisplayDecimal));
-        mAvailableAmount.setText(WDp.getDpAmount2(c, baseData.getAvailable(denom), stakingDivideDecimal, stakingDisplayDecimal));
-        mDelegatedAmount.setText(WDp.getDpAmount2(c, baseData.getDelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
-        mUnbondingAmount.setText(WDp.getDpAmount2(c, baseData.getUndelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
-        mRewardAmount.setText(WDp.getDpAmount2(c, baseData.getRewardSum(denom), stakingDivideDecimal, stakingDisplayDecimal));
+        mTotalAmount.setText(WDp.getDpAmount2(totalToken, stakingDivideDecimal, stakingDisplayDecimal));
+        mAvailableAmount.setText(WDp.getDpAmount2(baseData.getAvailable(denom), stakingDivideDecimal, stakingDisplayDecimal));
+        mDelegatedAmount.setText(WDp.getDpAmount2(baseData.getDelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
+        mUnbondingAmount.setText(WDp.getDpAmount2(baseData.getUndelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
+        mRewardAmount.setText(WDp.getDpAmount2(baseData.getRewardSum(denom), stakingDivideDecimal, stakingDisplayDecimal));
 
         final BigDecimal vestingAmount = baseData.getVesting(denom);
         if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
             mVestingLayer.setVisibility(View.VISIBLE);
-            mVestingAmount.setText(WDp.getDpAmount2(c, vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mVestingAmount.setText(WDp.getDpAmount2(vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
         }
         mCardRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
     }

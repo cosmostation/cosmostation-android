@@ -67,7 +67,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
         mCancelBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
-        mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 6, 6));
+        mStarNameFeeTv.setText(WDp.getDpAmount2(BigDecimal.ZERO, 6, 6));
         mDomainInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -86,7 +86,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                     mDomainValid.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
-                mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
+                mStarNameFeeTv.setText(WDp.getDpAmount2(starNameFee, 6, 6));
 
             }
         });
@@ -107,7 +107,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
 
                     String userInput = mDomainInput.getText().toString().trim();
                     BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
-                    mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
+                    mStarNameFeeTv.setText(WDp.getDpAmount2(starNameFee, 6, 6));
                 }
             }
         });

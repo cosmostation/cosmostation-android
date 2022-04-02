@@ -119,7 +119,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mInputDenom.equals(TOKEN_OSMOSIS)) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
-        mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
+        mSwapAvailAmount.setText(WDp.getDpAmount2(mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
         WUtil.dpOsmosisTokenName(getContext(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
         WUtil.dpOsmosisTokenName(getContext(), getBaseDao(), mSwapInputSymbol, getSActivity().mInputDenom);

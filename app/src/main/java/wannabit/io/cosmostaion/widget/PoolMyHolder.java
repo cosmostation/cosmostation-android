@@ -126,8 +126,8 @@ public class PoolMyHolder extends BaseHolder {
         // Total deposit
         WUtil.dpKavaTokenName(context, baseData, itemMyTotalDepositSymbol0, coin0.getDenom());
         WUtil.dpKavaTokenName(context, baseData, itemMyTotalDepositSymbol1, coin1.getDenom());
-        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
-        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
+        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
+        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
 
         // deposit
         CoinOuterClass.Coin my0 = myDeposit.getSharesValue(0);
@@ -139,8 +139,8 @@ public class PoolMyHolder extends BaseHolder {
 
         WUtil.dpKavaTokenName(context, baseData, itemMyDepositSymbol0, my0.getDenom());
         WUtil.dpKavaTokenName(context, baseData, itemMyDepositSymbol1, my1.getDenom());
-        itemMyDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(my0.getAmount()), coin0Decimal, 6));
-        itemMyDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(my1.getAmount()), coin1Decimal, 6));
+        itemMyDepositAmount0.setText(WDp.getDpAmount2(new BigDecimal(my0.getAmount()), coin0Decimal, 6));
+        itemMyDepositAmount1.setText(WDp.getDpAmount2(new BigDecimal(my1.getAmount()), coin1Decimal, 6));
 
         // available
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.getDenom());
@@ -148,8 +148,8 @@ public class PoolMyHolder extends BaseHolder {
 
         WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol0, coin0.getDenom());
         WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol1, coin1.getDenom());
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
+        itemMyAvailableAmount0.setText(WDp.getDpAmount2(availableCoin0, coin0Decimal, 6));
+        itemMyAvailableAmount1.setText(WDp.getDpAmount2(availableCoin1, coin1Decimal, 6));
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,16 +179,16 @@ public class PoolMyHolder extends BaseHolder {
 
         WUtil.dpCosmosTokenName(context, baseData, itemMyTotalDepositSymbol0, coin0Denom);
         WUtil.dpCosmosTokenName(context, baseData, itemMyTotalDepositSymbol1, coin1Denom);
-        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(context, coin0Amount, coin0Decimal, 6));
-        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(context, coin1Amount, coin1Decimal, 6));
+        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(coin0Amount, coin0Decimal, 6));
+        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(coin1Amount, coin1Decimal, 6));
 
         //deposit
         BigDecimal myPoolValue = activity.getGdexMyShareValue(mypool);
         WUtil.dpCosmosTokenName(context, baseData, itemMyDepositSymbol0, coin0Denom);
         WUtil.dpCosmosTokenName(context, baseData, itemMyDepositSymbol1, coin1Denom);
         itemMypoolDepositValue.setText(WDp.getDpRawDollor(context, myPoolValue, 2));
-        itemMyDepositAmount0.setText(WDp.getDpAmount2(context, activity.getGdexMyShareAmount(mypool, coin0Denom), coin0Decimal, 6));
-        itemMyDepositAmount1.setText(WDp.getDpAmount2(context, activity.getGdexMyShareAmount(mypool, coin1Denom), coin1Decimal, 6));
+        itemMyDepositAmount0.setText(WDp.getDpAmount2(activity.getGdexMyShareAmount(mypool, coin0Denom), coin0Decimal, 6));
+        itemMyDepositAmount1.setText(WDp.getDpAmount2(activity.getGdexMyShareAmount(mypool, coin1Denom), coin1Decimal, 6));
 
         // available
         BigDecimal availableCoin0 = baseData.getAvailable(coin0Denom);

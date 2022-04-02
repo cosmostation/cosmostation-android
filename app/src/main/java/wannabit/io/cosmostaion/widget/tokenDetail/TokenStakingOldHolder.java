@@ -71,10 +71,10 @@ public class TokenStakingOldHolder extends BaseHolder {
             final BigDecimal availableAmount = baseData.availableAmount(denom);
             final BigDecimal lockedAmount = baseData.lockedAmount(denom);
             final BigDecimal frozenAmount = baseData.frozenAmount(denom);
-            mTotalAmount.setText(WDp.getDpAmount2(c, totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mAvailableAmount.setText(WDp.getDpAmount2(c, availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mlockedAmount.setText(WDp.getDpAmount2(c, lockedAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mFrozenAmount.setText(WDp.getDpAmount2(c, frozenAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mTotalAmount.setText(WDp.getDpAmount2(totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mlockedAmount.setText(WDp.getDpAmount2(lockedAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mFrozenAmount.setText(WDp.getDpAmount2(frozenAmount, stakingDivideDecimal, stakingDisplayDecimal));
 
         } else if (chain.equals(BaseChain.OKEX_MAIN)) {
             mVestingLayer.setVisibility(View.GONE);
@@ -91,11 +91,11 @@ public class TokenStakingOldHolder extends BaseHolder {
             final BigDecimal lockedAmount = baseData.lockedAmount(denom);
             final BigDecimal depositAmount = baseData.okDepositAmount();
             final BigDecimal withdrawAmount = baseData.okWithdrawAmount();
-            mTotalAmount.setText(WDp.getDpAmount2(c, totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mAvailableAmount.setText(WDp.getDpAmount2(c, availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mlockedAmount.setText(WDp.getDpAmount2(c, lockedAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mOkStakingAmount.setText(WDp.getDpAmount2(c, depositAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mOkUnbondingAmount.setText(WDp.getDpAmount2(c, withdrawAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mTotalAmount.setText(WDp.getDpAmount2(totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mlockedAmount.setText(WDp.getDpAmount2(lockedAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mOkStakingAmount.setText(WDp.getDpAmount2(depositAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mOkUnbondingAmount.setText(WDp.getDpAmount2(withdrawAmount, stakingDivideDecimal, stakingDisplayDecimal));
 
         } else {
             mVestingLayer.setVisibility(View.GONE);
@@ -112,11 +112,11 @@ public class TokenStakingOldHolder extends BaseHolder {
             final BigDecimal delegateAmount = baseData.delegatedSumAmount();
             final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
             final BigDecimal rewardAmount = baseData.rewardAmount(denom);
-            mTotalAmount.setText(WDp.getDpAmount2(c, totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mAvailableAmount.setText(WDp.getDpAmount2(c, availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mDelegatedAmount.setText(WDp.getDpAmount2(c, delegateAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mUnbondingAmount.setText(WDp.getDpAmount2(c, unbondingAmount, stakingDivideDecimal, stakingDisplayDecimal));
-            mRewardAmount.setText(WDp.getDpAmount2(c, rewardAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mTotalAmount.setText(WDp.getDpAmount2(totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mDelegatedAmount.setText(WDp.getDpAmount2(delegateAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mUnbondingAmount.setText(WDp.getDpAmount2(unbondingAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mRewardAmount.setText(WDp.getDpAmount2(rewardAmount, stakingDivideDecimal, stakingDisplayDecimal));
         }
         mCardRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
     }

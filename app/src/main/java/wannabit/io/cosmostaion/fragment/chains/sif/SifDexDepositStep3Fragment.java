@@ -75,10 +75,10 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
 
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mSifDepositCoin0, mJoinInput0AmountSymbol, mJoinInput0Amount, BaseChain.SIF_MAIN);
         WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mSifDepositCoin1, mJoinInput1AmountSymbol, mJoinInput1Amount, BaseChain.SIF_MAIN);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mMemo.setText(getSActivity().mTxMemo);
     }
 

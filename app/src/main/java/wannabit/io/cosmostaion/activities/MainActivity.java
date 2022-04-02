@@ -32,7 +32,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -160,14 +159,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         onAccountSwitched();
         onChainSelect(mBaseChain);
-    }
-
-    public void onAddressDialog() {
-        AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
-                mAccount.getAccountTitle(this),
-                mAccount.address
-        );
-        showDialog(show);
     }
 
     public void onAccountSwitched() {

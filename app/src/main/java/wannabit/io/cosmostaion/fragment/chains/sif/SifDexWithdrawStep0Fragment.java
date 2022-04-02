@@ -84,7 +84,7 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
 
         mAvailableMaxAmount = new BigDecimal(getSActivity().mMyProvider.getLiquidityProvider().getLiquidityProviderUnits());
         setDpDecimals(mCoinDecimal);
-        mLpCoinAmount.setText(WDp.getDpAmount2(getSActivity(), mAvailableMaxAmount, mCoinDecimal, mCoinDecimal));
+        mLpCoinAmount.setText(WDp.getDpAmount2(mAvailableMaxAmount, mCoinDecimal, mCoinDecimal));
         onAddAmountWatcher();
     }
 

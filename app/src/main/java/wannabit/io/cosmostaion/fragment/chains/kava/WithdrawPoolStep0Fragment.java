@@ -101,7 +101,7 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
         mProgress.setVisibility(View.GONE);
 
         mAvailableMaxAmount = new BigDecimal(getSActivity().mKavaDepositPool.getSharesOwned());
-        mLpCoinAmount.setText(WDp.getDpAmount2(getSActivity(), mAvailableMaxAmount, mCoinDecimal, mCoinDecimal));
+        mLpCoinAmount.setText(WDp.getDpAmount2(mAvailableMaxAmount, mCoinDecimal, mCoinDecimal));
         setDpDecimals(mCoinDecimal);
 
         onAddAmountWatcher();

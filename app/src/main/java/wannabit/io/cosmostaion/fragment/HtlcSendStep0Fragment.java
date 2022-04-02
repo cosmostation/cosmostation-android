@@ -175,7 +175,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
             supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
             onetime_max = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
-            mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 0, 8));
+            mToSendCoinAvailable.setText(WDp.getDpAmount2(available_amount, 0, 8));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.GONE);
@@ -208,13 +208,13 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
             supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
             onetime_max = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
-            mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 8, 8));
+            mToSendCoinAvailable.setText(WDp.getDpAmount2(available_amount, 8, 8));
 
         }
 
-        mOnceMaxAmount.setText(WDp.getDpAmount2(getContext(), onetime_max, 8, 8));
-        mSystemMaxAmount.setText(WDp.getDpAmount2(getContext(), supply_limit, 8, 8));
-        mRemainAmount.setText(WDp.getDpAmount2(getContext(), supply_remain, 8, 8));
+        mOnceMaxAmount.setText(WDp.getDpAmount2(onetime_max, 8, 8));
+        mSystemMaxAmount.setText(WDp.getDpAmount2(supply_limit, 8, 8));
+        mRemainAmount.setText(WDp.getDpAmount2(supply_remain, 8, 8));
 
 
     }

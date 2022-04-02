@@ -126,7 +126,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
 
         mSwapFee.setText(WDp.getPercentDp(new BigDecimal(mParms.getSwapFeeRate()).movePointLeft(16)));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
-        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, mInPutDecimal, mInPutDecimal));
+        mInputAmount.setText(WDp.getDpAmount2(availableMaxAmount, mInPutDecimal, mInPutDecimal));
 
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
         WUtil.DpCosmosTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
@@ -137,8 +137,8 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
 
-        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
-        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
+        mSwapInputCoinRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, mInPutDecimal));
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, mInPutDecimal));
 
         BigDecimal lpInputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mInputCoinDenom);
         BigDecimal lpOutputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mOutputCoinDenom);
@@ -147,7 +147,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         if (lpInputAmount != BigDecimal.ZERO && lpOutputAmount != BigDecimal.ZERO) {
             mPoolSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointRight(mInPutDecimal - mOutPutDecimal);
         }
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), mPoolSwapRate, 0, mOutPutDecimal));
+        mSwapOutputCoinRate.setText(WDp.getDpAmount2(mPoolSwapRate, 0, mOutPutDecimal));
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
@@ -157,9 +157,9 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
             mSwapOutputCoinExRate.setText("?.??????");
         } else {
             priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, mOutPutDecimal));
+            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(priceRate, 0, mOutPutDecimal));
         }
-        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, mInPutDecimal));
     }
 
     @Override

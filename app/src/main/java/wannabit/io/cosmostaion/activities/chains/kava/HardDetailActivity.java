@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -89,15 +90,12 @@ public class HardDetailActivity extends BaseActivity {
         mHardParams = getBaseDao().mHardParams;
         mIncentiveRewards = getBaseDao().mIncentiveRewards;
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (mTaskCount > 0) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                } else {
-                    onFetchHardInfo();
-                }
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            if (mTaskCount > 0) {
+                mSwipeRefreshLayout.setRefreshing(false);
+            } else {
+                onFetchHardInfo();
             }
         });
 

@@ -58,16 +58,16 @@ public class SifPoolOtherHolder extends BaseHolder {
 
         WUtil.dpSifTokenName(context, baseData, itemTotalDepositSymbol0, BaseConstant.TOKEN_SIF);
         WUtil.dpSifTokenName(context, baseData, itemTotalDepositSymbol1, exteranlDenom);
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, rowanAmount, rowanDecimal, 6));
-        itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
+        itemTotalDepositAmount0.setText(WDp.getDpAmount2(rowanAmount, rowanDecimal, 6));
+        itemTotalDepositAmount1.setText(WDp.getDpAmount2(externalAmount, externalDecimal, 6));
 
         //dp available
         BigDecimal availableRowan = baseData.getAvailable(BaseConstant.TOKEN_SIF);
         BigDecimal availableExternal = baseData.getAvailable(exteranlDenom);
         WUtil.dpSifTokenName(context, baseData, itemMyAvailableSymbol0, BaseConstant.TOKEN_SIF);
         WUtil.dpSifTokenName(context, baseData, itemMyAvailableSymbol1, exteranlDenom);
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
+        itemMyAvailableAmount0.setText(WDp.getDpAmount2(availableRowan, rowanDecimal, 6));
+        itemMyAvailableAmount1.setText(WDp.getDpAmount2(availableExternal, externalDecimal, 6));
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override

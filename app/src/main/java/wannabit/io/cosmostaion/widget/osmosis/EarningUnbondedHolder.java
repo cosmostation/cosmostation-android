@@ -63,10 +63,10 @@ public class EarningUnbondedHolder extends RecyclerView.ViewHolder {
 
         itemLockId.setText("# " + lockup.getID());
 
-        itemAmount.setText(WDp.getDpAmount2(c, myShare, 18, 18));
+        itemAmount.setText(WDp.getDpAmount2(myShare, 18, 18));
         itemAmountDenom.setText("GAMM-" + pool.getId());
         itemAmountValue.setText(WDp.getDpRawDollor(c, myLpCoinValue, 2));
-        itemRewardAmount.setText(WDp.getDpAmount2(c, myReward, 6, 6));
+        itemRewardAmount.setText(WDp.getDpAmount2(myReward, 6, 6));
 
         mBtnUnLock.setOnClickListener(new View.OnClickListener() {
             @Override

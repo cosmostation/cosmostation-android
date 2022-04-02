@@ -92,7 +92,7 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
                 setDisplayDecimals(mDpDecimal);
             }
             mMaxAvailable = mCw20Assets.getAmount();
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+            mAvailableAmount.setText(WDp.getDpAmount2(mMaxAvailable, mDpDecimal, mDpDecimal));
             mDenomTitle.setText(mCw20Assets.denom.toUpperCase());
             onAddAmountWatcher();
         }

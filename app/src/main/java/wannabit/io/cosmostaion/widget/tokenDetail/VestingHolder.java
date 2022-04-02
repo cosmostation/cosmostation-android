@@ -71,30 +71,30 @@ public class VestingHolder extends BaseHolder {
 
         mVestingTime0.setText(WDp.getDpTime(c, vps.get(0).getLength()));
         mVestingGap0.setText(WDp.getUnbondingTimeleft(c, vps.get(0).getLength()));
-        mVestingAmount0.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(0), denom), 6, 6));
+        mVestingAmount0.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(0), denom), 6, 6));
         if (vps.size() > 1) {
             mVestingLayer1.setVisibility(View.VISIBLE);
             mVestingTime1.setText(WDp.getDpTime(c, vps.get(1).getLength()));
             mVestingGap1.setText(WDp.getUnbondingTimeleft(c, vps.get(1).getLength()));
-            mVestingAmount1.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(1), denom), 6, 6));
+            mVestingAmount1.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(1), denom), 6, 6));
         }
         if (vps.size() > 2) {
             mVestingLayer2.setVisibility(View.VISIBLE);
             mVestingTime2.setText(WDp.getDpTime(c, vps.get(2).getLength()));
             mVestingGap2.setText(WDp.getUnbondingTimeleft(c, vps.get(2).getLength()));
-            mVestingAmount2.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(2), denom), 6, 6));
+            mVestingAmount2.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(2), denom), 6, 6));
         }
         if (vps.size() > 3) {
             mVestingLayer3.setVisibility(View.VISIBLE);
             mVestingTime3.setText(WDp.getDpTime(c, vps.get(3).getLength()));
             mVestingGap3.setText(WDp.getUnbondingTimeleft(c, vps.get(3).getLength()));
-            mVestingAmount3.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(3), denom), 6, 6));
+            mVestingAmount3.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(3), denom), 6, 6));
         }
         if (vps.size() > 4) {
             mVestingLayer4.setVisibility(View.VISIBLE);
             mVestingTime4.setText(WDp.getDpTime(c, vps.get(4).getLength()));
             mVestingGap4.setText(WDp.getUnbondingTimeleft(c, vps.get(4).getLength()));
-            mVestingAmount4.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(4), denom), 6, 6));
+            mVestingAmount4.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(4), denom), 6, 6));
         }
     }
 }

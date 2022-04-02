@@ -38,7 +38,7 @@ public class TxStarnameReplaceResourceHolder extends TxHolder {
             itemStarname.setText(msg.getName() + "*" + msg.getDomain());
 
             BigDecimal starnameFee = baseData.getReplaceFee();
-            itemStarnameFee.setText(WDp.getDpAmount2(c, starnameFee, 6, 6));
+            itemStarnameFee.setText(WDp.getDpAmount2(starnameFee, 6, 6));
 
             List<Types.Resource> resources = msg.getNewResourcesList();
             if (resources == null || resources.size() == 0) {

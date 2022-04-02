@@ -67,7 +67,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     public void onRefreshTab() {
         mIncentiveParam = getBaseDao().mIncentiveParam5;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mFee.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mFee.setText(WDp.getDpAmount2(feeAmount, 6, 6));
 
         BigDecimal kavaIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_KAVA);
         BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_HARD);
@@ -86,9 +86,9 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
             swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 1)).setScale(0, RoundingMode.DOWN);
         }
 
-        mKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveAmount, 6, 6));
-        mHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveAmount, 6, 6));
-        mSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveAmount, 6, 6));
+        mKavaAmount.setText(WDp.getDpAmount2(kavaIncentiveAmount, 6, 6));
+        mHardAmount.setText(WDp.getDpAmount2(hardIncentiveAmount, 6, 6));
+        mSwpAmount.setText(WDp.getDpAmount2(swpIncentiveAmount, 6, 6));
         mMemo.setText(getSActivity().mTxMemo);
     }
 

@@ -37,7 +37,7 @@ public class TxCreateDeploymentHolder extends TxHolder {
         try {
             DeploymentOuterClass.MsgCreateDeployment msg = DeploymentOuterClass.MsgCreateDeployment.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemCreateDeploymentId.setText("" + msg.getId().getOwner());
-            itemCreateDeploymentDeposit.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getDeposit().getAmount()), dpDecimal, dpDecimal));
+            itemCreateDeploymentDeposit.setText(WDp.getDpAmount2(new BigDecimal(msg.getDeposit().getAmount()), dpDecimal, dpDecimal));
         } catch (Exception e) {
         }
     }

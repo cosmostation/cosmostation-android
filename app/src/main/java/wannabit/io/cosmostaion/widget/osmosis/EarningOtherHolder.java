@@ -60,7 +60,7 @@ public class EarningOtherHolder extends RecyclerView.ViewHolder {
         //display available
         BigDecimal availableAmount = baseData.getAvailable("gamm/pool/" + pool.getId());
         BigDecimal availableValue = availableAmount.multiply(lpCoinPrice).movePointLeft(18).setScale(2, RoundingMode.DOWN);
-        itemAvailableAmount.setText(WDp.getDpAmount2(c, availableAmount, 18, 6));
+        itemAvailableAmount.setText(WDp.getDpAmount2(availableAmount, 18, 6));
         itemAvailableDenom.setText("GAMM-" + pool.getId());
         itemAvailableValue.setText(WDp.getDpRawDollor(c, availableValue, 2));
 

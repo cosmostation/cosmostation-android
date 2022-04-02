@@ -66,7 +66,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
 
         BigDecimal dpPrice = new BigDecimal(msg.getPrice()).movePointLeft(8);
         BigDecimal dpAmount = new BigDecimal(msg.getQuantity()).movePointLeft(8);
-        price_tv.setText(WDp.getDpAmount2(getContext(), new BigDecimal(msg.getPrice()), 8, 8));
+        price_tv.setText(WDp.getDpAmount2(new BigDecimal(msg.getPrice()), 8, 8));
 
         if (rawMsg.get("side").getAsLong() == 1L) {
             side_tv.setText("BUY");
@@ -82,8 +82,8 @@ public class Dialog_Wc_Trade extends DialogFragment {
             fromCoinSymbol.setText(pair_denom[1].split("-")[0]);
             toCoinSymbol.setText(pair_denom[0].split("-")[0]);
 
-            fromCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount.multiply(dpPrice), 0, 8));
-            toCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount, 0, 8));
+            fromCoinAmount.setText(WDp.getDpAmount2(dpAmount.multiply(dpPrice), 0, 8));
+            toCoinAmount.setText(WDp.getDpAmount2(dpAmount, 0, 8));
 
         } else if (rawMsg.get("side").getAsLong() == 2L) {
             side_tv.setText("SELL");
@@ -99,8 +99,8 @@ public class Dialog_Wc_Trade extends DialogFragment {
             fromCoinSymbol.setText(pair_denom[0].split("-")[0]);
             toCoinSymbol.setText(pair_denom[1].split("-")[0]);
 
-            fromCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount, 0, 8));
-            toCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount.multiply(dpPrice), 0, 8));
+            fromCoinAmount.setText(WDp.getDpAmount2(dpAmount, 0, 8));
+            toCoinAmount.setText(WDp.getDpAmount2(dpAmount.multiply(dpPrice), 0, 8));
 
         }
 

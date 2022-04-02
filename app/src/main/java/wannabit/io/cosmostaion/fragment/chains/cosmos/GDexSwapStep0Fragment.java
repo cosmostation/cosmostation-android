@@ -121,7 +121,7 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
         mAvailableMaxAmount = mAvailableMaxAmount.multiply(new BigDecimal("0.9985"));
-        mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
+        mSwapAvailAmount.setText(WDp.getDpAmount2(mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
         WUtil.dpCosmosTokenName(getContext(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
         WUtil.dpCosmosTokenName(getContext(), getBaseDao(), mSwapInputSymbol, getSActivity().mInputDenom);

@@ -66,7 +66,7 @@ public class TxIBCReceiveHolder extends TxHolder {
                 divideDecimal = WDp.mainDivideDecimal(denom);
                 itemIbcAmountDenom.setText(denom.toUpperCase());
             }
-            itemIbcAmount.setText(WDp.getDpAmount2(c, new BigDecimal(jsonObject.getString("amount")), divideDecimal, divideDecimal));
+            itemIbcAmount.setText(WDp.getDpAmount2(new BigDecimal(jsonObject.getString("amount")), divideDecimal, divideDecimal));
 
         } catch (Exception e) {
         }

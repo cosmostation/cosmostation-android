@@ -43,8 +43,8 @@ public class TxCreateBidHolder extends TxHolder {
             BidOuterClass.MsgCreateBid msg = BidOuterClass.MsgCreateBid.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemOwner.setText(msg.getOrder().getOwner());
             itemProvider.setText(msg.getProvider());
-            itemCreateBidPrice.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getPrice().getAmount()), dpDecimal, dpDecimal));
-            itemCreateBidDeposit.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getDeposit().getAmount()), dpDecimal, dpDecimal));
+            itemCreateBidPrice.setText(WDp.getDpAmount2(new BigDecimal(msg.getPrice().getAmount()), dpDecimal, dpDecimal));
+            itemCreateBidDeposit.setText(WDp.getDpAmount2(new BigDecimal(msg.getDeposit().getAmount()), dpDecimal, dpDecimal));
         } catch (Exception e) {
         }
     }

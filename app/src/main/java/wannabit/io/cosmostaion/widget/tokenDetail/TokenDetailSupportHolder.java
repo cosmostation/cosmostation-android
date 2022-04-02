@@ -93,17 +93,17 @@ public class TokenDetailSupportHolder extends BaseHolder {
 
             mAvailableAmount = baseData.getAvailable(denom);
             BigDecimal vestingAmount = baseData.getVesting(denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+            mTvTotal.setText(WDp.getDpAmount2(mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
+            mTvAvailable.setText(WDp.getDpAmount2(mAvailableAmount, dpDecimal, dpDecimal));
             if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
                 mVestingLayout.setVisibility(View.VISIBLE);
-                mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
+                mTvVesting.setText(WDp.getDpAmount2(vestingAmount, dpDecimal, dpDecimal));
             }
         } else {
             dpDecimal = 6;
             mAvailableAmount = baseData.getAvailable(denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+            mTvTotal.setText(WDp.getDpAmount2(mAvailableAmount, dpDecimal, dpDecimal));
+            mTvAvailable.setText(WDp.getDpAmount2(mAvailableAmount, dpDecimal, dpDecimal));
         }
     }
 
@@ -114,8 +114,8 @@ public class TokenDetailSupportHolder extends BaseHolder {
             dpDecimal = 18;
         }
         mAvailableAmount = baseData.getAvailable(denom);
-        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+        mTvTotal.setText(WDp.getDpAmount2(mAvailableAmount, dpDecimal, dpDecimal));
+        mTvAvailable.setText(WDp.getDpAmount2(mAvailableAmount, dpDecimal, dpDecimal));
     }
 
     public void onBindKavaToken(Context c, BaseData baseData, String denom) {
@@ -130,11 +130,11 @@ public class TokenDetailSupportHolder extends BaseHolder {
         }
 
         BigDecimal vestingAmount = baseData.lockedAmount(denom);
-        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+        mTvTotal.setText(WDp.getDpAmount2(mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
+        mTvAvailable.setText(WDp.getDpAmount2(mAvailableAmount, dpDecimal, dpDecimal));
         if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
             mVestingLayout.setVisibility(View.VISIBLE);
-            mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
+            mTvVesting.setText(WDp.getDpAmount2(vestingAmount, dpDecimal, dpDecimal));
         }
 
     }
@@ -148,10 +148,10 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mAvailableAmount = baseData.availableAmount(denom);
         final BigDecimal lockedAmount = baseData.lockedAmount(denom);
         final BigDecimal frozenAmount = baseData.frozenAmount(denom);
-        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, 0, 8));
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, 0, 8));
-        mTvLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 8));
-        mTvFrozen.setText(WDp.getDpAmount2(c, frozenAmount, 0, 8));
+        mTvTotal.setText(WDp.getDpAmount2(mAvailableAmount, 0, 8));
+        mTvAvailable.setText(WDp.getDpAmount2(mAvailableAmount, 0, 8));
+        mTvLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 8));
+        mTvFrozen.setText(WDp.getDpAmount2(frozenAmount, 0, 8));
     }
 
     public void onBindOKTokens(Context c, BaseData baseData, String denom) {
@@ -163,17 +163,17 @@ public class TokenDetailSupportHolder extends BaseHolder {
         final BigDecimal lockedAmount = baseData.lockedAmount(denom);
         final BigDecimal totalAmount = mAvailableAmount.add(lockedAmount);
 
-        mTvTotal.setText(WDp.getDpAmount2(c, totalAmount, 0, 18));
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, 0, 18));
-        mTvLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 18));
+        mTvTotal.setText(WDp.getDpAmount2(totalAmount, 0, 18));
+        mTvAvailable.setText(WDp.getDpAmount2(mAvailableAmount, 0, 18));
+        mTvLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 18));
     }
 
     public void onBindBridgeToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
         final Assets assets = baseData.getAsset(denom);
         if (assets != null) {
             mAvailableAmount = baseData.getAvailable(assets.denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, assets.decimal, assets.decimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, assets.decimal, assets.decimal));
+            mTvTotal.setText(WDp.getDpAmount2(mAvailableAmount, assets.decimal, assets.decimal));
+            mTvAvailable.setText(WDp.getDpAmount2(mAvailableAmount, assets.decimal, assets.decimal));
         }
     }
 
@@ -215,8 +215,8 @@ public class TokenDetailSupportHolder extends BaseHolder {
     public void onBindCw20Token(Context c, BaseChain baseChain, BaseData baseData, Cw20Assets asset) {
         if (asset != null) {
             mAvailableAmount = asset.getAmount();
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));
+            mTvTotal.setText(WDp.getDpAmount2(mAvailableAmount, asset.decimal, asset.decimal));
+            mTvAvailable.setText(WDp.getDpAmount2(mAvailableAmount, asset.decimal, asset.decimal));
         }
     }
 }

@@ -130,7 +130,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         BigDecimal availableAmount = getBaseDao().getAvailable("gamm/pool/" + mPool.getId());
         BigDecimal availableValue = availableAmount.multiply(lpCoinPrice).movePointLeft(18).setScale(2, RoundingMode.DOWN);
-        mAvailableAmountTv.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 18, 18));
+        mAvailableAmountTv.setText(WDp.getDpAmount2(availableAmount, 18, 18));
         mAvailableDenomTv.setText("GAMM-" + mPool.getId());
         mAvailableValueTv.setText(WDp.getDpRawDollor(getBaseContext(), availableValue, 2));
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -64,13 +65,10 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         mSortType = rootView.findViewById(R.id.token_sort_type);
         mBtnSort = rootView.findViewById(R.id.btn_validator_sort);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getMainActivity().onFetchAllData();
-                mMyValidatorAdapter.notifyDataSetChanged();
-            }
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(rootView.getContext(), R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            getMainActivity().onFetchAllData();
+            mMyValidatorAdapter.notifyDataSetChanged();
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -153,11 +151,11 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
                 if (getMainActivity().mBaseChain.isGRPC()) {
                     final BigDecimal allRewardAmount = getBaseDao().getRewardSum(getMainActivity().mBaseChain.getMainDenom());
-                    holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, dpDecimal, 6));
+                    holder.itemTvAllRewards.setText(WDp.getDpAmount2(allRewardAmount, dpDecimal, 6));
 
                 } else {
                     final BigDecimal allRewardAmount = getBaseDao().rewardAmount(getMainActivity().mBaseChain.getMainDenom());
-                    holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, dpDecimal, 6));
+                    holder.itemTvAllRewards.setText(WDp.getDpAmount2(allRewardAmount, dpDecimal, 6));
                 }
 
                 holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
@@ -183,9 +181,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                     holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(getContext(), delegationAmount, dpDecimal, 6));
-                    holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), undelegationAmount, dpDecimal, 6));
-                    holder.itemTvReward.setText(WDp.getDpAmount2(getContext(), rewardAmount, dpDecimal, 6));
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(delegationAmount, dpDecimal, 6));
+                    holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(undelegationAmount, dpDecimal, 6));
+                    holder.itemTvReward.setText(WDp.getDpAmount2(rewardAmount, dpDecimal, 6));
 
                     if (validator.getJailed()) {
                         holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
@@ -221,9 +219,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                     holder.itemTvMoniker.setText(validator.description.moniker);
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(getContext(), delegationAmount, dpDecimal, 6));
-                    holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), undelegationAmount, dpDecimal, 6));
-                    holder.itemTvReward.setText(WDp.getDpAmount2(getContext(), rewardAmount, dpDecimal, 6));
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(delegationAmount, dpDecimal, 6));
+                    holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(undelegationAmount, dpDecimal, 6));
+                    holder.itemTvReward.setText(WDp.getDpAmount2(rewardAmount, dpDecimal, 6));
 
                     if (validator.jailed) {
                         holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));

@@ -75,12 +75,12 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
 
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinInput0AmountSymbol, InputDenom0), InputAmount0, mJoinInput0AmountSymbol, mJoinInput0Amount, BaseChain.COSMOS_MAIN);
         WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinInput1AmountSymbol, InputDenom1), InputAmount1, mJoinInput1AmountSymbol, mJoinInput1Amount, BaseChain.COSMOS_MAIN);
         mLpAmountSymbol.setText("GDEX-" + getSActivity().mGDexPoolId);
-        mLpAmount.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(getSActivity().mLpToken.amount), 6, 6));
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mLpAmount.setText(WDp.getDpAmount2(new BigDecimal(getSActivity().mLpToken.amount), 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mMemo.setText(getSActivity().mTxMemo);
     }
 

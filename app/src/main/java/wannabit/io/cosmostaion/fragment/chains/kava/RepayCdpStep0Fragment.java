@@ -187,7 +187,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(getBaseDao(), cDenom), RoundingMode.DOWN);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
         WDp.DpRiskRate3(getContext(), mBeforeRiskRate, mBeforeRiskScore, mBeforeRisk);
-        mBeforePrincipalAmount.setText(WDp.getDpAmount2(getContext(), mCurrentTotalDebetAmount, WUtil.getKavaCoinDecimal(getBaseDao(), pDenom), WUtil.getKavaCoinDecimal(getBaseDao(), pDenom)));
+        mBeforePrincipalAmount.setText(WDp.getDpAmount2(mCurrentTotalDebetAmount, WUtil.getKavaCoinDecimal(getBaseDao(), pDenom), WUtil.getKavaCoinDecimal(getBaseDao(), pDenom)));
 
         mPrincipalInput.addTextChangedListener(new TextWatcher() {
             @Override

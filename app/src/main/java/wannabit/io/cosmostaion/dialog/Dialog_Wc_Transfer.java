@@ -66,7 +66,7 @@ public class Dialog_Wc_Transfer extends DialogFragment {
                     .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
                     .into(send_coin_icon);
             send_coin_symbol.setText(dpDenom);
-            send_coin_amount.setText(WDp.getDpAmount2(getContext(), dpAmount, 0, 8));
+            send_coin_amount.setText(WDp.getDpAmount2(dpAmount, 0, 8));
             to_memo.setText(getArguments().getString("memo"));
         }
 

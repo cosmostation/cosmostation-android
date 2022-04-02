@@ -70,12 +70,12 @@ public class WalletChainHolder extends BaseHolder {
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
-        mTvChainTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, decimal, 6));
-        mTvChainAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, decimal, 6));
-        mTvChainVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, decimal, 6));
-        mTvChainDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, decimal, 6));
-        mTvChainUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, decimal, 6));
-        mTvChainRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, decimal, 6));
+        mTvChainTotal.setText(WDp.getDpAmount2(totalAmount, decimal, 6));
+        mTvChainAvailable.setText(WDp.getDpAmount2(availableAmount, decimal, 6));
+        mTvChainVesting.setText(WDp.getDpAmount2(vestingAmount, decimal, 6));
+        mTvChainDelegated.setText(WDp.getDpAmount2(delegateAmount, decimal, 6));
+        mTvChainUnBonding.setText(WDp.getDpAmount2(unbondingAmount, decimal, 6));
+        mTvChainRewards.setText(WDp.getDpAmount2(rewardAmount, decimal, 6));
         mTvChainValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, decimal));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {

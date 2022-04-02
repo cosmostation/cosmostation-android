@@ -71,7 +71,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         for (String opAddress : getSActivity().mValAddresses) {
             rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
         }
-        mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
+        mTvRewardAmount.setText(WDp.getDpAmount2(rewardSum, mDpDecimal, mDpDecimal));
         String monikers = "";
         for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
             boolean isMatch = false;

@@ -55,8 +55,8 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
         BigDecimal starNameFee = getBaseDao().getReplaceFee();
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-        mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 6, 6));
+        mStarnameFeeAmount.setText(WDp.getDpAmount2(starNameFee, 6, 6));
         mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mAccountResolve_gRPC.getValidUntil() * 1000));
 
         if (getSActivity().mIsDomain) {

@@ -49,7 +49,7 @@ public class SifIncentiveStep0Frament extends BaseFragment implements View.OnCli
 
         if (getBaseDao().mSifLmIncentive != null) {
             BigDecimal lmCurrentAmount = new BigDecimal(getBaseDao().mSifLmIncentive.totalClaimableCommissionsAndClaimableRewards);
-            mIncentiveAmount.setText(WDp.getDpAmount2(getSActivity(), lmCurrentAmount, 0, 6));
+            mIncentiveAmount.setText(WDp.getDpAmount2(lmCurrentAmount, 0, 6));
             mIncentiveType.setText("liquidityMining");
         }
         return rootView;

@@ -123,8 +123,8 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             }
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
 
-            mSendAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount, 0, 8));
-            mSendFeeAmountTv.setText(WDp.getDpAmount2(getContext(), sendFeeAmount, 0, 8));
+            mSendAmountTv.setText(WDp.getDpAmount2(toSendAmount, 0, 8));
+            mSendFeeAmountTv.setText(WDp.getDpAmount2(sendFeeAmount, 0, 8));
             mReceiveChainTv.setText(WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
 
@@ -133,8 +133,8 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             mSendDenomTv.setText(getSActivity().mToSwapDenom.toUpperCase());
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
 
-            mSendAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount, mDecimal, mDecimal));
-            mSendFeeAmountTv.setText(WDp.getDpAmount2(getContext(), sendFeeAmount, 6, 6));
+            mSendAmountTv.setText(WDp.getDpAmount2(toSendAmount, mDecimal, mDecimal));
+            mSendFeeAmountTv.setText(WDp.getDpAmount2(sendFeeAmount, 6, 6));
             mReceiveChainTv.setText(WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
         }
@@ -160,9 +160,9 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             WDp.DpMainDenom(getContext(), getSActivity().mRecipientChain.getChain(), mClaimFeeDenomTv);
 
             BigDecimal relayFee = getSActivity().mKavaBep3Param2.getSupportedSwapAssetFee(getSActivity().mToSwapDenom);
-            mReceiveAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount.subtract(relayFee), mDecimal, mDecimal));
-            mRelayFeeAmountTv.setText(WDp.getDpAmount2(getContext(), relayFee, mDecimal, mDecimal));
-            mClaimFeeAmountTv.setText(WDp.getDpAmount2(getContext(), claimFeeAmount, 0, mDecimal));
+            mReceiveAmountTv.setText(WDp.getDpAmount2(toSendAmount.subtract(relayFee), mDecimal, mDecimal));
+            mRelayFeeAmountTv.setText(WDp.getDpAmount2(relayFee, mDecimal, mDecimal));
+            mClaimFeeAmountTv.setText(WDp.getDpAmount2(claimFeeAmount, 0, mDecimal));
             mClaimAddressTv.setText(getSActivity().mRecipientAccount.address);
 
 
@@ -183,9 +183,9 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             WDp.DpMainDenom(getContext(), getSActivity().mRecipientChain.getChain(), mClaimFeeDenomTv);
 
             BigDecimal relayFee = getSActivity().mKavaBep3Param2.getSupportedSwapAssetFee(getSActivity().mToSwapDenom).movePointLeft(8);
-            mReceiveAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount.subtract(relayFee), 0, 8));
-            mRelayFeeAmountTv.setText(WDp.getDpAmount2(getContext(), relayFee, 0, 8));
-            mClaimFeeAmountTv.setText(WDp.getDpAmount2(getContext(), claimFeeAmount, 6, 6));
+            mReceiveAmountTv.setText(WDp.getDpAmount2(toSendAmount.subtract(relayFee), 0, 8));
+            mRelayFeeAmountTv.setText(WDp.getDpAmount2(relayFee, 0, 8));
+            mClaimFeeAmountTv.setText(WDp.getDpAmount2(claimFeeAmount, 6, 6));
             mClaimAddressTv.setText(getSActivity().mRecipientAccount.address);
 
         }

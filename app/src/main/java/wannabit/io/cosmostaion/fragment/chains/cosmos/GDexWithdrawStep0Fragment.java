@@ -105,7 +105,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
         WUtil.DpCosmosTokenImg(getBaseDao(), mLpCoinImg, lpDenom);
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mLpCoinSymbol, lpDenom);
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mLpCoinDenom, lpDenom);
-        mLpCoinAmount.setText(WDp.getDpAmount2(getSActivity(), mAvailableMaxAmount, mCoinDecimal, mCoinDecimal));
+        mLpCoinAmount.setText(WDp.getDpAmount2(mAvailableMaxAmount, mCoinDecimal, mCoinDecimal));
 
         onAddAmountWatcher();
     }
