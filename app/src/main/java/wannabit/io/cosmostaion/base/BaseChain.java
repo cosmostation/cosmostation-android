@@ -33,6 +33,7 @@ public enum BaseChain {
             R.drawable.box_round_atom,
             R.string.str_atom_c,
             "7.6597",
+            "https://api.cosmostation.io/",
             true,
             false
     ),
@@ -47,6 +48,7 @@ public enum BaseChain {
             R.drawable.imversed_token_img,
             R.drawable.box_round_imversed,
             R.string.str_imversed_c,
+            "",
             "",
             true,
             false
@@ -63,6 +65,7 @@ public enum BaseChain {
             R.drawable.box_round_iris,
             R.string.str_iris_c,
             "6.7884",
+            "https://api-iris.cosmostation.io/",
             true,
             false
     ),
@@ -78,6 +81,7 @@ public enum BaseChain {
             R.drawable.box_round_iov,
             R.string.str_iov_c,
             "6.0124",
+            "https://api-iov.cosmostation.io/",
             true,
             false
     ),
@@ -93,6 +97,7 @@ public enum BaseChain {
             R.drawable.box_round_bnb,
             R.string.str_bnb_c,
             "0.4124",
+            "",
             true,
             false,
             false
@@ -109,6 +114,7 @@ public enum BaseChain {
             R.drawable.box_round_kava,
             R.string.str_kava_c,
             "6.7262",
+            "https://api-kava.cosmostation.io/",
             true,
             false
     ),
@@ -124,6 +130,7 @@ public enum BaseChain {
             R.drawable.box_round_band,
             R.string.str_band_c,
             "3.0236",
+            "https://api-band.cosmostation.io/",
             true,
             false
     ),
@@ -139,6 +146,7 @@ public enum BaseChain {
             R.drawable.box_round_certik,
             R.string.str_ctk_c,
             "5.9740",
+            "https://api-certik.cosmostation.io/",
             true,
             false
     ),
@@ -154,6 +162,7 @@ public enum BaseChain {
             R.drawable.box_round_secret,
             R.string.str_scrt_c,
             "6.0408",
+            "https://api-secret.cosmostation.io/",
             true,
             false
     ),
@@ -169,6 +178,7 @@ public enum BaseChain {
             R.drawable.box_round_akash,
             R.string.str_akt_c,
             "6.4526",
+            "https://api-akash.cosmostation.io/",
             true,
             false
     ),
@@ -184,6 +194,7 @@ public enum BaseChain {
             R.drawable.box_round_okex,
             R.string.str_ok_c,
             "4.0286",
+            "",
             true,
             false,
             false
@@ -200,6 +211,7 @@ public enum BaseChain {
             R.drawable.box_round_persis,
             R.string.str_xprt_c,
             "5.7982",
+            "https://api-persistence.cosmostation.io/",
             true,
             false
     ),
@@ -215,6 +227,7 @@ public enum BaseChain {
             R.drawable.box_round_sentinel,
             R.string.str_dvpn_c,
             "6.3113",
+            "https://api-sentinel.cosmostation.io/",
             true,
             false
     ),
@@ -230,6 +243,7 @@ public enum BaseChain {
             R.drawable.box_round_fetch,
             R.string.str_fet_c,
             "6.0678",
+            "https://api-fetchai.cosmostation.io/",
             true,
             false
     ),
@@ -245,6 +259,7 @@ public enum BaseChain {
             R.drawable.box_round_cryto,
             R.string.str_cro_c,
             "6.1939",
+            "https://api-cryptocom.cosmostation.io/",
             true,
             false
     ),
@@ -260,6 +275,7 @@ public enum BaseChain {
             R.drawable.box_round_sif,
             R.string.str_sif_c,
             "5.7246",
+            "https://api-sifchain.cosmostation.io/",
             true,
             false
     ),
@@ -275,6 +291,7 @@ public enum BaseChain {
             R.drawable.box_round_ki,
             R.string.str_ki_c,
             "5.7571",
+            "https://api-kichain.cosmostation.io/",
             true,
             false
     ),
@@ -290,6 +307,7 @@ public enum BaseChain {
             R.drawable.box_round_osmosis,
             R.string.str_osmosis_c,
             "6.5324",
+            "https://api-osmosis.cosmostation.io/",
             true,
             false
     ),
@@ -305,6 +323,7 @@ public enum BaseChain {
             R.drawable.box_round_medi,
             R.string.str_medi_c,
             "5.7849",
+            "https://api-medibloc.cosmostation.io/",
             true,
             false
     ),
@@ -320,6 +339,7 @@ public enum BaseChain {
             R.drawable.box_round_emoney,
             R.string.str_ngm_c,
             "24.8486",
+            "https://api-emoney.cosmostation.io/",
             true,
             false
     ),
@@ -335,6 +355,7 @@ public enum BaseChain {
             R.drawable.box_round_rizon,
             R.string.str_rizon_c,
             "5.8850",
+            "https://api-rizon.cosmostation.io/",
             true,
             false
     ),
@@ -350,6 +371,7 @@ public enum BaseChain {
             R.drawable.box_round_juno,
             R.string.str_juno_c,
             "6.3104",
+            "https://api-juno.cosmostation.io/",
             true,
             false
     ),
@@ -365,6 +387,7 @@ public enum BaseChain {
             R.drawable.box_round_regen,
             R.string.str_regen_c,
             "6.2491",
+            "https://api-regen.cosmostation.io/",
             true,
             false
     ),
@@ -380,6 +403,7 @@ public enum BaseChain {
             R.drawable.box_round_bitcanna,
             R.string.str_bitcanna_c,
             "6.0256",
+            "https://api-bitcanna.cosmostation.io/",
             true,
             false
     ),
@@ -395,6 +419,7 @@ public enum BaseChain {
             R.drawable.box_round_althea,
             R.string.str_althea_c,
             "",
+            "https://api-althea.cosmostation.io/",
             false,
             false
     ),
@@ -410,6 +435,7 @@ public enum BaseChain {
             R.drawable.box_round_stargaze,
             R.string.str_stargaze_c,
             "5.8129",
+            "https://api-stargaze.cosmostation.io/",
             true,
             false
     ),
@@ -425,6 +451,7 @@ public enum BaseChain {
             R.drawable.box_round_grabridge,
             R.string.str_grabridge_c,
             "6.4500",
+            "https://api-gravity-bridge.cosmostation.io/",
             true,
             false
     ),
@@ -440,6 +467,7 @@ public enum BaseChain {
             R.drawable.box_round_comdex,
             R.string.str_comdex_c,
             "6.1746",
+            "https://api-comdex.cosmostation.io/",
             true,
             false
     ),
@@ -455,6 +483,7 @@ public enum BaseChain {
             R.drawable.box_round_inj,
             R.string.str_inj_c,
             "2.4865",
+            "https://api-inj.cosmostation.io/",
             true,
             false
     ),
@@ -470,6 +499,7 @@ public enum BaseChain {
             R.drawable.box_round_bitsong,
             R.string.str_bitsong_c,
             "5.9040",
+            "https://api-bitsong.cosmostation.io/",
             true,
             false
     ),
@@ -485,6 +515,7 @@ public enum BaseChain {
             R.drawable.box_round_desmos,
             R.string.str_desmos_c,
             "6.1605",
+            "https://api-desmos.cosmostation.io/",
             true,
             false
     ),
@@ -500,6 +531,7 @@ public enum BaseChain {
             R.drawable.box_round_lum,
             R.string.str_lum_c,
             "5.7210",
+            "https://api-lum.cosmostation.io/",
             true,
             false
     ),
@@ -515,6 +547,7 @@ public enum BaseChain {
             R.drawable.box_round_chihuahua,
             R.string.str_chihuahua_c,
             "5.8172",
+            "https://api-chihuahua.cosmostation.io/",
             true,
             false
     ),
@@ -530,6 +563,7 @@ public enum BaseChain {
             R.drawable.box_round_axelar,
             R.string.str_axl_c,
             "5.5596",
+            "https://api-axelar.cosmostation.io/",
             true,
             false
     ),
@@ -545,6 +579,7 @@ public enum BaseChain {
             R.drawable.box_round_konstellattion,
             R.string.str_konstellation_c,
             "5.376",
+            "https://api-konstellation.cosmostation.io/",
             true,
             false
     ),
@@ -560,6 +595,7 @@ public enum BaseChain {
             R.drawable.box_round_umee,
             R.string.str_umee_c,
             "5.658",
+            "https://api-umee.cosmostation.io/",
             true,
             false
     ),
@@ -575,6 +611,7 @@ public enum BaseChain {
             R.drawable.box_round_evmos,
             R.string.str_evmos_c,
             "5.824",
+            "https://api-evmos.cosmostation.io/",
             true,
             false
     ),
@@ -590,6 +627,7 @@ public enum BaseChain {
             R.drawable.box_round_cudos,
             R.string.str_cudos_c,
             "",
+            "https://api-cudos-testnet.cosmostation.io/",
             false,
             true
     ),
@@ -605,6 +643,7 @@ public enum BaseChain {
             R.drawable.box_round_provenance,
             R.string.str_provenance_c,
             "6.3061",
+            "https://api-provenance.cosmostation.io/",
             true,
             false
     ),
@@ -620,6 +659,7 @@ public enum BaseChain {
             R.drawable.box_round_cerberus,
             R.string.str_cerberus_c,
             "5.9666",
+            "https://api-cerberus.cosmostation.io/",
             true,
             false
     ),
@@ -635,6 +675,7 @@ public enum BaseChain {
             R.drawable.box_round_omniflix,
             R.string.str_omniflix_c,
             "5.7970",
+            "https://api-omniflix.cosmostation.io/",
             true,
             false
     ),
@@ -651,6 +692,7 @@ public enum BaseChain {
             R.drawable.box_round_atom,
             R.string.str_muon_c,
             "7.6597",
+            "https://api-office.cosmostation.io/stargate-final/",
             false,
             true
     ),
@@ -666,6 +708,7 @@ public enum BaseChain {
             R.drawable.box_round_darkgray,
             R.string.str_bif_c,
             "6.7884",
+            "https://api-office.cosmostation.io/bifrost/",
             false,
             true
     ),
@@ -680,6 +723,7 @@ public enum BaseChain {
             R.drawable.token_okx,
             R.drawable.box_round_okex,
             R.string.str_ok_c,
+            "",
             "",
             false,
             true
@@ -696,6 +740,7 @@ public enum BaseChain {
             R.drawable.box_round_rizon,
             R.string.str_rizon_c,
             "",
+            "https://api-rizon-testnet.cosmostation.io/",
             false,
             true
     ),
@@ -711,6 +756,7 @@ public enum BaseChain {
             R.drawable.box_round_darkgray,
             R.string.str_althea_c,
             "",
+            "https://api-office.cosmostation.io/althea-testnet2v1/",
             false,
             true
     );
@@ -722,6 +768,7 @@ public enum BaseChain {
     private final String[] aliases;
     private final String ticker;
     private final String blockTime;
+    private final String historyApiUrl;
     private final boolean isSupported;
     private final boolean isTestNet;
     private final boolean isGRPC;
@@ -740,7 +787,7 @@ public enum BaseChain {
     /*
     names: String - format "{main chain name}, aliases"
     */
-    BaseChain(final String names, final int chainIcon, final int chainTitle, final String mainDenom, final String fullNameCoin, final String ticker, final int denomColor, final int coinIcon, final int mnemonicBackground, final int symbolTitle, final String blockTime, final boolean isSupported, final boolean isTestNet) {
+    BaseChain(final String names, final int chainIcon, final int chainTitle, final String mainDenom, final String fullNameCoin, final String ticker, final int denomColor, final int coinIcon, final int mnemonicBackground, final int symbolTitle, final String blockTime, final String historyApiUrl, final boolean isSupported, final boolean isTestNet) {
         String[] chunks = names.split(",");
         this.chainName = chunks[0];
         this.aliases = chunks.length > 1 ? Arrays.copyOfRange(chunks, 1, chunks.length) : new String[0];
@@ -754,6 +801,7 @@ public enum BaseChain {
         this.symbolTitle = symbolTitle;
         this.coinIcon = coinIcon;
         this.blockTime = blockTime;
+        this.historyApiUrl = historyApiUrl;
         this.isSupported = isSupported;
         this.isTestNet = isTestNet;
         this.isGRPC = true;
@@ -762,7 +810,7 @@ public enum BaseChain {
     /*
     names: String - format "{main chain name}, aliases"
     */
-    BaseChain(final String names, final int chainIcon, final int chainTitle, final String mainDenom, final String fullNameCoin, final String ticker, final int denomColor, final int coinIcon, final int mnemonicBackground, final int symbolTitle, final String blockTime, final boolean isSupported, final boolean isTestNet, final boolean isGRPC) {
+    BaseChain(final String names, final int chainIcon, final int chainTitle, final String mainDenom, final String fullNameCoin, final String ticker, final int denomColor, final int coinIcon, final int mnemonicBackground, final int symbolTitle, final String blockTime, final String historyApiUrl, final boolean isSupported, final boolean isTestNet, final boolean isGRPC) {
         String[] chunks = names.split(",");
         this.chainName = chunks[0];
         this.aliases = chunks.length > 1 ? Arrays.copyOfRange(chunks, 1, chunks.length) : new String[0];
@@ -776,6 +824,7 @@ public enum BaseChain {
         this.symbolTitle = symbolTitle;
         this.coinIcon = coinIcon;
         this.blockTime = blockTime;
+        this.historyApiUrl = historyApiUrl;
         this.isSupported = isSupported;
         this.isTestNet = isTestNet;
         this.isGRPC = isGRPC;
@@ -811,6 +860,10 @@ public enum BaseChain {
 
     public String getTicker() {
         return ticker;
+    }
+
+    public String getHistoryApiUrl() {
+        return historyApiUrl;
     }
 
     public BigDecimal getBlockTime() {

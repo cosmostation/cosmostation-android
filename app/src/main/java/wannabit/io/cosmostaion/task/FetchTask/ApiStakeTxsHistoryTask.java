@@ -31,7 +31,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            HistoryApi historyApi = ApiClient.getChainHistoryApi(context, chain);
+            HistoryApi historyApi = ApiClient.getChainHistoryApi(chain);
 
             if (historyApi != null) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = historyApi

@@ -9,152 +9,24 @@
     <string name="url_station_testnet" translatable="false">https://api-office.cosmostation.io/utility/</string>
     <string name="url_mintscan" translatable="false">https://api.mintscan.io/</string>
 
-
-    <string name="url_lcd_cosmos_main" translatable="false">https://lcd-cosmos-app-standby.cosmostation.io/</string>
-    <string name="url_api_cosmos_main" translatable="false">https://api.cosmostation.io/</string>
-
-    <string name="url_lcd_cosmos_test" translatable="false">https://lcd-office.cosmostation.io/stargate-final/</string>
-    <string name="url_api_cosmos_test" translatable="false">https://api-office.cosmostation.io/stargate-final/</string>
-
-    <!-- TODO Imversed -->
-    <string name="url_api_imversed_main" translatable="false">https://tx-endpoint.imversed.com/</string>
-
-    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>
-
-    <string name="url_api_iris_test" translatable="false">https://api-office.cosmostation.io/bifrost/</string>
-
-
-    <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
-
-
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
-    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
-
-
     <string name="url_lcd_certik_main" translatable="false">https://lcd-certik-app.cosmostation.io/</string>
 
-
-    <string name="url_api_iov_main" translatable="false">https://api-iov.cosmostation.io/</string>
-
-
-    <string name="url_api_band_main" translatable="false">https://api-band.cosmostation.io/</string>
-
+    <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
 
     <string name="url_lcd_ok" translatable="false">https://exchainrpc.okex.org/okexchain/v1/</string>
     <string name="url_api_ok" translatable="false">https://www.oklink.com/api/explorer/</string>
 
 
-    <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>
-
-
-    <string name="url_api_secret" translatable="false">https://api-secret.cosmostation.io/</string>
-
-
-    <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
-
-
-    <string name="url_api_persis" translatable="false">https://api-persistence.cosmostation.io/</string>
-
-
-    <string name="url_api_sentinel" translatable="false">https://api-sentinel.cosmostation.io/</string>
-
-
-    <string name="url_api_fetch" translatable="false">https://api-fetchai.cosmostation.io/</string>
-
-
-    <string name="url_api_crypto" translatable="false">https://api-cryptocom.cosmostation.io/</string>
-
-
-    <string name="url_api_sif" translatable="false">https://api-sifchain.cosmostation.io/</string>
-
-
-    <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
-
-
-    <string name="url_api_medibloc" translatable="false">https://api-medibloc.cosmostation.io/</string>
-
-
-    <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
-
-
-    <string name="url_api_emoney" translatable="false">https://api-emoney.cosmostation.io/</string>
-
-
-    <string name="url_api_juno" translatable="false">https://api-juno.cosmostation.io/</string>
-
-
-    <string name="url_api_regen" translatable="false">https://api-regen.cosmostation.io/</string>
-
-
-    <string name="url_api_bitcanna" translatable="false">https://api-bitcanna.cosmostation.io/</string>
-
-
-    <string name="url_api_althea" translatable="false">https://api-althea.cosmostation.io/</string>
-
-
-    <string name="url_api_stargaze" translatable="false">https://api-stargaze.cosmostation.io/</string>
-
-
-    <string name="url_api_inj" translatable="false">https://api-inj.cosmostation.io/</string>
-
-
-    <string name="url_api_grabridge" translatable="false">https://api-gravity-bridge.cosmostation.io/</string>
-
-
-    <string name="url_api_comdex" translatable="false">https://api-comdex.cosmostation.io/</string>
-
-
-    <string name="url_api_bitsong" translatable="false">https://api-bitsong.cosmostation.io/</string>
-
-
-    <string name="url_api_desmos" translatable="false">https://api-desmos.cosmostation.io/</string>
     <string name="url_api_airdrop_desmos" translatable="false">https://api.airdrop.desmos.network/</string>
-
-
-    <string name="url_api_lum" translatable="false">https://api-lum.cosmostation.io/</string>
-
-
-    <string name="url_api_chihuahua" translatable="false">https://api-chihuahua.cosmostation.io/</string>
-
-
-    <string name="url_api_axelar" translatable="false">https://api-axelar.cosmostation.io/</string>
-
-
-    <string name="url_api_konstellation" translatable="false">https://api-konstellation.cosmostation.io/</string>
-
-
-    <string name="url_api_umee" translatable="false">https://api-umee.cosmostation.io/</string>
-
-
-    <string name="url_api_evmos" translatable="false">https://api-evmos.cosmostation.io/</string>
-
-
-    <string name="url_api_cudos" translatable="false">https://api-cudos-testnet.cosmostation.io/</string>
-
-
-    <string name="url_api_provenance" translatable="false">https://api-provenance.cosmostation.io/</string>
-
-
-    <string name="url_api_cerberus" translatable="false">https://api-cerberus.cosmostation.io/</string>
-
-
-    <string name="url_api_omniflix" translatable="false">https://api-omniflix.cosmostation.io/</string>
-
 
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
-    <string name="url_api_rizon" translatable="false">https://api-rizon.cosmostation.io/</string>
 
     <string name="url_hdac_testnet" translatable="false">https://insight-api.testnet.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_testnet" translatable="false">https://swap-api.testnet.rizon.world/</string>
-    <string name="url_api_rizon_test" translatable="false">https://api-rizon-testnet.cosmostation.io/</string>
-
 
     <string name="url_hdac" translatable="false">https://wallet.new.hdactech.com/insight-api/</string>
-
-
-    <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
-
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_private" translatable="false">PRIVATE_KEY</string>

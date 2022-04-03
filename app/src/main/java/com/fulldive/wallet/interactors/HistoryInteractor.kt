@@ -22,8 +22,9 @@ class HistoryInteractor @Inject constructor(
         address: String,
         limit: Int = 50
     ): Single<List<ResApiNewTxListCustom>> {
-        val historyApi = ApiClient.getChainHistoryApi(context, chain)
-        return historyApi.getNewAccountTxCustomRx(address, limit)
+        val historyApi = ApiClient.getChainHistoryApi(chain)
+        return historyApi?.getNewAccountTxCustomRx(address, limit)
+            ?: Single.error(Exception("HistoryApi for this chain isn't exists"))
     }
 
     fun getOkAccountTxHistory(
