@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.joom.lightsaber.android'
 
 android {
     compileSdkVersion 31
@@ -119,6 +120,8 @@ dependencies {
     implementation 'org.web3j:core:4.6.0-android'
 
     implementation 'com.github.addisonelliott:SegmentedButton:3.1.9'
+
+    implementation 'com.joom.lightsaber:lightsaber-core-kotlin:1.0.0-alpha13'
 
     implementation "com.github.moxy-community:moxy:2.2.2"
     implementation "com.github.moxy-community:moxy-android:2.2.2"

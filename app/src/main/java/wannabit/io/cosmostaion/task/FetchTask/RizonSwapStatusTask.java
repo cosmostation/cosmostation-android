@@ -18,8 +18,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class RizonSwapStatusTask extends CommonTask {
 
-    private BaseChain mBaseChain;
-    private Account mAccount;
+    private final BaseChain mBaseChain;
+    private final Account mAccount;
 
     public RizonSwapStatusTask(BaseApplication app, TaskListener listener, BaseChain baseChain, Account account) {
         super(app, listener);

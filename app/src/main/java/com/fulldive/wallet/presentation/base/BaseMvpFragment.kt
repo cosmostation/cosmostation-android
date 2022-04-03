@@ -7,14 +7,22 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
+import com.fulldive.wallet.di.IEnrichableActivity
+import com.fulldive.wallet.di.IInjectorHolder
 import com.fulldive.wallet.extensions.toast
+import com.joom.lightsaber.Injector
 import moxy.MvpAppCompatFragment
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.utils.WLog
 
-abstract class BaseMvpFragment<VB : ViewBinding> : MvpAppCompatFragment() {
+abstract class BaseMvpFragment<VB : ViewBinding> : MvpAppCompatFragment(), IInjectorHolder {
+
+    private val appInjector: Injector
+        get() = (activity as IEnrichableActivity).appInjector
 
     protected var binding: VB? = null
+
+    override fun getInjector() = appInjector
 
     abstract fun getViewBinding(): VB
 

@@ -1,14 +1,18 @@
 package com.fulldive.wallet.presentation.main.history
 
 import android.content.Context
+import com.fulldive.wallet.di.modules.DefaultPresentersModule
 import com.fulldive.wallet.extensions.withDefaults
 import com.fulldive.wallet.interactors.HistoryInteractor
 import com.fulldive.wallet.presentation.base.BaseMoxyPresenter
+import com.joom.lightsaber.ProvidedBy
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.utils.WDp
+import javax.inject.Inject
 
-class MainHistoryPresenter(
+@ProvidedBy(DefaultPresentersModule::class)
+class MainHistoryPresenter @Inject constructor(
     context: Context
 ) : BaseMoxyPresenter<MainHistoryMoxyView>() {
     private val historyInteractor = HistoryInteractor(context)

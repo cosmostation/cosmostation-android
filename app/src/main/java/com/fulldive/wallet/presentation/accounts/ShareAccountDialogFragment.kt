@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.fulldive.wallet.extensions.unsafeLazy
 import com.fulldive.wallet.presentation.base.BaseMvpDialogFragment
+import com.joom.lightsaber.getInstance
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 
@@ -21,9 +22,10 @@ class ShareAccountDialogFragment : BaseMvpDialogFragment(), ShareAccountMoxyView
     }
 
     private val presenter by moxyPresenter {
-        ShareAccountPresenter().also {
-            it.address = address
-        }
+        getInjector().getInstance<ShareAccountPresenter>()
+            .also {
+                it.address = address
+            }
     }
 
     override fun onCreateView(

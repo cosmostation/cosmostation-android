@@ -15,9 +15,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 public class PushUpdateTask extends CommonTask {
 
-    private Account mAccount;
-    private String mPushToken;
-    private boolean mEnable;
+    private final Account mAccount;
+    private final String mPushToken;
+    private final boolean mEnable;
 
     public PushUpdateTask(BaseApplication app, TaskListener listener, Account account, String token, boolean enable) {
         super(app, listener);
@@ -33,11 +33,11 @@ public class PushUpdateTask extends CommonTask {
         try {
 
             ReqPushAlarm reqPushAlarm = new ReqPushAlarm();
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+            if (BaseChain.COSMOS_MAIN.hasChainName(mAccount.baseChain)) {
                 reqPushAlarm.chain_id = 1;
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
+            } else if (BaseChain.IRIS_MAIN.hasChainName(mAccount.baseChain)) {
                 reqPushAlarm.chain_id = 2;
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+            } else if (BaseChain.KAVA_MAIN.hasChainName(mAccount.baseChain)) {
                 reqPushAlarm.chain_id = 3;
             }
             reqPushAlarm.device_type = "android";
@@ -46,7 +46,7 @@ public class PushUpdateTask extends CommonTask {
             reqPushAlarm.alarm_status = mEnable;
 
             Response<ResPushAlarm> response = ApiClient.getCosmostationOld(context).updateAlarm(reqPushAlarm).execute();
-            if (response.isSuccessful() && response.body() != null && response.body().result == true) {
+            if (response.isSuccessful() && response.body() != null && response.body().result) {
                 result.isSuccess = true;
             }
 

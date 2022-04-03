@@ -60,6 +60,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationManagerCompat;
@@ -67,9 +68,11 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.fulldive.wallet.di.IEnrichableActivity;
 import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment;
 import com.fulldive.wallet.presentation.system.WaitDialogFragment;
 import com.google.protobuf2.Any;
+import com.joom.lightsaber.Injector;
 import com.shasin.notificationbanner.Banner;
 
 import java.math.BigDecimal;
@@ -161,7 +164,8 @@ import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class BaseActivity extends AppCompatActivity implements TaskListener {
+public class BaseActivity extends AppCompatActivity implements IEnrichableActivity, TaskListener {
+    private Injector injector;
 
     protected BaseApplication mApplication;
     protected BaseData mData;
@@ -176,10 +180,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     private FetchCallBack mFetchCallback;
 
     private CardView mPushBody;
-    private ImageView mPushType, mPushClose;
-    private TextView mPushTitle, mPushMsg;
+    private ImageView mPushClose;
 
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             onDisplayNotification(intent);
@@ -222,7 +225,17 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (mNeedLeaveTime) {
             getBaseDao().setAppLockLeaveTime();
         }
+    }
 
+    @Override
+    public void setAppInjector(@NonNull Injector appInjector) {
+        this.injector = appInjector;
+    }
+
+    @NonNull
+    @Override
+    public Injector getAppInjector() {
+        return injector;
     }
 
     public BaseApplication getBaseApplication() {
@@ -409,22 +422,22 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity) && !(this instanceof AppLockActivity)) {
             Banner.make(mRootview, this, Banner.TOP, R.layout.foreground_push);
             mPushBody = Banner.getInstance().getBannerView().findViewById(R.id.push_body);
-            mPushType = Banner.getInstance().getBannerView().findViewById(R.id.push_type);
+            ImageView pushType = Banner.getInstance().getBannerView().findViewById(R.id.push_type);
             mPushClose = Banner.getInstance().getBannerView().findViewById(R.id.push_close);
-            mPushTitle = Banner.getInstance().getBannerView().findViewById(R.id.push_title);
-            mPushMsg = Banner.getInstance().getBannerView().findViewById(R.id.push_msg);
+            TextView pushTitle = Banner.getInstance().getBannerView().findViewById(R.id.push_title);
+            TextView pushMsg = Banner.getInstance().getBannerView().findViewById(R.id.push_msg);
 
             if (intent.getStringExtra("type").equals("sent")) {
-                mPushType.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_send));
-                mPushTitle.setTextColor(getColor(R.color.colorNotiSend));
+                pushType.setImageResource(R.drawable.ic_notifications_send);
+                pushTitle.setTextColor(getColor(R.color.colorNotiSend));
             } else if (intent.getStringExtra("type").equals("received")) {
-                mPushType.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_receive));
-                mPushTitle.setTextColor(getColor(R.color.colorNotiReceive));
+                pushType.setImageResource(R.drawable.ic_notifications_receive);
+                pushTitle.setTextColor(getColor(R.color.colorNotiReceive));
             } else {
                 return;
             }
-            mPushTitle.setText(intent.getStringExtra("title"));
-            mPushMsg.setText(intent.getStringExtra("Body"));
+            pushTitle.setText(intent.getStringExtra("title"));
+            pushMsg.setText(intent.getStringExtra("Body"));
 
             bannerClickListener(intent.getStringExtra("pushNotifyto"));
             Banner.getInstance().setCustomAnimationStyle(R.style.topAnimation);
@@ -434,23 +447,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     private void bannerClickListener(String address) {
-        mPushBody.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Account account = getBaseDao().onSelectExistAccount2(address);
-                if (account != null) {
-                    getBaseDao().setLastUser(account.id);
-                    onStartMainActivity(2);
-                }
+        mPushBody.setOnClickListener(view -> {
+            Account account = getBaseDao().onSelectExistAccount2(address);
+            if (account != null) {
+                getBaseDao().setLastUser(account.id);
+                onStartMainActivity(2);
             }
         });
 
-        mPushClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Banner.getInstance().dismissBanner();
-            }
-        });
+        mPushClose.setOnClickListener(view -> Banner.getInstance().dismissBanner());
     }
 
 
@@ -878,17 +883,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     if (already) getBaseDao().mGRpcMyValidators.add(validator);
                 }
 
-//                WLog.w("mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo);
-//                WLog.w("mGRpcTopValidators " + getBaseDao().mGRpcTopValidators.size());
-//                WLog.w("mGRpcOtherValidators " + getBaseDao().mGRpcOtherValidators.size());
-//                WLog.w("mGRpcAllValidators " + getBaseDao().mGRpcAllValidators.size());
-//                WLog.w("mGRpcMyValidators " + getBaseDao().mGRpcMyValidators.size());
-//                WLog.w("mIbcPaths " + getBaseDao().mIbcPaths.size());
-//                WLog.w("mIbcTokens " + getBaseDao().mIbcTokens.size());
                 if (getBaseDao().mGRpcNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
-//                    WLog.w("mGRpcAccount " + getBaseDao().mGRpcAccount.getTypeUrl());
                     if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
                         WUtil.onParseVestingAccount(getBaseDao(), mBaseChain);
                     }
@@ -897,16 +894,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         snapBalance.add(new Balance(mAccount.id, coin.denom, coin.amount, Calendar.getInstance().getTime().getTime(), "0", "0"));
                     }
                     getBaseDao().onUpdateBalances(mAccount.id, snapBalance);
-//                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
 
             } else if (mBaseChain.equals(BNB_MAIN)) {
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
-//                WLog.w("mBnbTokens " + getBaseDao().mBnbTokens.size());
-//                WLog.w("mBnbTickers " + getBaseDao().mBnbTickers.size());
-
             } else if (mBaseChain.equals(OKEX_MAIN)) {
                 for (Validator all : getBaseDao().mAllValidators) {
                     if (all.status == Validator.BONDED) {
@@ -915,10 +908,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().mOtherValidators.add(all);
                     }
                 }
-//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
 
                 if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
                     for (String valAddr : getBaseDao().mOkStaking.validator_address) {
@@ -954,15 +943,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }
                     if (already) getBaseDao().mMyValidators.add(top);
                 }
-//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
-//                WLog.w("mBalances " + getBaseDao().mBalances.size());
-//                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
-//                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
-//                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
-
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
@@ -971,12 +951,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new StationPriceInfoTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             //callback with delay fix gRPC  timming issue
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mFetchCallback != null) {
-                        mFetchCallback.fetchFinished();
-                    }
+            mHandler.postDelayed(() -> {
+                if (mFetchCallback != null) {
+                    mFetchCallback.fetchFinished();
                 }
             }, 300);
         }

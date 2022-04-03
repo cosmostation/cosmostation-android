@@ -20,17 +20,15 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class AllRewardGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private ArrayList<Distribution.DelegationDelegatorReward> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final Account mAccount;
+    private final ArrayList<Distribution.DelegationDelegatorReward> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public AllRewardGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
         super(app, listener);
-        this.mChain = chain;
         this.mAccount = account;
         this.result.taskType = TASK_GRPC_FETCH_ALL_REWARDS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(chain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         ;
     }
 
@@ -42,8 +40,6 @@ public class AllRewardGrpcTask extends CommonTask {
             mResultData.addAll(response.getRewardsList());
             this.result.isSuccess = true;
             this.result.resultData = mResultData;
-//            WLog.w("AllReward " + mResultData.size());
-
         } catch (Exception e) {
             WLog.e("AllRewardGrpcTask " + e.getMessage());
         }

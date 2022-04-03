@@ -7,19 +7,25 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
+import com.fulldive.wallet.di.modules.DefaultPresentersModule
 import com.fulldive.wallet.extensions.safeSingle
 import com.fulldive.wallet.extensions.withDefaults
 import com.fulldive.wallet.interactors.QRCodeInteractor
 import com.fulldive.wallet.presentation.base.BaseMoxyPresenter
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import com.joom.lightsaber.ProvidedBy
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import wannabit.io.cosmostaion.R
+import javax.inject.Inject
 
-class ShareAccountPresenter : BaseMoxyPresenter<ShareAccountMoxyView>() {
+@ProvidedBy(DefaultPresentersModule::class)
+class ShareAccountPresenter @Inject constructor(
+    private val qrCodeInteractor: QRCodeInteractor
+) : BaseMoxyPresenter<ShareAccountMoxyView>() {
 
     lateinit var address: String
 
@@ -34,7 +40,7 @@ class ShareAccountPresenter : BaseMoxyPresenter<ShareAccountMoxyView>() {
     }
 
     fun onShareQRClicked(context: Context) {
-        QRCodeInteractor
+        qrCodeInteractor
             .generate(address)
             .observeOn(AndroidSchedulers.mainThread())
             .flatMap { bitmap ->

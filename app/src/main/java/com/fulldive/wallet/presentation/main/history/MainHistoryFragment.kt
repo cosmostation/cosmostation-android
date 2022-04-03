@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment
 import com.fulldive.wallet.presentation.base.BaseMvpFragment
+import com.joom.lightsaber.getInstance
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
@@ -39,7 +40,7 @@ class MainHistoryFragment : BaseMvpFragment<FragmentMainHistoryBinding>(),
         get() = getBaseActivity() as? MainActivity
 
     private val presenter by moxyPresenter {
-        MainHistoryPresenter(requireContext())
+        getInjector().getInstance<MainHistoryPresenter>()
     }
 
     override fun getViewBinding() = FragmentMainHistoryBinding.inflate(layoutInflater)

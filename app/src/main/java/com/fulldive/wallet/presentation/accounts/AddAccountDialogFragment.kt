@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import com.fulldive.wallet.extensions.getColorCompat
 import com.fulldive.wallet.extensions.unsafeLazy
 import com.fulldive.wallet.presentation.base.BaseMvpDialogFragment
+import com.joom.lightsaber.getInstance
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 
@@ -20,9 +21,10 @@ class AddAccountDialogFragment : BaseMvpDialogFragment(), AddAccountMoxyView {
     }
 
     private val presenter by moxyPresenter {
-        AddAccountPresenter().also {
-            it.chain = chain
-        }
+        getInjector().getInstance<AddAccountPresenter>()
+            .also {
+                it.chain = chain
+            }
     }
 
     override fun onCreateView(

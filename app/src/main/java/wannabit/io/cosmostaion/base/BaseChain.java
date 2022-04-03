@@ -847,7 +847,7 @@ public enum BaseChain {
 
     public static BaseChain getChain(String chainName) {
         for (BaseChain chain : BaseChain.values()) {
-            if (chain.isChainName(chainName)) {
+            if (chain.hasChainName(chainName)) {
                 return chain;
             }
         }
@@ -863,7 +863,7 @@ public enum BaseChain {
         return null;
     }
 
-    public boolean isChainName(String chain) {
+    public boolean hasChainName(String chain) {
         boolean result = chainName.equals(chain);
         for (String alias : aliases) {
             if (alias.equals(chain)) {

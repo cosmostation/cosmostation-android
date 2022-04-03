@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import com.fulldive.wallet.extensions.unsafeLazy
 import com.fulldive.wallet.presentation.base.BaseMvpDialogFragment
+import com.joom.lightsaber.getInstance
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 
@@ -30,9 +31,10 @@ class AccountShowDialogFragment : BaseMvpDialogFragment(), AccountShowMoxyView {
     }
 
     private val presenter by moxyPresenter {
-        AccountShowPresenter().also {
-            it.address = address
-        }
+        getInjector().getInstance<AccountShowPresenter>()
+            .also {
+                it.address = address
+            }
     }
 
     override fun onCreateView(

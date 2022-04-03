@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
+import com.fulldive.wallet.di.EnrichableLifecycleCallbacks;
+import com.fulldive.wallet.di.IInjectorHolder;
+import com.fulldive.wallet.di.components.ApplicationComponent;
+import com.joom.lightsaber.Injector;
+import com.joom.lightsaber.Lightsaber;
 import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
 
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 
-public class BaseApplication extends Application {
+public class BaseApplication extends Application implements IInjectorHolder {
+
+    private Injector appInjector;
 
     private BaseData mBaseData;
     private AppStatus mAppStatus;
@@ -18,10 +27,13 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        FirebaseApp.initializeApp(this);
+        appInjector = new Lightsaber.Builder().build().createInjector(new ApplicationComponent(getApplicationContext()));
+
+        //        FirebaseApp.initializeApp(this);
         new DeviceUuidFactory(this);
 
         registerActivityLifecycleCallbacks(new LifecycleCallbacks());
+        registerActivityLifecycleCallbacks(new EnrichableLifecycleCallbacks(this));
 
         Picasso.Builder builder = new Picasso.Builder(this);
         Picasso built = builder.build();
@@ -59,6 +71,11 @@ public class BaseApplication extends Application {
         return true;
     }
 
+    @NonNull
+    @Override
+    public Injector getInjector() {
+        return appInjector;
+    }
 
     public enum AppStatus {
         BACKGROUND,

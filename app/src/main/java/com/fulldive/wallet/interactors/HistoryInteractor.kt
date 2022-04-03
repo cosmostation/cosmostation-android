@@ -1,6 +1,8 @@
 package com.fulldive.wallet.interactors
 
 import android.content.Context
+import com.fulldive.wallet.di.modules.DefaultInteractorsModule
+import com.joom.lightsaber.ProvidedBy
 import io.reactivex.Single
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.model.type.BnbHistory
@@ -8,8 +10,10 @@ import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom
 import wannabit.io.cosmostaion.network.res.ResBnbHistories
 import wannabit.io.cosmostaion.network.res.ResOkHistoryHit
+import javax.inject.Inject
 
-class HistoryInteractor(
+@ProvidedBy(DefaultInteractorsModule::class)
+class HistoryInteractor @Inject constructor(
     private val context: Context
 ) {
 
