@@ -69,13 +69,11 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -126,12 +124,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             holder.chainName.setText(chain.getChainAlterTitle());
 
             if (chain.equals(mSelectedChain)) {
-                holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_selected));
+                holder.chainCard.setBackgroundResource(R.drawable.box_chain_selected);
                 holder.chainImg.setAlpha(1f);
                 holder.chainName.setTextColor(getColor(R.color.colorWhite));
             } else {
-                holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_unselected));
-                holder.chainImg.setAlpha(0.1f);
+                holder.chainCard.setBackgroundResource(R.drawable.box_chain_unselected);
+                holder.chainImg.setAlpha(0.5f);
                 holder.chainName.setTextColor(getColor(R.color.colorGray4));
             }
 

@@ -25,10 +25,6 @@ public class CryptoHelper {
     private static final String TYPE_RSA = "RSA";
     private static final String SIGNATURE_SHA256withRSA = "SHA256withRSA";
 
-    private static final String PASSWORD_KEY = "PASSWORD_KEY";
-    private static final String FINGER_KEY = "FINGER_KEY";
-
-
     public static KeyStore loadKeyStore() throws Exception {
         try {
             final KeyStore keyStore = KeyStore.getInstance(KEYSTORE);
@@ -67,9 +63,7 @@ public class CryptoHelper {
             Cipher cipher = getEncodeCipher(alias, withAuth);
             byte[] end = cipher.doFinal(resource.getBytes("UTF-8"));
             result = new EncResult(end, cipher.getIV());
-
-        } catch (Exception e) {
-            result = null;
+        } catch (Exception ignore) {
         }
         return result;
     }
@@ -79,13 +73,11 @@ public class CryptoHelper {
         try {
             Cipher cipher = getDecodeCipher(alias, Base64.decode(iv, Base64.DEFAULT));
             result = new String(cipher.doFinal(Base64.decode(resource, Base64.DEFAULT)), "UTF-8");
-        } catch (Exception e) {
-            result = null;
+        } catch (Exception ignore) {
         }
         return result;
 
     }
-
 
     public static String signData(String inputStr, String alias) {
         String result = null;
@@ -106,8 +98,7 @@ public class CryptoHelper {
             byte[] signature = s.sign();
             result = Base64.encodeToString(signature, Base64.DEFAULT);
 
-        } catch (Exception e) {
-            return result;
+        } catch (Exception ignore) {
         }
         return result;
     }
@@ -126,14 +117,13 @@ public class CryptoHelper {
             s.update(data);
             result = s.verify(signature);
 
-        } catch (Exception e) {
+        } catch (Exception ignore) {
             WLog.w("verifyData Error");
 
         }
         return result;
 
     }
-
 
     private static boolean generateKeyIfNecessary(@NonNull KeyStore keyStore, String alias, boolean withAuth) {
         try {
@@ -152,7 +142,6 @@ public class CryptoHelper {
         }
         return false;
     }
-
 
     private static boolean generateKey(String alias, boolean withAuth) {
         try {
@@ -173,7 +162,6 @@ public class CryptoHelper {
         }
     }
 
-
     private static boolean generateKeyPair(String alias) {
         try {
             KeyPairGenerator kpGenerator = KeyPairGenerator.getInstance(TYPE_RSA, KEYSTORE);
@@ -189,25 +177,8 @@ public class CryptoHelper {
         }
     }
 
-
-    public static boolean isKeystoreContainAlias(String alias) throws Exception {
-        final KeyStore keyStore = loadKeyStore();
-        try {
-            return keyStore.containsAlias(alias);
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
     public static void deleteKey(String alias) throws Exception {
         final KeyStore keyStore = loadKeyStore();
-        try {
-            keyStore.deleteEntry(alias);
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-            throw e;
-        }
+        keyStore.deleteEntry(alias);
     }
-
 }

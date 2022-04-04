@@ -64,7 +64,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSW
 import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 
@@ -86,6 +85,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.fulldive.wallet.interactors.accounts.AccountsInteractor;
+import com.fulldive.wallet.interactors.secret.InvalidPasswordException;
+import com.fulldive.wallet.interactors.secret.SecretInteractor;
+import com.fulldive.wallet.rx.AppSchedulers;
 import com.google.gson.Gson;
 
 import org.bitcoinj.core.ECKey;
@@ -96,6 +99,8 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import irismod.nft.QueryOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
@@ -127,7 +132,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPrivateKeyTask;
-import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.CreateProfileGrpcTask;
@@ -290,11 +294,19 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     public ArrayList<String> mValOpAddresses_V1;
 
+    private AccountsInteractor accountsInteractor;
+    private SecretInteractor secretInteractor;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_set);
+
+        accountsInteractor = getAppInjector().getInstance(AccountsInteractor.class);
+        secretInteractor = getAppInjector().getInstance(SecretInteractor.class);
+
         mLayerContents = findViewById(R.id.layer_contents);
         mPassowrdTitle = findViewById(R.id.tv_password_title);
         mPassowrdMsg1 = findViewById(R.id.tv_password_msg1);
@@ -422,6 +434,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     }
 
     @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         if (mUserInput != null && mUserInput.length() > 0) {
             userDeleteKey();
@@ -522,8 +540,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_DELETE_ACCOUNT) {
-            onShowWaitDialog();
-            new DeleteUserTask(getBaseApplication(), this).execute(mUserInput);
+            actionDeleteAccount();
 
         } else if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
             onShowWaitDialog();
@@ -767,6 +784,35 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     }
 
+    private void actionDeleteAccount() {
+        onShowWaitDialog();
+        Disposable disposable = secretInteractor
+                .checkPassword(mUserInput)
+                .subscribeOn(AppSchedulers.INSTANCE.io())
+                .observeOn(AppSchedulers.INSTANCE.io())
+                .andThen(accountsInteractor.deleteAccount(mIdToDelete))
+                .observeOn(AppSchedulers.INSTANCE.ui())
+                .doOnError(error -> WLog.e(error.toString()))
+                .subscribe(
+                        () -> {
+                            WLog.w("Account was selected after removing");
+                            onStartMainActivity(0);
+                        },
+                        error -> {
+                            if (error instanceof InvalidPasswordException) {
+                                onShakeView();
+                                onInitView();
+                                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Intent intent = new Intent(this, IntroActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        }
+                );
+        compositeDisposable.add(disposable);
+    }
+
     private void onShakeView() {
         mLayerContents.clearAnimation();
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.shake);
@@ -815,16 +861,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 onShakeView();
                 onInitView();
                 Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (result.taskType == TASK_DELETE_USER) {
-            if (result.isSuccess) {
-                onDeleteAccount(mIdToDelete);
-            } else {
-                onShakeView();
-                onInitView();
-                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
-
             }
 
         } else if (result.taskType == TASK_CHECK_MNEMONIC) {

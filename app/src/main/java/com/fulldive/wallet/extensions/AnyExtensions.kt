@@ -64,3 +64,6 @@ fun Context.longToast(message: CharSequence): Toast = Toast
 
 inline fun <reified T> unsafeLazy(noinline initializer: () -> T): Lazy<T> =
     lazy(LazyThreadSafetyMode.NONE, initializer)
+
+fun <A, B> combine(a: A, b: B) = a to b
+fun <A, B, C> combine(a: A, b: B, c: C) = Triple(a, b, c)

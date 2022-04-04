@@ -46,15 +46,12 @@ public class Dialog_ChangeNickName extends DialogFragment {
         if (!TextUtils.isEmpty(getArguments().getString("name")))
             mNameInput.setText(getArguments().getString("name"));
 
-        btn_nega.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm.isActive()) {
-                    imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
-                }
-                dismiss();
+        btn_nega.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()) {
+                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
             }
+            dismiss();
         });
 
         btn_posi.setOnClickListener(new View.OnClickListener() {

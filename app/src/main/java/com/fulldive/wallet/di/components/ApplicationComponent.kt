@@ -17,7 +17,13 @@ class ApplicationComponent(private var context: Context) {
     fun getDefaultInteractorsModule() = DefaultInteractorsModule()
 
     @Import
+    fun getDefaultRepositoryModule() = DefaultRepositoryModule()
+
+    @Import
     fun getDefaultPresentersModule() = DefaultPresentersModule()
+
+    @Import
+    fun getDefaultLocalStorageModule() = DefaultLocalStorageModule()
 
     @Import
     fun getAppConfigurationModule() = ApplicationConfigurationModule(context)

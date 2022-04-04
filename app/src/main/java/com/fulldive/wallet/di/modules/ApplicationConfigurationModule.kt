@@ -16,6 +16,6 @@ class ApplicationConfigurationModule(private val context: Context) {
 
     @Singleton
     @Provide
-    internal fun provideSchedulersProvider(): ISchedulersProvider = AppSchedulers
+    fun provideSchedulersProvider(): ISchedulersProvider = AppSchedulers
 
 }

@@ -15,6 +15,4 @@ public class Password {
         this.resource = resource;
         this.spec = spec;
     }
-
-
 }

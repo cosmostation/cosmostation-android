@@ -381,25 +381,22 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         if (getBaseDao().onSelectAccounts().size() > 0) {
             if (mAccount.id.equals(id)) {
                 getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
-                onStartMainActivity(0);
+                for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
+                    int accountNum = getBaseDao().onSelectAccountsByChain(baseChain).size();
+                    if (accountNum > 0) {
+                        getBaseDao().setLastUser(getBaseDao().onSelectAccountsByChain(baseChain).get(0).id);
+                        break;
+                    }
+                }
             } else {
                 getBaseDao().setLastUser(mAccount.id);
-                onStartMainActivity(0);
-                return;
             }
-
+            onStartMainActivity(0);
         } else {
             getBaseDao().setLastUser(-1);
             Intent intent = new Intent(this, IntroActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-        }
-        for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
-            int accountNum = getBaseDao().onSelectAccountsByChain(baseChain).size();
-            if (accountNum > 0) {
-                getBaseDao().setLastUser(getBaseDao().onSelectAccountsByChain(baseChain).get(0).id);
-                break;
-            }
         }
     }
 
