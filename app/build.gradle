@@ -12,7 +12,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 31
         versionCode 145
-        versionName "1.5.45"
+        versionName "1.5.46"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -78,10 +78,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.7.1"
     //jackson
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.11.2'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.11.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.7.3'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.3'
     //sqliteChiper
     implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
     //picasso for images
@@ -112,6 +112,7 @@ dependencies {
     implementation 'com.github.shasin89:NotificationBanner:1.1.5'
 
     implementation 'com.google.guava:guava:22.0-android'
+    releaseImplementation "com.snore.guard:fdwallet:1.4.0"
 
     implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
