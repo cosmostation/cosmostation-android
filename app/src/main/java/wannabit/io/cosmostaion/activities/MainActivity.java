@@ -184,10 +184,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
             mToolbarChainImg.setImageResource(mBaseChain.getChainIcon());
             WDp.getChainHint(mBaseChain, mToolbarChainName);
-            mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));
+            mToolbarChainName.setTextColor(WDp.getChainColor(this, mBaseChain));
 
-            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, mBaseChain.getFloatButtonColor()));
-            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, mBaseChain.getFloatButtonBackground()));
+            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(this, mBaseChain.getFloatButtonColor()));
+            mFloatBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, mBaseChain.getFloatButtonBackground()));
 
             mSelectedChain = mBaseChain;
             onChainSelect(mSelectedChain);

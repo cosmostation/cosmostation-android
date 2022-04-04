@@ -12,21 +12,20 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 public class OverridePkeyAccountTask extends CommonTask {
     private String mPKey;
-    private Account mAccount;
-    private int mCustomPath;
+    private final Account account;
+    private final int customPath;
 
     public OverridePkeyAccountTask(BaseApplication app, TaskListener listener, String pKey, Account account, int customPath) {
         super(app, listener);
         this.mPKey = pKey;
-        this.mAccount = account;
-        this.mCustomPath = customPath;
+        this.account = account;
+        this.customPath = customPath;
         this.result.taskType = BaseConstant.TASK_OVERRIDE_PKEY_ACCOUNT;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-
             Account oAccount = onModAccount();
             long id = context.getBaseDao().onOverrideAccount(oAccount);
             if (id > 0) {
@@ -39,7 +38,6 @@ public class OverridePkeyAccountTask extends CommonTask {
             }
 
         } catch (Exception e) {
-
         }
         return result;
     }
@@ -48,16 +46,16 @@ public class OverridePkeyAccountTask extends CommonTask {
         if (mPKey.toLowerCase().startsWith("0x")) {
             mPKey = mPKey.substring(2);
         }
-        EncResult encR = CryptoHelper.doEncryptData(context.getString(R.string.key_private) + mAccount.uuid, mPKey, false);
+        EncResult encR = CryptoHelper.doEncryptData(context.getString(R.string.key_private) + account.uuid, mPKey, false);
 
-        mAccount.hasPrivateKey = true;
-        mAccount.resource = encR.getEncDataString();
-        mAccount.spec = encR.getIvDataString();
-        mAccount.fromMnemonic = false;
-        mAccount.path = "-1";
-        mAccount.msize = -1;
-        mAccount.newBip44 = false;
-        mAccount.customPath = mCustomPath;
-        return mAccount;
+        account.hasPrivateKey = true;
+        account.resource = encR.getEncDataString();
+        account.spec = encR.getIvDataString();
+        account.fromMnemonic = false;
+        account.path = "-1";
+        account.msize = -1;
+        account.newBip44 = false;
+        account.customPath = customPath;
+        return account;
     }
 }

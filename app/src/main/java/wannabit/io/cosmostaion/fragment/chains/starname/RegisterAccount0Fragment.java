@@ -121,24 +121,18 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
             @Override
             public void onNext(QueryOuterClass.QueryStarnameResponse value) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getSActivity().onHideWaitDialog();
-                        Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
-                    }
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    getSActivity().onHideWaitDialog();
+                    Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
                 }, 500);
 
             }
 
             @Override
             public void onError(Throwable t) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getSActivity().onHideWaitDialog();
-                        onNextStep();
-                    }
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    getSActivity().onHideWaitDialog();
+                    onNextStep();
                 }, 500);
             }
 

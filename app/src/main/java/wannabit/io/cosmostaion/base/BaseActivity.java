@@ -884,7 +884,9 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
                 }
 
                 if (getBaseDao().mGRpcNodeInfo == null) {
+                    new Exception().printStackTrace();
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
                 } else {
                     if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
                         WUtil.onParseVestingAccount(getBaseDao(), mBaseChain);
@@ -898,7 +900,9 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
 
             } else if (mBaseChain.equals(BNB_MAIN)) {
                 if (getBaseDao().mNodeInfo == null) {
+                    new Exception().printStackTrace();
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
                 }
             } else if (mBaseChain.equals(OKEX_MAIN)) {
                 for (Validator all : getBaseDao().mAllValidators) {
@@ -920,7 +924,9 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
                 }
 
                 if (getBaseDao().mNodeInfo == null) {
+                    new Exception().printStackTrace();
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
                 }
 
             } else {
@@ -944,7 +950,9 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
                     if (already) getBaseDao().mMyValidators.add(top);
                 }
                 if (getBaseDao().mNodeInfo == null) {
+                    new Exception().printStackTrace();
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -1047,11 +1055,15 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
                         Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
                         startActivity(guideIntent);
                     } catch (Exception e) {
+                        new Exception().printStackTrace();
                         Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
                     }
 
                 } else {
+                    new Exception().printStackTrace();
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
                 }
             }
         }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);

@@ -799,12 +799,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.GetTxResponse value) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mResponse = value;
-                        onUpdateView();
-                    }
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    mResponse = value;
+                    onUpdateView();
                 }, 0);
             }
 
@@ -812,28 +809,15 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             public void onError(Throwable t) {
                 WLog.w("onError " + t.getLocalizedMessage());
                 if (mIsSuccess && FetchCnt < 10) {
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            FetchCnt++;
-                            onFetchTx(mTxHash);
-                        }
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        FetchCnt++;
+                        onFetchTx(mTxHash);
                     }, 6000);
                 } else if (!mIsGen) {
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            onBackPressed();
-                        }
-                    }, 0);
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> onBackPressed(), 0);
 
                 } else {
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            onShowMoreWait();
-                        }
-                    }, 0);
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> onShowMoreWait(), 0);
                 }
             }
 

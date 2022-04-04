@@ -40,6 +40,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator,
             "7.6597",
             "https://api.cosmostation.io/",
+            "lcd-cosmos-app-and.cosmostation.io",
             true,
             false
     ),
@@ -60,6 +61,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_imversed,
             "",
             "",
+            "qc.imversed.com",
             true,
             false
     ),
@@ -80,6 +82,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_iris,
             "6.7884",
             "https://api-iris.cosmostation.io/",
+            "lcd-iris-app.cosmostation.io",
             true,
             false
     ),
@@ -100,6 +103,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_iov,
             "6.0124",
             "https://api-iov.cosmostation.io/",
+            "lcd-iov-app.cosmostation.io",
             true,
             false
     ),
@@ -119,6 +123,7 @@ public enum BaseChain {
             R.color.colorTransBgBinance,
             R.color.color_tab_myvalidator,
             "0.4124",
+            "",
             "",
             true,
             false,
@@ -141,6 +146,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_kava,
             "6.7262",
             "https://api-kava.cosmostation.io/",
+            "lcd-kava-app.cosmostation.io",
             true,
             false
     ),
@@ -161,6 +167,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_band,
             "3.0236",
             "https://api-band.cosmostation.io/",
+            "lcd-band-app.cosmostation.io",
             true,
             false
     ),
@@ -181,6 +188,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_certik,
             "5.9740",
             "https://api-certik.cosmostation.io/",
+            "lcd-certik-app.cosmostation.io",
             true,
             false
     ),
@@ -201,6 +209,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_secret,
             "6.0408",
             "https://api-secret.cosmostation.io/",
+            "lcd-secret.cosmostation.io",
             true,
             false
     ),
@@ -221,6 +230,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_akash,
             "6.4526",
             "https://api-akash.cosmostation.io/",
+            "lcd-akash-app.cosmostation.io",
             true,
             false
     ),
@@ -240,6 +250,7 @@ public enum BaseChain {
             R.color.colorTransBgOkex,
             R.color.color_tab_myvalidator_ok,
             "4.0286",
+            "",
             "",
             true,
             false,
@@ -262,6 +273,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_persis,
             "5.7982",
             "https://api-persistence.cosmostation.io/",
+            "lcd-persistence-app.cosmostation.io",
             true,
             false
     ),
@@ -282,6 +294,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_sentinel,
             "6.3113",
             "https://api-sentinel.cosmostation.io/",
+            "lcd-sentinel-app.cosmostation.io",
             true,
             false
     ),
@@ -302,6 +315,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_fetch,
             "6.0678",
             "https://api-fetchai.cosmostation.io/",
+            "lcd-fetchai-app.cosmostation.io",
             true,
             false
     ),
@@ -322,6 +336,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_cryto,
             "6.1939",
             "https://api-cryptocom.cosmostation.io/",
+            "lcd-cryptocom-app.cosmostation.io",
             true,
             false
     ),
@@ -342,6 +357,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_sif,
             "5.7246",
             "https://api-sifchain.cosmostation.io/",
+            "lcd-sifchain-app.cosmostation.io",
             true,
             false
     ),
@@ -362,6 +378,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_ki,
             "5.7571",
             "https://api-kichain.cosmostation.io/",
+            "lcd-kichain-app.cosmostation.io",
             true,
             false
     ),
@@ -382,6 +399,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_osmosis,
             "6.5324",
             "https://api-osmosis.cosmostation.io/",
+            "lcd-osmosis-app-and.cosmostation.io",
             true,
             false
     ),
@@ -402,6 +420,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_med,
             "5.7849",
             "https://api-medibloc.cosmostation.io/",
+            "lcd-medibloc-app.cosmostation.io",
             true,
             false
     ),
@@ -422,6 +441,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_emoney,
             "24.8486",
             "https://api-emoney.cosmostation.io/",
+            "lcd-emoney-app.cosmostation.io",
             true,
             false
     ),
@@ -442,6 +462,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_rizon,
             "5.8850",
             "https://api-rizon.cosmostation.io/",
+            "lcd-rizon-app.cosmostation.io",
             true,
             false
     ),
@@ -462,6 +483,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_juno,
             "6.3104",
             "https://api-juno.cosmostation.io/",
+            "lcd-juno-app.cosmostation.io",
             true,
             false
     ),
@@ -482,6 +504,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_regen,
             "6.2491",
             "https://api-regen.cosmostation.io/",
+            "lcd-regen-app.cosmostation.io",
             true,
             false
     ),
@@ -502,6 +525,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_bitcanna,
             "6.0256",
             "https://api-bitcanna.cosmostation.io/",
+            "lcd-bitcanna-app.cosmostation.io",
             true,
             false
     ),
@@ -522,6 +546,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_althea,
             "",
             "https://api-althea.cosmostation.io/",
+            "lcd-althea-app.cosmostation.io",
             false,
             false
     ),
@@ -542,6 +567,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_stargaze,
             "5.8129",
             "https://api-stargaze.cosmostation.io/",
+            "lcd-stargaze-app.cosmostation.io",
             true,
             false
     ),
@@ -562,6 +588,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_grabridge,
             "6.4500",
             "https://api-gravity-bridge.cosmostation.io/",
+            "lcd-gravity-bridge-app.cosmostation.io",
             true,
             false
     ),
@@ -582,6 +609,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_comdex,
             "6.1746",
             "https://api-comdex.cosmostation.io/",
+            "lcd-comdex-app.cosmostation.io",
             true,
             false
     ),
@@ -602,6 +630,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_inj,
             "2.4865",
             "https://api-inj.cosmostation.io/",
+            "lcd-inj-app.cosmostation.io",
             true,
             false
     ),
@@ -622,6 +651,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_bitsong,
             "5.9040",
             "https://api-bitsong.cosmostation.io/",
+            "lcd-bitsong-app.cosmostation.io",
             true,
             false
     ),
@@ -642,6 +672,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_desmos,
             "6.1605",
             "https://api-desmos.cosmostation.io/",
+            "lcd-desmos-app.cosmostation.io",
             true,
             false
     ),
@@ -662,6 +693,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_lum,
             "5.7210",
             "https://api-lum.cosmostation.io/",
+            "lcd-lum-app.cosmostation.io",
             true,
             false
     ),
@@ -682,6 +714,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_chihuahua,
             "5.8172",
             "https://api-chihuahua.cosmostation.io/",
+            "lcd-chihuahua-app.cosmostation.io",
             true,
             false
     ),
@@ -702,6 +735,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_axelar,
             "5.5596",
             "https://api-axelar.cosmostation.io/",
+            "lcd-axelar-app.cosmostation.io",
             true,
             false
     ),
@@ -722,6 +756,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_konstellation,
             "5.376",
             "https://api-konstellation.cosmostation.io/",
+            "lcd-konstellation-app.cosmostation.io",
             true,
             false
     ),
@@ -742,6 +777,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_umee,
             "5.658",
             "https://api-umee.cosmostation.io/",
+            "lcd-umee-app.cosmostation.io",
             true,
             false
     ),
@@ -762,6 +798,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_evmos,
             "5.824",
             "https://api-evmos.cosmostation.io/",
+            "lcd-evmos-app.cosmostation.io",
             true,
             false
     ),
@@ -782,6 +819,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_cudos,
             "",
             "https://api-cudos-testnet.cosmostation.io/",
+            "lcd-cudos-testnet.cosmostation.io",
             false,
             true
     ),
@@ -802,6 +840,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_provenance,
             "6.3061",
             "https://api-provenance.cosmostation.io/",
+            "lcd-provenance-app.cosmostation.io",
             true,
             false
     ),
@@ -822,6 +861,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_cerberus,
             "5.9666",
             "https://api-cerberus.cosmostation.io/",
+            "lcd-cerberus-app.cosmostation.io",
             true,
             false
     ),
@@ -842,6 +882,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_omniflix,
             "5.7970",
             "https://api-omniflix.cosmostation.io/",
+            "lcd-omniflix-app.cosmostation.io",
             true,
             false
     ),
@@ -863,6 +904,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator,
             "7.6597",
             "https://api-office.cosmostation.io/stargate-final/",
+            "lcd-office.cosmostation.io:10300",
             false,
             true
     ),
@@ -883,6 +925,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_iris,
             "6.7884",
             "https://api-office.cosmostation.io/bifrost/",
+            "lcd-office.cosmostation.io:9095",
             false,
             true
     ),
@@ -901,6 +944,7 @@ public enum BaseChain {
             R.string.str_ok_c,
             R.color.colorTransBgOkex,
             R.color.color_tab_myvalidator_ok,
+            "",
             "",
             "",
             false,
@@ -923,6 +967,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_rizon,
             "",
             "https://api-rizon-testnet.cosmostation.io/",
+            "",
             false,
             true
     ),
@@ -943,6 +988,7 @@ public enum BaseChain {
             R.color.color_tab_myvalidator_althea,
             "",
             "https://api-office.cosmostation.io/althea-testnet2v1/",
+            "lcd-office.cosmostation.io:20100",
             false,
             true
     );
@@ -957,6 +1003,8 @@ public enum BaseChain {
     private final String ticker;
     private final String blockTime;
     private final String historyApiUrl;
+    private final String grpcApiUrl;
+    private final int grpcApiPort;
     private final boolean isSupported;
     private final boolean isTestNet;
     private final boolean isGRPC;
@@ -998,6 +1046,7 @@ public enum BaseChain {
             final int chainTabColor,
             final String blockTime,
             final String historyApiUrl,
+            final String grpcApiUrl,
             final boolean isSupported,
             final boolean isTestNet
     ) {
@@ -1019,6 +1068,9 @@ public enum BaseChain {
         this.coinIcon = coinIcon;
         this.blockTime = blockTime;
         this.historyApiUrl = historyApiUrl;
+        String[] grpcApiChunks = grpcApiUrl.split(":");
+        this.grpcApiUrl = grpcApiChunks[0];
+        this.grpcApiPort = grpcApiChunks.length > 1 ? Integer.parseInt(grpcApiChunks[1]) : 9090;
         this.isSupported = isSupported;
         this.isTestNet = isTestNet;
         this.isGRPC = true;
@@ -1044,6 +1096,7 @@ public enum BaseChain {
             final int chainTabColor,
             final String blockTime,
             final String historyApiUrl,
+            final String grpcApiUrl,
             final boolean isSupported,
             final boolean isTestNet,
             final boolean isGRPC
@@ -1066,6 +1119,9 @@ public enum BaseChain {
         this.coinIcon = coinIcon;
         this.blockTime = blockTime;
         this.historyApiUrl = historyApiUrl;
+        String[] grpcApiChunks = grpcApiUrl.split(":");
+        this.grpcApiUrl = grpcApiChunks[0];
+        this.grpcApiPort = grpcApiChunks.length > 1 ? Integer.parseInt(grpcApiChunks[1]) : 9090;
         this.isSupported = isSupported;
         this.isTestNet = isTestNet;
         this.isGRPC = isGRPC;
@@ -1121,6 +1177,14 @@ public enum BaseChain {
 
     public String getHistoryApiUrl() {
         return historyApiUrl;
+    }
+
+    public String getGrpcApiUrl() {
+        return grpcApiUrl;
+    }
+
+    public int getGrpcApiPort() {
+        return grpcApiPort;
     }
 
     public BigDecimal getBlockTime() {

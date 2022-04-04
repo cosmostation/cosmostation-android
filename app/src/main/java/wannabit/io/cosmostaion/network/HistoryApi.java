@@ -11,10 +11,6 @@ import retrofit2.http.Query;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 
 public interface HistoryApi {
-    // new cosmos api
-    @GET("v1/account/new_txs/{address}")
-    Call<ArrayList<ResApiNewTxListCustom>> getNewAccountTxCustom(@Path("address") String address, @Query("limit") String limit);
-
     @GET("v1/account/new_txs/{address}")
     Single<List<ResApiNewTxListCustom>> getNewAccountTxCustomRx(@Path("address") String address, @Query("limit") int limit);
 

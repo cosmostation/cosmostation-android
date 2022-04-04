@@ -2014,5 +2014,7 @@
     <string name="str_safe">SAFE</string>
     <string name="str_stable">STABLE</string>
     <string name="str_danger">DANGER</string>
+    <string name="str_open_upper">OPEN</string>
+    <string name="str_closed_upper">CLOSED</string>
 
 </resources>

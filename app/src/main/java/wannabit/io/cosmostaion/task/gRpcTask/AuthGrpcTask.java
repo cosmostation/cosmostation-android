@@ -16,24 +16,21 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class AuthGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mAddress;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final String address;
+    private final QueryGrpc.QueryBlockingStub queryStub;
 
     public AuthGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
         super(app, listener);
-        this.mChain = chain;
-        this.mAddress = address;
+        this.address = address;
         this.result.taskType = TASK_GRPC_FETCH_AUTH;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
+        this.queryStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(chain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAddress).build();
-            QueryOuterClass.QueryAccountResponse response = mStub.account(request);
+            QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(address).build();
+            QueryOuterClass.QueryAccountResponse response = queryStub.account(request);
             this.result.isSuccess = true;
             this.result.resultData = response.getAccount();
 

@@ -197,39 +197,31 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
             @Override
             public void onNext(QueryOuterClass.QueryStarnameResponse value) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        final String matchAddress = WUtil.checkStarnameWithResource(chain, value.getAccount().getResourcesList());
-                        if (TextUtils.isEmpty(matchAddress)) {
-                            Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        if (getSActivity().mAccount.address.equals(matchAddress)) {
-                            Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        Bundle bundle = new Bundle();
-                        bundle.putString("starname", userInput);
-                        bundle.putString("originAddress", matchAddress);
-                        Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
-                                    dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                        showDialog(dialog);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    final String matchAddress = WUtil.checkStarnameWithResource(chain, value.getAccount().getResourcesList());
+                    if (TextUtils.isEmpty(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                        return;
                     }
+
+                    if (getSActivity().mAccount.address.equals(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("starname", userInput);
+                    bundle.putString("originAddress", matchAddress);
+                    Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
+                    dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                    showDialog(dialog);
                 }, 0);
 
             }
 
             @Override
             public void onError(Throwable t) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show();
-                    }
-                }, 0);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show(), 0);
             }
 
             @Override

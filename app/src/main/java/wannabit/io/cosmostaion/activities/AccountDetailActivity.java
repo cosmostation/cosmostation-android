@@ -227,18 +227,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAlarmMsg.setText(getString(R.string.str_alarm_disabled));
         }
 
-        mAlarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isPressed()) {
-                    if (!isNotificationsEnabled()) {
-                        onShowPushEnableDialog();
-                        buttonView.setEnabled(false);
-                        return;
-                    }
-                    new PushUpdateTask(getBaseApplication(), AccountDetailActivity.this, mAccount, getBaseDao().getFCMToken(), isChecked).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    onShowWaitDialog();
+        mAlarmSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (buttonView.isPressed()) {
+                if (!isNotificationsEnabled()) {
+                    onShowPushEnableDialog();
+                    buttonView.setEnabled(false);
+                    return;
                 }
+                new PushUpdateTask(getBaseApplication(), AccountDetailActivity.this, mAccount, getBaseDao().getFCMToken(), isChecked).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                onShowWaitDialog();
             }
         });
     }
@@ -312,7 +309,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
             if (TextUtils.isEmpty(mRewardAddress.getText().toString())) {
-                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                                    new Exception().printStackTrace();
+                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+
                 return;
             }
 
