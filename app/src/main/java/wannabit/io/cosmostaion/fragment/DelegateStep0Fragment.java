@@ -89,7 +89,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBackPressed();
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         setDpDecimals(mDpDecimal);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomTitle);
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
         mMaxAvailable = getSActivity().getBaseDao().getDelegatable(getSActivity().mBaseChain.getMainDenom()).subtract(feeAmount);
         mAvailableAmount.setText(WDp.getDpAmount2(mMaxAvailable, mDpDecimal, mDpDecimal));

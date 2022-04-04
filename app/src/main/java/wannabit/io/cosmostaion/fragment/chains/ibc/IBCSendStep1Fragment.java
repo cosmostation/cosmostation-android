@@ -128,10 +128,12 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     public void onRefreshTab() {
         mTochain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
         mToAccountList = getBaseDao().onSelectAccountsByChain(mTochain);
-        WDp.getChainTitle(requireContext(), mTochain, mDesitination);
+        WDp.getChainHint(mTochain, mDesitination);
         mDesitination.setTextColor(WDp.getChainColor(getSActivity(), mTochain));
         String userInput = mAddressInput.getText().toString().trim();
-        WDp.getChainByAddress(mTochain, userInput, mAddressInput);
+        if (!WDp.isValidChainAddress(mTochain, userInput, false)) {
+            mAddressInput.setText("");
+        }
     }
 
     private void onUpdateView() {
@@ -174,7 +176,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", mTochain.getChain());
                 Dialog_IBC_Receivable_Accouts dialog = Dialog_IBC_Receivable_Accouts.newInstance(bundle);
-                    dialog.setTargetFragment(this, SELECT_ACCOUNT);
+                dialog.setTargetFragment(this, SELECT_ACCOUNT);
                 showDialog(dialog);
             }
 
@@ -251,7 +253,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                         bundle.putString("starname", userInput);
                         bundle.putString("originAddress", matchAddress);
                         Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
-                                    dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                        dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
                         showDialog(dialog);
                     }
                 }, 0);

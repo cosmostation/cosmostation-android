@@ -34,8 +34,8 @@ public class TxCreateBidHolder extends TxHolder {
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        WDp.DpMainDenom(c, baseChain.getChain(), itemCreateBidPriceDenom);
-        WDp.DpMainDenom(c, baseChain.getChain(), itemCreateBidDepositDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemCreateBidPriceDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemCreateBidDepositDenom);
         final int dpDecimal = WDp.mainDivideDecimal(baseChain);
         itemCreateBidImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 

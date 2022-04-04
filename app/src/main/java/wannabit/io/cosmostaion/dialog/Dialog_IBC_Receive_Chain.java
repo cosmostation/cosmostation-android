@@ -72,7 +72,7 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
             final IbcPath ibcPath = mIbcSendableRelayers.get(position);
             final BaseChain toChain = WDp.getChainTypeByChainId(ibcPath.chain_id);
             holder.chainImg.setImageResource(toChain.getChainIcon());
-            WDp.getChainTitle2(getSActivity(), toChain, holder.chainName);
+            holder.chainName.setText(toChain.getChainAlterTitle());
 
             holder.rootLayer.setOnClickListener(v -> {
                 Intent resultIntent = new Intent();

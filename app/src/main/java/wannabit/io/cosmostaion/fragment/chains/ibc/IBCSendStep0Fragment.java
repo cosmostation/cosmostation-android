@@ -140,12 +140,11 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         }
         BaseChain chain = getSActivity().mBaseChain;
         mFromChainImg.setImageResource(chain.getChainIcon());
-        WDp.getChainTitle2(getSActivity(), chain, mFromChainTv);
+        mFromChainTv.setText(chain.getChainAlterTitle());
 
         BaseChain toChain = WDp.getChainTypeByChainId(mIbcSelectedRelayer.chain_id);
         mToChainImg.setImageResource(toChain.getChainIcon());
-
-        WDp.getChainTitle2(getSActivity(), toChain, mToChainTv);
+        mToChainTv.setText(chain.getChainAlterTitle());
 
         mRelayerTxt.setText(mIbcSelectedPath.channel_id);
         if (mIbcSelectedPath.auth == null) {

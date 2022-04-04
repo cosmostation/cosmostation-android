@@ -149,7 +149,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder = (RewardWithdrawHolder) viewHolder;
-                WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);
+                WDp.DpMainDenom(getMainActivity().mAccount.baseChain, holder.itemTvDenom);
                 final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
                 if (getMainActivity().mBaseChain.isGRPC()) {
                     final BigDecimal allRewardAmount = getBaseDao().getRewardSum(getMainActivity().mBaseChain.getMainDenom());

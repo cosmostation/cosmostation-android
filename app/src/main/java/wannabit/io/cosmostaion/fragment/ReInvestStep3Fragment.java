@@ -56,10 +56,10 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mRewardDenom);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mCurrentDenom);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mExpectedDenom);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mRewardDenom);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeDenom);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mCurrentDenom);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mExpectedDenom);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);

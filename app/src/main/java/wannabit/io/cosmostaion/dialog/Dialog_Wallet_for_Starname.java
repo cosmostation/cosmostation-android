@@ -79,7 +79,7 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull WalletForStarNameHolder holder, int position) {
             final Account account = mWalletList.get(position);
-            WDp.DpMainDenom(getSActivity(), account.baseChain, holder.accountDenom);
+            WDp.DpMainDenom(account.baseChain, holder.accountDenom);
             holder.accountAddress.setText(account.address);
             holder.accountAvailable.setText(account.getLastTotal(getSActivity(), BaseChain.getChain(account.baseChain)));
             holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);

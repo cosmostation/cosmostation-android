@@ -8,7 +8,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMA
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -63,18 +62,18 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
 
         if (mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
             mTxType = CONST_PW_TX_DELETE_DOMAIN;
-            mTitle.setText(getString(R.string.str_delete_domain));
+            mTitle.setText(R.string.str_delete_domain);
         } else {
             mTxType = CONST_PW_TX_DELETE_ACCOUNT;
-            mTitle.setText(getString(R.string.str_delete_account));
+            mTitle.setText(R.string.str_delete_account);
         }
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_register_domain_step_0));
+        mIvStep.setImageResource(R.drawable.step_4_img_1);
+        mTvStep.setText(R.string.str_register_domain_step_0);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -91,18 +90,18 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_delete_starname_step_0));
+                    mIvStep.setImageResource(R.drawable.step_4_img_1);
+                    mTvStep.setText(R.string.str_delete_starname_step_0);
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_delete_starname_step_1));
+                    mIvStep.setImageResource(R.drawable.step_4_img_2);
+                    mTvStep.setText(R.string.str_delete_starname_step_1);
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_delete_starname_step_2));
+                    mIvStep.setImageResource(R.drawable.step_4_img_3);
+                    mTvStep.setText(R.string.str_delete_starname_step_2);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_delete_starname_step_3));
+                    mIvStep.setImageResource(R.drawable.step_4_img_4);
+                    mTvStep.setText(R.string.str_delete_starname_step_3);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
@@ -113,12 +112,7 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onHideKeyboard();
-            }
-        });
+        mRootView.setOnClickListener(v -> onHideKeyboard());
 
     }
 

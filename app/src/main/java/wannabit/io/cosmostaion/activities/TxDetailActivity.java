@@ -404,9 +404,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         private void onBindCommon(RecyclerView.ViewHolder viewHolder) {
             final TxCommonHolder holder = (TxCommonHolder) viewHolder;
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeDenom);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeUsedDenom);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeLimitDenom);
+            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemFeeDenom);
+            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemFeeUsedDenom);
+            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemFeeLimitDenom);
             if (mBaseChain.equals(BNB_MAIN)) {
                 holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
                 holder.itemStatusTxt.setText(R.string.str_success_c);
@@ -578,14 +578,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         //TODO now not perfect support with multi transfer with multi coins!!
         private void onBindMultiSend(RecyclerView.ViewHolder viewHolder, int position) {
 //            final TxMultiSendHolder holder = (TxMultiSendHolder)viewHolder;
-//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom0);
-//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom1);
-//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom2);
-//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom3);
-//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom0);
-//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom1);
-//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom2);
-//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom3);
+//            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemInputDenom0);
+//            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemInputDenom1);
+//            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemInputDenom2);
+//            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemInputDenom3);
+//            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemOutputDenom0);
+//            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemOutputDenom1);
+//            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemOutputDenom2);
+//            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemOutputDenom3);
 //            holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 //
 //            final Msg msg = mResTxInfo.getMsg(position - 1);
@@ -650,7 +650,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindCommission(RecyclerView.ViewHolder viewHolder, int position) {
             final TxCommissionHolder holder = (TxCommissionHolder) viewHolder;
             final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemCommissionAmountDenom);
+            WDp.DpMainDenom(mBaseChain.getChain(), holder.itemCommissionAmountDenom);
             holder.itemCommissionImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             final Msg msg = mResTxInfo.getMsg(position - 1);
             holder.itemCommissionValidator.setText(msg.value.validator_address);

@@ -8,7 +8,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAI
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -64,18 +63,18 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
 
         if (mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
             mTxType = CONST_PW_TX_RENEW_DOMAIN;
-            mTitle.setText(getString(R.string.str_renew_domain));
+            mTitle.setText(R.string.str_renew_domain);
         } else {
             mTxType = CONST_PW_TX_RENEW_ACCOUNT;
-            mTitle.setText(getString(R.string.str_renew_account));
+            mTitle.setText(R.string.str_renew_account);
         }
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_renew_starname_step_0));
+        mIvStep.setImageResource(R.drawable.step_4_img_1);
+        mTvStep.setText(R.string.str_renew_starname_step_0);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -92,18 +91,18 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_renew_starname_step_0));
+                    mIvStep.setImageResource(R.drawable.step_4_img_1);
+                    mTvStep.setText(R.string.str_renew_starname_step_0);
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_renew_starname_step_1));
+                    mIvStep.setImageResource(R.drawable.step_4_img_2);
+                    mTvStep.setText(R.string.str_renew_starname_step_1);
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_renew_starname_step_2));
+                    mIvStep.setImageResource(R.drawable.step_4_img_3);
+                    mTvStep.setText(R.string.str_renew_starname_step_2);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_renew_starname_step_3));
+                    mIvStep.setImageResource(R.drawable.step_4_img_4);
+                    mTvStep.setText(R.string.str_renew_starname_step_3);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
@@ -114,12 +113,7 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onHideKeyboard();
-            }
-        });
+        mRootView.setOnClickListener(v -> onHideKeyboard());
     }
 
     @Override

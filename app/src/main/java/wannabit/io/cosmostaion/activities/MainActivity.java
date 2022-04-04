@@ -182,11 +182,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onShowWaitDialog();
             onFetchAllData();
 
-            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorWhite));
             mToolbarChainImg.setImageResource(mBaseChain.getChainIcon());
-            WDp.getChainTitle(MainActivity.this, mBaseChain, mToolbarChainName);
+            WDp.getChainHint(mBaseChain, mToolbarChainName);
             mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));
-            WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
+
+            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, mBaseChain.getFloatButtonColor()));
+            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, mBaseChain.getFloatButtonBackground()));
 
             mSelectedChain = mBaseChain;
             onChainSelect(mSelectedChain);
@@ -206,11 +207,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         getBaseDao().setLastChain(mSelectedChain.getChain());
 
         for (BaseChain chain : displayChains) {
-            if (expendedChains.contains(chain) || mSelectedChain.equals(chain)) {
-                mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().onSelectAccountsByChain(chain)));
-            } else {
-                mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain)));
-            }
+            boolean opened = expendedChains.contains(chain) || mSelectedChain.equals(chain);
+            mChainAccounts.add(new ChainAccounts(opened, chain, getBaseDao().onSelectAccountsByChain(chain)));
         }
     }
 
@@ -300,9 +298,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void fetchFinished() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            ((IRefreshTabListener) mPageAdapter.getItem(0)).onRefreshTab();
-            ((IRefreshTabListener) mPageAdapter.getItem(1)).onRefreshTab();
-            ((IRefreshTabListener) mPageAdapter.getItem(2)).onRefreshTab();
+            for (Fragment fragment : mPageAdapter.getFragments()) {
+                if (fragment instanceof IRefreshTabListener) {
+                    ((IRefreshTabListener) fragment).onRefreshTab();
+                }
+            }
         }
     }
 

@@ -5,7 +5,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -54,7 +53,7 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_title_swap));
+        mTitle.setText(R.string.str_title_swap);
 
         mTxType = CONST_PW_TX_SIF_SWAP;
         mInputDenom = getIntent().getStringExtra("inputDenom");
@@ -65,8 +64,8 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_sif_swap_step_0));
+        mIvStep.setImageResource(R.drawable.step_4_img_1);
+        mTvStep.setText(R.string.str_sif_swap_step_0);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -83,19 +82,19 @@ public class SifSwapActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_sif_swap_step_0));
+                    mIvStep.setImageResource(R.drawable.step_4_img_1);
+                    mTvStep.setText(R.string.str_sif_swap_step_0);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_sif_swap_step_1));
+                    mIvStep.setImageResource(R.drawable.step_4_img_2);
+                    mTvStep.setText(R.string.str_sif_swap_step_1);
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_sif_swap_step_2));
+                    mIvStep.setImageResource(R.drawable.step_4_img_3);
+                    mTvStep.setText(R.string.str_sif_swap_step_2);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_sif_swap_step_3));
+                    mIvStep.setImageResource(R.drawable.step_4_img_4);
+                    mTvStep.setText(R.string.str_sif_swap_step_3);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
@@ -106,12 +105,7 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onHideKeyboard();
-            }
-        });
+        mRootView.setOnClickListener(v -> onHideKeyboard());
     }
 
 

@@ -280,7 +280,6 @@ public class BaseData {
     public SifIncentive.User mSifLmIncentive;
 
     //GRPC for KAVA
-    public ArrayList<QueryOuterClass.CurrentPriceResponse> mKavaPrices = new ArrayList<>();
     public HashMap<String, QueryOuterClass.CurrentPriceResponse> mKavaTokenPrice = new HashMap<>();
     public IncentiveParam mIncentiveParam5;
     public IncentiveReward mIncentiveRewards;

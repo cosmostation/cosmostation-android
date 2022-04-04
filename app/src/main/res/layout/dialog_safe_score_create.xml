@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         style="@style/font_ssm_12_black"
                         android:gravity="center"
-                        android:text="SAFE" />
+                        android:text="@string/str_safe" />
 
                     <TextView
                         android:id="@+id/risk_score"

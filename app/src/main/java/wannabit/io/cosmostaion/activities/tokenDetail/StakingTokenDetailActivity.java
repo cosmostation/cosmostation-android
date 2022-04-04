@@ -21,13 +21,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
+import com.squareup.picasso.Picasso;
+
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -128,8 +130,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     }
 
     private void onUpdateView() {
-        WDp.getStakingTokenImg(mBaseChain, mToolbarSymbolImg);
-        WDp.DpMainDenom(StakingTokenDetailActivity.this, mBaseChain, mToolbarSymbol);
+        Picasso.get().cancelRequest(mToolbarSymbolImg);
+        mToolbarSymbolImg.setImageResource(mBaseChain.getCoinIcon());
+        WDp.DpMainDenom(mBaseChain, mToolbarSymbol);
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mMainDenom));
         mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mMainDenom));

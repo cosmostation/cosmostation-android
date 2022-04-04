@@ -55,14 +55,14 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_ok_direct_vote_c));
+        mTitle.setText(R.string.str_ok_direct_vote_c);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_ok_direct_vote_0));
+        mIvStep.setImageResource(R.drawable.step_4_img_1);
+        mTvStep.setText(R.string.str_ok_direct_vote_0);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -89,18 +89,18 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_ok_direct_vote_0));
+                    mIvStep.setImageResource(R.drawable.step_4_img_1);
+                    mTvStep.setText(R.string.str_ok_direct_vote_0);
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_ok_direct_vote_1));
+                    mIvStep.setImageResource(R.drawable.step_4_img_2);
+                    mTvStep.setText(R.string.str_ok_direct_vote_1);
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_ok_direct_vote_2));
+                    mIvStep.setImageResource(R.drawable.step_4_img_3);
+                    mTvStep.setText(R.string.str_ok_direct_vote_2);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_ok_direct_vote_3));
+                    mIvStep.setImageResource(R.drawable.step_4_img_4);
+                    mTvStep.setText(R.string.str_ok_direct_vote_3);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
@@ -111,12 +111,7 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onHideKeyboard();
-            }
-        });
+        mRootView.setOnClickListener(v -> onHideKeyboard());
 
     }
 

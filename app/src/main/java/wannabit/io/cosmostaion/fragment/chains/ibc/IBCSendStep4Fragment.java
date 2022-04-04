@@ -53,7 +53,7 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -71,7 +71,7 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
         WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mToIbcDenom, toSendAmount.toPlainString(), mSendAmountSymbol, mSendAmount, getSActivity().mBaseChain);
 
         BaseChain toChain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
-        WDp.getChainTitle(requireContext(), toChain, mRecipientChain);
+        WDp.getChainHint(toChain, mRecipientChain);
         mRecipientChain.setTextColor(WDp.getChainColor(getSActivity(), toChain));
         mRecipientAddress.setText(getSActivity().mToAddress);
     }

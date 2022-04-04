@@ -50,7 +50,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvRewardDenom);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mTvRewardDenom);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);

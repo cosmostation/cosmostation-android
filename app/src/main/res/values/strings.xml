@@ -351,6 +351,7 @@
     <string name="str_secret_main" translatable="false">SECRET</string>
     <string name="str_akash_main" translatable="false">AKASH</string>
     <string name="str_okex_main" translatable="false">OEC</string>
+    <string name="str_okex_test" translatable="false">OEC TEST</string>
     <string name="str_persis_main" translatable="false">PERSISTENCE</string>
     <string name="str_sentinel_main" translatable="false">SENTINEL</string>
     <string name="str_fetch_main" translatable="false">FETCH.AI</string>
@@ -361,6 +362,7 @@
     <string name="str_medi_main" translatable="false">MEDIBLOC</string>
     <string name="str_emoney_main" translatable="false">EMONEY</string>
     <string name="str_rizon_main" translatable="false">RIZON</string>
+    <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_regen_main" translatable="false">REGEN</string>
     <string name="str_juno_main" translatable="false">JUNO</string>
     <string name="str_bitcanna_main" translatable="false">BITCANNA</string>
@@ -1619,7 +1621,7 @@
     <string name="error_send_disable">Token transfer is locked.</string>
     <string name="error_real_testing">Open soon after real testing.</string>
     <string name="error_invalid_amounts">Invalid Amount</string>
-    <string name="error_prepare">Preparing...</string>
+    <string name="error_prepare">Preparing…</string>
     <string name="error_not_enough_fee">Not enough available balance for fee.</string>
     <string name="error_network_error">Network connection problem.</string>
     <string name="error_only_atom_for_fee">Currently only supports ATOM as Tx fee.</string>
@@ -2009,5 +2011,8 @@
     <string name="install_browser_title" translatable="false">Sync with Fulldive and get rewards</string>
     <string name="install_browser_description" translatable="false">Thank you for trying our Full apps, we feature many more great apps such as a browser that rewards you cash when you browse, check it out!</string>
     <string name="rate_us_description" translatable="false">Do you like Fulldive? We would love to hear your feedback and make the app better for you.</string>
+    <string name="str_safe">SAFE</string>
+    <string name="str_stable">STABLE</string>
+    <string name="str_danger">DANGER</string>
 
 </resources>

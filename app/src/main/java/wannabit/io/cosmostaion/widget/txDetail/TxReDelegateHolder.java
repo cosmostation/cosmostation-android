@@ -40,8 +40,8 @@ public class TxReDelegateHolder extends TxHolder {
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        WDp.DpMainDenom(c, baseChain.getChain(), itemReDelegateAmountDenom);
-        WDp.DpMainDenom(c, baseChain.getChain(), itemAutoRewardAmountDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemReDelegateAmountDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemAutoRewardAmountDenom);
         final int dpDecimal = WDp.mainDivideDecimal(baseChain);
         itemRedelegateImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 

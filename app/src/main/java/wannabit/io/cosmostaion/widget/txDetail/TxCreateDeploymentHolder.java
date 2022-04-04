@@ -30,7 +30,7 @@ public class TxCreateDeploymentHolder extends TxHolder {
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        WDp.DpMainDenom(c, baseChain.getChain(), itemCreateDeploymentDepositDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemCreateDeploymentDepositDenom);
         final int dpDecimal = WDp.mainDivideDecimal(baseChain);
         itemCreateDeploymentImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 

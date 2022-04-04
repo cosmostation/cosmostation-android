@@ -54,8 +54,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomDelegateAmount);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomDelegateAmount);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomFeeType);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);

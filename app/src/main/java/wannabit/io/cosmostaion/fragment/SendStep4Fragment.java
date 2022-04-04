@@ -70,11 +70,11 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
         String baseChain = getSActivity().mAccount.baseChain;
 
-        WDp.DpMainDenom(getContext(), baseChain, mDenomFeeType);
-        WDp.DpMainDenom(getContext(), baseChain, mDenomTotalSpend);
-        WDp.DpMainDenom(getContext(), baseChain, mDenomSendAmount);
-        WDp.DpMainDenom(getContext(), baseChain, mDenomCurrentAmount);
-        WDp.DpMainDenom(getContext(), baseChain, mDenomRemainAmount);
+        WDp.DpMainDenom(baseChain, mDenomFeeType);
+        WDp.DpMainDenom(baseChain, mDenomTotalSpend);
+        WDp.DpMainDenom(baseChain, mDenomSendAmount);
+        WDp.DpMainDenom(baseChain, mDenomCurrentAmount);
+        WDp.DpMainDenom(baseChain, mDenomRemainAmount);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);

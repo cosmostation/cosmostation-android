@@ -63,9 +63,9 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mDenomFeeType = rootView.findViewById(R.id.reward_fees_type);
         mDenomResultAmount = rootView.findViewById(R.id.expected_amount_title);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRewardAmount);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomResultAmount);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomRewardAmount);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomResultAmount);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);

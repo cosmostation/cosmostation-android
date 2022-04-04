@@ -30,7 +30,7 @@ public class TxStakingRewardHolder extends TxHolder {
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        WDp.DpMainDenom(c, baseChain.getChain(), itemRewardAmountDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemRewardAmountDenom);
         itemRewardImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         final int dpDecimal = WDp.mainDivideDecimal(baseChain);
 

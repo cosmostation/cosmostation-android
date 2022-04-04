@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.WalletSwitchActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -122,21 +124,18 @@ public class ManageChainSwitchHolder extends BaseHolder {
     public void onBindChainSwitch(@NotNull WalletSwitchActivity switchActivity, ChainAccounts data, Account currentAccount) {
         accountCard.setCardBackgroundColor(WDp.getChainBgColor(switchActivity, data.baseChain));
         accountChainImg.setImageResource(data.baseChain.getChainIcon());
-        WDp.getChainTitle2(switchActivity, data.baseChain, accountChainName);
-        accountWalletCnt.setText(data.accounts.size() + " / 5");
+        accountChainName.setText(data.baseChain.getChainAlterTitle());
+        accountWalletCnt.setText(String.format(Locale.ENGLISH, "%d / %d", data.accounts.size(), 5));
 
-        accountSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                data.opened = !data.opened;
-                if (hiddenView.getVisibility() == View.VISIBLE) {
-                    hiddenView.setVisibility(View.GONE);
-                } else {
-                    TransitionManager.beginDelayedTransition(accountCard, new AutoTransition());
-                    hiddenView.setVisibility(View.VISIBLE);
-                }
-                onSelectedChain(switchActivity, data, currentAccount);
+        accountSelect.setOnClickListener(v -> {
+            data.opened = !data.opened;
+            if (hiddenView.getVisibility() == View.VISIBLE) {
+                hiddenView.setVisibility(View.GONE);
+            } else {
+                TransitionManager.beginDelayedTransition(accountCard, new AutoTransition());
+                hiddenView.setVisibility(View.VISIBLE);
             }
+            onSelectedChain(switchActivity, data, currentAccount);
         });
         onSelectedChain(switchActivity, data, currentAccount);
     }
@@ -184,7 +183,7 @@ public class ManageChainSwitchHolder extends BaseHolder {
         } else {
             layout.setBackground(switchActivity.getResources().getDrawable(R.drawable.box_round_darkgray));
         }
-        WDp.DpMainDenom(switchActivity, dpAccount.baseChain, denom);
+        WDp.DpMainDenom(dpAccount.baseChain, denom);
         address.setText(dpAccount.address);
         amount.setText(dpAccount.getLastTotal(switchActivity, BaseChain.getChain(dpAccount.baseChain)));
         keyImg.setColorFilter(ContextCompat.getColor(switchActivity, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);

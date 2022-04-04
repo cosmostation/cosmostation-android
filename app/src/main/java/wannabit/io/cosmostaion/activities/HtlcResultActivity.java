@@ -52,8 +52,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class HtlcResultActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar mToolbar;
     private NestedScrollView mTxScrollView;
-    private CardView mErrorCardView;
-    private TextView mErrorMsgTv;
     private RelativeLayout mLoadingLayer;
     private TextView mLoadingProgress;
     private LinearLayout mControlLayer;
@@ -82,8 +80,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_htls_result);
         mToolbar = findViewById(R.id.tool_bar);
         mTxScrollView = findViewById(R.id.scroll_layer);
-        mErrorCardView = findViewById(R.id.error_Card);
-        mErrorMsgTv = findViewById(R.id.error_details);
         mLoadingLayer = findViewById(R.id.loadingLayer);
         mLoadingProgress = findViewById(R.id.loadingProgress);
         mControlLayer = findViewById(R.id.bottom_control);
@@ -207,7 +203,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
             WDp.showCoinDp(getBaseContext(), getBaseDao(), sendCoin, sendDenom, sendAmount, mBaseChain);
 
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), feeDenom);
+            WDp.DpMainDenom(mBaseChain.getChain(), feeDenom);
             feeAmount.setText(WDp.getDpAmount2(new BigDecimal(FEE_BNB_SEND), 0, 8));
 
             senderTv.setText(msg.value.from);
@@ -237,7 +233,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             sendDenom.setText(sendCoin.denom.toUpperCase());
             sendAmount.setText(WDp.getDpAmount2(new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom)));
 
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), feeDenom);
+            WDp.DpMainDenom(mBaseChain.getChain(), feeDenom);
             feeAmount.setText(WDp.getDpAmount2(mResSendTxInfo.simpleFee(), 6, 6));
 
             senderTv.setText(msg.value.from);
@@ -288,7 +284,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             claimDenom.setText("");
             claimAmount.setText("");
 
-            WDp.DpMainDenom(getBaseContext(), mRecipientChain.getChain(), feeDenom);
+            WDp.DpMainDenom(mRecipientChain.getChain(), feeDenom);
             feeAmount.setText(WDp.getDpAmount2(new BigDecimal(FEE_BNB_SEND), 0, 8));
 
             claimerTv.setText(msg.value.from);
@@ -326,7 +322,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     claimAmount.setText("");
                 }
 
-                WDp.DpMainDenom(getBaseContext(), mRecipientChain.getChain(), feeDenom);
+                WDp.DpMainDenom(mRecipientChain.getChain(), feeDenom);
                 feeAmount.setText(WDp.getDpAmount2(mResReceiveTxInfo.simpleFee(), 6, 6));
 
                 claimerTv.setText(msg.value.from);

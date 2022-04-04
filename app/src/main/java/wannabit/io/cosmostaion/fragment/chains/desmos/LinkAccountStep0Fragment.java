@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_Link_Accounts;
 import wannabit.io.cosmostaion.dialog.Dialog_Link_Chain;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
-import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -88,7 +87,7 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
 
     public void onUpdateView() {
         mLinkChain.setImageResource(mSelectedChain.getChainIcon());
-        WDp.getChainTitle2(getSActivity(), mSelectedChain, mLinkChainTxt);
+        mLinkChainTxt.setText(mSelectedChain.getChainAlterTitle());
 
         if (mSelectedAccount != null) {
             mLinkAccountName.setText(mSelectedAccount.getAccountTitle(getContext()));

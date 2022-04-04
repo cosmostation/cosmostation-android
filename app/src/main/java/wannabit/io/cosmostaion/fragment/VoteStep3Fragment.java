@@ -51,7 +51,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomFeeType);
         mProposalTitle.setText(getSActivity().mProposeTitle);
         mProposer.setText(getSActivity().mProposer);
         mBeforeBtn.setOnClickListener(this);

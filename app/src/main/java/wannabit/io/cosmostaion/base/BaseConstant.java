@@ -260,32 +260,17 @@ public class BaseConstant {
 
     public final static String COSMOS_AUTH_TYPE_STDTX = "auth/StdTx";
 
-    public final static String COSMOS_AUTH_TYPE_DELAYEDACCOUNT = "cosmos-sdk/DelayedVestingAccount";
     public final static String COSMOS_AUTH_TYPE_VESTING_ACCOUNT = "cosmos-sdk/ValidatorVestingAccount";
     public final static String COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT = "cosmos-sdk/PeriodicVestingAccount";
     public final static String COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT = "cosmos-sdk/ContinuousVestingAccount";
     public final static String COSMOS_AUTH_TYPE_D_VESTING_ACCOUNT = "cosmos-sdk/DelayedVestingAccount";
     public final static String COSMOS_AUTH_TYPE_ACCOUNT = "cosmos-sdk/Account";
-    public final static String COSMOS_AUTH_TYPE_ACCOUNT_LEGACY = "auth/Account";
-    public final static String COSMOS_AUTH_TYPE_CERTIK_MANUAL = "auth/ManualVestingAccount";
     public final static String COSMOS_AUTH_TYPE_OKEX_ACCOUNT = "okexchain/EthAccount";
 
     public final static String COSMOS_MSG_TYPE_TRANSFER = "cosmos-sdk/Send";
     public final static String COSMOS_MSG_TYPE_TRANSFER2 = "cosmos-sdk/MsgSend";
     public final static String COSMOS_MSG_TYPE_TRANSFER3 = "cosmos-sdk/MsgMultiSend";
-    public final static String COSMOS_MSG_TYPE_DELEGATE = "cosmos-sdk/MsgDelegate";
-    public final static String COSMOS_MSG_TYPE_UNDELEGATE = "cosmos-sdk/Undelegate";
-    public final static String COSMOS_MSG_TYPE_UNDELEGATE2 = "cosmos-sdk/MsgUndelegate";
-    public final static String COSMOS_MSG_TYPE_REDELEGATE = "cosmos-sdk/BeginRedelegate";
-    public final static String COSMOS_MSG_TYPE_REDELEGATE2 = "cosmos-sdk/MsgBeginRedelegate";
-    public final static String COSMOS_MSG_TYPE_WITHDRAW_DEL = "cosmos-sdk/MsgWithdrawDelegationReward";
     public final static String COSMOS_MSG_TYPE_WITHDRAW_VAL = "cosmos-sdk/MsgWithdrawValidatorCommission";
-    public final static String COSMOS_MSG_TYPE_WITHDRAW_MIDIFY = "cosmos-sdk/MsgModifyWithdrawAddress";
-    public final static String COSMOS_MSG_TYPE_VOTE = "cosmos-sdk/MsgVote";
-    public final static String COSMOS_MSG_TYPE_SUBMIT_PROPOSAL = "cosmos-sdk/MsgSubmitProposal";
-    public final static String COSMOS_MSG_TYPE_DEPOSIT = "cosmos-sdk/MsgDeposit";
-    public final static String COSMOS_MSG_TYPE_CREATE_VALIDATOR = "cosmos-sdk/MsgCreateValidator";
-    public final static String COSMOS_MSG_TYPE_EDIT_VALIDATOR = "cosmos-sdk/MsgEditValidator";
     public final static String COSMOS_MSG_TYPE_UNJAIL = "cosmos-sdk/MsgUnjail";
 
     public final static String KAVA_MSG_TYPE_POST_PRICE = "/kava.pricefeed.v1beta1.MsgPostPrice";
@@ -327,11 +312,8 @@ public class BaseConstant {
     public final static String OK_MSG_TYPE_DIRECT_VOTE = "okexchain/staking/MsgAddShares";
 
 
-    public final static String IOV_MSG_TYPE_REGISTER_DOMAIN = "starname/RegisterDomain";
-    public final static String IOV_MSG_TYPE_REGISTER_ACCOUNT = "starname/RegisterAccount";
     public final static String IOV_MSG_TYPE_DELETE_ACCOUNT = "starname/DeleteAccount";
     public final static String IOV_MSG_TYPE_DELETE_DOMAIN = "starname/DeleteDomain";
-    public final static String IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE = "starname/ReplaceAccountResources";
     public final static String IOV_MSG_TYPE_RENEW_DOMAIN = "starname/RenewDomain";
     public final static String IOV_MSG_TYPE_RENEW_ACCOUNT = "starname/RenewAccount";
 
@@ -341,13 +323,9 @@ public class BaseConstant {
 
     public final static String COSMOS_KEY_TYPE_PUBLIC = "tendermint/PubKeySecp256k1";
     public final static String ETHERMINT_KEY_TYPE_PUBLIC = "ethermint/PubKeyEthSecp256k1";
-    public final static String IOV_KEY_TYPE = "sigs/ed25519/";
-
-    public final static String LIQUIDITY_MSG_TYPE_SWAP = "liquidity/MsgSwapWithinBatch";
 
     public final static String CONST_PW_PURPOSE = "CONST_PW_PURPOSE";
     public final static int CONST_PW_INIT = 5000;
-    public final static int CONST_PW_UNLOUCK = 5001;
     public final static int CONST_PW_SIMPLE_CHECK = 5002;
     public final static int CONST_PW_TX_SIMPLE_SEND = 5003;
     public final static int CONST_PW_TX_SIMPLE_DELEGATE = 5004;
@@ -789,7 +767,7 @@ public class BaseConstant {
     public final static String ASSET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/assets/images/ethereum/";
 
     public final static String EXPLORER_COSMOS_MAIN = "https://www.mintscan.io/cosmos/";
-    public final static String EXPLORER_IMVERSED_MAIN = "https://tex.imversed.com/"; // TODO Imversed
+    public final static String EXPLORER_IMVERSED_MAIN = "https://tex.imversed.com/";
     public final static String EXPLORER_IRIS_MAIN = "https://www.mintscan.io/iris/";
     public final static String EXPLORER_KAVA_MAIN = "https://www.mintscan.io/kava/";
     public final static String EXPLORER_IOV_MAIN = "https://www.mintscan.io/starname/";

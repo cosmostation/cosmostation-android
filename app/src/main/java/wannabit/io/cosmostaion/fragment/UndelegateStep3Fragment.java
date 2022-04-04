@@ -50,8 +50,8 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomUndelegateAmount);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomUndelegateAmount);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomFeeType);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);

@@ -142,7 +142,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
     @Override
     public void onResume() {
         super.onResume();
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mAvailableDenom);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mAvailableDenom);
         if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mMaxAvailable = getBaseDao().okDepositAmount();
             mAvailableAmount.setText(WDp.getDpAmount2(mMaxAvailable, 0, mDpDecimal));

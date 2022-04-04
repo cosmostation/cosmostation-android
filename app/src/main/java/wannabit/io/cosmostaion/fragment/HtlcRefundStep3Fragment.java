@@ -55,7 +55,7 @@ public class HtlcRefundStep3Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mFeeDenom);
+        WDp.DpMainDenom(getSActivity().mBaseChain.getChain(), mFeeDenom);
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 0, 8));
             mSwapId.setText(getSActivity().mSwapId);

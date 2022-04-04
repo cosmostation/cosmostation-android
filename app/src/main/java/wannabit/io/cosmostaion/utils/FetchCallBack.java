@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.utils;
 
 public interface FetchCallBack {
-    public abstract void fetchFinished();
+    void fetchFinished();
 
-    public abstract void fetchBusy();
+    void fetchBusy();
 }

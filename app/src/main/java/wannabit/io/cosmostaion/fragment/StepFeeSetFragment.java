@@ -199,7 +199,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mBtnBefore = rootView.findViewById(R.id.btn_before);
         mBtnNext = rootView.findViewById(R.id.btn_next);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mBaseChain, mFeeDenom);
+        WDp.DpMainDenom(getSActivity().mBaseChain, mFeeDenom);
         mFeeTotalCard.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getSActivity().mBaseChain));
         mButtonGroup.setSelectedBackground(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
         mButtonGroup.setRipple(WDp.getChainColor(getContext(), getSActivity().mBaseChain));

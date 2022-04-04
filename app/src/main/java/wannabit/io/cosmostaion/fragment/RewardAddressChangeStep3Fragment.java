@@ -51,7 +51,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeType);
+        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeType);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);

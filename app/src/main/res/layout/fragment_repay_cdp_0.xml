@@ -257,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ss_10_white"
-                        android:text="SAFE" />
+                        android:text="@string/str_safe" />
 
                     <TextView
                         android:id="@+id/risk_score_before"
@@ -291,7 +291,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ss_10_white"
-                        android:text="SAFE" />
+                        android:text="@string/str_safe" />
 
                     <TextView
                         android:id="@+id/risk_score_after"

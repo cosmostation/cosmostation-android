@@ -65,11 +65,8 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -152,7 +149,7 @@ public class WDp {
 
         } else if (chain.equals(COSMOS_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
                 amountTv.setText(getDpAmount2(new BigDecimal(coin.amount), 6, 6));
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -162,7 +159,7 @@ public class WDp {
 
         } else if (chain.equals(IMVERSED_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -171,7 +168,7 @@ public class WDp {
 
         } else if (chain.equals(IRIS_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -180,7 +177,7 @@ public class WDp {
 
         } else if (chain.equals(KAVA_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else if (coin.denom.equals(TOKEN_HARD)) {
                 denomTv.setText(coin.denom.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorHard));
@@ -198,7 +195,7 @@ public class WDp {
 
         } else if (chain.equals(IOV_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
 
@@ -207,7 +204,7 @@ public class WDp {
 
         } else if (chain.equals(BNB_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
             }
@@ -215,7 +212,7 @@ public class WDp {
 
         } else if (chain.equals(BAND_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -225,7 +222,7 @@ public class WDp {
 
         } else if (chain.equals(OKEX_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
             }
@@ -233,7 +230,7 @@ public class WDp {
 
         } else if (chain.equals(CERTIK_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -243,7 +240,7 @@ public class WDp {
 
         } else if (chain.equals(SECRET_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -253,7 +250,7 @@ public class WDp {
 
         } else if (chain.equals(AKASH_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -262,7 +259,7 @@ public class WDp {
 
         } else if (chain.equals(PERSIS_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -271,7 +268,7 @@ public class WDp {
 
         } else if (chain.equals(SENTINEL_MAIN)) {
             if (coin.denom.equals(TOKEN_DVPN)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -280,7 +277,7 @@ public class WDp {
 
         } else if (chain.equals(FETCHAI_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -289,7 +286,7 @@ public class WDp {
 
         } else if (chain.equals(CRYPTO_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -299,7 +296,7 @@ public class WDp {
         } else if (chain.equals(SIF_MAIN)) {
             int decimal = WUtil.getSifCoinDecimal(coin.denom);
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else if (coin.denom.startsWith("c")) {
                 denomTv.setText(coin.denom.substring(1).toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -311,7 +308,7 @@ public class WDp {
 
         } else if (chain.equals(KI_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -320,7 +317,7 @@ public class WDp {
 
         } else if (chain.equals(OSMOSIS_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
                 amountTv.setText(getDpAmount2(new BigDecimal(coin.amount), 6, 6));
 
             } else if (coin.denom.equals(TOKEN_ION)) {
@@ -341,7 +338,7 @@ public class WDp {
 
         } else if (chain.equals(MEDI_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -350,7 +347,7 @@ public class WDp {
 
         } else if (chain.equals(EMONEY_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -359,7 +356,7 @@ public class WDp {
 
         } else if (chain.equals(RIZON_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -368,7 +365,7 @@ public class WDp {
 
         } else if (chain.equals(JUNO_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -377,7 +374,7 @@ public class WDp {
 
         } else if (chain.equals(REGEN_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -386,7 +383,7 @@ public class WDp {
 
         } else if (chain.equals(BITCANNA_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -395,7 +392,7 @@ public class WDp {
 
         } else if (chain.equals(ALTHEA_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -404,7 +401,7 @@ public class WDp {
 
         } else if (chain.equals(STARGAZE_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -414,7 +411,7 @@ public class WDp {
         } else if (chain.equals(GRABRIDGE_MAIN)) {
             int decimal = WUtil.getGBridgeCoinDecimal(baseData, coin.denom);
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else if (coin.denom.startsWith("gravity")) {
                 final Assets assets = baseData.getAsset(coin.denom);
                 if (assets != null) {
@@ -429,7 +426,7 @@ public class WDp {
 
         } else if (chain.equals(COMDEX_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -438,7 +435,7 @@ public class WDp {
 
         } else if (chain.equals(INJ_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
                 amountTv.setText(getDpAmount2(new BigDecimal(coin.amount), 18, 18));
             } else if (coin.denom.startsWith("peggy")) {
                 final Assets assets = baseData.getAsset(coin.denom);
@@ -455,7 +452,7 @@ public class WDp {
 
         } else if (chain.equals(BITSONG_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -464,7 +461,7 @@ public class WDp {
 
         } else if (chain.equals(DESMOS_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -473,7 +470,7 @@ public class WDp {
 
         } else if (chain.equals(LUM_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -482,7 +479,7 @@ public class WDp {
 
         } else if (chain.equals(CHIHUAHUA_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -491,7 +488,7 @@ public class WDp {
 
         } else if (chain.equals(AXELAR_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -500,7 +497,7 @@ public class WDp {
 
         } else if (chain.equals(KONSTELL_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -509,7 +506,7 @@ public class WDp {
 
         } else if (chain.equals(UMEE_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -518,7 +515,7 @@ public class WDp {
 
         } else if (chain.equals(EVMOS_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -527,7 +524,7 @@ public class WDp {
 
         } else if (chain.equals(CUDOS_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -536,7 +533,7 @@ public class WDp {
 
         } else if (chain.equals(PROVENANCE_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -545,7 +542,7 @@ public class WDp {
 
         } else if (chain.equals(CERBERUS_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -554,7 +551,7 @@ public class WDp {
 
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -563,7 +560,7 @@ public class WDp {
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -572,7 +569,7 @@ public class WDp {
 
         } else if (chain.equals(IRIS_TEST)) {
             if (coin.denom.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -597,7 +594,7 @@ public class WDp {
 
         } else if (chain.equals(COSMOS_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(symbol.toUpperCase());
@@ -606,7 +603,7 @@ public class WDp {
 
         } else if (chain.equals(IMVERSED_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(symbol.toUpperCase());
@@ -615,7 +612,7 @@ public class WDp {
 
         } else if (chain.equals(IRIS_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 denomTv.setText(symbol.toUpperCase());
@@ -624,7 +621,7 @@ public class WDp {
 
         } else if (chain.equals(KAVA_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else if (symbol.equals(TOKEN_HARD)) {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorHard));
@@ -643,7 +640,7 @@ public class WDp {
 
         } else if (chain.equals(IOV_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
 
             } else {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -653,7 +650,7 @@ public class WDp {
 
         } else if (chain.equals(BNB_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
 
             } else {
                 denomTv.setText(symbol.toUpperCase());
@@ -662,12 +659,12 @@ public class WDp {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), 0, 8));
 
         } else if (chain.equals(BAND_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            DpMainDenom(chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(OKEX_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -676,7 +673,7 @@ public class WDp {
 
         } else if (chain.equals(CERTIK_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -685,7 +682,7 @@ public class WDp {
 
         } else if (chain.equals(SECRET_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -694,7 +691,7 @@ public class WDp {
 
         } else if (chain.equals(AKASH_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -703,7 +700,7 @@ public class WDp {
 
         } else if (chain.equals(PERSIS_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -712,7 +709,7 @@ public class WDp {
 
         } else if (chain.equals(SENTINEL_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -721,7 +718,7 @@ public class WDp {
 
         } else if (chain.equals(FETCHAI_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -730,7 +727,7 @@ public class WDp {
 
         } else if (chain.equals(CRYPTO_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -740,7 +737,7 @@ public class WDp {
         } else if (chain.equals(SIF_MAIN)) {
             int decimal = WUtil.getSifCoinDecimal(symbol);
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else if (symbol.startsWith("c")) {
                 denomTv.setText(symbol.substring(1).toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -752,7 +749,7 @@ public class WDp {
 
         } else if (chain.equals(KI_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -761,7 +758,7 @@ public class WDp {
 
         } else if (chain.equals(OSMOSIS_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
                 amountTv.setText(getDpAmount2(new BigDecimal(amount), 6, 6));
 
             } else if (symbol.equals(TOKEN_ION)) {
@@ -783,7 +780,7 @@ public class WDp {
 
         } else if (chain.equals(MEDI_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -792,7 +789,7 @@ public class WDp {
 
         } else if (chain.equals(EMONEY_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -801,7 +798,7 @@ public class WDp {
 
         } else if (chain.equals(RIZON_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -810,7 +807,7 @@ public class WDp {
 
         } else if (chain.equals(JUNO_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -819,7 +816,7 @@ public class WDp {
 
         } else if (chain.equals(REGEN_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -828,7 +825,7 @@ public class WDp {
 
         } else if (chain.equals(BITCANNA_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -837,7 +834,7 @@ public class WDp {
 
         } else if (chain.equals(ALTHEA_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -846,7 +843,7 @@ public class WDp {
 
         } else if (chain.equals(STARGAZE_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -856,7 +853,7 @@ public class WDp {
         } else if (chain.equals(GRABRIDGE_MAIN)) {
             int decimal = WUtil.getGBridgeCoinDecimal(baseData, symbol);
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else if (symbol.startsWith("gravity")) {
                 final Assets assets = baseData.getAsset(symbol);
                 if (assets != null) {
@@ -871,7 +868,7 @@ public class WDp {
 
         } else if (chain.equals(COMDEX_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -880,7 +877,7 @@ public class WDp {
 
         } else if (chain.equals(INJ_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
                 amountTv.setText(getDpAmount2(new BigDecimal(amount), 18, 18));
             } else if (symbol.startsWith("peggy")) {
                 final Assets assets = baseData.getAsset(symbol);
@@ -897,7 +894,7 @@ public class WDp {
 
         } else if (chain.equals(BITSONG_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -906,7 +903,7 @@ public class WDp {
 
         } else if (chain.equals(DESMOS_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -915,7 +912,7 @@ public class WDp {
 
         } else if (chain.equals(LUM_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -924,7 +921,7 @@ public class WDp {
 
         } else if (chain.equals(CHIHUAHUA_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -933,7 +930,7 @@ public class WDp {
 
         } else if (chain.equals(AXELAR_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -942,7 +939,7 @@ public class WDp {
 
         } else if (chain.equals(KONSTELL_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -951,7 +948,7 @@ public class WDp {
 
         } else if (chain.equals(UMEE_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -960,7 +957,7 @@ public class WDp {
 
         } else if (chain.equals(EVMOS_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -969,7 +966,7 @@ public class WDp {
 
         } else if (chain.equals(CUDOS_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -978,7 +975,7 @@ public class WDp {
 
         } else if (chain.equals(PROVENANCE_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -987,7 +984,7 @@ public class WDp {
 
         } else if (chain.equals(CERBERUS_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -996,7 +993,7 @@ public class WDp {
 
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
@@ -1004,18 +1001,18 @@ public class WDp {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), 6, 6));
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(new BigDecimal(amount), 6, 6));
         } else if (chain.equals(IRIS_TEST)) {
             if (symbol.equals(chain.getMainDenom())) {
-                DpMainDenom(c, chain.getChain(), denomTv);
+                DpMainDenom(chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(new BigDecimal(amount), 6, 6));
 
@@ -1058,206 +1055,13 @@ public class WDp {
         }
     }
 
-    public static void getChainTitle(Context context, BaseChain baseChain, TextView chainName) {
+    public static void getChainHint(BaseChain chain, TextView textView) {
+        final Context context = textView.getContext();
         int titleRes = R.string.str_unknown;
-        if (baseChain != null) {
-            titleRes = baseChain.getChainTitle();
+        if (chain != null) {
+            titleRes = chain.getChainTitle();
         }
-        chainName.setText(String.format("(%s)", context.getString(titleRes)));
-    }
-
-    public static void getChainTitle2(Context c, BaseChain baseChain, TextView chainName) {
-        if (baseChain != null) {
-            if (baseChain.equals(COSMOS_MAIN)) {
-                chainName.setText(c.getString(R.string.str_cosmos));
-            } else if (baseChain.equals(IMVERSED_MAIN)) {
-                chainName.setText(c.getString(R.string.str_imversed));
-            } else if (baseChain.equals(IRIS_MAIN)) {
-                chainName.setText(c.getString(R.string.str_iris));
-            } else if (baseChain.equals(BNB_MAIN)) {
-                chainName.setText(c.getString(R.string.str_binance));
-            } else if (baseChain.equals(KAVA_MAIN)) {
-                chainName.setText(c.getString(R.string.str_kava));
-            } else if (baseChain.equals(IOV_MAIN)) {
-                chainName.setText(c.getString(R.string.str_iov));
-            } else if (baseChain.equals(BAND_MAIN)) {
-                chainName.setText(c.getString(R.string.str_band));
-            } else if (baseChain.equals(CERTIK_MAIN)) {
-                chainName.setText(c.getString(R.string.str_certik_main));
-            } else if (baseChain.equals(SECRET_MAIN)) {
-                chainName.setText(c.getString(R.string.str_secret_main));
-            } else if (baseChain.equals(AKASH_MAIN)) {
-                chainName.setText(c.getString(R.string.str_akash_main));
-            } else if (baseChain.equals(OKEX_MAIN)) {
-                chainName.setText(c.getString(R.string.str_okex_main));
-            } else if (baseChain.equals(PERSIS_MAIN)) {
-                chainName.setText(c.getString(R.string.str_persis_main));
-            } else if (baseChain.equals(SENTINEL_MAIN)) {
-                chainName.setText(c.getString(R.string.str_sentinel_main));
-            } else if (baseChain.equals(FETCHAI_MAIN)) {
-                chainName.setText(c.getString(R.string.str_fetch_main));
-            } else if (baseChain.equals(CRYPTO_MAIN)) {
-                chainName.setText(c.getString(R.string.str_crypto_main));
-            } else if (baseChain.equals(SIF_MAIN)) {
-                chainName.setText(c.getString(R.string.str_sif_main));
-            } else if (baseChain.equals(KI_MAIN)) {
-                chainName.setText(c.getString(R.string.str_ki_main));
-            } else if (baseChain.equals(OSMOSIS_MAIN)) {
-                chainName.setText(c.getString(R.string.str_osmosis_main));
-            } else if (baseChain.equals(MEDI_MAIN)) {
-                chainName.setText(c.getString(R.string.str_medi_main));
-            } else if (baseChain.equals(EMONEY_MAIN)) {
-                chainName.setText(c.getString(R.string.str_emoney_main));
-            } else if (baseChain.equals(RIZON_MAIN)) {
-                chainName.setText(c.getString(R.string.str_rizon_main));
-            } else if (baseChain.equals(JUNO_MAIN)) {
-                chainName.setText(c.getString(R.string.str_juno_main));
-            } else if (baseChain.equals(REGEN_MAIN)) {
-                chainName.setText(c.getString(R.string.str_regen_main));
-            } else if (baseChain.equals(BITCANNA_MAIN)) {
-                chainName.setText(c.getString(R.string.str_bitcanna_main));
-            } else if (baseChain.equals(ALTHEA_MAIN)) {
-                chainName.setText(c.getString(R.string.str_althea_main));
-            } else if (baseChain.equals(STARGAZE_MAIN)) {
-                chainName.setText(c.getString(R.string.str_stargaze_main));
-            } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-                chainName.setText(c.getString(R.string.str_grabridge_main));
-            } else if (baseChain.equals(COMDEX_MAIN)) {
-                chainName.setText(c.getString(R.string.str_comdex_main));
-            } else if (baseChain.equals(INJ_MAIN)) {
-                chainName.setText(c.getString(R.string.str_inj_main));
-            } else if (baseChain.equals(BITSONG_MAIN)) {
-                chainName.setText(c.getString(R.string.str_bitsong_main));
-            } else if (baseChain.equals(DESMOS_MAIN)) {
-                chainName.setText(c.getString(R.string.str_desmos_main));
-            } else if (baseChain.equals(LUM_MAIN)) {
-                chainName.setText(c.getString(R.string.str_lum_main));
-            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
-                chainName.setText(c.getString(R.string.str_chihuahua_main));
-            } else if (baseChain.equals(AXELAR_MAIN)) {
-                chainName.setText(c.getString(R.string.str_axelar_main));
-            } else if (baseChain.equals(KONSTELL_MAIN)) {
-                chainName.setText(c.getString(R.string.str_konstellation_main));
-            } else if (baseChain.equals(UMEE_MAIN)) {
-                chainName.setText(c.getString(R.string.str_umee_main));
-            } else if (baseChain.equals(EVMOS_MAIN)) {
-                chainName.setText(c.getString(R.string.str_evmos_main));
-            } else if (baseChain.equals(CUDOS_MAIN)) {
-                chainName.setText(c.getString(R.string.str_cudos_main));
-            } else if (baseChain.equals(PROVENANCE_MAIN)) {
-                chainName.setText(c.getString(R.string.str_provenance_main));
-            } else if (baseChain.equals(CERBERUS_MAIN)) {
-                chainName.setText(c.getString(R.string.str_cerberus_main));
-            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
-                chainName.setText(c.getString(R.string.str_omniflix_main));
-
-            } else if (baseChain.equals(COSMOS_TEST)) {
-                chainName.setText(c.getString(R.string.str_cosmos_test));
-            } else if (baseChain.equals(IRIS_TEST)) {
-                chainName.setText(c.getString(R.string.str_iris_test));
-            }
-        } else {
-            chainName.setText(R.string.str_unknown);
-        }
-    }
-
-    public static void getFloatBtn(Context c, BaseChain baseChain, FloatingActionButton floatBtn) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorAtom));
-        } else if (baseChain.equals(IMVERSED_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorImversed));
-        } else if (baseChain.equals(IRIS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorIris));
-        } else if (baseChain.equals(BNB_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBnb));
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorKava));
-        } else if (baseChain.equals(IOV_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorIov));
-        } else if (baseChain.equals(BAND_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBand));
-        } else if (baseChain.equals(CERTIK_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorCertik));
-        } else if (baseChain.equals(SECRET_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorSecret2));
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorAkash));
-        } else if (baseChain.equals(OKEX_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorOK));
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorPersis));
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorSentinel3));
-        } else if (baseChain.equals(FETCHAI_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorFetch));
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorCryto2));
-        } else if (baseChain.equals(SIF_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorSif));
-        } else if (baseChain.equals(KI_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorKi));
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorOsmosis));
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorMedi));
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorEmoney));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(RIZON_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorRizon));
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorJuno));
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorRegen));
-        } else if (baseChain.equals(BITCANNA_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBitcanna));
-        } else if (baseChain.equals(ALTHEA_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorAlthea));
-        } else if (baseChain.equals(STARGAZE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorStargaze));
-        } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorGraBridge));
-        } else if (baseChain.equals(COMDEX_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorTransBgComdex));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorComdex));
-        } else if (baseChain.equals(INJ_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorInj));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
-        } else if (baseChain.equals(BITSONG_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBitsong));
-        } else if (baseChain.equals(DESMOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorDesmos));
-        } else if (baseChain.equals(LUM_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorLum));
-        } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorChihuahua));
-        } else if (baseChain.equals(AXELAR_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorAxelar));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
-        } else if (baseChain.equals(KONSTELL_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorKonstellation3));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorKonstellation));
-        } else if (baseChain.equals(UMEE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorUmee));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(EVMOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorEvmos));
-        } else if (baseChain.equals(CUDOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorCudos));
-        } else if (baseChain.equals(PROVENANCE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorProvenance));
-        } else if (baseChain.equals(CERBERUS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorCerberus));
-        } else if (baseChain.equals(OMNIFLIX_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorOmniflix));
-        } else if (baseChain.equals(COSMOS_TEST)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorAtom));
-        } else if (baseChain.equals(IRIS_TEST)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorIris));
-        }
+        textView.setText(String.format("(%s)", context.getString(titleRes)));
     }
 
     public static void getLayoutColor(Context c, BaseChain baseChain, LinearLayout[] wordsLayer) {
@@ -1345,164 +1149,6 @@ public class WDp {
             }
         }
         return null;
-    }
-
-    public static void getChainByAddress(BaseChain baseChain, String address, TextView textView) {
-        if (baseChain != null) {
-            if (baseChain.equals(COSMOS_MAIN)) {
-                if (!address.startsWith("cosmos1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(IMVERSED_MAIN)) {
-                if (!address.startsWith("imv1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(IRIS_MAIN)) {
-                if (!address.startsWith("iaa1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(IOV_MAIN)) {
-                if (!address.startsWith("star")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(AKASH_MAIN)) {
-                if (!address.startsWith("akash1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(SENTINEL_MAIN)) {
-                if (!address.startsWith("sent1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(PERSIS_MAIN)) {
-                if (!address.startsWith("persistence1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(SIF_MAIN)) {
-                if (!address.startsWith("sif1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(OSMOSIS_MAIN)) {
-                if (!address.startsWith("osmo1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(CRYPTO_MAIN)) {
-                if (!address.startsWith("cro1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(BAND_MAIN)) {
-                if (!address.startsWith("band1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(CERTIK_MAIN)) {
-                if (!address.startsWith("certik1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(MEDI_MAIN)) {
-                if (!address.startsWith("panacea1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(EMONEY_MAIN)) {
-                if (!address.startsWith("emoney1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(REGEN_MAIN)) {
-                if (!address.startsWith("regen1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(JUNO_MAIN)) {
-                if (!address.startsWith("juno1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(FETCHAI_MAIN)) {
-                if (!address.startsWith("fetch1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(RIZON_MAIN)) {
-                if (!address.startsWith("rizon1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(KI_MAIN)) {
-                if (!address.startsWith("ki1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(BITCANNA_MAIN)) {
-                if (!address.startsWith("bcna1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(STARGAZE_MAIN)) {
-                if (!address.startsWith("stars1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(COMDEX_MAIN)) {
-                if (!address.startsWith("comdex1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(SECRET_MAIN)) {
-                if (!address.startsWith("secret1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(BITSONG_MAIN)) {
-                if (!address.startsWith("bitsong1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(INJ_MAIN)) {
-                if (!address.startsWith("inj1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(DESMOS_MAIN)) {
-                if (!address.startsWith("desmos1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-                if (!address.startsWith("gravity1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(LUM_MAIN)) {
-                if (!address.startsWith("lum1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
-                if (!address.startsWith("chihuahua1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(KAVA_MAIN)) {
-                if (!address.startsWith("kava1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(AXELAR_MAIN)) {
-                if (!address.startsWith("axelar1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(KONSTELL_MAIN)) {
-                if (!address.startsWith("darc1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(UMEE_MAIN)) {
-                if (!address.startsWith("umee1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(EVMOS_MAIN)) {
-                if (!address.startsWith("evmos1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(CUDOS_MAIN)) {
-                if (!address.startsWith("cudos1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(PROVENANCE_MAIN)) {
-                if (!address.startsWith("pb1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(CERBERUS_MAIN)) {
-                if (!address.startsWith("cerberus1")) {
-                    textView.setText("");
-                }
-            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
-                if (!address.startsWith("omniflix1")) {
-                    textView.setText("");
-                }
-            }
-        }
     }
 
     public static String getChainNameByBaseChain(BaseChain baseChain) {
@@ -1597,201 +1243,37 @@ public class WDp {
     }
 
     public static boolean isValidChainAddress(BaseChain baseChain, String address) {
+        return isValidChainAddress(baseChain, address, true);
+    }
+
+    public static boolean isValidChainAddress(BaseChain baseChain, String address, boolean checkValidBech32) {
+        boolean result = false;
         if (baseChain != null) {
             if (address.startsWith("0x")) {
-                if (!WKey.isValidEthAddress(address)) {
-                    return false;
-                }
-                if (baseChain.equals(OKEX_MAIN)) {
-                    return true;
-                }
-                return false;
-            }
-
-            if (!WKey.isValidBech32(address)) {
-                return false;
-            }
-            if (address.startsWith("cosmos1") && baseChain.equals(COSMOS_MAIN)) {
-                return true;
-            } else if (address.startsWith("imv1") && baseChain.equals(IMVERSED_MAIN)) {
-                return true;
-            } else if (address.startsWith("iaa1") && baseChain.equals(IRIS_MAIN)) {
-                return true;
-            } else if (address.startsWith("bnb1") && baseChain.equals(BNB_MAIN)) {
-                return true;
-            } else if (address.startsWith("kava1") && baseChain.equals(KAVA_MAIN)) {
-                return true;
-            } else if (address.startsWith("star1") && baseChain.equals(IOV_MAIN)) {
-                return true;
-            } else if (address.startsWith("band1") && baseChain.equals(BAND_MAIN)) {
-                return true;
-            } else if (address.startsWith("secret1") && baseChain.equals(SECRET_MAIN)) {
-                return true;
-            } else if (address.startsWith("certik1") && baseChain.equals(CERTIK_MAIN)) {
-                return true;
-            } else if (address.startsWith("akash1") && baseChain.equals(AKASH_MAIN)) {
-                return true;
-            } else if (address.startsWith("persistence1") && baseChain.equals(PERSIS_MAIN)) {
-                return true;
-            } else if (address.startsWith("sent1") && baseChain.equals(SENTINEL_MAIN)) {
-                return true;
-            } else if (address.startsWith("fetch1") && baseChain.equals(FETCHAI_MAIN)) {
-                return true;
-            } else if (address.startsWith("cro1") && baseChain.equals(CRYPTO_MAIN)) {
-                return true;
-            } else if (address.startsWith("sif1") && baseChain.equals(SIF_MAIN)) {
-                return true;
-            } else if (address.startsWith("rizon1") && baseChain.equals(RIZON_MAIN)) {
-                return true;
-            } else if (address.startsWith("ki1") && baseChain.equals(KI_MAIN)) {
-                return true;
-            } else if (address.startsWith("panacea1") && baseChain.equals(MEDI_MAIN)) {
-                return true;
-            } else if (address.startsWith("osmo1") && baseChain.equals(OSMOSIS_MAIN)) {
-                return true;
-            } else if (address.startsWith("emoney1") && baseChain.equals(EMONEY_MAIN)) {
-                return true;
-            } else if (address.startsWith("juno1") && baseChain.equals(JUNO_MAIN)) {
-                return true;
-            } else if (address.startsWith("regen1") && baseChain.equals(REGEN_MAIN)) {
-                return true;
-            } else if (address.startsWith("bcna1") && baseChain.equals(BITCANNA_MAIN)) {
-                return true;
-            } else if (address.startsWith("althea1") && baseChain.equals(ALTHEA_MAIN)) {
-                return true;
-            } else if (address.startsWith("stars1") && baseChain.equals(STARGAZE_MAIN)) {
-                return true;
-            } else if (address.startsWith("gravity1") && baseChain.equals(GRABRIDGE_MAIN)) {
-                return true;
-            } else if (address.startsWith("comdex1") && baseChain.equals(COMDEX_MAIN)) {
-                return true;
-            } else if (address.startsWith("inj1") && baseChain.equals(INJ_MAIN)) {
-                return true;
-            } else if (address.startsWith("bitsong1") && baseChain.equals(BITSONG_MAIN)) {
-                return true;
-            } else if (address.startsWith("desmos1") && baseChain.equals(DESMOS_MAIN)) {
-                return true;
-            } else if (address.startsWith("lum1") && baseChain.equals(LUM_MAIN)) {
-                return true;
-            } else if (address.startsWith("chihuahua1") && baseChain.equals(CHIHUAHUA_MAIN)) {
-                return true;
-            } else if (address.startsWith("axelar1") && baseChain.equals(AXELAR_MAIN)) {
-                return true;
-            } else if (address.startsWith("darc1") && baseChain.equals(KONSTELL_MAIN)) {
-                return true;
-            } else if (address.startsWith("umee1") && baseChain.equals(UMEE_MAIN)) {
-                return true;
-            } else if (address.startsWith("evmos1") && baseChain.equals(EVMOS_MAIN)) {
-                return true;
-            } else if (address.startsWith("cudos1") && baseChain.equals(CUDOS_MAIN)) {
-                return true;
-            } else if (address.startsWith("pb1") && baseChain.equals(PROVENANCE_MAIN)) {
-                return true;
-            } else if (address.startsWith("cerberus1") && baseChain.equals(CERBERUS_MAIN)) {
-                return true;
-            } else if (address.startsWith("omniflix1") && baseChain.equals(OMNIFLIX_MAIN)) {
-                return true;
+                result = WKey.isValidEthAddress(address) && baseChain.equals(OKEX_MAIN);
+            } else if (!checkValidBech32 || WKey.isValidBech32(address)) {
+                result = address.startsWith(baseChain.getChainAddressPrefix());
             }
         }
-        return false;
+        return result;
     }
 
     public static ArrayList<BaseChain> getChainsFromAddress(String address) {
+        ArrayList<BaseChain> result = new ArrayList<>();
         if (address != null) {
             if (address.startsWith("0x")) {
                 if (WKey.isValidEthAddress(address)) {
-                    return Lists.newArrayList(OKEX_MAIN);
-                } else {
-                    return null;
+                    result.add(OKEX_MAIN);
+                }
+            } else if (WKey.isValidBech32(address)) {
+                for (BaseChain chain : BaseChain.values()) {
+                    if (address.startsWith(chain.getChainAddressPrefix())) {
+                        result.add(chain);
+                    }
                 }
             }
-
-            if (!WKey.isValidBech32(address)) {
-                return null;
-            }
-            if (address.startsWith("cosmos1")) {
-                return Lists.newArrayList(COSMOS_MAIN, COSMOS_TEST);
-            } else if (address.startsWith("imv1")) {
-                return Lists.newArrayList(IMVERSED_MAIN);
-            } else if (address.startsWith("iaa1")) {
-                return Lists.newArrayList(IRIS_MAIN, IRIS_TEST);
-            } else if (address.startsWith("bnb1")) {
-                return Lists.newArrayList(BNB_MAIN);
-            } else if (address.startsWith("kava1")) {
-                return Lists.newArrayList(KAVA_MAIN);
-            } else if (address.startsWith("star1")) {
-                return Lists.newArrayList(IOV_MAIN);
-            } else if (address.startsWith("band1")) {
-                return Lists.newArrayList(BAND_MAIN);
-            } else if (address.startsWith("secret1")) {
-                return Lists.newArrayList(SECRET_MAIN);
-            } else if (address.startsWith("certik1")) {
-                return Lists.newArrayList(CERTIK_MAIN);
-            } else if (address.startsWith("akash1")) {
-                return Lists.newArrayList(AKASH_MAIN);
-            } else if (address.startsWith("persistence1")) {
-                return Lists.newArrayList(PERSIS_MAIN);
-            } else if (address.startsWith("sent1")) {
-                return Lists.newArrayList(SENTINEL_MAIN);
-            } else if (address.startsWith("fetch1")) {
-                return Lists.newArrayList(FETCHAI_MAIN);
-            } else if (address.startsWith("cro1")) {
-                return Lists.newArrayList(CRYPTO_MAIN);
-            } else if (address.startsWith("sif1")) {
-                return Lists.newArrayList(SIF_MAIN);
-            } else if (address.startsWith("rizon1")) {
-                return Lists.newArrayList(RIZON_MAIN);
-            } else if (address.startsWith("ki1")) {
-                return Lists.newArrayList(KI_MAIN);
-            } else if (address.startsWith("panacea1")) {
-                return Lists.newArrayList(MEDI_MAIN);
-            } else if (address.startsWith("osmo1")) {
-                return Lists.newArrayList(OSMOSIS_MAIN);
-            } else if (address.startsWith("emoney1")) {
-                return Lists.newArrayList(EMONEY_MAIN);
-            } else if (address.startsWith("juno1")) {
-                return Lists.newArrayList(JUNO_MAIN);
-            } else if (address.startsWith("regen1")) {
-                return Lists.newArrayList(REGEN_MAIN);
-            } else if (address.startsWith("bcna1")) {
-                return Lists.newArrayList(BITCANNA_MAIN);
-            } else if (address.startsWith("althea1")) {
-                return Lists.newArrayList(ALTHEA_MAIN);
-            } else if (address.startsWith("stars1")) {
-                return Lists.newArrayList(STARGAZE_MAIN);
-            } else if (address.startsWith("gravity1")) {
-                return Lists.newArrayList(GRABRIDGE_MAIN);
-            } else if (address.startsWith("comdex1")) {
-                return Lists.newArrayList(COMDEX_MAIN);
-            } else if (address.startsWith("inj1")) {
-                return Lists.newArrayList(INJ_MAIN);
-            } else if (address.startsWith("bitsong1")) {
-                return Lists.newArrayList(BITSONG_MAIN);
-            } else if (address.startsWith("desmos1")) {
-                return Lists.newArrayList(DESMOS_MAIN);
-            } else if (address.startsWith("lum1")) {
-                return Lists.newArrayList(LUM_MAIN);
-            } else if (address.startsWith("chihuahua1")) {
-                return Lists.newArrayList(CHIHUAHUA_MAIN);
-            } else if (address.startsWith("axelar1")) {
-                return Lists.newArrayList(AXELAR_MAIN);
-            } else if (address.startsWith("darc1")) {
-                return Lists.newArrayList(KONSTELL_MAIN);
-            } else if (address.startsWith("umee1")) {
-                return Lists.newArrayList(UMEE_MAIN);
-            } else if (address.startsWith("evmos1")) {
-                return Lists.newArrayList(EVMOS_MAIN);
-            } else if (address.startsWith("cudos1")) {
-                return Lists.newArrayList(CUDOS_MAIN);
-            } else if (address.startsWith("pb1")) {
-                return Lists.newArrayList(PROVENANCE_MAIN);
-            } else if (address.startsWith("cerberus1")) {
-                return Lists.newArrayList(CERBERUS_MAIN);
-            } else if (address.startsWith("omniflix1")) {
-                return Lists.newArrayList(OMNIFLIX_MAIN);
-            }
         }
-        return null;
+        return result.isEmpty() ? null : result;
     }
 
     public static String getDefaultRelayerImg(BaseChain chain) {
@@ -2549,32 +2031,6 @@ public class WDp {
         return result;
     }
 
-    public static String getUnbondingTimefrom(Context c, String rawStartTime) {
-        String result = "??";
-        try {
-            long now = Calendar.getInstance().getTimeInMillis();
-
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            long start = blockDateFormat.parse(rawStartTime).getTime();
-            long left = start + BaseConstant.COSMOS_UNBONDING_TIME - now;
-
-            if (left >= BaseConstant.CONSTANT_D) {
-                result = "(D-" + (left / BaseConstant.CONSTANT_D) + ")";
-            } else if (left >= BaseConstant.CONSTANT_H) {
-                result = "(H-" + (left / BaseConstant.CONSTANT_H) + ")";
-            } else if (left < 0) {
-                return "completed";
-            } else {
-                return "in hour";
-            }
-
-        } catch (Exception e) {
-        }
-
-        return result;
-    }
-
     public static long dateToLong(Context c, String rawValue) {
         long result = 0;
         try {
@@ -2583,7 +2039,6 @@ public class WDp {
             result = blockDateFormat.parse(rawValue).getTime();
         } catch (Exception e) {
         }
-        ;
         return result;
     }
 
@@ -2777,200 +2232,25 @@ public class WDp {
     }
 
     public static int getChainBgColor(Context c, BaseChain chain) {
-        if (chain != null) {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                return c.getResources().getColor(R.color.colorTransBgCosmos);
-            } else if (chain.equals(IMVERSED_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgImversed);
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                return c.getResources().getColor(R.color.colorTransBgIris);
-            } else if (chain.equals(BNB_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgBinance);
-            } else if (chain.equals(KAVA_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgKava);
-            } else if (chain.equals(IOV_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgStarname);
-            } else if (chain.equals(BAND_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgBand);
-            } else if (chain.equals(OKEX_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgOkex);
-            } else if (chain.equals(CERTIK_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgCertik);
-            } else if (chain.equals(SECRET_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgSecret);
-            } else if (chain.equals(AKASH_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgAkash);
-            } else if (chain.equals(PERSIS_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgPersis);
-            } else if (chain.equals(SENTINEL_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgSentinel);
-            } else if (chain.equals(FETCHAI_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgFetch);
-            } else if (chain.equals(CRYPTO_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgCryto);
-            } else if (chain.equals(SIF_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgSif);
-            } else if (chain.equals(KI_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgKi);
-            } else if (chain.equals(OSMOSIS_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgOsmosis);
-            } else if (chain.equals(RIZON_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgRizon);
-            } else if (chain.equals(MEDI_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgMedi);
-            } else if (chain.equals(EMONEY_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgEmoney);
-            } else if (chain.equals(JUNO_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgJuno);
-            } else if (chain.equals(REGEN_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgRegen);
-            } else if (chain.equals(BITCANNA_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgBitcanna);
-            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-                return c.getResources().getColor(R.color.colorTransBgAlthea);
-            } else if (chain.equals(STARGAZE_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgStargaze);
-            } else if (chain.equals(GRABRIDGE_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgGraBridge);
-            } else if (chain.equals(COMDEX_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgComdex);
-            } else if (chain.equals(INJ_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgInj);
-            } else if (chain.equals(BITSONG_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgBitsong);
-            } else if (chain.equals(DESMOS_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgDesmos);
-            } else if (chain.equals(LUM_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgLum);
-            } else if (chain.equals(CHIHUAHUA_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgChihuahua);
-            } else if (chain.equals(AXELAR_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgAxelar);
-            } else if (chain.equals(KONSTELL_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgKonstellation);
-            } else if (chain.equals(UMEE_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgUmee);
-            } else if (chain.equals(EVMOS_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgEvmos);
-            } else if (chain.equals(CUDOS_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgCudos);
-            } else if (chain.equals(PROVENANCE_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgProvenance);
-            } else if (chain.equals(CERBERUS_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgCerberus);
-            } else if (chain.equals(OMNIFLIX_MAIN)) {
-                return c.getResources().getColor(R.color.colorTransBgOmniflix);
-            }
-        }
-        return c.getResources().getColor(R.color.colorTransBg);
+        int colorResId = chain != null ? chain.getChainBackground() : R.color.colorTransBg;
+        return ContextCompat.getColor(c, colorResId);
     }
 
     public static ColorStateList getTabColor(Context c, BaseChain chain) {
-        if (chain != null) {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator);
-            } else if (chain.equals(IMVERSED_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_imversed);
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_iris);
-            } else if (chain.equals(KAVA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_kava);
-            } else if (chain.equals(BAND_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_band);
-            } else if (chain.equals(IOV_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_iov);
-            } else if (chain.equals(OKEX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_ok);
-            } else if (chain.equals(CERTIK_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_certik);
-            } else if (chain.equals(SECRET_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_secret);
-            } else if (chain.equals(AKASH_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_akash);
-            } else if (chain.equals(PERSIS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_persis);
-            } else if (chain.equals(SENTINEL_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_sentinel);
-            } else if (chain.equals(FETCHAI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_fetch);
-            } else if (chain.equals(CRYPTO_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_cryto);
-            } else if (chain.equals(SIF_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_sif);
-            } else if (chain.equals(KI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_ki);
-            } else if (chain.equals(OSMOSIS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_osmosis);
-            } else if (chain.equals(RIZON_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_rizon);
-            } else if (chain.equals(MEDI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_med);
-            } else if (chain.equals(EMONEY_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_emoney);
-            } else if (chain.equals(JUNO_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_juno);
-            } else if (chain.equals(REGEN_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_regen);
-            } else if (chain.equals(BITCANNA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_bitcanna);
-            } else if (chain.equals(ALTHEA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_althea);
-            } else if (chain.equals(STARGAZE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_stargaze);
-            } else if (chain.equals(GRABRIDGE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_grabridge);
-            } else if (chain.equals(COMDEX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_comdex);
-            } else if (chain.equals(INJ_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_inj);
-            } else if (chain.equals(BITSONG_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_bitsong);
-            } else if (chain.equals(DESMOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_desmos);
-            } else if (chain.equals(LUM_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_lum);
-            } else if (chain.equals(CHIHUAHUA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_chihuahua);
-            } else if (chain.equals(UMEE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_umee);
-            } else if (chain.equals(AXELAR_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_axelar);
-            } else if (chain.equals(KONSTELL_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_konstellation);
-            } else if (chain.equals(EVMOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_evmos);
-            } else if (chain.equals(CUDOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_cudos);
-            } else if (chain.equals(PROVENANCE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_provenance);
-            } else if (chain.equals(CERBERUS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_cerberus);
-            } else if (chain.equals(OMNIFLIX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_omniflix);
-            }
-        }
-        return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator);
+        int colorResId = chain != null ? chain.getChainTabColor() : R.color.color_tab_myvalidator;
+        return ContextCompat.getColorStateList(c, colorResId);
     }
 
-    public static void DpMainDenom(Context context, BaseChain chain, TextView textview) {
-        DpMainDenom(context, chain.getChain(), textview);
+    public static void DpMainDenom(BaseChain chain, TextView textview) {
+        DpMainDenom(chain.getChain(), textview);
     }
 
-    public static void DpMainDenom(Context context, String chainName, TextView textview) {
+    public static void DpMainDenom(String chainName, TextView textView) {
         BaseChain chain = BaseChain.getChain(chainName);
         if (chain != null) {
-            textview.setTextColor(ContextCompat.getColor(context, chain.getDenomColor()));
-            textview.setText(context.getString(chain.getSymbolTitle()));
+            textView.setTextColor(ContextCompat.getColor(textView.getContext(), chain.getDenomColor()));
+            textView.setText(textView.getContext().getString(chain.getSymbolTitle()));
         }
-    }
-
-    public static void getStakingTokenImg(BaseChain chain, ImageView imageView) {
-        Picasso.get().cancelRequest(imageView);
-        int tokenResId = R.drawable.token_ic;
-        if (chain != null) {
-            tokenResId = chain.getCoinIcon();
-        }
-        imageView.setImageResource(tokenResId);
     }
 
     public static int tokenDivideDecimal(BaseData baseData, BaseChain baseChain, String denom) {
@@ -3065,11 +2345,11 @@ public class WDp {
 
     public static int getDpRiskColor(Context c, BigDecimal riskRate) {
         if (riskRate.longValue() <= 50) {
-            return c.getResources().getColor(R.color.colorCdpSafe);
+            return ContextCompat.getColor(c, R.color.colorCdpSafe);
         } else if (riskRate.longValue() < 80) {
-            return c.getResources().getColor(R.color.colorCdpStable);
+            return ContextCompat.getColor(c, R.color.colorCdpStable);
         } else {
-            return c.getResources().getColor(R.color.colorCdpDanger);
+            return ContextCompat.getColor(c, R.color.colorCdpDanger);
         }
     }
 
@@ -3102,19 +2382,19 @@ public class WDp {
             button.setBackgroundResource(R.drawable.btn_score_safe_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
-            button.setText("SAFE " + riskRate.toPlainString());
+            button.setText(String.format(Locale.ENGLISH, "%s %s", c.getString(R.string.str_safe), riskRate.toPlainString()));
 
         } else if (riskRate.longValue() < 80) {
             button.setBackgroundResource(R.drawable.btn_score_stable_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
-            button.setText("STABLE " + riskRate.toPlainString());
+            button.setText(String.format(Locale.ENGLISH, "%s %s", c.getString(R.string.str_stable), riskRate.toPlainString()));
 
         } else {
             button.setBackgroundResource(R.drawable.btn_score_danger_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
-            button.setText("DANGER " + riskRate.toPlainString());
+            button.setText(String.format(Locale.ENGLISH, "%s %s", c.getString(R.string.str_danger), riskRate.toPlainString()));
         }
     }
 
@@ -3123,34 +2403,34 @@ public class WDp {
             button.setBackgroundResource(R.drawable.btn_score_safe_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
-            button.setText("SAFE");
+            button.setText(R.string.str_safe);
 
         } else if (riskRate.longValue() < 80) {
             button.setBackgroundResource(R.drawable.btn_score_stable_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
-            button.setText("STABLE");
+            button.setText(R.string.str_stable);
 
         } else {
             button.setBackgroundResource(R.drawable.btn_score_danger_fill);
             button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
-            button.setText("DANGER");
+            button.setText(R.string.str_danger);
         }
     }
 
     public static void DpRiskRate2(Context c, BigDecimal riskRate, TextView text, TextView rate, LinearLayout layer) {
         rate.setText(WDp.getDpAmount2(riskRate, 0, 2));
         if (riskRate.longValue() <= 50) {
-            text.setText("SAFE");
+            rate.setText(R.string.str_safe);
             layer.setBackgroundResource(R.drawable.btn_score_safe_fill);
 
         } else if (riskRate.longValue() < 80) {
-            text.setText("STABLE");
+            text.setText(R.string.str_stable);
             layer.setBackgroundResource(R.drawable.btn_score_stable_fill);
 
         } else {
-            text.setText("DANGER");
+            text.setText(R.string.str_danger);
             layer.setBackgroundResource(R.drawable.btn_score_danger_fill);
         }
     }
@@ -3158,17 +2438,17 @@ public class WDp {
     public static void DpRiskRate3(Context c, BigDecimal riskRate, TextView score, TextView rate) {
         score.setText(WDp.getDpAmount2(riskRate, 0, 2));
         if (riskRate.longValue() <= 50) {
-            rate.setText("SAFE");
+            rate.setText(R.string.str_safe);
             rate.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));
             score.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));
 
         } else if (riskRate.longValue() < 80) {
-            rate.setText("STABLE");
+            rate.setText(R.string.str_stable);
             rate.setTextColor(ContextCompat.getColor(c, R.color.colorCdpStable));
             score.setTextColor(ContextCompat.getColor(c, R.color.colorCdpStable));
 
         } else {
-            rate.setText("DANGER");
+            rate.setText(R.string.str_danger);
             rate.setTextColor(ContextCompat.getColor(c, R.color.colorCdpDanger));
             score.setTextColor(ContextCompat.getColor(c, R.color.colorCdpDanger));
         }

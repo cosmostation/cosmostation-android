@@ -46,9 +46,9 @@ public class TxCommonHolder extends TxHolder {
     }
 
     public void onBindCommon(TxDetailgRPCActivity c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, boolean isGen) {
-        WDp.DpMainDenom(c, baseChain.getChain(), itemFeeDenom);
-        WDp.DpMainDenom(c, baseChain.getChain(), itemFeeUsedDenom);
-        WDp.DpMainDenom(c, baseChain.getChain(), itemFeeLimitDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemFeeDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemFeeUsedDenom);
+        WDp.DpMainDenom(baseChain.getChain(), itemFeeLimitDenom);
         final int dpDecimal = WDp.mainDivideDecimal(baseChain);
         if (response.getTxResponse().getCode() != 0) {
             itemStatusImg.setImageDrawable(c.getDrawable(R.drawable.fail_ic));
