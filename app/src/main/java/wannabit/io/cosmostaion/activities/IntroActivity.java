@@ -18,6 +18,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.ITimelessActivity;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
 import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
@@ -27,7 +28,7 @@ import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WLog;
 
 
-public class IntroActivity extends BaseActivity implements View.OnClickListener {
+public class IntroActivity extends BaseActivity implements View.OnClickListener, ITimelessActivity {
 
     private ImageView bgImg, bgImgGr;
     private LinearLayout bottomLayer1, bottomLayer2;
@@ -42,8 +43,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         bottomLayer1 = findViewById(R.id.bottom_layer1);
         bottomLayer2 = findViewById(R.id.bottom_layer2);
         mStart = findViewById(R.id.btn_start);
-        mNeedLeaveTime = false;
-
         mStart.setOnClickListener(this);
 
 //        FirebaseInstanceId.getInstance().getInstanceId()
@@ -92,7 +91,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 2500);
-
     }
 
 

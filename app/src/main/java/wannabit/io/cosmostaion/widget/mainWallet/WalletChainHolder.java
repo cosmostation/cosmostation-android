@@ -58,10 +58,10 @@ public class WalletChainHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final String denom = mainActivity.mBaseChain.getMainDenom();
-        final int decimal = WDp.mainDivideDecimal(mainActivity.mBaseChain);
-        mTvChainCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, mainActivity.mBaseChain));
-        WUtil.getWalletData(mainActivity.mBaseChain, mTvChainIcon, mTvChainDenom);
+        final String denom = mainActivity.baseChain.getMainDenom();
+        final int decimal = WDp.mainDivideDecimal(mainActivity.baseChain);
+        mTvChainCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, mainActivity.baseChain));
+        WUtil.getWalletData(mainActivity.baseChain, mTvChainIcon, mTvChainDenom);
 
         final BigDecimal availableAmount = baseData.getAvailable(denom);
         final BigDecimal vestingAmount = baseData.getVesting(denom);
@@ -84,7 +84,7 @@ public class WalletChainHolder extends BaseHolder {
             mChainVestingLayer.setVisibility(View.GONE);
         }
 
-        mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
+        mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.account, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(v -> {
             Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
@@ -96,16 +96,16 @@ public class WalletChainHolder extends BaseHolder {
         });
 
         // dex, nft, desmos profile setting
-        WUtil.getDexTitle(mainActivity.mBaseChain, mBtnDex, mBtnDexTitle);
+        WUtil.getDexTitle(mainActivity.baseChain, mBtnDex, mBtnDexTitle);
         mBtnDex.setOnClickListener(v -> {
-            if (mainActivity.mBaseChain.equals(BaseChain.DESMOS_MAIN)) {
+            if (mainActivity.baseChain.equals(BaseChain.DESMOS_MAIN)) {
                 mainActivity.onClickProfile();
             } else {
-                mainActivity.startActivity(WUtil.getDexIntent(mainActivity, mainActivity.mBaseChain));
+                mainActivity.startActivity(WUtil.getDexIntent(mainActivity, mainActivity.baseChain));
             }
         });
 
-        if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mainActivity.baseChain.equals(BaseChain.COSMOS_MAIN)) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
         } else {
             mBtnWalletConnect.setVisibility(View.GONE);

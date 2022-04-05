@@ -87,20 +87,20 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         mToIbcDenom = getSActivity().mToIbcDenom;
-        mDpDecimal = WDp.tokenDivideDecimal(getBaseDao(), getSActivity().mBaseChain, mToIbcDenom);
+        mDpDecimal = WDp.tokenDivideDecimal(getBaseDao(), getSActivity().baseChain, mToIbcDenom);
         setDisplayDecimals(mDpDecimal);
         onUpdateInitInfo();
     }
 
     private void onUpdateInitInfo() {
-        final String mainDenom = getSActivity().mBaseChain.getMainDenom();
-        final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
+        final String mainDenom = getSActivity().baseChain.getMainDenom();
+        final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().baseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
         mMaxAvailable = getBaseDao().getAvailable(getSActivity().mToIbcDenom);
         if (mainDenom.equalsIgnoreCase(getSActivity().mToIbcDenom)) {
             mMaxAvailable = mMaxAvailable.subtract(feeAmount);
         }
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mToIbcDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mToIbcDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().baseChain);
 
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -235,7 +235,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onShowEmptyBalanceWarnDialog() {
-        if (getSActivity().mBaseChain.getMainDenom().equalsIgnoreCase(getSActivity().mToIbcDenom)) {
+        if (getSActivity().baseChain.getMainDenom().equalsIgnoreCase(getSActivity().mToIbcDenom)) {
             Dialog_Empty_Warning dialog = Dialog_Empty_Warning.newInstance();
             showDialog(dialog);
             return;

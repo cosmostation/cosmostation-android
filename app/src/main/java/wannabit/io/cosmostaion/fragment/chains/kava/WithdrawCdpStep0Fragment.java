@@ -118,7 +118,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
         mCurrentTotalDebetAmount = WUtil.getEstimatedTotalDebt(getContext(), getOwenCdp(), getCParam());
         mCanWithdrawMaxMaxAmount = WUtil.getWithdrawableAmount(getContext(), getBaseDao(), getOwenCdp(), getCParam(), mCurrentPrice, getSActivity().mSelfDepositAmount);
-        WDp.showCoinDp(getContext(), getBaseDao(), mCollateralDenom, mCanWithdrawMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mCollateralDenom, mCanWithdrawMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().baseChain);
 
         mCollateralSymbol.setText(WUtil.getKavaTokenName(getBaseDao(), mCollateralDenom));
         WUtil.DpKavaTokenImg(getBaseDao(), mCollateralImg, mCollateralDenom);

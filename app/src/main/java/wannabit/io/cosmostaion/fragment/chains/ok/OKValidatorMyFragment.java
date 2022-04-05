@@ -125,14 +125,14 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
             if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final OKMyValidatorHolder holder = (OKMyValidatorHolder) viewHolder;
                 final Validator validator = getBaseDao().mMyValidators.get(position);
-                if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+                if (getSActivity().baseChain.equals(OKEX_MAIN) || getSActivity().baseChain.equals(OK_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
                     holder.itemTvMoniker.setText(validator.description.moniker);
                     holder.itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(validator.delegator_shares), 0, 0));
                     holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
                     try {
-                        Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                        Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().baseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                     } catch (Exception e) {
                     }
 

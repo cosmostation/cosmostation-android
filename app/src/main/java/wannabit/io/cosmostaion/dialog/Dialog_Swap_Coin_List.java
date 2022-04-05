@@ -99,7 +99,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                     Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
                 } catch (Exception e) {
                 }
-            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
+            } else if (getSActivity().baseChain.equals(KAVA_MAIN)) {
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
                     String baseDenom = WDp.getKavaBaseDenom(mSwapCoinList.get(position));

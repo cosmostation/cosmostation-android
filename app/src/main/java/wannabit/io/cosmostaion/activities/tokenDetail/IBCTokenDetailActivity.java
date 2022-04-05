@@ -70,7 +70,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ibc_token_detail);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
         mToolbarChannel = findViewById(R.id.toolbar_channel);
@@ -91,8 +91,8 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mIbcDenom = getIntent().getStringExtra("denom");
         mIbcToken = getBaseDao().getIbcToken(mIbcDenom);
 
@@ -173,11 +173,11 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         }
 
         mToolbarChannel.setText("(" + mIbcToken.channel_id + ")");
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(IBCTokenDetailActivity.this, mBaseChain));
-        mAddress.setText(mAccount.address);
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(IBCTokenDetailActivity.this, baseChain));
+        mAddress.setText(account.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-        if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (account.hasPrivateKey) {
+            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -186,19 +186,19 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
-                    mAccount.getAccountTitle(this),
-                    mAccount.address
+                    account.getAccountTitle(this),
+                    account.address
             );
             showDialog(show);
 
         } else if (v.equals(mBtnIbcSend)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;
             }
-            final String mainDenom = mBaseChain.getMainDenom();
-            final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
+            final String mainDenom = baseChain.getMainDenom();
+            final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
             mMaxAvailable = getBaseDao().getAvailable(mainDenom).subtract(feeAmount);
             if (mMaxAvailable.compareTo(BigDecimal.ZERO) <= 0) {
@@ -211,14 +211,14 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             showDialog(warning);
 
         } else if (v.equals(mBtnSend)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+            BigDecimal mainAvailable = getBaseDao().getAvailable(baseChain.getMainDenom());
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
@@ -279,7 +279,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 mIbcDisplayDecimal = mIbcToken.decimal;
             }
             try {
-                Picasso.get().load(getBaseDao().getIbcRelayerImg(mBaseChain, mIbcToken.channel_id)).into(holder.itemRelayer);
+                Picasso.get().load(getBaseDao().getIbcRelayerImg(baseChain, mIbcToken.channel_id)).into(holder.itemRelayer);
             } catch (Exception e) {
             }
             holder.itemCurrentAmount.setText(WDp.getDpAmount2(totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));

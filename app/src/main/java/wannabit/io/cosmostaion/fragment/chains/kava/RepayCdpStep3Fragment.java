@@ -78,11 +78,11 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         final String pDenom = getCParam().getDebtLimit().getDenom();
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mPayment.amount, mPaymentDenom, mPaymentAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mPayment.amount, mPaymentDenom, mPaymentAmount, getSActivity().baseChain);
         BigDecimal paymentValue = new BigDecimal(getSActivity().mPayment.amount).movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
         mPaymentValue.setText(WDp.getDpRawDollor(getContext(), paymentValue, 2));
 
-        WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().baseChain);
         BigDecimal kavaValue = WDp.usdValue(getBaseDao(), TOKEN_KAVA, feeAmount, 6);
         mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
@@ -95,7 +95,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mAfterLiquidationPriceTitle.setText(String.format(getString(R.string.str_after_liquidation_title2), cDenom.toUpperCase()));
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(), 4));
 
-        WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mRemainLoanAmount.toPlainString(), mRemainDebtDenom, mRemainDebtAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mRemainLoanAmount.toPlainString(), mRemainDebtDenom, mRemainDebtAmount, getSActivity().baseChain);
         BigDecimal remaindValue = getSActivity().mRemainLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
         mRemainDebtValue.setText(WDp.getDpRawDollor(getContext(), remaindValue, 2));
         if (getSActivity().mRemainLoanAmount.equals(BigDecimal.ZERO)) {

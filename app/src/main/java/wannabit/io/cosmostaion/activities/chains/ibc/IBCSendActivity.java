@@ -51,7 +51,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
         mChainBg = findViewById(R.id.chain_bg);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -63,8 +63,8 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTvStep.setText(getString(R.string.str_send_step_0));
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mToIbcDenom = getIntent().getStringExtra("sendTokenDenom");
         mTxType = CONST_PW_TX_IBC_TRANSFER;
 
@@ -111,7 +111,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAccount == null) finish();
+        if (account == null) finish();
     }
 
 

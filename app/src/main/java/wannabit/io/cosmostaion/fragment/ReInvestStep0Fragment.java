@@ -50,7 +50,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mTvRewardDenom);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mTvRewardDenom);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -60,7 +60,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         if (getSActivity().mAmount != null) {
             BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
             mTvRewardAmount.setText(WDp.getDpAmount2(rewardSum, mDpDecimal, mDpDecimal));

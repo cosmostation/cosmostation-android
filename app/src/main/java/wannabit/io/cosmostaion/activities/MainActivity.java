@@ -65,7 +65,7 @@ import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
-import wannabit.io.cosmostaion.widget.StopViewPager;
+import wannabit.io.cosmostaion.widget.LockedViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
@@ -89,8 +89,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mToolbarChainName = findViewById(R.id.toolbar_net_name);
         mFloatBtn = findViewById(R.id.btn_floating);
 
-        Toolbar toolbar = findViewById(R.id.tool_bar);
-        StopViewPager contentsPager = findViewById(R.id.view_pager);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        LockedViewPager contentsPager = findViewById(R.id.view_pager);
         TabLayout tabLayer = findViewById(R.id.bottom_tab);
 
         mFloatBtn.setOnClickListener(v -> onStartSendMainDenom());
@@ -160,40 +160,40 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     protected void onResume() {
         super.onResume();
         onAccountSwitched();
-        onChainSelect(mBaseChain);
+        onChainSelect(baseChain);
     }
 
     public void onAccountSwitched() {
         boolean needFetch = false;
         Account supportedAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
 
-        if (mAccount == null) {
+        if (account == null) {
             needFetch = true;
         } else if (!supportedAccount.id.toString().equals(getBaseDao().getLastUser())) {
             getBaseDao().setLastUser(supportedAccount.id);
             needFetch = true;
-        } else if (!getBaseDao().getLastUser().equals(mAccount.id.toString())) {
+        } else if (!getBaseDao().getLastUser().equals(account.id.toString())) {
             needFetch = true;
         }
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         if (needFetch) {
             onShowWaitDialog();
             onFetchAllData();
 
-            mToolbarChainImg.setImageResource(mBaseChain.getChainIcon());
-            WDp.getChainHint(mBaseChain, mToolbarChainName);
-            mToolbarChainName.setTextColor(WDp.getChainColor(this, mBaseChain));
+            mToolbarChainImg.setImageResource(baseChain.getChainIcon());
+            WDp.getChainHint(baseChain, mToolbarChainName);
+            mToolbarChainName.setTextColor(WDp.getChainColor(this, baseChain));
 
-            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(this, mBaseChain.getFloatButtonColor()));
-            mFloatBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, mBaseChain.getFloatButtonBackground()));
+            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(this, baseChain.getFloatButtonColor()));
+            mFloatBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, baseChain.getFloatButtonBackground()));
 
-            mSelectedChain = mBaseChain;
+            mSelectedChain = baseChain;
             onChainSelect(mSelectedChain);
         }
 
-        mToolbarTitle.setText(mAccount.getAccountTitle(this));
+        mToolbarTitle.setText(account.getAccountTitle(this));
     }
 
     private void onChainSelect(BaseChain baseChain) {
@@ -225,10 +225,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onExplorerView() {
         String url = "";
-        if (mBaseChain.equals(OKEX_MAIN)) {
-            url = WUtil.getExplorer(mBaseChain) + "address/" + mAccount.address;
+        if (baseChain.equals(OKEX_MAIN)) {
+            url = WUtil.getExplorer(baseChain) + "address/" + account.address;
         } else {
-            url = WUtil.getExplorer(mBaseChain) + "account/" + mAccount.address;
+            url = WUtil.getExplorer(baseChain) + "account/" + account.address;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
@@ -255,13 +255,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 startActivity(airdrop);
 
             } else {
-                if (!mAccount.hasPrivateKey) {
+                if (!account.hasPrivateKey) {
                     Dialog_WatchMode dialog = Dialog_WatchMode.newInstance();
                     showDialog(dialog);
                     return;
                 }
-                BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-                BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
+                BigDecimal available = getBaseDao().getAvailable(baseChain.getMainDenom());
+                BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_PROFILE, 0);
                 if (available.compareTo(txFee) <= 0) {
                     Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
@@ -270,13 +270,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 startActivity(profile);
             }
         } else {
-            if (!mAccount.hasPrivateKey) {
+            if (!account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;
             }
-            BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
+            BigDecimal available = getBaseDao().getAvailable(baseChain.getMainDenom());
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_PROFILE, 0);
             if (available.compareTo(txFee) <= 0) {
                 Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
@@ -318,15 +318,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onClickIncentive() {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
-        if (mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_CLAIM_INCENTIVE, 0);
+        if (baseChain.equals(KAVA_MAIN)) {
+            BigDecimal available = getBaseDao().getAvailable(baseChain.getMainDenom());
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_CLAIM_INCENTIVE, 0);
             if (available.compareTo(txFee) <= 0) {
                 Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
@@ -339,9 +339,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             Intent intent = new Intent(MainActivity.this, ClaimIncentiveActivity.class);
             startActivity(intent);
 
-        } else if (mBaseChain.equals(SIF_MAIN)) {
-            BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_SIF_CLAIM_INCENTIVE, 0);
+        } else if (baseChain.equals(SIF_MAIN)) {
+            BigDecimal available = getBaseDao().getAvailable(baseChain.getMainDenom());
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_SIF_CLAIM_INCENTIVE, 0);
             if (available.compareTo(txFee) <= 0) {
                 Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;

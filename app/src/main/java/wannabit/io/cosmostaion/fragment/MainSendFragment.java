@@ -113,8 +113,8 @@ public class MainSendFragment extends BaseFragment implements IBusyFetchListener
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().mAccount.pushAlarm) {
+        if (getMainActivity().baseChain.equals(COSMOS_MAIN)) {
+            if (getMainActivity().account.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
@@ -134,10 +134,10 @@ public class MainSendFragment extends BaseFragment implements IBusyFetchListener
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
+                getMainActivity().onUpdateUserAlarm(getMainActivity().account, true);
                 break;
             case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
+                getMainActivity().onUpdateUserAlarm(getMainActivity().account, false);
                 break;
 
         }
@@ -158,8 +158,8 @@ public class MainSendFragment extends BaseFragment implements IBusyFetchListener
     }
 
     private void onUpdateView() {
-        if (getMainActivity() == null || getMainActivity().mAccount == null) return;
-        mAccount = getMainActivity().mAccount;
+        if (getMainActivity() == null || getMainActivity().account == null) return;
+        mAccount = getMainActivity().account;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
@@ -234,12 +234,12 @@ public class MainSendFragment extends BaseFragment implements IBusyFetchListener
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain == null) {
+            if (getMainActivity().baseChain == null) {
                 return 0;
             }
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
+            if (getMainActivity().baseChain.equals(KAVA_MAIN) || getMainActivity().baseChain.equals(DESMOS_MAIN)) {
                 return 5;
-            } else if (getMainActivity().mBaseChain.isGRPC()) {
+            } else if (getMainActivity().baseChain.isGRPC()) {
                 return 4;
             } else {
                 return 3;
@@ -248,7 +248,7 @@ public class MainSendFragment extends BaseFragment implements IBusyFetchListener
 
         @Override
         public int getItemViewType(int position) {
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+            if (getMainActivity().baseChain.equals(KAVA_MAIN)) {
                 if (position == 0) {
                     return TYPE_WALLET;
                 } else if (position == 1) {
@@ -261,7 +261,7 @@ public class MainSendFragment extends BaseFragment implements IBusyFetchListener
                     return TYPE_GIUDE;
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
+            } else if (getMainActivity().baseChain.equals(DESMOS_MAIN)) {
                 if (position == 0) {
                     return TYPE_WALLET;
                 } else if (position == 1) {
@@ -274,7 +274,7 @@ public class MainSendFragment extends BaseFragment implements IBusyFetchListener
                     return TYPE_GIUDE;
                 }
 
-            } else if (getMainActivity().mBaseChain.isGRPC()) {
+            } else if (getMainActivity().baseChain.isGRPC()) {
                 if (position == 0) {
                     return TYPE_WALLET;
                 } else if (position == 1) {
@@ -285,11 +285,11 @@ public class MainSendFragment extends BaseFragment implements IBusyFetchListener
                     return TYPE_GIUDE;
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+            } else if (getMainActivity().baseChain.equals(BNB_MAIN) || getMainActivity().baseChain.equals(OKEX_MAIN)) {
                 if (position == 0) {
-                    if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
+                    if (getMainActivity().baseChain.equals(BNB_MAIN)) {
                         return TYPE_BINANCE;
-                    } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+                    } else if (getMainActivity().baseChain.equals(OKEX_MAIN)) {
                         return TYPE_OKEX;
                     }
                 } else if (position == 1) {

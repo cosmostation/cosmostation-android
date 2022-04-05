@@ -246,7 +246,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     }
 
     private boolean isValidWords() {
-        if (mWords.size() >= 3 && WKey.isMnemonicWords(mWords) && onHdacAddress(getSActivity().mBaseChain) != null) {
+        if (mWords.size() >= 3 && WKey.isMnemonicWords(mWords) && onHdacAddress(getSActivity().baseChain) != null) {
             return true;
         } else {
             return false;
@@ -264,7 +264,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     public void onHdacInfo() {
         getSActivity().onShowWaitDialog();
         mTaskCount = 1;
-        new HdacUtxoTask(getBaseApplication(), this, getSActivity().mBaseChain, onHdacAddress(getSActivity().mBaseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new HdacUtxoTask(getBaseApplication(), this, getSActivity().baseChain, onHdacAddress(getSActivity().baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -275,9 +275,9 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
                 mUtxo = (ArrayList<HdacUtxo>) result.resultData;
 
                 HdacUtil hdacUtil = new HdacUtil(mWords);
-                mBalance = hdacUtil.getBalance(getSActivity().mBaseChain, mUtxo);
+                mBalance = hdacUtil.getBalance(getSActivity().baseChain, mUtxo);
                 Bundle bundle = new Bundle();
-                bundle.putString("hdacAddress", onHdacAddress(getSActivity().mBaseChain));
+                bundle.putString("hdacAddress", onHdacAddress(getSActivity().baseChain));
                 bundle.putString("hdacBalance", mBalance.toPlainString());
                 Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance(bundle);
                 hdacInfo.setTargetFragment(this, HDAC_INFO_DIALOG);

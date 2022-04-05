@@ -75,7 +75,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
 
     private void onInitData() {
         if (mResources.size() == 0) {
-            Types.Resource initData = Types.Resource.newBuilder().setUri(STARNAME).setResource(getSActivity().mAccount.address).build();
+            Types.Resource initData = Types.Resource.newBuilder().setUri(STARNAME).setResource(getSActivity().account.address).build();
             mResources.add(initData);
         }
     }

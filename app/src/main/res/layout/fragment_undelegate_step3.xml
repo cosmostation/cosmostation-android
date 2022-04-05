@@ -131,7 +131,7 @@
                         android:id="@+id/undelegate_moniker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cosmostation"
+                        android:text="@string/app_name"
                         style="@style/font_ss_12_white" />
                 </LinearLayout>
 

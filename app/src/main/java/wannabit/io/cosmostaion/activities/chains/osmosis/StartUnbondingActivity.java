@@ -49,7 +49,7 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
         setContentView(R.layout.activity_step);
 
         mRootView = findViewById(R.id.root_view);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -65,8 +65,8 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
         mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(R.string.str_osmosis_start_unbonding_step_0);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         OsmosisPeriodLockWrapper lockupsWrapper = (OsmosisPeriodLockWrapper) getIntent().getSerializableExtra("osmosislockups");
         mOsmosisLockups = lockupsWrapper.array;

@@ -225,7 +225,7 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
 
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new KavaSwapPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mKavaSwapPool.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mKavaSwapPool.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

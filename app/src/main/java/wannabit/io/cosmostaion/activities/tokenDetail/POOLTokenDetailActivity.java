@@ -64,7 +64,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail);
 
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
         mItemPerPrice = findViewById(R.id.per_price);
@@ -84,8 +84,8 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mPoolDenom = getIntent().getStringExtra("denom");
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -118,7 +118,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
-        if (mBaseChain.equals(OSMOSIS_MAIN)) {
+        if (baseChain.equals(OSMOSIS_MAIN)) {
             WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mPoolDenom);
             String[] split = mPoolDenom.split("/");
             mToolbarSymbol.setText("GAMM-" + split[split.length - 1]);
@@ -131,7 +131,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
             mBtnIbcSend.setVisibility(View.VISIBLE);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+        } else if (baseChain.equals(COSMOS_MAIN)) {
             WUtil.DpCosmosTokenImg(getBaseDao(), mToolbarSymbolImg, mPoolDenom);
             Liquidity.Pool poolInfo = getBaseDao().getGravityPoolByDenom(mPoolDenom);
             if (poolInfo != null) {
@@ -146,7 +146,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
             mBtnIbcSend.setVisibility(View.VISIBLE);
 
-        } else if (mBaseChain.equals(INJ_MAIN)) {
+        } else if (baseChain.equals(INJ_MAIN)) {
             mToolbarSymbolImg.setImageResource(R.drawable.token_ic);
             mToolbarSymbol.setText("SHARE" + mPoolDenom.substring(5));
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -172,11 +172,11 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(POOLTokenDetailActivity.this, mBaseChain));
-        mAddress.setText(mAccount.address);
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(POOLTokenDetailActivity.this, baseChain));
+        mAddress.setText(account.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-        if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (account.hasPrivateKey) {
+            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -185,8 +185,8 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
-                    mAccount.getAccountTitle(this),
-                    mAccount.address
+                    account.getAccountTitle(this),
+                    account.address
             );
             showDialog(show);
 
@@ -233,7 +233,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_POOL_TOKEN) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindPoolToken(POOLTokenDetailActivity.this, mBaseChain, getBaseDao(), mPoolDenom);
+                holder.onBindPoolToken(POOLTokenDetailActivity.this, baseChain, getBaseDao(), mPoolDenom);
             }
 //
 //            } else if (getItemViewType(position) == TYPE_HISTORY) {

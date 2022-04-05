@@ -62,12 +62,11 @@ abstract class BaseMvpFragment<VB : ViewBinding> : MvpAppCompatFragment(), IInje
         cancelable: Boolean = true
     ) {
         dialogFragment.isCancelable = cancelable
-        parentFragmentManager // maybe we have to use  getChildFragmentManager()
+        parentFragmentManager
             .beginTransaction()
             .add(dialogFragment, tag)
             .commitNowAllowingStateLoss()
     }
-
 
     @Deprecated("It's soooo bad hack. Taket from Base Fragment")
     protected open fun getBaseActivity(): BaseActivity? {

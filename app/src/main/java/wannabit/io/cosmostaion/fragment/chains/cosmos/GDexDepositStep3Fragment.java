@@ -59,7 +59,7 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeAmountSymbol);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -68,7 +68,7 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         String InputAmount0 = getSActivity().mPoolCoin0.amount;
         String InputDenom0 = getSActivity().mPoolCoin0.denom;
         String InputAmount1 = getSActivity().mPoolCoin1.amount;

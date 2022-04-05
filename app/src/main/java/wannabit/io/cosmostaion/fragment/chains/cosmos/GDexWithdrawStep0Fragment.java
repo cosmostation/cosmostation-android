@@ -222,7 +222,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
 
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mGDexPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -232,7 +232,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
             if (result.isSuccess && result.resultData != null) {
                 getSActivity().mGDexPool = (Liquidity.Pool) result.resultData;
                 mTaskCount = mTaskCount + 1;
-                new SupplyOfGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new SupplyOfGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mGDexPool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_SUPPLY_OF_INFO) {

@@ -79,9 +79,9 @@
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
-    <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
-    <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
-    <string name="str_refund_swap_memo_c" translatable="false">Refund Atomic Swap via Cosmostation Wallet</string>
+    <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via FD Wallet</string>
+    <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via FD Wallet</string>
+    <string name="str_refund_swap_memo_c" translatable="false">Refund Atomic Swap via FD Wallet</string>
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
@@ -188,7 +188,7 @@
     <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
     <string name="str_address_pubkey">Insert address.</string>
-    <string name="str_watch_msg">With watch mode, you can check the status of your account. \nTo enable transactions, add your mnemonics later.</string>
+    <string name="str_watch_msg">With watch mode, you can check the status of your account.\nTo enable transactions, add your mnemonics later.</string>
     <string name="str_insert_private_key">Insert Private Key</string>
     <string name="str_key_msg">Please enter your private key.\nThe private key is a 66-digit string starting with 0x.</string>
     <string name="str_proposal_type">Proposal Type</string>
@@ -235,7 +235,7 @@
     <string name="str_discord">Discord</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
-    <string name="str_homepage">Cosmostation</string>
+    <string name="str_homepage">FD Wallet</string>
     <string name="str_starname_wallet_connect">Starname Wallet Connect</string>
     <string name="str_app_info">App Info</string>
     <string name="str_term">Terms of Service</string>
@@ -448,8 +448,8 @@
     <string name="str_max_available_deposit_amount"><![CDATA[Max Available:  ]]></string>
     <string name="str_max_available_withdraw_amount"><![CDATA[Max Available: ]]></string>
     <string name="str_available_send_amount"><![CDATA[Available: ]]></string>
-    <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
-    <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
+    <string name="str_tx_error_description">Transaction request failed.\nPlease check the error code and message.</string>
+    <string name="str_success_loading">Transaction request submitted successfully.\nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
     <string name="str_front_guide_title"><![CDATA[COSMOS HUB]]></string>
     <string name="str_front_guide_title_imversed"><![CDATA[IMVERSED HUB]]></string>
     <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
@@ -542,7 +542,7 @@
     <string name="str_gas_amount">Gas Amount</string>
     <string name="str_gas_rate">Gas Rate</string>
     <string name="str_fee_amount">Tx Fee Amount</string>
-    <string name="str_fee_speed_title_0">Only a handful of validators including \"Cosmostation\" \nwill process this Tx.</string>
+    <string name="str_fee_speed_title_0">Only a handful of validators including \"FD Wallet\"\nwill process this Tx.</string>
     <string name="str_fee_speed_title_1">A few validators will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
     <string name="str_fee_speed_title_iris">Support fixed transfer fee for IRIS Mainnet..</string>
@@ -565,7 +565,7 @@
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
     <string name="str_fee_description_msg_0">Only a handful of validators will process this Tx. Validators with a minimum Tx fee setting of 0.000001 ATOM or less must propose a block in order for this Tx to be included. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBounNode</string>
-    <string name="str_fee_description_msg_1">This Tx will be processed by Cosmostation and other validators with a minimum Tx fee rate setting lower than or equal to 0.0025. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Cosmostation, Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBounNode</string>
+    <string name="str_fee_description_msg_1">This Tx will be processed by FD Wallet and other validators with a minimum Tx fee rate setting lower than or equal to 0.0025. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: FD Wallet, Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBounNode</string>
     <string name="str_fee_description_msg_2">The majority of validators have a minimum Tx fee rate higher than or equal to 0.025. Most validators will process this Tx. Therefore, there is a higher probability of your Tx being reflected on the blockchain within one block time(~7 seconds) when you use a Tx fee rate of 0.025.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Majority(~80%) of validators.</string>
     <string name="str_empty_warnning_title">Warning</string>
     <string name="str_empty_warnning_msg">You will be left with no available balance after this Tx. You will not have any available coin to be used as gas to make another Tx after this.</string>
@@ -595,7 +595,7 @@
     <string name="str_wc_closed">Wallet is closed.</string>
     <string name="str_wc_sign_title">Request Transaction Sign</string>
     <string name="str_wc_sign_msg">Please check the contents and decide.\nIt affects your assets.</string>
-    <string name="str_wc_sign_result_msg">Tx is broadcasted. \nPlese check your Dex screen!</string>
+    <string name="str_wc_sign_result_msg">Tx is broadcasted.\nPlese check your Dex screen!</string>
     <string name="str_wc_new_order">New Order</string>
     <string name="str_wc_cancel_order">Order Cancel</string>
     <string name="str_switch_wallet">Switch Wallet</string>
@@ -626,12 +626,13 @@
     <string name="str_proposal_id">Proposal Id</string>
     <string name="str_notification">Notification</string>
     <string name="str_network_error_title">Network Error</string>
-    <string name="str_network_error_msg">Can not connect to the network. \nPlease try again in a few minutes.</string>
+    <string name="str_network_error_msg">Can not connect to the network.\nPlease try again in a few minutes.</string>
+    <string name="str_unknown_error_msg">Oops! Something went wrong.\nPlease try again later.</string>
     <string name="str_retry">Retry</string>
     <string name="str_disabled_app_title">Under Maintenance</string>
-    <string name="str_disabled_app_msg">We are currently under maintenance. \nPlease check our community channels for more information.</string>
+    <string name="str_disabled_app_msg">We are currently under maintenance.\nPlease check our community channels for more information.</string>
     <string name="str_update_title">Update</string>
-    <string name="str_update_msg">New version available. \nPlease update to the latest version from the PlayStore.</string>
+    <string name="str_update_msg">New version available.\nPlease update to the latest version from the PlayStore.</string>
     <string name="str_go_store">Go PlayStore</string>
     <string name="str_alarm_enabled">Push alarm is enabled for detecting each sent <![CDATA[&]]> received tx with this address.</string>
     <string name="str_alarm_disabled">Push alarm is turned off. You can turn on.</string>
@@ -668,7 +669,7 @@
     <string name="str_buy_bnb">Buy BNB</string>
     <string name="str_buy_kava">Buy KAVA</string>
     <string name="str_buy_band">Buy BAND</string>
-    <string name="str_kava_testnet_msg"><![CDATA[This wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
+    <string name="str_kava_testnet_msg"><![CDATA[This wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nFD Wallet supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
     <string name="str_kava_dapp"><![CDATA[KAVA DeFi]]> </string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>
@@ -694,7 +695,7 @@
     <string name="str_secret_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_secret_new_path"><![CDATA[NEW PATH (44\'/529\'/0\'/0)]]></string>
     <string name="str_okex_newpath_title">Select Key Type</string>
-    <string name="str_okex_newpath_msg">OEC Chain support 3 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\nIf you want the latest path select [Ethereum Type] \n\nIf you mistakenly selected the wrong type, it will not affect your original OEC wallet. Simply press [Import Mnemonics] to re-select your type.</string>
+    <string name="str_okex_newpath_msg">OEC Chain support 3 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\nIf you want the latest path select [Ethereum Type]\n\nIf you mistakenly selected the wrong type, it will not affect your original OEC wallet. Simply press [Import Mnemonics] to re-select your type.</string>
     <string name="str_okex_old_type"><![CDATA[Legacy Tendermint Type (44\'/996\'/0\'/0)]]></string>
     <string name="str_okex_new_type"><![CDATA[Legacy Ethermint Type (44\'/996\'/0\'/0)]]></string>
     <string name="str_okex_eth_type"><![CDATA[Ethereum Type (44\'/60\'/0\'/0)]]></string>
@@ -730,7 +731,7 @@
     <string name="str_swap_id">Swap ID</string>
     <string name="str_expected_income">Expected Income</string>
     <string name="str_warn_testnet_title">Testnet Warning</string>
-    <string name="str_warn_testnet_msg"><![CDATA[This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
+    <string name="str_warn_testnet_msg"><![CDATA[This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nFD Wallet supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
     <string name="str_ibc_send">IBC Send</string>
     <string name="str_bep3_send">BEP3 Send</string>
     <string name="str_to_swap_coin">Send Coin</string>
@@ -743,7 +744,7 @@
     <string name="str_bep3_status_expired">Refundable</string>
     <string name="str_bep3_status_open">Wait Claim</string>
     <string name="str_bep3_status_refunded">Refunded</string>
-    <string name="str_bep3_status_null">UnKnown</string>
+    <string name="str_bep3_status_null">Unknown</string>
     <string name="str_bep3_refund">BEP3 Refund</string>
     <string name="str_swapId">SwapId</string>
     <string name="str_refund_amount">Refund Amount</string>
@@ -891,7 +892,7 @@
     <string name="str_add_p_all">All</string>
     <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
     <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
-    <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
+    <string name="str_repay_all_notice">This CDP will be closed.\nAll deposits will be returned to each depositor.</string>
     <string name="str_select_receive_chain">Select Destination Chain</string>
     <string name="str_select_account">Select Account</string>
     <string name="str_bep3_cap_status">Swap Cap Information</string>
@@ -959,15 +960,14 @@
     <string name="str_main_set">SETTING</string>
     <string name="str_password">Password</string>
     <string name="str_set_password">Set Password</string>
-    <string name="str_init_password">Please insert your PIN number.</string>
-    <string name="str_init_again">Please insert again for confirm.</string>
+    <string name="str_init_password">Please enter your PIN number.</string>
+    <string name="str_init_again">Please enter again for confirm.</string>
     <string name="str_using_fingerprint">Using Fingerprint</string>
     <string name="str_ask_using_fingerprint">Do you want to enable fingerprint authentication?</string>
     <string name="str_mnemonic_copied">Mnemonic copied to clipboard.</string>
     <string name="str_enter_address">Enter Address or Public-Key</string>
-    <string name="str_copy_right">COSMOS Wallet by Cosmostation</string>
     <string name="str_password_init">Init your PIN number.</string>
-    <string name="str_password_msg1">Insert again for confirm.</string>
+    <string name="str_password_msg1">Enter again for confirm.</string>
     <string name="str_password_msg2">No way to recover this. please remember!</string>
     <string name="str_send_step_0">Insert recipient address</string>
     <string name="str_send_step_1">Insert send amount and select token type</string>
@@ -1012,10 +1012,10 @@
     <string name="str_intro"></string>
     <string name="str_no_history_with_this_validator">No history.</string>
     <string name="str_let_start_cosmos">Explore the Cosmos Hub</string>
-    <string name="str_let_start_cosmos2">Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
+    <string name="str_let_start_cosmos2">Delegate your ATOM and claim rewards with FD Wallet.\nFast and easy transactions with local signing!</string>
     <string name="str_change_nickname">Change wallet Name</string>
     <string name="str_wallet_nickname">Wallet Name</string>
-    <string name="str_start_delegate">Delegate your tokens with Cosmostation.\nStart earning staking rewards and contribute to the network ecosystem.</string>
+    <string name="str_start_delegate">Delegate your tokens with FD Wallet.\nStart earning staking rewards and contribute to the network ecosystem.</string>
     <string name="str_create_warn0">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
     <string name="str_create_warn1">Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.</string>
     <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
@@ -1081,7 +1081,7 @@
     <string name="str_sif_incentive_max_staking">Max Staking Subsidy</string>
     <string name="str_sif_incentive_max_liquidity">Max Liquidity Mining</string>
     <string name="str_sif_incentive_max_date">Max Date</string>
-    <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
+    <string name="str_fee_free_msg">To commemorate the launch of the main net,\nwe will hold a free 3-week event.</string>
     <string name="str_delegate_notice">When you delegate, your accumulated rewards will be automatically claimed to your available balance.</string>
     <string name="str_undelegate_notice">If you undelegate to the validator, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
     <string name="str_reward_notice">Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now.</string>
@@ -1092,12 +1092,12 @@
     <string name="str_redelegation_limitted_title">Unable to redelegate.</string>
     <string name="str_redelegation_limitted_msg">You have redelegated to this validator in the past certain period set by the system.</string>
     <string name="str_redelegation_warnning_title">Notice</string>
-    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator, \nyou will not be able to redelegate FROM this validator for certain period set by the system. \nWould you like to continue?</string>
+    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator,\nyou will not be able to redelegate FROM this validator for certain period set by the system.\nWould you like to continue?</string>
     <string name="str_redelegation_description">For the certain period set by the system, you will not be able to redelegate from the validator you are redelegating to.</string>
     <string name="str_reward_address_change_title">Reward Address Change</string>
-    <string name="str_reward_address_change_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>
+    <string name="str_reward_address_change_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address.\nPlease confirm you have full authority with to change address.</string>
     <string name="str_reward_address_change_confirm_title">Double Check!</string>
-    <string name="str_reward_address_change_confirm_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>
+    <string name="str_reward_address_change_confirm_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address.\nPlease confirm you have full authority with to change address.</string>
     <string name="str_reward_address_change_market_no">Do not set this as an exchange address.</string>
     <string name="str_more_wait_title">Result Display Delayed</string>
     <string name="str_more_wait_msg"><![CDATA[The transaction you requested has been successfully broadcasted to the blockchain.
@@ -1109,7 +1109,7 @@
     <string name="str_swap_error_title">Swap Tx Error</string>
     <string name="str_swap_error_msg_create">Sorry!\nAn error occurred while sending during swap Tx. Please check below.</string>
     <string name="str_swap_error_msg_claim">Sorry!\nAn error occurred while claim during swap Tx. Please check below.</string>
-    <string name="str_app_unlock_title">Unlock Cosmostation</string>
+    <string name="str_app_unlock_title">Unlock FD Wallet</string>
     <string name="str_app_unlock_msg1">Please insert PIN number for unlock</string>
     <string name="str_app_unlock_msg2">Please insert PIN number or using fingerprint for unlock</string>
     <string name="str_using_applock">Using App Lock</string>
@@ -1129,9 +1129,9 @@
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_vesting_amount">Vesting (Only Delegable)</string>
     <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
-    <string name="str_htlc_warn_msg">BEP3 transactions are handled by two networks on both ends of the interchain transfer<![CDATA[ & ]]>a relayer in between. \nCosmostation supports BEP3 transactions, but does not guarantee the stability of the network and success of the transaction. If your transaction fails, please make an inquiry on the network community channel.\n\nShould the BEP3 transaction fail, your tokens can be returned in full through the [Refund] function activated in your transaction history.</string>
+    <string name="str_htlc_warn_msg">BEP3 transactions are handled by two networks on both ends of the interchain transfer<![CDATA[ & ]]>a relayer in between.\nFD Wallet supports BEP3 transactions, but does not guarantee the stability of the network and success of the transaction. If your transaction fails, please make an inquiry on the network community channel.\n\nShould the BEP3 transaction fail, your tokens can be returned in full through the [Refund] function activated in your transaction history.</string>
     <string name="str_cdp_warn_title">CDP Notice</string>
-    <string name="str_cdp_warn_msg">CDP risks liquidation due to changes in the value of collateral. The user is responsible for all decisions and responsibilities, including the opening, reimbursement and liquidation of the CDP. \n\nThe Cosmostation wallet does not provide separate alarms for liquidation and liquidation risk.</string>
+    <string name="str_cdp_warn_msg">CDP risks liquidation due to changes in the value of collateral. The user is responsible for all decisions and responsibilities, including the opening, reimbursement and liquidation of the CDP.\n\nThe FD Wallet does not provide separate alarms for liquidation and liquidation risk.</string>
     <string name="str_delegate_warn_title">Delegate Notice</string>
     <string name="str_delegate_warn_msg">You can receive staking rewards by delegating to a validator. You may lose a portion of your delegated stake if a problem occurs with the selected node. Please perform careful due diligence before delegating.\nWhen you undelegate, there is an unbonding period. You will not receive staking rewards during this time.</string>
     <string name="str_memo_warn">Please check your memo.\nSome exchanges or wallets may require a specific memo for deposits.</string>
@@ -1161,7 +1161,7 @@
     <string name="str_support_starname_title">*starname service supported</string>
     <string name="str_support_starname_msg">Your universal username for the blockchain world. Insert a *starname in the address field instead of a long complicated crypto address.</string>
     <string name="str_starname_confirm_title">StarName Found</string>
-    <string name="str_starname_confirm_msg">A matched address was found. Would you like to send to this address? \n\n\n%1$s\n\n%2$s</string>
+    <string name="str_starname_confirm_msg">A matched address was found. Would you like to send to this address?\n\n\n%1$s\n\n%2$s</string>
     <string name="str_my_domain">Premium Edition</string>
     <string name="str_my_account">Basic Edition</string>
     <string name="str_owen_domain">Owen Premium Starname</string>
@@ -1285,17 +1285,17 @@
     <string name="str_renew_starname">Renew Starname</string>
     <string name="str_connected_address_replace">Connected Addresses Replace</string>
     <string name="str_safe_copy_title">Mnemonic Safe Copy</string>
-    <string name="str_safe_copy_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your mneominc phrase outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
+    <string name="str_safe_copy_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the FD Wallet Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your mneominc phrase outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
     <string name="str_safe_copy_pkey_title">Private Key Safe Copy</string>
-    <string name="str_safe_copy_pkey_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The private key temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your private key to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your private key outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
+    <string name="str_safe_copy_pkey_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The private key temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your private key to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the FD Wallet Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your private key outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
     <string name="str_safe_copy">Safe Copy</string>
     <string name="str_raw_copy">Raw Copy</string>
     <string name="str_starname_walletconnect_alert_title">Export Address for Starname</string>
-    <string name="str_starname_walletconnect_alert_msg">You can easily export the addresses in Cosmostaion Wallet and link it with Starname Manager. This function only links your addresses using WalletConnect, and does not export your private keys or moves your assets.\n\nWould you like to link your wallets to Starname Manager?</string>
+    <string name="str_starname_walletconnect_alert_msg">You can easily export the addresses in FD Wallet and link it with Starname Manager. This function only links your addresses using WalletConnect, and does not export your private keys or moves your assets.\n\nWould you like to link your wallets to Starname Manager?</string>
     <string name="str_starname_walletconnect_alert_msg2">Ready to Export %1$s Addresses</string>
     <string name="str_starname_walletconnect_complete">Export Complete</string>
     <string name="str_ok_promotion_title">START VOTING FOR VALIDATORS</string>
-    <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
+    <string name="str_ok_promotion_msg">Vote for FD Wallet to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
     <string name="str_total_deposit_value">My Supplied Value</string>
     <string name="str_ltv_value">My Borrowed Value</string>
     <string name="str_total_borrowed_value">Available Credit(LTV)</string>
@@ -1314,7 +1314,7 @@
     <string name="str_check_estimate_gas_amount">Check Estimate Gas Amount</string>
     <string name="str_apply_estimate_gas_amount">Estimate Gas Amount Applied</string>
     <string name="str_mnemonics_warning_title">Do NOT enter your mnemonics.</string>
-    <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\n the memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
+    <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\n the memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others.\nYou are soley responsible for the exposure or loss of your keys.</string>
     <string name="str_ibc_sender">Sender</string>
     <string name="str_ibc_receiver">Receiver</string>
     <string name="str_ibc_recipent">Recipient</string>
@@ -1501,8 +1501,8 @@
 
     <string name="str_ibc_send_c">IBC SEND</string>
     <string name="str_ibc_warning_c">Notice</string>
-    <string name="str_ibc_warning_msg1">IBC transactions are not supported on centralized exchanges. \nIf you wish to transfer to an exchange, you must send back the asset to its original chain before depositing it via a regular send transaction.</string>
-    <string name="str_ibc_warning_msg2">This wallet only supports the broadcasting of txs through active IBC relayers and therefore is not responsible for intrinsic issues that may exist in IBC txs. \nUser must perform due diligence on the stability and security of the selected relayer before executing IBC txs.</string>
+    <string name="str_ibc_warning_msg1">IBC transactions are not supported on centralized exchanges.\nIf you wish to transfer to an exchange, you must send back the asset to its original chain before depositing it via a regular send transaction.</string>
+    <string name="str_ibc_warning_msg2">This wallet only supports the broadcasting of txs through active IBC relayers and therefore is not responsible for intrinsic issues that may exist in IBC txs.\nUser must perform due diligence on the stability and security of the selected relayer before executing IBC txs.</string>
     <string name="str_ibc_continue_c">Continue</string>
     <string name="str_ibc_send_channel">Relayer Channel</string>
     <string name="str_ibc_transfer_step_0">Select destination chain <![CDATA[&]]> relayer</string>
@@ -1512,7 +1512,7 @@
     <string name="str_ibc_transfer_step_4">Check transaction detail</string>
     <string name="str_select_ibc_destination">Select Destination Chain</string>
     <string name="str_select_ibc_relayer">Select Realyer for IBC Transfer</string>
-    <string name="str_ibc_unknown_relayer_msg">This is an unconfirmed relayer. \nIBC transfers through an inoperable relayer may result in loss of assets. \nDo you wish to continue?</string>
+    <string name="str_ibc_unknown_relayer_msg">This is an unconfirmed relayer.\nIBC transfers through an inoperable relayer may result in loss of assets.\nDo you wish to continue?</string>
     <string name="str_select_ibc_address">Recipient Address</string>
     <string name="str_ibc_recipient_chain">Recipient Chain</string>
 
@@ -1616,7 +1616,7 @@
     <string name="error_not_enough_reward">Not enough rewards to Claim</string>
     <string name="error_not_enough_balance_to_vote">Insufficient available balance.</string>
     <string name="error_small_reward">Rewards are too small.</string>
-    <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
+    <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed.\nPlease refer to the history.</string>
     <string name="error_vesting_time">Token transfer is locked for three weeks following mainnet launch.</string>
     <string name="error_send_disable">Token transfer is locked.</string>
     <string name="error_real_testing">Open soon after real testing.</string>
@@ -1674,7 +1674,7 @@
     <string name="error_only_fixed_domain">now only support fixed iov domain, Well support soon all domain</string>
     <string name="error_invalid_account_format">Invalid account format, please insert another text for account</string>
     <string name="error_already_registered_account">This account already registered. please use another text for account</string>
-    <string name="error_not_support_cosmostation">Not supported chain Cosmostaion wallet.</string>
+    <string name="error_unsupported_chain">Not supported chain FD Wallet.</string>
     <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
     <string name="error_no_address_added">Please enter at least 1 address.</string>
     <string name="error_cannot_delete_open_domain">Can not delete open domain.</string>

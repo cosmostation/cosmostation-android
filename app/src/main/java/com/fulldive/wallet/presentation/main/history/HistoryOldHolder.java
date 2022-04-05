@@ -35,7 +35,7 @@ public class HistoryOldHolder extends BaseHolder {
     }
 
     public void onBindOldBnbHistory(@NotNull MainActivity mainActivity, BnbHistory history) {
-        historyType.setText(WDp.DpBNBTxType(mainActivity, history, mainActivity.mAccount.address));
+        historyType.setText(WDp.DpBNBTxType(mainActivity, history, mainActivity.account.address));
         history_time.setText(WDp.getTimeformat(mainActivity, history.timeStamp));
         history_time_gap.setText(WDp.getTimeGap(mainActivity, history.timeStamp));
         history_block.setText(history.blockHeight + "block");
@@ -50,7 +50,7 @@ public class HistoryOldHolder extends BaseHolder {
                 mainActivity.startActivity(txDetail);
 
             } else {
-                String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.txHash);
+                String url = WUtil.getTxExplorer(mainActivity.baseChain, history.txHash);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 mainActivity.startActivity(intent);
             }

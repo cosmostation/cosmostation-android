@@ -49,17 +49,17 @@ public class HtlcRefundStep0Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        if (getSActivity().baseChain.equals(BaseChain.BNB_MAIN)) {
             mSwapId.setText(getSActivity().mSwapId);
             mRefundAddress.setText(getSActivity().mResBnbSwapInfo.fromAddr);
             Coin coin = getSActivity().mResBnbSwapInfo.getSendCoin();
-            WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
+            WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().baseChain);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().baseChain.equals(BaseChain.KAVA_MAIN)) {
             mSwapId.setText(getSActivity().mSwapId);
             mRefundAddress.setText(getSActivity().mResKavaSwapInfo.result.sender);
             Coin coin = getSActivity().mResKavaSwapInfo.result.amount.get(0);
-            WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
+            WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().baseChain);
 
         } else {
             getSActivity().onBeforeStep();

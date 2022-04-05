@@ -51,7 +51,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -65,8 +65,8 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(R.string.str_reward_step_1);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = getChain(account.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_REWARD;
 
         mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
@@ -113,7 +113,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAccount == null) finish();
+        if (account == null) finish();
     }
 
     @Override
@@ -156,8 +156,8 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     private void onFetchReward() {
         if (mTaskCount > 0) return;
         mTaskCount = 2;
-        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllRewardGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new WithdrawAddressGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void onStartReward() {

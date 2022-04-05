@@ -116,7 +116,7 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mOutputCoinDecimal = WUtil.getCosmosCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_GDEX_SWAP, 0);
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().baseChain, CONST_PW_TX_GDEX_SWAP, 0);
         if (getSActivity().mInputDenom.equals(COSMOS_MAIN.getMainDenom())) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
@@ -300,7 +300,7 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new GravityDexManagerGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexManagerGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mGDexPool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

@@ -87,7 +87,7 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener,
     public void onFetchIbcListInfo() {
         mTaskCount = 1;
         for (String symbol : getSActivity().mMyIbcAssets) {
-            new SifDexMyProviderGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, symbol).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SifDexMyProviderGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().account, symbol).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 

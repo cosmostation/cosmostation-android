@@ -77,7 +77,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail_native);
 
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
         mItemPerPrice = findViewById(R.id.per_price);
@@ -98,11 +98,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mNativeGrpcDenom = getIntent().getStringExtra("denom");
 
-        if (mBaseChain.equals(KAVA_MAIN)) {
+        if (baseChain.equals(KAVA_MAIN)) {
             if (getBaseDao().onParseRemainVestingsByDenom(mNativeGrpcDenom).size() > 0) {
                 mHasVesting = true;
             }
@@ -143,9 +143,9 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, baseChain));
         mBtnIbcSend.setVisibility(View.VISIBLE);
-        if (mBaseChain.equals(BaseChain.OSMOSIS_MAIN)) {
+        if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
             WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mNativeGrpcDenom);
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorIon));
             mToolbarSymbol.setText(getString(R.string.str_uion_c));
@@ -155,12 +155,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                 mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
             }
 
-        } else if (mBaseChain.equals(BaseChain.EMONEY_MAIN)) {
+        } else if (baseChain.equals(BaseChain.EMONEY_MAIN)) {
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
             Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD)) {
                 mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorHard));
                 mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBghard));
@@ -192,11 +192,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mAddress.setText(mAccount.address);
+        mAddress.setText(account.address);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, mTotalAmount, mDivideDecimal));
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-        if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (account.hasPrivateKey) {
+            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -206,19 +206,19 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
-                    mAccount.getAccountTitle(this),
-                    mAccount.address
+                    account.getAccountTitle(this),
+                    account.address
             );
             showDialog(show);
 
         } else if (v.equals(mBtnIbcSend)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;
             }
-            final String mainDenom = mBaseChain.getMainDenom();
-            final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
+            final String mainDenom = baseChain.getMainDenom();
+            final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
             if (mainDenom.equalsIgnoreCase(mNativeGrpcDenom)) {
@@ -233,14 +233,14 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             Dialog_IBC_Send_Warning warning = Dialog_IBC_Send_Warning.newInstance(bundle);
             showDialog(warning);
         } else if (v.equals(mBtnSend)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+            BigDecimal mainAvailable = getBaseDao().getAvailable(baseChain.getMainDenom());
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
@@ -278,11 +278,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_NATIVE) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
+                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, baseChain, getBaseDao(), mNativeGrpcDenom);
 
             } else if (getItemViewType(position) == TYPE_VESTING) {
                 VestingHolder holder = (VestingHolder) viewHolder;
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mNativeGrpcDenom);
+                holder.onBindTokenHolder(getBaseContext(), baseChain, getBaseDao(), mNativeGrpcDenom);
             }
         }
 
@@ -296,7 +296,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(KAVA_MAIN)) {
+            if (baseChain.equals(KAVA_MAIN)) {
                 if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD) || mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
                     if (mHasVesting) {
                         if (position == 0) return TYPE_NATIVE;

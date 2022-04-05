@@ -71,7 +71,7 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(BaseChain.RIZON_TEST)) {
+        if (getSActivity().baseChain.equals(BaseChain.RIZON_TEST)) {
             mHdacTitle.setText("Hdac Testnet");
             mRizonTitle.setText("Rizon Testnet");
         } else {
@@ -83,11 +83,11 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
         mHdacUtxo = getSActivity().mHdacUtxo;
         BigDecimal HdacBalance = getSActivity().mHdacBalance;
 
-        mHdacFromAddress.setText(mHdacUtil.getAddress(getSActivity().mBaseChain));
+        mHdacFromAddress.setText(mHdacUtil.getAddress(getSActivity().baseChain));
         mHdacBurnAmount.setText("" + WDp.getDpAmount2(HdacBalance, 8, 8));
         mHdacTxFee.setText("" + WDp.getDpAmount2(new BigDecimal("0.1"), 0, 8));
 
-        mRizonToAddress.setText(getSActivity().mAccount.address);
+        mRizonToAddress.setText(getSActivity().account.address);
         mSendAmount = HdacBalance.subtract(new BigDecimal("0.1").movePointRight(8));
         mRizonMintAmount.setText("" + WDp.getDpAmount2(mSendAmount, 8, 6));
     }
@@ -107,7 +107,7 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
                 Toast.makeText(getSActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
-            String hdacTxString = mHdacUtil.genSignedTxSwap(getSActivity().mBaseChain, mHdacUtxo, getSActivity().mAccount.address);
+            String hdacTxString = mHdacUtil.genSignedTxSwap(getSActivity().baseChain, mHdacUtxo, getSActivity().account.address);
             getSActivity().onStartSwap(hdacTxString);
         }
     }

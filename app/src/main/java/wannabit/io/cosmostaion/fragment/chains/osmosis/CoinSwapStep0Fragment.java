@@ -115,7 +115,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().baseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
         if (getSActivity().mInputDenom.equals(TOKEN_OSMOSIS)) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
@@ -289,7 +289,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

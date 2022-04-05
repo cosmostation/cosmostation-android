@@ -1,9 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,27 +9,37 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+
+import com.fulldive.wallet.presentation.lockscreen.CheckPasswordActivity;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_LockTime;
 
 public class AppLockSetActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar mToolbar;
     private FrameLayout mBtnUsingAppLock, mBtnUsingFingerprint, mBtnAppLockTime;
     private SwitchCompat mSwitchUsingAppLock, mSwitchUsingFingerprint;
     private TextView mTvAppLockTime;
+
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            getBaseDao().setUsingAppLock(false);
+        }
+        onUpdateView();
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applock_set);
-        mToolbar = findViewById(R.id.tool_bar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         mBtnUsingAppLock = findViewById(R.id.card_using_applock);
         mBtnUsingFingerprint = findViewById(R.id.card_using_fingerprint);
         mBtnAppLockTime = findViewById(R.id.card_applock_time);
@@ -39,7 +47,7 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
         mSwitchUsingFingerprint = findViewById(R.id.switch_fingerprint);
         mTvAppLockTime = findViewById(R.id.applock_time_text);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -67,21 +75,15 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
         mTvAppLockTime.setText(getBaseDao().getAppLockLeaveTimeString(getBaseContext()));
         if (getBaseDao().getUsingAppLock()) {
             mBtnAppLockTime.setVisibility(View.VISIBLE);
-            FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(this);
-            if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
-                    mFingerprintManagerCompat.isHardwareDetected() &&
-                    mFingerprintManagerCompat.hasEnrolledFingerprints()) {
-                mBtnUsingFingerprint.setVisibility(View.VISIBLE);
-            } else {
-                mBtnUsingFingerprint.setVisibility(View.GONE);
-            }
+            FingerprintManagerCompat fingerprintManager = FingerprintManagerCompat.from(this);
+            mBtnUsingFingerprint.setVisibility(
+                    fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints() ? View.VISIBLE : View.GONE
+            );
 
         } else {
             mBtnAppLockTime.setVisibility(View.GONE);
             mBtnUsingFingerprint.setVisibility(View.GONE);
         }
-
-
     }
 
     public void onUpdateLockTime(int time) {
@@ -93,11 +95,10 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         if (v.equals(mBtnUsingAppLock)) {
             if (getBaseDao().getUsingAppLock()) {
-                Intent intent = new Intent(AppLockSetActivity.this, PasswordCheckActivity.class);
-                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-
+                launcher.launch(
+                        new Intent(AppLockSetActivity.this, CheckPasswordActivity.class),
+                        ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_bottom, R.anim.fade_out)
+                );
 
             } else {
                 if (getBaseDao().onHasPassword()) {
@@ -116,15 +117,5 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
             Dialog_LockTime timeUpdate = Dialog_LockTime.newInstance();
             showDialog(timeUpdate);
         }
-    }
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setUsingAppLock(false);
-        }
-        onUpdateView();
     }
 }

@@ -1001,22 +1001,6 @@ public class BaseData {
         return getSharedPreferences().getString(BaseConstant.PRE_FCM_TOKEN, "");
     }
 
-    public void setEventTime() {
-        Date dt = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, 1);
-        getSharedPreferences().edit().putLong(PRE_EVENT_HIDE, c.getTimeInMillis()).commit();
-    }
-
-    public boolean getEventTime() {
-        Date dt = new Date();
-        if (dt.getTime() > getSharedPreferences().getLong(PRE_EVENT_HIDE, 1)) {
-            return true;
-        }
-        return false;
-    }
-
     public void setUserHidenChains(ArrayList<BaseChain> hidedChains) {
         JSONArray array = new JSONArray();
         for (BaseChain baseChain : hidedChains) {

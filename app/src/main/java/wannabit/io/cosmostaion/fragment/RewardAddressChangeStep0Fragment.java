@@ -71,7 +71,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 return;
             }
 
-            if (WDp.isValidChainAddress(getSActivity().mBaseChain, targetAddress)) {
+            if (WDp.isValidChainAddress(getSActivity().baseChain, targetAddress)) {
                 getSActivity().mNewRewardAddress = targetAddress;
                 getSActivity().onNextStep();
             } else {

@@ -56,7 +56,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
         setContentView(R.layout.activity_step);
         mRootView = findViewById(R.id.root_view);
         mChainBg = findViewById(R.id.chain_bg);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -72,8 +72,8 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
         mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(R.string.str_htlc_refund_step_0);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTxType = CONST_PW_TX_HTLS_REFUND;
 
         mPageAdapter = new HtlcRefundPageAdapter(getSupportFragmentManager());
@@ -209,7 +209,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
 
 
     private void onFetchHtlcStatus(String swapId) {
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             ApiClient.getKavaChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
                 @Override
                 public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
@@ -229,7 +229,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        } else if (baseChain.equals(BaseChain.BNB_MAIN)) {
             ApiClient.getBnbChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {

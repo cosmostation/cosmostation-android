@@ -62,7 +62,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restore_path);
 
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mRecyclerView = findViewById(R.id.recycler);
 
         setSupportActionBar(mToolbar);

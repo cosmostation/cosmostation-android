@@ -96,9 +96,9 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_account_format, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal available = getBaseDao().getAvailable(getSActivity().mBaseChain.getMainDenom());
+            BigDecimal available = getBaseDao().getAvailable(getSActivity().baseChain.getMainDenom());
             BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_REGISTER_ACCOUNT, 0);
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().baseChain, CONST_PW_TX_REGISTER_ACCOUNT, 0);
             if (available.compareTo(starNameFee.add(txFee)) < 0) {
                 Toast.makeText(getBaseActivity(), R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
@@ -116,7 +116,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     private void onCheckAccountInfo(String starnameAccount, String starnameDomain) {
         getSActivity().onShowWaitDialog();
 
-        QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(getSActivity().mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(getSActivity().baseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(starnameAccount + "*" + starnameDomain).build();
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
             @Override

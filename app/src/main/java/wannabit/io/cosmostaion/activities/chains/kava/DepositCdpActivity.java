@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -60,7 +59,7 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
         mRootView = findViewById(R.id.root_view);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -74,8 +73,8 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
         mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(R.string.str_deposit_cdp_step_1);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTxType = CONST_PW_TX_DEPOSIT_CDP;
 
         mCollateralType = getIntent().getStringExtra("collateralParamType");
@@ -224,7 +223,7 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         mTaskCount = 1;
-        new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

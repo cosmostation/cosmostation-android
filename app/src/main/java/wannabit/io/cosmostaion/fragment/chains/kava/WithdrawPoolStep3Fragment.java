@@ -55,7 +55,7 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeAmountSymbol);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -64,7 +64,7 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         mExitMyShare.setText(WDp.getDpAmount2(getSActivity().mKavaShareAmount, 6, 6));
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 

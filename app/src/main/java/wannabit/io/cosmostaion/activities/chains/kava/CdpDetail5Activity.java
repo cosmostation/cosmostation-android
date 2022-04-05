@@ -65,7 +65,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cdp_detail5);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
         mLoadingLayer = findViewById(R.id.loadingLayer);
@@ -75,7 +75,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        baseChain = BaseChain.getChain(mAccount.baseChain);
 
         mCdpParams = getBaseDao().mCdpParams;
         mCollateralType = getIntent().getStringExtra("collateralParamType");
@@ -114,9 +114,9 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     public void onFetchCdpData() {
         mTaskCount = 3;
         mMyCdps = null;
-        new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaCdpByDepositorTask(getBaseApplication(), this, mBaseChain, mAccount.address, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new TotalSupplyGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, baseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpByDepositorTask(getBaseApplication(), this, baseChain, mAccount.address, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new TotalSupplyGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
 

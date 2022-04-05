@@ -118,7 +118,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         } else if (v.equals(mWallet)) {
             if (mStarNameAsset != null) {
                 if (mStarNameAsset.chainName == null) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_support_cosmostation, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.error_unsupported_chain, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (getBaseDao().onSelectAccountsByChain(mTochain).size() <= 0) {

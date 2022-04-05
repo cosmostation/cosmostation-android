@@ -18,57 +18,66 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.fulldive.wallet.interactors.secret.InvalidPasswordException;
+import com.fulldive.wallet.interactors.secret.SecretInteractor;
+import com.fulldive.wallet.rx.AppSchedulers;
+
 import java.util.ArrayList;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.ITimelessActivity;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.StopViewPager;
+import wannabit.io.cosmostaion.widget.LockedViewPager;
 
-public class AppLockActivity extends BaseActivity implements KeyboardListener, TaskListener {
+public class AppLockActivity extends BaseActivity implements ITimelessActivity, KeyboardListener, TaskListener {
 
-    private LinearLayout mLayerContents;
-    private ImageView mFingerImage;
-    private TextView mUnlockMsg;
-    private ImageView[] mIvCircle = new ImageView[5];
+    private LinearLayout layerContents;
+    private ImageView fingerImage;
+    private TextView unlockMsg;
+    private final ImageView[] ivCircle = new ImageView[5];
 
-    private StopViewPager mViewPager;
-    private KeyboardPagerAdapter mAdapter;
-    private String mUserInput = "";
+    private LockedViewPager viewPager;
+    private String userInput = "";
 
-    private FingerprintManagerCompat mFingerprintManagerCompat;
-    private CancellationSignal mCancellationSignal;
+    private CancellationSignal cancellationSignal;
+
+    private SecretInteractor secretInteractor;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applock);
-        mLayerContents = findViewById(R.id.layer_contents);
-        mFingerImage = findViewById(R.id.img_fingerprint);
-        mUnlockMsg = findViewById(R.id.tv_unlock_msg);
-        mViewPager = findViewById(R.id.pager_keyboard);
-        mNeedLeaveTime = false;
 
-        for (int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
+        secretInteractor = getAppInjector().getInstance(SecretInteractor.class);
+
+        layerContents = findViewById(R.id.layer_contents);
+        fingerImage = findViewById(R.id.img_fingerprint);
+        unlockMsg = findViewById(R.id.tv_unlock_msg);
+        viewPager = findViewById(R.id.keyboardPager);
+
+        for (int i = 0; i < ivCircle.length; i++) {
+            ivCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
         }
 
-        mViewPager.setOffscreenPageLimit(2);
-        mAdapter = new KeyboardPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mAdapter);
+        viewPager.setOffscreenPageLimit(2);
+        KeyboardPagerAdapter mAdapter = new KeyboardPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(mAdapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
+        setFingerImageColor(R.color.colorWhite);
     }
 
     @Override
@@ -77,41 +86,86 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
         onInitView();
     }
 
-    private void onInitView() {
-        mUserInput = "";
-        for (int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
-        }
-        mViewPager.setCurrentItem(0, true);
-        onCheckFingerPrint();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (cancellationSignal != null)
+            cancellationSignal.cancel();
+    }
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
-        if (mCancellationSignal != null)
-            mCancellationSignal.cancel();
+        if (cancellationSignal != null)
+            cancellationSignal.cancel();
         moveTaskToBack(true);
     }
 
+    @Override
+    public void userInsertKey(char input) {
+        if (userInput == null || userInput.length() == 0) {
+            userInput = String.valueOf(input);
+
+        } else if (userInput.length() < 5) {
+            userInput = userInput + input;
+        }
+
+        if (userInput.length() == 4) {
+            viewPager.setCurrentItem(1, true);
+
+        } else if (userInput.length() == 5 && WUtil.checkPasscodePattern(userInput)) {
+            onFinishInput();
+
+        } else if (userInput.length() == 5 && !WUtil.checkPasscodePattern(userInput)) {
+            onInitView();
+            return;
+        }
+        onUpdateCnt();
+    }
+
+    @Override
+    public void userDeleteKey() {
+        if (userInput == null || userInput.length() <= 0) {
+            onBackPressed();
+        } else if (userInput.length() == 4) {
+            userInput = userInput.substring(0, userInput.length() - 1);
+            viewPager.setCurrentItem(0, true);
+        } else {
+            userInput = userInput.substring(0, userInput.length() - 1);
+        }
+        onUpdateCnt();
+    }
+
+    private void onInitView() {
+        userInput = "";
+        for (ImageView imageView : ivCircle) {
+            imageView.setBackgroundResource(R.drawable.ic_pass_gr);
+        }
+        viewPager.setCurrentItem(0, true);
+        onCheckFingerPrint();
+    }
+
     private void onUnlock() {
-        if (mCancellationSignal != null)
-            mCancellationSignal.cancel();
+        if (cancellationSignal != null)
+            cancellationSignal.cancel();
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     private void onCheckFingerPrint() {
-        mFingerprintManagerCompat = FingerprintManagerCompat.from(this);
-        mCancellationSignal = new CancellationSignal();
-        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
-                mFingerprintManagerCompat.isHardwareDetected() &&
-                mFingerprintManagerCompat.hasEnrolledFingerprints() &&
-                getBaseDao().getUsingFingerPrint()) {
-            mFingerImage.setVisibility(View.VISIBLE);
-            mUnlockMsg.setText(R.string.str_app_unlock_msg2);
+        FingerprintManagerCompat fingerprintManagerCompat = FingerprintManagerCompat.from(this);
+        cancellationSignal = new CancellationSignal();
+        if (fingerprintManagerCompat.isHardwareDetected() && fingerprintManagerCompat.hasEnrolledFingerprints() && getBaseDao().getUsingFingerPrint()) {
+            fingerImage.setVisibility(View.VISIBLE);
+            unlockMsg.setText(R.string.str_app_unlock_msg2);
 
-            mFingerprintManagerCompat.authenticate(null, 0, mCancellationSignal, new FingerprintManagerCompat.AuthenticationCallback() {
+            fingerprintManagerCompat.authenticate(null, 0, cancellationSignal, new FingerprintManagerCompat.AuthenticationCallback() {
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
                     super.onAuthenticationError(errMsgId, errString);
@@ -119,15 +173,15 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
 
                 @Override
                 public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-                    mUnlockMsg.setText(helpString);
-                    mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorRed), android.graphics.PorterDuff.Mode.SRC_IN);
+                    unlockMsg.setText(helpString);
+                    setFingerImageColor(R.color.colorRed);
                     super.onAuthenticationHelp(helpMsgId, helpString);
                 }
 
                 @Override
                 public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
                     super.onAuthenticationSucceeded(result);
-                    mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
+                    setFingerImageColor(R.color.colorAtom);
                     onUnlock();
                 }
 
@@ -140,66 +194,50 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
             }, null);
 
         } else {
-            mFingerImage.setVisibility(View.GONE);
-            mUnlockMsg.setText(R.string.str_app_unlock_msg1);
+            fingerImage.setVisibility(View.GONE);
+            unlockMsg.setText(R.string.str_app_unlock_msg1);
         }
-    }
-
-    @Override
-    public void userInsertKey(char input) {
-        if (mUserInput == null || mUserInput.length() == 0) {
-            mUserInput = String.valueOf(input);
-
-        } else if (mUserInput.length() < 5) {
-            mUserInput = mUserInput + input;
-        }
-
-        if (mUserInput.length() == 4) {
-            mViewPager.setCurrentItem(1, true);
-
-        } else if (mUserInput.length() == 5 && WUtil.checkPasscodePattern(mUserInput)) {
-            onFinishInput();
-
-        } else if (mUserInput.length() == 5 && !WUtil.checkPasscodePattern(mUserInput)) {
-            onInitView();
-            return;
-        }
-        onUpdateCnt();
-    }
-
-    @Override
-    public void userDeleteKey() {
-        if (mUserInput == null || mUserInput.length() <= 0) {
-            onBackPressed();
-        } else if (mUserInput.length() == 4) {
-            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
-            mViewPager.setCurrentItem(0, true);
-        } else {
-            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
-        }
-        onUpdateCnt();
     }
 
     private void onFinishInput() {
         onShowWaitDialog();
-        new CheckPasswordTask(getBaseApplication(), this).execute(mUserInput);
+        Disposable disposable = secretInteractor
+                .checkPassword(userInput)
+                .subscribeOn(AppSchedulers.INSTANCE.io())
+                .observeOn(AppSchedulers.INSTANCE.ui())
+                .doOnError(error -> WLog.e(error.toString()))
+                .doAfterTerminate(this::onHideWaitDialog)
+                .subscribe(
+                        this::onUnlock,
+                        error -> {
+                            onShakeView();
+                            onInitView();
+                            if (error instanceof InvalidPasswordException) {
+                                Toast.makeText(getBaseContext(), R.string.error_invalid_password, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getBaseContext(), R.string.str_unknown_error_msg, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+        compositeDisposable.add(disposable);
     }
 
     private void onUpdateCnt() {
-        if (mUserInput == null)
-            mUserInput = "";
+        if (userInput == null)
+            userInput = "";
 
-        final int inputLength = mUserInput.length();
-        for (int i = 0; i < mIvCircle.length; i++) {
-            if (i < inputLength)
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_pu));
-            else
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+        final int inputLength = userInput.length();
+        for (int i = 0; i < ivCircle.length; i++) {
+            ivCircle[i].setBackgroundResource((i < inputLength) ? R.drawable.ic_pass_pu : R.drawable.ic_pass_gr);
         }
     }
 
+    private void setFingerImageColor(int colorResId) {
+        fingerImage.setColorFilter(ContextCompat.getColor(fingerImage.getContext(), colorResId), android.graphics.PorterDuff.Mode.SRC_IN);
+    }
+
     private void onShakeView() {
-        mLayerContents.clearAnimation();
+        layerContents.clearAnimation();
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.shake);
         animation.reset();
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -216,59 +254,33 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        mLayerContents.startAnimation(animation);
+        layerContents.startAnimation(animation);
     }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mCancellationSignal != null)
-            mCancellationSignal.cancel();
-    }
-
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        if (isFinishing()) return;
-        onHideWaitDialog();
-        if (result.isSuccess) {
-            onUnlock();
-        } else {
-            onShakeView();
-            onInitView();
-            Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
     public class KeyboardPagerAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<KeyboardFragment> mFragments = new ArrayList<>();
+        private final ArrayList<KeyboardFragment> fragments = new ArrayList<>();
 
         public KeyboardPagerAdapter(FragmentManager fm) {
             super(fm);
-            mFragments.clear();
+            fragments.clear();
             NumberKeyBoardFragment number = NumberKeyBoardFragment.newInstance();
             number.setListener(AppLockActivity.this);
-            mFragments.add(number);
+            fragments.add(number);
 
             AlphabetKeyBoardFragment alphabet = AlphabetKeyBoardFragment.newInstance();
             alphabet.setListener(AppLockActivity.this);
-            mFragments.add(alphabet);
+            fragments.add(alphabet);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return mFragments.get(position);
+            return fragments.get(position);
         }
 
         @Override
         public int getCount() {
-            return mFragments.size();
-        }
-
-        public ArrayList<KeyboardFragment> getFragments() {
-            return mFragments;
+            return fragments.size();
         }
     }
 }

@@ -65,7 +65,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -110,6 +109,7 @@ import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.ITimelessActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.StationNFTData;
@@ -130,7 +130,6 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
-import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPrivateKeyTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
@@ -184,18 +183,18 @@ import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.StopViewPager;
+import wannabit.io.cosmostaion.widget.LockedViewPager;
 
-public class PasswordCheckActivity extends BaseActivity implements KeyboardListener, TaskListener {
+public class PasswordCheckActivity extends BaseActivity implements ITimelessActivity, KeyboardListener, TaskListener {
 
     private LinearLayout mLayerContents;
     private TextView mPassowrdTitle, mPassowrdMsg1, mPassowrdMsg2;
-    private ImageView[] mIvCircle = new ImageView[5];
+    private ImageView[] circleImageView = new ImageView[5];
 
-    private StopViewPager mViewPager;
+    private LockedViewPager mViewPager;
     private KeyboardPagerAdapter mAdapter;
 
-    private String mUserInput = "";
+    private String userInput = "";
     private int mPurpose;
     private boolean mAskQuite;
 
@@ -225,7 +224,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String mDomain;
     private String mDomainType;
     private String mName;
-    private ArrayList<Types.Resource> mResources = new ArrayList();
+    private ArrayList<Types.Resource> mResources = new ArrayList<>();
 
 
     private String mPoolId;
@@ -308,15 +307,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         secretInteractor = getAppInjector().getInstance(SecretInteractor.class);
 
         mLayerContents = findViewById(R.id.layer_contents);
-        mPassowrdTitle = findViewById(R.id.tv_password_title);
-        mPassowrdMsg1 = findViewById(R.id.tv_password_msg1);
-        mPassowrdMsg2 = findViewById(R.id.tv_password_msg2);
-        mViewPager = findViewById(R.id.pager_keyboard);
+        mPassowrdTitle = findViewById(R.id.titleTextView);
+        mPassowrdMsg1 = findViewById(R.id.subtitleTextView);
+        mPassowrdMsg2 = findViewById(R.id.hintTextView);
+        mViewPager = findViewById(R.id.keyboardPager);
         mPassowrdMsg2.setVisibility(View.INVISIBLE);
-        mNeedLeaveTime = false;
 
-        for (int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
+        for (int i = 0; i < circleImageView.length; i++) {
+            circleImageView[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
         }
 
         mViewPager.setOffscreenPageLimit(2);
@@ -326,8 +324,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPurpose = getIntent().getIntExtra(CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
 
         if (mPurpose != CONST_PW_SIMPLE_CHECK) {
-            mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-            mBaseChain = getChain(mAccount.baseChain);
+            account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+            baseChain = getChain(account.baseChain);
         }
         mTargetAddress = getIntent().getStringExtra("toAddress");
         mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
@@ -441,7 +439,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     @Override
     public void onBackPressed() {
-        if (mUserInput != null && mUserInput.length() > 0) {
+        if (userInput != null && userInput.length() > 0) {
             userDeleteKey();
         } else {
             if (mAskQuite) {
@@ -455,32 +453,32 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     }
 
     private void onInitView() {
-        mPassowrdTitle.setText(getString(R.string.str_init_password));
-        mPassowrdMsg1.setText(getString(R.string.str_init_password));
-        mUserInput = "";
+        mPassowrdTitle.setText(R.string.str_init_password);
+        mPassowrdMsg1.setText(R.string.str_init_password);
+        userInput = "";
 
-        for (int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+        for (ImageView imageView : circleImageView) {
+            imageView.setBackgroundResource(R.drawable.ic_pass_gr);
         }
         mViewPager.setCurrentItem(0, true);
     }
 
     @Override
     public void userInsertKey(char input) {
-        if (mUserInput == null || mUserInput.length() == 0) {
-            mUserInput = String.valueOf(input);
+        if (userInput == null || userInput.length() == 0) {
+            userInput = String.valueOf(input);
 
-        } else if (mUserInput.length() < 5) {
-            mUserInput = mUserInput + input;
+        } else if (userInput.length() < 5) {
+            userInput = userInput + input;
         }
 
-        if (mUserInput.length() == 4) {
+        if (userInput.length() == 4) {
             mViewPager.setCurrentItem(1, true);
 
-        } else if (mUserInput.length() == 5 && WUtil.checkPasscodePattern(mUserInput)) {
+        } else if (userInput.length() == 5 && WUtil.checkPasscodePattern(userInput)) {
             onFinishInput();
 
-        } else if (mUserInput.length() == 5 && !WUtil.checkPasscodePattern(mUserInput)) {
+        } else if (userInput.length() == 5 && !WUtil.checkPasscodePattern(userInput)) {
             onInitView();
             return;
         }
@@ -492,13 +490,13 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     @Override
     public void userDeleteKey() {
-        if (mUserInput == null || mUserInput.length() <= 0) {
+        if (userInput == null || userInput.length() <= 0) {
             onBackPressed();
-        } else if (mUserInput.length() == 4) {
-            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
+        } else if (userInput.length() == 4) {
+            userInput = userInput.substring(0, userInput.length() - 1);
             mViewPager.setCurrentItem(0, true);
         } else {
-            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
+            userInput = userInput.substring(0, userInput.length() - 1);
         }
         onUpdateCnt();
     }
@@ -506,196 +504,195 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private void onFinishInput() {
         if (mPurpose == CONST_PW_SIMPLE_CHECK) {
-            onShowWaitDialog();
-            new CheckPasswordTask(getBaseApplication(), this).execute(mUserInput);
+            actionCheckPassword();
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_SEND) {
             onShowWaitDialog();
-            if (mBaseChain.isGRPC()) {
-                new SendGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee,
-                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (baseChain.isGRPC()) {
+                new SendGrpcTask(getBaseApplication(), this, baseChain, account, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
-            } else if (mBaseChain.equals(BNB_MAIN)) {
-                new SimpleBnbSendTask(getBaseApplication(), this, mAccount, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee)
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            } else if (baseChain.equals(BNB_MAIN)) {
+                new SimpleBnbSendTask(getBaseApplication(), this, account, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee)
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
             } else {
-                new SimpleSendTask(getBaseApplication(), this, mAccount, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee)
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                new SimpleSendTask(getBaseApplication(), this, account, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee)
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
             }
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_DELEGATE) {
             onShowWaitDialog();
-            new DelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new DelegateGrpcTask(getBaseApplication(), this, baseChain, account, mTargetAddress, mDAmount, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_UNDELEGATE) {
             onShowWaitDialog();
-            new UndelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mUAmount, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new UndelegateGrpcTask(getBaseApplication(), this, baseChain, account, mTargetAddress, mUAmount, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REWARD) {
             onShowWaitDialog();
-            new ClaimRewardsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddresses_V1, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new ClaimRewardsGrpcTask(getBaseApplication(), this, baseChain, account, mValOpAddresses_V1, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_DELETE_ACCOUNT) {
             actionDeleteAccount();
 
         } else if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
             onShowWaitDialog();
-            new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(mUserInput);
+            new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(userInput);
 
         } else if (mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
             onShowWaitDialog();
-            new CheckPrivateKeyTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(mUserInput);
+            new CheckPrivateKeyTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REDELEGATE) {
             onShowWaitDialog();
-            new RedelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mFromReDelegateAddr, mToReDelegateAddr, mRAmount, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RedelegateGrpcTask(getBaseApplication(), this, baseChain, account, mFromReDelegateAddr, mToReDelegateAddr, mRAmount, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
             onShowWaitDialog();
-            new ChangeRewardAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mNewRewardAddress, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new ChangeRewardAddressGrpcTask(getBaseApplication(), this, baseChain, account, mNewRewardAddress, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_REINVEST) {
             onShowWaitDialog();
-            new ReInvestGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new ReInvestGrpcTask(getBaseApplication(), this, baseChain, account, mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_VOTE) {
             onShowWaitDialog();
-            new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new VoteGrpcTask(getBaseApplication(), this, baseChain, account, mProposalId, mOpinion, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
             onShowWaitDialog();
-            if (mBaseChain.equals(BNB_MAIN)) {
-                new SimpleBnbHtlcRefundTask(getBaseApplication(), this, mAccount,
-                        mSwapId, mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (baseChain.equals(BNB_MAIN)) {
+                new SimpleBnbHtlcRefundTask(getBaseApplication(), this, account,
+                        mSwapId, mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
-            } else if (mBaseChain.equals(KAVA_MAIN)) {
-                new SimpleHtlcRefundTask(getBaseApplication(), this, mAccount, mSwapId,
-                        mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            } else if (baseChain.equals(KAVA_MAIN)) {
+                new SimpleHtlcRefundTask(getBaseApplication(), this, account, mSwapId,
+                        mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
             }
 
         } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
-            new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkDepositTask(getBaseApplication(), this, account, mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_WITHDRAW) {
-            new SimpleOkWithdrawTask(getBaseApplication(), this, mAccount, mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkWithdrawTask(getBaseApplication(), this, account, mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_DIRECT_VOTE) {
-            new SimpleOkDirectVoteTask(getBaseApplication(), this, mAccount, mOKVoteValidator, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkDirectVoteTask(getBaseApplication(), this, account, mOKVoteValidator, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_DOMAIN) {
-            new RegisterDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain, mDomainType, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RegisterDomainGrpcTask(getBaseApplication(), this, account, baseChain,
+                    mDomain, mDomainType, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_ACCOUNT) {
-            new RegisterAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
-                    mName, mResources, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RegisterAccountGrpcTask(getBaseApplication(), this, account, baseChain, mDomain,
+                    mName, mResources, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_DOMAIN) {
-            new DeleteDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new DeleteDomainGrpcTask(getBaseApplication(), this, account, baseChain,
+                    mDomain, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_ACCOUNT) {
-            new DeleteAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain, mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new DeleteAccountGrpcTask(getBaseApplication(), this, account, baseChain,
+                    mDomain, mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_RENEW_DOMAIN) {
-            new RenewDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RenewDomainGrpcTask(getBaseApplication(), this, account, baseChain,
+                    mDomain, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_RENEW_ACCOUNT) {
-            new RenewAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
-                    mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RenewAccountGrpcTask(getBaseApplication(), this, account, baseChain, mDomain,
+                    mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_REPLACE_STARNAME) {
-            new ReplaceStarNameGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
-                    mName, mResources, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new ReplaceStarNameGrpcTask(getBaseApplication(), this, account, baseChain, mDomain,
+                    mName, mResources, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_HARVEST_REWARD) {
-            new SimpleClaimHarvestRewardTask(getBaseApplication(), this, mAccount, mMultiplierName,
-                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleClaimHarvestRewardTask(getBaseApplication(), this, account, mMultiplierName,
+                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_SWAP) {
-            new OsmosisSwapInTask(getBaseApplication(), this, mAccount, mBaseChain, mSwapAmountInRoute, mSwapInCoin, mSwapOutCoin,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new OsmosisSwapInTask(getBaseApplication(), this, account, baseChain, mSwapAmountInRoute, mSwapInCoin, mSwapOutCoin,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
-            new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1, mLpToken.amount,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, account, baseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1, mLpToken.amount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
-            new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1, mLpToken.amount,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new OsmosisExitPooGrpcTask(getBaseApplication(), this, account, baseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1, mLpToken.amount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_EARNING) {
-            new OsmosisStartLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mOsmosisLockupDuration, mLpToken,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new OsmosisStartLockGrpcTask(getBaseApplication(), this, account, baseChain, mOsmosisLockupDuration, mLpToken,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING) {
             ArrayList<Long> tempList = new ArrayList<>();
             for (Lock.PeriodLock lockup : mOsmosisLockups) {
                 tempList.add(lockup.getID());
             }
-            new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, account, baseChain, tempList,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
             BigDecimal offerFee = new BigDecimal(mSwapInCoin.amount).multiply(new BigDecimal("0.0015")).setScale(0, RoundingMode.CEILING);
             Coin coinFee = new Coin(mSwapInCoin.denom, offerFee.toPlainString());
-            new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+            new GravitySwapGrpcTask(getBaseApplication(), this, account, baseChain,
                     mGDexPool.getId(), mSwapInCoin, mSwapOutCoin.denom, coinFee, mGDexSwapOrderPrice, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_GDEX_DEPOSIT) {
-            new GravityDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new GravityDepositGrpcTask(getBaseApplication(), this, account, baseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_GDEX_WITHDRAW) {
-            new GravityWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mLpToken,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new GravityWithdrawGrpcTask(getBaseApplication(), this, account, baseChain, Long.parseLong(mPoolId), mLpToken,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_IBC_TRANSFER) {
-            new IBCTransferGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mTargetCoins.get(0).denom, mTargetCoins.get(0).amount,
-                    mPortId, mChannelId, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new IBCTransferGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mTargetAddress, mTargetCoins.get(0).denom, mTargetCoins.get(0).amount,
+                    mPortId, mChannelId, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
-            new SifIncentiveGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SifIncentiveGrpcTask(getBaseApplication(), this, account, baseChain, account.address,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIF_SWAP) {
-            new SifSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
+            new SifSwapGrpcTask(getBaseApplication(), this, account, baseChain, account.address,
                     mSifSwapInCoin.denom, mSifSwapInCoin.amount, mSifSwapOutCoin.denom, mSifSwapOutCoin.amount,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIF_JOIN_POOL) {
-            new SifDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mSifDepositCoin1.denom, mSifDepositCoin0.amount, mSifDepositCoin1.amount,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SifDepositGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mSifDepositCoin1.denom, mSifDepositCoin0.amount, mSifDepositCoin1.amount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIF_EXIT_POOL) {
             BigDecimal myShareAllAmount = new BigDecimal(mMyprovider.getLiquidityProvider().getLiquidityProviderUnits());
             BigDecimal myShareWithdrawAmount = new BigDecimal(mSifWithdrawCoin.amount);
             String basisPoint = myShareWithdrawAmount.movePointRight(4).divide(myShareAllAmount, 0, RoundingMode.DOWN).toPlainString();
-            new SifWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mSifWithdrawCoin.denom, basisPoint,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SifWithdrawGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mSifWithdrawCoin.denom, basisPoint,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_MINT_NFT) {
-            StationNFTData nftData = new StationNFTData(mAccount.address, mNftName, mNftDescription, mNftDenomId, NFT_INFURA + mNftHash);
+            StationNFTData nftData = new StationNFTData(account.address, mNftName, mNftDescription, mNftDenomId, NFT_INFURA + mNftHash);
             Gson gson = new Gson();
             String jsonData = gson.toJson(nftData);
-            new MintNFTGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
+            new MintNFTGrpcTask(getBaseApplication(), this, account, baseChain, account.address,
                     mNftDenomId, mNftDenomName, mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, jsonData,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SEND_NFT) {
-            new TransferNFTGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
-                    mTargetAddress, mNftDenomId, mNftTokenId, mIrisResponse, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new TransferNFTGrpcTask(getBaseApplication(), this, account, baseChain, account.address,
+                    mTargetAddress, mNftDenomId, mNftTokenId, mIrisResponse, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_PROFILE) {
             String profileUri = "";
@@ -706,8 +703,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             if (mCoverUri != null) {
                 coverUri = "https://ipfs.infura.io/ipfs/" + mCoverUri;
             }
-            new CreateProfileGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDtag, mNickname, mBio, profileUri, coverUri,
-                    mAccount.address, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new CreateProfileGrpcTask(getBaseApplication(), this, account, baseChain, mDtag, mNickname, mBio, profileUri, coverUri,
+                    account.address, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_LINK_ACCOUNT) {
             Account toAccount = getBaseDao().onSelectAccount(mDesmosToLinkAccountId.toString());
@@ -720,74 +717,102 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + toAccount.uuid, toAccount.resource, toAccount.spec);
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
-            new LinkAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, BaseChain.getChain(mDesmosToLinkChain),
-                    toAccount, ecKey, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new LinkAccountGrpcTask(getBaseApplication(), this, account, baseChain, account.address, BaseChain.getChain(mDesmosToLinkChain),
+                    toAccount, ecKey, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
-            new KavaSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaSwapin, mKavaSwapOut,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaSwapGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mKavaSwapin, mKavaSwapOut,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_KAVA_JOIN_POOL) {
-            new KavaDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaPoolTokenA, mKavaPoolTokenB,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaDepositGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mKavaPoolTokenA, mKavaPoolTokenB,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
-            new KavaWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaShareAmount, mKavaMinTokenA, mKavaMinTokenB,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaWithdrawGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mKavaShareAmount, mKavaMinTokenA, mKavaMinTokenB,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
-            new KavaCreateCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mCollateral, mPrincipal, mCollateralType,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaCreateCdpGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mCollateral, mPrincipal, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_DEPOSIT_CDP) {
-            new KavaDepositCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mAccount.address, mCollateral, mCollateralType,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaDepositCdpGrpcTask(getBaseApplication(), this, account, baseChain, account.address, account.address, mCollateral, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_WITHDRAW_CDP) {
-            new KavaWithdrawCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mAccount.address, mCollateral, mCollateralType,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaWithdrawCdpGrpcTask(getBaseApplication(), this, account, baseChain, account.address, account.address, mCollateral, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_DRAW_DEBT_CDP) {
-            new KavaDrawDebtCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mPrincipal, mCollateralType,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaDrawDebtCdpGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mPrincipal, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_REPAY_CDP) {
-            new KavaRepayCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mPayment, mCollateralType,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaRepayCdpGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mPayment, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_DEPOSIT_HARD) {
-            new KavaDepositHardGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mHardPoolCoins,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaDepositHardGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mHardPoolCoins,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_WITHDRAW_HARD) {
-            new KavaWithdrawHardGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mHardPoolCoins,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaWithdrawHardGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mHardPoolCoins,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_BORROW_HARD) {
-            new KavaBorrowHardGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mHardPoolCoins,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaBorrowHardGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mHardPoolCoins,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_REPAY_HARD) {
-            new KavaRepayHardGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mAccount.address, mHardPoolCoins,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaRepayHardGrpcTask(getBaseApplication(), this, account, baseChain, account.address, account.address, mHardPoolCoins,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_INCENTIVE) {
-            new KavaClaimIncentiveAllGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mMultiplierName, getBaseDao(),
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new KavaClaimIncentiveAllGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mMultiplierName, getBaseDao(),
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_EXECUTE_CONTRACT) {
-            new Cw20SendGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mContractAddress, mTargetCoins,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new Cw20SendGrpcTask(getBaseApplication(), this, account, baseChain, account.address, mTargetAddress, mContractAddress, mTargetCoins,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
         } else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {
-            new HdacBurnTask(getBaseApplication(), this, mBaseChain, mHdacBurnRawTx).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new HdacBurnTask(getBaseApplication(), this, baseChain, mHdacBurnRawTx).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
         }
 
+    }
+
+    private void actionCheckPassword() {
+        onShowWaitDialog();
+        Disposable disposable = secretInteractor
+                .checkPassword(userInput)
+                .subscribeOn(AppSchedulers.INSTANCE.io())
+                .observeOn(AppSchedulers.INSTANCE.ui())
+                .doOnError(error -> WLog.e(error.toString()))
+                .subscribe(
+                        () -> {
+                            WLog.w("Account was checked");
+                            setResult(Activity.RESULT_OK, getIntent());
+                            finish();
+                            overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
+                        },
+                        error -> {
+                            onHideWaitDialog();
+                            onShakeView();
+                            onInitView();
+                            if (error instanceof InvalidPasswordException) {
+                                Toast.makeText(getBaseContext(), R.string.error_invalid_password, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getBaseContext(), R.string.str_unknown_error_msg, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+        compositeDisposable.add(disposable);
     }
 
     private void actionDeleteAccount() {
         onShowWaitDialog();
         Disposable disposable = secretInteractor
-                .checkPassword(mUserInput)
+                .checkPassword(userInput)
                 .subscribeOn(AppSchedulers.INSTANCE.io())
                 .observeOn(AppSchedulers.INSTANCE.io())
                 .andThen(accountsInteractor.deleteAccount(mIdToDelete))
@@ -800,10 +825,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                         },
                         error -> {
                             if (error instanceof InvalidPasswordException) {
+                                onHideWaitDialog();
                                 onShakeView();
                                 onInitView();
-                                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), R.string.error_invalid_password, Toast.LENGTH_SHORT).show();
                             } else {
+                                Toast.makeText(getBaseContext(), R.string.str_unknown_error_msg, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(this, IntroActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -836,15 +863,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
 
     private void onUpdateCnt() {
-        if (mUserInput == null)
-            mUserInput = "";
+        if (userInput == null)
+            userInput = "";
 
-        final int inputLength = mUserInput.length();
-        for (int i = 0; i < mIvCircle.length; i++) {
-            if (i < inputLength)
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_pu));
-            else
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+        final int inputLength = userInput.length();
+        for (int i = 0; i < circleImageView.length; i++) {
+            circleImageView[i].setBackgroundResource(
+                    i < inputLength ? R.drawable.ic_pass_pu : R.drawable.ic_pass_gr
+            );
         }
     }
 
@@ -852,18 +878,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
         onHideWaitDialog();
-        if (result.taskType == TASK_PASSWORD_CHECK) {
-            if (result.isSuccess) {
-                setResult(Activity.RESULT_OK, getIntent());
-                finish();
-                overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
-            } else {
-                onShakeView();
-                onInitView();
-                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (result.taskType == TASK_CHECK_MNEMONIC) {
+        if (result.taskType == TASK_CHECK_MNEMONIC) {
             if (result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
                 checkintent.putExtra("checkid", mIdToCheck);
@@ -895,7 +910,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 return;
             }
 
-            if ((mBaseChain.equals(BNB_MAIN)) && result.taskType == TASK_GEN_TX_BNB_HTLC_REFUND) {
+            if ((baseChain.equals(BNB_MAIN)) && result.taskType == TASK_GEN_TX_BNB_HTLC_REFUND) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);
@@ -906,7 +921,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
 
-            } else if (mBaseChain.isGRPC()) {
+            } else if (baseChain.isGRPC()) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailgRPCActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);

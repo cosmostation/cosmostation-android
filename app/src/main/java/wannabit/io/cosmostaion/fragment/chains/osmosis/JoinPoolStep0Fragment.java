@@ -129,7 +129,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mProgress.setVisibility(View.GONE);
         WLog.w("pool " + getSActivity().mOsmosisPool.getId());
 
-        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
+        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().baseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
         String coin0Denom = getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getDenom();
         String coin1Denom = getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getDenom();
 
@@ -441,7 +441,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

@@ -87,7 +87,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v.equals(mRegisterDomain)) {
-            if (!getSActivity().mAccount.hasPrivateKey) {
+            if (!getSActivity().account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;

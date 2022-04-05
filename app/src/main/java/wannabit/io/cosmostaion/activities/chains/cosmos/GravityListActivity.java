@@ -73,7 +73,7 @@ public class GravityListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_labs_list);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
@@ -83,8 +83,8 @@ public class GravityListActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mPageAdapter = new CosmosGravityPageAdapter(getSupportFragmentManager());
         mLabPager.setAdapter(mPageAdapter);
@@ -94,12 +94,12 @@ public class GravityListActivity extends BaseActivity {
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_swap);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(WDp.getTabColor(this, baseChain));
         mLabTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText1.setText(R.string.str_pool);
         mLabTapLayer.getTabAt(1).setCustomView(tab1);
 
@@ -140,14 +140,14 @@ public class GravityListActivity extends BaseActivity {
     }
 
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, Liquidity.Pool pool) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
-        BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_GDEX_SWAP, 0);
+        BigDecimal available = getBaseDao().getAvailable(baseChain.getMainDenom());
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_GDEX_SWAP, 0);
         if (available.compareTo(txFee) < 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
@@ -170,7 +170,7 @@ public class GravityListActivity extends BaseActivity {
     }
 
     public void onCheckStartDepositPool(long poolId) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
@@ -185,7 +185,7 @@ public class GravityListActivity extends BaseActivity {
         String coin0denom = tempPool.getReserveCoinDenoms(0);
         String coin1Denom = tempPool.getReserveCoinDenoms(1);
 
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(GravityListActivity.this, mBaseChain, CONST_PW_TX_GDEX_DEPOSIT, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(GravityListActivity.this, baseChain, CONST_PW_TX_GDEX_DEPOSIT, 0);
         BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
         BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
 
@@ -205,14 +205,14 @@ public class GravityListActivity extends BaseActivity {
 
     public void onCheckStartWithdrawPool(long poolId) {
         WLog.w("onCheckStartExitPool " + poolId);
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
         BigDecimal mainBalance = getBaseDao().getAvailable(COSMOS_MAIN.getMainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_GDEX_WITHDRAW, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_GDEX_WITHDRAW, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
@@ -230,9 +230,9 @@ public class GravityListActivity extends BaseActivity {
         mPoolMyList.clear();
         mPoolOtherList.clear();
         getBaseDao().mGDexPoolTokens.clear();
-        new GravityDexPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new GravityDexParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new TotalSupplyGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexPoolGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexParamGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new TotalSupplyGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -249,7 +249,7 @@ public class GravityListActivity extends BaseActivity {
             }
             mTaskCount = mTaskCount + 1;
             for (Liquidity.Pool pool : mPoolList) {
-                new GravityDexManagerGrpcTask(getBaseApplication(), this, mBaseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new GravityDexManagerGrpcTask(getBaseApplication(), this, baseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                 if (getBaseDao().getAvailable(pool.getPoolCoinDenom()) != BigDecimal.ZERO) {
                     mPoolMyList.add(pool);

@@ -186,7 +186,7 @@
                 <!--android:layout_marginTop="@dimen/space_4"-->
                 <!--android:maxLines="2"-->
                 <!--style="@style/font_ss_11_gray1"-->
-                <!--android:text="Cosmostation"/>-->
+                <!--android:text="@string/app_name"/>-->
 
             </LinearLayout>
         </RelativeLayout>

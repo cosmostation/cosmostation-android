@@ -46,7 +46,7 @@ public class MnemonicCheckActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_check);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mMnemonicLayer = findViewById(R.id.card_mnemonic_layer);
         mCopy = findViewById(R.id.btn_copy);
         mOk = findViewById(R.id.btn_ok);

@@ -86,7 +86,7 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
         mMaxAvailable = WUtil.getHardBorrowableAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom,
                 getBaseDao().mMyHardDeposits, getBaseDao().mMyHardBorrows, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
 
-        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().baseChain);
         WUtil.DpKavaTokenImg(getBaseDao(), mBorrowImg, mHardMoneyMarketDenom);
         WUtil.dpKavaTokenName(getContext(), getBaseDao(), mBorrowSymbol, mHardMoneyMarketDenom);
 

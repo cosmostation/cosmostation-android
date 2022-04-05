@@ -45,7 +45,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watching_account_add);
 
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mInput = findViewById(R.id.et_address);
         mCancel = findViewById(R.id.btn_cancel);
         mNext = findViewById(R.id.btn_next);

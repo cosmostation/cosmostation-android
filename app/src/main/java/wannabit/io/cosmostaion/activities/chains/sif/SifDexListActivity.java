@@ -70,7 +70,7 @@ public class SifDexListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sif_dex_list);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
 
@@ -78,8 +78,8 @@ public class SifDexListActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mPageAdapter = new SifDexPageAdapter(getSupportFragmentManager());
         mLabPager.setAdapter(mPageAdapter);
@@ -89,18 +89,18 @@ public class SifDexListActivity extends BaseActivity {
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_sif_dex_swap);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(WDp.getTabColor(this, baseChain));
         mLabTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText1.setText(R.string.str_sif_dex_eth_pol);
         mLabTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText2.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText2.setText(R.string.str_sif_dex_ibc_pool);
         mLabTapLayer.getTabAt(2).setCustomView(tab2);
 
@@ -129,14 +129,14 @@ public class SifDexListActivity extends BaseActivity {
     }
 
     public void onStartSwap(String inCoinDenom, String outCoinDenom, Types.Pool pool) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
-        BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
+        BigDecimal available = getBaseDao().getAvailable(baseChain.getMainDenom());
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_SIF_SWAP, 0);
         if (available.compareTo(txFee) < 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
@@ -166,13 +166,13 @@ public class SifDexListActivity extends BaseActivity {
     }
 
     public void onCheckStartDepositPool(Types.Pool pool) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_JOIN_POOL, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, baseChain, CONST_PW_TX_SIF_JOIN_POOL, 0);
         String externalDenom = pool.getExternalAsset().getSymbol();
         BigDecimal rowanAvailable = getBaseDao().getAvailable(TOKEN_SIF);
         rowanAvailable = rowanAvailable.subtract(feeAmount);
@@ -189,13 +189,13 @@ public class SifDexListActivity extends BaseActivity {
     }
 
     public void onCheckStartWithdrawPool(Types.Pool pool, Querier.LiquidityProviderRes myProvider) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_EXIT_POOL, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, baseChain, CONST_PW_TX_SIF_EXIT_POOL, 0);
         BigDecimal rowanAvailable = getBaseDao().getAvailable(TOKEN_SIF);
         rowanAvailable = rowanAvailable.subtract(feeAmount);
 
@@ -229,8 +229,8 @@ public class SifDexListActivity extends BaseActivity {
         mOtherEthPools = new ArrayList<>();
         mMyIbcPools = new ArrayList<>();
         mOtherIbcPools = new ArrayList<>();
-        new SifDexPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SifDexPoolAssetListGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SifDexPoolListGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SifDexPoolAssetListGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

@@ -56,7 +56,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_create);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mCardAddress = findViewById(R.id.card_address_layer);
         mAddress = findViewById(R.id.create_address);
         mCardMnemonics = findViewById(R.id.card_mnemonic_layer);

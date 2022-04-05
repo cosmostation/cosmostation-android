@@ -88,7 +88,7 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.equals(mRegisterAccount)) {
-            if (!getSActivity().mAccount.hasPrivateKey) {
+            if (!getSActivity().account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;

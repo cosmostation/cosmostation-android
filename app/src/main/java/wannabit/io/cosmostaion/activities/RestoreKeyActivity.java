@@ -51,7 +51,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restore_key);
 
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mInput = findViewById(R.id.et_address);
         mCancel = findViewById(R.id.btn_cancel);
         mNext = findViewById(R.id.btn_next);

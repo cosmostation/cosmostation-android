@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool_bar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_bar_height"
             android:background="@color/colorBlack"
@@ -63,12 +63,12 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <wannabit.io.cosmostaion.widget.StopViewPager
+        <wannabit.io.cosmostaion.widget.LockedViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_tab"
-            android:layout_below="@+id/tool_bar"
+            android:layout_below="@+id/toolbar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

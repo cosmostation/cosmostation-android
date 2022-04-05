@@ -55,7 +55,7 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeAmountSymbol);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -65,7 +65,7 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         long toUnbondingDuration = getSActivity().mOsmosisLockups.get(0).getDuration().getSeconds();
         String toUnbondingDenom = getSActivity().mOsmosisLockups.get(0).getCoins(0).getDenom();

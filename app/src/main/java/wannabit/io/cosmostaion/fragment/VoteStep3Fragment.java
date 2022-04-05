@@ -51,7 +51,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mDenomFeeType);
         mProposalTitle.setText(getSActivity().mProposeTitle);
         mProposer.setText(getSActivity().mProposer);
         mBeforeBtn.setOnClickListener(this);
@@ -61,7 +61,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mOpinion.setText(getSActivity().mOpinion);

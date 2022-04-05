@@ -82,7 +82,7 @@ public class DepositHardStep0Fragment extends BaseFragment implements View.OnCli
         mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
         mMaxAvailable = getBaseDao().getAvailable(mHardMoneyMarketDenom);
-        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mDepositDenomTx, mDepositMaxTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mDepositDenomTx, mDepositMaxTx, getSActivity().baseChain);
 
         WUtil.DpKavaTokenImg(getBaseDao(), mDepositImg, mHardMoneyMarketDenom);
         WUtil.dpKavaTokenName(getContext(), getBaseDao(), mDepositSymbol, mHardMoneyMarketDenom);

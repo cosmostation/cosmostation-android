@@ -41,7 +41,7 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_horizon);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mClearAll = findViewById(R.id.toolbar_clear);
         mIvStep = findViewById(R.id.send_step);
@@ -49,8 +49,8 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_event_horizon_c));
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mClearAll.setOnClickListener(this);
 

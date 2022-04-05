@@ -56,13 +56,13 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_list);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbarTitle = findViewById(R.id.toolbar_title);
         mNameServiceTapLayer = findViewById(R.id.name_service_tab);
         mNameServicePager = findViewById(R.id.name_service_view_pager);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mPageAdapter = new StarNamePageAdapter(getSupportFragmentManager());
         mNameServicePager.setAdapter(mPageAdapter);
@@ -77,17 +77,17 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_my_domain);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(WDp.getTabColor(this, baseChain));
         mNameServiceTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText1.setText(R.string.str_my_account);
         mNameServiceTapLayer.getTabAt(1).setCustomView(tab1);
 
-        mNameServiceTapLayer.setTabIconTint(WDp.getChainTintColor(this, mBaseChain));
-        mNameServiceTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, mBaseChain));
+        mNameServiceTapLayer.setTabIconTint(WDp.getChainTintColor(this, baseChain));
+        mNameServiceTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, baseChain));
 
         mNameServicePager.setOffscreenPageLimit(2);
         mNameServicePager.setCurrentItem(0, false);
@@ -137,8 +137,8 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         mDomains_gRPC.clear();
         mDomainResolves_gRPC.clear();
         mAccounts_gRPC.clear();
-        new StarNameGrpcAccountTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new StarNameGrpcDomainTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new StarNameGrpcAccountTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new StarNameGrpcDomainTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
 
@@ -167,7 +167,7 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
             }
             mTaskCount = mTaskCount + mDomains_gRPC.size();
             for (Types.Domain domain : mDomains_gRPC) {
-                new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "", domain.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new StarNameGrpcResolveTask(getBaseApplication(), this, baseChain, "", domain.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_RESOLVE) {

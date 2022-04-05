@@ -51,7 +51,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeType);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeType);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -60,7 +60,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
         mCurrentAddress.setText(getSActivity().mCurrentRewardAddress);

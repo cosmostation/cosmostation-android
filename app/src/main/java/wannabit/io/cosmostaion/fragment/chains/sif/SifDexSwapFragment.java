@@ -111,7 +111,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         if (mSelectedPool == null || mInputCoinDenom.isEmpty() || mOutputCoinDenom.isEmpty()) {
             if (mPoolList != null && mPoolList.size() > 0) {
                 mSelectedPool = mPoolList.get(0);
-                mInputCoinDenom = getSActivity().mBaseChain.getMainDenom();
+                mInputCoinDenom = getSActivity().baseChain.getMainDenom();
                 mOutputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
             }
         }

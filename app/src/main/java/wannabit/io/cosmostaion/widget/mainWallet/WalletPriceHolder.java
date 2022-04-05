@@ -46,7 +46,7 @@ public class WalletPriceHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData data = mainActivity.getBaseDao();
-        final String denom = mainActivity.mBaseChain.getMainDenom();
+        final String denom = mainActivity.baseChain.getMainDenom();
 
         itemPerPrice.setText(WDp.dpPerUserCurrencyValue(data, denom));
         itemUpDownPrice.setText(WDp.dpValueChange(data, denom));
@@ -63,15 +63,15 @@ public class WalletPriceHolder extends BaseHolder {
 
         if (SUPPORT_MOONPAY) {
             itemBuyLayer.setVisibility(View.VISIBLE);
-            if (mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
+            if (mainActivity.baseChain.equals(COSMOS_MAIN)) {
                 itemBuyCoinTv.setText(R.string.str_buy_atom);
-            } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
+            } else if (mainActivity.baseChain.equals(BNB_MAIN)) {
                 itemBuyCoinTv.setText(R.string.str_buy_bnb);
-            } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+            } else if (mainActivity.baseChain.equals(KAVA_MAIN)) {
                 itemBuyCoinTv.setText(R.string.str_buy_kava);
             }
             itemBuyCoinBtn.setOnClickListener(v -> {
-                if (mainActivity.mAccount.hasPrivateKey) {
+                if (mainActivity.account.hasPrivateKey) {
                     mainActivity.onShowBuySelectFiat();
                 } else {
                     mainActivity.onShowBuyWarnNoKey();

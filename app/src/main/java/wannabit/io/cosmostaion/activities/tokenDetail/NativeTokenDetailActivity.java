@@ -73,7 +73,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail_native);
 
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
         mItemPerPrice = findViewById(R.id.per_price);
@@ -94,11 +94,11 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mDenom = getIntent().getStringExtra("denom");
 
-        if (mBaseChain.equals(BNB_MAIN)) {
+        if (baseChain.equals(BNB_MAIN)) {
             if (WUtil.isBep3Coin(mDenom)) {
                 mBtnBep3Send.setVisibility(View.VISIBLE);
             }
@@ -136,8 +136,8 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void onUpdateView() {
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
-        if (mBaseChain.equals(OKEX_MAIN)) {
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, baseChain));
+        if (baseChain.equals(OKEX_MAIN)) {
             final OkToken okToken = getBaseDao().okToken(mDenom);
             Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(okToken.original_symbol.toUpperCase());
@@ -165,7 +165,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }
 
-        } else if (mBaseChain.equals(BNB_MAIN)) {
+        } else if (baseChain.equals(BNB_MAIN)) {
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(mDenom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(mDenom);
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
@@ -180,10 +180,10 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mAddress.setText(mAccount.address);
+        mAddress.setText(account.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-        if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (account.hasPrivateKey) {
+            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -193,8 +193,8 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
-                    mAccount.getAccountTitle(this),
-                    mAccount.address
+                    account.getAccountTitle(this),
+                    account.address
             );
             showDialog(show);
 
@@ -206,14 +206,14 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             onStartHTLCSendActivity(mDenom);
 
         } else if (v.equals(mBtnSend)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+            BigDecimal mainAvailable = getBaseDao().availableAmount(baseChain.getMainDenom());
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
@@ -253,17 +253,17 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_NATIVE) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                if (mBaseChain.equals(KAVA_MAIN)) {
+                if (baseChain.equals(KAVA_MAIN)) {
                     holder.onBindKavaToken(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
-                } else if (mBaseChain.equals(BNB_MAIN)) {
+                } else if (baseChain.equals(BNB_MAIN)) {
                     holder.onBindBNBTokens(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
-                } else if (mBaseChain.equals(OKEX_MAIN)) {
+                } else if (baseChain.equals(OKEX_MAIN)) {
                     holder.onBindOKTokens(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
                 }
 
             } else if (getItemViewType(position) == TYPE_VESTING) {
                 VestingHolder holder = (VestingHolder) viewHolder;
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mDenom);
+                holder.onBindTokenHolder(getBaseContext(), baseChain, getBaseDao(), mDenom);
 //
 //            } else if (getItemViewType(position) == TYPE_HISTORY) {
 //
@@ -282,11 +282,11 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(BNB_MAIN)) {
+            if (baseChain.equals(BNB_MAIN)) {
                 if (position == 0) return TYPE_NATIVE;
                 else return TYPE_HISTORY;
 
-            } else if (mBaseChain.equals(OKEX_MAIN)) {
+            } else if (baseChain.equals(OKEX_MAIN)) {
                 if (position == 0) return TYPE_NATIVE;
                 else return TYPE_HISTORY;
             }

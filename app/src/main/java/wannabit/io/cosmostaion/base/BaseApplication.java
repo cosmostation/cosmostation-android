@@ -105,6 +105,9 @@ public class BaseApplication extends Application implements IInjectorHolder {
                 getBaseDao().mCopySalt = null;
                 getBaseDao().mCopyEncResult = null;
             }
+            if (!(activity instanceof ITimelessActivity)) {
+                getBaseDao().setAppLockLeaveTime();
+            }
         }
 
         @Override

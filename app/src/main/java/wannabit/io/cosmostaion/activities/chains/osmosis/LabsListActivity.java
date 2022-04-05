@@ -77,7 +77,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_labs_list);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
 
@@ -85,8 +85,8 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mPageAdapter = new LabsListActivity.OsmoLabPageAdapter(getSupportFragmentManager());
         mLabPager.setAdapter(mPageAdapter);
@@ -96,18 +96,18 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_swap);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(WDp.getTabColor(this, baseChain));
         mLabTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText1.setText(R.string.str_pool);
         mLabTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText2.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText2.setText(R.string.str_osmosis_earning);
         mLabTapLayer.getTabAt(2).setCustomView(tab2);
 
@@ -156,14 +156,14 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     }
 
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
-        BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
+        BigDecimal available = getBaseDao().getAvailable(baseChain.getMainDenom());
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
         if (available.compareTo(txFee) < 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
@@ -178,7 +178,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
     public void onCheckStartJoinPool(long poolId) {
         WLog.w("onCheckStartJoinPool " + poolId);
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
@@ -193,7 +193,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         String coin0denom = tempPool.getPoolAssets(0).getToken().getDenom();
         String coin1Denom = tempPool.getPoolAssets(1).getToken().getDenom();
 
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(LabsListActivity.this, mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(LabsListActivity.this, baseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
         BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
         BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
 
@@ -216,14 +216,14 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
     public void onCheckStartExitPool(long poolId) {
         WLog.w("onCheckStartExitPool " + poolId);
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
         BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_OSMOSIS);
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_OSMOSIS_EXIT_POOL, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_OSMOSIS_EXIT_POOL, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
@@ -245,10 +245,10 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mIncentivizedPool = new ArrayList<>();
         mActiveGauges = new ArrayList<>();
         mPeriodLockUps = new ArrayList<>();
-        new OsmosisPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new OsmosisIncentivizedPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new OsmosisActiveGaugesGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new OsmosisLockupStatusGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisPoolListGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisIncentivizedPoolsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisActiveGaugesGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisLockupStatusGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

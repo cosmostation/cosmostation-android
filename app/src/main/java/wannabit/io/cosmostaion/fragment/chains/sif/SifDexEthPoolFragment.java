@@ -87,7 +87,7 @@ public class SifDexEthPoolFragment extends BaseFragment implements TaskListener,
     public void onFetchEthListInfo() {
         mTaskCount = 1;
         for (String symbol : getSActivity().mMyEthAssets) {
-            new SifDexMyProviderGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, symbol).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SifDexMyProviderGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().account, symbol).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 

@@ -74,7 +74,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_earning_detail);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mRecyclerView = findViewById(R.id.recycler);
         mBtnNewEarning = findViewById(R.id.btn_start_earning);
         mPoolIdTv = findViewById(R.id.pool_id);
@@ -90,8 +90,8 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         try {
             mPool = BalancerPool.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
@@ -198,7 +198,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onCheckNewEarning() {
         WLog.w("onCheckNewEarning");
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
@@ -224,7 +224,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onCheckUnbonding(Lock.PeriodLock lockup) {
         WLog.w("onCheckUnbonding " + lockup.getID());
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
@@ -262,7 +262,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onCheckUnlock(Lock.PeriodLock lockup) {
         WLog.w("onCheckUnlock " + lockup.getID());
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;

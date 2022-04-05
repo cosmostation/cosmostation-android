@@ -13,7 +13,7 @@
         android:src="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tool_bar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tool_bar"
+        android:layout_below="@+id/toolbar"
         android:layout_marginTop="@dimen/space_16"
         android:orientation="vertical"
         android:gravity="center_horizontal">
@@ -52,7 +52,7 @@
     </LinearLayout>
 
 
-    <wannabit.io.cosmostaion.widget.StopViewPager
+    <wannabit.io.cosmostaion.widget.LockedViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

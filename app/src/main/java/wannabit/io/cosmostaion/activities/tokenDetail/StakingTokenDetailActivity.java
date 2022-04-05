@@ -70,7 +70,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail);
 
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
         mItemPerPrice = findViewById(R.id.per_price);
@@ -90,12 +90,12 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mMainDenom = mBaseChain.getMainDenom();
-        mDivideDecimal = WDp.mainDivideDecimal(mBaseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
+        mMainDenom = baseChain.getMainDenom();
+        mDivideDecimal = WDp.mainDivideDecimal(baseChain);
 
-        if (mBaseChain.equals(BNB_MAIN)) {
+        if (baseChain.equals(BNB_MAIN)) {
             mBtnBep3Send.setVisibility(View.VISIBLE);
         }
 
@@ -131,8 +131,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
     private void onUpdateView() {
         Picasso.get().cancelRequest(mToolbarSymbolImg);
-        mToolbarSymbolImg.setImageResource(mBaseChain.getCoinIcon());
-        WDp.DpMainDenom(mBaseChain, mToolbarSymbol);
+        mToolbarSymbolImg.setImageResource(baseChain.getCoinIcon());
+        WDp.DpMainDenom(baseChain, mToolbarSymbol);
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mMainDenom));
         mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mMainDenom));
@@ -147,11 +147,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
-        mAddress.setText(mAccount.address);
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, baseChain));
+        mAddress.setText(account.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-        if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (account.hasPrivateKey) {
+            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mTotalAmount = getBaseDao().getAllMainAssetOld(mMainDenom);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mMainDenom, mTotalAmount, mDivideDecimal));
@@ -162,23 +162,23 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             AccountShowDialogFragment show = AccountShowDialogFragment.Companion.newInstance(
-                    mAccount.getAccountTitle(this),
-                    mAccount.address
+                    account.getAccountTitle(this),
+                    account.address
             );
             showDialog(show);
 
         } else if (v.equals(mBtnBep3Send)) {
-            onStartHTLCSendActivity(mBaseChain.getMainDenom());
+            onStartHTLCSendActivity(baseChain.getMainDenom());
 
         } else if (v.equals(mBtnSend)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 showDialog(add);
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+            BigDecimal mainAvailable = getBaseDao().availableAmount(baseChain.getMainDenom());
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
@@ -212,12 +212,12 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_STAKE_OLD) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
+                holder.onBindTokenHolder(getBaseContext(), baseChain, getBaseDao(), baseChain.getMainDenom());
             } else if (getItemViewType(position) == TYPE_VESTING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
+                holder.onBindTokenHolder(getBaseContext(), baseChain, getBaseDao(), baseChain.getMainDenom());
 
             } else if (getItemViewType(position) == TYPE_UNBONDING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
+                holder.onBindTokenHolder(getBaseContext(), baseChain, getBaseDao(), baseChain.getMainDenom());
 
             } else if (getItemViewType(position) == TYPE_HISTORY) {
 

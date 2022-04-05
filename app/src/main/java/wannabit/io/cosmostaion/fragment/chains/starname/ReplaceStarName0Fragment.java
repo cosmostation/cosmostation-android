@@ -78,7 +78,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
         mResources = new ArrayList<Types.Resource>(getSActivity().mAccountResolve_gRPC.getResourcesList());
         if (mResources == null || mResources.size() == 0) {
             mResources = new ArrayList();
-            Types.Resource initData = Types.Resource.newBuilder().setUri(STARNAME).setResource(getSActivity().mAccount.address).build();
+            Types.Resource initData = Types.Resource.newBuilder().setUri(STARNAME).setResource(getSActivity().account.address).build();
             mResources.add(initData);
         }
         mResourceAdapter.notifyDataSetChanged();

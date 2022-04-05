@@ -76,7 +76,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dapp_list);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mDappTapLayer = findViewById(R.id.validator_tab);
         mDappPager = findViewById(R.id.validator_view_pager);
 
@@ -84,8 +84,8 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mPageAdapter = new KavaDApp5PageAdapter(getSupportFragmentManager());
         mDappPager.setAdapter(mPageAdapter);
@@ -95,24 +95,24 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_kava_swap_list);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(WDp.getTabColor(this, baseChain));
         mDappTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText1.setText(R.string.str_kava_pool_list);
         mDappTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText2.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText2.setText(R.string.str_kava_cdp_list);
         mDappTapLayer.getTabAt(2).setCustomView(tab2);
 
         View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText3 = tab3.findViewById(R.id.tabItemText);
-        tabItemText3.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText3.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText3.setText(R.string.str_kava_harvest_list);
         mDappTapLayer.getTabAt(3).setCustomView(tab3);
 
@@ -141,13 +141,13 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     }
 
     public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, QueryOuterClass.PoolResponse swapPool) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
-        BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
+        BigDecimal available = getBaseDao().getAvailable(baseChain.getMainDenom());
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, baseChain, CONST_PW_TX_KAVA_SWAP, 0);
         if (available.compareTo(txFee) <= 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
@@ -181,12 +181,12 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     }
 
     public void onCheckStartJoinPool(QueryOuterClass.PoolResponse myPool) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, baseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
         String coin0Denom = myPool.getCoins(0).getDenom();
         String coin1Denom = myPool.getCoins(1).getDenom();
 
@@ -209,14 +209,14 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     }
 
     public void onCheckStartExitPool(QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
         BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_KAVA);
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_KAVA_EXIT_POOL, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_KAVA_EXIT_POOL, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
@@ -238,11 +238,11 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         mMySwapPoolList = new ArrayList<>();
         mOtherSwapPoolList = new ArrayList<>();
         getBaseDao().mCdpParams = null;
-        new KavaSwapParamsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaSwapPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaSwapDepositGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaCdpParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapParamsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapPoolsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapDepositGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpParamGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaHardParamGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -280,7 +280,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
                 for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
                     if (!mAllDenoms.contains(coin.getDenom())) {
                         mAllDenoms.add(coin.getDenom());
-                        WUtil.onSortingDenom(mAllDenoms, mBaseChain);
+                        WUtil.onSortingDenom(mAllDenoms, baseChain);
                     }
                 }
                 boolean myPool = false;

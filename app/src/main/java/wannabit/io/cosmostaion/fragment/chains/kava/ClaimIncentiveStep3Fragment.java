@@ -57,7 +57,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         mLockTime = rootView.findViewById(R.id.lockup_time);
         mMemo = rootView.findViewById(R.id.memo);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeDenom);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeDenom);
 
         mBackBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);

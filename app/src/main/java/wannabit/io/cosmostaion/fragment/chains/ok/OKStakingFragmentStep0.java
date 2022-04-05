@@ -127,7 +127,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
                             mAmountInput.setSelection(recover.length());
                             return;
                         }
-                        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+                        if (getSActivity().baseChain.equals(OKEX_MAIN) || getSActivity().baseChain.equals(OK_TEST)) {
                             if (inputAmount.compareTo(mMaxAvailable) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
@@ -146,8 +146,8 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mAvailableDenom);
-        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+        WDp.DpMainDenom(getSActivity().account.baseChain, mAvailableDenom);
+        if (getSActivity().baseChain.equals(OKEX_MAIN) || getSActivity().baseChain.equals(OK_TEST)) {
             mDpDecimal = 18;
             setDpDecimals(mDpDecimal);
             int myValidatorCnt = 0;
@@ -156,7 +156,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
             }
             BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal("" + myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
             BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK).subtract(feeAmount);
+            mMaxAvailable = getSActivity().account.getTokenBalance(TOKEN_OK).subtract(feeAmount);
             mAvailableAmount.setText(WDp.getDpAmount2(mMaxAvailable, 0, mDpDecimal));
         }
     }
@@ -206,12 +206,12 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().baseChain.equals(OKEX_MAIN) || getSActivity().baseChain.equals(OK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN).toPlainString());
             }
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().baseChain.equals(OKEX_MAIN) || getSActivity().baseChain.equals(OK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
             }
             onShowEmptyBlanaceWarnDialog();
@@ -224,7 +224,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
 
     private boolean isValidateDepositAmount() {
         try {
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().baseChain.equals(OKEX_MAIN) || getSActivity().baseChain.equals(OK_TEST)) {
                 BigDecimal depositTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (depositTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (depositTemp.compareTo(mMaxAvailable) > 0) return false;

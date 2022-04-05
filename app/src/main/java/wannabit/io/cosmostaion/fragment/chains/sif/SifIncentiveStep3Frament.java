@@ -49,7 +49,7 @@ public class SifIncentiveStep3Frament extends BaseFragment implements View.OnCli
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeAmountSymbol);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -61,7 +61,7 @@ public class SifIncentiveStep3Frament extends BaseFragment implements View.OnCli
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 18, 18));
-        mClaimAddress.setText(getSActivity().mAccount.address);
+        mClaimAddress.setText(getSActivity().account.address);
         mClaimType.setText("liquidityMining");
 
         mMemo.setText(getSActivity().mTxMemo);

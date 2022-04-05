@@ -57,7 +57,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mTvDenomTitle);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mTvDenomTitle);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -67,10 +67,10 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         BigDecimal rewardSum = BigDecimal.ZERO;
         for (String opAddress : getSActivity().mValAddresses) {
-            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
+            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().baseChain.getMainDenom(), opAddress));
         }
         mTvRewardAmount.setText(WDp.getDpAmount2(rewardSum, mDpDecimal, mDpDecimal));
         String monikers = "";
@@ -93,7 +93,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         mTvFromValidators.setText(monikers);
 
         mTvReceiveAddress.setText(getSActivity().mWithdrawAddress);
-        if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+        if (getSActivity().mWithdrawAddress.equals(getSActivity().account.address)) {
             mReceiveLayer.setVisibility(View.GONE);
         } else {
             mReceiveLayer.setVisibility(View.VISIBLE);

@@ -49,10 +49,10 @@ public class WalletSwitchActivity extends BaseActivity {
     }
 
     private void loadChains() {
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         ArrayList<BaseChain> mDisplayChains = getBaseDao().dpSortedChains();
         mExpendedChains = getBaseDao().getExpendedChains();
-        mSelectedChain = BaseChain.getChain(mAccount.baseChain);
+        mSelectedChain = BaseChain.getChain(account.baseChain);
         getBaseDao().setLastChain(mSelectedChain.getChain());
 
         for (BaseChain chain : mDisplayChains) {
@@ -92,7 +92,7 @@ public class WalletSwitchActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             final ManageChainSwitchHolder holder = (ManageChainSwitchHolder) viewHolder;
-            holder.onBindChainSwitch(WalletSwitchActivity.this, mChainAccounts.get(position), mAccount);
+            holder.onBindChainSwitch(WalletSwitchActivity.this, mChainAccounts.get(position), account);
         }
 
         @Override

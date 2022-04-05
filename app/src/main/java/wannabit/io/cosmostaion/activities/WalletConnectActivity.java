@@ -105,7 +105,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
 
                 case MSG_WC_APPROVED:
                     Toast.makeText(getBaseContext(), getString(R.string.str_wc_approved), Toast.LENGTH_SHORT).show();
-                    mWcAccount.setText(mAccount.address);
+                    mWcAccount.setText(account.address);
                     break;
 
                 case MSG_WC_CLOSED:
@@ -165,7 +165,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_connect);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mWcLayer = findViewById(R.id.wc_layer);
         mLoadingLayer = findViewById(R.id.loading_layer);
         mWcImg = findViewById(R.id.wc_img);
@@ -180,8 +180,8 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mWcURL = getIntent().getStringExtra("wcUrl");
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mWcThread = new WcThread();
         mWcThread.start();
@@ -333,7 +333,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 mSession.init();
                 Thread.sleep(2000);
                 List<String> approv = new ArrayList<>();
-                approv.add(mAccount.address);
+                approv.add(account.address);
                 mSession.approve(approv, 4);
 
 
@@ -357,8 +357,8 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
         public void run() {
             WLog.w("SignRunnable ");
             try {
-                String entropy = CryptoHelper.doDecryptData(getBaseContext().getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
+                String entropy = CryptoHelper.doDecryptData(getBaseContext().getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(account, entropy);
 
                 String rawString = mCustom.getParams().get(0).toString();
                 String memo = "";

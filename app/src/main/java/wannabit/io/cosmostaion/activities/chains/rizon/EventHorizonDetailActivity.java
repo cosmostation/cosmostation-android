@@ -49,7 +49,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_horizon_detail);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTxBlockHeight = findViewById(R.id.tx_block_height);
         mTxBlockTime = findViewById(R.id.tx_block_time);
         mTxBlockHash = findViewById(R.id.tx_block_hash);
@@ -64,8 +64,8 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
         mExplorerBtn = findViewById(R.id.btn_explorer);
         mDoneBtn = findViewById(R.id.btn_done);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTxHash = getIntent().getStringExtra("txHash");
         mIsSuccess = getIntent().getBooleanExtra("isSuccess", false);
 
@@ -104,7 +104,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
         mTxBlockHash.setText(mHdacTxInfo.blockhash);
         mTxTransHash.setText(mTxHash);
         mTxHdacBurnAmount.setText("" + mHdacTxInfo.valueOut);
-        mTxMintRecipientAddress.setText(mAccount.address);
+        mTxMintRecipientAddress.setText(account.address);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
             onStartMainActivity(0);
 
         } else if (v.equals(mExplorerBtn)) {
-            String url = WUtil.getTxExplorer(mBaseChain, mTxHash);
+            String url = WUtil.getTxExplorer(baseChain, mTxHash);
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         }
@@ -123,7 +123,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
 
     private void onFetchTx(String hash) {
         WLog.w("hash " + hash);
-        if (mBaseChain.equals(RIZON_TEST)) {
+        if (baseChain.equals(RIZON_TEST)) {
             ApiClient.getTestHdac(getBaseContext()).gethdacTxDetail(mTxHash).enqueue(new Callback<HdacTxInfo>() {
                 @Override
                 public void onResponse(Call<HdacTxInfo> call, Response<HdacTxInfo> response) {

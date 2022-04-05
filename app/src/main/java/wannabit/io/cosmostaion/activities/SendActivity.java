@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -32,9 +31,6 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 
 public class SendActivity extends BaseBroadCastActivity {
 
-    private ImageView mChainBg;
-    private Toolbar mToolbar;
-    private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
     private ViewPager mViewPager;
@@ -43,34 +39,29 @@ public class SendActivity extends BaseBroadCastActivity {
     public String mStarName;
     public BnbToken mBnbToken;
 
-    //V1 .40 version
-//    public Token                    mIrisToken;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg = findViewById(R.id.chain_bg);
-        mToolbar = findViewById(R.id.tool_bar);
-        mTitle = findViewById(R.id.toolbar_title);
+        TextView titleView = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_send_c));
+        titleView.setText(R.string.str_send_c);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTvStep.setText(getString(R.string.str_send_step_0));
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTvStep.setText(R.string.str_send_step_0);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_SEND;
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
-        if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        if (baseChain.equals(BaseChain.BNB_MAIN)) {
             mBnbToken = getBaseDao().getBnbToken(mDenom);
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.IRIS_TEST)) {
+        } else if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
 //            mIrisToken = getBaseDao().getIrisToken(mDenom);
         }
 
@@ -86,22 +77,22 @@ public class SendActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_1_img));
-                    mTvStep.setText(getString(R.string.str_send_step_0));
+                    mIvStep.setImageResource(R.drawable.step_1_img);
+                    mTvStep.setText(R.string.str_send_step_0);
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_2_img));
-                    mTvStep.setText(getString(R.string.str_send_step_1));
+                    mIvStep.setImageResource(R.drawable.step_2_img);
+                    mTvStep.setText(R.string.str_send_step_1);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_3_img));
-                    mTvStep.setText(getString(R.string.str_send_step_2));
+                    mIvStep.setImageResource(R.drawable.step_3_img);
+                    mTvStep.setText(R.string.str_send_step_2);
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img));
-                    mTvStep.setText(getString(R.string.str_send_step_3));
+                    mIvStep.setImageResource(R.drawable.step_4_img);
+                    mTvStep.setText(R.string.str_send_step_3);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 } else if (i == 4) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_5_img));
-                    mTvStep.setText(getString(R.string.str_send_step_4));
+                    mIvStep.setImageResource(R.drawable.step_5_img);
+                    mTvStep.setText(R.string.str_send_step_4);
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }
@@ -116,7 +107,7 @@ public class SendActivity extends BaseBroadCastActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAccount == null) finish();
+        if (account == null) finish();
     }
 
 
@@ -180,7 +171,7 @@ public class SendActivity extends BaseBroadCastActivity {
             mFragments.add(SendStep0Fragment.newInstance(null));
             mFragments.add(SendStep1Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            if (mBaseChain.isGRPC()) {
+            if (baseChain.isGRPC()) {
                 mFragments.add(StepFeeSetFragment.newInstance(null));
             } else {
                 mFragments.add(StepFeeSetOldFragment.newInstance(null));

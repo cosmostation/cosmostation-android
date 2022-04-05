@@ -49,7 +49,7 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_detail);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mProfileCoverImg = findViewById(R.id.profile_cover_img);
         mProfileImg = findViewById(R.id.profile_img);
         mProfileDtag = findViewById(R.id.profile_dtag);
@@ -66,8 +66,8 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -99,9 +99,9 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
 
 
     private void onFetchProfile() {
-        if (mAccount == null) return;
+        if (account == null) return;
         mProfile = null;
-        new ProfileInfoGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ProfileInfoGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
 
         @Override
         public void onBindViewHolder(@NonNull ProfileHolder profileHolder, int position) {
-            profileHolder.card_root.setCardBackgroundColor(WDp.getChainBgColor(ProfileDetailActivity.this, mBaseChain));
+            profileHolder.card_root.setCardBackgroundColor(WDp.getChainBgColor(ProfileDetailActivity.this, baseChain));
             if (mProfile != null) {
                 profileHolder.profile_nickname.setText(mProfile.getNickname());
                 profileHolder.profile_bio.setText(mProfile.getBio());

@@ -156,7 +156,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         }
 
         if (pAllAmount.compareTo(BigDecimal.ZERO) > 0) {
-            WDp.showCoinDp(getContext(), getBaseDao(), pDenom, pAllAmount.toPlainString(), mAllDenom, mAllAmountTx, getSActivity().mBaseChain);
+            WDp.showCoinDp(getContext(), getBaseDao(), pDenom, pAllAmount.toPlainString(), mAllDenom, mAllAmountTx, getSActivity().baseChain);
             mAllLayer.setVisibility(View.VISIBLE);
             mDisableAllTx.setVisibility(View.GONE);
         } else {
@@ -165,8 +165,8 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         }
 
         if (pMaxAmount.compareTo(BigDecimal.ZERO) > 0 && pMinAmount.compareTo(BigDecimal.ZERO) > 0) {
-            WDp.showCoinDp(getContext(), getBaseDao(), pDenom, pMinAmount.toPlainString(), mParticalDenom, mParticalMinAmountTx, getSActivity().mBaseChain);
-            WDp.showCoinDp(getContext(), getBaseDao(), pDenom, pMaxAmount.toPlainString(), mParticalDenom, mParticalMaxAmountTx, getSActivity().mBaseChain);
+            WDp.showCoinDp(getContext(), getBaseDao(), pDenom, pMinAmount.toPlainString(), mParticalDenom, mParticalMinAmountTx, getSActivity().baseChain);
+            WDp.showCoinDp(getContext(), getBaseDao(), pDenom, pMaxAmount.toPlainString(), mParticalDenom, mParticalMaxAmountTx, getSActivity().baseChain);
             mParticalLayer.setVisibility(View.VISIBLE);
             mDisableParticalTx.setVisibility(View.GONE);
         } else {

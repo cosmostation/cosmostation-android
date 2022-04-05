@@ -78,7 +78,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_htls_result);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTxScrollView = findViewById(R.id.scroll_layer);
         mLoadingLayer = findViewById(R.id.loadingLayer);
         mLoadingProgress = findViewById(R.id.loadingProgress);
@@ -92,8 +92,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
         mRecipientChain = BaseChain.getChain(getIntent().getStringExtra("toChain"));
         mRecipientAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("recipientId"));
@@ -182,8 +182,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         TextView recipientTv = cardSend.findViewById(R.id.recipient_addr);
         TextView randomHashTv = cardSend.findViewById(R.id.random_hash);
 
-        iconImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        if (mBaseChain.equals(BaseChain.BNB_MAIN) && mResSendBnbTxInfo != null) {
+        iconImg.setColorFilter(WDp.getChainColor(getBaseContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (baseChain.equals(BaseChain.BNB_MAIN) && mResSendBnbTxInfo != null) {
             final Msg msg = mResSendBnbTxInfo.tx.value.msg.get(0);
 
             if (mResSendBnbTxInfo.ok) {
@@ -201,9 +201,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             memoTv.setText(mResSendBnbTxInfo.tx.value.memo);
 
             Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
-            WDp.showCoinDp(getBaseContext(), getBaseDao(), sendCoin, sendDenom, sendAmount, mBaseChain);
+            WDp.showCoinDp(getBaseContext(), getBaseDao(), sendCoin, sendDenom, sendAmount, baseChain);
 
-            WDp.DpMainDenom(mBaseChain.getChain(), feeDenom);
+            WDp.DpMainDenom(baseChain.getChain(), feeDenom);
             feeAmount.setText(WDp.getDpAmount2(new BigDecimal(FEE_BNB_SEND), 0, 8));
 
             senderTv.setText(msg.value.from);
@@ -212,7 +212,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             recipientTv.setText(msg.value.recipient_other_chain);
             randomHashTv.setText(msg.value.random_number_hash);
 
-        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN)) && mResSendTxInfo != null) {
+        } else if ((baseChain.equals(BaseChain.KAVA_MAIN)) && mResSendTxInfo != null) {
             final Msg msg = mResSendTxInfo.tx.value.msg.get(0);
 
             if (mResSendTxInfo.isSuccess()) {
@@ -233,7 +233,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             sendDenom.setText(sendCoin.denom.toUpperCase());
             sendAmount.setText(WDp.getDpAmount2(new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom)));
 
-            WDp.DpMainDenom(mBaseChain.getChain(), feeDenom);
+            WDp.DpMainDenom(baseChain.getChain(), feeDenom);
             feeAmount.setText(WDp.getDpAmount2(mResSendTxInfo.simpleFee(), 6, 6));
 
             senderTv.setText(msg.value.from);
@@ -336,7 +336,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     private void onFetchSendTx(String hash) {
         WLog.w("onFetchSendTx " + hash);
-        if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        if (baseChain.equals(BaseChain.BNB_MAIN)) {
             ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
@@ -355,7 +355,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
@@ -449,7 +449,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     }
 
     private void onCreateHTLC() {
-        new HtlcCreateTask(getBaseApplication(), this, mAccount, mRecipientAccount, mBaseChain, mRecipientChain, mTargetCoins, mSendFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new HtlcCreateTask(getBaseApplication(), this, account, mRecipientAccount, baseChain, mRecipientChain, mTargetCoins, mSendFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
 

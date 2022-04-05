@@ -50,8 +50,8 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomUndelegateAmount);
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mDenomUndelegateAmount);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mDenomFeeType);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -60,13 +60,13 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         BigDecimal toUnDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mTvUndelegateAmount.setText(WDp.getDpAmount2(toUnDeleagteAmount, mDpDecimal, mDpDecimal));
         mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
-        mTime.setText(WDp.getUnbondTime(getContext(), getBaseDao(), getSActivity().mBaseChain));
+        mTime.setText(WDp.getUnbondTime(getContext(), getBaseDao(), getSActivity().baseChain));
         mValidatorName.setText(getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
         mMemo.setText(getSActivity().mTxMemo);
     }

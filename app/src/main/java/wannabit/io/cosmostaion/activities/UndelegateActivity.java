@@ -40,7 +40,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -54,8 +54,8 @@ public class UndelegateActivity extends BaseBroadCastActivity {
         mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(R.string.str_undelegate_step_1);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_UNDELEGATE;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
@@ -100,7 +100,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAccount == null) finish();
+        if (account == null) finish();
     }
 
     @Override

@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.fragment;
 
 
-import wannabit.io.cosmostaion.base.BaseFragment;
+import androidx.fragment.app.Fragment;
+
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 
-public class KeyboardFragment extends BaseFragment {
+public class KeyboardFragment extends Fragment {
 
     protected KeyboardListener mListner;
 

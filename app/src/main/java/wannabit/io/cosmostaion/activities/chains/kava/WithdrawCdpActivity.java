@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -64,7 +63,7 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
         mRootView = findViewById(R.id.root_view);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -78,8 +77,8 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
         mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(R.string.str_withdraw_cdp_step_1);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTxType = CONST_PW_TX_WITHDRAW_CDP;
 
         mCollateralType = getIntent().getStringExtra("collateralParamType");
@@ -228,8 +227,8 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         mTaskCount = 2;
-        new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaCdpByDepositorTask(getBaseApplication(), this, mBaseChain, mAccount.address, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpByDepositorTask(getBaseApplication(), this, baseChain, account.address, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -251,7 +250,7 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<CdpDeposit> deposits = (ArrayList<CdpDeposit>) result.resultData;
                 for (CdpDeposit deposit : deposits) {
-                    if (deposit.depositor.equals(mAccount.address)) {
+                    if (deposit.depositor.equals(account.address)) {
                         mSelfDepositAmount = new BigDecimal(deposit.amount.amount);
                     }
                 }

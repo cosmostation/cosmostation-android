@@ -131,7 +131,7 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_GDEX_DEPOSIT, 0);
+        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().baseChain, CONST_PW_TX_GDEX_DEPOSIT, 0);
         String coin0Denom = getSActivity().mGDexPool.getReserveCoinDenoms(0);
         String coin1Denom = getSActivity().mGDexPool.getReserveCoinDenoms(1);
 
@@ -441,7 +441,7 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
 
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mGDexPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -451,7 +451,7 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
             if (result.isSuccess && result.resultData != null) {
                 getSActivity().mGDexPool = (Liquidity.Pool) result.resultData;
                 mTaskCount = mTaskCount + 1;
-                new SupplyOfGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new SupplyOfGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mGDexPool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_SUPPLY_OF_INFO) {

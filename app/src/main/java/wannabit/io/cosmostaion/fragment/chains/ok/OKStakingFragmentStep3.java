@@ -54,8 +54,8 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDepositDenom);
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeDenom);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mDepositDenom);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeDenom);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -68,7 +68,7 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
         BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mToDepositCoin.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+        if (getSActivity().baseChain.equals(OKEX_MAIN) || getSActivity().baseChain.equals(OK_TEST)) {
             mDepositAmount.setText(WDp.getDpAmount2(toDeleagteAmount, 0, 18));
             mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 0, 18));
 

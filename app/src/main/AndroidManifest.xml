@@ -49,6 +49,13 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
+            android:name="com.fulldive.wallet.presentation.lockscreen.CheckPasswordActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
             android:name=".activities.PasswordCheckActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

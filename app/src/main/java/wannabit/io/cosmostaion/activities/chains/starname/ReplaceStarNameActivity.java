@@ -57,7 +57,7 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
         setContentView(R.layout.activity_step);
         setContentView(R.layout.activity_step);
         mRootView = findViewById(R.id.root_view);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -75,8 +75,8 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
         mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(R.string.str_replace_starname_step_0);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTxType = CONST_PW_TX_REPLACE_STARNAME;
 
         mPageAdapter = new ReplaceStarNamePageAdapter(getSupportFragmentManager());
@@ -159,11 +159,11 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     public void onFetchData() {
         mTaskCount = 2;
-        new StarNameGrpcDomainInfoTask(getBaseApplication(), this, mBaseChain, mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new StarNameGrpcDomainInfoTask(getBaseApplication(), this, baseChain, mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if (mIsDomain) {
-            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "", mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new StarNameGrpcResolveTask(getBaseApplication(), this, baseChain, "", mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
-            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mStarNameAccount, mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new StarNameGrpcResolveTask(getBaseApplication(), this, baseChain, mStarNameAccount, mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 

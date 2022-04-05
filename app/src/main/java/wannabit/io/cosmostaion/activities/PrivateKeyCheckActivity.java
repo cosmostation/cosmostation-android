@@ -41,7 +41,7 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_key_check);
 
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mCardView = findViewById(R.id.card_root);
         mPKey = findViewById(R.id.private_key);
         mCopy = findViewById(R.id.btn_copy);
@@ -54,8 +54,8 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
         mCopy.setOnClickListener(this);
         mOk.setOnClickListener(this);
 
-        mAccount = getBaseDao().onSelectAccount("" + getIntent().getLongExtra("checkid", -1));
-        mCardView.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), BaseChain.getChain(mAccount.baseChain)));
+        account = getBaseDao().onSelectAccount("" + getIntent().getLongExtra("checkid", -1));
+        mCardView.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), BaseChain.getChain(account.baseChain)));
         onUpdateView();
     }
 
@@ -71,14 +71,14 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
-        if (mAccount.fromMnemonic) {
+        if (account.fromMnemonic) {
             mEntropy = getIntent().getStringExtra("entropy");
-            deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, mEntropy);
+            deterministicKey = WKey.getKeyWithPathfromEntropy(account, mEntropy);
             if (deterministicKey != null) {
                 mKeyString = "0x" + deterministicKey.getPrivateKeyAsHex();
             }
         } else {
-            String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+            String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + account.uuid, account.resource, account.spec);
             if (privateKey.startsWith("0x") || privateKey.startsWith("0X")) {
                 mKeyString = privateKey;
             } else {

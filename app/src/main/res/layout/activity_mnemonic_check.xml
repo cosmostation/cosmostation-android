@@ -11,7 +11,7 @@
         android:src="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tool_bar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
@@ -27,7 +27,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_mnemonic_layer"
-        android:layout_below="@+id/tool_bar"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"

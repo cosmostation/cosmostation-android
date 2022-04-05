@@ -55,20 +55,20 @@ public class HtlcRefundStep3Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        WDp.DpMainDenom(getSActivity().mBaseChain.getChain(), mFeeDenom);
-        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+        WDp.DpMainDenom(getSActivity().baseChain.getChain(), mFeeDenom);
+        if (getSActivity().baseChain.equals(BaseChain.BNB_MAIN)) {
             mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 0, 8));
             mSwapId.setText(getSActivity().mSwapId);
             mRefundAddress.setText(getSActivity().mResBnbSwapInfo.fromAddr);
             Coin coin = getSActivity().mResBnbSwapInfo.getSendCoin();
-            WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
+            WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().baseChain);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().baseChain.equals(BaseChain.KAVA_MAIN)) {
             mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 6, 6));
             mSwapId.setText(getSActivity().mSwapId);
             mRefundAddress.setText(getSActivity().mResKavaSwapInfo.result.sender);
             Coin coin = getSActivity().mResKavaSwapInfo.result.amount.get(0);
-            WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
+            WDp.showCoinDp(getContext(), getBaseDao(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().baseChain);
         }
 
 

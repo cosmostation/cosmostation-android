@@ -42,7 +42,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_list);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mBtnEdit = findViewById(R.id.btn_edit);
         mChainRecyclerView = findViewById(R.id.chain_recycler);
         mAccountRecyclerView = findViewById(R.id.account_recycler);

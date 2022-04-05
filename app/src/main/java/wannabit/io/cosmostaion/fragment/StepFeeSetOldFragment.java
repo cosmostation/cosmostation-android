@@ -83,19 +83,19 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
         mBtnBefore = rootView.findViewById(R.id.btn_before);
         mBtnNext = rootView.findViewById(R.id.btn_next);
 
-        WDp.DpMainDenom(getSActivity().mBaseChain, mFeeDenom);
-        mFeeTotalCard.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getSActivity().mBaseChain));
-        mButtonGroup.setSelectedBackground(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
-        mButtonGroup.setRipple(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
+        WDp.DpMainDenom(getSActivity().baseChain, mFeeDenom);
+        mFeeTotalCard.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getSActivity().baseChain));
+        mButtonGroup.setSelectedBackground(WDp.getChainColor(getContext(), getSActivity().baseChain));
+        mButtonGroup.setRipple(WDp.getChainColor(getContext(), getSActivity().baseChain));
 
-        if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
+        if (getSActivity().baseChain.equals(OKEX_MAIN)) {
             int myValidatorCnt = 0;
             if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
                 myValidatorCnt = getBaseDao().mOkStaking.validator_address.size();
             }
-            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, myValidatorCnt);
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().baseChain, getSActivity().mTxType, myValidatorCnt);
         } else {
-            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, (getSActivity().mValidators.size()));
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().baseChain, getSActivity().mTxType, (getSActivity().mValidators.size()));
         }
         onUpdateView();
 
@@ -119,10 +119,10 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     }
 
     private void onCalculateFees() {
-        mSelectedGasRate = WUtil.getGasRate(getSActivity().mBaseChain, mSelectedGasPosition);
-        if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
+        mSelectedGasRate = WUtil.getGasRate(getSActivity().baseChain, mSelectedGasPosition);
+        if (getSActivity().baseChain.equals(BNB_MAIN)) {
             mFee = new BigDecimal(FEE_BNB_SEND);
-        } else if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
+        } else if (getSActivity().baseChain.equals(OKEX_MAIN)) {
             mFee = mSelectedGasRate.multiply(mEstimateGasAmount).setScale(18, RoundingMode.UP);
         }
     }
@@ -130,8 +130,8 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     private void onUpdateView() {
         onCalculateFees();
 
-        mFeeAmount.setText(WDp.getDpAmount2(mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain), WDp.mainDisplayDecimal(getSActivity().mBaseChain)));
-        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), getSActivity().mBaseChain.getMainDenom(), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain)));
+        mFeeAmount.setText(WDp.getDpAmount2(mFee, WDp.mainDivideDecimal(getSActivity().baseChain), WDp.mainDisplayDecimal(getSActivity().baseChain)));
+        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), getSActivity().baseChain.getMainDenom(), mFee, WDp.mainDivideDecimal(getSActivity().baseChain)));
 
         mGasRate.setText(WDp.getDpGasRate(mSelectedGasRate.toPlainString()));
         mGasAmount.setText(mEstimateGasAmount.toPlainString());
@@ -155,7 +155,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     private void onSetFee() {
         Fee fee = new Fee();
         Coin gasCoin = new Coin();
-        gasCoin.denom = getSActivity().mBaseChain.getMainDenom();
+        gasCoin.denom = getSActivity().baseChain.getMainDenom();
         gasCoin.amount = mFee.toPlainString();
         ArrayList<Coin> amount = new ArrayList<>();
         amount.add(gasCoin);

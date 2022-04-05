@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.ITimelessActivity;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
@@ -27,69 +28,65 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.InitPasswordTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.StopViewPager;
+import wannabit.io.cosmostaion.widget.LockedViewPager;
 
-public class PasswordSetActivity extends BaseActivity implements KeyboardListener, TaskListener {
+public class PasswordSetActivity extends BaseActivity implements ITimelessActivity, KeyboardListener, TaskListener {
 
-    private LinearLayout mLayerContents;
-    private TextView mPassowrdTitle, mPassowrdMsg1, mPassowrdMsg2;
-    private ImageView[] mIvCircle = new ImageView[5];
+    private LinearLayout layerContents;
+    private TextView passwordTextView;
+    private final ImageView[] circleImageView = new ImageView[5];
 
-    private StopViewPager mViewPager;
-    private KeyboardPagerAdapter mAdapter;
+    private LockedViewPager viewPager;
+    private KeyboardPagerAdapter adapter;
 
-    private String mUserInput = "";
-    private String mConfirmInput = "";
-    private boolean mIsConfirmSequence;
+    private String userInput = "";
+    private String confirmInput = "";
+    private boolean isConfirmSequence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_set);
-        mLayerContents = findViewById(R.id.layer_contents);
-        mPassowrdTitle = findViewById(R.id.tv_password_title);
-        mPassowrdMsg1 = findViewById(R.id.tv_password_msg1);
-        mPassowrdMsg2 = findViewById(R.id.tv_password_msg2);
-        mViewPager = findViewById(R.id.pager_keyboard);
-        mNeedLeaveTime = false;
+        layerContents = findViewById(R.id.layer_contents);
+        passwordTextView = findViewById(R.id.subtitleTextView);
+        viewPager = findViewById(R.id.keyboardPager);
 
-        for (int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
+        for (int i = 0; i < circleImageView.length; i++) {
+            circleImageView[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
         }
 
-        mViewPager.setOffscreenPageLimit(2);
-        mAdapter = new KeyboardPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mAdapter);
+        viewPager.setOffscreenPageLimit(2);
+        adapter = new KeyboardPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
         onInitView();
     }
 
     private void onInitView() {
-        mIsConfirmSequence = false;
-        mUserInput = "";
-        mConfirmInput = "";
+        isConfirmSequence = false;
+        userInput = "";
+        confirmInput = "";
 
-        for (int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+        for (ImageView imageView : circleImageView) {
+            imageView.setBackgroundResource(R.drawable.ic_pass_gr);
         }
-        mViewPager.setCurrentItem(0, true);
+        viewPager.setCurrentItem(0, true);
     }
 
     private void onUpdateCnt() {
-        if (mUserInput == null)
-            mUserInput = "";
+        if (userInput == null)
+            userInput = "";
 
-        final int inputLength = mUserInput.length();
-        for (int i = 0; i < mIvCircle.length; i++) {
-            if (i < inputLength)
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_pu));
-            else
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+        final int inputLength = userInput.length();
+        for (int i = 0; i < circleImageView.length; i++) {
+            circleImageView[i].setBackgroundResource(
+                    i < inputLength ? R.drawable.ic_pass_pu : R.drawable.ic_pass_gr
+            );
         }
     }
 
     private void onShakeView() {
-        mLayerContents.clearAnimation();
+        layerContents.clearAnimation();
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.shake);
         animation.reset();
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -106,56 +103,56 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        mLayerContents.startAnimation(animation);
+        layerContents.startAnimation(animation);
     }
 
     private void onFinishInput() {
-        if (mIsConfirmSequence) {
-            mPassowrdMsg1.setVisibility(View.INVISIBLE);
-            if (mConfirmInput.equals(mUserInput)) {
+        if (isConfirmSequence) {
+            passwordTextView.setVisibility(View.INVISIBLE);
+            if (confirmInput.equals(userInput)) {
                 onShowWaitDialog();
-                new InitPasswordTask(getBaseApplication(), this).execute(mConfirmInput);
+                new InitPasswordTask(getBaseApplication(), this).execute(confirmInput);
 
             } else {
                 onShakeView();
-                Toast.makeText(getBaseContext(), getString(R.string.error_msg_password_not_same), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), R.string.error_msg_password_not_same, Toast.LENGTH_SHORT).show();
             }
 
         } else {
-            mPassowrdMsg1.setVisibility(View.VISIBLE);
-            if (mAdapter != null && mAdapter.getFragments() != null) {
-                for (KeyboardFragment frag : mAdapter.getFragments()) {
+            passwordTextView.setVisibility(View.VISIBLE);
+            if (adapter != null && adapter.getFragments() != null) {
+                for (KeyboardFragment frag : adapter.getFragments()) {
                     if (frag != null)
                         frag.onShuffleKeyboard();
                 }
             }
-            mIsConfirmSequence = true;
-            mConfirmInput = mUserInput;
-            mUserInput = "";
-            for (int i = 0; i < mIvCircle.length; i++) {
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+            isConfirmSequence = true;
+            confirmInput = userInput;
+            userInput = "";
+            for (ImageView imageView : circleImageView) {
+                imageView.setBackgroundResource(R.drawable.ic_pass_gr);
             }
-            mViewPager.setCurrentItem(0, true);
+            viewPager.setCurrentItem(0, true);
         }
     }
 
 
     @Override
     public void userInsertKey(char input) {
-        if (mUserInput == null || mUserInput.length() == 0) {
-            mUserInput = String.valueOf(input);
+        if (userInput == null || userInput.length() == 0) {
+            userInput = String.valueOf(input);
 
-        } else if (mUserInput.length() < 5) {
-            mUserInput = mUserInput + input;
+        } else if (userInput.length() < 5) {
+            userInput = userInput + input;
         }
 
-        if (mUserInput.length() == 4) {
-            mViewPager.setCurrentItem(1, true);
+        if (userInput.length() == 4) {
+            viewPager.setCurrentItem(1, true);
 
-        } else if (mUserInput.length() == 5 && WUtil.checkPasscodePattern(mUserInput)) {
+        } else if (userInput.length() == 5 && WUtil.checkPasscodePattern(userInput)) {
             onFinishInput();
 
-        } else if (mUserInput.length() == 5 && !WUtil.checkPasscodePattern(mUserInput)) {
+        } else if (userInput.length() == 5 && !WUtil.checkPasscodePattern(userInput)) {
             onInitView();
             return;
         }
@@ -165,24 +162,24 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
 
     @Override
     public void userDeleteKey() {
-        if (mUserInput == null || mUserInput.length() <= 0) {
+        if (userInput == null || userInput.length() <= 0) {
             onBackPressed();
-        } else if (mUserInput.length() == 4) {
-            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
-            mViewPager.setCurrentItem(0, true);
+        } else if (userInput.length() == 4) {
+            userInput = userInput.substring(0, userInput.length() - 1);
+            viewPager.setCurrentItem(0, true);
         } else {
-            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
+            userInput = userInput.substring(0, userInput.length() - 1);
         }
         onUpdateCnt();
     }
 
     @Override
     public void onBackPressed() {
-        if (mUserInput != null && mUserInput.length() > 0) {
+        if (userInput != null && userInput.length() > 0) {
             userDeleteKey();
-        } else if (mIsConfirmSequence) {
-            mIsConfirmSequence = false;
-            mConfirmInput = "";
+        } else if (isConfirmSequence) {
+            isConfirmSequence = false;
+            confirmInput = "";
             onInitView();
         } else {
             super.onBackPressed();
@@ -206,32 +203,32 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
 
     public class KeyboardPagerAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<KeyboardFragment> mFragments = new ArrayList<>();
+        private ArrayList<KeyboardFragment> fragments = new ArrayList<>();
 
         public KeyboardPagerAdapter(FragmentManager fm) {
             super(fm);
-            mFragments.clear();
+            fragments.clear();
             NumberKeyBoardFragment number = NumberKeyBoardFragment.newInstance();
             number.setListener(PasswordSetActivity.this);
-            mFragments.add(number);
+            fragments.add(number);
 
             AlphabetKeyBoardFragment alphabet = AlphabetKeyBoardFragment.newInstance();
             alphabet.setListener(PasswordSetActivity.this);
-            mFragments.add(alphabet);
+            fragments.add(alphabet);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return mFragments.get(position);
+            return fragments.get(position);
         }
 
         @Override
         public int getCount() {
-            return mFragments.size();
+            return fragments.size();
         }
 
         public ArrayList<KeyboardFragment> getFragments() {
-            return mFragments;
+            return fragments;
         }
     }
 }

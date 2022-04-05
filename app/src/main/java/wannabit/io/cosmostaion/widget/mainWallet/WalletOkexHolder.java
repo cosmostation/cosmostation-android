@@ -46,7 +46,7 @@ public class WalletOkexHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final String denom = mainActivity.mBaseChain.getMainDenom();
+        final String denom = mainActivity.baseChain.getMainDenom();
         final BigDecimal availableAmount = baseData.availableAmount(denom);
         final BigDecimal lockedAmount = baseData.lockedAmount(denom);
         final BigDecimal depositAmount = baseData.okDepositAmount();
@@ -61,14 +61,14 @@ public class WalletOkexHolder extends BaseHolder {
         mOkWithdrawing.setText(WDp.getDpAmount2(withdrawAmount, 0, 6));
         mOkTotalValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
-        mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
+        mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.account, totalAmount.toPlainString());
 
         mBtnOkDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0)
                     return;
-                if (!mainActivity.mAccount.hasPrivateKey) {
+                if (!mainActivity.account.hasPrivateKey) {
                     Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                     mainActivity.showDialog(add);
                     return;
@@ -95,7 +95,7 @@ public class WalletOkexHolder extends BaseHolder {
         mBtnOkWithdraw.setOnClickListener(v -> {
             if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0)
                 return;
-            if (!mainActivity.mAccount.hasPrivateKey) {
+            if (!mainActivity.account.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 mainActivity.showDialog(add);
                 return;

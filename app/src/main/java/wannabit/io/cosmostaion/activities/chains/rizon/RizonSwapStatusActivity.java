@@ -61,14 +61,14 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rizon_swap_status);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
         mLoadingLayer = findViewById(R.id.loadingLayer);
         mBtnDone = findViewById(R.id.btn_done);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mBtnDone.setOnClickListener(this);
 
@@ -110,7 +110,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     }
 
     public void onRizonStatus() {
-        new RizonSwapStatusTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new RizonSwapStatusTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
 
                 mTaskCount = mRizonSwapStatus.size();
                 for (RizonSwapStatus rizonSwapStatus : mRizonSwapStatus) {
-                    new HdacTxDetailTask(getBaseApplication(), this, mBaseChain, rizonSwapStatus.hdacTxId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    new HdacTxDetailTask(getBaseApplication(), this, baseChain, rizonSwapStatus.hdacTxId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
             }
 
@@ -177,7 +177,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
             } else {
                 holder.swap_burn_tx_hash.setText(rizonSwapStatus.hdacTxId);
                 holder.swap_burn_amount.setText("" + rizonSwapStatus.amount);
-                if (mBaseChain.equals(RIZON_TEST) && matchedHdacTxInfo.confirmations >= 1 || mBaseChain.equals(RIZON_MAIN) && matchedHdacTxInfo.confirmations >= 8) {
+                if (baseChain.equals(RIZON_TEST) && matchedHdacTxInfo.confirmations >= 1 || baseChain.equals(RIZON_MAIN) && matchedHdacTxInfo.confirmations >= 8) {
                     holder.swap_hdac_status_icon.setVisibility(View.GONE);
                     holder.swap_hdac_status.setText("Success");
                 } else {
@@ -250,7 +250,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     private void onExplorerHdac(RizonSwapStatus rizonSwapStatus) {
         String hash = rizonSwapStatus.hdacTxId;
         String url = "";
-        if (mBaseChain.equals(RIZON_TEST)) {
+        if (baseChain.equals(RIZON_TEST)) {
             url = EXPLORER_HDAC_TEST + "tx/" + hash;
         } else {
             url = EXPLORER_HDAC_MAIN + "tx/" + hash;
@@ -262,7 +262,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     private void onExplorerRizon(RizonSwapStatus rizonSwapStatus) {
         String hash = rizonSwapStatus.rizonTxId;
         String url = "";
-        if (mBaseChain.equals(RIZON_TEST)) {
+        if (baseChain.equals(RIZON_TEST)) {
             url = EXPLORER_RIZON_TEST + "txs/" + hash;
         } else {
             url = EXPLORER_RIZON_MAIN + "txs/" + hash;

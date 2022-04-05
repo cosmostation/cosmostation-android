@@ -44,7 +44,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_edit);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mBtnDone = findViewById(R.id.btn_done);
         mDisplayRecyclerView = findViewById(R.id.display_recycler);
         mHideRecyclerView = findViewById(R.id.hide_recycler);

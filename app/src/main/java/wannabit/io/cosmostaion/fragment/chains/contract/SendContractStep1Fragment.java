@@ -82,7 +82,7 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
     @Override
     public void onResume() {
         super.onResume();
-        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
+        if (!isAdded() || getSActivity() == null || getSActivity().account == null) {
             getSActivity().onBackPressed();
         }
         mCw20Assets = getBaseDao().getCw20_gRPC(getSActivity().mContractAddress);

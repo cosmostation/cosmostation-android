@@ -54,8 +54,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mTvRedelegateDenom);
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeDenom);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mTvRedelegateDenom);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeDenom);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -64,7 +64,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mTvRedelegateAmount.setText(WDp.getDpAmount2(toReDeleagteAmount, mDpDecimal, mDpDecimal));

@@ -63,9 +63,9 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mDenomFeeType = rootView.findViewById(R.id.reward_fees_type);
         mDenomResultAmount = rootView.findViewById(R.id.expected_amount_title);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomRewardAmount);
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomFeeType);
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomResultAmount);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mDenomRewardAmount);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mDenomResultAmount);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -75,21 +75,21 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         BigDecimal rewardSum = BigDecimal.ZERO;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         for (String opAddress : getSActivity().mValAddresses) {
-            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
+            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().baseChain.getMainDenom(), opAddress));
         }
         mTvRewardAmount.setText(WDp.getDpAmount2(rewardSum, mDpDecimal, mDpDecimal));
         mFeeAmount.setText(WDp.getDpAmount2(feeAmount, mDpDecimal, mDpDecimal));
-        if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+        if (getSActivity().mWithdrawAddress.equals(getSActivity().account.address)) {
             mTvGoalLayer.setVisibility(View.GONE);
             mExpectedLayer.setVisibility(View.VISIBLE);
-            BigDecimal availableAmount = getBaseDao().getAvailable(getSActivity().mBaseChain.getMainDenom());
+            BigDecimal availableAmount = getBaseDao().getAvailable(getSActivity().baseChain.getMainDenom());
             BigDecimal expectedAmount = availableAmount.add(rewardSum).subtract(feeAmount);
             mExpectedAmount.setText(WDp.getDpAmount2(expectedAmount, mDpDecimal, mDpDecimal));
-            mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), getSActivity().mBaseChain.getMainDenom(), expectedAmount, mDpDecimal));
+            mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), getSActivity().baseChain.getMainDenom(), expectedAmount, mDpDecimal));
 
         } else {
             mTvGoalLayer.setVisibility(View.VISIBLE);
@@ -137,7 +137,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         BigDecimal rewardSum = BigDecimal.ZERO;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         for (String opAddress : getSActivity().mValAddresses) {
-            rewardSum = rewardSum.add(getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
+            rewardSum = rewardSum.add(getBaseDao().getReward(getSActivity().baseChain.getMainDenom(), opAddress));
         }
         return feeAmount.compareTo(rewardSum) < 0;
     }

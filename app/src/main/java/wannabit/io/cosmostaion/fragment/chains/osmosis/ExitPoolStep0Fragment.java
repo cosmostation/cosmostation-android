@@ -227,7 +227,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

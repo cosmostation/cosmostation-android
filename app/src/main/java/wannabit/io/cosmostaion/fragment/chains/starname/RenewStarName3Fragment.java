@@ -57,7 +57,7 @@ public class RenewStarName3Fragment extends BaseFragment implements View.OnClick
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
+        if (getSActivity().baseChain.equals(IOV_MAIN)) {
             mFeeAmount.setText(WDp.getDpAmount2(feeAmount, 6, 6));
         }
 

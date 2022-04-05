@@ -91,7 +91,7 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_wallet_connect);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mWcLayer = findViewById(R.id.wc_layer);
         mLoadingLayer = findViewById(R.id.loading_layer);
         mWcImg = findViewById(R.id.wc_img);
@@ -105,8 +105,8 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mWcURL = getIntent().getStringExtra("wcUrl");
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mWcThread = new StarNameWcThread();
         mWcThread.start();

@@ -80,9 +80,9 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         setDpDecimals(mDpDecimal);
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mDenomTitle);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mDenomTitle);
         mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
         mAvailableAmount.setText(WDp.getDpAmount2(mMaxAvailable, mDpDecimal, mDpDecimal));
         mProgress.setVisibility(View.GONE);
@@ -215,7 +215,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
             BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(mDpDecimal).setScale(0);
             if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (userInput.compareTo(mMaxAvailable) > 0) return false;
-            Coin coin = new Coin(getSActivity().mBaseChain.getMainDenom(), userInput.toPlainString());
+            Coin coin = new Coin(getSActivity().baseChain.getMainDenom(), userInput.toPlainString());
             getSActivity().mAmount = coin;
             return true;
 

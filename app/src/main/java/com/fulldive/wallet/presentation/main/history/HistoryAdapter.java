@@ -33,7 +33,7 @@ class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public HistoryAdapter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         this.context = mainActivity.getApplicationContext();
-        this.chain = mainActivity.mBaseChain;
+        this.chain = mainActivity.baseChain;
         this.baseData = mainActivity.getBaseDao();
     }
 

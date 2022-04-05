@@ -120,7 +120,7 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
 
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_SIF_JOIN_POOL, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().baseChain, CONST_PW_TX_SIF_JOIN_POOL, 0);
         mRowanMaxAmount = getBaseDao().getAvailable(TOKEN_SIF);
         mRowanMaxAmount = mRowanMaxAmount.subtract(feeAmount);
 

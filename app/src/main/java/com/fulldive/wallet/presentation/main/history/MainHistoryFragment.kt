@@ -28,7 +28,7 @@ class MainHistoryFragment : BaseMvpFragment<FragmentMainHistoryBinding>(),
     private var historyAdapter: HistoryAdapter? = null
     private val account: Account?
         get() {
-            return mainActivity?.mAccount
+            return mainActivity?.account
         }
     private val chain: BaseChain?
         get() {

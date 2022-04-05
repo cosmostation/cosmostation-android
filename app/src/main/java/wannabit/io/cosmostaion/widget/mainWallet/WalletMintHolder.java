@@ -32,7 +32,7 @@ public class WalletMintHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final ChainParam.Params param = mainActivity.getBaseDao().mChainParam;
-        final BaseChain baseChain = mainActivity.mBaseChain;
+        final BaseChain baseChain = mainActivity.baseChain;
         if (param != null) {
             mInflation.setText(WDp.getPercentDp(param.getDpInflation(baseChain)));
             if (param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {

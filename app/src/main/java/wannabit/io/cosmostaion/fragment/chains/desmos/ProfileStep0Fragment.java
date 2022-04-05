@@ -124,7 +124,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
                         return;
                     }
                 }
-            }, getSActivity().mBaseChain, dtag).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }, getSActivity().baseChain, dtag).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (v.equals(mImgAdd)) {
             misProfile = true;

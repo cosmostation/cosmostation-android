@@ -54,7 +54,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
         mChainBg = findViewById(R.id.chain_bg);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
@@ -68,8 +68,8 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_1_img));
         mTvStep.setText(getString(R.string.str_redelegate_step_0));
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_REDELEGATE;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
@@ -117,7 +117,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAccount == null) finish();
+        if (account == null) finish();
     }
 
     @Override
@@ -175,7 +175,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     private void onFetchValidtors() {
         if (mTaskCount > 0) return;
         mTaskCount = 1;
-        new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new BondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

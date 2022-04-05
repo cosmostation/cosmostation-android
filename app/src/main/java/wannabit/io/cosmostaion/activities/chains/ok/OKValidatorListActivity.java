@@ -48,7 +48,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator_list);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbarTitle = findViewById(R.id.toolbar_title);
         mValidatorTapLayer = findViewById(R.id.validator_tab);
         mValidatorPager = findViewById(R.id.validator_view_pager);
@@ -58,8 +58,8 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbarTitle.setText(R.string.str_validator_vote);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
 
         mPageAdapter = new OKValidatorPageAdapter(getSupportFragmentManager());
         mValidatorPager.setAdapter(mPageAdapter);
@@ -69,23 +69,23 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_my_validators);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(WDp.getTabColor(this, baseChain));
         mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText1.setText(R.string.str_top_100_validators);
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText2.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText2.setText(R.string.str_other_validators);
         mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
 
-        mValidatorTapLayer.setTabIconTint(WDp.getChainTintColor(this, mBaseChain));
-        mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, mBaseChain));
+        mValidatorTapLayer.setTabIconTint(WDp.getChainTintColor(this, baseChain));
+        mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, baseChain));
 
         mValidatorPager.setOffscreenPageLimit(3);
         mValidatorPager.setCurrentItem(0, false);
@@ -128,8 +128,8 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
     }
 
     public void onStartDirectVote() {
-        if (mAccount == null) return;
-        if (!mAccount.hasPrivateKey) {
+        if (account == null) return;
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;

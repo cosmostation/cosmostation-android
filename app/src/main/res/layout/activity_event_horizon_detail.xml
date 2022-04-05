@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tool_bar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
@@ -35,7 +35,7 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true"
-        android:layout_below="@+id/tool_bar"
+        android:layout_below="@+id/toolbar"
         android:visibility="gone">
 
         <LinearLayout

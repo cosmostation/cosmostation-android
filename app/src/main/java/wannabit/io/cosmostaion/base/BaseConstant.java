@@ -36,7 +36,6 @@ public class BaseConstant {
     public final static int TASK_INIT_EMPTY_ACCOUNT = 2003;
     public final static int TASK_FETCH_ACCOUNT = 2004;
     public final static int TASK_FETCH_ALL_REWARDS = 2008;
-    public final static int TASK_PASSWORD_CHECK = 2015;
     public final static int TASK_GEN_TX_SIMPLE_SEND = 2018;
     public final static int TASK_OVERRIDE_ACCOUNT = 2019;
     public final static int TASK_CHECK_MNEMONIC = 2025;

@@ -59,7 +59,7 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getSActivity().mAccount.baseChain, mFeeAmountSymbol);
+        WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -70,7 +70,7 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
     public void onRefreshTab() {
         mSlippageLayer.setVisibility(View.GONE);
         mSwapFeeSymbol.setVisibility(View.VISIBLE);
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().baseChain);
         mInputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
         mOutputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
@@ -83,10 +83,10 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
         BigDecimal divider = input.add(lpInputAmount);
         BigDecimal denominator = divider.multiply(divider);
         BigDecimal lpFee = numerator.divide(denominator, 0, RoundingMode.DOWN);
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mOutputDenom, lpFee.toPlainString(), mSwapFeeSymbol, mSwapFee, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mOutputDenom, lpFee.toPlainString(), mSwapFeeSymbol, mSwapFee, getSActivity().baseChain);
 
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSifSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSifSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSifSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().baseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSifSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().baseChain);
 
         mMemo.setText(getSActivity().mTxMemo);
     }

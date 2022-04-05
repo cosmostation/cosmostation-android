@@ -20,14 +20,12 @@ import wannabit.io.cosmostaion.R;
 
 public class NumberKeyBoardFragment extends KeyboardFragment implements View.OnClickListener {
 
-    private View mRootView;
-    private Button[] mNumberBtns = new Button[10];
-    private ImageButton mBackBtn;
-    private ArrayList<String> mNumberArray = new ArrayList<>();
+    private View rootView;
+    private final Button[] numberButtons = new Button[10];
+    private ArrayList<String> numberArray = new ArrayList<>();
 
     public static NumberKeyBoardFragment newInstance() {
-        NumberKeyBoardFragment fragment = new NumberKeyBoardFragment();
-        return fragment;
+        return new NumberKeyBoardFragment();
     }
 
     @Override
@@ -37,45 +35,45 @@ public class NumberKeyBoardFragment extends KeyboardFragment implements View.OnC
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_keyboard_number, container, false);
-        mNumberArray = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.password_number)));
-        Collections.shuffle(mNumberArray, new Random(System.nanoTime()));
-        for (int i = 0; i < mNumberBtns.length; i++) {
-            mNumberBtns[i] = mRootView.findViewById(getResources().getIdentifier("password_number" + i, "id", getBaseActivity().getPackageName()));
-            mNumberBtns[i].setText(mNumberArray.get(i));
-            mNumberBtns[i].setOnClickListener(this);
+        rootView = inflater.inflate(R.layout.fragment_keyboard_number, container, false);
+        numberArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.password_number)));
+        Collections.shuffle(numberArray, new Random(System.nanoTime()));
+        final String packageName = rootView.getContext().getPackageName();
+        for (int i = 0; i < numberButtons.length; i++) {
+            numberButtons[i] = rootView.findViewById(getResources().getIdentifier("password_number" + i, "id", packageName));
+            numberButtons[i].setText(numberArray.get(i));
+            numberButtons[i].setOnClickListener(this);
         }
-        mBackBtn = mRootView.findViewById(R.id.password_back);
-        mBackBtn.setOnClickListener(this);
-        return mRootView;
+        rootView.findViewById(R.id.password_back).setOnClickListener(this);
+        return rootView;
     }
 
     @Override
     public void onShuffleKeyboard() {
-        final Animation mFadeInAni = AnimationUtils.loadAnimation(getBaseActivity(), R.anim.fade_in);
-        mFadeInAni.reset();
+        final Animation fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in);
+        fadeInAnimation.reset();
 
-        Animation mFadeOutAni = AnimationUtils.loadAnimation(getBaseActivity(), R.anim.fade_out);
-        mFadeOutAni.reset();
-        mFadeOutAni.setAnimationListener(new Animation.AnimationListener() {
+        Animation fadeOutAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out);
+        fadeOutAnimation.reset();
+        fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Collections.shuffle(mNumberArray, new Random(System.nanoTime()));
-                for (int i = 0; i < mNumberBtns.length; i++) {
-                    mNumberBtns[i].setText(mNumberArray.get(i));
+                Collections.shuffle(numberArray, new Random(System.nanoTime()));
+                for (int i = 0; i < numberButtons.length; i++) {
+                    numberButtons[i].setText(numberArray.get(i));
                 }
-                mRootView.startAnimation(mFadeInAni);
+                rootView.startAnimation(fadeInAnimation);
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        mRootView.startAnimation(mFadeOutAni);
+        rootView.startAnimation(fadeOutAnimation);
 
     }
 

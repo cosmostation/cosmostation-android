@@ -42,9 +42,16 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9036;
 
-    private FrameLayout mBtnAddWallet, mBtnWallet, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
-    //                        mBtnTelegram, mBtnExplore, mBtnHomepage, mBtnStarnameWc,
-    mBtnGuide, mBtnDiscord, mBtnTerm, mBtnGithub, mBtnVersion;
+    private FrameLayout mBtnAddWallet;
+    private FrameLayout mBtnWallet;
+    private FrameLayout mBtnAlaram;
+    private FrameLayout mBtnAppLock;
+    private FrameLayout mBtnCurrency;
+    private FrameLayout mBtnGuide;
+    private FrameLayout mBtnDiscord;
+    private FrameLayout mBtnTerm;
+    private FrameLayout mBtnGithub;
+    private FrameLayout mBtnVersion;
 
     private TextView mTvAppLock, mTvCurrency, mTvBasePrice, mTvVersion;
 
@@ -63,8 +70,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().mAccount.pushAlarm) {
+        if (getMainActivity().baseChain.equals(COSMOS_MAIN)) {
+            if (getMainActivity().account.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
@@ -84,10 +91,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
+                getMainActivity().onUpdateUserAlarm(getMainActivity().account, true);
                 break;
             case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
+                getMainActivity().onUpdateUserAlarm(getMainActivity().account, false);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -102,7 +109,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnAlaram = rootView.findViewById(R.id.card_alaram);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
-        mBtnBasePrice = rootView.findViewById(R.id.card_base_price);
+        FrameLayout basePriceView = rootView.findViewById(R.id.card_base_price);
         mBtnDiscord = rootView.findViewById(R.id.card_discord);
         mBtnGuide = rootView.findViewById(R.id.card_guide);
 //        mBtnTelegram = rootView.findViewById(R.id.card_telegram);
@@ -122,7 +129,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
-        mBtnBasePrice.setOnClickListener(this);
+        basePriceView.setOnClickListener(this);
         mBtnDiscord.setOnClickListener(this);
         mBtnGuide.setOnClickListener(this);
 //        mBtnTelegram.setOnClickListener(this);
@@ -134,6 +141,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnVersion.setOnClickListener(this);
 
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
+        if (getBaseDao().getUsingAppLock()) {
+            mTvAppLock.setText(R.string.str_app_applock_enabled);
+        } else {
+            mTvAppLock.setText(R.string.str_app_applock_diabeld);
+        }
 
         mBtnAlaram.setVisibility(View.GONE);
         return rootView;

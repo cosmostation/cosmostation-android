@@ -89,7 +89,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        if (getMainActivity().mBaseChain.isGRPC()) {
+        if (getMainActivity().baseChain.isGRPC()) {
             mValidatorSize.setText("" + getBaseDao().mGRpcTopValidators.size());
         } else {
             mValidatorSize.setText("" + getBaseDao().mTopValidators.size());
@@ -128,13 +128,13 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-            final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
-            if (getMainActivity().mBaseChain.isGRPC()) {
+            final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().baseChain);
+            if (getMainActivity().baseChain.isGRPC()) {
                 final Staking.Validator validator = getBaseDao().mGRpcTopValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(validator.getTokens()), dpDecimal, 6));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().baseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
                 try {
-                    Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().baseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) {
                 }
 
@@ -147,12 +147,12 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
                 if (getBaseDao().mGRpcMyValidators.contains(validator)) {
-                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().baseChain));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 }
 
-                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+                if (getMainActivity().baseChain.equals(BAND_MAIN)) {
                     holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
                     if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(validator.getOperatorAddress())) {
                         holder.itemBandOracleOff.setVisibility(View.VISIBLE);
@@ -162,7 +162,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     }
                 }
 
-                if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
+                if (getMainActivity().baseChain.equals(ALTHEA_TEST)) {
                     holder.itemTvCommission.setText("--");
                 }
 
@@ -176,7 +176,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
             } else {
                 final Validator validator = getBaseDao().mTopValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(validator.tokens), dpDecimal, 6));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().baseChain, validator.getCommission()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +186,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     }
                 });
                 try {
-                    Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().baseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) {
                 }
 
@@ -199,7 +199,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 }
 
                 if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
-                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().baseChain));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 }
@@ -217,7 +217,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.isGRPC()) {
+            if (getMainActivity().baseChain.isGRPC()) {
                 return getBaseDao().mGRpcTopValidators.size();
             } else {
                 return getBaseDao().mTopValidators.size();
@@ -249,7 +249,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
 
     public void onSortValidator() {
-        if (getMainActivity().mBaseChain.isGRPC()) {
+        if (getMainActivity().baseChain.isGRPC()) {
             if (getBaseDao().getValSorting() == 2) {
                 WUtil.onSortingByCommissionV1(getBaseDao().mGRpcTopValidators);
                 mSortType.setText(getString(R.string.str_sorting_by_yield));
@@ -263,7 +263,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
         } else {
             if (getBaseDao().getValSorting() == 2) {
-                WUtil.onSortingByCommission(getBaseDao().mTopValidators, getMainActivity().mBaseChain);
+                WUtil.onSortingByCommission(getBaseDao().mTopValidators, getMainActivity().baseChain);
                 mSortType.setText(getString(R.string.str_sorting_by_yield));
             } else if (getBaseDao().getValSorting() == 0) {
                 WUtil.onSortByValidatorName(getBaseDao().mTopValidators);

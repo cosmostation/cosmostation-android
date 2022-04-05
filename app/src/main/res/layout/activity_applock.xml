@@ -105,10 +105,10 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <wannabit.io.cosmostaion.widget.StopViewPager
-            android:id="@+id/pager_keyboard"
+        <wannabit.io.cosmostaion.widget.LockedViewPager
+            android:id="@+id/keyboardPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"></wannabit.io.cosmostaion.widget.StopViewPager>
+            android:layout_weight="4"></wannabit.io.cosmostaion.widget.LockedViewPager>
     </LinearLayout>
 </RelativeLayout>

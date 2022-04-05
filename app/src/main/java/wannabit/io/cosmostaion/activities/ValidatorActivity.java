@@ -96,12 +96,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator);
         mChainBg = findViewById(R.id.chain_bg);
-        mToolbar = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.toolbar);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        baseChain = BaseChain.getChain(account.baseChain);
         mValOpAddress = getIntent().getStringExtra("valOpAddress");
 
         setSupportActionBar(mToolbar);
@@ -122,7 +122,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAccount == null) {
+        if (account == null) {
             onBackPressed();
         }
 
@@ -151,23 +151,23 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         getBaseDao().mGrpcUndelegations.clear();
         getBaseDao().mGrpcRewards.clear();
 
-        new ValidatorInfoGrpcTask(getBaseApplication(), this, mBaseChain, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SelfBondingGrpcTask(getBaseApplication(), this, mBaseChain, mValOpAddress, WKey.convertDpOpAddressToDpAddress(mValOpAddress, BaseChain.getChain(mAccount.baseChain))).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new ReDelegationsToGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ValidatorInfoGrpcTask(getBaseApplication(), this, baseChain, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new DelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SelfBondingGrpcTask(getBaseApplication(), this, baseChain, mValOpAddress, WKey.convertDpOpAddressToDpAddress(mValOpAddress, BaseChain.getChain(account.baseChain))).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new UnDelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllRewardGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ReDelegationsToGrpcTask(getBaseApplication(), this, baseChain, account, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onCheckDelegate() {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
-        BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain.getMainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
+        BigDecimal delegatableAmount = getBaseDao().getDelegatable(baseChain.getMainDenom());
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
         if (delegatableAmount.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
             return;
@@ -193,7 +193,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     public void onCheckRedelegate() {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
@@ -204,8 +204,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal availableAmount = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
+        BigDecimal availableAmount = getBaseDao().getAvailable(baseChain.getMainDenom());
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
         if (availableAmount.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
@@ -229,7 +229,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onStartUndelegate() {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
@@ -243,8 +243,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal availableAmount = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
+        BigDecimal availableAmount = getBaseDao().getAvailable(baseChain.getMainDenom());
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
         if (availableAmount.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
@@ -256,18 +256,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onGetReward() {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
-        BigDecimal availableAmount = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
+        BigDecimal availableAmount = getBaseDao().getAvailable(baseChain.getMainDenom());
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
         if (availableAmount.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (getBaseDao().getReward(mBaseChain.getMainDenom(), mValOpAddress).compareTo(feeAmount) <= 0) {
+        if (getBaseDao().getReward(baseChain.getMainDenom(), mValOpAddress).compareTo(feeAmount) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -280,27 +280,27 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onCheckReInvest() {
-        if (!mAccount.hasPrivateKey) {
+        if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             showDialog(add);
             return;
         }
 
-        BigDecimal availableAmount = getBaseDao().getAvailable(mBaseChain.getMainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
+        BigDecimal availableAmount = getBaseDao().getAvailable(baseChain.getMainDenom());
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_REINVEST, 0);
         if (availableAmount.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (getBaseDao().getReward(mBaseChain.getMainDenom(), mValOpAddress).compareTo(feeAmount) < 0) {
+        if (getBaseDao().getReward(baseChain.getMainDenom(), mValOpAddress).compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
             return;
         }
 
         new WithdrawAddressGrpcTask(getBaseApplication(), result -> {
             String rewardAddress = (String) result.resultData;
-            if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
+            if (rewardAddress == null || !rewardAddress.equals(account.address)) {
                 Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
                 return;
             } else {
@@ -308,12 +308,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 reinvest.putExtra("valOpAddress", mValOpAddress);
                 startActivity(reinvest);
             }
-        }, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onFetchValHistory() {
         mTaskCount++;
-        new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValOpAddress, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ApiStakeTxsHistoryTask(getBaseApplication(), this, account.address, mValOpAddress, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -415,7 +415,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
             final ResApiNewTxListCustom history;
-            if (mBaseChain.isGRPC()) {
+            if (baseChain.isGRPC()) {
                 if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
                     history = mApiNewTxCustomHistory.get(position - 2);
                 } else {
@@ -425,15 +425,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else {
                 history = mApiNewTxCustomHistory.get(position - 3);
             }
-            holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
+            holder.historyType.setText(history.getMsgType(getBaseContext(), account.address));
             holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
             holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-            final Coin coin = history.getDpCoin(mBaseChain);
+            final Coin coin = history.getDpCoin(baseChain);
             if (coin != null) {
                 holder.history_amount_symbol.setVisibility(View.VISIBLE);
                 holder.history_amount.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), getBaseDao(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
-            } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
+                WDp.showCoinDp(getBaseContext(), getBaseDao(), history.getDpCoin(baseChain).denom, history.getDpCoin(baseChain).amount, holder.history_amount_symbol, holder.history_amount, baseChain);
+            } else if (history.getMsgType(ValidatorActivity.this, account.address).equals(getString(R.string.tx_vote))) {
                 holder.history_amount_symbol.setVisibility(View.VISIBLE);
                 holder.history_amount_symbol.setText(history.getVoteOption());
                 holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -452,9 +452,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 public void onClick(View v) {
                     Intent txDetail = null;
                     if (history.data.txhash != null) {
-                        if (mBaseChain.isGRPC()) {
+                        if (baseChain.isGRPC()) {
                             if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
-                                String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                                String url = WUtil.getTxExplorer(baseChain, history.data.txhash);
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 startActivity(intent);
 
@@ -463,7 +463,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                             }
                         } else {
                             if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
-                                String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                                String url = WUtil.getTxExplorer(baseChain, history.data.txhash);
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 startActivity(intent);
 
@@ -482,7 +482,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindValidatorV1(RecyclerView.ViewHolder viewHolder) {
             final ValidatorHolder holder = (ValidatorHolder) viewHolder;
-            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
+            final int dpDecimal = WDp.mainDivideDecimal(baseChain);
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
             holder.itemTvAddress.setText(mGrpcValidator.getOperatorAddress());
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
@@ -510,7 +510,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
-            if (mBaseChain.equals(BAND_MAIN)) {
+            if (baseChain.equals(BAND_MAIN)) {
                 if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
@@ -523,17 +523,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
             holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
             if (mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
-                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
+                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), baseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             } else {
-                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, BigDecimal.ONE));
+                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), baseChain, BigDecimal.ONE));
                 holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
             }
             try {
-                Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(WDp.getMonikerImgUrl(baseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) {
             }
 
-            if (mBaseChain.equals(ALTHEA_TEST)) {
+            if (baseChain.equals(ALTHEA_TEST)) {
                 holder.itemTvYieldRate.setText("--");
             }
 
@@ -548,7 +548,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindMyValidatorV1(RecyclerView.ViewHolder viewHolder) {
             final MyValidatorHolder holder = (MyValidatorHolder) viewHolder;
-            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
+            final int dpDecimal = WDp.mainDivideDecimal(baseChain);
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
             holder.itemTvAddress.setText(mGrpcValidator.getOperatorAddress());
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
@@ -576,7 +576,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
-            if (mBaseChain.equals(BAND_MAIN)) {
+            if (baseChain.equals(BAND_MAIN)) {
                 if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
@@ -589,43 +589,43 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
             holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
             if (mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
-                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
+                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), baseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             } else {
-                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, BigDecimal.ONE));
+                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), baseChain, BigDecimal.ONE));
                 holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
             }
             try {
-                Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(WDp.getMonikerImgUrl(baseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) {
             }
 
-            if (mBaseChain.equals(ALTHEA_TEST)) {
+            if (baseChain.equals(ALTHEA_TEST)) {
                 holder.itemTvYieldRate.setText("--");
             }
         }
 
         private void onBindActionV1(RecyclerView.ViewHolder viewHolder) {
             final MyActionHolder holder = (MyActionHolder) viewHolder;
-            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
-            holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mBaseChain));
+            final int dpDecimal = WDp.mainDivideDecimal(baseChain);
+            holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), baseChain));
             holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseDao().getDelegation(mValOpAddress), dpDecimal, dpDecimal));
             holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseDao().getUndelegation(mValOpAddress), dpDecimal, dpDecimal));
-            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseDao().getReward(mBaseChain.getMainDenom(), mValOpAddress), dpDecimal, dpDecimal));
+            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseDao().getReward(baseChain.getMainDenom(), mValOpAddress), dpDecimal, dpDecimal));
 
             if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED) || mGrpcMyDelegation == null) {
-                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));
-                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));
+                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, baseChain));
+                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, baseChain));
                 if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
                     holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                     holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 }
             } else {
-                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));
-                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));
+                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), baseChain));
+                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), baseChain));
 
             }
 
-            if (mBaseChain.equals(ALTHEA_TEST)) {
+            if (baseChain.equals(ALTHEA_TEST)) {
                 holder.itemDailyReturn.setText("--");
                 holder.itemMonthlyReturn.setText("--");
             }

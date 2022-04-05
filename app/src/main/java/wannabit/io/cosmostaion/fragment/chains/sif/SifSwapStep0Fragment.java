@@ -114,7 +114,7 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
         setDpDecimals(mInputCoinDecimal);
 
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().baseChain, CONST_PW_TX_SIF_SWAP, 0);
         if (getSActivity().mInputDenom.equals(TOKEN_SIF)) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
@@ -281,7 +281,7 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
 
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new SifPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOutputDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SifPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().mOutputDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

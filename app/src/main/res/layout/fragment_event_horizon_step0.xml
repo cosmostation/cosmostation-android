@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/space_16"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar"
+        android:layout_below="@+id/toolbar"
         android:orientation="vertical">
 
         <LinearLayout

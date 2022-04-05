@@ -56,23 +56,22 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar mToolbar;
-    private LinearLayout mContentsLayer;
-    private Button mPaste, mBtnConfirm;
-    private Button[] mAlphabetBtns = new Button[26];
-    private ImageButton mBtnDelete;
+    private LinearLayout cpntentsLayout;
+    private Button pasteButton, confirmButton;
+    private final Button[] alphabetBtns = new Button[26];
+    private ImageButton deleteButton;
     private Button mBtnSpace;
-    private RecyclerView mRecyclerView;
-    private ImageView mChainImg;
-    private TextView mClearAll, mWordCnt;
+    private RecyclerView recyclerView;
+    private ImageView chainImageView;
+    private TextView clearAllButton, wordsCountView;
 
-    private EditText[] mEtMnemonics = new EditText[24];
-    private int mMnemonicPosition = 0;
+    private EditText[] mnemonicsEditText = new EditText[24];
+    private int mnemonicPosition = 0;
 
-    private BaseChain mChain;
-    private ArrayList<String> mAllMnemonic;
-    private MnemonicAdapter mMnemonicAdapter;
-    private ArrayList<String> mWords = new ArrayList<>();
+    private BaseChain chain;
+    private ArrayList<String> allMnemonic;
+    private MnemonicAdapter mnemonicAdapter;
+    private final ArrayList<String> words = new ArrayList<>();
 
     private int mIsCustomPath;
 
@@ -81,57 +80,58 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_restore);
-        mToolbar = findViewById(R.id.tool_bar);
-        mContentsLayer = findViewById(R.id.contentsLayer);
-        mPaste = findViewById(R.id.btn_paste);
-        mBtnConfirm = findViewById(R.id.btn_confirm);
-        mBtnDelete = findViewById(R.id.password_back);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        cpntentsLayout = findViewById(R.id.contentsLayer);
+        pasteButton = findViewById(R.id.btn_paste);
+        confirmButton = findViewById(R.id.btn_confirm);
+        deleteButton = findViewById(R.id.password_back);
         mBtnSpace = findViewById(R.id.btn_next);
-        mRecyclerView = findViewById(R.id.recycler);
-        mChainImg = findViewById(R.id.chainImg);
-        mClearAll = findViewById(R.id.toolbar_clear);
-        mWordCnt = findViewById(R.id.words_cnt);
+        recyclerView = findViewById(R.id.recycler);
+        chainImageView = findViewById(R.id.chainImg);
+        clearAllButton = findViewById(R.id.toolbar_clear);
+        wordsCountView = findViewById(R.id.words_cnt);
 
-        mPaste.setOnClickListener(this);
-        mBtnConfirm.setOnClickListener(this);
-        mBtnDelete.setOnClickListener(this);
+        pasteButton.setOnClickListener(this);
+        confirmButton.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
         mBtnSpace.setOnClickListener(this);
-        mClearAll.setOnClickListener(this);
+        clearAllButton.setOnClickListener(this);
 
 
         if (getIntent().getStringExtra("chain") != null) {
-            mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
+            chain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         }
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        mAllMnemonic = new ArrayList<String>(MnemonicCode.INSTANCE.getWordList());
-        for (int i = 0; i < mAlphabetBtns.length; i++) {
-            mAlphabetBtns[i] = findViewById(getResources().getIdentifier("password_char" + i, "id", getPackageName()));
-            mAlphabetBtns[i].setOnClickListener(this);
+        allMnemonic = new ArrayList<>(MnemonicCode.INSTANCE.getWordList());
+        final String packageName = getPackageName();
+        for (int i = 0; i < alphabetBtns.length; i++) {
+            alphabetBtns[i] = findViewById(getResources().getIdentifier("password_char" + i, "id", packageName));
+            alphabetBtns[i].setOnClickListener(this);
         }
 
-        for (int i = 0; i < mEtMnemonics.length; i++) {
+        for (int i = 0; i < mnemonicsEditText.length; i++) {
             final int position = i;
-            mEtMnemonics[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", getPackageName()));
-            mEtMnemonics[i].setShowSoftInputOnFocus(false);
-            mEtMnemonics[i].setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            mnemonicsEditText[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", packageName));
+            mnemonicsEditText[i].setShowSoftInputOnFocus(false);
+            mnemonicsEditText[i].setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
-                        mMnemonicPosition = position;
+                        mnemonicPosition = position;
                     }
                 }
             });
         }
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerView.setHasFixedSize(true);
-        mMnemonicAdapter = new MnemonicAdapter();
-        mRecyclerView.setAdapter(mMnemonicAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setHasFixedSize(true);
+        mnemonicAdapter = new MnemonicAdapter();
+        recyclerView.setAdapter(mnemonicAdapter);
 
         onCheckMnemonicCnt();
     }
@@ -139,7 +139,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if (mChain == null) {
+        if (chain == null) {
             ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(null);
             showDialog(dialog, "dialog", false);
 
@@ -160,61 +160,61 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void onUpdateView() {
-        mChainImg.setColorFilter(WDp.getChainColor(getBaseContext(), mChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        mContentsLayer.setVisibility(View.VISIBLE);
-        mEtMnemonics[0].requestFocus();
+        chainImageView.setColorFilter(WDp.getChainColor(getBaseContext(), chain), android.graphics.PorterDuff.Mode.SRC_IN);
+        cpntentsLayout.setVisibility(View.VISIBLE);
+        mnemonicsEditText[0].requestFocus();
     }
 
     private void onClearAll() {
-        for (int i = 0; i < mEtMnemonics.length; i++) {
-            mEtMnemonics[i].setText("");
-            mEtMnemonics[0].requestFocus();
+        for (int i = 0; i < mnemonicsEditText.length; i++) {
+            mnemonicsEditText[i].setText("");
+            mnemonicsEditText[0].requestFocus();
         }
         onBeforeWord();
         onCheckMnemonicCnt();
     }
 
     private void onBeforeWord() {
-        if (mMnemonicPosition > 0) {
-            mEtMnemonics[mMnemonicPosition - 1].requestFocus();
-            mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
+        if (mnemonicPosition > 0) {
+            mnemonicsEditText[mnemonicPosition - 1].requestFocus();
+            mnemonicsEditText[mnemonicPosition].setSelection(mnemonicsEditText[mnemonicPosition].getText().length());
         }
-        mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+        mnemonicAdapter.getFilter().filter(mnemonicsEditText[mnemonicPosition].getText().toString().trim());
         onCheckMnemonicCnt();
     }
 
     private void onNextWord() {
-        if (mMnemonicPosition < 23) {
-            mEtMnemonics[mMnemonicPosition + 1].requestFocus();
+        if (mnemonicPosition < 23) {
+            mnemonicsEditText[mnemonicPosition + 1].requestFocus();
         }
-        mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+        mnemonicAdapter.getFilter().filter(mnemonicsEditText[mnemonicPosition].getText().toString().trim());
         onCheckMnemonicCnt();
     }
 
     private void onCheckMnemonicCnt() {
-        mWords.clear();
-        for (int i = 0; i < mEtMnemonics.length; i++) {
-            if (!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
-                mWords.add(mEtMnemonics[i].getText().toString().trim());
+        words.clear();
+        for (int i = 0; i < mnemonicsEditText.length; i++) {
+            if (!TextUtils.isEmpty(mnemonicsEditText[i].getText().toString().trim())) {
+                words.add(mnemonicsEditText[i].getText().toString().trim());
             } else {
                 break;
             }
         }
 
-        mWordCnt.setText("" + mWords.size() + " words");
-        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
-                WKey.isMnemonicWords(mWords)) {
-            mWordCnt.setTextColor(WDp.getChainColor(getBaseContext(), mChain));
+        wordsCountView.setText("" + words.size() + " words");
+        if ((words.size() == 12 || words.size() == 16 || words.size() == 24) &&
+                WKey.isMnemonicWords(words)) {
+            wordsCountView.setTextColor(WDp.getChainColor(getBaseContext(), chain));
         } else {
-            mWordCnt.setTextColor(getResources().getColor(R.color.colorRed));
+            wordsCountView.setTextColor(getResources().getColor(R.color.colorRed));
         }
 
 
     }
 
     private boolean isValidWords() {
-        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
-                WKey.isMnemonicWords(mWords) && WKey.isValidStringHdSeedFromWords(mWords)) {
+        if ((words.size() == 12 || words.size() == 16 || words.size() == 24) &&
+                WKey.isMnemonicWords(words) && WKey.isValidStringHdSeedFromWords(words)) {
             return true;
         } else {
             return false;
@@ -223,11 +223,11 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mClearAll)) {
+        if (v.equals(clearAllButton)) {
             onClearAll();
             return;
 
-        } else if (v.equals(mPaste)) {
+        } else if (v.equals(pasteButton)) {
             onClearAll();
 
             if (getBaseDao().mCopySalt != null && getBaseDao().mCopyEncResult != null) {
@@ -236,19 +236,19 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                     return;
                 }
                 ArrayList<String> newinsert = new ArrayList<>(Arrays.asList(words.split("\\s+")));
-                for (int i = 0; i < mEtMnemonics.length; i++) {
+                for (int i = 0; i < mnemonicsEditText.length; i++) {
                     if (newinsert.size() > i) {
                         String toinsert = newinsert.get(i).replace(" ", "");
-                        mEtMnemonics[i].setText(toinsert);
+                        mnemonicsEditText[i].setText(toinsert);
                     }
                 }
                 if (newinsert.size() < 23) {
-                    mEtMnemonics[newinsert.size()].requestFocus();
+                    mnemonicsEditText[newinsert.size()].requestFocus();
                 } else {
-                    mEtMnemonics[23].requestFocus();
+                    mnemonicsEditText[23].requestFocus();
                 }
-                mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
-                mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+                mnemonicsEditText[mnemonicPosition].setSelection(mnemonicsEditText[mnemonicPosition].getText().length());
+                mnemonicAdapter.getFilter().filter(mnemonicsEditText[mnemonicPosition].getText().toString().trim());
                 onCheckMnemonicCnt();
 
             } else {
@@ -260,19 +260,19 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                         return;
                     }
                     ArrayList<String> newinsert = new ArrayList<>(Arrays.asList(userPaste.split("\\s+")));
-                    for (int i = 0; i < mEtMnemonics.length; i++) {
+                    for (int i = 0; i < mnemonicsEditText.length; i++) {
                         if (newinsert.size() > i) {
                             String toinsert = newinsert.get(i).replace(" ", "");
-                            mEtMnemonics[i].setText(toinsert);
+                            mnemonicsEditText[i].setText(toinsert);
                         }
                     }
                     if (newinsert.size() < 23) {
-                        mEtMnemonics[newinsert.size()].requestFocus();
+                        mnemonicsEditText[newinsert.size()].requestFocus();
                     } else {
-                        mEtMnemonics[23].requestFocus();
+                        mnemonicsEditText[23].requestFocus();
                     }
-                    mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
-                    mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+                    mnemonicsEditText[mnemonicPosition].setSelection(mnemonicsEditText[mnemonicPosition].getText().length());
+                    mnemonicAdapter.getFilter().filter(mnemonicsEditText[mnemonicPosition].getText().toString().trim());
                     onCheckMnemonicCnt();
 
                 } else {
@@ -281,38 +281,38 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             }
             return;
 
-        } else if (v.equals(mBtnConfirm)) {
-            mWords.clear();
-            for (int i = 0; i < mEtMnemonics.length; i++) {
-                if (!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
-                    mWords.add(mEtMnemonics[i].getText().toString().trim());
+        } else if (v.equals(confirmButton)) {
+            words.clear();
+            for (int i = 0; i < mnemonicsEditText.length; i++) {
+                if (!TextUtils.isEmpty(mnemonicsEditText[i].getText().toString().trim())) {
+                    words.add(mnemonicsEditText[i].getText().toString().trim());
                 } else {
                     break;
                 }
             }
 
             if (isValidWords()) {
-                if (mChain.equals(KAVA_MAIN)) {
+                if (chain.equals(KAVA_MAIN)) {
                     Dialog_KavaRestorePath dialog = Dialog_KavaRestorePath.newInstance(null);
                     showDialog(dialog, "dialog", false);
                     return;
 
-                } else if (mChain.equals(SECRET_MAIN)) {
+                } else if (chain.equals(SECRET_MAIN)) {
                     Dialog_SecretRestorePath dialog = Dialog_SecretRestorePath.newInstance(null);
                     showDialog(dialog, "dialog", false);
                     return;
 
-                } else if (mChain.equals(OKEX_MAIN)) {
+                } else if (chain.equals(OKEX_MAIN)) {
                     Dialog_OkexRestoreType dialog = Dialog_OkexRestoreType.newInstance(null);
                     showDialog(dialog, "dialog", false);
                     return;
 
-                } else if (mChain.equals(FETCHAI_MAIN)) {
+                } else if (chain.equals(FETCHAI_MAIN)) {
                     Dialog_FetchRestorePath dialog = Dialog_FetchRestorePath.newInstance(null);
                     showDialog(dialog, "dialog", false);
                     return;
 
-                } else if (mChain.equals(LUM_MAIN)) {
+                } else if (chain.equals(LUM_MAIN)) {
                     Dialog_LumRestorePath dialog = Dialog_LumRestorePath.newInstance(null);
                     showDialog(dialog, "dialog", false);
                     return;
@@ -326,15 +326,15 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             }
             return;
 
-        } else if (v.equals(mBtnDelete)) {
-            String existed = mEtMnemonics[mMnemonicPosition].getText().toString().trim();
+        } else if (v.equals(deleteButton)) {
+            String existed = mnemonicsEditText[mnemonicPosition].getText().toString().trim();
             if (TextUtils.isEmpty(existed)) {
                 onBeforeWord();
             } else {
-                mEtMnemonics[mMnemonicPosition].setText(existed.substring(0, existed.length() - 1));
-                mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
+                mnemonicsEditText[mnemonicPosition].setText(existed.substring(0, existed.length() - 1));
+                mnemonicsEditText[mnemonicPosition].setSelection(mnemonicsEditText[mnemonicPosition].getText().length());
             }
-            mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+            mnemonicAdapter.getFilter().filter(mnemonicsEditText[mnemonicPosition].getText().toString().trim());
             onCheckMnemonicCnt();
             return;
 
@@ -345,9 +345,9 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         }
         if (v instanceof Button) {
             String input = ((Button) v).getText().toString();
-            mEtMnemonics[mMnemonicPosition].setText(mEtMnemonics[mMnemonicPosition].getText().toString() + input);
-            mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
-            mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+            mnemonicsEditText[mnemonicPosition].setText(mnemonicsEditText[mnemonicPosition].getText().toString() + input);
+            mnemonicsEditText[mnemonicPosition].setSelection(mnemonicsEditText[mnemonicPosition].getText().length());
+            mnemonicAdapter.getFilter().filter(mnemonicsEditText[mnemonicPosition].getText().toString().trim());
 
             return;
 
@@ -378,10 +378,10 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 //        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
-            intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
-            intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
-            intent.putExtra("size", mWords.size());
-            intent.putExtra("chain", mChain.getChain());
+            intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(words));
+            intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(words)));
+            intent.putExtra("size", words.size());
+            intent.putExtra("chain", chain.getChain());
             intent.putExtra("customPath", mIsCustomPath);
             startActivity(intent);
         }
@@ -390,7 +390,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onChoiceNet(BaseChain chain) {
         super.onChoiceNet(chain);
-        mChain = chain;
+        this.chain = chain;
         onUpdateView();
     }
 
@@ -411,7 +411,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mEtMnemonics[mMnemonicPosition].setText(mFilteredMnemonic.get(position));
+                    mnemonicsEditText[mnemonicPosition].setText(mFilteredMnemonic.get(position));
                     onNextWord();
                 }
             });
@@ -434,7 +434,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
                     } else {
                         ArrayList<String> filteredList = new ArrayList<>();
-                        for (String word : mAllMnemonic) {
+                        for (String word : allMnemonic) {
                             if (word.startsWith(charString.toLowerCase()) && !word.equals(charString.toLowerCase())) {
                                 filteredList.add(word);
                             }

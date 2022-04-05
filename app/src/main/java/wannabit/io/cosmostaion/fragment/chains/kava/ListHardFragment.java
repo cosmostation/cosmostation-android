@@ -84,8 +84,8 @@ public class ListHardFragment extends BaseFragment implements TaskListener, IRef
         mAdapter = new HardPoolAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        mAccount = getSActivity().mAccount;
-        mBaseChain = getSActivity().mBaseChain;
+        mAccount = getSActivity().account;
+        mBaseChain = getSActivity().baseChain;
         return rootView;
     }
 
