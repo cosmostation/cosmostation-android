@@ -2016,5 +2016,6 @@
     <string name="str_danger">DANGER</string>
     <string name="str_open_upper">OPEN</string>
     <string name="str_closed_upper">CLOSED</string>
+    <string name="str_agreements_and_terms">Accept User Service Agreement and Privacy Policy</string>
 
 </resources>

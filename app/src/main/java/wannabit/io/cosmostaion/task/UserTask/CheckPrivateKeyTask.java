@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 public class CheckPrivateKeyTask extends CommonTask {
 
-    private Account mAccount;
+    private final Account mAccount;
 
     public CheckPrivateKeyTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);

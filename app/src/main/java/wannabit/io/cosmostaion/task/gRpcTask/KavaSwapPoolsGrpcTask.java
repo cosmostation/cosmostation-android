@@ -17,9 +17,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaSwapPoolsGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private ArrayList<QueryOuterClass.PoolResponse> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final ArrayList<QueryOuterClass.PoolResponse> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public KavaSwapPoolsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

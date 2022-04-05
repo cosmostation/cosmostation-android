@@ -30,12 +30,12 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class OsmosisBeginUnbondingGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private ArrayList<Long> mIds;
-    private Fee mFees;
-    private String mMemo;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final ArrayList<Long> mIds;
+    private final Fee mFees;
+    private final String mMemo;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

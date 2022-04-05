@@ -27,8 +27,16 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletOkexHolder extends BaseHolder {
-    private TextView mOkTotalAmount, mOkTotalValue, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
-    private RelativeLayout mBtnOkDeposit, mBtnOkWithdraw, mBtnOkVoteForVali, mBtnOkVote;
+    private final TextView mOkTotalAmount;
+    private final TextView mOkTotalValue;
+    private final TextView mOkAvailable;
+    private final TextView mOkLocked;
+    private final TextView mOkDeposit;
+    private final TextView mOkWithdrawing;
+    private final RelativeLayout mBtnOkDeposit;
+    private final RelativeLayout mBtnOkWithdraw;
+    private final RelativeLayout mBtnOkVoteForVali;
+    private final RelativeLayout mBtnOkVote;
 
     public WalletOkexHolder(@NonNull View itemView) {
         super(itemView);

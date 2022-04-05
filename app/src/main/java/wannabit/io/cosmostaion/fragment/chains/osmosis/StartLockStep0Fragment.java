@@ -35,7 +35,7 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
     private Button mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
 
     private BigDecimal mAvailableMaxAmount = BigDecimal.ZERO;
-    private int mCoinDecimal = 18;
+    private final int mCoinDecimal = 18;
     private String mDecimalChecker, mDecimalSetter;
 
     private String mLpDenom;

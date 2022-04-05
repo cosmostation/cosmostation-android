@@ -22,9 +22,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class OsmosisPoolListGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private QueryGrpc.QueryBlockingStub mStub;
-    private ArrayList<BalancerPool.Pool> mResultData = new ArrayList<>();
+    private final BaseChain mChain;
+    private final QueryGrpc.QueryBlockingStub mStub;
+    private final ArrayList<BalancerPool.Pool> mResultData = new ArrayList<>();
 
     public OsmosisPoolListGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

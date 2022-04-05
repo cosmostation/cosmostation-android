@@ -279,7 +279,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnDelete)) {
             int accountSum = 0;
             for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
-                accountSum = accountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
+                accountSum = accountSum + getBaseDao().getAccountsByChain(baseChain).size();
             }
             if (accountSum <= 1) {
                 Toast.makeText(AccountDetailActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
@@ -308,8 +308,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
             if (TextUtils.isEmpty(mRewardAddress.getText().toString())) {
-                                    new Exception().printStackTrace();
-                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                new Exception().printStackTrace();
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
 
                 return;
             }

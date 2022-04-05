@@ -208,7 +208,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         for (BaseChain chain : displayChains) {
             boolean opened = expendedChains.contains(chain) || mSelectedChain.equals(chain);
-            mChainAccounts.add(new ChainAccounts(opened, chain, getBaseDao().onSelectAccountsByChain(chain)));
+            mChainAccounts.add(new ChainAccounts(opened, chain, getBaseDao().getAccountsByChain(chain)));
         }
     }
 
@@ -235,7 +235,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onChainSelected(BaseChain baseChain) {
-        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
+        if (getBaseDao().getAccountsByChain(baseChain).size() >= 5) {
             Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
             return;
         }

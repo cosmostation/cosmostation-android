@@ -372,7 +372,7 @@ public class GravityListActivity extends BaseActivity {
     }
 
     private class CosmosGravityPageAdapter extends FragmentPagerAdapter {
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public CosmosGravityPageAdapter(FragmentManager fm) {

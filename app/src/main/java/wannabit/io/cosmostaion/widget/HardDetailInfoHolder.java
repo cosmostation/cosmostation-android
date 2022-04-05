@@ -26,12 +26,21 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HardDetailInfoHolder extends BaseHolder {
-    private ImageView mPoolImg;
-    private TextView mPoolTitle;
-    private TextView mSupplyApyTv, mBorrowApyTv, mSupplyIncentiveApyTv, mBorrowIncentiveApyTv;
-    private TextView mPoolSupplyAmount, mPoolSupplyAmountDenom, mPoolSupplyValue;
-    private TextView mPoolBorrowedAmount, mPoolBorrowedAmountDenom, mPoolBorrowedValue;
-    private TextView mRemainBorrowableAmount, mRemainBorrowableAmountDenom, mRemainBorrowableValue;
+    private final ImageView mPoolImg;
+    private final TextView mPoolTitle;
+    private final TextView mSupplyApyTv;
+    private final TextView mBorrowApyTv;
+    private final TextView mSupplyIncentiveApyTv;
+    private final TextView mBorrowIncentiveApyTv;
+    private final TextView mPoolSupplyAmount;
+    private final TextView mPoolSupplyAmountDenom;
+    private final TextView mPoolSupplyValue;
+    private final TextView mPoolBorrowedAmount;
+    private final TextView mPoolBorrowedAmountDenom;
+    private final TextView mPoolBorrowedValue;
+    private final TextView mRemainBorrowableAmount;
+    private final TextView mRemainBorrowableAmountDenom;
+    private final TextView mRemainBorrowableValue;
 
     public HardDetailInfoHolder(@NonNull View itemView) {
         super(itemView);
@@ -66,7 +75,6 @@ public class HardDetailInfoHolder extends BaseHolder {
         } catch (Exception e) {
         }
         String marketTitle = hardMoneyMarket.getSpotMarketId().replace(":30", "");
-        ;
         mPoolTitle.setText(marketTitle.toUpperCase());
 
         BigDecimal supplyApy = BigDecimal.ZERO;

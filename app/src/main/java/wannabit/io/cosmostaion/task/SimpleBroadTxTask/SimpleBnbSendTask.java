@@ -36,10 +36,10 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SimpleBnbSendTask extends CommonTask {
     private Account mAccount;
-    private String mToAddress;
-    private ArrayList<Coin> mToSendAmount;
-    private String mToSendMemo;
-    private Fee mToFees;
+    private final String mToAddress;
+    private final ArrayList<Coin> mToSendAmount;
+    private final String mToSendMemo;
+    private final Fee mToFees;
 
     private ECKey ecKey;
 

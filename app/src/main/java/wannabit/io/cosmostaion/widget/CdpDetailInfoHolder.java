@@ -27,16 +27,25 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class CdpDetailInfoHolder extends BaseHolder {
-    private ImageView mInfoMarketImg;
-    private TextView mInfoMarketType, mInfoMarketId;
-    private LinearLayout mInfoRiskHelp;
-    private ImageView mInfoImgRisk;
-    private TextView mInfoRiskScore;
-    private RelativeLayout mInfoLiquidationPriceLayer;
-    private LinearLayout mInfoCollateralRateHelp, mStabilityFeeHelp, mInfoLiquidationPenaltyHelp;
-    private TextView mInfoCollateralRate, mInfoStabilityFee, mInfoLiquidationPenalty,
-            mInfoCurrentPriceTitle, mInfoCurrentPrice, mInfoLiquidationPriceTitle, mInfoLiquidationPrice;
-    private TextView mInfoMaxDebtAmount, mInfoRemainDebtAmount;
+    private final ImageView mInfoMarketImg;
+    private final TextView mInfoMarketType;
+    private final TextView mInfoMarketId;
+    private final LinearLayout mInfoRiskHelp;
+    private final ImageView mInfoImgRisk;
+    private final TextView mInfoRiskScore;
+    private final RelativeLayout mInfoLiquidationPriceLayer;
+    private final LinearLayout mInfoCollateralRateHelp;
+    private final LinearLayout mStabilityFeeHelp;
+    private final LinearLayout mInfoLiquidationPenaltyHelp;
+    private final TextView mInfoCollateralRate;
+    private final TextView mInfoStabilityFee;
+    private final TextView mInfoLiquidationPenalty;
+    private final TextView mInfoCurrentPriceTitle;
+    private final TextView mInfoCurrentPrice;
+    private final TextView mInfoLiquidationPriceTitle;
+    private final TextView mInfoLiquidationPrice;
+    private final TextView mInfoMaxDebtAmount;
+    private final TextView mInfoRemainDebtAmount;
 
     BigDecimal mRiskRate = BigDecimal.ZERO;
     BigDecimal mLiquidationPrice = BigDecimal.ZERO;

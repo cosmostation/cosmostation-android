@@ -51,10 +51,10 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         try {
             mStarNameAsset = getArguments().getParcelable("asset");
-            mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(mStarNameAsset.chainName));
+            mWalletList = new ArrayList<>(getSActivity().getBaseDao().getAccountsByChain(BaseChain.getChain(mStarNameAsset.chainName)));
         } catch (Exception e) {
             mUri = getArguments().getString("chainUri");
-            mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(StarnameAssets.getStarNameGetChain(mUri)));
+            mWalletList = new ArrayList<>(getSActivity().getBaseDao().getAccountsByChain(BaseChain.getChain(StarnameAssets.getStarNameGetChain(mUri))));
 
         }
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wallet_for_starname, null);

@@ -38,7 +38,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
     private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    private int mDpDecimal = 18;
+    private final int mDpDecimal = 18;
     private String mDecimalChecker, mDecimalSetter,
             mDecimalDivider2, mDecimalDivider1;
 

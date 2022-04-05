@@ -49,9 +49,9 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
 
     private NFTListAdapter mNFTListAdapter;
 
-    private ArrayList<Nft.IDCollection> mMyIrisNFTs = new ArrayList<>();
-    private ArrayList<chainmain.nft.v1.Nft.IDCollection> mMyCryptoNFTs = new ArrayList<>();
-    private ArrayList<String> mTokenIds = new ArrayList<>();
+    private final ArrayList<Nft.IDCollection> mMyIrisNFTs = new ArrayList<>();
+    private final ArrayList<chainmain.nft.v1.Nft.IDCollection> mMyCryptoNFTs = new ArrayList<>();
+    private final ArrayList<String> mTokenIds = new ArrayList<>();
 
     private ByteString mPageKey;
 

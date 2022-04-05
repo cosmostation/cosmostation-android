@@ -26,13 +26,15 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulLinkAccountGrpcTask extends CommonTask {
-    private BaseChain mBaseChain, mToChain;
-    private Account mAccount, mToAccount;
-    private String mSigner;
-    private ECKey mToEcKey;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final BaseChain mBaseChain;
+    private final BaseChain mToChain;
+    private final Account mAccount;
+    private final Account mToAccount;
+    private final String mSigner;
+    private final ECKey mToEcKey;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

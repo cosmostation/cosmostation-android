@@ -13,9 +13,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ValidatorInfoGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mValOpAddress;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final String mValOpAddress;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public ValidatorInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String opAddress) {
         super(app, listener);

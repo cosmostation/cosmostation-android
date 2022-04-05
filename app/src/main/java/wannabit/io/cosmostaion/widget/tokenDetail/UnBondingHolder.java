@@ -21,12 +21,28 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class UnBondingHolder extends BaseHolder {
-    private CardView mUndelegateCard;
-    private TextView mUndelegateCnt;
-    private RelativeLayout mUndelegateLayer0, mUndelegateLayer1, mUndelegateLayer2, mUndelegateLayer3, mUndelegateLayer4;
-    private TextView mUndelegateTime0, mUndelegateTime1, mUndelegateTime2, mUndelegateTime3, mUndelegateTime4;
-    private TextView mUndelegateAmount0, mUndelegateAmount1, mUndelegateAmount2, mUndelegateAmount3, mUndelegateAmount4;
-    private TextView mUndelegateRemain0, mUndelegateRemain1, mUndelegateRemain2, mUndelegateRemain3, mUndelegateRemain4;
+    private final CardView mUndelegateCard;
+    private final TextView mUndelegateCnt;
+    private final RelativeLayout mUndelegateLayer0;
+    private final RelativeLayout mUndelegateLayer1;
+    private final RelativeLayout mUndelegateLayer2;
+    private final RelativeLayout mUndelegateLayer3;
+    private final RelativeLayout mUndelegateLayer4;
+    private final TextView mUndelegateTime0;
+    private final TextView mUndelegateTime1;
+    private final TextView mUndelegateTime2;
+    private final TextView mUndelegateTime3;
+    private final TextView mUndelegateTime4;
+    private final TextView mUndelegateAmount0;
+    private final TextView mUndelegateAmount1;
+    private final TextView mUndelegateAmount2;
+    private final TextView mUndelegateAmount3;
+    private final TextView mUndelegateAmount4;
+    private final TextView mUndelegateRemain0;
+    private final TextView mUndelegateRemain1;
+    private final TextView mUndelegateRemain2;
+    private final TextView mUndelegateRemain3;
+    private final TextView mUndelegateRemain4;
 
     public UnBondingHolder(@NonNull View itemView) {
         super(itemView);

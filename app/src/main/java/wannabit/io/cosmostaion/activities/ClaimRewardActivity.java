@@ -194,7 +194,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
     private class RewardPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public RewardPageAdapter(FragmentManager fm) {

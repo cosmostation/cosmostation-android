@@ -41,10 +41,7 @@ public class ResTxInfo {
 
 
     public boolean isSuccess() {
-        boolean result = true;
-        if (code != null && code > 0) {
-            result = false;
-        }
+        boolean result = code == null || code <= 0;
         return result;
     }
 
@@ -427,10 +424,7 @@ public class ResTxInfo {
 
 
     public boolean isIrisSuccess() {
-        boolean isSuccess = false;
-        if (result != null && result.Code == 0) {
-            isSuccess = true;
-        }
+        boolean isSuccess = result != null && result.Code == 0;
         return isSuccess;
     }
 

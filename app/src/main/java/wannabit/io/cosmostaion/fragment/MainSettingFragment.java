@@ -167,9 +167,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnAddWallet)) {
-            Bundle bundle = new Bundle();
-            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(bundle);
-            showDialog(dialog);
+            showDialog(ChoiceNetDialogFragment.Companion.newInstance(true));
         } else if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
 

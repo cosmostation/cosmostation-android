@@ -21,10 +21,10 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 
 public class DelegationsGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private ArrayList<Staking.DelegationResponse> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final Account mAccount;
+    private final ArrayList<Staking.DelegationResponse> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public DelegationsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
         super(app, listener);
@@ -32,7 +32,6 @@ public class DelegationsGrpcTask extends CommonTask {
         this.mAccount = account;
         this.result.taskType = TASK_GRPC_FETCH_DELEGATIONS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
     }
 
     @Override

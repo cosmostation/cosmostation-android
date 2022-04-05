@@ -72,7 +72,7 @@ public class SifPoolOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SifDexListActivity) activity).onCheckStartDepositPool(otherPool);
+                activity.onCheckStartDepositPool(otherPool);
             }
         });
     }

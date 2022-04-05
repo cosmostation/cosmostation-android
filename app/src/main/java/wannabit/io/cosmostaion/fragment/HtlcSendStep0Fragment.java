@@ -323,14 +323,10 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
 
     private boolean onCheckMinBalance() {
         if (getSActivity().baseChain.equals(BaseChain.BNB_MAIN)) {
-            if (available_amount.compareTo(mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom).movePointLeft(8)) > 0) {
-                return true;
-            }
+            return available_amount.compareTo(mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom).movePointLeft(8)) > 0;
 
         } else if (getSActivity().baseChain.equals(BaseChain.KAVA_MAIN)) {
-            if (available_amount.compareTo(mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom)) > 0) {
-                return true;
-            }
+            return available_amount.compareTo(mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom)) > 0;
         }
         return false;
     }

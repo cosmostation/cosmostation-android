@@ -55,10 +55,7 @@ public class Coin implements Parcelable {
     };
 
     public boolean isIbc() {
-        if (denom.startsWith("ibc/")) {
-            return true;
-        }
-        return false;
+        return denom.startsWith("ibc/");
     }
 
     public String getIbcHash() {
@@ -69,10 +66,7 @@ public class Coin implements Parcelable {
     }
 
     public boolean osmosisAmm() {
-        if (denom.startsWith("gamm/pool/")) {
-            return true;
-        }
-        return false;
+        return denom.startsWith("gamm/pool/");
     }
 
     public String osmosisAmmDpDenom() {

@@ -18,10 +18,10 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaHardMyBorrowGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private ArrayList<QueryOuterClass.BorrowResponse> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final Account mAccount;
+    private final ArrayList<QueryOuterClass.BorrowResponse> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public KavaHardMyBorrowGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
         super(app, listener);

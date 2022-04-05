@@ -20,16 +20,15 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class UnBondingValidatorsGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private ArrayList<Staking.Validator> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final ArrayList<Staking.Validator> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public UnBondingValidatorsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
         this.result.taskType = TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
     }
 
 

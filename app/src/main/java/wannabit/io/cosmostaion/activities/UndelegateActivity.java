@@ -155,7 +155,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
     private class UndelegatePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public UndelegatePageAdapter(FragmentManager fm) {

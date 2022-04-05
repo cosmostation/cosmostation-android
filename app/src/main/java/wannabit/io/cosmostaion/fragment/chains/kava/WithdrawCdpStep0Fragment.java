@@ -302,7 +302,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                     bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                     bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
-                            dialog.setTargetFragment(this, CDP_WITHDRAW_CONFIRM_DIALOG);
+                    dialog.setTargetFragment(this, CDP_WITHDRAW_CONFIRM_DIALOG);
                     showDialog(dialog);
 
                 }

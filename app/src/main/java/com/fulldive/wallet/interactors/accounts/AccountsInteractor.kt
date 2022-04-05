@@ -8,6 +8,7 @@ import com.fulldive.wallet.rx.AppSchedulers
 import com.joom.lightsaber.ProvidedBy
 import io.reactivex.Completable
 import io.reactivex.Single
+import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.dao.Account
 import javax.inject.Inject
 
@@ -22,12 +23,33 @@ class AccountsInteractor @Inject constructor(
     }
 
     fun getSelectedAccount(): Single<Account> {
-        return accountsRepository.getSelectedAccount();
+        return accountsRepository.getSelectedAccount()
     }
 
-    fun selectAccount(): Single<Account> {
+    fun getAccounts(): Single<List<Account>> {
+        return accountsRepository.getAccounts()
+    }
+
+    // TODO: migrate to rx
+    fun getAccountsByChain(chain: BaseChain): List<Account> {
+        return accountsRepository.getAccountsByChain(chain)
+    }
+
+    fun selectAccountForAddress(address: String): Completable {
         return accountsRepository
-            .getAccounts()
+            .getAccountsByAddress(address)
+            .flatMapCompletable { accounts ->
+                if (accounts.isEmpty()) {
+                    Completable.error(AccountsListEmptyException())
+                } else {
+                    accountsRepository.selectAccount(accounts[0].id)
+                }
+            }
+    }
+
+
+    fun selectAccount(): Single<Account> {
+        return getAccounts()
             .flatMap { accounts ->
                 if (accounts.isEmpty()) {
                     accountsRepository
@@ -76,6 +98,10 @@ class AccountsInteractor @Inject constructor(
                         }
                     )
             }
+    }
+
+    fun upgradeAccountAddressForPath(): Completable {
+        return accountsRepository.upgradeAccountAddressForPath()
     }
 
     private fun deleteAccount(account: Account): Completable {

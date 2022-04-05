@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class AccountInfoTask extends CommonTask {
 
-    private Account mAccount;
+    private final Account mAccount;
 
     public AccountInfoTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);

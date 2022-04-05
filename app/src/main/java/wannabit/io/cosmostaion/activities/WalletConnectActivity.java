@@ -130,7 +130,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                         int end = rawString.indexOf(",", start);
                         if (start > 0) {
                             String front = rawString.substring(0, start - 1);
-                            String back = rawString.substring(end + 1, rawString.length());
+                            String back = rawString.substring(end + 1);
                             memo = rawString.substring(start, end).replace("memo=", "");
                             rawString = front + back;
                         }
@@ -366,12 +366,12 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 int end = rawString.indexOf(",", start);
                 if (start > 0) {
                     String front = rawString.substring(0, start - 1);
-                    String back = rawString.substring(end + 1, rawString.length());
+                    String back = rawString.substring(end + 1);
                     memo = rawString.substring(start, end).replace("memo=", "");
                     rawString = front + back;
                 }
                 BnbParam bnbParam = new Gson().fromJson(rawString, BnbParam.class);
-                BinanceDexTransactionMessage bdtm[] = new BinanceDexTransactionMessage[1];
+                BinanceDexTransactionMessage[] bdtm = new BinanceDexTransactionMessage[1];
 
                 if (bnbParam.getMsgType() == TYPE_NEW_ORDER) {
                     NewOrderMessage bean = NewOrderMessage.newBuilder()

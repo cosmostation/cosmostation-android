@@ -152,11 +152,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
 
     public boolean isTransfer() {
         boolean result;
-        if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
-            result = true;
-        } else {
-            result = false;
-        }
+        result = getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND;
         return result;
     }
 

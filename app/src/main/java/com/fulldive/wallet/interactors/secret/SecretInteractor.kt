@@ -25,7 +25,7 @@ class SecretInteractor @Inject constructor(
                             PASSWORD_KEY
                         )
                     ) {
-                        throw InvalidPasswordException();
+                        throw InvalidPasswordException()
                     }
                 }
             }

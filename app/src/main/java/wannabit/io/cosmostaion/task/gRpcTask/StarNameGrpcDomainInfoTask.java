@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class StarNameGrpcDomainInfoTask extends CommonTask {
-    private BaseChain mBaseChain;
-    private String mDomainName;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mBaseChain;
+    private final String mDomainName;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public StarNameGrpcDomainInfoTask(BaseApplication app, TaskListener listener, BaseChain basecahin, String domainName) {
         super(app, listener);

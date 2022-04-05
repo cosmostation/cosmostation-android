@@ -112,7 +112,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", getSActivity().mRecipientChain.getChain());
                 Dialog_Htlc_Receivable_Accounts dialog = Dialog_Htlc_Receivable_Accounts.newInstance(bundle);
-                    dialog.setTargetFragment(this, SELECT_ACCOUNT);
+                dialog.setTargetFragment(this, SELECT_ACCOUNT);
                 showDialog(dialog);
 
             } else {
@@ -127,7 +127,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 bundle.putString("title", title);
                 bundle.putString("msg", msg);
                 Dialog_Htlc_Receivable_Empty dialog = Dialog_Htlc_Receivable_Empty.newInstance(bundle);
-                    showDialog(dialog);
+                showDialog(dialog);
 
             }
         }

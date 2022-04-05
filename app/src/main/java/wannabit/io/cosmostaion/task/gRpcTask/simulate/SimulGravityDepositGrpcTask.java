@@ -28,13 +28,14 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulGravityDepositGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private long mPoolId;
-    private Coin mDeposit0Coin, mDeposit1Coin;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final long mPoolId;
+    private final Coin mDeposit0Coin;
+    private final Coin mDeposit1Coin;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

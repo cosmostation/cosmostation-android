@@ -1099,7 +1099,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
+                    WLog.w("onFetchTx " + response);
                     if (response.isSuccessful() && response.body() != null) {
                         mResBnbTxInfo = response.body();
                         if (mResBnbTxInfo.getMsg(0).type.equals(BNB_MSG_TYPE_HTLC) &&
@@ -1138,7 +1138,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
+                    WLog.w("onFetchTx " + response);
                     if (response.isSuccessful() && response.body() != null) {
                         mResTxInfo = response.body();
                         onUpdateView();

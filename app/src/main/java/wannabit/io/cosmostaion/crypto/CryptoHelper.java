@@ -6,6 +6,7 @@ import android.util.Base64;
 
 import androidx.annotation.NonNull;
 
+import java.nio.charset.StandardCharsets;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -61,7 +62,7 @@ public class CryptoHelper {
         EncResult result = null;
         try {
             Cipher cipher = getEncodeCipher(alias, withAuth);
-            byte[] end = cipher.doFinal(resource.getBytes("UTF-8"));
+            byte[] end = cipher.doFinal(resource.getBytes(StandardCharsets.UTF_8));
             result = new EncResult(end, cipher.getIV());
         } catch (Exception ignore) {
         }
@@ -72,7 +73,7 @@ public class CryptoHelper {
         String result = null;
         try {
             Cipher cipher = getDecodeCipher(alias, Base64.decode(iv, Base64.DEFAULT));
-            result = new String(cipher.doFinal(Base64.decode(resource, Base64.DEFAULT)), "UTF-8");
+            result = new String(cipher.doFinal(Base64.decode(resource, Base64.DEFAULT)), StandardCharsets.UTF_8);
         } catch (Exception ignore) {
         }
         return result;

@@ -30,7 +30,7 @@
         tools:replace="android:allowBackup">
 
         <activity
-            android:name=".activities.IntroActivity"
+            android:name="com.fulldive.wallet.presentation.main.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

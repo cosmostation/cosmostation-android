@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class SupplyOfGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mDenom;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final String mDenom;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public SupplyOfGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String denom) {
         super(app, listener);

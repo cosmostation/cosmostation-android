@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_Starname_Domain extends DialogFragment {
 

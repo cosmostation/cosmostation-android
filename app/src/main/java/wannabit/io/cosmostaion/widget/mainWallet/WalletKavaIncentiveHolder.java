@@ -22,10 +22,10 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletKavaIncentiveHolder extends BaseHolder {
 
-    private TextView mKavaIncetive;
-    private TextView mHardIncetive;
-    private TextView mSwpIncetive;
-    private RelativeLayout mBtnIncentive;
+    private final TextView mKavaIncetive;
+    private final TextView mHardIncetive;
+    private final TextView mSwpIncetive;
+    private final RelativeLayout mBtnIncentive;
 
     public WalletKavaIncentiveHolder(@NonNull View itemView) {
         super(itemView);

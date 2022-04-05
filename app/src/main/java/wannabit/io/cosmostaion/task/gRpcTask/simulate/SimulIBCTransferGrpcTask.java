@@ -30,18 +30,20 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulIBCTransferGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mSender;
-    private String mReceiver;
-    private String mTokenDenom, mTokenAmount;
-    private String mPortId, mChannelId;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mSender;
+    private final String mReceiver;
+    private final String mTokenDenom;
+    private final String mTokenAmount;
+    private final String mPortId;
+    private final String mChannelId;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
-    private ibc.core.channel.v1.QueryGrpc.QueryBlockingStub mStub;
+    private final ibc.core.channel.v1.QueryGrpc.QueryBlockingStub mStub;
 
     public SimulIBCTransferGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recevier, String tokenDenom, String tokenAmount,
                                     String portId, String channelId, Fee fee, String chainId) {
@@ -54,7 +56,6 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
         this.mTokenAmount = tokenAmount;
         this.mPortId = portId;
         this.mChannelId = channelId;
-        ;
         this.mFees = fee;
         this.mChainId = chainId;
         this.result.taskType = TASK_GRPC_SIMULATE_IBC_TRANSFER;

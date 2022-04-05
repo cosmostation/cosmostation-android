@@ -28,15 +28,16 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulKavaDepositGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mDepositor;
-    private Coin mTokenA, mTokenB;
-    private String mSlippage;
-    private long mDeadline;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mDepositor;
+    private final Coin mTokenA;
+    private final Coin mTokenB;
+    private final String mSlippage;
+    private final long mDeadline;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

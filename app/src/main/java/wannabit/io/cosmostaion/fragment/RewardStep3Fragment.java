@@ -128,7 +128,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
 
             } else {
                 Dialog_Reward_Small dialog = Dialog_Reward_Small.newInstance();
-                    showDialog(dialog);
+                showDialog(dialog);
             }
         }
     }

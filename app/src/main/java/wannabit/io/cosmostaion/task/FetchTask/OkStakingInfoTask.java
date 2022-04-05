@@ -14,8 +14,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class OkStakingInfoTask extends CommonTask {
 
-    private BaseChain mChain;
-    private Account mAccount;
+    private final BaseChain mChain;
+    private final Account mAccount;
 
     public OkStakingInfoTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain) {
         super(app, listener);

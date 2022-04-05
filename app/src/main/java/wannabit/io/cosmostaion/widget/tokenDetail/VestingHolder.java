@@ -21,12 +21,28 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class VestingHolder extends BaseHolder {
-    private CardView mVestingRoot;
-    private TextView mVestingCnt;
-    private RelativeLayout mVestingLayer0, mVestingLayer1, mVestingLayer2, mVestingLayer3, mVestingLayer4;
-    private TextView mVestingTime0, mVestingTime1, mVestingTime2, mVestingTime3, mVestingTime4;
-    private TextView mVestingGap0, mVestingGap1, mVestingGap2, mVestingGap3, mVestingGap4;
-    private TextView mVestingAmount0, mVestingAmount1, mVestingAmount2, mVestingAmount3, mVestingAmount4;
+    private final CardView mVestingRoot;
+    private final TextView mVestingCnt;
+    private final RelativeLayout mVestingLayer0;
+    private final RelativeLayout mVestingLayer1;
+    private final RelativeLayout mVestingLayer2;
+    private final RelativeLayout mVestingLayer3;
+    private final RelativeLayout mVestingLayer4;
+    private final TextView mVestingTime0;
+    private final TextView mVestingTime1;
+    private final TextView mVestingTime2;
+    private final TextView mVestingTime3;
+    private final TextView mVestingTime4;
+    private final TextView mVestingGap0;
+    private final TextView mVestingGap1;
+    private final TextView mVestingGap2;
+    private final TextView mVestingGap3;
+    private final TextView mVestingGap4;
+    private final TextView mVestingAmount0;
+    private final TextView mVestingAmount1;
+    private final TextView mVestingAmount2;
+    private final TextView mVestingAmount3;
+    private final TextView mVestingAmount4;
 
     public VestingHolder(@NonNull View itemView) {
         super(itemView);

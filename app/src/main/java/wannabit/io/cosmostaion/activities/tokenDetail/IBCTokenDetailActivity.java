@@ -290,11 +290,11 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         }
 
         public class IbcStatusHolder extends RecyclerView.ViewHolder {
-            private ImageView itemRelayer;
-            private TextView itemCurrentAmount;
-            private TextView itemCurrentDenom;
-            private TextView itemAcrossChain;
-            private TextView itemAcrossDenom;
+            private final ImageView itemRelayer;
+            private final TextView itemCurrentAmount;
+            private final TextView itemCurrentDenom;
+            private final TextView itemAcrossChain;
+            private final TextView itemAcrossDenom;
 
             public IbcStatusHolder(View v) {
                 super(v);

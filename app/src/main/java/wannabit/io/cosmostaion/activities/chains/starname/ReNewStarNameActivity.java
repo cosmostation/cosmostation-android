@@ -177,7 +177,7 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
 
     private class RenewStarNamePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public RenewStarNamePageAdapter(FragmentManager fm) {

@@ -41,7 +41,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
     private String mToIbcDenom;
-    private ArrayList<Coin> mToSendCoins = new ArrayList<>();
+    private final ArrayList<Coin> mToSendCoins = new ArrayList<>();
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 

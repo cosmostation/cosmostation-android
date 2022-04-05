@@ -47,7 +47,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private Button mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
 
     private BigDecimal mAvailableMaxAmount;
-    private int mCoinDecimal = 18;
+    private final int mCoinDecimal = 18;
     private String mDecimalChecker, mDecimalSetter;
 
     public static ExitPoolStep0Fragment newInstance(Bundle bundle) {

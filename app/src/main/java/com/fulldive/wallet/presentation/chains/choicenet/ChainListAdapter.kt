@@ -10,13 +10,13 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseChain
 
 class ChainListAdapter(
-        private var items: List<BaseChain>,
-        private val onItemClicked: (BaseChain) -> Unit
+    private var items: List<BaseChain>,
+    private val onItemClicked: (BaseChain) -> Unit
 ) : RecyclerView.Adapter<ChainListAdapter.ChainHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ChainHolder {
         return ChainHolder(
-                LayoutInflater.from(viewGroup.context)
-                        .inflate(R.layout.item_choice_net, viewGroup, false)
+            LayoutInflater.from(viewGroup.context)
+                .inflate(R.layout.item_choice_net, viewGroup, false)
         )
     }
 
@@ -34,8 +34,8 @@ class ChainListAdapter(
     }
 
     class ChainHolder(
-            itemView: View,
-            val imageView: ImageView = itemView.findViewById(R.id.imageView),
-            val textView: TextView = itemView.findViewById(R.id.textView)
+        itemView: View,
+        val imageView: ImageView = itemView.findViewById(R.id.imageView),
+        val textView: TextView = itemView.findViewById(R.id.textView)
     ) : RecyclerView.ViewHolder(itemView)
 }

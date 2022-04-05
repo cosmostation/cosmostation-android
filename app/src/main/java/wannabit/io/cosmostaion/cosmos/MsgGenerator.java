@@ -31,6 +31,7 @@ import org.web3j.crypto.Sign;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -313,6 +314,6 @@ public class MsgGenerator {
         byte[] sigData = new byte[64];  // 32 bytes for R + 32 bytes for S
         System.arraycopy(sig.getR(), 0, sigData, 0, 32);
         System.arraycopy(sig.getS(), 0, sigData, 32, 32);
-        return new String(org.bouncycastle.util.encoders.Base64.encode(sigData), Charset.forName("UTF-8"));
+        return new String(org.bouncycastle.util.encoders.Base64.encode(sigData), StandardCharsets.UTF_8);
     }
 }

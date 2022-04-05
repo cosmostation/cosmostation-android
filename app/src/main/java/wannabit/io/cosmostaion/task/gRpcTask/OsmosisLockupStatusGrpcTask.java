@@ -18,10 +18,10 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class OsmosisLockupStatusGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mAddress;
-    private QueryGrpc.QueryBlockingStub mStub;
-    private ArrayList<Lock.PeriodLock> mResultData = new ArrayList<>();
+    private final BaseChain mChain;
+    private final String mAddress;
+    private final QueryGrpc.QueryBlockingStub mStub;
+    private final ArrayList<Lock.PeriodLock> mResultData = new ArrayList<>();
 
     public OsmosisLockupStatusGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
         super(app, listener);

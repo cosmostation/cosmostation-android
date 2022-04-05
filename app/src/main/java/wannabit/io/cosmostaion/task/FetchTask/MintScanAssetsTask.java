@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class MintScanAssetsTask extends CommonTask {
 
-    private BaseChain mChain;
+    private final BaseChain mChain;
 
     public MintScanAssetsTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

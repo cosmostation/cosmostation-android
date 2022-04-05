@@ -70,6 +70,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.fulldive.wallet.di.IEnrichableActivity;
 import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment;
+import com.fulldive.wallet.presentation.main.splash.SplashActivity;
 import com.fulldive.wallet.presentation.system.WaitDialogFragment;
 import com.google.protobuf2.Any;
 import com.joom.lightsaber.Injector;
@@ -91,7 +92,6 @@ import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
-import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
@@ -162,7 +162,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements IEnrichableActivity, TaskListener {
@@ -198,7 +197,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
     @Override
     protected void onStart() {
         super.onStart();
-        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity)) {
+        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity)) {
             if (getBaseApplication().needShowLockScreen()) {
                 Intent intent = new Intent(BaseActivity.this, AppLockActivity.class);
                 startActivity(intent);
@@ -341,7 +340,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
     }
 
     public void onChainSelected(BaseChain baseChain) {
-        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
+        if (getBaseDao().getAccountsByChain(baseChain).size() >= 5) {
             Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -374,9 +373,9 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
             if (account.id.equals(id)) {
                 getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
                 for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
-                    int accountNum = getBaseDao().onSelectAccountsByChain(baseChain).size();
+                    int accountNum = getBaseDao().getAccountsByChain(baseChain).size();
                     if (accountNum > 0) {
-                        getBaseDao().setLastUser(getBaseDao().onSelectAccountsByChain(baseChain).get(0).id);
+                        getBaseDao().setLastUser(getBaseDao().getAccountsByChain(baseChain).get(0).id);
                         break;
                     }
                 }
@@ -386,7 +385,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
             onStartMainActivity(0);
         } else {
             getBaseDao().setLastUser(-1);
-            Intent intent = new Intent(this, IntroActivity.class);
+            Intent intent = new Intent(this, SplashActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
@@ -408,7 +407,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
 
 
     public void onDisplayNotification(Intent intent) {
-        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity) && !(this instanceof AppLockActivity)) {
+        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof AppLockActivity)) {
             Banner.make(rootView, this, Banner.TOP, R.layout.foreground_push);
             mPushBody = Banner.getInstance().getBannerView().findViewById(R.id.push_body);
             ImageView pushType = Banner.getInstance().getBannerView().findViewById(R.id.push_type);
@@ -437,9 +436,9 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
 
     private void bannerClickListener(String address) {
         mPushBody.setOnClickListener(view -> {
-            Account account = getBaseDao().onSelectExistAccount2(address);
-            if (account != null) {
-                getBaseDao().setLastUser(account.id);
+            List<Account> accounts = getBaseDao().getAccountsByAddress(address);
+            if (!accounts.isEmpty()) {
+                getBaseDao().setLastUser(accounts.get(0).id);
                 onStartMainActivity(2);
             }
         });
@@ -956,7 +955,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         }
     }
 
-    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
 
     public boolean isNotificationsEnabled() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

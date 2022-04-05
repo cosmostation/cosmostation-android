@@ -277,9 +277,11 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
 
         public class MyAccountHeaderHolder extends RecyclerView.ViewHolder {
-            private CardView itemRoot;
-            private ImageView itemBtnWebLink;
-            private TextView itemStarName, itemAddressCnt, itemExpireDate;
+            private final CardView itemRoot;
+            private final ImageView itemBtnWebLink;
+            private final TextView itemStarName;
+            private final TextView itemAddressCnt;
+            private final TextView itemExpireDate;
 
             public MyAccountHeaderHolder(View v) {
                 super(v);

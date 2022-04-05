@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class OkTokenListTask extends CommonTask {
 
-    private BaseChain mChain;
+    private final BaseChain mChain;
 
     public OkTokenListTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

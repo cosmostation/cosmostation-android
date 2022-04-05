@@ -28,14 +28,15 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulKavaWithDrawCdpGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mOwner, mDepositor;
-    private Coin mCollateral;
-    private String mCollateralType;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mOwner;
+    private final String mDepositor;
+    private final Coin mCollateral;
+    private final String mCollateralType;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

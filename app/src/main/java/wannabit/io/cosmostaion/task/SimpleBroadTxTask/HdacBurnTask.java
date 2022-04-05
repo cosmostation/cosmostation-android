@@ -15,8 +15,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class HdacBurnTask extends CommonTask {
 
-    private BaseChain baseChain;
-    private String mTxHex;
+    private final BaseChain baseChain;
+    private final String mTxHex;
 
     public HdacBurnTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String txHex) {
         super(app, listener);

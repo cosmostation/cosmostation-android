@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class BnbTokenListTask extends CommonTask {
 
-    private Account mAccount;
+    private final Account mAccount;
 
     public BnbTokenListTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);

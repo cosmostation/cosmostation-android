@@ -49,7 +49,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
     private Button mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
 
     private BigDecimal mAvailableMaxAmount;
-    private int mCoinDecimal = 6;
+    private final int mCoinDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
     private QueryOuterClass.QuerySupplyOfResponse mGdexSupplyResponse;

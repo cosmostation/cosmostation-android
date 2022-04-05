@@ -9,7 +9,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
@@ -34,10 +33,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -88,7 +87,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseData {
 
-    private Context context;
+    private final Context context;
     private SharedPreferences mSharedPreferences;
     private SQLiteDatabase mSQLiteDatabase;
     public String mCopySalt;
@@ -837,8 +836,8 @@ public class BaseData {
         BaseChain mBaseChain = BaseChain.getChain(account.baseChain);
         if (!dpSortedChains().contains(mBaseChain)) {
             for (BaseChain chain : dpSortedChains()) {
-                if (onSelectAccountsByChain(chain).size() > 0) {
-                    return onSelectAccountsByChain(chain).get(0).id;
+                if (getAccountsByChain(chain).size() > 0) {
+                    return getAccountsByChain(chain).get(0).id;
                 }
             }
         }
@@ -1239,7 +1238,7 @@ public class BaseData {
         return result;
     }
 
-    public ArrayList<Account> onSelectAccountsByChain(BaseChain chain) {
+    public List<Account> getAccountsByChain(BaseChain chain) {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> accounts = onSelectAccounts();
         for (Account account : accounts) {
@@ -1320,85 +1319,56 @@ public class BaseData {
         return result;
     }
 
-    public Account onSelectExistAccount(String address, BaseChain chain) {
+    public List<Account> getAccountsByAddress(String address) {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
                 "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, "address == ?", new String[]{address}, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                Account account = new Account(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getInt(3) > 0,
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getInt(6) > 0,
-                        cursor.getString(7),
-                        cursor.getString(8),
-                        cursor.getInt(9) > 0,
-                        cursor.getString(10),
-                        cursor.getInt(11) > 0,
-                        cursor.getInt(12),
-                        cursor.getInt(13),
-                        cursor.getLong(14),
-                        cursor.getInt(15),
-                        cursor.getLong(16),
-                        cursor.getString(17),
-                        cursor.getLong(18),
-                        cursor.getInt(19) > 0,
-                        cursor.getInt(20) > 0,
-                        cursor.getInt(21)
-                );
-                account.setBalances(onSelectBalance(account.id));
-                result.add(account);
-            } while (cursor.moveToNext());
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    Account account = new Account(
+                            cursor.getLong(0),
+                            cursor.getString(1),
+                            cursor.getString(2),
+                            cursor.getInt(3) > 0,
+                            cursor.getString(4),
+                            cursor.getString(5),
+                            cursor.getInt(6) > 0,
+                            cursor.getString(7),
+                            cursor.getString(8),
+                            cursor.getInt(9) > 0,
+                            cursor.getString(10),
+                            cursor.getInt(11) > 0,
+                            cursor.getInt(12),
+                            cursor.getInt(13),
+                            cursor.getLong(14),
+                            cursor.getInt(15),
+                            cursor.getLong(16),
+                            cursor.getString(17),
+                            cursor.getLong(18),
+                            cursor.getInt(19) > 0,
+                            cursor.getInt(20) > 0,
+                            cursor.getInt(21)
+                    );
+                    account.setBalances(onSelectBalance(account.id));
+                    result.add(account);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
         }
-        cursor.close();
+        return result;
+    }
 
+
+    public Account onSelectExistAccount(String address, BaseChain chain) {
+        List<Account> result = getAccountsByAddress(address);
         for (Account account : result) {
             if (chain.equals(BaseChain.getChain(account.baseChain))) {
                 return account;
             }
         }
         return null;
-    }
-
-    public Account onSelectExistAccount2(String address) {
-        Account result = null;
-        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
-                "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, "address == ?", new String[]{address}, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            result = new Account(
-                    cursor.getLong(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getInt(3) > 0,
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getInt(6) > 0,
-                    cursor.getString(7),
-                    cursor.getString(8),
-                    cursor.getInt(9) > 0,
-                    cursor.getString(10),
-                    cursor.getInt(11) > 0,
-                    cursor.getInt(12),
-                    cursor.getInt(13),
-                    cursor.getLong(14),
-                    cursor.getInt(15),
-                    cursor.getLong(16),
-                    cursor.getString(17),
-                    cursor.getLong(18),
-                    cursor.getInt(19) > 0,
-                    cursor.getInt(20) > 0,
-                    cursor.getInt(21)
-            );
-            result.setBalances(onSelectBalance(result.id));
-        }
-        cursor.close();
-        return result;
     }
 
     public long onInsertAccount(Account account) {
@@ -1496,8 +1466,8 @@ public class BaseData {
     }
 
     //set custompath 118 - > 0,
-    public void upgradeAaccountAddressforPath() {
-        ArrayList<Account> allOKAccounts = onSelectAccountsByChain(OKEX_MAIN);
+    public void upgradeAccountAddressForPath() {
+        List<Account> allOKAccounts = getAccountsByChain(OKEX_MAIN);
         // update address with "0x" Eth style
         for (Account account : allOKAccounts) {
             if (account.newBip44 && account.customPath == 0) {
@@ -1513,7 +1483,7 @@ public class BaseData {
             }
         }
 
-        allOKAccounts = onSelectAccountsByChain(OKEX_MAIN);
+        allOKAccounts = getAccountsByChain(OKEX_MAIN);
         for (Account account : allOKAccounts) {
             if (account.address.startsWith("ex")) {
                 try {
@@ -1526,7 +1496,7 @@ public class BaseData {
         }
 
         //set custompath 118 -> 0, 529 -> 1
-        ArrayList<Account> allSecretAccount = onSelectAccountsByChain(SECRET_MAIN);
+        List<Account> allSecretAccount = getAccountsByChain(SECRET_MAIN);
         for (Account account : allSecretAccount) {
             if (account.fromMnemonic) {
                 if (account.newBip44 && account.customPath != 1) {
@@ -1541,7 +1511,7 @@ public class BaseData {
         }
 
         //set custompath 118 -> 0, 459 -> 1
-        ArrayList<Account> allKavaAccount = onSelectAccountsByChain(KAVA_MAIN);
+        List<Account> allKavaAccount = getAccountsByChain(KAVA_MAIN);
         for (Account account : allKavaAccount) {
             if (account.fromMnemonic) {
                 if (account.newBip44 && account.customPath != 1) {
@@ -1556,7 +1526,7 @@ public class BaseData {
         }
 
         //set custompath 118 -> 0, 880 -> 1
-        ArrayList<Account> allLumAccount = onSelectAccountsByChain(LUM_MAIN);
+        List<Account> allLumAccount = getAccountsByChain(LUM_MAIN);
         for (Account account : allLumAccount) {
             if (account.fromMnemonic) {
                 if (account.newBip44 && account.customPath != 1) {

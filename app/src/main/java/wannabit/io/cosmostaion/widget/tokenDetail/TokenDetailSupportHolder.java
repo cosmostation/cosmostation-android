@@ -33,26 +33,26 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenDetailSupportHolder extends BaseHolder {
-    private CardView mAmountView;
-    private TextView mTvTotal;
-    private TextView mTvAvailable;
-    private RelativeLayout mLockedLayout;
-    private TextView mTvLocked;
-    private RelativeLayout mFrozenLayout;
-    private TextView mTvFrozen;
-    private RelativeLayout mVestingLayout;
-    private TextView mTvVesting;
+    private final CardView mAmountView;
+    private final TextView mTvTotal;
+    private final TextView mTvAvailable;
+    private final RelativeLayout mLockedLayout;
+    private final TextView mTvLocked;
+    private final RelativeLayout mFrozenLayout;
+    private final TextView mTvFrozen;
+    private final RelativeLayout mVestingLayout;
+    private final TextView mTvVesting;
 
     // nft
-    private CardView mNftInfo;
-    private TextView mNftName;
-    private TextView mNftContent;
-    private TextView mNftDenomId;
-    private TextView mNftTokenId;
-    private TextView mNftIssuer;
+    private final CardView mNftInfo;
+    private final TextView mNftName;
+    private final TextView mNftContent;
+    private final TextView mNftDenomId;
+    private final TextView mNftTokenId;
+    private final TextView mNftIssuer;
 
-    private CardView mNftRawRoot;
-    private TextView mNftRawData;
+    private final CardView mNftRawRoot;
+    private final TextView mNftRawData;
 
     private int dpDecimal = 6;
     private BigDecimal mAvailableAmount = BigDecimal.ZERO;

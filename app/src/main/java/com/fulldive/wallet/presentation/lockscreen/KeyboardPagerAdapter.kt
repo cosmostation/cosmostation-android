@@ -33,7 +33,6 @@ class KeyboardPagerAdapter(
     }
 
     override fun getCount(): Int {
-        WLog.w("getCount: " + fragments.size)
         return fragments.size
     }
 }

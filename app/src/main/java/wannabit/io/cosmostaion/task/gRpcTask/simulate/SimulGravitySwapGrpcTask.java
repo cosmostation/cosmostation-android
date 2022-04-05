@@ -28,16 +28,17 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulGravitySwapGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private long mPoolId;
-    private int mTypeId;
-    private Coin mOfferCoin, mCoinFee;
-    private String mDemandCoinDenom;
-    private String mOrderPrice;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final long mPoolId;
+    private final int mTypeId;
+    private final Coin mOfferCoin;
+    private final Coin mCoinFee;
+    private final String mDemandCoinDenom;
+    private final String mOrderPrice;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

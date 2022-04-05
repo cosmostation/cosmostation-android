@@ -54,19 +54,21 @@ public class BaseApplication extends Application implements IInjectorHolder {
     }
 
     public boolean needShowLockScreen() {
+        final BaseData baseData = getBaseDao();
         if (!isReturnedForeground() ||
-                !getBaseDao().onHasPassword() ||
-                !getBaseDao().getUsingAppLock() ||
-                (getBaseDao().onSelectAccounts().size() <= 0)) return false;
+                !baseData.onHasPassword() ||
+                !baseData.getUsingAppLock() ||
+                (baseData.onSelectAccounts().size() <= 0)) return false;
 
-        if (getBaseDao().getAppLockTriggerTime() == 0) {
-            return true;
-        } else if (getBaseDao().getAppLockTriggerTime() == 1) {
-            return (getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_10S) < System.currentTimeMillis();
-        } else if (getBaseDao().getAppLockTriggerTime() == 2) {
-            return (getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_30S) < System.currentTimeMillis();
-        } else if (getBaseDao().getAppLockTriggerTime() == 3) {
-            return (getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_M) < System.currentTimeMillis();
+        switch (baseData.getAppLockTriggerTime()) {
+            case 0:
+                return true;
+            case 1:
+                return (baseData.getAppLockLeaveTime() + BaseConstant.CONSTANT_10S) < System.currentTimeMillis();
+            case 2:
+                return (baseData.getAppLockLeaveTime() + BaseConstant.CONSTANT_30S) < System.currentTimeMillis();
+            case 3:
+                return (baseData.getAppLockLeaveTime() + BaseConstant.CONSTANT_M) < System.currentTimeMillis();
         }
         return true;
     }
@@ -80,7 +82,7 @@ public class BaseApplication extends Application implements IInjectorHolder {
     public enum AppStatus {
         BACKGROUND,
         RETURNED_TO_FOREGROUND,
-        FOREGROUND;
+        FOREGROUND
     }
 
     public class LifecycleCallbacks implements ActivityLifecycleCallbacks {

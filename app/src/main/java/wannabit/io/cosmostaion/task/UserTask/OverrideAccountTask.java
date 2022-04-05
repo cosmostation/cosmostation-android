@@ -15,8 +15,8 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class OverrideAccountTask extends CommonTask {
-    private Account mAccount;
-    private int mCustomPath;
+    private final Account mAccount;
+    private final int mCustomPath;
 
     public OverrideAccountTask(BaseApplication app, Account account, TaskListener listener, int customPath) {
         super(app, listener);

@@ -43,8 +43,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class HtlcClaimTask extends CommonTask {
 
     private Account mReceiveAccount;
-    private BaseChain mReceiveChain;
-    private Fee mClaimFee;
+    private final BaseChain mReceiveChain;
+    private final Fee mClaimFee;
     private String mExpectedSwapId;
     private String mRandomNumber;
 

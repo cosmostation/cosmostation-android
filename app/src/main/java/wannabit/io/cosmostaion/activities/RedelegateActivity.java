@@ -193,8 +193,8 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
                 WUtil.onSortByValidatorPowerV1(mGRpcTopValidators);
 
             } else {
-                                    new Exception().printStackTrace();
-                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                new Exception().printStackTrace();
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -207,7 +207,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
     private class RedelegatePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public RedelegatePageAdapter(FragmentManager fm) {

@@ -160,7 +160,7 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
 
     private class UnBondingPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public UnBondingPageAdapter(FragmentManager fm) {

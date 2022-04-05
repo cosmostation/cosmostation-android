@@ -23,7 +23,7 @@ public class WalletSwitchActivity extends BaseActivity {
 
     private BaseChain mSelectedChain;
     private ArrayList<BaseChain> mExpendedChains = new ArrayList<>();
-    private ArrayList<ChainAccounts> mChainAccounts = new ArrayList<>();
+    private final ArrayList<ChainAccounts> mChainAccounts = new ArrayList<>();
 
     private ImageView mBtnClose;
 
@@ -57,9 +57,9 @@ public class WalletSwitchActivity extends BaseActivity {
 
         for (BaseChain chain : mDisplayChains) {
             if (mExpendedChains.contains(chain) || mSelectedChain.equals(chain)) {
-                mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().onSelectAccountsByChain(chain)));
+                mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().getAccountsByChain(chain)));
             } else {
-                mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain)));
+                mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().getAccountsByChain(chain)));
             }
         }
         mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));

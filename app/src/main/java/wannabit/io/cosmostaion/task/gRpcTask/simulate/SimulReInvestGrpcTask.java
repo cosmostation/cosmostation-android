@@ -28,13 +28,13 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulReInvestGrpcTask extends CommonTask {
 
-    private BaseChain mBaseChain;
-    private Account mAccount;
-    private String mValidatorAddress;
-    private Coin mReInvestAmount;
-    private String mReInvestMemo;
-    private Fee mReInvestFees;
-    private String mChainId;
+    private final BaseChain mBaseChain;
+    private final Account mAccount;
+    private final String mValidatorAddress;
+    private final Coin mReInvestAmount;
+    private final String mReInvestMemo;
+    private final Fee mReInvestFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

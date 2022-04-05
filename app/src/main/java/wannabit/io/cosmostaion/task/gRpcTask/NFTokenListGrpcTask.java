@@ -22,15 +22,15 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class NFTokenListGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private ByteString mPageKey;
+    private final BaseChain mChain;
+    private final Account mAccount;
+    private final ByteString mPageKey;
 
-    private ArrayList<Nft.IDCollection> mIrisResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mIrisStub;
+    private final ArrayList<Nft.IDCollection> mIrisResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mIrisStub;
 
-    private ArrayList<chainmain.nft.v1.Nft.IDCollection> mCryptoResultData = new ArrayList<>();
-    private chainmain.nft.v1.QueryGrpc.QueryBlockingStub mCryptoStub;
+    private final ArrayList<chainmain.nft.v1.Nft.IDCollection> mCryptoResultData = new ArrayList<>();
+    private final chainmain.nft.v1.QueryGrpc.QueryBlockingStub mCryptoStub;
 
     public NFTokenListGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account, ByteString pageKey) {
         super(app, listener);

@@ -162,7 +162,7 @@ public class WithDrawPoolActivity extends BaseBroadCastActivity {
 
     private class WithDrawPoolPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public WithDrawPoolPageAdapter(FragmentManager fm) {

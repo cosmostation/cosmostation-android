@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class StationPriceInfoTask extends CommonTask {
 
-    private BaseChain mBaseChain;
+    private final BaseChain mBaseChain;
 
     public StationPriceInfoTask(BaseApplication app, TaskListener listener, BaseChain baseChain) {
         super(app, listener);

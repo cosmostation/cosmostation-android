@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaIncentiveParamTask extends CommonTask {
 
-    private BaseChain mChain;
+    private final BaseChain mChain;
 
     public KavaIncentiveParamTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

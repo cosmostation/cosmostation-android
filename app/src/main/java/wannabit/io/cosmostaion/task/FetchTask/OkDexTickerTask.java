@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class OkDexTickerTask extends CommonTask {
 
-    private BaseChain mChain;
+    private final BaseChain mChain;
 
     public OkDexTickerTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

@@ -21,8 +21,12 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class HistoryOldHolder extends BaseHolder {
-    private CardView historyRoot;
-    private TextView historyType, historySuccess, history_time, history_block, history_time_gap;
+    private final CardView historyRoot;
+    private final TextView historyType;
+    private final TextView historySuccess;
+    private final TextView history_time;
+    private final TextView history_block;
+    private final TextView history_time_gap;
 
     public HistoryOldHolder(@NonNull @NotNull View itemView) {
         super(itemView);

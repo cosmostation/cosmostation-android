@@ -15,8 +15,8 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class GenerateAccountTask extends CommonTask {
-    private BaseChain mBaseChain;
-    private int mCustomPath;
+    private final BaseChain mBaseChain;
+    private final int mCustomPath;
 
     private ArrayList<BaseChain> mHideChains = new ArrayList<>();
 

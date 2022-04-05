@@ -121,21 +121,21 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
 
     private RecyclerViewHeader mRecyclerViewHeader;
 
-    private ArrayList<Coin> mNativeGrpc = new ArrayList<>();
-    private ArrayList<Coin> mIbcAuthedGrpc = new ArrayList<>();
-    private ArrayList<Coin> mOsmosisPoolGrpc = new ArrayList<>();
-    private ArrayList<Coin> mEtherGrpc = new ArrayList<>();
-    private ArrayList<Coin> mIbcUnknownGrpc = new ArrayList<>();
-    private ArrayList<Coin> mGravityDexGrpc = new ArrayList<>();
-    private ArrayList<Coin> mInjectivePoolGrpc = new ArrayList<>();
-    private ArrayList<Coin> mKavaBep2Grpc = new ArrayList<>();
-    private ArrayList<Coin> mEtcGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mNativeGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mIbcAuthedGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mOsmosisPoolGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mEtherGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mIbcUnknownGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mGravityDexGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mInjectivePoolGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mKavaBep2Grpc = new ArrayList<>();
+    private final ArrayList<Coin> mEtcGrpc = new ArrayList<>();
     private ArrayList<Cw20Assets> mCW20Grpc = new ArrayList<>();
-    private ArrayList<Coin> mUnknownGrpc = new ArrayList<>();
+    private final ArrayList<Coin> mUnknownGrpc = new ArrayList<>();
 
-    private ArrayList<Balance> mNative = new ArrayList<>();
-    private ArrayList<Balance> mEtc = new ArrayList<>();
-    private ArrayList<Balance> mUnKnown = new ArrayList<>();
+    private final ArrayList<Balance> mNative = new ArrayList<>();
+    private final ArrayList<Balance> mEtc = new ArrayList<>();
+    private final ArrayList<Balance> mUnKnown = new ArrayList<>();
 
     private Account mAccount;
     private BaseChain mBaseChain;
@@ -172,11 +172,7 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
         });
 
         mRecyclerView.setOnTouchListener((View view, MotionEvent motionEvent) -> {
-            if (mSwipeRefreshLayout.isRefreshing()) {
-                return true;
-            } else {
-                return false;
-            }
+            return mSwipeRefreshLayout.isRefreshing();
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -726,9 +722,13 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
         }
 
         public class AssetHolder extends RecyclerView.ViewHolder {
-            private CardView itemRoot;
-            private ImageView itemImg;
-            private TextView itemSymbol, itemInnerSymbol, itemFullName, itemBalance, itemValue;
+            private final CardView itemRoot;
+            private final ImageView itemImg;
+            private final TextView itemSymbol;
+            private final TextView itemInnerSymbol;
+            private final TextView itemFullName;
+            private final TextView itemBalance;
+            private final TextView itemValue;
 
             public AssetHolder(View v) {
                 super(v);
@@ -1197,8 +1197,8 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
 
             if (headerView == null) {
                 headerView = inflateHeaderView(parent);
-                mHeaderTitle = (TextView) headerView.findViewById(R.id.header_title);
-                mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
+                mHeaderTitle = headerView.findViewById(R.id.header_title);
+                mItemCnt = headerView.findViewById(R.id.recycler_cnt);
                 fixLayoutSize(headerView, parent);
             }
 

@@ -26,12 +26,13 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletPriceHolder extends BaseHolder {
-    private CardView itemRoot;
-    private TextView itemPerPrice, itemUpDownPrice;
-    private ImageView itemUpDownImg;
-    private LinearLayout itemBuyLayer;
-    private RelativeLayout itemBuyCoinBtn;
-    private TextView itemBuyCoinTv;
+    private final CardView itemRoot;
+    private final TextView itemPerPrice;
+    private final TextView itemUpDownPrice;
+    private final ImageView itemUpDownImg;
+    private final LinearLayout itemBuyLayer;
+    private final RelativeLayout itemBuyCoinBtn;
+    private final TextView itemBuyCoinTv;
 
     public WalletPriceHolder(@NonNull View itemView) {
         super(itemView);

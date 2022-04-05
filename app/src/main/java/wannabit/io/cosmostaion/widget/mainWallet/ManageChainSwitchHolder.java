@@ -25,51 +25,52 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class ManageChainSwitchHolder extends BaseHolder {
-    private CardView accountCard;
-    private RelativeLayout accountSelect;
-    private ImageView accountChainImg;
-    private TextView accountChainName, accountWalletCnt;
-    private LinearLayout hiddenView;
+    private final CardView accountCard;
+    private final RelativeLayout accountSelect;
+    private final ImageView accountChainImg;
+    private final TextView accountChainName;
+    private final TextView accountWalletCnt;
+    private final LinearLayout hiddenView;
 
-    private CardView walletCard0;
-    private RelativeLayout walletLayout0;
-    private ImageView walletKeyState0;
-    private TextView walletName0;
-    private TextView walletAddress0;
-    private TextView walletAvailable0;
-    private TextView walletDenom0;
+    private final CardView walletCard0;
+    private final RelativeLayout walletLayout0;
+    private final ImageView walletKeyState0;
+    private final TextView walletName0;
+    private final TextView walletAddress0;
+    private final TextView walletAvailable0;
+    private final TextView walletDenom0;
 
-    private CardView walletCard1;
-    private RelativeLayout walletLayout1;
-    private ImageView walletKeyState1;
-    private TextView walletName1;
-    private TextView walletAddress1;
-    private TextView walletAvailable1;
-    private TextView walletDenom1;
+    private final CardView walletCard1;
+    private final RelativeLayout walletLayout1;
+    private final ImageView walletKeyState1;
+    private final TextView walletName1;
+    private final TextView walletAddress1;
+    private final TextView walletAvailable1;
+    private final TextView walletDenom1;
 
-    private CardView walletCard2;
-    private RelativeLayout walletLayout2;
-    private ImageView walletKeyState2;
-    private TextView walletName2;
-    private TextView walletAddress2;
-    private TextView walletAvailable2;
-    private TextView walletDenom2;
+    private final CardView walletCard2;
+    private final RelativeLayout walletLayout2;
+    private final ImageView walletKeyState2;
+    private final TextView walletName2;
+    private final TextView walletAddress2;
+    private final TextView walletAvailable2;
+    private final TextView walletDenom2;
 
-    private CardView walletCard3;
-    private RelativeLayout walletLayout3;
-    private ImageView walletKeyState3;
-    private TextView walletName3;
-    private TextView walletAddress3;
-    private TextView walletAvailable3;
-    private TextView walletDenom3;
+    private final CardView walletCard3;
+    private final RelativeLayout walletLayout3;
+    private final ImageView walletKeyState3;
+    private final TextView walletName3;
+    private final TextView walletAddress3;
+    private final TextView walletAvailable3;
+    private final TextView walletDenom3;
 
-    private CardView walletCard4;
-    private RelativeLayout walletLayout4;
-    private ImageView walletKeyState4;
-    private TextView walletName4;
-    private TextView walletAddress4;
-    private TextView walletAvailable4;
-    private TextView walletDenom4;
+    private final CardView walletCard4;
+    private final RelativeLayout walletLayout4;
+    private final ImageView walletKeyState4;
+    private final TextView walletName4;
+    private final TextView walletAddress4;
+    private final TextView walletAvailable4;
+    private final TextView walletDenom4;
 
     public ManageChainSwitchHolder(@NonNull @NotNull View itemView) {
         super(itemView);

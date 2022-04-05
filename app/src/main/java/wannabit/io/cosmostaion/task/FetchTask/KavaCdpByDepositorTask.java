@@ -12,9 +12,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaCdpByDepositorTask extends CommonTask {
-    private BaseChain mChain;
-    private String mAddress;
-    private String mCollateralType;
+    private final BaseChain mChain;
+    private final String mAddress;
+    private final String mCollateralType;
 
     public KavaCdpByDepositorTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, String collateralType) {
         super(app, listener);

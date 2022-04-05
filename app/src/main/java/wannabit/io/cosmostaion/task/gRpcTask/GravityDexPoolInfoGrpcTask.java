@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class GravityDexPoolInfoGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private long mPoolId;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final long mPoolId;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public GravityDexPoolInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, long poolId) {
         super(app, listener);
@@ -26,7 +26,6 @@ public class GravityDexPoolInfoGrpcTask extends CommonTask {
         this.mPoolId = poolId;
         this.result.taskType = TASK_GRPC_FETCH_GRAVITY_POOL_INFO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
     }
 
     @Override

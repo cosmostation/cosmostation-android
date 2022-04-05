@@ -30,6 +30,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.stub.StreamObserver;
@@ -59,7 +60,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     private LinearLayout mBtnQr, mBtnPaste, mBtnWallet;
 
     private BaseChain mTochain;
-    private ArrayList<Account> mToAccountList;
+    private List<Account> mToAccountList;
     private Account mToAccount;
 
     public static IBCSendStep1Fragment newInstance(Bundle bundle) {
@@ -127,7 +128,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         mTochain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
-        mToAccountList = getBaseDao().onSelectAccountsByChain(mTochain);
+        mToAccountList = getBaseDao().getAccountsByChain(mTochain);
         WDp.getChainHint(mTochain, mDesitination);
         mDesitination.setTextColor(WDp.getChainColor(getSActivity(), mTochain));
         String userInput = mAddressInput.getText().toString().trim();

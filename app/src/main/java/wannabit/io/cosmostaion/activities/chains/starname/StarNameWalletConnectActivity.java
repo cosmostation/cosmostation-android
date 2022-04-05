@@ -157,7 +157,7 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
             Toast.makeText(getBaseContext(), R.string.error_no_address_export, Toast.LENGTH_SHORT).show();
         } else {
             Bundle bundle = new Bundle();
-            WLog.w("Bundle " + String.valueOf(toExport.addresses.size()));
+            WLog.w("Bundle " + toExport.addresses.size());
             bundle.putString("msg", String.valueOf(toExport.addresses.size()));
             bundle.putString("jsonData", jsonData);
             Dialog_StarName_Export_Confirm exportDialog = Dialog_StarName_Export_Confirm.newInstance(bundle);

@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 public class MoonPayTask extends CommonTask {
 
-    private String mQuery;
+    private final String mQuery;
 
     public MoonPayTask(BaseApplication app, TaskListener listener, String query) {
         super(app, listener);

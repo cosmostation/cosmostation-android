@@ -32,9 +32,9 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class SimpleHtlcRefundTask extends CommonTask {
 
     private Account mAccount;
-    private String mSwapId;
-    private String mMemo;
-    private Fee mFees;
+    private final String mSwapId;
+    private final String mMemo;
+    private final Fee mFees;
 
     public SimpleHtlcRefundTask(BaseApplication app, TaskListener listener,
                                 Account account, String swapid, String memo, Fee fees) {

@@ -32,10 +32,10 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SimpleOkDirectVoteTask extends CommonTask {
 
-    private Account mAccount;
-    private ArrayList<String> mToValidators;
-    private String mMemo;
-    private Fee mFees;
+    private final Account mAccount;
+    private final ArrayList<String> mToValidators;
+    private final String mMemo;
+    private final Fee mFees;
 
     public SimpleOkDirectVoteTask(BaseApplication app, TaskListener listener, Account account, ArrayList<String> toVals, String memo, Fee fees) {
         super(app, listener);

@@ -61,7 +61,6 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
         mPageAdapter = new HorizonPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(1);
         mViewPager.setAdapter(mPageAdapter);
-        ;
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -144,7 +143,7 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
 
     private class HorizonPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public HorizonPageAdapter(FragmentManager fm) {

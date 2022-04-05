@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class DesmosProfileGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mDtag;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final String mDtag;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public DesmosProfileGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String dtag) {
         super(app, listener);

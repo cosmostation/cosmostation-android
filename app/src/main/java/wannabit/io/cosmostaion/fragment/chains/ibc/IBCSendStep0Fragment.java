@@ -219,7 +219,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         }, 610);
     }
 
-    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

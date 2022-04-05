@@ -181,7 +181,7 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
 
     private class WithdrawCdpPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public WithdrawCdpPageAdapter(FragmentManager fm) {

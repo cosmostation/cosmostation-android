@@ -300,7 +300,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     private class ValidatorPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public ValidatorPageAdapter(FragmentManager fm) {

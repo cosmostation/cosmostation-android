@@ -17,9 +17,9 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaMarketPriceTokenGrpcTask extends CommonTask {
 
-    private BaseChain mChain;
-    private String mMarketId;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final String mMarketId;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public KavaMarketPriceTokenGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String marketId) {
         super(app, listener);

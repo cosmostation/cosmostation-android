@@ -28,13 +28,15 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulOsmosisExitPoolGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private long mPoolId;
-    private String mShareAmount, mMemo;
-    private Coin mWithdraw0Coin, mWithdraw1Coin;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final long mPoolId;
+    private final String mShareAmount;
+    private final String mMemo;
+    private final Coin mWithdraw0Coin;
+    private final Coin mWithdraw1Coin;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

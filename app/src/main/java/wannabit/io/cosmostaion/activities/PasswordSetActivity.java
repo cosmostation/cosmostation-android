@@ -203,7 +203,7 @@ public class PasswordSetActivity extends BaseActivity implements ITimelessActivi
 
     public class KeyboardPagerAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<KeyboardFragment> fragments = new ArrayList<>();
+        private final ArrayList<KeyboardFragment> fragments = new ArrayList<>();
 
         public KeyboardPagerAdapter(FragmentManager fm) {
             super(fm);

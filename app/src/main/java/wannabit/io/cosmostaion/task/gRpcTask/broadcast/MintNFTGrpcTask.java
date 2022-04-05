@@ -31,15 +31,18 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class MintNFTGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mSigner;
-    private String mDenomId, mDenomName;
-    private String mId, mName, mUri;
-    private String mData;
-    private Fee mFees;
-    private String mMemo;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mSigner;
+    private final String mDenomId;
+    private final String mDenomName;
+    private final String mId;
+    private final String mName;
+    private final String mUri;
+    private final String mData;
+    private final Fee mFees;
+    private final String mMemo;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

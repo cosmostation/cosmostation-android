@@ -16,15 +16,14 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class StakingPoolGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public StakingPoolGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
         this.result.taskType = TASK_GRPC_FETCH_STAKING_POOL;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
     }
 
     @Override

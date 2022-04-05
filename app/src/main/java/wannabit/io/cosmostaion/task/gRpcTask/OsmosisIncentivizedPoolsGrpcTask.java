@@ -17,9 +17,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class OsmosisIncentivizedPoolsGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private QueryGrpc.QueryBlockingStub mStub;
-    private ArrayList<QueryOuterClass.IncentivizedPool> mResultData = new ArrayList<>();
+    private final BaseChain mChain;
+    private final QueryGrpc.QueryBlockingStub mStub;
+    private final ArrayList<QueryOuterClass.IncentivizedPool> mResultData = new ArrayList<>();
 
     public OsmosisIncentivizedPoolsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

@@ -16,10 +16,10 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxTaskResponseHolder extends TxHolder {
-    private ImageView itemTaskResponseImg;
-    private TextView itemTaskResponseOperator;
-    private TextView itemTaskResponseContract;
-    private TextView itemTaskResponseScore;
+    private final ImageView itemTaskResponseImg;
+    private final TextView itemTaskResponseOperator;
+    private final TextView itemTaskResponseContract;
+    private final TextView itemTaskResponseScore;
 
     public TxTaskResponseHolder(@NonNull View itemView) {
         super(itemView);

@@ -28,15 +28,16 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulKavaSwapGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mRequester;
-    private Coin mSwapIn, mSwapOut;
-    private String mSlippage;
-    private long mDeadline;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mRequester;
+    private final Coin mSwapIn;
+    private final Coin mSwapOut;
+    private final String mSlippage;
+    private final long mDeadline;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

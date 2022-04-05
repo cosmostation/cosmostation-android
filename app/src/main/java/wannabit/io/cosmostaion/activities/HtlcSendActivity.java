@@ -211,7 +211,7 @@ public class HtlcSendActivity extends BaseActivity {
 
     private class HtlcSendPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public HtlcSendPageAdapter(FragmentManager fm) {

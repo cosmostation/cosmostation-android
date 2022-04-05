@@ -36,7 +36,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
     private HideListAdapter mHideListAdapter;
     private ItemTouchHelper mItemTouchHelper;
 
-    private ArrayList<BaseChain> mAllChains = new ArrayList<>();
+    private final ArrayList<BaseChain> mAllChains = new ArrayList<>();
     private ArrayList<BaseChain> mDisplayChains = new ArrayList<>();
     private ArrayList<BaseChain> mHideChains = new ArrayList<>();
 
@@ -124,11 +124,11 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
             holder.chainName.setText(chain.getChainAlterTitle());
 
             holder.chainRemoveImg.setOnClickListener(v -> {
-                if (getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN).size() <= 0) {
+                if (getBaseDao().getAccountsByChain(BaseChain.COSMOS_MAIN).size() <= 0) {
                     int dpAccountSum = 0;
                     for (BaseChain baseChain : mDisplayChains) {
                         if (!baseChain.equals(chain)) {
-                            dpAccountSum = dpAccountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
+                            dpAccountSum = dpAccountSum + getBaseDao().getAccountsByChain(baseChain).size();
                         }
                     }
                     if (dpAccountSum <= 0) {

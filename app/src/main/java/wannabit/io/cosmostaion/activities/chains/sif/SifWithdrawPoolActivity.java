@@ -156,7 +156,7 @@ public class SifWithdrawPoolActivity extends BaseBroadCastActivity {
 
     private class ExitPoolPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public ExitPoolPageAdapter(FragmentManager fm) {

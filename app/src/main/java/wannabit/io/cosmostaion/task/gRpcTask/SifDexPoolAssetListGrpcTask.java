@@ -19,10 +19,10 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 
 public class SifDexPoolAssetListGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mAddress;
-    private ArrayList<Types.Asset> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final String mAddress;
+    private final ArrayList<Types.Asset> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public SifDexPoolAssetListGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
         super(app, listener);

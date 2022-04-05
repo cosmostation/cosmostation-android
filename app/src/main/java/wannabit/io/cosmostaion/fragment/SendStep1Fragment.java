@@ -46,7 +46,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    private ArrayList<Coin> mToSendCoins = new ArrayList<>();
+    private final ArrayList<Coin> mToSendCoins = new ArrayList<>();
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 

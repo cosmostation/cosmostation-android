@@ -34,8 +34,8 @@ public class MnemonicCheckActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private CardView mMnemonicLayer;
-    private LinearLayout[] mWordsLayer = new LinearLayout[24];
-    private TextView[] mTvWords = new TextView[24];
+    private final LinearLayout[] mWordsLayer = new LinearLayout[24];
+    private final TextView[] mTvWords = new TextView[24];
     private Button mCopy, mOk;
 
     private String mEntropy;

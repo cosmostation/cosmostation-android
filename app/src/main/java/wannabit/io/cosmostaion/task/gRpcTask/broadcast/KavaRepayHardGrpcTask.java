@@ -31,13 +31,14 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaRepayHardGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mSender, mOwner;
-    private ArrayList<Coin> mRepayCoins;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mSender;
+    private final String mOwner;
+    private final ArrayList<Coin> mRepayCoins;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

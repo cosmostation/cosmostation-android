@@ -29,7 +29,6 @@ public class AllRewardGrpcTask extends CommonTask {
         this.mAccount = account;
         this.result.taskType = TASK_GRPC_FETCH_ALL_REWARDS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(chain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
     }
 
     @Override

@@ -17,10 +17,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxCreateTaskHolder extends TxHolder {
-    private ImageView itemCreateTaskImg;
-    private TextView itemCreateTaskCreator;
-    private TextView itemCreateTaskContract;
-    private TextView itemCreateTaskBountryAmount, itemCreateTaskBountrySymbol;
+    private final ImageView itemCreateTaskImg;
+    private final TextView itemCreateTaskCreator;
+    private final TextView itemCreateTaskContract;
+    private final TextView itemCreateTaskBountryAmount;
+    private final TextView itemCreateTaskBountrySymbol;
 
     public TxCreateTaskHolder(@NonNull View itemView) {
         super(itemView);

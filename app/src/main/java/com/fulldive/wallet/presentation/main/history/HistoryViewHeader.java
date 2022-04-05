@@ -37,7 +37,7 @@ public class HistoryViewHeader extends RecyclerView.ItemDecoration {
 
         if (headerView == null) {
             headerView = inflateHeaderView(parent);
-            mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
+            mItemCnt = headerView.findViewById(R.id.recycler_cnt);
             fixLayoutSize(headerView, parent);
         }
         mItemCnt.setText(String.format(Locale.ENGLISH, "%d", state.getItemCount()));

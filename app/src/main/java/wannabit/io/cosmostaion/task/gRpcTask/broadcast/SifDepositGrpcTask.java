@@ -29,12 +29,15 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SifDepositGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mSigner;
-    private String mExternalDemon, mNativeAmount, mExternalAmount, mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mSigner;
+    private final String mExternalDemon;
+    private final String mNativeAmount;
+    private final String mExternalAmount;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

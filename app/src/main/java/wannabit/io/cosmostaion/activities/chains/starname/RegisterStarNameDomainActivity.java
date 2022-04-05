@@ -158,7 +158,7 @@ public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
 
     private class RegisterDomainPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public RegisterDomainPageAdapter(FragmentManager fm) {

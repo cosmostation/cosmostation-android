@@ -17,10 +17,10 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class SifDexMyProviderGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private String mDenom;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final Account mAccount;
+    private final String mDenom;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public SifDexMyProviderGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account, String denom) {
         super(app, listener);

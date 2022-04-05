@@ -53,7 +53,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     private Button mBtnDone;
 
     private ArrayList<RizonSwapStatus> mRizonSwapStatus = new ArrayList<>();
-    private ArrayList<HdacTxInfo> mHdacTxInfos = new ArrayList<>();
+    private final ArrayList<HdacTxInfo> mHdacTxInfos = new ArrayList<>();
 
     private EventHorizonStatusAdapter mEventHorizonStatusAdapter;
 
@@ -207,12 +207,21 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         }
 
         public class StatusHolder extends RecyclerView.ViewHolder {
-            private LinearLayout mHdacRoot, mRizonRoot;
-            private TextView swap_result_status, swap_result_time, swap_result_id;
-            private ImageView swap_hdac_status_icon;
-            private TextView swap_hdac_status, swap_burn_from_address, swap_burn_tx_hash, swap_burn_amount;
-            private ImageView swap_rizon_status_icon;
-            private TextView swap_rizon_to_Address, swap_rizon_status, swap_rizon_status_tx_hash, swap_rizon_status_mint_amount;
+            private final LinearLayout mHdacRoot;
+            private final LinearLayout mRizonRoot;
+            private final TextView swap_result_status;
+            private final TextView swap_result_time;
+            private final TextView swap_result_id;
+            private final ImageView swap_hdac_status_icon;
+            private final TextView swap_hdac_status;
+            private final TextView swap_burn_from_address;
+            private final TextView swap_burn_tx_hash;
+            private final TextView swap_burn_amount;
+            private final ImageView swap_rizon_status_icon;
+            private final TextView swap_rizon_to_Address;
+            private final TextView swap_rizon_status;
+            private final TextView swap_rizon_status_tx_hash;
+            private final TextView swap_rizon_status_mint_amount;
 
             public StatusHolder(@NonNull View itemView) {
                 super(itemView);

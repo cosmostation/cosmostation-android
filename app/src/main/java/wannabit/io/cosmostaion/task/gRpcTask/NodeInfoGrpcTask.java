@@ -16,8 +16,8 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class NodeInfoGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private ServiceGrpc.ServiceBlockingStub mStub;
+    private final BaseChain mChain;
+    private final ServiceGrpc.ServiceBlockingStub mStub;
 
     public NodeInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

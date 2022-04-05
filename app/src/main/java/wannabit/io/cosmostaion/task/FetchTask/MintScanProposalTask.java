@@ -14,8 +14,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class MintScanProposalTask extends CommonTask {
 
-    private String mChain;
-    private String mProposalId;
+    private final String mChain;
+    private final String mProposalId;
 
     public MintScanProposalTask(BaseApplication app, TaskListener listener, String chain, String proposalId) {
         super(app, listener);

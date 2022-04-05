@@ -52,7 +52,8 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
 
 
     private BigDecimal mRowanMaxAmount, mExternalMaxAmount;
-    private int mRowanDecimal = 18, mExternalDecimal = 18;
+    private final int mRowanDecimal = 18;
+    private int mExternalDecimal = 18;
     private BigDecimal mDepositRate = BigDecimal.ONE;
 
     private String mInDecimalChecker, mInDecimalSetter;

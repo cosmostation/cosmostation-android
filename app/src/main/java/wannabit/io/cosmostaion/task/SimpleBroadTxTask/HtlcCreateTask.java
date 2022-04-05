@@ -66,11 +66,11 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class HtlcCreateTask extends CommonTask {
 
     private Account mSendAccount;
-    private Account mReceiveAccount;
-    private BaseChain mSendChain;
-    private BaseChain mReceiveChain;
-    private ArrayList<Coin> mToSendCoins;
-    private Fee mSendFee;
+    private final Account mReceiveAccount;
+    private final BaseChain mSendChain;
+    private final BaseChain mReceiveChain;
+    private final ArrayList<Coin> mToSendCoins;
+    private final Fee mSendFee;
 
     private byte[] mRandomNumberHash;
     private String mRandomNumber;

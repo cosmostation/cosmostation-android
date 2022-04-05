@@ -19,8 +19,8 @@ import org.json.JSONObject;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HdacTx {
-    private NetworkParameters mParams;
-    private HdacTxBuilder mTxBuilder;
+    private final NetworkParameters mParams;
+    private final HdacTxBuilder mTxBuilder;
 
     public HdacTx() {
         this(null);
@@ -88,8 +88,8 @@ public class HdacTx {
     }
 
     public class HdacTxBuilder {
-        private Transaction mTransaction;
-        private Transaction.Purpose mPurpose = Transaction.Purpose.USER_PAYMENT;
+        private final Transaction mTransaction;
+        private final Transaction.Purpose mPurpose = Transaction.Purpose.USER_PAYMENT;
 
         public HdacTxBuilder(byte[] payload) {
             if (payload != null) mTransaction = new Transaction(mParams, payload);

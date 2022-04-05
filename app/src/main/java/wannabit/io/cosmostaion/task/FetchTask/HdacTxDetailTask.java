@@ -14,8 +14,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class HdacTxDetailTask extends CommonTask {
 
-    private BaseChain baseChain;
-    private String mTxHash;
+    private final BaseChain baseChain;
+    private final String mTxHash;
 
     public HdacTxDetailTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String txHash) {
         super(app, listener);

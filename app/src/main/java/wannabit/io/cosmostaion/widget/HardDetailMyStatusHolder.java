@@ -22,12 +22,21 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HardDetailMyStatusHolder extends BaseHolder {
-    private ImageView mDepositCoinImg;
-    private TextView mDepositCoinTitle;
-    private TextView mDepositAmountTv, mDepositDenomTv, mDepositValueTv;
-    private TextView mBorrowedAmountTv, mBorrowedDenomTv, mBorrowedValueTv;
-    private TextView mBorrowableAmountTv, mBorrowableDenomTv, mBorrowableValueTv;
-    private RelativeLayout mMyBtnSupply, mMyBtnWithdraw, mMyBtnBorrow, mMyBtnRepay;
+    private final ImageView mDepositCoinImg;
+    private final TextView mDepositCoinTitle;
+    private final TextView mDepositAmountTv;
+    private final TextView mDepositDenomTv;
+    private final TextView mDepositValueTv;
+    private final TextView mBorrowedAmountTv;
+    private final TextView mBorrowedDenomTv;
+    private final TextView mBorrowedValueTv;
+    private final TextView mBorrowableAmountTv;
+    private final TextView mBorrowableDenomTv;
+    private final TextView mBorrowableValueTv;
+    private final RelativeLayout mMyBtnSupply;
+    private final RelativeLayout mMyBtnWithdraw;
+    private final RelativeLayout mMyBtnBorrow;
+    private final RelativeLayout mMyBtnRepay;
 
     public HardDetailMyStatusHolder(@NonNull View itemView) {
         super(itemView);

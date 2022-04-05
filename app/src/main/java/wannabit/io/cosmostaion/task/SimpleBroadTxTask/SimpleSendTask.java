@@ -34,11 +34,11 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SimpleSendTask extends CommonTask {
 
-    private Account mAccount;
-    private String mToAddress;
-    private ArrayList<Coin> mToSendAmount;
-    private String mToSendMemo;
-    private Fee mToFees;
+    private final Account mAccount;
+    private final String mToAddress;
+    private final ArrayList<Coin> mToSendAmount;
+    private final String mToSendMemo;
+    private final Fee mToFees;
 
     public SimpleSendTask(BaseApplication app, TaskListener listener, Account account,
                           String toAddress, ArrayList<Coin> toSendAmount, String toSendMemo,

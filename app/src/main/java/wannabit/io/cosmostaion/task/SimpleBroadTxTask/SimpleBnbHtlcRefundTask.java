@@ -36,8 +36,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class SimpleBnbHtlcRefundTask extends CommonTask {
 
     private Account mAccount;
-    private String mSwapId;
-    private String mMemo;
+    private final String mSwapId;
+    private final String mMemo;
 
     private ECKey ecKey;
 

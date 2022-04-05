@@ -73,6 +73,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -617,7 +618,7 @@ public class WUtil {
 
     public static String str2Hex(String bin) {
         char[] digital = "0123456789abcdef".toCharArray();
-        StringBuffer sb = new StringBuffer("");
+        StringBuffer sb = new StringBuffer();
         byte[] bs = bin.getBytes();
         int bit;
         for (int i = 0; i < bs.length; i++) {
@@ -1013,7 +1014,7 @@ public class WUtil {
     public static int getCharSize(String memo) {
         int result = 1000;
         try {
-            result = memo.trim().getBytes("UTF-8").length;
+            result = memo.trim().getBytes(StandardCharsets.UTF_8).length;
         } catch (Exception e) {
         }
 
@@ -2763,7 +2764,7 @@ public class WUtil {
 
     public static Intent getGuide1Intent(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+            if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
             } else {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_en.pdf"));
@@ -2821,7 +2822,7 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://osmosis.zone/"));
 
         } else if (chain.equals(MEDI_MAIN)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+            if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com"));
             } else {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com/en/ "));
@@ -2898,7 +2899,7 @@ public class WUtil {
 
     public static Intent getGuide2Intent(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+            if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
             } else {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
@@ -2956,7 +2957,7 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/osmosis"));
 
         } else if (chain.equals(MEDI_MAIN)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+            if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.medibloc.org/"));
             } else {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/medibloc"));
@@ -4000,10 +4001,7 @@ public class WUtil {
         if (denom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
             return true;
         }
-        if (denom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
-            return true;
-        }
-        return false;
+        return denom.equals(TOKEN_HTLC_KAVA_TEST_BTC);
     }
 
     //parse & check vesting account

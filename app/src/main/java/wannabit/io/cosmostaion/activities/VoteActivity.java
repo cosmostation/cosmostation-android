@@ -163,7 +163,7 @@ public class VoteActivity extends BaseBroadCastActivity {
 
 
     private class VotePageAdapter extends FragmentPagerAdapter {
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public VotePageAdapter(FragmentManager fm) {

@@ -121,7 +121,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
                     Toast.makeText(getBaseContext(), R.string.error_unsupported_chain, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (getBaseDao().onSelectAccountsByChain(mTochain).size() <= 0) {
+                if (getBaseDao().getAccountsByChain(mTochain).size() <= 0) {
                     Toast.makeText(this, getString(R.string.error_no_wallet_this_chain), Toast.LENGTH_SHORT).show();
                     return;
                 }

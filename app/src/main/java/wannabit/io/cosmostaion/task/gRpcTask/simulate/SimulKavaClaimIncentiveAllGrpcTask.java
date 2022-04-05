@@ -28,14 +28,14 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulKavaClaimIncentiveAllGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mSender;
-    private String mMultiplierName;
-    private BaseData mBaseData;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mSender;
+    private final String mMultiplierName;
+    private final BaseData mBaseData;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

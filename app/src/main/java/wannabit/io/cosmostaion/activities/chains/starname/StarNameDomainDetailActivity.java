@@ -281,9 +281,12 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
 
 
         public class MyDomainHeaderHolder extends RecyclerView.ViewHolder {
-            private CardView itemRoot;
-            private ImageView itemBtnWebLink;
-            private TextView itemDomain, itemType, itemAddressCnt, itemExpireDate;
+            private final CardView itemRoot;
+            private final ImageView itemBtnWebLink;
+            private final TextView itemDomain;
+            private final TextView itemType;
+            private final TextView itemAddressCnt;
+            private final TextView itemExpireDate;
 
             public MyDomainHeaderHolder(View v) {
                 super(v);

@@ -49,7 +49,7 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
 
     private BigDecimal mAvailableMaxAmount;
 
-    private int mCoinDecimal = 6;
+    private final int mCoinDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
     private ArrayList<QueryOuterClass.PoolResponse> mSwapPool = new ArrayList<>();

@@ -27,16 +27,16 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulSifSwapGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mSinger;
-    private String mInputDenom;
-    private String mInputAmount;
-    private String mOutputDenom;
-    private String mOutputAmount;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mSinger;
+    private final String mInputDenom;
+    private final String mInputAmount;
+    private final String mOutputDenom;
+    private final String mOutputAmount;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

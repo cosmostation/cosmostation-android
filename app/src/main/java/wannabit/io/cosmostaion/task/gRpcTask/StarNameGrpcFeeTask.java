@@ -16,8 +16,8 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class StarNameGrpcFeeTask extends CommonTask {
-    private BaseChain mChain;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public StarNameGrpcFeeTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

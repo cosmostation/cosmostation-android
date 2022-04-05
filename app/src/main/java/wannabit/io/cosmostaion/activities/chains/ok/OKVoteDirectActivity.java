@@ -156,7 +156,7 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
 
     private class DirectVotePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public DirectVotePageAdapter(FragmentManager fm) {

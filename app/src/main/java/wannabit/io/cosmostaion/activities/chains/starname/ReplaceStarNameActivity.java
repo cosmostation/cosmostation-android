@@ -203,7 +203,7 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     private class ReplaceStarNamePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public ReplaceStarNamePageAdapter(FragmentManager fm) {

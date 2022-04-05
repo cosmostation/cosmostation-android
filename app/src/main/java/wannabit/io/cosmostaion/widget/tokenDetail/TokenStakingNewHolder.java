@@ -17,12 +17,15 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenStakingNewHolder extends BaseHolder {
-    private CardView mCardRoot;
-    private RelativeLayout mVestingLayer;
+    private final CardView mCardRoot;
+    private final RelativeLayout mVestingLayer;
 
-    private TextView mTotalAmount, mAvailableAmount;
-    private TextView mVestingAmount;
-    private TextView mDelegatedAmount, mUnbondingAmount, mRewardAmount;
+    private final TextView mTotalAmount;
+    private final TextView mAvailableAmount;
+    private final TextView mVestingAmount;
+    private final TextView mDelegatedAmount;
+    private final TextView mUnbondingAmount;
+    private final TextView mRewardAmount;
 
     public TokenStakingNewHolder(@NonNull View itemView) {
         super(itemView);

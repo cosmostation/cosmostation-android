@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ValidatorInfoAllTask extends CommonTask {
-    private BaseChain mChain;
+    private final BaseChain mChain;
 
     public ValidatorInfoAllTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

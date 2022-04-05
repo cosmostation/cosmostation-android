@@ -28,11 +28,12 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class RenewDomainGrpcTask extends CommonTask {
-    private BaseChain mBaseChain;
-    private Account mAccount;
-    private String mDomain, mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final BaseChain mBaseChain;
+    private final Account mAccount;
+    private final String mDomain;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

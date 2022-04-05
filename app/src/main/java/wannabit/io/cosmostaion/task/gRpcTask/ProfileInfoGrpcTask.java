@@ -17,9 +17,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ProfileInfoGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mAddress;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final String mAddress;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public ProfileInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
         super(app, listener);
@@ -27,7 +27,6 @@ public class ProfileInfoGrpcTask extends CommonTask {
         this.mAddress = address;
         this.result.taskType = TASK_GRPC_FETCH_PROFILE_INFO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
     }
 
     @Override

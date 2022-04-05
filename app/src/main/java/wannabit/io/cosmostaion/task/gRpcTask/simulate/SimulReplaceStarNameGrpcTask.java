@@ -28,12 +28,14 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulReplaceStarNameGrpcTask extends CommonTask {
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mDomain, mName, mMemo;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mDomain;
+    private final String mName;
+    private final String mMemo;
     private ArrayList<Types.Resource> mResources = new ArrayList();
-    private Fee mFees;
-    private String mChainId;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

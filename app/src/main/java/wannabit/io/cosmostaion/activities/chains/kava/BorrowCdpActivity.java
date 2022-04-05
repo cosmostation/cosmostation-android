@@ -176,7 +176,7 @@ public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskList
 
     private class DrawDebtCdpPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public DrawDebtCdpPageAdapter(FragmentManager fm) {

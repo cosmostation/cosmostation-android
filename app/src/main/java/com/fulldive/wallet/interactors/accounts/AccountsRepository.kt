@@ -26,6 +26,14 @@ class AccountsRepository @Inject constructor(
             .flatMap(::getSelectAccount)
     }
 
+    fun getAccountsByAddress(address: String): Single<List<Account>> {
+        return accountsLocalStorage.getAccountsByAddress(address)
+    }
+
+    fun getAccountsByChain(chain: BaseChain): List<Account> {
+        return accountsLocalStorage.getAccountsByChain(chain)
+    }
+
     fun getSortedChains(): Single<List<BaseChain>> {
         return accountsLocalStorage.getSortedChains()
     }
@@ -37,4 +45,9 @@ class AccountsRepository @Inject constructor(
     fun deleteAccount(accountId: Long): Completable {
         return accountsLocalStorage.deleteAccount(accountId)
     }
+
+    fun upgradeAccountAddressForPath(): Completable {
+        return accountsLocalStorage.upgradeAccountAddressForPath()
+    }
+
 }

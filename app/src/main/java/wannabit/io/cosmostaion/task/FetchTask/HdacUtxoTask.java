@@ -16,8 +16,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class HdacUtxoTask extends CommonTask {
 
-    private BaseChain baseChain;
-    private String hdacAddress;
+    private final BaseChain baseChain;
+    private final String hdacAddress;
 
     public HdacUtxoTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String hdacAddress) {
         super(app, listener);

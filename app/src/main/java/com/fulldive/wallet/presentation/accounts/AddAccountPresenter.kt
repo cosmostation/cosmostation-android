@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity
 import javax.inject.Inject
 
 @ProvidedBy(DefaultPresentersModule::class)
-class AddAccountPresenter  @Inject constructor(): BaseMoxyPresenter<AddAccountMoxyView>() {
+class AddAccountPresenter @Inject constructor() : BaseMoxyPresenter<AddAccountMoxyView>() {
     lateinit var chain: String
 
     fun onImportKeyClicked(packageContext: Context) {

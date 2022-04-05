@@ -18,9 +18,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaHardReservesGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private ArrayList<CoinOuterClass.Coin> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final ArrayList<CoinOuterClass.Coin> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public KavaHardReservesGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

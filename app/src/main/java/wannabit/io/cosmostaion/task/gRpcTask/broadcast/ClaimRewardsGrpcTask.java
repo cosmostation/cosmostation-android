@@ -29,12 +29,12 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ClaimRewardsGrpcTask extends CommonTask {
-    private BaseChain mBaseChain;
-    private Account mAccount;
-    private ArrayList<String> mValAddresses;
-    private String mMemo;
-    private Fee mFees;
-    private String mChainId;
+    private final BaseChain mBaseChain;
+    private final Account mAccount;
+    private final ArrayList<String> mValAddresses;
+    private final String mMemo;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

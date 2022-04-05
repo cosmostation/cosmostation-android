@@ -14,10 +14,10 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
 public class GeneratePkeyAccountTask extends CommonTask {
-    private BaseChain mBaseChain;
+    private final BaseChain mBaseChain;
     private String mPKey;
-    private String mAddress;
-    private int mCustomPath;
+    private final String mAddress;
+    private final int mCustomPath;
 
     private ArrayList<BaseChain> mHideChains = new ArrayList<>();
 

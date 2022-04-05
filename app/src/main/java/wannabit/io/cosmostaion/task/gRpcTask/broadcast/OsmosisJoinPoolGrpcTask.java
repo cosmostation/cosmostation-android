@@ -30,13 +30,15 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class OsmosisJoinPoolGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private long mPoolId;
-    private String mShareAmount, mMemo;
-    private Coin mDeposit0Coin, mDeposit1Coin;
-    private Fee mFees;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final long mPoolId;
+    private final String mShareAmount;
+    private final String mMemo;
+    private final Coin mDeposit0Coin;
+    private final Coin mDeposit1Coin;
+    private final Fee mFees;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

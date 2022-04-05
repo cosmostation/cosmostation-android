@@ -13,10 +13,10 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class SelfBondingGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mValOpAddress;
-    private String mAddress;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final String mValOpAddress;
+    private final String mAddress;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public SelfBondingGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String opAddress, String address) {
         super(app, listener);

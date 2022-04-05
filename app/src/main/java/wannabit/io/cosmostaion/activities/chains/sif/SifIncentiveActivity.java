@@ -149,7 +149,7 @@ public class SifIncentiveActivity extends BaseBroadCastActivity {
 
     private class ClaimIncentivePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public ClaimIncentivePageAdapter(FragmentManager fm) {

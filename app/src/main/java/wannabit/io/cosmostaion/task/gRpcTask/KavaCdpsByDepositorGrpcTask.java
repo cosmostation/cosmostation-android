@@ -19,11 +19,11 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaCdpsByDepositorGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private String mCollateralType;
-    private ArrayList<Cdp.Deposit> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final Account mAccount;
+    private final String mCollateralType;
+    private final ArrayList<Cdp.Deposit> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public KavaCdpsByDepositorGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account, String collateralType) {
         super(app, listener);

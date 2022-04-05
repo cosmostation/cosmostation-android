@@ -15,8 +15,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class StationIbcTokensTask extends CommonTask {
 
-    private BaseChain mBaseChain;
-    private String mChainId;
+    private final BaseChain mBaseChain;
+    private final String mChainId;
 
     public StationIbcTokensTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String chainId) {
         super(app, listener);

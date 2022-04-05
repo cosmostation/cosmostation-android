@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -34,6 +35,6 @@ public class StdSignMsg {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public byte[] getToSignByte() {
         Gson Presenter = new GsonBuilder().disableHtmlEscaping().create();
-        return Presenter.toJson(this).getBytes(Charset.forName("UTF-8"));
+        return Presenter.toJson(this).getBytes(StandardCharsets.UTF_8);
     }
 }

@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class NodeInfoTask extends CommonTask {
-    private BaseChain mChain;
+    private final BaseChain mChain;
 
     public NodeInfoTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);

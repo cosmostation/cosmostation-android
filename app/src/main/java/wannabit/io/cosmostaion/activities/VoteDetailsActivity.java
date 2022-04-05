@@ -394,14 +394,20 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         }
 
         public class VoteInfoHolder extends RecyclerView.ViewHolder {
-            private ImageView itemStatusImg;
-            private TextView itemStatusTxt;
-            private RelativeLayout itemProposerLayer;
-            private ImageView itemWebBtn;
-            private TextView itemProposer, itemTitle, itemType, itemStartTime, itemFinishTime, itemMsg;
-            private ImageView itemExpendBtn;
-            private RelativeLayout itemRequestLayer;
-            private TextView itemRequestAmount, itemRequestAmountDenom;
+            private final ImageView itemStatusImg;
+            private final TextView itemStatusTxt;
+            private final RelativeLayout itemProposerLayer;
+            private final ImageView itemWebBtn;
+            private final TextView itemProposer;
+            private final TextView itemTitle;
+            private final TextView itemType;
+            private final TextView itemStartTime;
+            private final TextView itemFinishTime;
+            private final TextView itemMsg;
+            private final ImageView itemExpendBtn;
+            private final RelativeLayout itemRequestLayer;
+            private final TextView itemRequestAmount;
+            private final TextView itemRequestAmountDenom;
 
             public VoteInfoHolder(@NonNull View itemView) {
                 super(itemView);
@@ -423,13 +429,33 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         }
 
         public class VoteTallyHolder extends RecyclerView.ViewHolder {
-            private RelativeLayout itemYesCard, itemNoCard, itemVetoCard, itemAbstainCard;
-            private ImageView itemYesDone, itemNoDone, itemVetoDone, itemAbstainDone;
-            private ProgressBar itemYesProgress, itemNoProgress, itemVetoProgress, itemAbstainProgress;
-            private TextView itemYesRate, itemYesCnt, itemNoRate, itemNoCnt, itemVetoRate, itemVetoCnt, itemAbstainRate, itemAbstainCnt;
-            private ImageView itemYesCntImg, itemNoCntImg, itemVetoCntImg, itemAbstainCntImg;
-            private LinearLayout itemTurnoutLayer;
-            private TextView itemTurnout, itemQuorum;
+            private final RelativeLayout itemYesCard;
+            private final RelativeLayout itemNoCard;
+            private final RelativeLayout itemVetoCard;
+            private final RelativeLayout itemAbstainCard;
+            private final ImageView itemYesDone;
+            private final ImageView itemNoDone;
+            private final ImageView itemVetoDone;
+            private final ImageView itemAbstainDone;
+            private final ProgressBar itemYesProgress;
+            private final ProgressBar itemNoProgress;
+            private final ProgressBar itemVetoProgress;
+            private final ProgressBar itemAbstainProgress;
+            private final TextView itemYesRate;
+            private final TextView itemYesCnt;
+            private final TextView itemNoRate;
+            private final TextView itemNoCnt;
+            private final TextView itemVetoRate;
+            private final TextView itemVetoCnt;
+            private final TextView itemAbstainRate;
+            private final TextView itemAbstainCnt;
+            private final ImageView itemYesCntImg;
+            private final ImageView itemNoCntImg;
+            private final ImageView itemVetoCntImg;
+            private final ImageView itemAbstainCntImg;
+            private final LinearLayout itemTurnoutLayer;
+            private final TextView itemTurnout;
+            private final TextView itemQuorum;
 
             public VoteTallyHolder(@NonNull View itemView) {
                 super(itemView);

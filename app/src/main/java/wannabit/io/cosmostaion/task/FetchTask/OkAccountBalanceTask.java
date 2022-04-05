@@ -15,8 +15,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class OkAccountBalanceTask extends CommonTask {
 
-    private BaseChain mChain;
-    private Account mAccount;
+    private final BaseChain mChain;
+    private final Account mAccount;
 
     public OkAccountBalanceTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain) {
         super(app, listener);

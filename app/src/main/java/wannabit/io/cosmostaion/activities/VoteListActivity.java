@@ -177,9 +177,12 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         }
 
         public class VoteHolder extends RecyclerView.ViewHolder {
-            private CardView card_proposal;
-            private TextView proposal_id, proposal_status, proposal_title, proposal_details;
-            private ImageView proposal_status_img;
+            private final CardView card_proposal;
+            private final TextView proposal_id;
+            private final TextView proposal_status;
+            private final TextView proposal_title;
+            private final TextView proposal_details;
+            private final ImageView proposal_status_img;
 
             public VoteHolder(@NonNull View itemView) {
                 super(itemView);

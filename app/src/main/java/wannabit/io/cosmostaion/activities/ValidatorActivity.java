@@ -802,8 +802,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         public class HistoryNewHolder extends RecyclerView.ViewHolder {
-            private CardView historyRoot;
-            private TextView historyType, historySuccess, history_time, history_amount, history_amount_symbol, history_time_gap;
+            private final CardView historyRoot;
+            private final TextView historyType;
+            private final TextView historySuccess;
+            private final TextView history_time;
+            private final TextView history_amount;
+            private final TextView history_amount_symbol;
+            private final TextView history_time_gap;
 
             public HistoryNewHolder(View v) {
                 super(v);

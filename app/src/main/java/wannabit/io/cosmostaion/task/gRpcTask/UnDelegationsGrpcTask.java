@@ -20,10 +20,10 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class UnDelegationsGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private ArrayList<Staking.UnbondingDelegation> mResultData = new ArrayList<>();
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final Account mAccount;
+    private final ArrayList<Staking.UnbondingDelegation> mResultData = new ArrayList<>();
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public UnDelegationsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
         super(app, listener);
@@ -31,7 +31,6 @@ public class UnDelegationsGrpcTask extends CommonTask {
         this.mAccount = account;
         this.result.taskType = TASK_GRPC_FETCH_UNDELEGATIONS;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
     }
 
     @Override

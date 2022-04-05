@@ -28,13 +28,13 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulOsmosisStartLockGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private long mDuration;
-    private Coin mLpCoin;
-    private Fee mFees;
-    private String mMemo;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final long mDuration;
+    private final Coin mLpCoin;
+    private final Fee mFees;
+    private final String mMemo;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

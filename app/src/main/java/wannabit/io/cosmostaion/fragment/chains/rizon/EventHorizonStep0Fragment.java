@@ -53,17 +53,17 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     public final static int HDAC_INFO_DIALOG = 9500;
 
     private Button mPaste, mBtnConfirm;
-    private Button[] mAlphabetBtns = new Button[26];
+    private final Button[] mAlphabetBtns = new Button[26];
     private ImageButton mBtnDelete;
     private Button mBtnSpace;
     private RecyclerView mRecyclerView;
 
-    private static EditText[] mEtMnemonics = new EditText[24];
+    private static final EditText[] mEtMnemonics = new EditText[24];
     private static int mMnemonicPosition = 0;
 
     private ArrayList<String> mAllMnemonic;
     private static MnemonicAdapter mMnemonicAdapter;
-    private ArrayList<String> mWords = new ArrayList<>();
+    private final ArrayList<String> mWords = new ArrayList<>();
 
     private ArrayList<HdacUtxo> mUtxo;
     private BigDecimal mBalance;
@@ -246,11 +246,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     }
 
     private boolean isValidWords() {
-        if (mWords.size() >= 3 && WKey.isMnemonicWords(mWords) && onHdacAddress(getSActivity().baseChain) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return mWords.size() >= 3 && WKey.isMnemonicWords(mWords) && onHdacAddress(getSActivity().baseChain) != null;
     }
 
     private String onHdacAddress(BaseChain baseChain) {

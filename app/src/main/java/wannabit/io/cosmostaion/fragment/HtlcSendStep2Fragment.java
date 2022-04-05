@@ -54,7 +54,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
     private BigDecimal mMinAvailable = BigDecimal.ZERO;
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    private ArrayList<Coin> mToSendCoins = new ArrayList<>();
+    private final ArrayList<Coin> mToSendCoins = new ArrayList<>();
     private int mDecimal = 8;
     private String mDecimalChecker, mDecimalSetter;
     public String mToSwapDenom;

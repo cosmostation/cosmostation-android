@@ -35,9 +35,9 @@ public class SimpleClaimHarvestRewardTask extends CommonTask {
     private Account mAccount;
     //    private String mDepositDenom;
 //    private String mDepositType;
-    private String mMultiplierName;
-    private String mMemo;
-    private Fee mFees;
+    private final String mMultiplierName;
+    private final String mMemo;
+    private final Fee mFees;
 
     public SimpleClaimHarvestRewardTask(BaseApplication app, TaskListener listener, Account account, String multiplierName, String memo, Fee fees) {
         super(app, listener);

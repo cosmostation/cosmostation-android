@@ -177,7 +177,7 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
 
     private class DeleteStarNamePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public DeleteStarNamePageAdapter(FragmentManager fm) {

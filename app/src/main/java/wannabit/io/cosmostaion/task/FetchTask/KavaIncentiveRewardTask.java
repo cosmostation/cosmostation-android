@@ -14,8 +14,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaIncentiveRewardTask extends CommonTask {
 
-    private BaseChain mChain;
-    private Account mAccount;
+    private final BaseChain mChain;
+    private final Account mAccount;
 
     public KavaIncentiveRewardTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
         super(app, listener);

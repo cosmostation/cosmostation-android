@@ -43,8 +43,8 @@ public class ListCdpFragment extends BaseFragment implements TaskListener, IRefr
     private CdpMarketAdapter mAdapter;
 
     private Genesis.Params mCdpParams;
-    private ArrayList<QueryOuterClass.CDPResponse> mMyCdps = new ArrayList<>();
-    private ArrayList<Genesis.CollateralParam> mOtherCdps = new ArrayList<>();
+    private final ArrayList<QueryOuterClass.CDPResponse> mMyCdps = new ArrayList<>();
+    private final ArrayList<Genesis.CollateralParam> mOtherCdps = new ArrayList<>();
 
     public static ListCdpFragment newInstance(Bundle bundle) {
         ListCdpFragment fragment = new ListCdpFragment();

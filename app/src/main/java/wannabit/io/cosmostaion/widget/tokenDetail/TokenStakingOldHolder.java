@@ -17,15 +17,25 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenStakingOldHolder extends BaseHolder {
-    private CardView mCardRoot;
-    private RelativeLayout mVestingLayer, mDelegatedLayer, mUnbondingLayer, mRewardLayer;
-    private RelativeLayout mLockedLayer, mFrozenLayer;
-    private RelativeLayout mOkStakingLayer, mOkUnbondingLayer;
+    private final CardView mCardRoot;
+    private final RelativeLayout mVestingLayer;
+    private final RelativeLayout mDelegatedLayer;
+    private final RelativeLayout mUnbondingLayer;
+    private final RelativeLayout mRewardLayer;
+    private final RelativeLayout mLockedLayer;
+    private final RelativeLayout mFrozenLayer;
+    private final RelativeLayout mOkStakingLayer;
+    private final RelativeLayout mOkUnbondingLayer;
 
-    private TextView mTotalAmount, mAvailableAmount;
-    private TextView mDelegatedAmount, mUnbondingAmount, mRewardAmount;
-    private TextView mlockedAmount, mFrozenAmount;
-    private TextView mOkStakingAmount, mOkUnbondingAmount;
+    private final TextView mTotalAmount;
+    private final TextView mAvailableAmount;
+    private final TextView mDelegatedAmount;
+    private final TextView mUnbondingAmount;
+    private final TextView mRewardAmount;
+    private final TextView mlockedAmount;
+    private final TextView mFrozenAmount;
+    private final TextView mOkStakingAmount;
+    private final TextView mOkUnbondingAmount;
 
     public TokenStakingOldHolder(@NonNull View itemView) {
         super(itemView);

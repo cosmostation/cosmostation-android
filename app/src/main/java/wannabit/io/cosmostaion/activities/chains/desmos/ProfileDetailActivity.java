@@ -147,8 +147,9 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
         }
 
         public class ProfileHolder extends RecyclerView.ViewHolder {
-            private CardView card_root;
-            private TextView profile_nickname, profile_bio;
+            private final CardView card_root;
+            private final TextView profile_nickname;
+            private final TextView profile_bio;
 
             public ProfileHolder(@NonNull View itemView) {
                 super(itemView);

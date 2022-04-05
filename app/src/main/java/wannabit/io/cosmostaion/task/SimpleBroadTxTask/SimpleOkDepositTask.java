@@ -33,10 +33,10 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SimpleOkDepositTask extends CommonTask {
 
-    private Account mAccount;
-    private Coin mDepositCoin;
-    private String mMemo;
-    private Fee mFees;
+    private final Account mAccount;
+    private final Coin mDepositCoin;
+    private final String mMemo;
+    private final Fee mFees;
 
     public SimpleOkDepositTask(BaseApplication app, TaskListener listener, Account account, Coin coin, String memo, Fee fees) {
         super(app, listener);

@@ -22,6 +22,16 @@ class AccountsLocalStorage @Inject constructor(
         }
     }
 
+    fun getAccountsByAddress(address: String): Single<List<Account>> {
+        return safeSingle {
+            baseData.getAccountsByAddress(address)
+        }
+    }
+
+    fun getAccountsByChain(chain: BaseChain): List<Account> {
+        return baseData.getAccountsByChain(chain)
+    }
+
     fun getAccounts(): Single<List<Account>> {
         return safeSingle {
             baseData.onSelectAccounts()
@@ -50,6 +60,12 @@ class AccountsLocalStorage @Inject constructor(
         return safeCompletable {
             baseData.onDeleteBalance("$accountId")
             baseData.onDeleteAccount("$accountId")
+        }
+    }
+
+    fun upgradeAccountAddressForPath(): Completable {
+        return safeCompletable {
+            baseData.upgradeAccountAddressForPath()
         }
     }
 }

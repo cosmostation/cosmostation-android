@@ -29,15 +29,15 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SimulTransferNFTGrpcTask extends CommonTask {
 
-    private Account mAccount;
-    private BaseChain mBaseChain;
-    private String mRecipient;
-    private String mDenomId;
-    private String mId;
-    private irismod.nft.QueryOuterClass.QueryNFTResponse mIrisResponse;
-    private Fee mFees;
-    private String mMemo;
-    private String mChainId;
+    private final Account mAccount;
+    private final BaseChain mBaseChain;
+    private final String mRecipient;
+    private final String mDenomId;
+    private final String mId;
+    private final irismod.nft.QueryOuterClass.QueryNFTResponse mIrisResponse;
+    private final Fee mFees;
+    private final String mMemo;
+    private final String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;

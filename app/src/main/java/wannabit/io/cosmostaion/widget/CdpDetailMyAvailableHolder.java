@@ -19,10 +19,16 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class CdpDetailMyAvailableHolder extends BaseHolder {
-    private ImageView mEmptyCollateralImg, mEmptyPrincipalImg;
-    private TextView mEmptyCollateralDenom, mEmptyCollateralAmount, mEmptyPrincipalDenom,
-            mEmptyPrincipalAmount, mEmptyKavaAmount;
-    private TextView mEmptyCollateralValue, mEmptyPrincipalValue, mEmptyKavaValue;
+    private final ImageView mEmptyCollateralImg;
+    private final ImageView mEmptyPrincipalImg;
+    private final TextView mEmptyCollateralDenom;
+    private final TextView mEmptyCollateralAmount;
+    private final TextView mEmptyPrincipalDenom;
+    private final TextView mEmptyPrincipalAmount;
+    private final TextView mEmptyKavaAmount;
+    private final TextView mEmptyCollateralValue;
+    private final TextView mEmptyPrincipalValue;
+    private final TextView mEmptyKavaValue;
 
     public CdpDetailMyAvailableHolder(@NonNull View itemView) {
         super(itemView);

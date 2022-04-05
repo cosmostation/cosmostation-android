@@ -13,11 +13,11 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class NFTokenInfoGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mDenomId;
-    private String mTokenId;
-    private QueryGrpc.QueryBlockingStub mIrisStub;
-    private chainmain.nft.v1.QueryGrpc.QueryBlockingStub mCryptoStub;
+    private final BaseChain mChain;
+    private final String mDenomId;
+    private final String mTokenId;
+    private final QueryGrpc.QueryBlockingStub mIrisStub;
+    private final chainmain.nft.v1.QueryGrpc.QueryBlockingStub mCryptoStub;
 
     public NFTokenInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String denomId, String tokenId) {
         super(app, listener);

@@ -28,6 +28,7 @@ import org.web3j.crypto.Keys;
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -91,11 +92,7 @@ public class WKey {
     }
 
     public static boolean isValidStringHdSeedFromWords(ArrayList<String> words) {
-        if (getByteHdSeedFromWords(words) == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return getByteHdSeedFromWords(words) != null;
     }
 
     public static boolean isValidStringPrivateKey(String input) {
@@ -656,9 +653,7 @@ public class WKey {
             HrpAndData other = (HrpAndData) obj;
             if (!Arrays.equals(data, other.data))
                 return false;
-            if (!Arrays.equals(hrp, other.hrp))
-                return false;
-            return true;
+            return Arrays.equals(hrp, other.hrp);
         }
     }
 
@@ -668,7 +663,7 @@ public class WKey {
         System.arraycopy(randomNumberHash, 0, rhs, 0, randomNumberHash.length);
         System.arraycopy(s, 0, rhs, randomNumberHash.length, s.length);
 
-        byte[] o = otherchainSender.toLowerCase().getBytes(Charset.forName("UTF-8"));
+        byte[] o = otherchainSender.toLowerCase().getBytes(StandardCharsets.UTF_8);
         byte[] expectedSwapId = new byte[rhs.length + o.length];
         System.arraycopy(rhs, 0, expectedSwapId, 0, rhs.length);
         System.arraycopy(o, 0, expectedSwapId, rhs.length, o.length);

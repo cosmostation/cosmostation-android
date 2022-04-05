@@ -341,7 +341,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchSendTx " + response.toString());
+                    WLog.w("onFetchSendTx " + response);
                     if (response.isSuccessful() && response.body() != null) {
                         mResSendBnbTxInfo = response.body();
                     }
@@ -360,7 +360,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchSendTx " + response.toString());
+                    WLog.w("onFetchSendTx " + response);
                     if (response.isSuccessful() && response.body() != null) {
                         mResSendTxInfo = response.body();
                     }
@@ -385,7 +385,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchClaimTx " + response.toString());
+                    WLog.w("onFetchClaimTx " + response);
                     if (response.isSuccessful() && response.body() != null) {
                         mResReceiveBnbTxInfo = response.body();
                         onUpdateView();
@@ -418,7 +418,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchClaimTx " + response.toString());
+                    WLog.w("onFetchClaimTx " + response);
                     if (response.isSuccessful() && response.body() != null) {
                         mResReceiveTxInfo = response.body();
                         onUpdateView();

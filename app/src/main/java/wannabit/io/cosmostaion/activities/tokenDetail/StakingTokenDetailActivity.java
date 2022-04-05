@@ -59,7 +59,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private RelativeLayout mBtnSend;
 
     private StakingTokenAdapter mAdapter;
-    private Boolean mHasVesting = false;
+    private final Boolean mHasVesting = false;
     private String mMainDenom;
 
     private int mDivideDecimal = 6;

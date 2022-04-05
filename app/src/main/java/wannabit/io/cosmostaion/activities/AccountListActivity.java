@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -36,7 +37,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     private AccountListAdapter mAccountListAdapter;
     private BaseChain mSelectedChain;
     private ArrayList<BaseChain> mDisplayChains = new ArrayList<>();
-    private ArrayList<Account> mDisplayAccounts = new ArrayList<>();
+    private List<Account> mDisplayAccounts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         mDisplayChains = getBaseDao().dpSortedChains();
         mSelectedChain = baseChain;
         getBaseDao().setLastChain(mSelectedChain.getChain());
-        mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain);
+        mDisplayAccounts = getBaseDao().getAccountsByChain(mSelectedChain);
         mChainRecyclerView.scrollToPosition(mDisplayChains.indexOf(getBaseDao().getLastChain()));
 
         mChainListAdapter.notifyDataSetChanged();

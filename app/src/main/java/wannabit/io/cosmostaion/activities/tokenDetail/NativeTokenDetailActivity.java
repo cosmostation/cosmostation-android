@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -36,7 +37,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
-import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -66,7 +66,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     private NativeTokenAdapter mAdapter;
     private String mDenom;
 
-    private Boolean mHasVesting = false;
+    private final Boolean mHasVesting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

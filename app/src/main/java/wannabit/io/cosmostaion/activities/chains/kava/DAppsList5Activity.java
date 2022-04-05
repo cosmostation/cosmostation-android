@@ -309,7 +309,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     private class KavaDApp5PageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public KavaDApp5PageAdapter(FragmentManager fm) {

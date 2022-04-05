@@ -154,7 +154,7 @@ public class GravityDepositPoolActivity extends BaseBroadCastActivity {
 
     private class JoinPoolPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public JoinPoolPageAdapter(FragmentManager fm) {

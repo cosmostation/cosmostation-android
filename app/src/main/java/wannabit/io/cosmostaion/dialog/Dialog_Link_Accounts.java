@@ -29,7 +29,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_Link_Accounts extends DialogFragment {
 

@@ -292,7 +292,7 @@ public class SifDexListActivity extends BaseActivity {
     }
 
     private class SifDexPageAdapter extends FragmentPagerAdapter {
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public SifDexPageAdapter(FragmentManager fm) {

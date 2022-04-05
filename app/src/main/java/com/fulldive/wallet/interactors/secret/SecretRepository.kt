@@ -1,10 +1,8 @@
 package com.fulldive.wallet.interactors.secret
 
 import com.fulldive.wallet.di.modules.DefaultRepositoryModule
-import com.fulldive.wallet.extensions.safeSingle
 import com.joom.lightsaber.ProvidedBy
 import io.reactivex.Single
-import wannabit.io.cosmostaion.base.BaseData
 import wannabit.io.cosmostaion.dao.Password
 import javax.inject.Inject
 

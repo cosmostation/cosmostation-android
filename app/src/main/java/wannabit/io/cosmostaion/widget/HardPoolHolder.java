@@ -31,11 +31,18 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class HardPoolHolder extends BaseHolder {
 
     CardView itemRoot;
-    private ImageView hardPoolImg;
-    private TextView hardPoolTitle;
-    private TextView supplyApyTv, borrowApyTv, supplyIncentiveApyTv, borrowIncentiveApyTv;
-    private TextView depositAmountTv, depositDenomTv, depositValueTv;
-    private TextView borrowAmountTv, borrowDenomTv, borrowValueTv;
+    private final ImageView hardPoolImg;
+    private final TextView hardPoolTitle;
+    private final TextView supplyApyTv;
+    private final TextView borrowApyTv;
+    private final TextView supplyIncentiveApyTv;
+    private final TextView borrowIncentiveApyTv;
+    private final TextView depositAmountTv;
+    private final TextView depositDenomTv;
+    private final TextView depositValueTv;
+    private final TextView borrowAmountTv;
+    private final TextView borrowDenomTv;
+    private final TextView borrowValueTv;
 
     public HardPoolHolder(@NonNull View itemView) {
         super(itemView);

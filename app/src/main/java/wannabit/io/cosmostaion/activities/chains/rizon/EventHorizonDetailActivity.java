@@ -128,7 +128,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
                 @Override
                 public void onResponse(Call<HdacTxInfo> call, Response<HdacTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
+                    WLog.w("onFetchTx " + response);
                     if (response.isSuccessful() && response.body() != null) {
                         mHdacTxInfo = response.body();
                     }
@@ -161,7 +161,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
                 @Override
                 public void onResponse(Call<HdacTxInfo> call, Response<HdacTxInfo> response) {
                     if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
+                    WLog.w("onFetchTx " + response);
                     if (response.isSuccessful() && response.body() != null) {
                         mHdacTxInfo = response.body();
                     }

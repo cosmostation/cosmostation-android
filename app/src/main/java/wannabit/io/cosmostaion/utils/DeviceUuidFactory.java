@@ -12,6 +12,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -38,22 +39,14 @@ public class DeviceUuidFactory {
                     } else {
                         final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
                         if (!"9774d56d682e549c".equals(androidId)) {
-                            try {
-                                uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
-                            } catch (UnsupportedEncodingException e) {
-                                throw new RuntimeException(e);
-                            }
+                            uuid = UUID.nameUUIDFromBytes(androidId.getBytes(StandardCharsets.UTF_8));
                         } else {
                             new TedPermission(context)
                                     .setPermissionListener(new PermissionListener() {
                                         @Override
                                         public void onPermissionGranted() {
-                                            try {
-                                                @SuppressLint("MissingPermission") final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                                                uuid = TextUtils.isEmpty(deviceId) ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
-                                            } catch (UnsupportedEncodingException e) {
-                                                throw new RuntimeException(e);
-                                            }
+                                            @SuppressLint("MissingPermission") final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                                            uuid = TextUtils.isEmpty(deviceId) ? UUID.nameUUIDFromBytes(deviceId.getBytes(StandardCharsets.UTF_8)) : UUID.randomUUID();
                                         }
 
                                         @Override

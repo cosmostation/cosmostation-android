@@ -162,7 +162,7 @@ public class SendActivity extends BaseBroadCastActivity {
 
     private class SendPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public SendPageAdapter(FragmentManager fm) {

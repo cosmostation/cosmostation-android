@@ -167,7 +167,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
 
     private class HtlcRefundPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public HtlcRefundPageAdapter(FragmentManager fm) {

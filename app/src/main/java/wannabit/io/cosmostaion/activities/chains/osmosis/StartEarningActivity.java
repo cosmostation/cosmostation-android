@@ -163,7 +163,7 @@ public class StartEarningActivity extends BaseBroadCastActivity {
 
     private class EarningPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public EarningPageAdapter(FragmentManager fm) {

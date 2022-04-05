@@ -374,8 +374,8 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
             if (headerView == null) {
                 headerView = inflateHeaderView(parent);
-                mHeaderTitle = (TextView) headerView.findViewById(R.id.header_title);
-                mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
+                mHeaderTitle = headerView.findViewById(R.id.header_title);
+                mItemCnt = headerView.findViewById(R.id.recycler_cnt);
                 fixLayoutSize(headerView, parent);
             }
 

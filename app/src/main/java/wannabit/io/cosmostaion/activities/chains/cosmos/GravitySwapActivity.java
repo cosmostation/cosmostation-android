@@ -161,7 +161,7 @@ public class GravitySwapActivity extends BaseBroadCastActivity {
 
     private class CoinSwapPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public CoinSwapPageAdapter(FragmentManager fm) {

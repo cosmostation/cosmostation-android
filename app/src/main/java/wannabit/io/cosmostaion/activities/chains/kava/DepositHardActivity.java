@@ -152,7 +152,7 @@ public class DepositHardActivity extends BaseBroadCastActivity {
 
     private class DepositHarvestPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public DepositHarvestPageAdapter(FragmentManager fm) {

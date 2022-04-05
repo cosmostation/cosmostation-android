@@ -37,7 +37,7 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
     private Cw20Assets mCw20Assets;
-    private ArrayList<Coin> mToSendCoins = new ArrayList<>();
+    private final ArrayList<Coin> mToSendCoins = new ArrayList<>();
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 

@@ -103,6 +103,7 @@ public class AppLockActivity extends BaseActivity implements ITimelessActivity, 
     public void onBackPressed() {
         if (cancellationSignal != null)
             cancellationSignal.cancel();
+        setResult(RESULT_CANCELED);
         moveTaskToBack(true);
     }
 
@@ -153,6 +154,7 @@ public class AppLockActivity extends BaseActivity implements ITimelessActivity, 
     private void onUnlock() {
         if (cancellationSignal != null)
             cancellationSignal.cancel();
+        setResult(RESULT_OK);
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
     }

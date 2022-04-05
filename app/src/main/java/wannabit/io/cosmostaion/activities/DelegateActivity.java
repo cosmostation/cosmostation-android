@@ -160,7 +160,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
 
     private class DelegatePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public DelegatePageAdapter(FragmentManager fm) {

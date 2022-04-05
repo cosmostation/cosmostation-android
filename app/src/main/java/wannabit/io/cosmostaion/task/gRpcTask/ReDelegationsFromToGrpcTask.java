@@ -14,11 +14,11 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ReDelegationsFromToGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private Account mAccount;
-    private String mValFromAddress;
-    private String mValToAddress;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final Account mAccount;
+    private final String mValFromAddress;
+    private final String mValToAddress;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public ReDelegationsFromToGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account, String valFromAddress, String valToAddress) {
         super(app, listener);

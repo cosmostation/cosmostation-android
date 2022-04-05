@@ -18,13 +18,14 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
@@ -40,8 +41,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout mWarnLayer;
 
     private TextView mAddress;
-    private LinearLayout[] mWordsLayer = new LinearLayout[24];
-    private TextView[] mTvWords = new TextView[24];
+    private final LinearLayout[] mWordsLayer = new LinearLayout[24];
+    private final TextView[] mTvWords = new TextView[24];
 
     private TextView mTvWarnMsg;
     private Button mBtnNext;
@@ -85,7 +86,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     protected void onPostResume() {
         super.onPostResume();
         if (mChain == null) {
-            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(null);
+            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(false);
             showDialog(dialog, "dialog", false);
         } else {
             onShowWaitDialog();

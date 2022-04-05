@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -31,7 +32,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
 
-    private ArrayList<Account> mAccounts = new ArrayList<>();
+    private List<Account> mAccounts = new ArrayList<>();
 
     public static Dialog_IBC_Receivable_Accouts newInstance(Bundle bundle) {
         Dialog_IBC_Receivable_Accouts frag = new Dialog_IBC_Receivable_Accouts();
@@ -49,7 +50,7 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_receivable_accouts, null);
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
-        mAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(getArguments().getString("chainName")));
+        mAccounts = getSActivity().getBaseDao().getAccountsByChain(BaseChain.getChain(getArguments().getString("chainName")));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         AccountListAdapter accountListAdapter = new AccountListAdapter();

@@ -144,7 +144,7 @@ public class OKStakingActivity extends BaseBroadCastActivity {
 
     private class StakeDepositPageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public StakeDepositPageAdapter(FragmentManager fm) {

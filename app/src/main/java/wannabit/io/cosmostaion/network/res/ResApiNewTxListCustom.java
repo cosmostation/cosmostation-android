@@ -93,10 +93,7 @@ public class ResApiNewTxListCustom {
 
 
     public boolean isSuccess() {
-        if (data.code > 0) {
-            return false;
-        }
-        return true;
+        return data.code <= 0;
     }
 
     public JSONArray getMsgs() {
@@ -121,7 +118,6 @@ public class ResApiNewTxListCustom {
         } else {
             try {
                 String result = c.getString(R.string.tx_known);
-                ;
                 if (getMsgCnt() == 2) {
                     String msgType0 = "";
                     String msgType1 = "";

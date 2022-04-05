@@ -155,7 +155,7 @@ public class ProfileActivity extends BaseBroadCastActivity {
 
     private class ProfilePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public ProfilePageAdapter(FragmentManager fm) {

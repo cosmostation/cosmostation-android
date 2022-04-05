@@ -33,7 +33,6 @@ public class HdacUtil {
     protected final static int mAddressHeader_Mainnet = 40;
     protected final static int mAddressHeader_Testnet = 100;
     protected final static String mAddressChecksumValue_Mainnet = "48444143";
-    ;
     protected final static String mAddressChecksumValue_Testnet = "48545354";
 
 
@@ -229,7 +228,7 @@ public class HdacUtil {
     }
 
     private static byte[] ripemd160(byte[] buf) {
-        byte byteData[] = null;
+        byte[] byteData = null;
         RIPEMD160Digest digest = new RIPEMD160Digest();
         digest.update(buf, 0, buf.length);
         byteData = new byte[digest.getDigestSize()];

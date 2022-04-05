@@ -20,10 +20,14 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HardDetailMyAvailableHolder extends BaseHolder {
-    private RelativeLayout mAssetDepositLayer;
-    private ImageView mAssetDepositImg;
-    private TextView mAssetDepositDenom, mAssetDepositAmount, mAssetKavaDenom, mAssetKavaAmount;
-    private TextView mDepositValue, mKavaValue;
+    private final RelativeLayout mAssetDepositLayer;
+    private final ImageView mAssetDepositImg;
+    private final TextView mAssetDepositDenom;
+    private final TextView mAssetDepositAmount;
+    private final TextView mAssetKavaDenom;
+    private final TextView mAssetKavaAmount;
+    private final TextView mDepositValue;
+    private final TextView mKavaValue;
 
     public HardDetailMyAvailableHolder(@NonNull View itemView) {
         super(itemView);

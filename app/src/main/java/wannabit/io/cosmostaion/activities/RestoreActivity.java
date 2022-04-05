@@ -65,7 +65,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private ImageView chainImageView;
     private TextView clearAllButton, wordsCountView;
 
-    private EditText[] mnemonicsEditText = new EditText[24];
+    private final EditText[] mnemonicsEditText = new EditText[24];
     private int mnemonicPosition = 0;
 
     private BaseChain chain;
@@ -140,7 +140,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     protected void onPostResume() {
         super.onPostResume();
         if (chain == null) {
-            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(null);
+            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(false);
             showDialog(dialog, "dialog", false);
 
         } else {
@@ -213,12 +213,8 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private boolean isValidWords() {
-        if ((words.size() == 12 || words.size() == 16 || words.size() == 24) &&
-                WKey.isMnemonicWords(words) && WKey.isValidStringHdSeedFromWords(words)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (words.size() == 12 || words.size() == 16 || words.size() == 24) &&
+                WKey.isMnemonicWords(words) && WKey.isValidStringHdSeedFromWords(words);
     }
 
     @Override

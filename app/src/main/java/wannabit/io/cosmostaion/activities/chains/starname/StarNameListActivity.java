@@ -188,7 +188,7 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
 
     private static class StarNamePageAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
         public StarNamePageAdapter(FragmentManager fm) {

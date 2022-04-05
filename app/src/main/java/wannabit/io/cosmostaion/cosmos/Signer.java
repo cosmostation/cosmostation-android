@@ -17,6 +17,7 @@ import org.web3j.crypto.Sign;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 
@@ -775,12 +776,8 @@ public class Signer {
         byte[] sigbyte = null;
         String plainString = "Link Chain With Cosmostation";
         String hexString = "";
-        try {
-            hexString = Hex.toHexString(plainString.getBytes("utf-8"));
-            sigbyte = getGrpcByteSingleSignature(auth, toKey, plainString.getBytes("utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        hexString = Hex.toHexString(plainString.getBytes(StandardCharsets.UTF_8));
+        sigbyte = getGrpcByteSingleSignature(auth, toKey, plainString.getBytes(StandardCharsets.UTF_8));
         ModelsChainLinks.Bech32Address desmosBech32 = ModelsChainLinks.Bech32Address.newBuilder().setValue(toAccount.address).setPrefix(WUtil.getDesmosPrefix(toChain)).build();
         Any chainAddress = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.Bech32Address").setValue(desmosBech32.toByteString()).build();
         Keys.PubKey toAccountPub = Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(toKey.getPubKey())).build();

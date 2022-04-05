@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class SifPoolInfoGrpcTask extends CommonTask {
-    private BaseChain mChain;
-    private String mDenom;
-    private QueryGrpc.QueryBlockingStub mStub;
+    private final BaseChain mChain;
+    private final String mDenom;
+    private final QueryGrpc.QueryBlockingStub mStub;
 
     public SifPoolInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String denom) {
         super(app, listener);
@@ -26,7 +26,6 @@ public class SifPoolInfoGrpcTask extends CommonTask {
         this.mDenom = denom;
         this.result.taskType = TASK_GRPC_FETCH_SIF_POOL_INFO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        ;
     }
 
     @Override

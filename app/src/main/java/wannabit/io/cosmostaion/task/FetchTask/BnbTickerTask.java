@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class BnbTickerTask extends CommonTask {
-    private BaseChain mBaseChain;
+    private final BaseChain mBaseChain;
 
     public BnbTickerTask(BaseApplication app, TaskListener listener, BaseChain basechain) {
         super(app, listener);
