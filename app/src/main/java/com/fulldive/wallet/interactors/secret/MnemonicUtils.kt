@@ -1,5 +1,6 @@
 package com.fulldive.wallet.interactors.secret
 
+import com.fulldive.wallet.extensions.getPath
 import org.bitcoinj.core.Bech32
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.crypto.*
@@ -12,9 +13,10 @@ import java.io.ByteArrayOutputStream
 import java.math.BigInteger
 
 object MnemonicUtils {
-    val MNEMONIC_WORDS_COUNT = 24
+    const val MNEMONIC_WORDS_COUNT = 24
     private val GENERATORS = intArrayOf(0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3)
     private val CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l".toByteArray()
+    private val HEX_CHARSET = "0123456789abcdef".toCharArray()
 
     @Throws(Exception::class)
     fun createAddress(
@@ -44,29 +46,11 @@ object MnemonicUtils {
 
 
     fun byteArrayToHexString(bytes: ByteArray): String {
-        val hexArray = charArrayOf(
-            '0',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            'a',
-            'b',
-            'c',
-            'd',
-            'e',
-            'f'
-        )
         val hexChars = CharArray(bytes.size * 2)
         for (j in bytes.indices) {
             val v = bytes[j].toInt() and 0xFF
-            hexChars[j * 2] = hexArray[v ushr 4]
-            hexChars[j * 2 + 1] = hexArray[v and 0x0F]
+            hexChars[j * 2] = HEX_CHARSET[v ushr 4]
+            hexChars[j * 2 + 1] = HEX_CHARSET[v and 0x0F]
         }
         return String(hexChars)
     }
@@ -102,7 +86,7 @@ object MnemonicUtils {
         val masterKey = HDKeyDerivation.createMasterPrivateKey(
             getHDSeed(hexStringToByteArray(entropy))
         )
-        val parentPath = getParentPath(chain, customPath)
+        val parentPath = chain.getPath(customPath)
         result = if (chain != BaseChain.FETCHAI_MAIN || customPath != 2) {
             DeterministicHierarchy(masterKey)
                 .deriveChild(
@@ -130,76 +114,10 @@ object MnemonicUtils {
         return result
     }
 
-    private fun getParentPath(chain: BaseChain?, customPath: Int): List<ChildNumber>? {
-        val result = ArrayList<ChildNumber>()
-        result.add(ChildNumber(44, true))
-        val childNumber: Int
-        var lastZero = true
-        var lastHardenedZero = true
-        childNumber = when (chain) {
-            BaseChain.BNB_MAIN -> 714
-            BaseChain.BAND_MAIN -> 494
-            BaseChain.IOV_MAIN -> 234
-            BaseChain.PERSIS_MAIN -> 750
-            BaseChain.CRYPTO_MAIN -> 394
-            BaseChain.MEDI_MAIN -> 371
-            BaseChain.INJ_MAIN, BaseChain.EVMOS_MAIN -> 60
-            BaseChain.BITSONG_MAIN -> 639
-            BaseChain.DESMOS_MAIN -> 852
-            BaseChain.PROVENANCE_MAIN -> 505
-            BaseChain.KAVA_MAIN -> {
-                when (customPath) {
-                    0 -> 118
-                    else -> 459
-                }
-            }
-            BaseChain.SECRET_MAIN -> {
-                when (customPath) {
-                    0 -> 118
-                    else -> 529
-                }
-            }
-            BaseChain.LUM_MAIN -> {
-                when (customPath) {
-                    0 -> 118
-                    else -> 880
-                }
-            }
-            BaseChain.FETCHAI_MAIN -> {
-                when (customPath) {
-                    0 -> 118
-                    1 -> 60
-                    2 -> {
-                        lastHardenedZero = false
-                        lastZero = false
-                        60
-                    }
-                    else -> {
-                        lastZero = false
-                        60
-                    }
-                }
-            }
-            BaseChain.OKEX_MAIN -> when (customPath) {
-                0, 1 -> 996
-                else -> 60
-            }
-            else -> 118
-        }
-        result.add(ChildNumber(childNumber, true))
-        if (lastHardenedZero) {
-            result.add(ChildNumber.ZERO_HARDENED)
-        }
-        if (lastZero) {
-            result.add(ChildNumber.ZERO)
-        }
-        return result
-    }
-
     // Ethermint Style Key gen (OKex)
 
     @Throws(java.lang.Exception::class)
-    fun createNewAddressSecp256k1(mainPrefix: String, publickKey: ByteArray?): String {
+    fun createNewAddressSecp256k1(mainPrefix: String, publickKey: ByteArray): String {
         val uncompressedPubKey = ECKey.CURVE.curve.decodePoint(publickKey).getEncoded(false)
         val pub = ByteArray(64)
         System.arraycopy(uncompressedPubKey, 1, pub, 0, 64)

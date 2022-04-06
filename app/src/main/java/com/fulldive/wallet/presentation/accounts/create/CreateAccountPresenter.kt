@@ -16,7 +16,6 @@ import com.fulldive.wallet.rx.AppSchedulers
 import com.joom.lightsaber.ProvidedBy
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseChain
-import wannabit.io.cosmostaion.utils.WLog
 import java.util.*
 import javax.inject.Inject
 
@@ -81,15 +80,11 @@ class CreateAccountPresenter @Inject constructor(
     }
 
     fun onCheckPasswordSuccessfully() {
-        accountSecrets?.let { secrets ->
-            viewState.showMnemonic(secrets.mnemonic)
-        }
+        accountSecrets?.mnemonic?.let(viewState::showMnemonic)
     }
 
     fun onSetPasswordSuccessfully() {
-        accountSecrets?.let { secrets ->
-            viewState.showMnemonic(secrets.mnemonic)
-        }
+        accountSecrets?.mnemonic?.let(viewState::showMnemonic)
     }
 
     private fun requestChain() {
@@ -119,7 +114,6 @@ class CreateAccountPresenter @Inject constructor(
 
     private fun generateMnemonic(chain: BaseChain) {
         viewState.showWaitDialog()
-        WLog.w("fftf, generateMnemonic: $chain")
         secretInteractor
             .createSecrets(chain)
             .withDefaults()
@@ -149,7 +143,6 @@ class CreateAccountPresenter @Inject constructor(
 
     private fun onAccountSecretsReceived(accountSecrets: AccountSecrets) {
         this.accountSecrets = accountSecrets
-        WLog.w("fftf, generateMnemonic: $chain => ${accountSecrets.address}")
         viewState.showAccountAddress(accountSecrets.address)
     }
 }

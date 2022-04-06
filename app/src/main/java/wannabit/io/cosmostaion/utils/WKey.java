@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.utils;
 
 import static org.bitcoinj.core.ECKey.CURVE;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 import android.text.TextUtils;
@@ -9,6 +8,7 @@ import android.util.Base64;
 
 import androidx.annotation.NonNull;
 
+import com.fulldive.wallet.extensions.ChainExtensionsKt;
 import com.google.common.collect.ImmutableList;
 import com.google.protobuf.ByteString;
 import com.google.protobuf2.Any;
@@ -105,102 +105,6 @@ public class WKey {
         return result;
     }
 
-    public static List<ChildNumber> getParentPath(BaseChain chain, int customPath) {
-        ArrayList<ChildNumber> result = new ArrayList<>();
-        result.add(new ChildNumber(44, true));
-        int childNumber;
-        boolean lastZero = true;
-        boolean lastHardenedZero = true;
-
-        switch (chain) {
-            case BNB_MAIN:
-                childNumber = 714;
-                break;
-            case BAND_MAIN:
-                childNumber = 494;
-                break;
-            case IOV_MAIN:
-                childNumber = 234;
-                break;
-            case PERSIS_MAIN:
-                childNumber = 750;
-                break;
-            case CRYPTO_MAIN:
-                childNumber = 394;
-                break;
-            case MEDI_MAIN:
-                childNumber = 371;
-                break;
-            case INJ_MAIN:
-            case EVMOS_MAIN:
-                childNumber = 60;
-                break;
-            case BITSONG_MAIN:
-                childNumber = 639;
-                break;
-            case DESMOS_MAIN:
-                childNumber = 852;
-                break;
-            case PROVENANCE_MAIN:
-                childNumber = 505;
-                break;
-            case KAVA_MAIN:
-                if (customPath == 0) {
-                    childNumber = 118;
-                } else {
-                    childNumber = 459;
-                }
-                break;
-            case SECRET_MAIN:
-                if (customPath == 0) {
-                    childNumber = 118;
-                } else {
-                    childNumber = 529;
-                }
-
-                break;
-            case LUM_MAIN:
-                if (customPath == 0) {
-                    childNumber = 118;
-                } else {
-                    childNumber = 880;
-                }
-
-                break;
-            case FETCHAI_MAIN:
-                if (customPath == 0) {
-                    childNumber = 118;
-                } else if (customPath == 1) {
-                    childNumber = 60;
-                } else if (customPath == 2) {
-                    childNumber = 60;
-                    lastHardenedZero = false;
-                    lastZero = false;
-                } else {
-                    childNumber = 60;
-                    lastZero = false;
-                }
-                break;
-            case OKEX_MAIN:
-                if (customPath == 0 || customPath == 1) {
-                    childNumber = 996;
-                } else {
-                    childNumber = 60;
-                }
-                break;
-            default:
-                childNumber = 118;
-        }
-        result.add(new ChildNumber(childNumber, true));
-        if (lastHardenedZero) {
-            result.add(ChildNumber.ZERO_HARDENED);
-        }
-        if (lastZero) {
-            result.add(ChildNumber.ZERO);
-        }
-        return result;
-    }
-
     public static List<ChildNumber> getFetchParentPath2() {
         return ImmutableList.of(ChildNumber.ZERO);
     }
@@ -211,8 +115,8 @@ public class WKey {
         DeterministicKey result;
         BaseChain chain = getChain(account.baseChain);
         DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.hexStringToByteArray(entropy)));
-        final List<ChildNumber> parentPath = WKey.getParentPath(chain, account.customPath);
-        if (!chain.equals(FETCHAI_MAIN) || account.customPath != 2) {
+        final List<ChildNumber> parentPath = ChainExtensionsKt.getPath(chain, account.customPath);
+        if (!chain.equals(BaseChain.FETCHAI_MAIN) || account.customPath != 2) {
             result = new DeterministicHierarchy(masterKey).deriveChild(parentPath, true, true, new ChildNumber(Integer.parseInt(account.path)));
         } else {
             DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(parentPath, true, true, new ChildNumber(Integer.parseInt(account.path), true));
@@ -225,8 +129,8 @@ public class WKey {
     public static DeterministicKey getCreateKeyWithPathfromEntropy(BaseChain chain, String entropy, int path, int customPath) {
         DeterministicKey result;
         DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.hexStringToByteArray(entropy)));
-        final List<ChildNumber> parentPath = WKey.getParentPath(chain, customPath);
-        if (!chain.equals(FETCHAI_MAIN) || customPath != 2) {
+        final List<ChildNumber> parentPath = ChainExtensionsKt.getPath(chain, customPath);
+        if (!chain.equals(BaseChain.FETCHAI_MAIN) || customPath != 2) {
             result = new DeterministicHierarchy(masterKey).deriveChild(parentPath, true, true, new ChildNumber(path));
         } else {
             DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(parentPath, true, true, new ChildNumber(path, true));
