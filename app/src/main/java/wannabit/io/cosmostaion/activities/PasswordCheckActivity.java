@@ -87,7 +87,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.fulldive.wallet.interactors.accounts.AccountsInteractor;
 import com.fulldive.wallet.interactors.secret.InvalidPasswordException;
 import com.fulldive.wallet.interactors.secret.SecretInteractor;
-import com.fulldive.wallet.presentation.main.splash.SplashActivity;
+import com.fulldive.wallet.presentation.main.intro.IntroActivity;
 import com.fulldive.wallet.rx.AppSchedulers;
 import com.google.gson.Gson;
 
@@ -832,7 +832,7 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
                                 Toast.makeText(getBaseContext(), R.string.error_invalid_password, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getBaseContext(), R.string.str_unknown_error_msg, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(this, SplashActivity.class);
+                                Intent intent = new Intent(this, IntroActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }

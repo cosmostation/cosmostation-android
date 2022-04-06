@@ -180,13 +180,13 @@ public class ManageChainSwitchHolder extends BaseHolder {
                                   ImageView keyImg, TextView walletName, TextView address, TextView amount, TextView denom) {
 
         if (dpAccount.id.equals(currentAccount.id)) {
-            layout.setBackground(switchActivity.getResources().getDrawable(R.drawable.box_round_seleted_white));
+            layout.setBackgroundResource(R.drawable.box_round_seleted_white);
         } else {
-            layout.setBackground(switchActivity.getResources().getDrawable(R.drawable.box_round_darkgray));
+            layout.setBackgroundResource(R.drawable.box_round_darkgray);
         }
         WDp.DpMainDenom(dpAccount.baseChain, denom);
         address.setText(dpAccount.address);
-        amount.setText(dpAccount.getLastTotal(switchActivity, BaseChain.getChain(dpAccount.baseChain)));
+        amount.setText(dpAccount.getLastTotal(BaseChain.getChain(dpAccount.baseChain)));
         keyImg.setColorFilter(ContextCompat.getColor(switchActivity, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (dpAccount.hasPrivateKey) {
             keyImg.setColorFilter(WDp.getChainColor(switchActivity, BaseChain.getChain(dpAccount.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);

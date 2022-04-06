@@ -70,7 +70,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.fulldive.wallet.di.IEnrichableActivity;
 import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment;
-import com.fulldive.wallet.presentation.main.splash.SplashActivity;
+import com.fulldive.wallet.presentation.main.intro.IntroActivity;
 import com.fulldive.wallet.presentation.system.WaitDialogFragment;
 import com.google.protobuf2.Any;
 import com.joom.lightsaber.Injector;
@@ -385,7 +385,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
             onStartMainActivity(0);
         } else {
             getBaseDao().setLastUser(-1);
-            Intent intent = new Intent(this, SplashActivity.class);
+            Intent intent = new Intent(this, IntroActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

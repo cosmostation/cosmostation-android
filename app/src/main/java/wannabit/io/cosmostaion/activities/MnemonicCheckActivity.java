@@ -47,7 +47,7 @@ public class MnemonicCheckActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_check);
         mToolbar = findViewById(R.id.toolbar);
-        mMnemonicLayer = findViewById(R.id.card_mnemonic_layer);
+        mMnemonicLayer = findViewById(R.id.mnemonicsCardView);
         mCopy = findViewById(R.id.btn_copy);
         mOk = findViewById(R.id.btn_ok);
 
@@ -63,7 +63,7 @@ public class MnemonicCheckActivity extends BaseActivity {
         mEntropy = getIntent().getStringExtra("entropy");
         Account toCheck = getBaseDao().onSelectAccount("" + getIntent().getLongExtra("checkid", -1));
         mMnemonicLayer.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), getChain(toCheck.baseChain)));
-        mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
+        mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.hexStringToByteArray(mEntropy)));
 
         for (int i = 0; i < mWordsLayer.length; i++) {
             BaseChain chain = getChain(toCheck.baseChain);

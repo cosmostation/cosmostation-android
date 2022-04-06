@@ -54,7 +54,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
         mToolbar = findViewById(R.id.toolbar);
         mInput = findViewById(R.id.et_address);
         mCancel = findViewById(R.id.btn_cancel);
-        mNext = findViewById(R.id.btn_next);
+        mNext = findViewById(R.id.nextButton);
         mBtnQr = findViewById(R.id.btn_qr);
         mBtnPaste = findViewById(R.id.btn_paste);
 

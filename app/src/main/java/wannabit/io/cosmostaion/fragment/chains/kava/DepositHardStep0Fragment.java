@@ -56,7 +56,7 @@ public class DepositHardStep0Fragment extends BaseFragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_deposit_hard_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.nextButton);
         mDepositImg = rootView.findViewById(R.id.deposit_icon);
         mDepositSymbol = rootView.findViewById(R.id.deposit_symbol);
         mDepositInput = rootView.findViewById(R.id.deposit_input);

@@ -1,4 +1,4 @@
-package com.fulldive.wallet.presentation.main.splash
+package com.fulldive.wallet.presentation.main.intro
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.app.ActivityOptionsCompat
 import com.fulldive.wallet.presentation.base.BaseMvpActivity
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment
 import com.joom.lightsaber.getInstance
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
@@ -18,10 +17,10 @@ import wannabit.io.cosmostaion.activities.MainActivity
 import wannabit.io.cosmostaion.base.ITimelessActivity
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
 
-class SplashActivity : BaseMvpActivity<ActivityIntroBinding>(), SplashMoxyView, ITimelessActivity {
+class IntroActivity : BaseMvpActivity<ActivityIntroBinding>(), IntroMoxyView, ITimelessActivity {
 
     private val presenter by moxyPresenter {
-        appInjector.getInstance<SplashPresenter>()
+        appInjector.getInstance<IntroPresenter>()
             .also {
                 it.intent = intent
             }
@@ -73,7 +72,7 @@ class SplashActivity : BaseMvpActivity<ActivityIntroBinding>(), SplashMoxyView, 
 
     override fun showLockScreen() {
         launcher.launch(
-            Intent(this@SplashActivity, AppLockActivity::class.java),
+            Intent(this@IntroActivity, AppLockActivity::class.java),
             ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_bottom, R.anim.fade_out)
         )
     }

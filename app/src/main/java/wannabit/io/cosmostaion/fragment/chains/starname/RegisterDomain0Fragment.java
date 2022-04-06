@@ -56,7 +56,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_register_domain0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mConfirmBtn = rootView.findViewById(R.id.btn_next);
+        mConfirmBtn = rootView.findViewById(R.id.nextButton);
         mDomainInput = rootView.findViewById(R.id.et_user_input);
         mDomainValid = rootView.findViewById(R.id.domain_valid_msg);
         mStarNameFeeTv = rootView.findViewById(R.id.starname_fee_amount);

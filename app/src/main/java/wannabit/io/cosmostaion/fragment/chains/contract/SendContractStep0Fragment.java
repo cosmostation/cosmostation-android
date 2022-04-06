@@ -65,7 +65,7 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_send_contract_step0, container, false);
         mAddressInput = rootView.findViewById(R.id.receiver_account);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mCancel = rootView.findViewById(R.id.btn_cancel);
         mStarNameLayer = rootView.findViewById(R.id.starname_layer);
 

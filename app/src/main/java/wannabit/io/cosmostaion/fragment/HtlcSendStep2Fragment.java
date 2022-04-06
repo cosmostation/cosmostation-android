@@ -74,7 +74,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_htlc_send_step2, container, false);
         mBefore = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mMinAmount = rootView.findViewById(R.id.tv_min_coin);
         mMaxAmount = rootView.findViewById(R.id.tv_max_coin);

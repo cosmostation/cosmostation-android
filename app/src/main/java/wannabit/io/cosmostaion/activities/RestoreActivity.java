@@ -85,7 +85,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         pasteButton = findViewById(R.id.btn_paste);
         confirmButton = findViewById(R.id.btn_confirm);
         deleteButton = findViewById(R.id.password_back);
-        mBtnSpace = findViewById(R.id.btn_next);
+        mBtnSpace = findViewById(R.id.nextButton);
         recyclerView = findViewById(R.id.recycler);
         chainImageView = findViewById(R.id.chainImg);
         clearAllButton = findViewById(R.id.toolbar_clear);
@@ -140,7 +140,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     protected void onPostResume() {
         super.onPostResume();
         if (chain == null) {
-            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(false);
+            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(false, "");
             showDialog(dialog, "dialog", false);
 
         } else {
@@ -345,8 +345,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             mnemonicsEditText[mnemonicPosition].setSelection(mnemonicsEditText[mnemonicPosition].getText().length());
             mnemonicAdapter.getFilter().filter(mnemonicsEditText[mnemonicPosition].getText().toString().trim());
 
-            return;
-
         }
     }
 
@@ -371,11 +369,10 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     @SuppressLint("MissingSuperCall")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
             intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(words));
-            intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(words)));
+            intent.putExtra("entropy", WUtil.byteArrayToHexString(WKey.toEntropy(words)));
             intent.putExtra("size", words.size());
             intent.putExtra("chain", chain.getChain());
             intent.putExtra("customPath", mIsCustomPath);

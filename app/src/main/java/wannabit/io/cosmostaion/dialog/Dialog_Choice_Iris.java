@@ -38,20 +38,14 @@ public class Dialog_Choice_Iris extends DialogFragment {
         mIris = view.findViewById(R.id.iris_net);
         mIrisTest = view.findViewById(R.id.iris_test_net);
 
-        mIris.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((BaseActivity) getActivity()).onChoiceNet(BaseChain.IRIS_MAIN);
-                dismiss();
-            }
+        mIris.setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).onChoiceNet(BaseChain.IRIS_MAIN);
+            dismiss();
         });
 
-        mIrisTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((BaseActivity) getActivity()).onChoiceNet(BaseChain.IRIS_TEST);
-                dismiss();
-            }
+        mIrisTest.setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).onChoiceNet(BaseChain.IRIS_TEST);
+            dismiss();
         });
 
 

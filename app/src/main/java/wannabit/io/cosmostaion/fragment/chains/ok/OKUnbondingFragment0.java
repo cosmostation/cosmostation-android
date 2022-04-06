@@ -57,7 +57,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_stake_withdraw_0, container, false);
         mCancel = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
         mAvailableDenom = rootView.findViewById(R.id.tv_symbol_coin);

@@ -53,7 +53,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
         mImgNo = rootView.findViewById(R.id.checkImg_no);
         mImgVeto = rootView.findViewById(R.id.checkImg_veto);
         mImgAbstain = rootView.findViewById(R.id.checkImg_abstain);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mCancel = rootView.findViewById(R.id.btn_cancel);
 
         mCancel.setOnClickListener(this);

@@ -1,4 +1,4 @@
-package com.fulldive.wallet.presentation.main.splash
+package com.fulldive.wallet.presentation.main.intro
 
 import android.content.Context
 import android.content.Intent
@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @ProvidedBy(DefaultPresentersModule::class)
-class SplashPresenter @Inject constructor(
+class IntroPresenter @Inject constructor(
     private val context: Context,
     private val accountsInteractor: AccountsInteractor
-) : BaseMoxyPresenter<SplashMoxyView>() {
+) : BaseMoxyPresenter<IntroMoxyView>() {
 
     lateinit var intent: Intent
 

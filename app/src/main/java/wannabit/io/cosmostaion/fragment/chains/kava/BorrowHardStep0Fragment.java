@@ -56,7 +56,7 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_borrow_hard_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.nextButton);
         mBorrowImg = rootView.findViewById(R.id.borrow_icon);
         mBorrowSymbol = rootView.findViewById(R.id.borrow_symbol);
         mBorrowInput = rootView.findViewById(R.id.borrow_input);

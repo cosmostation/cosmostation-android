@@ -66,7 +66,7 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_issue_nft_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.nextButton);
 
         mNftImg = rootView.findViewById(R.id.nft_img);
         mNftImgAdd = rootView.findViewById(R.id.add_btn);

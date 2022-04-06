@@ -41,7 +41,7 @@ public class SifIncentiveStep0Frament extends BaseFragment implements View.OnCli
         mIncentiveType = rootView.findViewById(R.id.incentive_type);
         mCheckReward = rootView.findViewById(R.id.btn_reward_program);
         mCancel = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
 
         mCheckReward.setOnClickListener(this);
         mCancel.setOnClickListener(this);

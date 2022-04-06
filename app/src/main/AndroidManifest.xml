@@ -30,7 +30,7 @@
         tools:replace="android:allowBackup">
 
         <activity
-            android:name="com.fulldive.wallet.presentation.main.splash.SplashActivity"
+            android:name="com.fulldive.wallet.presentation.main.intro.IntroActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -76,7 +76,7 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".activities.CreateActivity"
+            android:name="com.fulldive.wallet.presentation.accounts.create.CreateAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

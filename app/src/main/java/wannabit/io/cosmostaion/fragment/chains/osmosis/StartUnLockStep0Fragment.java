@@ -40,7 +40,7 @@ public class StartUnLockStep0Fragment extends BaseFragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_start_unlock_step0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
 
         mToUnLockIds = rootView.findViewById(R.id.unlock_ids);
         mToUnLockAmount = rootView.findViewById(R.id.unlock_amount);

@@ -38,20 +38,14 @@ public class Dialog_Choice_Cosmos extends DialogFragment {
         mCosmos = view.findViewById(R.id.cosmos_net);
         mCosmosTest = view.findViewById(R.id.cosmos_test_net);
 
-        mCosmos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((BaseActivity) getActivity()).onChoiceNet(BaseChain.COSMOS_MAIN);
-                dismiss();
-            }
+        mCosmos.setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).onChoiceNet(BaseChain.COSMOS_MAIN);
+            dismiss();
         });
 
-        mCosmosTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((BaseActivity) getActivity()).onChoiceNet(BaseChain.COSMOS_TEST);
-                dismiss();
-            }
+        mCosmosTest.setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).onChoiceNet(BaseChain.COSMOS_TEST);
+            dismiss();
         });
 
 

@@ -79,7 +79,7 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_swap_step0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mProgress = rootView.findViewById(R.id.progress);
 
         mSwapAvailAmount = rootView.findViewById(R.id.swap_available_amount);

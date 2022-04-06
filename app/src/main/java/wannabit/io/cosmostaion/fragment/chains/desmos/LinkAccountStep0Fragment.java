@@ -64,7 +64,7 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_link_account_step0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
 
         mBtnLinkChain = rootView.findViewById(R.id.btn_link_chain);
         mLinkChain = rootView.findViewById(R.id.img_link_chain);

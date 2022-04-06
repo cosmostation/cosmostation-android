@@ -30,7 +30,7 @@ public class GenerateEmptyAccountTask extends CommonTask {
         long id = context.getBaseDao().onInsertAccount(onGenEmptyAccount(strings[0], strings[1]));
         if (id > 0) {
             result.isSuccess = true;
-            mHideChains = context.getBaseDao().userHideChains();
+            mHideChains = new ArrayList<>(context.getBaseDao().userHideChains());
             if (mHideChains.contains(BaseChain.getChain(strings[0]))) {
                 int position = mHideChains.indexOf(BaseChain.getChain(strings[0]));
                 if (position >= 0) {

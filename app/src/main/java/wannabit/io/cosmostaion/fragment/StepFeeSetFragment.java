@@ -197,7 +197,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mBottomControlCard = rootView.findViewById(R.id.bottom_control_layer);
         mBtnGasCheck = rootView.findViewById(R.id.btn_gas_check);
         mBtnBefore = rootView.findViewById(R.id.btn_before);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.nextButton);
 
         WDp.DpMainDenom(getSActivity().baseChain, mFeeDenom);
         mFeeTotalCard.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getSActivity().baseChain));

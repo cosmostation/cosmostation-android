@@ -69,7 +69,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         mMemoWranLayer = rootView.findViewById(R.id.memo_warn_layer);
 
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mBtnQr = rootView.findViewById(R.id.btn_qr);
         mBtnPaste = rootView.findViewById(R.id.btn_paste);
 

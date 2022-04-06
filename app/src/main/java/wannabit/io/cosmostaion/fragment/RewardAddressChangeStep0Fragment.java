@@ -49,7 +49,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
         mCurrentAddress = rootView.findViewById(R.id.current_address);
         mBtnQr = rootView.findViewById(R.id.btn_qr);
         mBtnPaste = rootView.findViewById(R.id.btn_paste);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mCancel = rootView.findViewById(R.id.btn_cancel);
 
         mCancel.setOnClickListener(this);

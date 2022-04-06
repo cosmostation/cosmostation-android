@@ -81,7 +81,7 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
             final Account account = mWalletList.get(position);
             WDp.DpMainDenom(account.baseChain, holder.accountDenom);
             holder.accountAddress.setText(account.address);
-            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), BaseChain.getChain(account.baseChain)));
+            holder.accountAvailable.setText(account.getLastTotal(BaseChain.getChain(account.baseChain)));
             holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             if (account.hasPrivateKey) {
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getSActivity(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);

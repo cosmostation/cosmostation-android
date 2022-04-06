@@ -70,7 +70,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_withdraw_cdp_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.nextButton);
 
         mCollateralImg = rootView.findViewById(R.id.collateral_icon);
         mCollateralSymbol = rootView.findViewById(R.id.collateral_symbol);

@@ -6,7 +6,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import com.fulldive.wallet.presentation.main.splash.SplashActivity
+import com.fulldive.wallet.presentation.main.intro.IntroActivity
 import java.util.*
 
 class FulldiveContentProvider : ContentProvider() {
@@ -16,7 +16,7 @@ class FulldiveContentProvider : ContentProvider() {
             AppExtensionWorkType.START.id -> {
                 val context = context
                 if (context != null) {
-                    val startIntent = Intent(context, SplashActivity::class.java)
+                    val startIntent = Intent(context, IntroActivity::class.java)
                     startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(startIntent)
                 }
@@ -25,7 +25,7 @@ class FulldiveContentProvider : ContentProvider() {
             AppExtensionWorkType.OPEN.id -> {
                 val context = context
                 if (context != null) {
-                    val startIntent = Intent(context, SplashActivity::class.java)
+                    val startIntent = Intent(context, IntroActivity::class.java)
                     startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(startIntent)
                 }

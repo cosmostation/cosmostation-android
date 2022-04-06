@@ -36,7 +36,7 @@ public class DeleteStarName0Fragment extends BaseFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_delete_starname_0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mConfirmBtn = rootView.findViewById(R.id.btn_next);
+        mConfirmBtn = rootView.findViewById(R.id.nextButton);
         mStarName = rootView.findViewById(R.id.to_delete_starname);
         mExpireTime = rootView.findViewById(R.id.expire_time);
         mCancelBtn.setOnClickListener(this);

@@ -57,7 +57,7 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_repay_hard_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.nextButton);
         mRepayImg = rootView.findViewById(R.id.repay_icon);
         mRepaySymbol = rootView.findViewById(R.id.repay_symbol);
         mRepayInput = rootView.findViewById(R.id.repay_input);

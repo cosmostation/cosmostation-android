@@ -80,7 +80,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_repay_cdp_0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.nextButton);
 
         mPrincipalImg = rootView.findViewById(R.id.principal_icon);
         mPrincipalSymbol = rootView.findViewById(R.id.principal_symbol);

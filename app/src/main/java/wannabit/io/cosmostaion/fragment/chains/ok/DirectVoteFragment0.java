@@ -53,7 +53,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_direct_vote_0, container, false);
         mBefore = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mSelectedValidatorCnt = rootView.findViewById(R.id.selected_cnt);
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mBefore.setOnClickListener(this);

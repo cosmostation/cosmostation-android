@@ -31,6 +31,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -152,6 +153,7 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
         setHasOptionsMenu(true);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_tokens, container, false);
@@ -171,10 +173,7 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
             getMainActivity().onFetchAllData();
         });
 
-        mRecyclerView.setOnTouchListener((View view, MotionEvent motionEvent) -> {
-            return mSwipeRefreshLayout.isRefreshing();
-        });
-
+        mRecyclerView.setOnTouchListener((View view, MotionEvent motionEvent) -> mSwipeRefreshLayout.isRefreshing());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mTokensAdapter = new TokensAdapter();

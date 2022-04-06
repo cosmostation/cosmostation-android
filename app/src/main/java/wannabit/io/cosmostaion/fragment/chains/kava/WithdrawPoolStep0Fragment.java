@@ -69,7 +69,7 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_exit_pool_step0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mProgress = rootView.findViewById(R.id.progress);
 
         mLpCoinLayout = rootView.findViewById(R.id.exit_pool_input_symbol_layer);

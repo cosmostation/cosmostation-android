@@ -72,7 +72,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create_profile_step0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
 
         mProfileCoverImg = rootView.findViewById(R.id.profile_cover_img);
         mImgAdd = rootView.findViewById(R.id.add_btn);

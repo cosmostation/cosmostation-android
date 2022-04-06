@@ -37,7 +37,7 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_renew_starname_0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mConfirmBtn = rootView.findViewById(R.id.btn_next);
+        mConfirmBtn = rootView.findViewById(R.id.nextButton);
         mStarName = rootView.findViewById(R.id.to_renew_starname);
         mCurrentExpireTime = rootView.findViewById(R.id.current_expire_time);
         mToExpireTime = rootView.findViewById(R.id.to_renew_expire_time);

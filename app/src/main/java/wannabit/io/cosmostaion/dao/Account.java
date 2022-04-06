@@ -53,6 +53,32 @@ public class Account {
     public Account() {
     }
 
+    public Account(
+            String uuid,
+            String address,
+            String baseChain,
+            boolean hasPrivateKey,
+            String resource,
+            String spec,
+            boolean fromMnemonic,
+            int msize,
+            long importTime,
+            int path,
+            int customPath
+    ) {
+        this.uuid = uuid;
+        this.address = address;
+        this.baseChain = baseChain;
+        this.hasPrivateKey = hasPrivateKey;
+        this.resource = resource;
+        this.spec = spec;
+        this.fromMnemonic = fromMnemonic;
+        this.msize = msize;
+        this.importTime = importTime;
+        this.path = String.valueOf(path);
+        this.customPath = customPath;
+    }
+
     public Account(Long id, String uuid, String nickName, boolean isFavo, String address,
                    String baseChain, boolean hasPrivateKey, String resource, String spec,
                    boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber,
@@ -155,7 +181,7 @@ public class Account {
         return result;
     }
 
-    public SpannableString getLastTotal(Context c, BaseChain chain) {
+    public SpannableString getLastTotal(BaseChain chain) {
         SpannableString result = SpannableString.valueOf("--");
         try {
             if (!TextUtils.isEmpty(lastTotal)) {

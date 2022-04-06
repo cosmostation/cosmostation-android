@@ -174,7 +174,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
             WDp.DpMainDenom(account.baseChain, holder.accountDenom);
             holder.accountAddress.setText(account.address);
-            holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
+            holder.accountAvailable.setText(account.getLastTotal(BaseChain.getChain(account.baseChain)));
             holder.accountKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             if (account.hasPrivateKey) {
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);

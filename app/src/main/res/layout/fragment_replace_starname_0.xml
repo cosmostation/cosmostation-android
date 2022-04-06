@@ -37,7 +37,7 @@
             android:text="@string/str_cancel" />
 
         <Button
-            android:id="@+id/btn_next"
+            android:id="@+id/nextButton"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
             android:layout_weight="1"

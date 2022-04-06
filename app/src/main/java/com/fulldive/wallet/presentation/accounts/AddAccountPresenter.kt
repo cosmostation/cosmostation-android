@@ -5,7 +5,7 @@ import android.content.Intent
 import com.fulldive.wallet.di.modules.DefaultPresentersModule
 import com.fulldive.wallet.presentation.base.BaseMoxyPresenter
 import com.joom.lightsaber.ProvidedBy
-import wannabit.io.cosmostaion.activities.CreateActivity
+import com.fulldive.wallet.presentation.accounts.create.CreateAccountActivity
 import wannabit.io.cosmostaion.activities.RestoreActivity
 import wannabit.io.cosmostaion.activities.RestoreKeyActivity
 import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity
@@ -29,13 +29,13 @@ class AddAccountPresenter @Inject constructor() : BaseMoxyPresenter<AddAccountMo
     }
 
     fun onCreateClicked(packageContext: Context) {
-        showActivity(packageContext, CreateActivity::class.java)
+        showActivity(packageContext, CreateAccountActivity::class.java)
     }
 
     private fun showActivity(packageContext: Context, clazz: Class<*>) {
         val intent = Intent(packageContext, clazz)
         if (chain.isNotEmpty()) {
-            intent.putExtra("chain", chain)
+            intent.putExtra(CreateAccountActivity.KEY_CHAIN, chain)
         }
         viewState.startActivity(intent)
         viewState.dismiss()

@@ -27,7 +27,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_address_layer"
+        android:id="@+id/addressCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
@@ -45,7 +45,7 @@
             android:layout_height="@dimen/space_44">
 
             <TextView
-                android:id="@+id/create_address"
+                android:id="@+id/addressTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -54,8 +54,8 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_mnemonic_layer"
-        android:layout_below="@+id/card_address_layer"
+        android:id="@+id/mnemonicsCardView"
+        android:layout_below="@+id/addressCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
@@ -724,10 +724,10 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:id="@+id/warn_layer"
+        android:id="@+id/warningLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_next"
+        android:layout_above="@+id/nextButton"
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/space_24"
         android:layout_marginLeft="@dimen/space_24"
@@ -741,7 +741,7 @@
             android:src="@drawable/warning_ic" />
 
         <TextView
-            android:id="@+id/warn_msg"
+            android:id="@+id/warningTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"
@@ -751,7 +751,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_next"
+        android:id="@+id/nextButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
         android:minHeight="@dimen/space_45"

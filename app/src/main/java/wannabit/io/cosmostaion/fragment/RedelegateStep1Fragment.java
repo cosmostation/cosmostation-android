@@ -61,7 +61,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_redelegate_step1, container, false);
         mBefore = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mBefore.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);

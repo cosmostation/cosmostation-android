@@ -55,7 +55,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         mTvReceiveAddress = rootView.findViewById(R.id.reward_receive_address);
         mProgressBar = rootView.findViewById(R.id.reward_progress);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mTvDenomTitle);
 

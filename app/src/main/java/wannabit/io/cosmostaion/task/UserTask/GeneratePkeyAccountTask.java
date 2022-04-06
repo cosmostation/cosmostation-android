@@ -36,7 +36,7 @@ public class GeneratePkeyAccountTask extends CommonTask {
             long id = context.getBaseDao().onInsertAccount(onGenAccount());
             if (id > 0) {
                 result.isSuccess = true;
-                mHideChains = context.getBaseDao().userHideChains();
+                mHideChains = new ArrayList<>(context.getBaseDao().userHideChains());
                 if (mHideChains.contains(mBaseChain)) {
                     int position = mHideChains.indexOf(mBaseChain);
                     if (position >= 0) {

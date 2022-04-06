@@ -19,6 +19,9 @@ inline fun <T> Boolean?.ifFalse(block: () -> T) = if (this == false) block.invok
 
 fun <T> T?.or(value: T) = this ?: value
 inline fun <T> T?.or(block: () -> T) = this ?: block.invoke()
+inline fun <T, R> T?.letOr(block: (T) -> R, blockElse: () -> R): R {
+    return if (this != null) block.invoke(this) else blockElse.invoke()
+}
 
 fun String?.orNull(): String? = if (this.isNullOrEmpty()) null else this
 fun CharSequence?.orEmpty(): CharSequence = this ?: ""

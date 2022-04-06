@@ -66,7 +66,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_send_step1, container, false);
         mBefore = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
         mDenomTitle = rootView.findViewById(R.id.tv_symbol_coin);

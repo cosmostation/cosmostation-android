@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
+import com.fulldive.wallet.interactors.secret.MnemonicUtils;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -12,7 +14,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WKey;
 
 public class GenerateAccountTask extends CommonTask {
     private final BaseChain mBaseChain;
@@ -40,7 +41,7 @@ public class GenerateAccountTask extends CommonTask {
             long id = context.getBaseDao().onInsertAccount(onGenAccount(strings[1], strings[0], strings[2]));
             if (id > 0) {
                 result.isSuccess = true;
-                mHideChains = context.getBaseDao().userHideChains();
+                mHideChains = new ArrayList<>(context.getBaseDao().userHideChains());
                 if (mHideChains.contains(mBaseChain)) {
                     int position = mHideChains.indexOf(mBaseChain);
                     if (position >= 0) {
@@ -63,22 +64,22 @@ public class GenerateAccountTask extends CommonTask {
     }
 
 
-    private Account onGenAccount(String entropy, String path, String msize) {
+    private Account onGenAccount(String entropy, String path, String size) throws Exception {
         Account newAccount = Account.getNewInstance();
         EncResult encR = CryptoHelper.doEncryptData(context.getString(R.string.key_mnemonic) + newAccount.uuid, entropy, false);
 
-        newAccount.address = WKey.getCreateDpAddressFromEntropy(mBaseChain, entropy, Integer.parseInt(path), mCustomPath);
+//        newAccount.address = WKey.getCreateDpAddressFromEntropy(mBaseChain, entropy, Integer.parseInt(path), mCustomPath);
+        newAccount.address = MnemonicUtils.INSTANCE.createAddress(mBaseChain, entropy, Integer.parseInt(path), mCustomPath);
         newAccount.baseChain = mBaseChain.getChain();
         newAccount.hasPrivateKey = true;
         newAccount.resource = encR.getEncDataString();
         newAccount.spec = encR.getIvDataString();
         newAccount.fromMnemonic = true;
         newAccount.path = path;
-        newAccount.msize = Integer.parseInt(msize);
+        newAccount.msize = Integer.parseInt(size);
         newAccount.importTime = System.currentTimeMillis();
         newAccount.customPath = mCustomPath;
         return newAccount;
-
     }
 
 }

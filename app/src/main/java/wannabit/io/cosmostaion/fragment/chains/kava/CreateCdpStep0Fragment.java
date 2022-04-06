@@ -87,7 +87,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create_cdp_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.nextButton);
 
         mCollateralInputLayer = rootView.findViewById(R.id.collateral_input_layer);
         mCollateralImg = rootView.findViewById(R.id.collateral_icon);

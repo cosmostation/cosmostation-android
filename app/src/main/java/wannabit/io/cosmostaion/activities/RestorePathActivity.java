@@ -20,6 +20,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fulldive.wallet.interactors.secret.MnemonicUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -41,7 +43,6 @@ import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
@@ -128,7 +129,13 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, @SuppressLint("RecyclerView") final int position) {
-            String address = WKey.getCreateDpAddressFromEntropy(mChain, mEntropy, position, mCustomPath);
+//            String address = WKey.getCreateDpAddressFromEntropy(mChain, mEntropy, position, mCustomPath);
+            String address = "";
+            try {
+                address = MnemonicUtils.INSTANCE.createAddress(mChain, mEntropy, position, mCustomPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             holder.newPath.setText(WDp.getPath(mChain, position, mCustomPath));
             holder.newAddress.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
@@ -147,33 +154,27 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
                 }
             }
-            holder.cardNewWallet.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (holder.newState.getText().toString().equals(getString(R.string.str_ready))) {
-                        onGenAccount(position);
-                    } else if (holder.newState.getText().toString().equals(getString(R.string.str_imported))) {
-                        Toast.makeText(getBaseContext(), getString(R.string.str_already_imported_key), Toast.LENGTH_SHORT).show();
+            holder.cardNewWallet.setOnClickListener(v -> {
+                if (holder.newState.getText().toString().equals(getString(R.string.str_ready))) {
+                    onGenAccount(position);
+                } else if (holder.newState.getText().toString().equals(getString(R.string.str_imported))) {
+                    Toast.makeText(getBaseContext(), getString(R.string.str_already_imported_key), Toast.LENGTH_SHORT).show();
 
-                    } else {
-                        onOverrideAccount(temp, position);
-                    }
+                } else {
+                    onOverrideAccount(temp, position);
                 }
             });
 
             if (mChain.isGRPC()) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
                 WDp.showCoinDp(getBaseContext(), getBaseDao(), mChain.getMainDenom(), "0", holder.coinDenom, holder.coinAmount, mChain);
-                new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
-                    @Override
-                    public void onTaskResponse(TaskResult result) {
-                        WLog.w("result " + result.resultData);
-                        ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
-                        if (balances != null && balances.size() > 0) {
-                            for (CoinOuterClass.Coin balance : balances) {
-                                if (balance.getDenom().equals(mChain.getMainDenom())) {
-                                    WDp.showCoinDp(getBaseContext(), getBaseDao(), balance.getDenom(), balance.getAmount(), holder.coinDenom, holder.coinAmount, mChain);
-                                }
+                new BalanceGrpcTask(getBaseApplication(), result -> {
+                    WLog.w("result " + result.resultData);
+                    ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
+                    if (balances != null && balances.size() > 0) {
+                        for (CoinOuterClass.Coin balance : balances) {
+                            if (balance.getDenom().equals(mChain.getMainDenom())) {
+                                WDp.showCoinDp(getBaseContext(), getBaseDao(), balance.getDenom(), balance.getAmount(), holder.coinDenom, holder.coinAmount, mChain);
                             }
                         }
                     }

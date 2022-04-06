@@ -81,7 +81,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_join_pool_step0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mProgress = rootView.findViewById(R.id.progress);
 
         mJoinPoolInput0Img = rootView.findViewById(R.id.join_pool_input_icon);

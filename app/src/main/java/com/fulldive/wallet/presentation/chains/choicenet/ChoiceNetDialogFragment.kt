@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fulldive.wallet.extensions.orFalse
 import com.fulldive.wallet.extensions.unsafeLazy
+import com.fulldive.wallet.interactors.ScreensInteractor
 import com.fulldive.wallet.interactors.accounts.AccountsInteractor
 import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment
 import com.fulldive.wallet.presentation.base.BaseMvpDialogFragment
@@ -24,8 +25,11 @@ import wannabit.io.cosmostaion.base.BaseChain
 
 class ChoiceNetDialogFragment : BaseMvpDialogFragment() {
     private val isAddNet by unsafeLazy { arguments?.getBoolean(KEY_ADD, false).orFalse() }
+    private val requestCode by unsafeLazy { arguments?.getString(KEY_REQUEST_CODE).orEmpty() }
 
+    private var resultSent = false
     private var adapter: ChainListAdapter? = null
+    private lateinit var screensInteractor: ScreensInteractor
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +37,7 @@ class ChoiceNetDialogFragment : BaseMvpDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(0))
+        screensInteractor = getInjector().getInstance()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -57,7 +62,20 @@ class ChoiceNetDialogFragment : BaseMvpDialogFragment() {
             .create()
     }
 
+    override fun onDestroy() {
+        sendResult(Unit)
+        super.onDestroy()
+    }
+
+    private fun sendResult(result: Any) {
+        if (!resultSent) {
+            resultSent = true
+            screensInteractor.sendResult(requestCode, result)
+        }
+    }
+
     private fun onChainClicked(chain: BaseChain) {
+        sendResult(chain)
         (activity as? BaseActivity)?.apply {
             if (isAddNet) {
                 onChainSelected(chain)
@@ -84,10 +102,14 @@ class ChoiceNetDialogFragment : BaseMvpDialogFragment() {
 
     companion object {
         private const val KEY_ADD = "KEY_ADD"
-        fun newInstance(isAdd: Boolean) = ChoiceNetDialogFragment().apply {
-            arguments = bundleOf(
-                KEY_ADD to isAdd
-            )
-        }
+        private const val KEY_REQUEST_CODE = "KEY_REQUEST_CODE"
+
+        fun newInstance(isAdd: Boolean, requestCode: String = "") =
+            ChoiceNetDialogFragment().apply {
+                arguments = bundleOf(
+                    KEY_ADD to isAdd,
+                    KEY_REQUEST_CODE to requestCode
+                )
+            }
     }
 }

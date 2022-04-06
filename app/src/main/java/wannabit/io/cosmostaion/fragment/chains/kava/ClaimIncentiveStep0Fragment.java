@@ -55,7 +55,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_claim_incentive_0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
 
         mIncentiveKavaAmount = rootView.findViewById(R.id.tx_incentive_kava_amount);
         mIncentiveHardAmount = rootView.findViewById(R.id.tx_incentive_hard_amount);

@@ -3,13 +3,16 @@ package com.fulldive.wallet.interactors.accounts
 import com.fulldive.wallet.di.modules.DefaultInteractorsModule
 import com.fulldive.wallet.extensions.combine
 import com.fulldive.wallet.extensions.safeSingle
+import com.fulldive.wallet.extensions.singleCallable
 import com.fulldive.wallet.interactors.secret.SecretInteractor
+import com.fulldive.wallet.models.local.AccountSecrets
 import com.fulldive.wallet.rx.AppSchedulers
 import com.joom.lightsaber.ProvidedBy
 import io.reactivex.Completable
 import io.reactivex.Single
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.dao.Account
+import java.util.*
 import javax.inject.Inject
 
 @ProvidedBy(DefaultInteractorsModule::class)
@@ -82,6 +85,62 @@ class AccountsInteractor @Inject constructor(
             }
     }
 
+    fun createAccount(chain: BaseChain, accountSecrets: AccountSecrets): Completable {
+        return singleCallable { UUID.randomUUID().toString() }
+            .flatMap { uuid ->
+                secretInteractor.encryptData(uuid, accountSecrets.entropy)
+                    .map { encryptData ->
+                        Account(
+                            uuid,
+                            accountSecrets.address,
+                            chain.chain,
+                            true,
+                            encryptData.encDataString,
+                            encryptData.ivDataString,
+                            true,
+                            accountSecrets.mnemonic.size,
+                            System.currentTimeMillis(),
+                            accountSecrets.path,
+                            accountSecrets.customPath
+                        )
+                    }
+            }
+            .flatMap { account ->
+                accountsRepository.addAccount(account)
+            }
+            .flatMapCompletable { id ->
+                if (id >= 0) {
+                    accountsRepository.selectAccount(id)
+                } else {
+                    Completable.error(DuplicateAccountException())
+                }
+            }
+            .andThen(showChain(chain.chain))
+            .andThen(selectChain(chain.chain))
+    }
+
+    private fun selectChain(chain: String): Completable {
+        return accountsRepository.selectChain(chain)
+    }
+
+    private fun showChain(chain: String): Completable {
+        return accountsRepository
+            .getHiddenChains()
+            .flatMapCompletable { items ->
+                val index = items.indexOfFirst { it.chain == chain }
+                if (index >= 0) {
+                    singleCallable {
+                        items.toMutableList().apply {
+                            removeAt(index)
+                        }
+                    }
+                        .flatMapCompletable(accountsRepository::setHiddenChains)
+                } else {
+                    Completable.complete()
+                }
+            }
+    }
+
     fun deleteAccount(accountId: Long): Completable {
         return Single.zip(
             getSelectedAccount(),
@@ -104,6 +163,10 @@ class AccountsInteractor @Inject constructor(
         return accountsRepository.upgradeAccountAddressForPath()
     }
 
+    fun checkExistsPassword(): Single<Boolean> {
+        return accountsRepository.checkExistsPassword()
+    }
+
     private fun deleteAccount(account: Account): Completable {
         return Completable.merge(
             listOf(
@@ -116,4 +179,6 @@ class AccountsInteractor @Inject constructor(
             )
         )
     }
+
+
 }

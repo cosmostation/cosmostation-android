@@ -576,7 +576,7 @@ public class WUtil {
     }
 
 
-    public static String ByteArrayToHexString(byte[] bytes) {
+    public static String byteArrayToHexString(byte[] bytes) {
         final char[] hexArray = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         char[] hexChars = new char[bytes.length * 2];
         int v;
@@ -588,7 +588,7 @@ public class WUtil {
         return new String(hexChars);
     }
 
-    public static byte[] HexStringToByteArray(String s) throws IllegalArgumentException {
+    public static byte[] hexStringToByteArray(String s) throws IllegalArgumentException {
         int len = s.length();
         if (len % 2 == 1) {
             throw new IllegalArgumentException("Hex string must have even number of characters");

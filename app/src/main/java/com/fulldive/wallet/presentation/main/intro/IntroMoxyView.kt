@@ -1,11 +1,11 @@
-package com.fulldive.wallet.presentation.main.splash
+package com.fulldive.wallet.presentation.main.intro
 
 import androidx.fragment.app.DialogFragment
 import com.fulldive.wallet.presentation.base.BaseMoxyView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 import moxy.viewstate.strategy.alias.OneExecution
 
-interface SplashMoxyView : BaseMoxyView {
+interface IntroMoxyView : BaseMoxyView {
     @OneExecution
     fun showDialog(
         dialogFragment: DialogFragment,

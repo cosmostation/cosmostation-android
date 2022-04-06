@@ -29,7 +29,6 @@ import androidx.annotation.Nullable;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -79,7 +78,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         View rootView = inflater.inflate(R.layout.fragment_ibc_send_step1, container, false);
         mDesitination = rootView.findViewById(R.id.desitination_chain);
         mAddressInput = rootView.findViewById(R.id.receiver_account);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mCancel = rootView.findViewById(R.id.btn_cancel);
         mStarNameLayer = rootView.findViewById(R.id.starname_layer);
 

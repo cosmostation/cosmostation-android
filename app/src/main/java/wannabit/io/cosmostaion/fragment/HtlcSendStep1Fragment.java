@@ -54,11 +54,11 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_htlc_send_step1, container, false);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
         mReceiverBtn = rootView.findViewById(R.id.receive_layer);
         mKeyStatusImg = rootView.findViewById(R.id.key_status);
         mRecipientAddressTv = rootView.findViewById(R.id.key_address);
-        mWarnMSg = rootView.findViewById(R.id.warn_msg);
+        mWarnMSg = rootView.findViewById(R.id.warningTextView);
 
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);

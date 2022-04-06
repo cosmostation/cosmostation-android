@@ -42,6 +42,10 @@ class AccountsRepository @Inject constructor(
         return accountsLocalStorage.selectAccount(id)
     }
 
+    fun addAccount(account: Account): Single<Long> {
+        return accountsLocalStorage.addAccount(account)
+    }
+
     fun deleteAccount(accountId: Long): Completable {
         return accountsLocalStorage.deleteAccount(accountId)
     }
@@ -50,4 +54,19 @@ class AccountsRepository @Inject constructor(
         return accountsLocalStorage.upgradeAccountAddressForPath()
     }
 
+    fun checkExistsPassword(): Single<Boolean> {
+        return accountsLocalStorage.checkExistsPassword()
+    }
+
+    fun selectChain(chain: String): Completable {
+        return accountsLocalStorage.selectChain(chain)
+    }
+
+    fun setHiddenChains(items: List<BaseChain>): Completable {
+        return accountsLocalStorage.setHiddenChains(items)
+    }
+
+    fun getHiddenChains(): Single<List<BaseChain>> {
+        return accountsLocalStorage.getHiddenChains()
+    }
 }

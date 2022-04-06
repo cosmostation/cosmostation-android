@@ -58,7 +58,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_register_account0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mConfirmBtn = rootView.findViewById(R.id.btn_next);
+        mConfirmBtn = rootView.findViewById(R.id.nextButton);
         mAccountInput = rootView.findViewById(R.id.et_user_input);
         mStarNameFeeTv = rootView.findViewById(R.id.starname_fee_amount);
         mDomainLayer = rootView.findViewById(R.id.domain_layer);

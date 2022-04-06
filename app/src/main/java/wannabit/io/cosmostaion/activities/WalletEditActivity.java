@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -38,7 +39,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
 
     private final ArrayList<BaseChain> mAllChains = new ArrayList<>();
     private ArrayList<BaseChain> mDisplayChains = new ArrayList<>();
-    private ArrayList<BaseChain> mHideChains = new ArrayList<>();
+    private List<BaseChain> mHideChains = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
                 mAllChains.add(baseChain);
             }
         }
-        mDisplayChains = getBaseDao().userSortedChains();
+        mDisplayChains = new ArrayList<>(getBaseDao().userSortedChains());
         mHideChains = getBaseDao().userHideChains();
 
         if (mHideChains.size() <= 0) {

@@ -85,7 +85,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
         mPaste = rootView.findViewById(R.id.btn_paste);
         mBtnConfirm = rootView.findViewById(R.id.btn_confirm);
         mBtnDelete = rootView.findViewById(R.id.password_back);
-        mBtnSpace = rootView.findViewById(R.id.btn_next);
+        mBtnSpace = rootView.findViewById(R.id.nextButton);
         mRecyclerView = rootView.findViewById(R.id.recycler);
 
         mPaste.setOnClickListener(this);

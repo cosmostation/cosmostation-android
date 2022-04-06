@@ -55,7 +55,7 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_start_lock_step0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mNextBtn = rootView.findViewById(R.id.nextButton);
 
         mLpCoinInput = rootView.findViewById(R.id.start_lock_input);
         mLpCoinClearBtn = rootView.findViewById(R.id.start_lock_input_clear);

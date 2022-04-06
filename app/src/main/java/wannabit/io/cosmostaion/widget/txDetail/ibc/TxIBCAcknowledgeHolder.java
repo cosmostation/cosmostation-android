@@ -33,7 +33,7 @@ public class TxIBCAcknowledgeHolder extends TxHolder {
         try {
             Tx.MsgAcknowledgement msg = Tx.MsgAcknowledgement.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemIbcAcknowledgeSiner.setText(msg.getSigner());
-            itemIbcAcknowledge.setText(WUtil.ByteArrayToHexString(msg.getAcknowledgement().toByteArray()));
+            itemIbcAcknowledge.setText(WUtil.byteArrayToHexString(msg.getAcknowledgement().toByteArray()));
         } catch (Exception e) {
         }
     }

@@ -68,4 +68,34 @@ class AccountsLocalStorage @Inject constructor(
             baseData.upgradeAccountAddressForPath()
         }
     }
+
+    fun checkExistsPassword(): Single<Boolean> {
+        return safeSingle {
+            baseData.onHasPassword()
+        }
+    }
+
+    fun addAccount(account: Account): Single<Long> {
+        return safeSingle {
+            baseData.onInsertAccount(account)
+        }
+    }
+
+    fun selectChain(chain: String): Completable {
+        return safeCompletable {
+            baseData.setLastChain(chain)
+        }
+    }
+
+    fun getHiddenChains(): Single<List<BaseChain>> {
+        return safeSingle {
+            baseData.userHideChains()
+        }
+    }
+
+    fun setHiddenChains(items: List<BaseChain>): Completable {
+        return safeCompletable {
+            baseData.setUserHidenChains(items)
+        }
+    }
 }
