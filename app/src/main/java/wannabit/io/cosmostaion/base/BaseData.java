@@ -20,10 +20,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.fulldive.wallet.interactors.accounts.DuplicateAccountException;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 
 import net.sqlcipher.Cursor;
+import net.sqlcipher.SQLException;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.json.JSONArray;
@@ -1371,9 +1373,10 @@ public class BaseData {
         return null;
     }
 
-    public long onInsertAccount(Account account) {
-        long result = -1;
-        if (isDupleAccount(account.address, account.baseChain)) return result;
+    public long insertAccount(Account account) throws DuplicateAccountException, SQLException {
+        if (isAccountExists(account.address, account.baseChain)) {
+            throw new DuplicateAccountException();
+        }
         ContentValues values = new ContentValues();
         values.put("uuid", account.uuid);
         values.put("nickName", account.nickName);
@@ -1450,14 +1453,14 @@ public class BaseData {
     }
 
 
-    public boolean isDupleAccount(String address, String chain) {
-        boolean existed = false;
+    public boolean isAccountExists(String address, String chain) {
+        boolean result = false;
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id"}, "address == ? AND baseChain == ?", new String[]{address, chain}, null, null, null);
-        if (cursor != null && cursor.getCount() > 0) {
-            existed = true;
+        if (cursor != null) {
+            result = cursor.getCount() > 0;
+            cursor.close();
         }
-        cursor.close();
-        return existed;
+        return result;
     }
 
     public boolean onDeleteAccount(String id) {

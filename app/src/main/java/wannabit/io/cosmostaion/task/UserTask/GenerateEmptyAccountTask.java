@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
+import com.fulldive.wallet.interactors.accounts.DuplicateAccountException;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -27,22 +29,26 @@ public class GenerateEmptyAccountTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
 
-        long id = context.getBaseDao().onInsertAccount(onGenEmptyAccount(strings[0], strings[1]));
-        if (id > 0) {
-            result.isSuccess = true;
-            mHideChains = new ArrayList<>(context.getBaseDao().userHideChains());
-            if (mHideChains.contains(BaseChain.getChain(strings[0]))) {
-                int position = mHideChains.indexOf(BaseChain.getChain(strings[0]));
-                if (position >= 0) {
-                    mHideChains.remove(position);
+        try {
+            long id = context.getBaseDao().insertAccount(onGenEmptyAccount(strings[0], strings[1]));
+            if (id > 0) {
+                result.isSuccess = true;
+                mHideChains = new ArrayList<>(context.getBaseDao().userHideChains());
+                if (mHideChains.contains(BaseChain.getChain(strings[0]))) {
+                    int position = mHideChains.indexOf(BaseChain.getChain(strings[0]));
+                    if (position >= 0) {
+                        mHideChains.remove(position);
+                    }
+                    context.getBaseDao().setUserHidenChains(mHideChains);
                 }
-                context.getBaseDao().setUserHidenChains(mHideChains);
+                context.getBaseDao().setLastUser(id);
+                context.getBaseDao().setLastChain(strings[0]);
             }
-            context.getBaseDao().setLastUser(id);
-            context.getBaseDao().setLastChain(strings[0]);
-        } else {
-            result.errorMsg = "Already existed account";
-            result.errorCode = 7001;
+        } catch (Exception ex) {
+            if (ex instanceof DuplicateAccountException) {
+                result.errorMsg = "Already existed account";
+                result.errorCode = 7001;
+            }
         }
         return result;
     }

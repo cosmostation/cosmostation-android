@@ -105,16 +105,8 @@ class AccountsInteractor @Inject constructor(
                         )
                     }
             }
-            .flatMap { account ->
-                accountsRepository.addAccount(account)
-            }
-            .flatMapCompletable { id ->
-                if (id >= 0) {
-                    accountsRepository.selectAccount(id)
-                } else {
-                    Completable.error(DuplicateAccountException())
-                }
-            }
+            .flatMap(accountsRepository::addAccount)
+            .flatMapCompletable(accountsRepository::selectAccount)
             .andThen(showChain(chain.chain))
             .andThen(selectChain(chain.chain))
     }

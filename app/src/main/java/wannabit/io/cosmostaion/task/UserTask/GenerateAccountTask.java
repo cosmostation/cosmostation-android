@@ -38,7 +38,7 @@ public class GenerateAccountTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            long id = context.getBaseDao().onInsertAccount(onGenAccount(strings[1], strings[0], strings[2]));
+            long id = context.getBaseDao().insertAccount(onGenAccount(strings[1], strings[0], strings[2]));
             if (id > 0) {
                 result.isSuccess = true;
                 mHideChains = new ArrayList<>(context.getBaseDao().userHideChains());

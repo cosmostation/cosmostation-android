@@ -77,7 +77,7 @@ class AccountsLocalStorage @Inject constructor(
 
     fun addAccount(account: Account): Single<Long> {
         return safeSingle {
-            baseData.onInsertAccount(account)
+            baseData.insertAccount(account)
         }
     }
 

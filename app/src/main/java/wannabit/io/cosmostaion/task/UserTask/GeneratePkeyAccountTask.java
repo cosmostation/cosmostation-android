@@ -33,7 +33,7 @@ public class GeneratePkeyAccountTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            long id = context.getBaseDao().onInsertAccount(onGenAccount());
+            long id = context.getBaseDao().insertAccount(onGenAccount());
             if (id > 0) {
                 result.isSuccess = true;
                 mHideChains = new ArrayList<>(context.getBaseDao().userHideChains());
