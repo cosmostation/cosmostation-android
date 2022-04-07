@@ -48,7 +48,7 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         mMemo = rootView.findViewById(R.id.memo);
         mTime = rootView.findViewById(R.id.undelegate_time);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mDenomUndelegateAmount);
         WDp.DpMainDenom(getSActivity().account.baseChain, mDenomFeeType);

@@ -103,7 +103,7 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".activities.WatchingAccountAddActivity"
+            android:name="com.fulldive.wallet.presentation.accounts.watch.WatchAccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />

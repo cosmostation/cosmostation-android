@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         LockedViewPager contentsPager = findViewById(R.id.view_pager);
         TabLayout tabLayer = findViewById(R.id.bottom_tab);
 
-        mFloatBtn.setOnClickListener(v -> onStartSendMainDenom());
+        mFloatBtn.setOnClickListener(v -> startSendMainDenom());
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -179,7 +179,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         baseChain = BaseChain.getChain(account.baseChain);
         if (needFetch) {
-            onShowWaitDialog();
+            showWaitDialog();
             onFetchAllData();
 
             mToolbarChainImg.setImageResource(baseChain.getChainIcon());
@@ -297,7 +297,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     @Override
     public void fetchFinished() {
         if (!isFinishing()) {
-            onHideWaitDialog();
+            hideWaitDialog();
             for (Fragment fragment : mPageAdapter.getFragments()) {
                 if (fragment instanceof IRefreshTabListener) {
                     ((IRefreshTabListener) fragment).onRefreshTab();
@@ -309,7 +309,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     @Override
     public void fetchBusy() {
         if (!isFinishing()) {
-            onHideWaitDialog();
+            hideWaitDialog();
             Fragment fragment = mPageAdapter.mCurrentFragment;
             if (fragment instanceof IBusyFetchListener) {
                 ((IBusyFetchListener) mPageAdapter.mCurrentFragment).onBusyFetch();

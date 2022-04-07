@@ -33,7 +33,6 @@ public class BaseConstant {
 
     public final static int TASK_INIT_PW = 2000;
     public final static int TASK_INIT_ACCOUNT = 2002;
-    public final static int TASK_INIT_EMPTY_ACCOUNT = 2003;
     public final static int TASK_FETCH_ACCOUNT = 2004;
     public final static int TASK_FETCH_ALL_REWARDS = 2008;
     public final static int TASK_GEN_TX_SIMPLE_SEND = 2018;

@@ -96,7 +96,7 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
             showDialog(delete);
 
         } else if (v.equals(mOk)) {
-            onStartMainActivity(3);
+            startMainActivity(3);
         }
     }
 

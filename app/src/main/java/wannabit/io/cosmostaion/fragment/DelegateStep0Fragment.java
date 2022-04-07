@@ -58,7 +58,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_delegate_step0, container, false);
-        mCancel = rootView.findViewById(R.id.btn_cancel);
+        mCancel = rootView.findViewById(R.id.cancelButton);
         mNextBtn = rootView.findViewById(R.id.nextButton);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);

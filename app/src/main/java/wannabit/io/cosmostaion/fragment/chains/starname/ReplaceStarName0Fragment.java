@@ -58,7 +58,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_replace_starname_0, container, false);
-        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mCancelBtn = rootView.findViewById(R.id.cancelButton);
         mNextBtn = rootView.findViewById(R.id.nextButton);
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mCancelBtn.setOnClickListener(this);

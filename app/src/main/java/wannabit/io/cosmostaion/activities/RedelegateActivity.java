@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fulldive.wallet.extensions.ActivityExtensionsKt;
+
 import java.util.ArrayList;
 
 import cosmos.staking.v1beta1.Staking;
@@ -38,7 +40,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RedelegateActivity extends BaseBroadCastActivity implements TaskListener {
 
-    private ImageView mChainBg;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -53,7 +54,6 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg = findViewById(R.id.chain_bg);
         mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -133,7 +133,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
     @Override
     public void onBackPressed() {
-        onHideKeyboard();
+        ActivityExtensionsKt.hideKeyboard(this);
         if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -143,14 +143,14 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
     public void onNextStep() {
         if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
         if (mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();

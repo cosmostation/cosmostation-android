@@ -363,7 +363,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            getSActivity().onShowWaitDialog();
+            getSActivity().showWaitDialog();
             if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
                 new SimulSendGrpcTask(getBaseApplication(), this, getSActivity().baseChain, getSActivity().account, getSActivity().mToAddress, getSActivity().mAmounts,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -615,6 +615,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         } else {
             Toast.makeText(getContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
         }
-        getSActivity().onHideWaitDialog();
+        getSActivity().hideWaitDialog();
     }
 }

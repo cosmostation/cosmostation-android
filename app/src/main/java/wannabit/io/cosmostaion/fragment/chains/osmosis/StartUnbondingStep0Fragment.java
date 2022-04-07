@@ -40,7 +40,7 @@ public class StartUnbondingStep0Fragment extends BaseFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_start_unbonding_step0, container, false);
-        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mCancelBtn = rootView.findViewById(R.id.cancelButton);
         mNextBtn = rootView.findViewById(R.id.nextButton);
 
         mToUnbondingIds = rootView.findViewById(R.id.unbonding_ids);

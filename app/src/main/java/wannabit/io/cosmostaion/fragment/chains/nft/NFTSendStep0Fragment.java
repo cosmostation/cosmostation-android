@@ -68,11 +68,11 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
         View rootView = inflater.inflate(R.layout.fragment_send_nft_step0, container, false);
         mAddressInput = rootView.findViewById(R.id.receiver_account);
         mNextBtn = rootView.findViewById(R.id.nextButton);
-        mCancel = rootView.findViewById(R.id.btn_cancel);
+        mCancel = rootView.findViewById(R.id.cancelButton);
         mStarNameLayer = rootView.findViewById(R.id.starname_layer);
 
-        mBtnQr = rootView.findViewById(R.id.btn_qr);
-        mBtnPaste = rootView.findViewById(R.id.btn_paste);
+        mBtnQr = rootView.findViewById(R.id.scanQRButton);
+        mBtnPaste = rootView.findViewById(R.id.pasteButton);
 
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);

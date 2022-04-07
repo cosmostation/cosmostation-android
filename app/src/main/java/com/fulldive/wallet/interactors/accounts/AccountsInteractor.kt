@@ -111,6 +111,22 @@ class AccountsInteractor @Inject constructor(
             .andThen(selectChain(chain.chain))
     }
 
+    fun createEmptyAccount(chain: BaseChain, address: String): Completable {
+        return singleCallable {
+            val uuid = UUID.randomUUID().toString()
+            Account(
+                uuid,
+                address.lowercase(),
+                chain.chain,
+                System.currentTimeMillis()
+            )
+        }
+            .flatMap(accountsRepository::addAccount)
+            .flatMapCompletable(accountsRepository::selectAccount)
+            .andThen(showChain(chain.chain))
+            .andThen(selectChain(chain.chain))
+    }
+
     private fun selectChain(chain: String): Completable {
         return accountsRepository.selectChain(chain)
     }
@@ -171,6 +187,5 @@ class AccountsInteractor @Inject constructor(
             )
         )
     }
-
 
 }

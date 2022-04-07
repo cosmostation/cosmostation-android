@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fulldive.wallet.extensions.ActivityExtensionsKt;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -38,7 +40,6 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class HtlcRefundActivity extends BaseBroadCastActivity {
 
     private RelativeLayout mRootView;
-    private ImageView mChainBg;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -55,7 +56,6 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
         mRootView = findViewById(R.id.root_view);
-        mChainBg = findViewById(R.id.chain_bg);
         mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -110,8 +110,8 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(v -> onHideKeyboard());
-        onShowWaitDialog();
+        mRootView.setOnClickListener(v -> ActivityExtensionsKt.hideKeyboard(this));
+        showWaitDialog();
         onFetchHtlcStatus(mSwapId);
     }
 
@@ -128,7 +128,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
 
     @Override
     public void onBackPressed() {
-        onHideKeyboard();
+        ActivityExtensionsKt.hideKeyboard(this);
         if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -138,14 +138,14 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
 
     public void onNextStep() {
         if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
         if (mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();
@@ -214,7 +214,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
                 @Override
                 public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        onHideWaitDialog();
+                        hideWaitDialog();
                         mResKavaSwapInfo = response.body();
                         ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                     } else {
@@ -234,7 +234,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
                 @Override
                 public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        onHideWaitDialog();
+                        hideWaitDialog();
                         mResBnbSwapInfo = response.body();
                         ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                     } else {

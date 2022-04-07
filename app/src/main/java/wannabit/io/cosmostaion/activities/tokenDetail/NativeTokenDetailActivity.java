@@ -203,7 +203,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             return;
 
         } else if (v.equals(mBtnBep3Send)) {
-            onStartHTLCSendActivity(mDenom);
+            startHTLCSendActivity(mDenom);
 
         } else if (v.equals(mBtnSend)) {
             if (!account.hasPrivateKey) {

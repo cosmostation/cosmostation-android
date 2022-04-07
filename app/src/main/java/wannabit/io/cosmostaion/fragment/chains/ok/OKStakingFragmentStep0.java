@@ -60,7 +60,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_stake_deposit_0, container, false);
-        mCancel = rootView.findViewById(R.id.btn_cancel);
+        mCancel = rootView.findViewById(R.id.cancelButton);
         mNextBtn = rootView.findViewById(R.id.nextButton);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);

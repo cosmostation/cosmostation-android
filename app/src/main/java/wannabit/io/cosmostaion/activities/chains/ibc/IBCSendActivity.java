@@ -14,6 +14,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fulldive.wallet.extensions.ActivityExtensionsKt;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -33,7 +35,6 @@ import wannabit.io.cosmostaion.fragment.chains.ibc.IBCSendStep4Fragment;
 
 public class IBCSendActivity extends BaseBroadCastActivity {
 
-    private ImageView mChainBg;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -50,7 +51,6 @@ public class IBCSendActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg = findViewById(R.id.chain_bg);
         mToolbar = findViewById(R.id.toolbar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -128,7 +128,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
 
     @Override
     public void onBackPressed() {
-        onHideKeyboard();
+        ActivityExtensionsKt.hideKeyboard(this);
         if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -137,14 +137,14 @@ public class IBCSendActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        onHideKeyboard();
+        ActivityExtensionsKt.hideKeyboard(this);
         if (mViewPager.getCurrentItem() < 4) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        onHideKeyboard();
+        ActivityExtensionsKt.hideKeyboard(this);
         if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {

@@ -8,7 +8,7 @@ import com.joom.lightsaber.ProvidedBy
 import com.fulldive.wallet.presentation.accounts.create.CreateAccountActivity
 import wannabit.io.cosmostaion.activities.RestoreActivity
 import wannabit.io.cosmostaion.activities.RestoreKeyActivity
-import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity
+import com.fulldive.wallet.presentation.accounts.watch.WatchAccountActivity
 import javax.inject.Inject
 
 @ProvidedBy(DefaultPresentersModule::class)
@@ -25,7 +25,7 @@ class AddAccountPresenter @Inject constructor() : BaseMoxyPresenter<AddAccountMo
     }
 
     fun onWatchAddressClicked(packageContext: Context) {
-        showActivity(packageContext, WatchingAccountAddActivity::class.java)
+        showActivity(packageContext, WatchAccountActivity::class.java)
     }
 
     fun onCreateClicked(packageContext: Context) {

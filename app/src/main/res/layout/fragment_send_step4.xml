@@ -329,7 +329,7 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_confirm"
+            android:id="@+id/confirmButton"
             style="@style/font_ss_14_photon"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"

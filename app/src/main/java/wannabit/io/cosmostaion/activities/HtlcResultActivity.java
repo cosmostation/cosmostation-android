@@ -120,24 +120,24 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         if (mLoadingLayer.getVisibility() == View.VISIBLE) {
             return;
         } else {
-            onStartMainActivity(0);
+            startMainActivity(0);
         }
     }
 
     public void onFinishWithError() {
-        onStartMainActivity(0);
+        startMainActivity(0);
 
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mSenderBtn)) {
-            onStartMainActivity(0);
+            startMainActivity(0);
 
         } else if (v.equals(mReceiverBtn)) {
             if (getBaseDao().dpSortedChains().contains(BaseChain.getChain(mRecipientAccount.baseChain))) {
                 getBaseDao().setLastUser(mRecipientAccount.id);
-                onStartMainActivity(1);
+                startMainActivity(1);
             } else {
                 Toast.makeText(HtlcResultActivity.this, "error_hided_chain", Toast.LENGTH_SHORT).show();
                 return;

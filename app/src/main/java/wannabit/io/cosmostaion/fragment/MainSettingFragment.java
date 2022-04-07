@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceChainDialogFragment;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
@@ -167,7 +167,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnAddWallet)) {
-            showDialog(ChoiceNetDialogFragment.Companion.newInstance(true, ""));
+            showDialog(ChoiceChainDialogFragment.Companion.newInstance(true));
         } else if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
 

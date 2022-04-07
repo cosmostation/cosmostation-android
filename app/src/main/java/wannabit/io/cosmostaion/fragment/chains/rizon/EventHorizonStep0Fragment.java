@@ -82,8 +82,8 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_event_horizon_step0, container, false);
-        mPaste = rootView.findViewById(R.id.btn_paste);
-        mBtnConfirm = rootView.findViewById(R.id.btn_confirm);
+        mPaste = rootView.findViewById(R.id.pasteButton);
+        mBtnConfirm = rootView.findViewById(R.id.confirmButton);
         mBtnDelete = rootView.findViewById(R.id.password_back);
         mBtnSpace = rootView.findViewById(R.id.nextButton);
         mRecyclerView = rootView.findViewById(R.id.recycler);
@@ -258,7 +258,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     private int mTaskCount;
 
     public void onHdacInfo() {
-        getSActivity().onShowWaitDialog();
+        getSActivity().showWaitDialog();
         mTaskCount = 1;
         new HdacUtxoTask(getBaseApplication(), this, getSActivity().baseChain, onHdacAddress(getSActivity().baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -281,7 +281,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             }
         }
         if (mTaskCount == 0) {
-            getSActivity().onHideWaitDialog();
+            getSActivity().hideWaitDialog();
         }
     }
 

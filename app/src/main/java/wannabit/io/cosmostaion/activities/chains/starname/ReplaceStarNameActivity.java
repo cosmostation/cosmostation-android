@@ -20,6 +20,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fulldive.wallet.extensions.ActivityExtensionsKt;
+
 import java.util.ArrayList;
 
 import starnamed.x.starname.v1beta1.Types;
@@ -114,9 +116,9 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(v -> onHideKeyboard());
+        mRootView.setOnClickListener(v -> ActivityExtensionsKt.hideKeyboard(this));
 
-        onShowWaitDialog();
+        showWaitDialog();
         onFetchData();
     }
 
@@ -133,7 +135,7 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     @Override
     public void onBackPressed() {
-        onHideKeyboard();
+        ActivityExtensionsKt.hideKeyboard(this);
         if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -143,14 +145,14 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     public void onNextStep() {
         if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
         if (mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();
@@ -195,7 +197,7 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
             }
         }
         if (mTaskCount == 0) {
-            onHideWaitDialog();
+            hideWaitDialog();
             ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
         }
     }

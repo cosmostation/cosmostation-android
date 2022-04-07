@@ -58,7 +58,7 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
         mLpAmountLayer = rootView.findViewById(R.id.lp_amount);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 

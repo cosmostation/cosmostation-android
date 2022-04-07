@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.fulldive.wallet.components.CustomImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos" />
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/bg_cosmos" />
 
     <LinearLayout
         android:id="@+id/contentsLayer"
-        android:layout_marginTop="@dimen/space_16"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="@dimen/space_16"
         android:orientation="vertical">
 
         <LinearLayout
@@ -31,11 +31,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_16"
-                    android:layout_marginRight="@dimen/space_16"
                     android:layout_marginTop="@dimen/space_8"
-                    android:paddingBottom="@dimen/space_4"
+                    android:layout_marginRight="@dimen/space_16"
                     android:background="@drawable/box_round_white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/space_4">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -46,29 +46,29 @@
                             android:id="@+id/layer_mnemonic_0"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_0"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="01 :" />
                         </RelativeLayout>
 
@@ -76,29 +76,29 @@
                             android:id="@+id/layer_mnemonic_1"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_1"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="02 :" />
                         </RelativeLayout>
 
@@ -106,29 +106,29 @@
                             android:id="@+id/layer_mnemonic_2"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_2"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="03 :" />
                         </RelativeLayout>
 
@@ -136,29 +136,29 @@
                             android:id="@+id/layer_mnemonic_3"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_3"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="04 :" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -172,29 +172,29 @@
                             android:id="@+id/layer_mnemonic_4"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_4"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="05 :" />
                         </RelativeLayout>
 
@@ -202,29 +202,29 @@
                             android:id="@+id/layer_mnemonic_5"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_5"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="06 :" />
                         </RelativeLayout>
 
@@ -232,29 +232,29 @@
                             android:id="@+id/layer_mnemonic_6"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_6"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="07 :" />
                         </RelativeLayout>
 
@@ -262,29 +262,29 @@
                             android:id="@+id/layer_mnemonic_7"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_7"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="08 :" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -298,29 +298,29 @@
                             android:id="@+id/layer_mnemonic_8"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_8"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="09 :" />
                         </RelativeLayout>
 
@@ -328,29 +328,29 @@
                             android:id="@+id/layer_mnemonic_9"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_9"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="10 :" />
                         </RelativeLayout>
 
@@ -358,29 +358,29 @@
                             android:id="@+id/layer_mnemonic_10"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_10"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="11 :" />
                         </RelativeLayout>
 
@@ -388,29 +388,29 @@
                             android:id="@+id/layer_mnemonic_11"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_11"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="12 :" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -424,29 +424,29 @@
                             android:id="@+id/layer_mnemonic_12"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_12"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="13 :" />
                         </RelativeLayout>
 
@@ -454,29 +454,29 @@
                             android:id="@+id/layer_mnemonic_13"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_13"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="14 :" />
                         </RelativeLayout>
 
@@ -484,29 +484,29 @@
                             android:id="@+id/layer_mnemonic_14"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_14"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="15 :" />
                         </RelativeLayout>
 
@@ -514,29 +514,29 @@
                             android:id="@+id/layer_mnemonic_15"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_15"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="16 :" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -550,29 +550,29 @@
                             android:id="@+id/layer_mnemonic_16"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_16"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="17 :" />
                         </RelativeLayout>
 
@@ -580,29 +580,29 @@
                             android:id="@+id/layer_mnemonic_17"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_17"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="18 :" />
                         </RelativeLayout>
 
@@ -610,29 +610,29 @@
                             android:id="@+id/layer_mnemonic_18"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_18"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="19 :" />
                         </RelativeLayout>
 
@@ -640,29 +640,29 @@
                             android:id="@+id/layer_mnemonic_19"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_19"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="20 :" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -676,29 +676,29 @@
                             android:id="@+id/layer_mnemonic_20"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_20"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="21 :" />
                         </RelativeLayout>
 
@@ -706,29 +706,29 @@
                             android:id="@+id/layer_mnemonic_21"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_21"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="22 :" />
                         </RelativeLayout>
 
@@ -736,29 +736,29 @@
                             android:id="@+id/layer_mnemonic_22"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_22"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="23 :" />
                         </RelativeLayout>
 
@@ -766,29 +766,29 @@
                             android:id="@+id/layer_mnemonic_23"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/space_24"
+                            android:layout_margin="@dimen/space_2"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:layout_margin="@dimen/space_2">
+                            android:gravity="center_vertical">
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_23"
+                                style="@style/font_ss_11_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext" />
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
 
                             <TextView
+                                style="@style/font_ss_10_gray1"
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                android:layout_marginLeft="@dimen/space_8"
                                 android:text="24 :" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -800,8 +800,8 @@
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
-                android:layout_marginTop="@dimen/space_16"
                 android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_16"
                 android:clipToPadding="false"
                 android:overScrollMode="never" />
         </LinearLayout>
@@ -811,375 +811,375 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:orientation="vertical"
-            android:background="@color/colorGray8">
+            android:background="@color/colorGray8"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/btn_paste"
+                    android:id="@+id/pasteButton"
+                    style="@style/font_ss_14_white"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_45"
                     android:layout_weight="1"
-                    android:minHeight="@dimen/space_45"
                     android:background="@drawable/btn_black_boarder"
-                    style="@style/font_ss_14_white"
-                    android:textAllCaps="false"
-                    android:text="@string/str_paste" />
+                    android:minHeight="@dimen/space_45"
+                    android:text="@string/str_paste"
+                    android:textAllCaps="false" />
 
                 <Button
-                    android:id="@+id/btn_confirm"
+                    android:id="@+id/confirmButton"
+                    style="@style/font_ss_14_photon"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_45"
                     android:layout_weight="1"
-                    android:minHeight="@dimen/space_45"
                     android:background="@drawable/btn_black_boarder"
-                    style="@style/font_ss_14_photon"
-                    android:textAllCaps="false"
-                    android:text="@string/str_confirm" />
+                    android:minHeight="@dimen/space_45"
+                    android:text="@string/str_confirm"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
+                android:layout_weight="1"
                 android:gravity="center">
 
                 <Button
                     android:id="@+id/password_char0"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="q" />
+                    android:text="q"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char1"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="w" />
+                    android:text="w"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char2"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="e" />
+                    android:text="e"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char3"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="r" />
+                    android:text="r"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char4"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="t" />
+                    android:text="t"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char5"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="y" />
+                    android:text="y"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char6"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="u" />
+                    android:text="u"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char7"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="i" />
+                    android:text="i"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char8"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="o" />
+                    android:text="o"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char9"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="p" />
+                    android:text="p"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/space_20"
                 android:layout_marginRight="@dimen/space_20"
+                android:layout_weight="1"
                 android:gravity="center">
 
                 <Button
                     android:id="@+id/password_char10"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="a" />
+                    android:text="a"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char11"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="s" />
+                    android:text="s"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char12"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="d" />
+                    android:text="d"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char13"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="f" />
+                    android:text="f"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char14"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="g" />
+                    android:text="g"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char15"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="h" />
+                    android:text="h"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char16"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="j" />
+                    android:text="j"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char17"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="k" />
+                    android:text="k"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char18"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="l" />
+                    android:text="l"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/space_30"
                 android:layout_marginRight="@dimen/space_6"
+                android:layout_weight="1"
                 android:gravity="center">
 
                 <Button
                     android:id="@+id/password_char19"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="z" />
+                    android:text="z"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char20"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="x" />
+                    android:text="x"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char21"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="c" />
+                    android:text="c"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char22"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="v" />
+                    android:text="v"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char23"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="b" />
+                    android:text="b"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char24"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="n" />
+                    android:text="n"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/password_char25"
+                    style="@style/font_ssm_keyboard_white"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
-                    android:textAllCaps="false"
-                    android:text="m" />
+                    android:text="m"
+                    android:textAllCaps="false" />
 
                 <ImageButton
                     android:id="@+id/password_back"
                     android:layout_width="@dimen/space_24"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.2"
-                    android:paddingTop="@dimen/space_4"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_weight="1.2"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:paddingTop="@dimen/space_4"
                     android:src="@drawable/password_delete" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.8"
                 android:layout_marginLeft="@dimen/space_40"
                 android:layout_marginRight="@dimen/space_40"
-                android:paddingBottom="@dimen/space_4"
-                android:gravity="center">
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:paddingBottom="@dimen/space_4">
 
                 <Button
                     android:id="@+id/nextButton"
+                    style="@style/font_ssm_17_keyboard"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_36"
                     android:layout_weight="1"
-                    android:minHeight="@dimen/space_36"
                     android:background="@drawable/button_gray"
-                    style="@style/font_ssm_17_keyboard"
-                    android:textAllCaps="false"
-                    android:text="@string/str_next_word" />
+                    android:minHeight="@dimen/space_36"
+                    android:text="@string/str_next_word"
+                    android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

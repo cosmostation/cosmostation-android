@@ -13,13 +13,16 @@ import android.text.TextUtils;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public enum BaseChain {
     // chain_id is checked on-chain. no need update chain version  21.03.20
@@ -1349,6 +1352,21 @@ public enum BaseChain {
             }
         }
         return null;
+    }
+
+    @NonNull
+    public static List<BaseChain> getChainsByAddress(@NonNull String address) {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        if (address.startsWith("0x") && WKey.isValidEthAddress(address)) {
+            result.add(OKEX_MAIN);
+        } else if (WKey.isValidBech32(address)) {
+            for (BaseChain chain : BaseChain.values()) {
+                if (address.startsWith(chain.getChainAddressPrefix())) {
+                    result.add(chain);
+                }
+            }
+        }
+        return result;
     }
 
     public boolean hasChainName(String chain) {

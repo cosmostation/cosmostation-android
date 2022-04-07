@@ -40,7 +40,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -55,7 +54,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,6 +84,7 @@ import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
+import io.reactivex.disposables.CompositeDisposable;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
@@ -181,12 +180,25 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
     private CardView mPushBody;
     private ImageView mPushClose;
 
+    protected final CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             onDisplayNotification(intent);
         }
     };
+
+    @Override
+    public void setAppInjector(@NonNull Injector appInjector) {
+        this.injector = appInjector;
+    }
+
+    @NonNull
+    @Override
+    public Injector getAppInjector() {
+        return injector;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,14 +231,9 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
     }
 
     @Override
-    public void setAppInjector(@NonNull Injector appInjector) {
-        this.injector = appInjector;
-    }
-
-    @NonNull
-    @Override
-    public Injector getAppInjector() {
-        return injector;
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
     }
 
     public BaseApplication getBaseApplication() {
@@ -241,7 +248,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         return mData;
     }
 
-    public void onShowWaitDialog() {
+    public void showWaitDialog() {
         if (waitDialogFragment == null) {
             waitDialogFragment = WaitDialogFragment.Companion.newInstance();
         }
@@ -251,23 +258,13 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         }
     }
 
-    public void onHideWaitDialog() {
+    public void hideWaitDialog() {
         if (waitDialogFragment != null) {
             waitDialogFragment.dismissAllowingStateLoss();
         }
     }
 
-    public void onHideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View v = getCurrentFocus();
-        if (v == null) {
-            v = new View(getBaseContext());
-        }
-        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        v.clearFocus();
-    }
-
-    public void onStartMainActivity(int page) {
+    public void startMainActivity(int page) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("page", page);
@@ -275,7 +272,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
     }
 
 
-    public void onStartSendMainDenom() {
+    public void startSendMainDenom() {
         if (account == null) return;
         if (!account.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -300,7 +297,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
 
     }
 
-    public void onStartHTLCSendActivity(String sendDenom) {
+    public void startHTLCSendActivity(String sendDenom) {
 //        WLog.w("onStartHTLCSendActivity " + mBaseChain.getChain() + " " + sendDenom);
         if (account == null) return;
         if (!SUPPORT_BEP3_SWAP) {
@@ -336,6 +333,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         startActivity(intent);
     }
 
+    @Deprecated
     public void onChoiceNet(BaseChain chain) {
     }
 
@@ -382,7 +380,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
             } else {
                 getBaseDao().setLastUser(account.id);
             }
-            onStartMainActivity(0);
+            startMainActivity(0);
         } else {
             getBaseDao().setLastUser(-1);
             Intent intent = new Intent(this, IntroActivity.class);
@@ -439,7 +437,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
             List<Account> accounts = getBaseDao().getAccountsByAddress(address);
             if (!accounts.isEmpty()) {
                 getBaseDao().setLastUser(accounts.get(0).id);
-                onStartMainActivity(2);
+                startMainActivity(2);
             }
         });
 

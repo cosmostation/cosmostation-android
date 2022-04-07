@@ -55,7 +55,7 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_withdraw_hard_step0, container, false);
-        mBtnCancel = rootView.findViewById(R.id.btn_cancel);
+        mBtnCancel = rootView.findViewById(R.id.cancelButton);
         mBtnNext = rootView.findViewById(R.id.nextButton);
         mWithdrawImg = rootView.findViewById(R.id.withdraw_icon);
         mWithdrawSymbol = rootView.findViewById(R.id.withdraw_symbol);

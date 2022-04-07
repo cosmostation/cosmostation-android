@@ -157,7 +157,7 @@ public class WKey {
         try {
             bech32Decode(address);
             result = true;
-        } catch (Exception e) {
+        } catch (Exception ignore) {
         }
         return result;
     }

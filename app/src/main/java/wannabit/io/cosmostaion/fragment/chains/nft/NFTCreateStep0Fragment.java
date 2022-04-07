@@ -65,7 +65,7 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_issue_nft_step0, container, false);
-        mBtnCancel = rootView.findViewById(R.id.btn_cancel);
+        mBtnCancel = rootView.findViewById(R.id.cancelButton);
         mBtnNext = rootView.findViewById(R.id.nextButton);
 
         mNftImg = rootView.findViewById(R.id.nft_img);
@@ -146,7 +146,7 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
     }
 
     private void onUploadImgView() {
-        getSActivity().onShowWaitDialog();
+        getSActivity().showWaitDialog();
         Thread upload = new Thread() {
             @Override
             public void run() {
@@ -174,7 +174,7 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
     }
 
     private void onUpdateImgView(String hash) {
-        getSActivity().onHideWaitDialog();
+        getSActivity().hideWaitDialog();
         if (hash != null) {
             mNftImg.setClipToOutline(true);
             Glide.with(this).load(NFT_INFURA + hash).diskCacheStrategy(DiskCacheStrategy.ALL).fitCenter().into(mNftImg);

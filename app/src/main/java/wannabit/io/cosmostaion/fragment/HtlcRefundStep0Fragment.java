@@ -36,7 +36,7 @@ public class HtlcRefundStep0Fragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_htlc_refund_0, container, false);
-        mBtnCancel = rootView.findViewById(R.id.btn_cancel);
+        mBtnCancel = rootView.findViewById(R.id.cancelButton);
         mBtnNext = rootView.findViewById(R.id.nextButton);
         mSwapId = rootView.findViewById(R.id.refund_swap_id);
         mRefundAddress = rootView.findViewById(R.id.refund_address);

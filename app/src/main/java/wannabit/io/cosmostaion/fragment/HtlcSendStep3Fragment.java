@@ -89,7 +89,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         mClaimFeeDenomTv = rootView.findViewById(R.id.claim_fee_denom);
         mClaimAddressTv = rootView.findViewById(R.id.claim_address);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;

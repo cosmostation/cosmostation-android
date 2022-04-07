@@ -249,7 +249,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             startActivity(intent);
 
         } else if (v.equals(mBtnBep3Send)) {
-            onStartHTLCSendActivity(mNativeGrpcDenom);
+            startHTLCSendActivity(mNativeGrpcDenom);
         }
 
     }

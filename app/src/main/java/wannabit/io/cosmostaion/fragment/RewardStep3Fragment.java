@@ -58,7 +58,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mExpectedAmount = rootView.findViewById(R.id.expected_amount);
         mExpectedPrice = rootView.findViewById(R.id.expected_price);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
         mDenomRewardAmount = rootView.findViewById(R.id.reward_amount_title);
         mDenomFeeType = rootView.findViewById(R.id.reward_fees_type);
         mDenomResultAmount = rootView.findViewById(R.id.expected_amount_title);

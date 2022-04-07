@@ -62,7 +62,7 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
         mTotalDebtValue = rootView.findViewById(R.id.after_total_debt_value);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;

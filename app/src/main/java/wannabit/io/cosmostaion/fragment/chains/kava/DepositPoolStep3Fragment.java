@@ -53,7 +53,7 @@ public class DepositPoolStep3Fragment extends BaseFragment implements View.OnCli
         mJoinSlippage = rootView.findViewById(R.id.tx_kava_slippage);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 

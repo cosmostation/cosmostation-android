@@ -33,7 +33,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment;
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceChainDialogFragment;
 
 import org.bitcoinj.crypto.MnemonicCode;
 
@@ -61,7 +61,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private final Button[] alphabetBtns = new Button[26];
     private ImageButton deleteButton;
     private Button mBtnSpace;
-    private RecyclerView recyclerView;
     private ImageView chainImageView;
     private TextView clearAllButton, wordsCountView;
 
@@ -82,11 +81,11 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_restore);
         Toolbar toolbar = findViewById(R.id.toolbar);
         cpntentsLayout = findViewById(R.id.contentsLayer);
-        pasteButton = findViewById(R.id.btn_paste);
-        confirmButton = findViewById(R.id.btn_confirm);
+        pasteButton = findViewById(R.id.pasteButton);
+        confirmButton = findViewById(R.id.confirmButton);
         deleteButton = findViewById(R.id.password_back);
         mBtnSpace = findViewById(R.id.nextButton);
-        recyclerView = findViewById(R.id.recycler);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         chainImageView = findViewById(R.id.chainImg);
         clearAllButton = findViewById(R.id.toolbar_clear);
         wordsCountView = findViewById(R.id.words_cnt);
@@ -140,7 +139,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     protected void onPostResume() {
         super.onPostResume();
         if (chain == null) {
-            ChoiceNetDialogFragment dialog = ChoiceNetDialogFragment.Companion.newInstance(false, "");
+            ChoiceChainDialogFragment dialog = ChoiceChainDialogFragment.Companion.newInstance(false);
             showDialog(dialog, "dialog", false);
 
         } else {
@@ -279,9 +278,10 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
         } else if (v.equals(confirmButton)) {
             words.clear();
-            for (int i = 0; i < mnemonicsEditText.length; i++) {
-                if (!TextUtils.isEmpty(mnemonicsEditText[i].getText().toString().trim())) {
-                    words.add(mnemonicsEditText[i].getText().toString().trim());
+            for (EditText editText : mnemonicsEditText) {
+                final String text = editText.getText().toString().trim();
+                if (!TextUtils.isEmpty(text)) {
+                    words.add(text);
                 } else {
                     break;
                 }

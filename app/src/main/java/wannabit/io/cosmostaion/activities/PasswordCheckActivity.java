@@ -99,7 +99,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import irismod.nft.QueryOuterClass;
 import osmosis.gamm.v1beta1.Tx;
@@ -296,7 +295,6 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
 
     private AccountsInteractor accountsInteractor;
     private SecretInteractor secretInteractor;
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -433,12 +431,6 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
     }
 
     @Override
-    protected void onDestroy() {
-        compositeDisposable.clear();
-        super.onDestroy();
-    }
-
-    @Override
     public void onBackPressed() {
         if (userInput != null && userInput.length() > 0) {
             userDeleteKey();
@@ -508,7 +500,7 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
             actionCheckPassword();
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_SEND) {
-            onShowWaitDialog();
+            showWaitDialog();
             if (baseChain.isGRPC()) {
                 new SendGrpcTask(getBaseApplication(), this, baseChain, account, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee,
                         getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
@@ -523,17 +515,17 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
             }
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_DELEGATE) {
-            onShowWaitDialog();
+            showWaitDialog();
             new DelegateGrpcTask(getBaseApplication(), this, baseChain, account, mTargetAddress, mDAmount, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-            onShowWaitDialog();
+            showWaitDialog();
             new UndelegateGrpcTask(getBaseApplication(), this, baseChain, account, mTargetAddress, mUAmount, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REWARD) {
-            onShowWaitDialog();
+            showWaitDialog();
             new ClaimRewardsGrpcTask(getBaseApplication(), this, baseChain, account, mValOpAddresses_V1, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
@@ -541,35 +533,35 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
             actionDeleteAccount();
 
         } else if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
-            onShowWaitDialog();
+            showWaitDialog();
             new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(userInput);
 
         } else if (mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
-            onShowWaitDialog();
+            showWaitDialog();
             new CheckPrivateKeyTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REDELEGATE) {
-            onShowWaitDialog();
+            showWaitDialog();
             new RedelegateGrpcTask(getBaseApplication(), this, baseChain, account, mFromReDelegateAddr, mToReDelegateAddr, mRAmount, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-            onShowWaitDialog();
+            showWaitDialog();
             new ChangeRewardAddressGrpcTask(getBaseApplication(), this, baseChain, account, mNewRewardAddress, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_REINVEST) {
-            onShowWaitDialog();
+            showWaitDialog();
             new ReInvestGrpcTask(getBaseApplication(), this, baseChain, account, mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_VOTE) {
-            onShowWaitDialog();
+            showWaitDialog();
             new VoteGrpcTask(getBaseApplication(), this, baseChain, account, mProposalId, mOpinion, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
 
         } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
-            onShowWaitDialog();
+            showWaitDialog();
             if (baseChain.equals(BNB_MAIN)) {
                 new SimpleBnbHtlcRefundTask(getBaseApplication(), this, account,
                         mSwapId, mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
@@ -783,7 +775,7 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
     }
 
     private void actionCheckPassword() {
-        onShowWaitDialog();
+        showWaitDialog();
         Disposable disposable = secretInteractor
                 .checkPassword(userInput)
                 .subscribeOn(AppSchedulers.INSTANCE.io())
@@ -797,7 +789,7 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
                             overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
                         },
                         error -> {
-                            onHideWaitDialog();
+                            hideWaitDialog();
                             onShakeView();
                             onInitView();
                             if (error instanceof InvalidPasswordException) {
@@ -811,7 +803,7 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
     }
 
     private void actionDeleteAccount() {
-        onShowWaitDialog();
+        showWaitDialog();
         Disposable disposable = secretInteractor
                 .checkPassword(userInput)
                 .subscribeOn(AppSchedulers.INSTANCE.io())
@@ -822,11 +814,11 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
                 .subscribe(
                         () -> {
                             WLog.w("Account was selected after removing");
-                            onStartMainActivity(0);
+                            startMainActivity(0);
                         },
                         error -> {
                             if (error instanceof InvalidPasswordException) {
-                                onHideWaitDialog();
+                                hideWaitDialog();
                                 onShakeView();
                                 onInitView();
                                 Toast.makeText(getBaseContext(), R.string.error_invalid_password, Toast.LENGTH_SHORT).show();
@@ -878,7 +870,7 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
-        onHideWaitDialog();
+        hideWaitDialog();
         if (result.taskType == TASK_CHECK_MNEMONIC) {
             if (result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);

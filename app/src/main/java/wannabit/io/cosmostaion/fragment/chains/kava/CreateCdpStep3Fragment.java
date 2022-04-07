@@ -68,7 +68,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
         mLiquidationPrice = rootView.findViewById(R.id.liquidation_price);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;

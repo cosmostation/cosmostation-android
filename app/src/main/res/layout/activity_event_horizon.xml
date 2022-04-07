@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/root_view">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/chain_bg"
+    <com.fulldive.wallet.components.CustomImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos" />
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,18 +24,18 @@
 
             <TextView
                 android:id="@+id/toolbar_title"
+                style="@style/font_ssm_17_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssm_17_white"
                 android:text="@string/str_import" />
 
             <TextView
                 android:id="@+id/toolbar_clear"
+                style="@style/font_ssm_17_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/space_16"
-                style="@style/font_ssm_17_white"
                 android:text="@string/str_clear_all" />
 
         </RelativeLayout>
@@ -46,11 +45,11 @@
         android:id="@+id/step_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_16"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/send_step"
@@ -60,10 +59,10 @@
 
         <TextView
             android:id="@+id/send_step_msg"
+            style="@style/font_ss_14_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_10"
-            style="@style/font_ss_14_white"
             android:text="@string/str_event_horizon_step_0" />
     </LinearLayout>
 

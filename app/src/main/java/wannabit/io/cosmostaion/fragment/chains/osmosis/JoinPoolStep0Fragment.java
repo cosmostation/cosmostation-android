@@ -80,7 +80,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_join_pool_step0, container, false);
-        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mCancelBtn = rootView.findViewById(R.id.cancelButton);
         mNextBtn = rootView.findViewById(R.id.nextButton);
         mProgress = rootView.findViewById(R.id.progress);
 

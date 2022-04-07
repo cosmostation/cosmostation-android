@@ -109,7 +109,7 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
             }
         });
 
-        onShowWaitDialog();
+        showWaitDialog();
         onFetch();
 
     }
@@ -177,7 +177,7 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         }
 
         if (mTaskCount == 0) {
-            onHideWaitDialog();
+            hideWaitDialog();
             ((IRefreshTabListener) mPageAdapter.getCurrentFragment()).onRefreshTab();
 
             WLog.w("mAccounts_gRPC " + mAccounts_gRPC.size());

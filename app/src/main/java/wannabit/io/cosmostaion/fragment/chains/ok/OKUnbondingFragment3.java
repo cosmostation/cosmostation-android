@@ -49,7 +49,7 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
         mMemo = rootView.findViewById(R.id.memo);
         mTime = rootView.findViewById(R.id.unbonding_time);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mWithdrawDenom);
         WDp.DpMainDenom(getSActivity().account.baseChain, mFeeDenom);

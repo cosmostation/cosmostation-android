@@ -47,10 +47,10 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
         View rootView = inflater.inflate(R.layout.fragment_reward_address_change_step0, container, false);
         mAddressInput = rootView.findViewById(R.id.reward_account);
         mCurrentAddress = rootView.findViewById(R.id.current_address);
-        mBtnQr = rootView.findViewById(R.id.btn_qr);
-        mBtnPaste = rootView.findViewById(R.id.btn_paste);
+        mBtnQr = rootView.findViewById(R.id.scanQRButton);
+        mBtnPaste = rootView.findViewById(R.id.pasteButton);
         mNextBtn = rootView.findViewById(R.id.nextButton);
-        mCancel = rootView.findViewById(R.id.btn_cancel);
+        mCancel = rootView.findViewById(R.id.cancelButton);
 
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);

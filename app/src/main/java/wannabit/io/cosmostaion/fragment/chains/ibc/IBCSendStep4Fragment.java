@@ -51,7 +51,7 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
         mRecipientChain = rootView.findViewById(R.id.send_recipient_chain);
         mRecipientAddress = rootView.findViewById(R.id.send_recipient_address);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 

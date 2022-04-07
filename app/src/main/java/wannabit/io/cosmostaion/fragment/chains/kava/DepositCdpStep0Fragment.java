@@ -69,7 +69,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_deposit_cdp_step0, container, false);
-        mBtnCancel = rootView.findViewById(R.id.btn_cancel);
+        mBtnCancel = rootView.findViewById(R.id.cancelButton);
         mBtnNext = rootView.findViewById(R.id.nextButton);
 
         mCollateralImg = rootView.findViewById(R.id.collateral_icon);

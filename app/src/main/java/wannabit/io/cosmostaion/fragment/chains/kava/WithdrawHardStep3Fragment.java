@@ -50,7 +50,7 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
         mFeesDenom = rootView.findViewById(R.id.fees_denom);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;

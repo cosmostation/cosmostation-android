@@ -86,7 +86,7 @@ public class WalletBinanceHolder extends BaseHolder {
         mBtnBep3Send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_BNB);
+                mainActivity.startHTLCSendActivity(TOKEN_HTLC_BINANCE_BNB);
             }
         });
     }

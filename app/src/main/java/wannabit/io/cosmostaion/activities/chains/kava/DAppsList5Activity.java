@@ -136,7 +136,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
                 }
             }
         });
-        onShowWaitDialog();
+        showWaitDialog();
         onFetchData();
     }
 
@@ -299,7 +299,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onHideWaitDialog();
+                    hideWaitDialog();
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }, 300);

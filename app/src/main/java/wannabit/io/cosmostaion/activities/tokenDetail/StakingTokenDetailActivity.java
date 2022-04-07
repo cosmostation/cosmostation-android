@@ -168,7 +168,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             showDialog(show);
 
         } else if (v.equals(mBtnBep3Send)) {
-            onStartHTLCSendActivity(baseChain.getMainDenom());
+            startHTLCSendActivity(baseChain.getMainDenom());
 
         } else if (v.equals(mBtnSend)) {
             if (!account.hasPrivateKey) {

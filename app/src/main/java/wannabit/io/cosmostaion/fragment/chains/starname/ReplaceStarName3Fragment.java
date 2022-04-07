@@ -39,7 +39,7 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_replace_starname_3, container, false);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
         mFeeAmount = rootView.findViewById(R.id.tx_fee_amount);
         mStarnameFeeAmount = rootView.findViewById(R.id.starname_fee_amount);
         mStarName = rootView.findViewById(R.id.starname_name);

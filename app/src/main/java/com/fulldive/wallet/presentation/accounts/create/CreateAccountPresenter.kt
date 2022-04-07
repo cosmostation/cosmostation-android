@@ -11,7 +11,7 @@ import com.fulldive.wallet.interactors.accounts.DuplicateAccountException
 import com.fulldive.wallet.interactors.secret.SecretInteractor
 import com.fulldive.wallet.models.local.AccountSecrets
 import com.fulldive.wallet.presentation.base.BaseMoxyPresenter
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceChainDialogFragment
 import com.fulldive.wallet.rx.AppSchedulers
 import com.joom.lightsaber.ProvidedBy
 import wannabit.io.cosmostaion.R
@@ -93,7 +93,7 @@ class CreateAccountPresenter @Inject constructor(
             .observeOn(AppSchedulers.ui())
             .flatMap { requestCode ->
                 completeCallable {
-                    val dialog = ChoiceNetDialogFragment.newInstance(false, requestCode)
+                    val dialog = ChoiceChainDialogFragment.newInstance(false, requestCode)
                     viewState.showDialog(dialog, "dialog", false)
                 }
                     .toSingleDefault(requestCode)

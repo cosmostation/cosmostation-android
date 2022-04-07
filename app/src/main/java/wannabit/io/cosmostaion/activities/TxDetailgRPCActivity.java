@@ -199,7 +199,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         if (!mIsGen) {
             super.onBackPressed();
         } else {
-            onStartMainActivity(0);
+            startMainActivity(0);
         }
     }
 

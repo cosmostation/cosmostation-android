@@ -124,7 +124,7 @@ public class SifDexListActivity extends BaseActivity {
                 }
             }
         });
-        onShowWaitDialog();
+        showWaitDialog();
         onFetchPoolListInfo();
     }
 
@@ -283,7 +283,7 @@ public class SifDexListActivity extends BaseActivity {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onHideWaitDialog();
+                    hideWaitDialog();
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }, 300);

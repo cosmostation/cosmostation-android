@@ -52,7 +52,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mValidatorName = rootView.findViewById(R.id.to_delegate_moniker);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mDenomDelegateAmount);
         WDp.DpMainDenom(getSActivity().account.baseChain, mDenomFeeType);

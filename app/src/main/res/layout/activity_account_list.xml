@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.fulldive.wallet.components.CustomImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos" />
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -19,25 +20,25 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_4"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_4">
 
             <TextView
                 android:id="@+id/toolbar_title"
+                style="@style/font_ssm_17_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssm_17_white"
                 android:text="@string/str_wallet_manage" />
 
             <TextView
                 android:id="@+id/btn_edit"
+                style="@style/font_ssm_17_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/space_16"
                 android:clickable="true"
                 android:focusable="true"
-                android:layout_marginRight="@dimen/space_16"
-                style="@style/font_ssm_17_white"
                 android:text="@string/str_edit" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -47,23 +48,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:paddingTop="@dimen/space_4"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/space_4">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chain_recycler"
             android:layout_width="@dimen/space_92"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            android:paddingTop="@dimen/space_4" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/account_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            android:paddingTop="@dimen/space_4" />
     </LinearLayout>
 </RelativeLayout>

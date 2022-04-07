@@ -62,6 +62,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
@@ -1258,22 +1259,19 @@ public class WDp {
         return result;
     }
 
-    public static ArrayList<BaseChain> getChainsFromAddress(String address) {
+    @NonNull
+    public static List<BaseChain> getChainsFromAddress(@NonNull String address) {
         ArrayList<BaseChain> result = new ArrayList<>();
-        if (address != null) {
-            if (address.startsWith("0x")) {
-                if (WKey.isValidEthAddress(address)) {
-                    result.add(OKEX_MAIN);
-                }
-            } else if (WKey.isValidBech32(address)) {
-                for (BaseChain chain : BaseChain.values()) {
-                    if (address.startsWith(chain.getChainAddressPrefix())) {
-                        result.add(chain);
-                    }
+        if (address.startsWith("0x") && WKey.isValidEthAddress(address)) {
+            result.add(OKEX_MAIN);
+        } else if (WKey.isValidBech32(address)) {
+            for (BaseChain chain : BaseChain.values()) {
+                if (address.startsWith(chain.getChainAddressPrefix())) {
+                    result.add(chain);
                 }
             }
         }
-        return result.isEmpty() ? null : result;
+        return result;
     }
 
     public static String getDefaultRelayerImg(BaseChain chain) {

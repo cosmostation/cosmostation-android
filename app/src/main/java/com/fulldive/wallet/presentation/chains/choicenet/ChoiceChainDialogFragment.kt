@@ -23,9 +23,12 @@ import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 
 
-class ChoiceNetDialogFragment : BaseMvpDialogFragment() {
+class ChoiceChainDialogFragment : BaseMvpDialogFragment() {
     private val isAddNet by unsafeLazy { arguments?.getBoolean(KEY_ADD, false).orFalse() }
     private val requestCode by unsafeLazy { arguments?.getString(KEY_REQUEST_CODE).orEmpty() }
+    private val chains: List<String> by unsafeLazy {
+        arguments?.getStringArrayList(KEY_CHAINS).orEmpty()
+    }
 
     private var resultSent = false
     private var adapter: ChainListAdapter? = null
@@ -43,7 +46,11 @@ class ChoiceNetDialogFragment : BaseMvpDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_list, null)
-        val items = BaseChain.values().toList().filter(BaseChain::isSupported)
+        val items = BaseChain.values().toList()
+            .filter { chain ->
+                chain.isSupported && (chains.isEmpty() || chains.contains(chain.chain))
+            }
+
         val linearLayout = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         view.findViewById<RecyclerView?>(R.id.recyclerView).also { recyclerView ->
             recyclerView.layoutManager = linearLayout
@@ -103,13 +110,19 @@ class ChoiceNetDialogFragment : BaseMvpDialogFragment() {
     companion object {
         private const val KEY_ADD = "KEY_ADD"
         private const val KEY_REQUEST_CODE = "KEY_REQUEST_CODE"
+        private const val KEY_CHAINS = "KEY_CHAINS"
 
-        fun newInstance(isAdd: Boolean, requestCode: String = "") =
-            ChoiceNetDialogFragment().apply {
-                arguments = bundleOf(
-                    KEY_ADD to isAdd,
-                    KEY_REQUEST_CODE to requestCode
-                )
-            }
+        @JvmOverloads
+        fun newInstance(
+            isAdd: Boolean = true,
+            requestCode: String = "",
+            chains: List<String> = emptyList()
+        ) = ChoiceChainDialogFragment().apply {
+            arguments = bundleOf(
+                KEY_ADD to isAdd,
+                KEY_REQUEST_CODE to requestCode,
+                KEY_CHAINS to chains
+            )
+        }
     }
 }

@@ -24,7 +24,6 @@ import com.fulldive.wallet.rx.AppSchedulers;
 
 import java.util.ArrayList;
 
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -51,7 +50,6 @@ public class AppLockActivity extends BaseActivity implements ITimelessActivity, 
     private CancellationSignal cancellationSignal;
 
     private SecretInteractor secretInteractor;
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +89,6 @@ public class AppLockActivity extends BaseActivity implements ITimelessActivity, 
         super.onStop();
         if (cancellationSignal != null)
             cancellationSignal.cancel();
-    }
-
-    @Override
-    protected void onDestroy() {
-        compositeDisposable.clear();
-        super.onDestroy();
     }
 
     @Override
@@ -202,13 +194,13 @@ public class AppLockActivity extends BaseActivity implements ITimelessActivity, 
     }
 
     private void onFinishInput() {
-        onShowWaitDialog();
+        showWaitDialog();
         Disposable disposable = secretInteractor
                 .checkPassword(userInput)
                 .subscribeOn(AppSchedulers.INSTANCE.io())
                 .observeOn(AppSchedulers.INSTANCE.ui())
                 .doOnError(error -> WLog.e(error.toString()))
-                .doAfterTerminate(this::onHideWaitDialog)
+                .doAfterTerminate(this::hideWaitDialog)
                 .subscribe(
                         this::onUnlock,
                         error -> {

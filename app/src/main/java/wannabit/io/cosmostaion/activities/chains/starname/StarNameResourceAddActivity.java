@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.fulldive.wallet.extensions.ActivityExtensionsKt;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
@@ -46,11 +47,11 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_resource_add);
 
-        mCancel = findViewById(R.id.btn_cancel);
-        mConfirm = findViewById(R.id.btn_confirm);
+        mCancel = findViewById(R.id.cancelButton);
+        mConfirm = findViewById(R.id.confirmButton);
         mWallet = findViewById(R.id.btn_wallet);
-        mScan = findViewById(R.id.btn_qr);
-        mPaste = findViewById(R.id.btn_paste);
+        mScan = findViewById(R.id.scanQRButton);
+        mPaste = findViewById(R.id.pasteButton);
 
         mUserInput = findViewById(R.id.user_inputs);
         mChainImg = findViewById(R.id.chainImg);
@@ -85,7 +86,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        onHideKeyboard();
+        ActivityExtensionsKt.hideKeyboard(this);
         Types.Resource temp;
         if (v.equals(mCancel)) {
             finish();

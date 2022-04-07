@@ -57,7 +57,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_register_account0, container, false);
-        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mCancelBtn = rootView.findViewById(R.id.cancelButton);
         mConfirmBtn = rootView.findViewById(R.id.nextButton);
         mAccountInput = rootView.findViewById(R.id.et_user_input);
         mStarNameFeeTv = rootView.findViewById(R.id.starname_fee_amount);
@@ -114,7 +114,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     }
 
     private void onCheckAccountInfo(String starnameAccount, String starnameDomain) {
-        getSActivity().onShowWaitDialog();
+        getSActivity().showWaitDialog();
 
         QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(getSActivity().baseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(starnameAccount + "*" + starnameDomain).build();
@@ -122,7 +122,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
             @Override
             public void onNext(QueryOuterClass.QueryStarnameResponse value) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    getSActivity().onHideWaitDialog();
+                    getSActivity().hideWaitDialog();
                     Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
                 }, 500);
 
@@ -131,14 +131,14 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
             @Override
             public void onError(Throwable t) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    getSActivity().onHideWaitDialog();
+                    getSActivity().hideWaitDialog();
                     onNextStep();
                 }, 500);
             }
 
             @Override
             public void onCompleted() {
-                getSActivity().onHideWaitDialog();
+                getSActivity().hideWaitDialog();
             }
         });
     }

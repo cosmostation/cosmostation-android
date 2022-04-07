@@ -7,7 +7,7 @@ repositories {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.20"
     //bitcoin
     api 'org.bitcoinj:bitcoinj-core:0.15.2'
     //for ed25519

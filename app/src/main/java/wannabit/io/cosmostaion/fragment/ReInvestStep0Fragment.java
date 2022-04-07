@@ -47,7 +47,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
         mTvRewardDenom = rootView.findViewById(R.id.reward_amount_title);
         mTvFromValidators = rootView.findViewById(R.id.reward_moniker);
         mProgressBar = rootView.findViewById(R.id.reward_progress);
-        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mCancelBtn = rootView.findViewById(R.id.cancelButton);
         mNextBtn = rootView.findViewById(R.id.nextButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mTvRewardDenom);

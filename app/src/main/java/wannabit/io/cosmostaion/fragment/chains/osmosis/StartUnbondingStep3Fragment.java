@@ -53,7 +53,7 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
         mMemo = rootView.findViewById(R.id.memo);
 
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 

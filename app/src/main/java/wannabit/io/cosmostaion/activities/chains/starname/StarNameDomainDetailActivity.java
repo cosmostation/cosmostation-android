@@ -92,7 +92,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         mBtnRenew.setOnClickListener(this);
         mBtnEdit.setOnClickListener(this);
 
-        onShowWaitDialog();
+        showWaitDialog();
         onFetchData();
     }
 
@@ -200,7 +200,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         }
 
         if (mTaskCount == 0) {
-            onHideWaitDialog();
+            hideWaitDialog();
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }

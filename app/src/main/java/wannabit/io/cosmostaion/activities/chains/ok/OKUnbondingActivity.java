@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fulldive.wallet.extensions.ActivityExtensionsKt;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -97,8 +99,8 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
             }
         });
         mViewPager.setCurrentItem(0);
-
-        mRootView.setOnClickListener(v -> onHideKeyboard());
+        
+        mRootView.setOnClickListener(v -> ActivityExtensionsKt.hideKeyboard(this));
     }
 
     @Override
@@ -115,14 +117,14 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
 
     public void onNextStep() {
         if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
         if (mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();

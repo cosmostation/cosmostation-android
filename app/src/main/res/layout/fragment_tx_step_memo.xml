@@ -60,7 +60,7 @@
             android:layout_weight="1"></LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btn_qr"
+            android:id="@+id/scanQRButton"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_36"
             android:layout_weight="1"
@@ -109,7 +109,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btn_paste"
+            android:id="@+id/pasteButton"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_36"
             android:layout_weight="1"

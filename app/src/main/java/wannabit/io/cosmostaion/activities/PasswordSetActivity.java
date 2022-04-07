@@ -110,7 +110,7 @@ public class PasswordSetActivity extends BaseActivity implements ITimelessActivi
         if (isConfirmSequence) {
             passwordTextView.setVisibility(View.INVISIBLE);
             if (confirmInput.equals(userInput)) {
-                onShowWaitDialog();
+                showWaitDialog();
                 new InitPasswordTask(getBaseApplication(), this).execute(confirmInput);
 
             } else {
@@ -189,7 +189,7 @@ public class PasswordSetActivity extends BaseActivity implements ITimelessActivi
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
-        onHideWaitDialog();
+        hideWaitDialog();
         onNextPage();
     }
 

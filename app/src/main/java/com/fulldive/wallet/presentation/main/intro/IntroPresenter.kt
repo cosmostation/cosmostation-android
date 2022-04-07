@@ -6,7 +6,7 @@ import com.fulldive.wallet.di.modules.DefaultPresentersModule
 import com.fulldive.wallet.extensions.*
 import com.fulldive.wallet.interactors.accounts.AccountsInteractor
 import com.fulldive.wallet.presentation.base.BaseMoxyPresenter
-import com.fulldive.wallet.presentation.chains.choicenet.ChoiceNetDialogFragment
+import com.fulldive.wallet.presentation.chains.choicenet.ChoiceChainDialogFragment
 import com.joom.lightsaber.ProvidedBy
 import wannabit.io.cosmostaion.base.BaseApplication
 import java.util.concurrent.TimeUnit
@@ -40,7 +40,7 @@ class IntroPresenter @Inject constructor(
     }
 
     fun onStartButtonClicked() {
-        viewState.showDialog(ChoiceNetDialogFragment.newInstance(true), "dialog", true)
+        viewState.showDialog(ChoiceChainDialogFragment.newInstance(true), "dialog", true)
     }
 
     private fun nextScreen() {

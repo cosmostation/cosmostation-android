@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,11 +71,9 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
-    private ImageView mChainBg;
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    private SpannableString mSelfBondingRate;
     private int mTaskCount;
 
     private ValidatorAdapter mValidatorAdapter;
@@ -95,7 +92,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator);
-        mChainBg = findViewById(R.id.chain_bg);
         mToolbar = findViewById(R.id.toolbar);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
@@ -116,7 +112,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        onShowWaitDialog();
+        showWaitDialog();
     }
 
     @Override
@@ -362,7 +358,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             mRecyclerView.setVisibility(View.VISIBLE);
             mValidatorAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
-            onHideWaitDialog();
+            hideWaitDialog();
         }
     }
 

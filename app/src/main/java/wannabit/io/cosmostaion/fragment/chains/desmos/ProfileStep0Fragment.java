@@ -71,7 +71,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create_profile_step0, container, false);
-        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mCancelBtn = rootView.findViewById(R.id.cancelButton);
         mNextBtn = rootView.findViewById(R.id.nextButton);
 
         mProfileCoverImg = rootView.findViewById(R.id.profile_cover_img);
@@ -165,7 +165,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onUploadImgView() {
-        getSActivity().onShowWaitDialog();
+        getSActivity().showWaitDialog();
         Thread upload = new Thread() {
             @Override
             public void run() {
@@ -208,7 +208,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onUpdateImgView(boolean isProfile, String hash) {
-        getSActivity().onHideWaitDialog();
+        getSActivity().hideWaitDialog();
         if (isProfile) {
             if (hash != null) {
                 mProfileCoverImg.setClipToOutline(true);

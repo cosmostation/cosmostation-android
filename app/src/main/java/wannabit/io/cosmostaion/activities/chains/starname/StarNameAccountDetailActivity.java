@@ -94,7 +94,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         mBtnRenew.setOnClickListener(this);
         mBtnEdit.setOnClickListener(this);
 
-        onShowWaitDialog();
+        showWaitDialog();
         onFetchData();
     }
 
@@ -200,7 +200,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
         }
         if (mTaskCount == 0) {
-            onHideWaitDialog();
+            hideWaitDialog();
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }

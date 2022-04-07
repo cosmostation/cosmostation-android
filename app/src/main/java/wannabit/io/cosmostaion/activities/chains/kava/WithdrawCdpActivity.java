@@ -19,6 +19,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fulldive.wallet.extensions.ActivityExtensionsKt;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -125,7 +127,7 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(v -> onHideKeyboard());
+        mRootView.setOnClickListener(v -> ActivityExtensionsKt.hideKeyboard(this));
         onFetchCdpInfo();
     }
 
@@ -143,7 +145,7 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
 
     @Override
     public void onBackPressed() {
-        onHideKeyboard();
+        ActivityExtensionsKt.hideKeyboard(this);
         if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -153,14 +155,14 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
 
     public void onNextStep() {
         if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
         if (mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
+            ActivityExtensionsKt.hideKeyboard(this);
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();
@@ -225,7 +227,7 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
     private int mTaskCount = 0;
 
     public void onFetchCdpInfo() {
-        onShowWaitDialog();
+        showWaitDialog();
         mTaskCount = 2;
         new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaCdpByDepositorTask(getBaseApplication(), this, baseChain, account.address, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -258,7 +260,7 @@ public class WithdrawCdpActivity extends BaseBroadCastActivity {
         }
 
         if (mTaskCount == 0) {
-            onHideWaitDialog();
+            hideWaitDialog();
             if (mCdpParams == null || mMyCdp == null) {
                 Toast.makeText(getBaseContext(), R.string.str_network_error_title, Toast.LENGTH_SHORT).show();
                 onBackPressed();

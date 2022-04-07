@@ -83,7 +83,7 @@ public class MnemonicCheckActivity extends BaseActivity {
             showDialog(delete);
         });
 
-        mOk.setOnClickListener(v -> onStartMainActivity(3));
+        mOk.setOnClickListener(v -> startMainActivity(3));
     }
 
     public void onRawCopy() {

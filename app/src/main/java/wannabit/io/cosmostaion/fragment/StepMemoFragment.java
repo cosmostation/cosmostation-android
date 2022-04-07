@@ -70,8 +70,8 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
 
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mNextBtn = rootView.findViewById(R.id.nextButton);
-        mBtnQr = rootView.findViewById(R.id.btn_qr);
-        mBtnPaste = rootView.findViewById(R.id.btn_paste);
+        mBtnQr = rootView.findViewById(R.id.scanQRButton);
+        mBtnPaste = rootView.findViewById(R.id.pasteButton);
 
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);

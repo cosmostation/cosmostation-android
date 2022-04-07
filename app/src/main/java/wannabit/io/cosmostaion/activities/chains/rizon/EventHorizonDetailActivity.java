@@ -86,7 +86,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onStartMainActivity(0);
+                startMainActivity(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -110,7 +110,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
     @Override
     public void onClick(View v) {
         if (v.equals(mDoneBtn)) {
-            onStartMainActivity(0);
+            startMainActivity(0);
 
         } else if (v.equals(mExplorerBtn)) {
             String url = WUtil.getTxExplorer(baseChain, mTxHash);

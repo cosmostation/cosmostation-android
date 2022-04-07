@@ -65,7 +65,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mMemo = rootView.findViewById(R.id.memo);
         mWarnLayer = rootView.findViewById(R.id.warnning_layer);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 

@@ -67,7 +67,7 @@ class CreateAccountActivity : BaseMvpActivity<ActivityCreateBinding>(), CreateAc
         binding {
             addressTextView.text = address
             addressCardView.visibility = View.VISIBLE
-            warningLayout.visibility = View.VISIBLE
+            warningTextView.visibility = View.VISIBLE
             warningTextView.setText(R.string.str_create_warn0)
 
             nextButton.setText(R.string.str_show_mnemonic)
@@ -80,12 +80,23 @@ class CreateAccountActivity : BaseMvpActivity<ActivityCreateBinding>(), CreateAc
 
     override fun showChain(chain: BaseChain) {
         binding {
-            mnemonicsCardView.setCardBackgroundColor(ContextCompat.getColor(baseContext, chain.chainBackground))
+            mnemonicsCardView.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    baseContext,
+                    chain.chainBackground
+                )
+            )
             mnemonicsCardView.visibility = View.VISIBLE
         }
         for (i in 0 until MnemonicUtils.MNEMONIC_WORDS_COUNT) {
-            findViewById<View>(resources.getIdentifier("layer_mnemonic_$i", "id", packageName))
+            resources
+                .getIdentifier("mnemonicLayout$i", "id", packageName)
+                .let { id -> findViewById<View>(id) }
                 .setBackgroundResource(chain.mnemonicBackground)
+            resources
+                .getIdentifier("mnemonicTextView$i", "id", packageName)
+                .let { id -> findViewById<TextView>(id) }
+                .text = getString(R.string.str_mnemonic_counder_template, i)
         }
     }
 
@@ -98,8 +109,10 @@ class CreateAccountActivity : BaseMvpActivity<ActivityCreateBinding>(), CreateAc
             }
         }
         for (i in 0 until MnemonicUtils.MNEMONIC_WORDS_COUNT) {
-            val viewId = resources.getIdentifier("tv_mnemonic_$i", "id", packageName)
-            findViewById<TextView>(viewId).text = mnemonicWords[i]
+            resources
+                .getIdentifier("mnemonicEditText$i", "id", packageName)
+                .let { id -> findViewById<TextView>(id) }
+                .text = mnemonicWords[i]
         }
     }
 
@@ -129,9 +142,9 @@ class CreateAccountActivity : BaseMvpActivity<ActivityCreateBinding>(), CreateAc
     }
 
     override fun showMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
+        Intent(this, MainActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            .let(::startActivity)
     }
 
     companion object {

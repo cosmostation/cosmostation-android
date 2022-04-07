@@ -4,7 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -47,7 +46,6 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
 
-    private String mHdSeed;
     private String mEntropy;
     private int mWordSize;
     private BaseChain mChain;
@@ -75,10 +73,9 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mNewWalletAdapter = new NewWalletAdapter();
         mRecyclerView.setAdapter(mNewWalletAdapter);
 
-        mHdSeed = getIntent().getStringExtra("HDseed");
         mEntropy = getIntent().getStringExtra("entropy");
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
-        mWordSize = getIntent().getIntExtra("size", 24);
+        mWordSize = getIntent().getIntExtra("size", MnemonicUtils.MNEMONIC_WORDS_COUNT);
         mCustomPath = getIntent().getIntExtra("customPath", 0);
     }
 
@@ -95,7 +92,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     }
 
     private void onGenAccount(int path) {
-        onShowWaitDialog();
+        showWaitDialog();
         new GenerateAccountTask(getBaseApplication(), mChain, this, mCustomPath).execute("" + path, mEntropy, "" + mWordSize);
     }
 
@@ -108,12 +105,12 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         if (isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if (result.isSuccess) {
-                onStartMainActivity(0);
+                startMainActivity(0);
             }
 
         } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
             if (result.isSuccess) {
-                onStartMainActivity(0);
+                startMainActivity(0);
             }
         }
     }
@@ -128,8 +125,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final NewWalletHolder holder, @SuppressLint("RecyclerView") final int position) {
-//            String address = WKey.getCreateDpAddressFromEntropy(mChain, mEntropy, position, mCustomPath);
+        public void onBindViewHolder(@NonNull final NewWalletHolder holder, final int position) {
             String address = "";
             try {
                 address = MnemonicUtils.INSTANCE.createAddress(mChain, mEntropy, position, mCustomPath);

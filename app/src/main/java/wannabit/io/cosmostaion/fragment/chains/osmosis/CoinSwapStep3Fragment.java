@@ -56,7 +56,7 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
         mSlippageLayer = rootView.findViewById(R.id.slippage_layer);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mFeeAmountSymbol);
 

@@ -298,7 +298,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_cancel"
+            android:id="@+id/cancelButton"
             style="@style/font_ss_14_white"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"

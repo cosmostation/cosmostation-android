@@ -234,7 +234,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                     return;
                 }
                 new PushUpdateTask(getBaseApplication(), AccountDetailActivity.this, account, getBaseDao().getFCMToken(), isChecked).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                onShowWaitDialog();
+                showWaitDialog();
             }
         });
     }
@@ -357,7 +357,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 account = getBaseDao().onUpdatePushEnabled(account, (boolean) result.resultData);
             }
             onUpdatePushStatusUI();
-            onHideWaitDialog();
+            hideWaitDialog();
 
         }
     }

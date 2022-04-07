@@ -123,7 +123,7 @@ public class GravityListActivity extends BaseActivity {
                 }
             }
         });
-        onShowWaitDialog();
+        showWaitDialog();
         onFetchPoolListInfo();
 
     }
@@ -290,7 +290,7 @@ public class GravityListActivity extends BaseActivity {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onHideWaitDialog();
+                    hideWaitDialog();
                     ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
                 }
             }, 300);

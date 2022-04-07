@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/root"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/chain_bg"
+    <com.fulldive.wallet.components.CustomImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos" />
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/bg_cosmos" />
 
     <FrameLayout
         android:id="@+id/top_sheet"
@@ -38,10 +38,10 @@
                     android:src="@drawable/close_btn" />
 
                 <TextView
+                    style="@style/font_ssm_17_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    style="@style/font_ssm_17_white"
                     android:text="@string/str_switch_wallet" />
             </RelativeLayout>
 
@@ -52,16 +52,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/space_4"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/space_4">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/account_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingTop="@dimen/space_4"
                         android:clipToPadding="false"
-                        android:overScrollMode="never" />
+                        android:overScrollMode="never"
+                        android:paddingTop="@dimen/space_4" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

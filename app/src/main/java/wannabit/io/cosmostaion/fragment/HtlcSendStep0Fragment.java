@@ -94,7 +94,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_htlc_send_step0, container, false);
-        mBtnCancel = rootView.findViewById(R.id.btn_cancel);
+        mBtnCancel = rootView.findViewById(R.id.cancelButton);
         mBtnNext = rootView.findViewById(R.id.nextButton);
         mFromChainImg = rootView.findViewById(R.id.img_from_chain);
         mFromChainTv = rootView.findViewById(R.id.txt_from_chain);

@@ -79,6 +79,20 @@ public class Account {
         this.customPath = customPath;
     }
 
+    public Account(
+            String uuid,
+            String address,
+            String baseChain,
+            long importTime
+    ) {
+        this.uuid = uuid;
+        this.address = address;
+        this.baseChain = baseChain;
+        this.hasPrivateKey = false;
+        this.fromMnemonic = false;
+        this.importTime = importTime;
+    }
+
     public Account(Long id, String uuid, String nickName, boolean isFavo, String address,
                    String baseChain, boolean hasPrivateKey, String resource, String spec,
                    boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber,

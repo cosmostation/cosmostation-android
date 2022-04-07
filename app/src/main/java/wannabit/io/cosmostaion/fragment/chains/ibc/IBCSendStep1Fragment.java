@@ -79,11 +79,11 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         mDesitination = rootView.findViewById(R.id.desitination_chain);
         mAddressInput = rootView.findViewById(R.id.receiver_account);
         mNextBtn = rootView.findViewById(R.id.nextButton);
-        mCancel = rootView.findViewById(R.id.btn_cancel);
+        mCancel = rootView.findViewById(R.id.cancelButton);
         mStarNameLayer = rootView.findViewById(R.id.starname_layer);
 
-        mBtnQr = rootView.findViewById(R.id.btn_qr);
-        mBtnPaste = rootView.findViewById(R.id.btn_paste);
+        mBtnQr = rootView.findViewById(R.id.scanQRButton);
+        mBtnPaste = rootView.findViewById(R.id.pasteButton);
         mBtnWallet = rootView.findViewById(R.id.btn_wallet);
 
         mCancel.setOnClickListener(this);

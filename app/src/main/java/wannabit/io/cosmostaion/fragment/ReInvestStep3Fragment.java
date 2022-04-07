@@ -54,7 +54,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
         mExpectedDenom = rootView.findViewById(R.id.expected_delegation_title);
 
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mRewardDenom);
         WDp.DpMainDenom(getSActivity().account.baseChain, mFeeDenom);

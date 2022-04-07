@@ -31,7 +31,7 @@ public class Dialog_IBC_Unknown_Relayer extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_unknown_ibc_relayer, null);
-        Button btn_cancel = view.findViewById(R.id.btn_cancel);
+        Button btn_cancel = view.findViewById(R.id.cancelButton);
         Button btn_continue = view.findViewById(R.id.btn_continue);
 
         btn_cancel.setOnClickListener(new View.OnClickListener() {

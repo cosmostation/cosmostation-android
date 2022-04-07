@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'
 //        classpath 'com.google.gms:google-services:4.3.10'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20"
         classpath "com.google.protobuf:protobuf-java:3.19.4"
         classpath 'com.joom.lightsaber:lightsaber-gradle-plugin:1.0.0-alpha13'
 

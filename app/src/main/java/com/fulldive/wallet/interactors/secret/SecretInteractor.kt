@@ -8,6 +8,7 @@ import com.joom.lightsaber.ProvidedBy
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.bitcoinj.crypto.MnemonicCode
+import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.crypto.EncResult

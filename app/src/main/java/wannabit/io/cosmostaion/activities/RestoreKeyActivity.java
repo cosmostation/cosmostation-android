@@ -52,11 +52,11 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_restore_key);
 
         mToolbar = findViewById(R.id.toolbar);
-        mInput = findViewById(R.id.et_address);
-        mCancel = findViewById(R.id.btn_cancel);
+        mInput = findViewById(R.id.addressEditText);
+        mCancel = findViewById(R.id.cancelButton);
         mNext = findViewById(R.id.nextButton);
-        mBtnQr = findViewById(R.id.btn_qr);
-        mBtnPaste = findViewById(R.id.btn_paste);
+        mBtnQr = findViewById(R.id.scanQRButton);
+        mBtnPaste = findViewById(R.id.pasteButton);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -83,7 +83,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
     }
 
     private void onGenPkeyAccount(String pKey, String address, int customPath) {
-        onShowWaitDialog();
+        showWaitDialog();
         new GeneratePkeyAccountTask(getBaseApplication(), mChain, this, pKey, address, customPath).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -95,7 +95,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
         if ((result.taskType == BaseConstant.TASK_INIT_PKEY_ACCOUNT || result.taskType == BaseConstant.TASK_OVERRIDE_PKEY_ACCOUNT) && result.isSuccess) {
-            onStartMainActivity(0);
+            startMainActivity(0);
         }
     }
 

@@ -49,7 +49,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
         mDenomFeeType = rootView.findViewById(R.id.vote_fees_type);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mConfirmBtn = rootView.findViewById(R.id.confirmButton);
 
         WDp.DpMainDenom(getSActivity().account.baseChain, mDenomFeeType);
         mProposalTitle.setText(getSActivity().mProposeTitle);

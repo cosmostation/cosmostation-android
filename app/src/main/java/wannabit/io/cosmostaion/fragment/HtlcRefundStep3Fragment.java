@@ -40,7 +40,7 @@ public class HtlcRefundStep3Fragment extends BaseFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_htlc_refund_3, container, false);
         mBtnBack = rootView.findViewById(R.id.btn_before);
-        mBtnConfirm = rootView.findViewById(R.id.btn_confirm);
+        mBtnConfirm = rootView.findViewById(R.id.confirmButton);
         mFeeAmount = rootView.findViewById(R.id.fee_amount);
         mFeeDenom = rootView.findViewById(R.id.fee_denom);
         mSwapId = rootView.findViewById(R.id.refund_swap_id);
