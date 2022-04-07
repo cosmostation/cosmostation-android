@@ -111,7 +111,7 @@ class AccountsInteractor @Inject constructor(
             .andThen(selectChain(chain.chain))
     }
 
-    fun createEmptyAccount(chain: BaseChain, address: String): Completable {
+    fun createWatchAccount(chain: BaseChain, address: String): Completable {
         return singleCallable {
             val uuid = UUID.randomUUID().toString()
             Account(
@@ -187,5 +187,4 @@ class AccountsInteractor @Inject constructor(
             )
         )
     }
-
 }

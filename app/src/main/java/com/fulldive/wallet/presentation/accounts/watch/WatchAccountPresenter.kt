@@ -54,7 +54,6 @@ class WatchAccountPresenter @Inject constructor(
                         viewState.showMessage(R.string.error_clipboard_no_data)
                     }
                 }
-
             )
     }
 
@@ -98,7 +97,7 @@ class WatchAccountPresenter @Inject constructor(
                 if (chains.size >= 5) {
                     Completable.error(MaxAccountsException())
                 } else {
-                    accountsInteractor.createEmptyAccount(
+                    accountsInteractor.createWatchAccount(
                         chain,
                         address
                     )
