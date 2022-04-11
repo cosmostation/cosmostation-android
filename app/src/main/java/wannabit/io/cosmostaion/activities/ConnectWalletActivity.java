@@ -11,10 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
@@ -49,6 +47,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_WC_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -69,6 +68,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     private TextView mWcName, mWcUrl, mWcAccount;
     private Button mBtnDisconnect;
     private Dialog_Wc_Raw_Data mDialogWcRawData;
+    private Dialog_WC_Account mDialogWcAccount;
 
     private String mWcURL;
     private WCClient wcClient;
@@ -94,11 +94,13 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             if (Collections2.filter(getBaseDao().onSelectAccounts(), account -> account.hasPrivateKey).isEmpty()) {
                 Toast.makeText(this, "No Private Key", Toast.LENGTH_SHORT).show();
                 finish();
+                return;
             }
 
             if (!getBaseDao().onHasPassword()) {
                 Toast.makeText(this, "No Password", Toast.LENGTH_SHORT).show();
                 finish();
+                return;
             } else {
                 Intent intent = new Intent(this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
@@ -160,6 +162,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         });
         wcClient.setOnKeplrEnable((id, strings) -> {
             runOnUiThread(() -> {
+                onShowAccountDialog(strings);
                 wcClient.approveRequest(id, strings);
             });
 
@@ -258,7 +261,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         super.onDestroy();
         if (wcSession != null && wcClient.getSession() != null && wcClient.isConnected()) {
             wcClient.killSession();
-        } else {
+        } else if (wcClient != null) {
             wcClient.disconnect();
         }
     }
@@ -275,7 +278,6 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         mWcLayer.setVisibility(View.VISIBLE);
         mLoadingLayer.setVisibility(View.GONE);
 
-        mWcAccount.setText(mAccount.address);
         wcClient.approveSession(Lists.newArrayList(mAccount.address), 1);
     }
 
@@ -312,6 +314,18 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         mDialogWcRawData = Dialog_Wc_Raw_Data.newInstance(bundle);
         mDialogWcRawData.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(mDialogWcRawData, "dialog").commitNowAllowingStateLoss();
+    }
+
+    private void onShowAccountDialog(List<String> strings) {
+        Bundle bundle = new Bundle();
+        mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
+        mDialogWcAccount.setCancelable(true);
+        bundle.putString("chainName", strings.get(0));
+        getSupportFragmentManager().beginTransaction().add(mDialogWcAccount, "dialog").commitNowAllowingStateLoss();
+    }
+
+    public void onSelectSetAccount(String account) {
+        mWcAccount.setText(account);
     }
 
     class SignModel {
