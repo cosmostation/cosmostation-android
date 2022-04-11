@@ -55,7 +55,11 @@ public class Cw20Assets implements Parcelable {
     };
 
     public BigDecimal getAmount() {
-        return new BigDecimal(amount);
+        if (amount != null) {
+            return new BigDecimal(amount);
+        } else {
+            return BigDecimal.ZERO;
+        }
     }
 
     public void setAmount(String amount) {
