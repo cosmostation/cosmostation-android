@@ -561,6 +561,9 @@
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">새 지갑 추가</string>
+    <string name="str_error_not_support_chain_title">오류</string>
+    <string name="str_error_not_support_chain_msg">해당 체인에 대한 지갑이 없습니다.</string>
+
     
     <string name="str_min_collateral_rate">최소 담보 비율</string>
     <string name="str_stability_fee">연간 수수료</string>

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_Empty_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_WC_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.model.StdSignMsg;
@@ -63,16 +65,19 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     public final static int TYPE_KEPLR_WALLET = 2;
 
     private RelativeLayout mWcLayer, mLoadingLayer;
+    private LinearLayout mEmptyLayer;
     private CardView mWcCardView;
     private ImageView mWcImg;
     private TextView mWcName, mWcUrl, mWcAccount;
     private Button mBtnDisconnect;
     private Dialog_Wc_Raw_Data mDialogWcRawData;
+    private Dialog_Empty_Chain mDialogEmptyChain;
     private Dialog_WC_Account mDialogWcAccount;
 
     private String mWcURL;
     private WCClient wcClient;
     private WCSession wcSession;
+    private WCPeerMeta mWcPeerMeta;
     private JsonArray mjsonArray;
     private Boolean isDeepLink = false;
 
@@ -91,17 +96,17 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         }
 
         if (isDeepLink) {
-            if (Collections2.filter(getBaseDao().onSelectAccounts(), account -> account.hasPrivateKey).isEmpty()) {
-                Toast.makeText(this, "No Private Key", Toast.LENGTH_SHORT).show();
-                finish();
-                return;
-            }
-
             if (!getBaseDao().onHasPassword()) {
-                Toast.makeText(this, "No Password", Toast.LENGTH_SHORT).show();
-                finish();
+                mEmptyLayer.setVisibility(View.VISIBLE);
+                mLoadingLayer.setVisibility(View.GONE);
+                mBtnDisconnect.setText("Dismiss");
                 return;
             } else {
+                if (Collections2.filter(getBaseDao().onSelectAccounts(), account -> account.hasPrivateKey).isEmpty()) {
+                    Toast.makeText(this, "No Private Key", Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
+                }
                 Intent intent = new Intent(this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
                 startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
@@ -122,6 +127,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     private void initView() {
         mWcLayer = findViewById(R.id.wc_layer);
         mLoadingLayer = findViewById(R.id.loading_layer);
+        mEmptyLayer = findViewById(R.id.empty_account);
         mWcCardView = findViewById(R.id.wc_card);
         mWcImg = findViewById(R.id.wc_img);
         mWcName = findViewById(R.id.wc_name);
@@ -153,7 +159,14 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             return null;
         });
         wcClient.setOnSessionRequest((id, wcPeerMeta) -> {
-            runOnUiThread(() -> onInitView(wcPeerMeta));
+            runOnUiThread(() -> {
+                if (!isDeepLink) {
+                    onInitView(wcPeerMeta);
+                } else {
+                    mWcPeerMeta = wcPeerMeta;
+                }
+                wcClient.approveSession(Lists.newArrayList(mAccount.address), 1);
+            });
             return null;
         });
         wcClient.setOnSignTransaction((id, wcSignTransaction) -> {
@@ -162,21 +175,12 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         });
         wcClient.setOnKeplrEnable((id, strings) -> {
             runOnUiThread(() -> {
-                onShowAccountDialog(strings);
-                wcClient.approveRequest(id, strings);
+                onKeplrEnable(id, strings);
             });
-
             return null;
         });
         wcClient.setOnKeplrGetKey((id, strings) -> {
-            WCKeplrWallet keplr = new WCKeplrWallet(
-                    WUtil.getWalletName(this, mAccount),
-                    "secp256k1",
-                    getKey().getPublicKeyAsHex(),
-                    WKey.generateTenderAddressFromPrivateKey(getKey().getPrivateKeyAsHex()),
-                    mAccount.address,
-                    false);
-            wcClient.approveRequest(id, Lists.newArrayList(keplr));
+            onKeplrGetKey(id);
             return null;
         });
         wcClient.setOnKeplrSignAmino((id, jsonArray) -> {
@@ -284,6 +288,12 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnDisconnect)) {
+            if (isDeepLink) {
+                if (!getBaseDao().onHasPassword()) {
+                    moveTaskToBack(true);
+                    return;
+                }
+            }
             onBackPressed();
         }
     }
@@ -316,6 +326,35 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         getSupportFragmentManager().beginTransaction().add(mDialogWcRawData, "dialog").commitNowAllowingStateLoss();
     }
 
+    private void onKeplrEnable(long id, List<String> strings) {
+        ArrayList<Account> existAccount = getBaseDao().onSelectAllAccountsByChainWithKey(WDp.getChainTypeByChainId(strings.get(0)));
+        if (existAccount.size() <= 0 ) {
+            mWcLayer.setVisibility(View.GONE);
+            mLoadingLayer.setVisibility(View.GONE);
+            onShowNoAccountsForChain();
+        } else {
+            onShowAccountDialog(strings);
+        }
+        wcClient.approveRequest(id, strings);
+    }
+
+    private void onKeplrGetKey(Long id) {
+        WCKeplrWallet keplr = new WCKeplrWallet(
+                WUtil.getWalletName(this, mAccount),
+                "secp256k1",
+                getKey().getPublicKeyAsHex(),
+                WKey.generateTenderAddressFromPrivateKey(getKey().getPrivateKeyAsHex()),
+                mAccount.address,
+                false);
+        wcClient.approveRequest(id, Lists.newArrayList(keplr));
+    }
+
+    private void onShowNoAccountsForChain() {
+        mDialogEmptyChain = Dialog_Empty_Chain.newInstance();
+        mDialogEmptyChain.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(mDialogEmptyChain, "dialog").commitNowAllowingStateLoss();
+    }
+
     private void onShowAccountDialog(List<String> strings) {
         Bundle bundle = new Bundle();
         mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
@@ -326,6 +365,10 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
 
     public void onSelectSetAccount(String account) {
         mWcAccount.setText(account);
+    }
+
+    public void onDeepLinkDismiss() {
+        moveTaskToBack(true);
     }
 
     class SignModel {

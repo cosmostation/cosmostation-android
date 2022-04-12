@@ -29,7 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
-        android:keepScreenOn="true">
+        android:layout_above="@+id/btn_disconnect"
+        android:keepScreenOn="true"
+        android:visibility="gone">
         <androidx.cardview.widget.CardView
             android:id="@+id/wc_card"
             android:layout_width="match_parent"
@@ -101,8 +103,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/wc_card"
-            android:layout_above="@+id/btn_disconnect">
+            android:layout_below="@+id/wc_card">
 
             <ProgressBar
                 android:layout_width="174dp"
@@ -111,19 +112,6 @@
                 android:indeterminateDrawable="@drawable/wc_imgs" />
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/btn_disconnect"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:layout_alignParentBottom="true"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
-            android:layout_marginBottom="@dimen/space_24"
-            android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_photon"
-            android:textAllCaps="false"
-            android:text="@string/str_disconnect"/>
     </RelativeLayout>
 
 
@@ -138,6 +126,37 @@
             android:layout_centerInParent="true"
             android:indeterminateDrawable="@drawable/loading"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/empty_account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:layout_centerInParent="true"
+            style="@style/font_ss_14_white"
+            android:text="No Account for Wallet Connect"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_disconnect"
+        style="@style/font_ss_14_photon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
+        android:background="@drawable/btn_trans_with_border"
+        android:minHeight="@dimen/space_45"
+        android:text="@string/str_disconnect"
+        android:textAllCaps="false" />
 
 </RelativeLayout>
 
