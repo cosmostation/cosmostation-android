@@ -29,15 +29,12 @@ public class Dialog_Empty_Chain extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_empty_chain, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_empty_chain, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ConnectWalletActivity)getActivity()).onDeepLinkDismiss();
-                getDialog().dismiss();
-            }
+        btn_negative.setOnClickListener(v -> {
+            ((ConnectWalletActivity) getActivity()).onDeepLinkDismiss();
+            getDialog().dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
