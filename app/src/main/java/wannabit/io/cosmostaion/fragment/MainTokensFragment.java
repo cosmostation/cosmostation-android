@@ -13,6 +13,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
@@ -64,6 +65,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CHIHUAHUA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRBRUS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CUDOS;
@@ -1336,6 +1338,17 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_omniflix));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_FLIX);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_CRE)) {
+            holder.itemSymbol.setText(getString(R.string.str_crescent_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRESCENT_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Crescent Staking Coin");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_crescent));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRE);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 

@@ -14,6 +14,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
@@ -501,9 +502,7 @@ public class WKey {
                 result = bech32Encode("cerberus".getBytes(), converted);
             } else if (chain.equals(OMNIFLIX_MAIN)){
                 result = bech32Encode("omniflix".getBytes(), converted);
-            }
-
-            else if (chain.equals(CRESCENT_TEST)){
+            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)){
                 result = bech32Encode("cre".getBytes(), converted);
             }
 
@@ -594,9 +593,7 @@ public class WKey {
             return bech32Encode("cerberus".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return bech32Encode("omniflix".getBytes(), bech32Decode(dpOpAddress).data);
-        }
-
-        else if (chain.equals(CRESCENT_TEST)) {
+        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             return bech32Encode("cre".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";

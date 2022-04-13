@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.dao;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -128,7 +129,7 @@ public class ChainParam {
                 BigDecimal annualProvisions = new BigDecimal(mEvmosEpochMintProvision.epoch_mint_provision).multiply(new BigDecimal("365"));
                 BigDecimal evmosSupply = getMainSupply(baseChain).subtract(new BigDecimal("200000000000000000000000000"));
                 return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
-            } else if (baseChain.equals(CRESCENT_TEST)) {
+            } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
                 long now = Calendar.getInstance().getTime().getTime();
                 BigDecimal genesisSupply = new BigDecimal("200000000000000");
                 BigDecimal thisInflation = getCurrentInflationAmount(baseChain);
@@ -197,7 +198,7 @@ public class ChainParam {
         // Crescent
         public BigDecimal getCurrentInflationAmount(BaseChain baseChain) {
             BigDecimal inflationAmount = BigDecimal.ZERO;
-            if (baseChain.equals(CRESCENT_TEST)) {
+            if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
                 long now = Calendar.getInstance().getTime().getTime();
                 for (Schedules schedules: mCrescentMintingParams.mParams.mSchedules) {
                     if (schedules.getStart_time() < now && schedules.getEnd_time() > now) {
@@ -210,7 +211,7 @@ public class ChainParam {
 
         public BigDecimal getBudgetRate(BaseChain baseChain) {
             BigDecimal budgetRate = BigDecimal.ZERO;
-            if (baseChain.equals(CRESCENT_TEST)) {
+            if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
                 for (Budgets budgets: mCrescentBudgets.mBudgets) {
                     if (budgets.mBudget.name.equalsIgnoreCase("budget-ecosystem-incentive") || budgets.mBudget.name.equalsIgnoreCase("budget-dev-team")) {
                         budgetRate = budgetRate.add(new BigDecimal(budgets.mBudget.rate));
@@ -242,7 +243,7 @@ public class ChainParam {
                             stakingRewardsFactor = new BigDecimal(mEvmosInflationParams.params.mInflationDistributions.staking_rewards);
                         }
                         return ap.multiply(stakingRewardsFactor).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
-                    } else if (baseChain.equals(CRESCENT_TEST)) {
+                    } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
                         BigDecimal inflationAmount = getCurrentInflationAmount(baseChain);
                         BigDecimal budgetRate = BigDecimal.ONE.subtract(getBudgetRate(baseChain));
                         return budgetRate.multiply(calTax).multiply(inflationAmount).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);

@@ -464,6 +464,7 @@ public class BaseConstant {
     public final static String TOKEN_HASH           = "nhash";
     public final static String TOKEN_CRBRUS         = "ucrbrus";
     public final static String TOKEN_FLIX           = "uflix";
+    public final static String TOKEN_CRE            = "ucre";
 
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
@@ -763,6 +764,10 @@ public class BaseConstant {
     public final static String OMNIFLIX_GAS_RATE_LOW                    = "0.001";
     public final static String OMNIFLIX_GAS_RATE_AVERAGE                = "0.001";
 
+    public final static String CRESCENT_GAS_RATE_TINY                   = "0.000";
+    public final static String CRESCENT_GAS_RATE_LOW                    = "0.000";
+    public final static String CRESCENT_GAS_RATE_AVERAGE                = "0.000";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -877,6 +882,7 @@ public class BaseConstant {
     public final static String EXPLORER_PROVENANCE_MAIN = "https://www.mintscan.io/provenance/";
     public final static String EXPLORER_CERBERUS_MAIN   = "https://www.mintscan.io/cerberus/";
     public final static String EXPLORER_OMNIFLIX_MAIN   = "https://www.mintscan.io/omniflix/";
+    public final static String EXPLORER_CRESCENT_MAIN   = "https://www.mintscan.io/crescent/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
@@ -977,4 +983,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_PROVENANCE = new BigDecimal("6.3061");
     public final static BigDecimal BLOCK_TIME_CERBERUS = new BigDecimal("5.9666");
     public final static BigDecimal BLOCK_TIME_OMNIFLIX = new BigDecimal("5.7970");
+    public final static BigDecimal BLOCK_TIME_CRESCENT = new BigDecimal("6.355");
 }
