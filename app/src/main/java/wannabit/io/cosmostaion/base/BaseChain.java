@@ -300,7 +300,7 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
 
-        result.add(CRESCENT_TEST);
+//        result.add(CRESCENT_TEST);
 
 //        result.add(ALTHEA_MAIN);
         return result;

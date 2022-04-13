@@ -56,6 +56,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AXELAR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BCRE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BCRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BITCANNA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BITSONG;
@@ -472,7 +473,7 @@ public class MainTokensFragment extends BaseFragment {
                 mOsmosisPoolGrpc.add(coin);
             } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_ION) ||
                         getMainActivity().mBaseChain.equals(EMONEY_MAIN) && coin.denom.startsWith("e") ||
-                        getMainActivity().mBaseChain.equals(CRESCENT_TEST) && coin.denom.equalsIgnoreCase(TOKEN_BCRESCENT_TEST)) {
+                        getMainActivity().mBaseChain.equals(CRESCENT_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_BCRE)) {
                 mNativeGrpc.add(coin);
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN) && coin.denom.startsWith("c") ||
                         getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN) && coin.denom.startsWith("gravity") ||
@@ -1349,6 +1350,18 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_crescent));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRE);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_BCRE)) {
+            holder.itemSymbol.setText(getString(R.string.str_bcre_c));
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorCrescent2));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Liquidated CRE");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
+
+            BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_BCRE);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 

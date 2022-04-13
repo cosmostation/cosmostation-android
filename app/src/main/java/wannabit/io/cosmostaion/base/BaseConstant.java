@@ -465,6 +465,7 @@ public class BaseConstant {
     public final static String TOKEN_CRBRUS         = "ucrbrus";
     public final static String TOKEN_FLIX           = "uflix";
     public final static String TOKEN_CRE            = "ucre";
+    public final static String TOKEN_BCRE           = "ubcre";
 
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
