@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.dao;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -101,6 +102,9 @@ public class ChainParam {
         @SerializedName("crescent_minting_params")
         public CrescentMintingParams mCrescentMintingParams;
 
+        @SerializedName("crescent_budgets")
+        public CrescentBudgets mCrescentBudgets;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
@@ -125,16 +129,16 @@ public class ChainParam {
                 BigDecimal annualProvisions = new BigDecimal(mEvmosEpochMintProvision.epoch_mint_provision).multiply(new BigDecimal("365"));
                 BigDecimal evmosSupply = getMainSupply(baseChain).subtract(new BigDecimal("200000000000000000000000000"));
                 return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
-            } else if (baseChain.equals(CRESCENT_TEST)) {
+            } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
                 long now = Calendar.getInstance().getTime().getTime();
-                BigDecimal creSupply = getMainSupply(baseChain);
-                BigDecimal annualProvisions = BigDecimal.ZERO;
+                BigDecimal genesisSupply = new BigDecimal("200000000000000");
+                BigDecimal thisInflation = getCurrentInflationAmount(baseChain);
                 for (Schedules schedules: mCrescentMintingParams.mParams.mSchedules) {
-                    if (schedules.getStart_time() < now && schedules.getEnd_time() > now) {
-                        annualProvisions = schedules.getAmount();
+                    if (schedules.getStart_time() < now && schedules.getEnd_time() < now) {
+                        genesisSupply = genesisSupply.add(schedules.getAmount());
                     }
                 }
-                return annualProvisions.divide(creSupply, 18, RoundingMode.DOWN);
+                return thisInflation.divide(genesisSupply, 18, RoundingMode.UP);
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
@@ -170,10 +174,14 @@ public class ChainParam {
         }
 
         public BigDecimal getTax(BaseChain baseChain) {
-            if (isGRPC(baseChain)) {
-                return new BigDecimal(mDistributionParams.params.community_tax);
+            if (mDistributionParams != null) {
+                if (isGRPC(baseChain)) {
+                    return new BigDecimal(mDistributionParams.params.community_tax);
+                } else {
+                    return new BigDecimal(mDistributionParams.community_tax);
+                }
             } else {
-                return new BigDecimal(mDistributionParams.community_tax);
+                return BigDecimal.ZERO;
             }
         }
 
@@ -185,6 +193,32 @@ public class ChainParam {
                 }
             }
             return BigDecimal.ZERO;
+        }
+
+        // Crescent
+        public BigDecimal getCurrentInflationAmount(BaseChain baseChain) {
+            BigDecimal inflationAmount = BigDecimal.ZERO;
+            if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+                long now = Calendar.getInstance().getTime().getTime();
+                for (Schedules schedules: mCrescentMintingParams.mParams.mSchedules) {
+                    if (schedules.getStart_time() < now && schedules.getEnd_time() > now) {
+                        inflationAmount = schedules.getAmount();
+                    }
+                }
+            }
+            return inflationAmount;
+        }
+
+        public BigDecimal getBudgetRate(BaseChain baseChain) {
+            BigDecimal budgetRate = BigDecimal.ZERO;
+            if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+                for (Budgets budgets: mCrescentBudgets.mBudgets) {
+                    if (budgets.mBudget.name.equalsIgnoreCase("budget-ecosystem-incentive") || budgets.mBudget.name.equalsIgnoreCase("budget-dev-team")) {
+                        budgetRate = budgetRate.add(new BigDecimal(budgets.mBudget.rate));
+                    }
+                }
+            }
+            return budgetRate;
         }
 
         public BigDecimal getApr(BaseChain baseChain) {
@@ -209,6 +243,10 @@ public class ChainParam {
                             stakingRewardsFactor = new BigDecimal(mEvmosInflationParams.params.mInflationDistributions.staking_rewards);
                         }
                         return ap.multiply(stakingRewardsFactor).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
+                    } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+                        BigDecimal inflationAmount = getCurrentInflationAmount(baseChain);
+                        BigDecimal budgetRate = BigDecimal.ONE.subtract(getBudgetRate(baseChain));
+                        return budgetRate.multiply(calTax).multiply(inflationAmount).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
                     } else {
                         BigDecimal ap = getAnnualProvision();
                         if (ap.compareTo(BigDecimal.ZERO) > 0) {
@@ -271,10 +309,14 @@ public class ChainParam {
         }
 
         public String getMainDenom(BaseChain baseChain) {
-            if (isGRPC(baseChain)) {
-                return mStakingParams.params.bond_denom;
+            if (mStakingParams != null) {
+                if (isGRPC(baseChain)) {
+                    return mStakingParams.params.bond_denom;
+                } else {
+                    return mStakingParams.bond_denom;
+                }
             } else {
-                return mStakingParams.bond_denom;
+                return "";
             }
         }
 
@@ -760,6 +802,36 @@ public class ChainParam {
         public long getStart_time() {
             return WDp.dateToLong2(start_time);
         }
+    }
+
+    public class CrescentBudgets {
+        @SerializedName("budgets")
+        public ArrayList<Budgets> mBudgets;
+    }
+
+    public class Budgets {
+        @SerializedName("budget")
+        public Budget mBudget;
+    }
+
+    public class Budget {
+        @SerializedName("name")
+        public String name;
+
+        @SerializedName("rate")
+        public String rate;
+
+        @SerializedName("end_time")
+        public String end_time;
+
+        @SerializedName("start_time")
+        public String start_time;
+
+        @SerializedName("source_address")
+        public String source_address;
+
+        @SerializedName("destination_address")
+        public String destination_address;
     }
 }
 

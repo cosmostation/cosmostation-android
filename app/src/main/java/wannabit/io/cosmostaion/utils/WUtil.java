@@ -14,6 +14,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
@@ -2743,6 +2744,9 @@ public class WUtil {
             } else if (chain.equals(OMNIFLIX_MAIN)) {
                 return BLOCK_TIME_OMNIFLIX;
 
+            } else if (chain.equals(CRESCENT_MAIN)) {
+                return BLOCK_TIME_CRESCENT;
+
             }
         }
         return BigDecimal.ZERO;
@@ -3072,9 +3076,7 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_omniflix);
             guideMsg.setText(R.string.str_front_guide_msg_omniflix);
 
-        }
-
-        else if (mainActivity.mBaseChain.equals(CRESCENT_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(CRESCENT_MAIN) || mainActivity.mBaseChain.equals(CRESCENT_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_crescent));
             guideTitle.setText(R.string.str_front_guide_title_crescent);
             guideMsg.setText(R.string.str_front_guide_msg_crescent);
@@ -3283,9 +3285,7 @@ public class WUtil {
             coinDenom.setText(R.string.str_omniflix_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_omniflix);
 
-        }
-
-        else if (chain.equals(CRESCENT_TEST)) {
+        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_crescent));
             coinDenom.setText(R.string.str_cre_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_crescent);
@@ -3474,7 +3474,7 @@ public class WUtil {
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://omniflix.network/"));
 
-        } else if (chain.equals(CRESCENT_TEST)) {
+        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crescent.network/"));
         }
         return null;
@@ -3609,7 +3609,7 @@ public class WUtil {
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.omniflix.network/"));
 
-        } else if (chain.equals(CRESCENT_TEST)) {
+        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crescentnetwork.medium.com/"));
 
         }
@@ -3738,6 +3738,9 @@ public class WUtil {
 
         } else if (basechain.equals(OMNIFLIX_MAIN)) {
             return EXPLORER_OMNIFLIX_MAIN;
+
+        } else if (basechain.equals(CRESCENT_MAIN)) {
+            return EXPLORER_CRESCENT_MAIN;
 
         }
 
@@ -3877,6 +3880,9 @@ public class WUtil {
 
             } else if (basechain.equals(OMNIFLIX_MAIN)) {
                 return EXPLORER_OMNIFLIX_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(CRESCENT_MAIN)) {
+                return EXPLORER_CRESCENT_MAIN + "txs/" + hash;
 
             }
 
@@ -4173,7 +4179,7 @@ public class WUtil {
      * Chain Gas Rate
      */
     public static BigDecimal getEstimateGasFeeAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(CRESCENT_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -4361,6 +4367,11 @@ public class WUtil {
 
         } else if (basechain.equals(OMNIFLIX_MAIN)) {
             BigDecimal gasRate = new BigDecimal(OMNIFLIX_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(CRESCENT_MAIN) || basechain.equals(CRESCENT_TEST)) {
+            BigDecimal gasRate = new BigDecimal(CRESCENT_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -4650,6 +4661,14 @@ public class WUtil {
                 return new BigDecimal(OMNIFLIX_GAS_RATE_LOW);
             }
             return new BigDecimal(OMNIFLIX_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(CRESCENT_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(CRESCENT_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(CRESCENT_GAS_RATE_LOW);
+            }
+            return new BigDecimal(CRESCENT_GAS_RATE_AVERAGE);
 
         }
 

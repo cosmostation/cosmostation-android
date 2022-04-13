@@ -21,17 +21,12 @@
             android:gravity="center"
             android:text="Sign Request"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorGray10"
-            android:layout_margin="@dimen/space_12"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_12"
             android:background="@color/colorGray10">
             <ScrollView
                 android:layout_width="match_parent"
@@ -43,14 +38,20 @@
                     android:layout_marginTop="@dimen/space_10"
                     android:layout_marginLeft="@dimen/space_40"
                     android:layout_marginRight="@dimen/space_40"
+                    android:gravity="left"
                     style="@style/font_ss_12_gray1" />
             </ScrollView>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray10"
+            android:layout_marginTop="@dimen/space_12"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/btn_nega"

@@ -13,6 +13,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
@@ -162,6 +163,9 @@ public class ChannelBuilder {
     private final static String GRPC_OMNIFLIX_MAIN = "lcd-omniflix-app.cosmostation.io";
     private final static int PORT_OMNIFLIX_MAIN = 9090;
 
+    private final static String GRPC_CRESCENT_MAIN = "lcd-crescent-app.cosmostation.io";
+    private final static int PORT_CRESCENT_MAIN = 9090;
+
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -256,6 +260,8 @@ public class ChannelBuilder {
             return getCerberusMain();
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return getOmniflixMain();
+        } else if (chain.equals(CRESCENT_MAIN)) {
+            return getCrescentMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -764,6 +770,19 @@ public class ChannelBuilder {
             }
         }
         return channel_omniflix_main;
+    }
+
+    //Channel for crescent main
+    private static ManagedChannel channel_crescent_main = null;
+    public static ManagedChannel getCrescentMain() {
+        if (channel_crescent_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_crescent_main = ManagedChannelBuilder.forAddress(GRPC_CRESCENT_MAIN, PORT_CRESCENT_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_crescent_main;
     }
 
     //Channel for stargate testnet

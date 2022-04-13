@@ -139,6 +139,9 @@
     <string name="url_api_omniflix" translatable="false">https://api-omniflix.cosmostation.io/</string>
 
 
+    <string name="url_api_crescent" translatable="false">https://api-crescent.cosmostation.io/</string>
+
+
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
     <string name="url_api_rizon" translatable="false">https://api-rizon.cosmostation.io/</string>
@@ -203,6 +206,7 @@
     <string name="str_provenance_c" translatable="false">HASH</string>
     <string name="str_cerberus_c" translatable="false">CRBRUS</string>
     <string name="str_omniflix_c" translatable="false">FLIX</string>
+    <string name="str_crescent_c" translatable="false">CRE</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
     <string name="str_cre_c" translatable="false">CRE</string>
@@ -259,6 +263,7 @@
     <string name="str_provenance_main_net" translatable="false">Provenance</string>
     <string name="str_cerberus_main_net" translatable="false">Cerberus</string>
     <string name="str_omniflix_main_net" translatable="false">Omniflix</string>
+    <string name="str_crescent_main_net" translatable="false">Crescent</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -509,6 +514,7 @@
     <string name="str_provenance_net" translatable="false">(Provenance)</string>
     <string name="str_cerberus_net" translatable="false">(Cerberus)</string>
     <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
+    <string name="str_crescent_net" translatable="false">(Crescent)</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_crescent_chain_test" translatable="false">(Crescent Testnet)</string>
@@ -562,6 +568,7 @@
     <string name="str_provenance_main" translatable="false">PROVENANCE</string>
     <string name="str_cerberus_main" translatable="false">CERBERUS</string>
     <string name="str_omniflix_main" translatable="false">OMNIFLIX</string>
+    <string name="str_crescent_main" translatable="false">CRESCENT</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_crescent_test" translatable="false">CRESCENT TEST</string>
     <string name="str_mintscan">Check Explorer</string>
@@ -945,6 +952,9 @@
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">Add New Wallet</string>
+    <string name="str_error_not_support_chain_title">Error</string>
+    <string name="str_error_not_support_chain_msg">No wallet for that chain</string>
+    <string name="str_error_not_support_msg">%1$s are not currently supported chain</string>
 
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>

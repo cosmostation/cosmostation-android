@@ -15,6 +15,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
@@ -556,6 +557,20 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(CRESCENT_MAIN)) {
+            if (coin.denom.equals(TOKEN_CRE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (coin.denom.equals(TOKEN_BCRE)) {
+                denomTv.setText("BCRE");
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorCrescent2));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -998,6 +1013,18 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(CRESCENT_MAIN)) {
+            if (symbol.equals(TOKEN_CRE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (symbol.equals(TOKEN_BCRE)) {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorCrescent2));
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -1148,6 +1175,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_cerberus));
             } else if (baseChain.equals(OMNIFLIX_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_omniflix));
+            } else if (baseChain.equals(CRESCENT_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_crescent));
 
             }
 
@@ -1245,6 +1274,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_cerberus_net));
             } else if (baseChain.equals(OMNIFLIX_MAIN)) {
                 chainName.setText(c.getString(R.string.str_omniflix_net));
+            } else if (baseChain.equals(CRESCENT_MAIN)) {
+                chainName.setText(c.getString(R.string.str_crescent_net));
 
             }
 
@@ -1343,6 +1374,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_cerberus_main));
             } else if (baseChain.equals(OMNIFLIX_MAIN)) {
                 chainName.setText(c.getString(R.string.str_omniflix_main));
+            } else if (baseChain.equals(CRESCENT_MAIN)) {
+                chainName.setText(c.getString(R.string.str_crescent_main));
 
             }
 
@@ -1448,15 +1481,15 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorCerberus));
         } else if (baseChain.equals(OMNIFLIX_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorOmniflix));
+        } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorCrescent3));
+            floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorCrescent));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorAtom));
         } else if (baseChain.equals(IRIS_TEST)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorIris));
-        } else if (baseChain.equals(CRESCENT_TEST)) {
-            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorCrescent3));
-            floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorCrescent));
         }
     }
 
@@ -1542,11 +1575,11 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_cerberus));
             } else if (baseChain.equals(OMNIFLIX_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_omniflix));
+            } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_crescent));
             }
             else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_darkgray));
-            } else if (baseChain.equals(CRESCENT_TEST)) {
-                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_crescent));
             }
         }
     }
@@ -1627,6 +1660,8 @@ public class WDp {
                 return CERBERUS_MAIN;
             } else if (chainId.contains("omniflixhub-")) {
                 return OMNIFLIX_MAIN;
+            } else if (chainId.contains("crescent-")) {
+                return CRESCENT_MAIN;
             }
 
             else if (chainId.contains("mooncat-")) {
@@ -1786,9 +1821,7 @@ public class WDp {
                 if (!address.startsWith("omniflix1")) {
                     textView.setText("");
                 }
-            }
-
-            else if (baseChain.equals(CRESCENT_TEST)) {
+            } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
                 if (!address.startsWith("cre1")) {
                     textView.setText("");
                 }
@@ -1878,12 +1911,12 @@ public class WDp {
                 return "cerberus";
             } else if (baseChain.equals(OMNIFLIX_MAIN)) {
                 return "omniflix";
+            } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+                return "crescent";
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
                 return "cosmos-testnet";
-            } else if (baseChain.equals(CRESCENT_TEST)) {
-                return "crescent";
             }
         }
         return null;
@@ -1937,8 +1970,7 @@ public class WDp {
             else if (address.startsWith("pb1") && baseChain.equals(PROVENANCE_MAIN)) { return true; }
             else if (address.startsWith("cerberus1") && baseChain.equals(CERBERUS_MAIN)) { return true; }
             else if (address.startsWith("omniflix1") && baseChain.equals(OMNIFLIX_MAIN)) { return true; }
-
-            else if (address.startsWith("cre1") && baseChain.equals(CRESCENT_TEST)) { return true; }
+            else if (address.startsWith("cre1") && baseChain.equals(CRESCENT_MAIN) || address.startsWith("cre1") && baseChain.equals(CRESCENT_TEST)) { return true; }
         }
         return false;
     }
@@ -1993,8 +2025,7 @@ public class WDp {
             else if (address.startsWith("pb1")) { return Lists.newArrayList(PROVENANCE_MAIN); }
             else if (address.startsWith("cerberus1")) { return Lists.newArrayList(CERBERUS_MAIN); }
             else if (address.startsWith("omniflix1")) { return Lists.newArrayList(OMNIFLIX_MAIN); }
-
-            else if (address.startsWith("cre1")) { return Lists.newArrayList(CRESCENT_TEST); }
+            else if (address.startsWith("cre1")) { return Lists.newArrayList(CRESCENT_MAIN, CRESCENT_TEST); }
         }
         return null;
     }
@@ -2038,8 +2069,7 @@ public class WDp {
             else if (chain.equals(PROVENANCE_MAIN)) { return PROVENANCE_UNKNOWN_RELAYER; }
             else if (chain.equals(CERBERUS_MAIN)) { return CERBERUS_UNKNOWN_RELAYER; }
             else if (chain.equals(OMNIFLIX_MAIN)) { return OMNIFLIX_UNKNOWN_RELAYER; }
-
-            else if (chain.equals(CRESCENT_TEST)) { return CRESCENT_UNKNOWN_RELAYER; }
+            else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) { return CRESCENT_UNKNOWN_RELAYER; }
         }
         return null;
     }
@@ -3087,9 +3117,7 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorCerberus);
             } else if (chain.equals(OMNIFLIX_MAIN)) {
                 return c.getResources().getColor(R.color.colorOmniflix);
-            }
-
-            else if (chain.equals(CRESCENT_TEST)) {
+            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
                 return c.getResources().getColor(R.color.colorCrescent);
             }
         }
@@ -3178,9 +3206,7 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgCerberus);
             } else if (chain.equals(OMNIFLIX_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgOmniflix);
-            }
-
-            else if (chain.equals(CRESCENT_TEST)) {
+            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
                 return c.getResources().getColor(R.color.colorTransBgCrescent);
             }
         }
@@ -3267,9 +3293,7 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cerberus);
             } else if (chain.equals(OMNIFLIX_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_omniflix);
-            }
-
-            else if (chain.equals(CRESCENT_TEST)) {
+            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_crescent);
             }
         }
@@ -3356,9 +3380,7 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorCerberus);
             } else if (chain.equals(OMNIFLIX_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorOmniflix);
-            }
-
-            else if (chain.equals(CRESCENT_TEST)) {
+            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
                 return c.getResources().getColorStateList(R.color.colorCrescent);
             }
         }
@@ -3530,6 +3552,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorOmniflix));
             textview.setText(c.getString(R.string.s_omniflix));
 
+        } else if (BaseChain.getChain(chain).equals(CRESCENT_MAIN) || BaseChain.getChain(chain).equals(CRESCENT_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorCrescent));
+            textview.setText(c.getString(R.string.s_cre));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3539,10 +3565,6 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(IRIS_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_bif));
-
-        } else if (BaseChain.getChain(chain).equals(CRESCENT_TEST)) {
-            textview.setTextColor(c.getResources().getColor(R.color.colorCrescent));
-            textview.setText(c.getString(R.string.s_cre));
 
         }
     }
@@ -3632,6 +3654,8 @@ public class WDp {
             return TOKEN_CRBRUS;
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return TOKEN_FLIX;
+        } else if (chain.equals(CRESCENT_MAIN)) {
+            return TOKEN_CRE;
         }
 
         else if (chain.equals(CRESCENT_TEST)) {
@@ -3723,9 +3747,7 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_cerberus);
             } else if (baseChain.equals(OMNIFLIX_MAIN)) {
                 imageView.setImageResource(R.drawable.token_omniflix);
-            }
-
-            else if (baseChain.equals(CRESCENT_TEST)) {
+            } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
                 imageView.setImageResource(R.drawable.token_crescent);
             }
         } else {
@@ -4150,14 +4172,12 @@ public class WDp {
             return CERBERUS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(OMNIFLIX_MAIN)) {
             return OMNIFLIX_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(CRESCENT_MAIN) || basechain.equals(CRESCENT_TEST)) {
+            return CRESCENT_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(OKEX_MAIN)) {
             return OKEX_VAL_URL + opAddress + ".png";
-        }
-
-        else if (basechain.equals(CRESCENT_TEST)) {
-            return CRESCENT_VAL_URL + opAddress + ".png";
         }
         return "";
     }
