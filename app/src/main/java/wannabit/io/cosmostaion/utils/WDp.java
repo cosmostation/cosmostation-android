@@ -560,6 +560,11 @@ public class WDp {
         } else if (chain.equals(CRESCENT_MAIN)) {
             if (coin.denom.equals(TOKEN_CRE)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (coin.denom.equals(TOKEN_BCRE)) {
+                denomTv.setText("BCRE");
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorCrescent2));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
             } else {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
@@ -1012,6 +1017,9 @@ public class WDp {
         } else if (chain.equals(CRESCENT_MAIN)) {
             if (symbol.equals(TOKEN_CRE)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (symbol.equals(TOKEN_BCRE)) {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorCrescent2));
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
