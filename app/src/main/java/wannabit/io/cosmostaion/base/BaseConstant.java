@@ -350,6 +350,8 @@ public class BaseConstant {
 
     public final static String LIQUIDITY_MSG_TYPE_SWAP                      = "liquidity/MsgSwapWithinBatch";
 
+    public final static String WC_URL_SCHEME                                 = "cosmostation";
+    public final static String WC_URL_INTENT_KEY                            = "wcUrl";
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";
     public final static int CONST_PW_INIT                                   = 5000;
     public final static int CONST_PW_UNLOUCK                                = 5001;

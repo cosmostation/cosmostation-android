@@ -1151,4 +1151,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
         }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
+
+    protected void startPasswordActivityForResult() {
+        Intent intent = new Intent(this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    }
 }

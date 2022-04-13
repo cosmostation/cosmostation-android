@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
@@ -268,7 +269,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (result != null && result.getContents() != null && result.getContents().trim().contains("bridge.walletconnect.org")) {
                 Intent wcIntent = new Intent(getMainActivity(), StarNameWalletConnectActivity.class);
-                wcIntent.putExtra("wcUrl", result.getContents().trim());
+                wcIntent.putExtra(BaseConstant.WC_URL_INTENT_KEY, result.getContents().trim());
                 startActivity(wcIntent);
 
             } else {

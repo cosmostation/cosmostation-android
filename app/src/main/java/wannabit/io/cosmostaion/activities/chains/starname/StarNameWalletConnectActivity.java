@@ -25,6 +25,7 @@ import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Export_Confirm;
 import wannabit.io.cosmostaion.model.ExportStarName;
@@ -84,7 +85,7 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
     }
 
     private void loadInfo() {
-        mWcURL = getIntent().getStringExtra("wcUrl");
+        mWcURL = getIntent().getStringExtra(BaseConstant.WC_URL_INTENT_KEY);
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
     }
