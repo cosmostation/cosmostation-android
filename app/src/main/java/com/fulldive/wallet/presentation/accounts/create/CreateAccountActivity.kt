@@ -12,12 +12,12 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import com.fulldive.wallet.interactors.secret.MnemonicUtils
 import com.fulldive.wallet.presentation.base.BaseMvpActivity
-import com.fulldive.wallet.presentation.lockscreen.CheckPasswordActivity
+import com.fulldive.wallet.presentation.security.CheckPasswordActivity
 import com.joom.lightsaber.getInstance
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
-import com.fulldive.wallet.presentation.lockscreen.SetPasswordActivity
+import com.fulldive.wallet.presentation.security.SetPasswordActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.databinding.ActivityCreateBinding
 

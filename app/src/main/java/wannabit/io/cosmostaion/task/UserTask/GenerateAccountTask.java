@@ -68,7 +68,6 @@ public class GenerateAccountTask extends CommonTask {
         Account newAccount = Account.getNewInstance();
         EncResult encR = CryptoHelper.doEncryptData(context.getString(R.string.key_mnemonic) + newAccount.uuid, entropy, false);
 
-//        newAccount.address = WKey.getCreateDpAddressFromEntropy(mBaseChain, entropy, Integer.parseInt(path), mCustomPath);
         newAccount.address = MnemonicUtils.INSTANCE.createAddress(mBaseChain, entropy, Integer.parseInt(path), mCustomPath);
         newAccount.baseChain = mBaseChain.getChain();
         newAccount.hasPrivateKey = true;

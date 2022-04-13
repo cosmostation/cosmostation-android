@@ -34,7 +34,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fulldive.wallet.presentation.chains.choicenet.ChoiceChainDialogFragment;
-import com.fulldive.wallet.presentation.lockscreen.SetPasswordActivity;
+import com.fulldive.wallet.presentation.security.SetPasswordActivity;
 
 import org.bitcoinj.crypto.MnemonicCode;
 

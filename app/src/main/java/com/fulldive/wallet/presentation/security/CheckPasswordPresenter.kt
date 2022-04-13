@@ -1,9 +1,11 @@
-package com.fulldive.wallet.presentation.lockscreen
+package com.fulldive.wallet.presentation.security
 
 import com.fulldive.wallet.di.modules.DefaultPresentersModule
 import com.fulldive.wallet.extensions.withDefaults
+import com.fulldive.wallet.interactors.secret.InvalidPasswordException
 import com.fulldive.wallet.interactors.secret.SecretInteractor
 import com.fulldive.wallet.presentation.base.BaseMoxyPresenter
+import com.fulldive.wallet.presentation.system.keyboard.KeyboardType
 import com.joom.lightsaber.ProvidedBy
 import moxy.MvpAppCompatActivity
 import wannabit.io.cosmostaion.R
@@ -12,32 +14,27 @@ import wannabit.io.cosmostaion.utils.WUtil
 import javax.inject.Inject
 
 @ProvidedBy(DefaultPresentersModule::class)
-class SetPasswordPresenter @Inject constructor(
+class CheckPasswordPresenter @Inject constructor(
     private val secretInteractor: SecretInteractor
-) : BaseMoxyPresenter<SetPasswordMoxyView>() {
+) : BaseMoxyPresenter<CheckPasswordMoxyView>() {
     private var userInput: String = ""
-    private var confirmInput: String = ""
-    private var isConfirmSequence = false
+    private var askQuite = false
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-        viewState.setCheckPasswordHintVisible(false)
+    override fun attachView(view: CheckPasswordMoxyView) {
+        super.attachView(view)
         clear()
     }
 
     fun onUserInsertKey(input: Char) {
-        var updateField = when {
-            userInput.isEmpty() -> {
-                userInput = input.toString()
-                true
-            }
-            userInput.length < 5 -> {
-                userInput += input
-                true
-            }
-            else -> false
-        }
+        var updateField = false
 
+        if (userInput.isEmpty()) {
+            userInput = input.toString()
+            updateField = true
+        } else if (userInput.length < 5) {
+            userInput += input
+            updateField = true
+        }
         when {
             userInput.length == 4 -> {
                 viewState.switchKeyboard(KeyboardType.Alphabet)
@@ -51,6 +48,7 @@ class SetPasswordPresenter @Inject constructor(
             }
         }
         if (updateField) {
+            askQuite = false
             viewState.updatePasswordField(userInput.length)
         }
     }
@@ -58,8 +56,10 @@ class SetPasswordPresenter @Inject constructor(
     fun onBackPressed() {
         when {
             userInput.isNotEmpty() -> userDeleteKey()
+            askQuite -> viewState.finishWithResult(MvpAppCompatActivity.RESULT_CANCELED)
             else -> {
-                viewState.finishWithResult(MvpAppCompatActivity.RESULT_CANCELED)
+                askQuite = true
+                viewState.showMessage(R.string.str_ready_to_quite)
             }
         }
     }
@@ -89,36 +89,26 @@ class SetPasswordPresenter @Inject constructor(
     }
 
     private fun checkPassword() {
-        if (isConfirmSequence) {
-            viewState.setCheckPasswordHintVisible(false)
-            if (confirmInput == userInput) {
-                viewState.showWaitDialog()
-                secretInteractor
-                    .setPassword(userInput)
-                    .withDefaults()
-                    .compositeSubscribe(
-                        onSuccess = {
-                            WLog.w("Account was saved")
-                            viewState.finishWithResult(MvpAppCompatActivity.RESULT_OK)
-                        }
-                    ) {
-                        viewState.hideWaitDialog()
-                        viewState.shakeView()
-                        isConfirmSequence = false
-                        viewState.showMessage(R.string.str_unknown_error_msg)
-                    }
-            } else {
+        viewState.showWaitDialog()
+        secretInteractor
+            .checkPassword(userInput)
+            .withDefaults()
+            .compositeSubscribe(
+                onSuccess = {
+                    WLog.w("Account was checked")
+                    viewState.finishWithResult(MvpAppCompatActivity.RESULT_OK)
+                }
+            ) { error: Throwable ->
+                viewState.hideWaitDialog()
                 viewState.shakeView()
-                isConfirmSequence = false
-                viewState.showMessage(R.string.error_msg_password_not_same)
+                clear()
+                viewState.showMessage(
+                    if (error is InvalidPasswordException) {
+                        R.string.error_invalid_password
+                    } else {
+                        R.string.str_unknown_error_msg
+                    }
+                )
             }
-        } else {
-            isConfirmSequence = true
-            confirmInput = userInput
-            userInput = ""
-            clear()
-            viewState.shuffleKeyboard()
-            viewState.setCheckPasswordHintVisible(true)
-        }
     }
 }

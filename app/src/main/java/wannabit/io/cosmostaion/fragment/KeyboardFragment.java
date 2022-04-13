@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.fragment;
 
 import androidx.fragment.app.Fragment;
 
-import wannabit.io.cosmostaion.utils.KeyboardListener;
+import com.fulldive.wallet.presentation.system.keyboard.KeyboardListener;
 
 public class KeyboardFragment extends Fragment {
 

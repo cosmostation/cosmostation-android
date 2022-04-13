@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.utils;
+package com.fulldive.wallet.presentation.system.keyboard;
 
 public interface KeyboardListener {
 

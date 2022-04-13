@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -32,67 +33,63 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCheckActivity extends BaseActivity {
 
-    private Toolbar mToolbar;
-    private CardView mMnemonicLayer;
-    private final LinearLayout[] mWordsLayer = new LinearLayout[24];
+    private final LinearLayout[] wordsLayer = new LinearLayout[24];
     private final TextView[] mTvWords = new TextView[24];
-    private Button mCopy, mOk;
 
-    private String mEntropy;
-    private ArrayList<String> mWords = new ArrayList<>();
+    private List<String> mnemonicWords = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_check);
-        mToolbar = findViewById(R.id.toolbar);
-        mMnemonicLayer = findViewById(R.id.mnemonicsCardView);
-        mCopy = findViewById(R.id.btn_copy);
-        mOk = findViewById(R.id.btn_ok);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        CardView mnemonicCardView = findViewById(R.id.mnemonicsCardView);
+        Button copyButton = findViewById(R.id.copyButton);
+        Button okButton = findViewById(R.id.okButton);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        for (int i = 0; i < mWordsLayer.length; i++) {
-            mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));
+        for (int i = 0; i < wordsLayer.length; i++) {
+            wordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", this.getPackageName()));
         }
 
-        mEntropy = getIntent().getStringExtra("entropy");
+        String entropy = getIntent().getStringExtra("entropy");
         Account toCheck = getBaseDao().onSelectAccount("" + getIntent().getLongExtra("checkid", -1));
-        mMnemonicLayer.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), getChain(toCheck.baseChain)));
-        mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.hexStringToByteArray(mEntropy)));
+        mnemonicCardView.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), getChain(toCheck.baseChain)));
+        mnemonicWords = new ArrayList<>(WKey.getRandomMnemonic(WUtil.hexStringToByteArray(entropy)));
 
-        for (int i = 0; i < mWordsLayer.length; i++) {
+        for (int i = 0; i < wordsLayer.length; i++) {
             BaseChain chain = getChain(toCheck.baseChain);
-            LinearLayout wordsLayout = mWordsLayer[i];
+            LinearLayout wordsLayout = wordsLayer[i];
             if (chain != null) {
                 wordsLayout.setBackground(AppCompatResources.getDrawable(this, chain.getMnemonicBackground()));
             }
-            wordsLayout.setVisibility(i >= mWords.size() ? View.INVISIBLE : View.VISIBLE);
+            wordsLayout.setVisibility(i >= mnemonicWords.size() ? View.INVISIBLE : View.VISIBLE);
         }
 
-        for (int i = 0; i < mWords.size(); i++) {
-            mTvWords[i].setText(mWords.get(i));
+        for (int i = 0; i < mnemonicWords.size(); i++) {
+            mTvWords[i].setText(mnemonicWords.get(i));
         }
 
-        mCopy.setOnClickListener(v -> {
+        copyButton.setOnClickListener(v -> {
             Dialog_Safe_Copy delete = Dialog_Safe_Copy.newInstance();
             showDialog(delete);
         });
 
-        mOk.setOnClickListener(v -> startMainActivity(3));
+        okButton.setOnClickListener(v -> startMainActivity(3));
     }
 
     public void onRawCopy() {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         StringBuilder builder = new StringBuilder();
-        for (String s : mWords) {
+        for (String word : mnemonicWords) {
             if (builder.length() != 0)
                 builder.append(" ");
-            builder.append(s);
+            builder.append(word);
         }
         String data = builder.toString();
         ClipData clip = ClipData.newPlainText("my data", data);
@@ -103,10 +100,10 @@ public class MnemonicCheckActivity extends BaseActivity {
 
     public void onSafeCopy() {
         StringBuilder builder = new StringBuilder();
-        for (String s : mWords) {
+        for (String word : mnemonicWords) {
             if (builder.length() != 0)
                 builder.append(" ");
-            builder.append(s);
+            builder.append(word);
         }
         String data = builder.toString();
         getBaseDao().mCopyEncResult = CryptoHelper.doEncryptData(getBaseDao().mCopySalt, data, false);

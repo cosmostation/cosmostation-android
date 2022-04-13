@@ -1,4 +1,4 @@
-package com.fulldive.wallet.presentation.lockscreen
+package com.fulldive.wallet.presentation.system.keyboard
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment
 import wannabit.io.cosmostaion.fragment.KeyboardFragment
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment
-import wannabit.io.cosmostaion.utils.KeyboardListener
 import wannabit.io.cosmostaion.utils.WLog
 
 class KeyboardPagerAdapter(

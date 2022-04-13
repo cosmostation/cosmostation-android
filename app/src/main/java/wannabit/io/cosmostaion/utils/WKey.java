@@ -327,28 +327,6 @@ public class WKey {
         return result;
     }
 
-    public static String getCreateDpAddressFromEntropy(BaseChain chain, String entropy, int path, int customPath) {
-        String result = "";
-        DeterministicKey childKey = getCreateKeyWithPathfromEntropy(chain, entropy, path, customPath);
-        switch (chain) {
-            case OKEX_MAIN:
-                if (customPath == 1 || customPath == 2) {
-                    result = generateEthAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
-                } else if (customPath == 0) {
-                    result = generateTenderAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
-                }
-                break;
-            case EVMOS_MAIN:
-            case INJ_MAIN:
-                String prefix = fetchPrefix(chain);
-                result = generateAddressFromPriv(prefix, childKey.getPrivateKeyAsHex());
-                break;
-            default:
-                result = getDpAddress(chain, childKey.getPublicKeyAsHex());
-        }
-        return result;
-    }
-
     public static byte[] convertBits(byte[] data, int frombits, int tobits, boolean pad) throws Exception {
         int acc = 0;
         int bits = 0;

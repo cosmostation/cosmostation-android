@@ -44,7 +44,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar mToolbar;
+    private Toolbar toolbar;
     private View mView;
     private Button mBtnCheck, mBtnCheckKey, mBtnDelete;
 
@@ -71,7 +71,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_detail);
-        mToolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         mBtnCheck = findViewById(R.id.btn_check);
         mView = findViewById(R.id.view);
         mBtnCheckKey = findViewById(R.id.btn_check_key);
@@ -97,7 +97,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
         mRewardAddress = findViewById(R.id.reward_address);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -343,12 +343,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
             tendermint.p2p.Types.NodeInfo nodeinfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (nodeinfo != null) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAccountChain.setText(nodeinfo.getNetwork());
-                    }
-                }, 100);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> mAccountChain.setText(nodeinfo.getNetwork()), 100);
 
             }
 

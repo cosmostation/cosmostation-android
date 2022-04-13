@@ -1,49 +1,47 @@
-package com.fulldive.wallet.presentation.lockscreen
+package com.fulldive.wallet.presentation.security
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.view.isInvisible
 import com.fulldive.wallet.presentation.base.BaseMvpActivity
+import com.fulldive.wallet.presentation.system.keyboard.KeyboardPagerAdapter
+import com.fulldive.wallet.presentation.system.keyboard.KeyboardType
 import com.joom.lightsaber.getInstance
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.base.ITimelessActivity
 import wannabit.io.cosmostaion.databinding.ActivityPasswordSetBinding
-import wannabit.io.cosmostaion.fragment.KeyboardFragment
-import wannabit.io.cosmostaion.utils.KeyboardListener
+import com.fulldive.wallet.presentation.system.keyboard.KeyboardListener
 
-class SetPasswordActivity : BaseMvpActivity<ActivityPasswordSetBinding>(),
-    SetPasswordMoxyView,
-    ITimelessActivity, KeyboardListener {
-
-    private var adapter: KeyboardPagerAdapter? = null
+class CheckPasswordActivity : BaseMvpActivity<ActivityPasswordSetBinding>(),
+    CheckPasswordMoxyView,
+    KeyboardListener {
 
     private val presenter by moxyPresenter {
-        appInjector.getInstance<SetPasswordPresenter>()
+        appInjector.getInstance<CheckPasswordPresenter>()
     }
 
     override fun getViewBinding() = ActivityPasswordSetBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
         super.onCreate(savedInstanceState)
-
         binding {
-            titleTextView.setText(R.string.str_password_init)
+            titleTextView.setText(R.string.str_init_password)
 
             keyboardPager.offscreenPageLimit = 2
             keyboardPager.adapter = KeyboardPagerAdapter(
                 supportFragmentManager,
-                this@SetPasswordActivity
-            ).also {
-                adapter = it
-            }
+                this@CheckPasswordActivity
+            )
             hintTextView.visibility = View.INVISIBLE
             subtitleTextView.visibility = View.INVISIBLE
         }
     }
-
 
     override fun onBackPressed() {
         presenter.onBackPressed()
@@ -54,17 +52,11 @@ class SetPasswordActivity : BaseMvpActivity<ActivityPasswordSetBinding>(),
         super.onStop()
     }
 
-    override fun setCheckPasswordHintVisible(isVisible: Boolean) {
-        binding {
-            subtitleTextView.isInvisible = !isVisible
-        }
-    }
-
     override fun shakeView() {
         binding {
             layerContents.clearAnimation()
             val animation = AnimationUtils.loadAnimation(
-                this@SetPasswordActivity, R.anim.shake
+                this@CheckPasswordActivity, R.anim.shake
             )
             animation.reset()
             animation.setAnimationListener(object : Animation.AnimationListener {
@@ -95,7 +87,7 @@ class SetPasswordActivity : BaseMvpActivity<ActivityPasswordSetBinding>(),
 
     override fun updatePasswordField(inputLength: Int) {
         binding {
-            listOf(imgCircle0, imgCircle1, imgCircle2, imgCircle3, imgCircle4)
+            listOf(circleImage0, circleImage1, circleImage2, circleImage3, circleImage4)
                 .forEachIndexed { index, imageView ->
                     imageView.setImageResource(
                         if (index < inputLength) R.drawable.ic_pass_pu else R.drawable.ic_pass_gr
@@ -104,13 +96,9 @@ class SetPasswordActivity : BaseMvpActivity<ActivityPasswordSetBinding>(),
         }
     }
 
-    override fun shuffleKeyboard() {
-        adapter?.fragments?.forEach(KeyboardFragment::shuffleKeyboard)
-    }
-
     override fun clear() {
         binding {
-            listOf(imgCircle0, imgCircle1, imgCircle2, imgCircle3, imgCircle4)
+            listOf(circleImage0, circleImage1, circleImage2, circleImage3, circleImage4)
                 .forEach { imageView ->
                     imageView.setBackgroundResource(R.drawable.ic_pass_gr)
                 }

@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.task;
 
 import android.os.AsyncTask;
 
+import com.joom.lightsaber.Injector;
+
 import wannabit.io.cosmostaion.base.BaseApplication;
 
 public class CommonTask extends AsyncTask<String, Void, TaskResult> {
@@ -19,6 +21,10 @@ public class CommonTask extends AsyncTask<String, Void, TaskResult> {
     @Override
     protected TaskResult doInBackground(String... strings) {
         return null;
+    }
+
+    protected Injector getInjector() {
+        return context.getInjector();
     }
 
     @Override

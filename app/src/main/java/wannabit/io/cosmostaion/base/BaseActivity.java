@@ -270,7 +270,6 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         startActivity(intent);
     }
 
-
     public void startSendMainDenom() {
         if (account == null) return;
         if (!account.hasPrivateKey) {

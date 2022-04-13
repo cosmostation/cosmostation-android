@@ -42,14 +42,14 @@
 
 
         <activity
-            android:name="com.fulldive.wallet.presentation.lockscreen.SetPasswordActivity"
+            android:name="com.fulldive.wallet.presentation.security.SetPasswordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name="com.fulldive.wallet.presentation.lockscreen.CheckPasswordActivity"
+            android:name="com.fulldive.wallet.presentation.security.CheckPasswordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

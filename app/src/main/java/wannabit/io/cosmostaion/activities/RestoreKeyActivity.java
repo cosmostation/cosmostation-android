@@ -17,7 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
-import com.fulldive.wallet.presentation.lockscreen.SetPasswordActivity;
+import com.fulldive.wallet.presentation.security.SetPasswordActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 

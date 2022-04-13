@@ -160,12 +160,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemTvAllRewards.setText(WDp.getDpAmount2(allRewardAmount, dpDecimal, 6));
                 }
 
-                holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getMainActivity().onStartRewardAll();
-                    }
-                });
+                holder.itemBtnWithdrawAll.setOnClickListener(v -> getMainActivity().onStartRewardAll());
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder = (RewardMyValidatorHolder) viewHolder;
@@ -194,12 +189,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
                         holder.itemRevoked.setVisibility(View.GONE);
                     }
-                    holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress());
-                        }
-                    });
+                    holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress()));
 
                     if (getMainActivity().baseChain.equals(BAND_MAIN)) {
                         if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(validator.getOperatorAddress())) {
@@ -232,12 +222,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
                         holder.itemRevoked.setVisibility(View.GONE);
                     }
-                    holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            getMainActivity().onStartValidatorDetail(validator);
-                        }
-                    });
+                    holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetail(validator));
                 }
             }
         }

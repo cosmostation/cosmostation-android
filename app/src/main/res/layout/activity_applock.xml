@@ -64,27 +64,27 @@
                     android:layout_marginRight="@dimen/space_12">
 
                     <ImageView
-                        android:id="@+id/img_circle0"
+                        android:id="@+id/circleImage0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_pass_gr" />
 
                     <ImageView
-                        android:id="@+id/img_circle1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_16"
-                        android:background="@drawable/ic_pass_gr" />
-
-                    <ImageView
-                        android:id="@+id/img_circle2"
+                        android:id="@+id/circleImage1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_16"
                         android:background="@drawable/ic_pass_gr" />
 
                     <ImageView
-                        android:id="@+id/img_circle3"
+                        android:id="@+id/circleImage2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:background="@drawable/ic_pass_gr" />
+
+                    <ImageView
+                        android:id="@+id/circleImage3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_16"
@@ -97,7 +97,7 @@
                         android:background="@drawable/ic_plus" />
 
                     <ImageView
-                        android:id="@+id/img_circle4"
+                        android:id="@+id/circleImage4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_12"

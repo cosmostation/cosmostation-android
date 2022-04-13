@@ -66,7 +66,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT = 2123;
     public final static int TASK_FETCH_NODE_INFO = 2126;
     public final static int TASK_FETCH_OKEX_ALL_VALIDATORS = 2127;
-    public final static int TASK_CHECK_PRIVATE_KEY = 2135;
     public final static int TASK_INIT_PKEY_ACCOUNT = 2136;
     public final static int TASK_OVERRIDE_PKEY_ACCOUNT = 2137;
 
