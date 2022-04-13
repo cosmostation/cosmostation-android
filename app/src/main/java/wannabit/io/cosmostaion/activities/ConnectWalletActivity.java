@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
-import com.google.android.gms.common.util.CollectionUtils;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,6 +48,7 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Empty_Chain;
+import wannabit.io.cosmostaion.dialog.Dialog_Not_Support_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_WC_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.model.StdSignMsg;
@@ -73,6 +72,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     private Button mBtnDisconnect;
     private Dialog_Wc_Raw_Data mDialogWcRawData;
     private Dialog_Empty_Chain mDialogEmptyChain;
+    private Dialog_Not_Support_Chain mDialogNotSupportChain;
     private Dialog_WC_Account mDialogWcAccount;
 
     private String mWcURL;
@@ -103,21 +103,15 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
                 mBtnDisconnect.setText("Dismiss");
                 return;
             } else {
-                if (Collections2.filter(getBaseDao().onSelectAccounts(), account -> account.hasPrivateKey).isEmpty()) {
-                    Toast.makeText(this, "No Private Key", Toast.LENGTH_SHORT).show();
-                    finish();
-                    return;
-                }
                 Intent intent = new Intent(this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
                 startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             }
         } else {
-            currentAccount = mAccount;
-            getKey();
             loadInfo();
             initWalletConnect();
+            getKey();
         }
     }
 
@@ -182,7 +176,13 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             return null;
         });
         wcClient.setOnKeplrGetKey((id, strings) -> {
-            runOnUiThread(() -> onKeplrGetKey(id, strings));
+            runOnUiThread(() -> {
+                if (!isDeepLink) {
+                    onKeplrGetKey(id, currentAccount);
+                } else {
+                    onShowAccountDialog(id, strings);
+                }
+            });
             return null;
         });
         wcClient.setOnKeplrSignAmino((id, jsonArray) -> {
@@ -283,6 +283,10 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         mWcUrl.setText(meta.getUrl());
         mWcLayer.setVisibility(View.VISIBLE);
         mLoadingLayer.setVisibility(View.GONE);
+
+        mBaseChain = BaseChain.getChain(currentAccount.baseChain);
+        mWcCardView.setCardBackgroundColor(WDp.getChainBgColor(this, mBaseChain));
+        mWcAccount.setText(currentAccount.address);
     }
 
     @Override
@@ -324,24 +328,44 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     }
 
     private void onKeplrEnable(long id, List<String> strings) {
-        ArrayList<Account> existAccount = getBaseDao().onSelectAllAccountsByChainWithKey(WDp.getChainTypeByChainId(strings.get(0)));
-        if (existAccount.size() <= 0) {
-            mWcLayer.setVisibility(View.GONE);
-            mLoadingLayer.setVisibility(View.GONE);
-            onShowNoAccountsForChain();
+        BaseChain requestChain = WDp.getChainTypeByChainId(strings.get(0));
+        if (requestChain != null) {
+            ArrayList<Account> existAccount = getBaseDao().onSelectAllAccountsByChainWithKey(WDp.getChainTypeByChainId(strings.get(0)));
+            if (existAccount.size() <= 0) {
+                mWcLayer.setVisibility(View.GONE);
+                mLoadingLayer.setVisibility(View.GONE);
+                onShowNoAccountsForChain();
+            } else {
+                wcClient.approveRequest(id, strings);
+            }
         } else {
-            wcClient.approveRequest(id, strings);
+            onShowNotSupportChain(strings.get(0));
         }
     }
 
-    private void onKeplrGetKey(Long id, List<String> chainIds) {
-        onShowAccountDialog(id, chainIds);
+    private void onKeplrGetKey(Long id, Account account) {
+        WCKeplrWallet keplr = new WCKeplrWallet(
+                WUtil.getWalletName(this, account),
+                "secp256k1",
+                getKey().getPublicKeyAsHex(),
+                WKey.generateTenderAddressFromPrivateKey(getKey().getPrivateKeyAsHex()),
+                account.address,
+                false);
+        wcClient.approveRequest(id, Lists.newArrayList(keplr));
     }
 
     private void onShowNoAccountsForChain() {
         mDialogEmptyChain = Dialog_Empty_Chain.newInstance();
         mDialogEmptyChain.setCancelable(false);
         getSupportFragmentManager().beginTransaction().add(mDialogEmptyChain, "dialog").commitNowAllowingStateLoss();
+    }
+
+    private void onShowNotSupportChain(String chainId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("chainId", chainId);
+        mDialogNotSupportChain = Dialog_Not_Support_Chain.newInstance(bundle);
+        mDialogNotSupportChain.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(mDialogNotSupportChain, "dialog").commitNowAllowingStateLoss();
     }
 
     private void onShowAccountDialog(Long id, List<String> strings) {
@@ -352,16 +376,8 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         mDialogWcAccount.setCancelable(true);
         mDialogWcAccount.setOnSelectListener((wcId, account) -> {
             currentAccount = account;
-            WCKeplrWallet keplr = new WCKeplrWallet(
-                    WUtil.getWalletName(this, currentAccount),
-                    "secp256k1",
-                    getKey().getPublicKeyAsHex(),
-                    WKey.generateTenderAddressFromPrivateKey(getKey().getPrivateKeyAsHex()),
-                    currentAccount.address,
-                    false);
+            onKeplrGetKey(id, currentAccount);
             onInitView(mWcPeerMeta);
-            mWcAccount.setText(currentAccount.address);
-            wcClient.approveRequest(id, Lists.newArrayList(keplr));
             if (isDeepLink) {
                 moveTaskToBack(true);
             }
