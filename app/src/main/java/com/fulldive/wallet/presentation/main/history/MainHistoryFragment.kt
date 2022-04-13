@@ -103,24 +103,13 @@ class MainHistoryFragment : BaseMvpFragment<FragmentMainHistoryBinding>(),
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        val menuId = when {
-            chain != BaseChain.COSMOS_MAIN -> R.menu.main_menu
-            account?.pushAlarm == true -> R.menu.main_menu_alaram_on
-            else -> R.menu.main_menu_alaram_off
-        }
-        activity?.menuInflater?.inflate(menuId, menu)
+        activity?.menuInflater?.inflate(R.menu.main_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_accounts -> mainActivity?.onClickSwitchWallet()
             R.id.menu_explorer -> mainActivity?.onExplorerView()
-            R.id.menu_notification_off -> mainActivity?.onUpdateUserAlarm(
-                account, true
-            )
-            R.id.menu_notification_on -> mainActivity?.onUpdateUserAlarm(
-                account, false
-            )
         }
         return super.onOptionsItemSelected(item)
     }

@@ -1020,35 +1020,24 @@ public class WDp {
         }
     }
 
-    public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
+    public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardBody, CardView cardRewardAddress) {
         if (baseChain.equals(OKEX_MAIN) || baseChain.equals(KAVA_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(FETCHAI_MAIN)) {
             cardRewardAddress.setVisibility(View.GONE);
         } else {
             cardRewardAddress.setVisibility(View.VISIBLE);
         }
         cardName.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
-        cardAlarm.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
         cardBody.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
         cardRewardAddress.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
 
-        if (baseChain.equals(COSMOS_MAIN)) {
-            cardAlarm.setVisibility(View.VISIBLE);
-        } else {
-            cardAlarm.setVisibility(View.GONE);
-        }
-
         if (baseChain.equals(COSMOS_TEST)) {
             cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
-            cardAlarm.setVisibility(View.GONE);
             cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
             cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
             cardRewardAddress.setVisibility(View.VISIBLE);
 
         } else if (baseChain.equals(IRIS_TEST)) {
             cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
-            cardAlarm.setVisibility(View.GONE);
             cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
             cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
             cardRewardAddress.setVisibility(View.VISIBLE);

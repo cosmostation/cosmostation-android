@@ -13,12 +13,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.fulldive.wallet.extensions.ActivityExtensionsKt;
+import com.fulldive.wallet.presentation.security.CheckPasswordActivity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,7 +30,6 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.IRefreshTabListener;
 import wannabit.io.cosmostaion.dao.Account;
@@ -62,6 +65,14 @@ public class HtlcSendActivity extends BaseActivity {
 
     public ResKavaBep3Param mKavaBep3Param2;
     public ResKavaSwapSupply mKavaSuppies2;
+
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    showResultActivity();
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,14 +215,31 @@ public class HtlcSendActivity extends BaseActivity {
     }
 
     public void onStartHtlcSend() {
-        Intent intent = new Intent(HtlcSendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        launcher.launch(
+                new Intent(this, CheckPasswordActivity.class),
+                ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_bottom, R.anim.fade_out)
+        );
     }
 
+    public BigDecimal getAvailable() {
+        if (baseChain.equals(BaseChain.KAVA_MAIN)) {
+            return getBaseDao().getAvailable(mToSwapDenom);
+        } else {
+            return account.getTokenBalance(mToSwapDenom);
+        }
+    }
 
-    private class HtlcSendPageAdapter extends FragmentPagerAdapter {
+    private void showResultActivity() {
+        Intent intent = new Intent(HtlcSendActivity.this, HtlcResultActivity.class);
+        intent.putExtra("toChain", mRecipientChain.getChain());
+        intent.putExtra("recipientId", "" + mRecipientAccount.id);
+        intent.putParcelableArrayListExtra("amount", mToSendCoins);
+        intent.putExtra("sendFee", mSendFee);
+        intent.putExtra("claimFee", mClaimFee);
+        startActivity(intent);
+    }
+
+    private static class HtlcSendPageAdapter extends FragmentPagerAdapter {
 
         private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
@@ -249,29 +277,6 @@ public class HtlcSendActivity extends BaseActivity {
 
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
-        }
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
-            Intent intent = new Intent(HtlcSendActivity.this, HtlcResultActivity.class);
-            intent.putExtra("toChain", mRecipientChain.getChain());
-            intent.putExtra("recipientId", "" + mRecipientAccount.id);
-            intent.putParcelableArrayListExtra("amount", mToSendCoins);
-            intent.putExtra("sendFee", mSendFee);
-            intent.putExtra("claimFee", mClaimFee);
-            startActivity(intent);
-        }
-    }
-
-    public BigDecimal getAvailable() {
-        if (baseChain.equals(BaseChain.KAVA_MAIN)) {
-            return getBaseDao().getAvailable(mToSwapDenom);
-        } else {
-            return account.getTokenBalance(mToSwapDenom);
         }
     }
 }

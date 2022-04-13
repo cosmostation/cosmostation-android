@@ -37,7 +37,6 @@ public class Account {
 
     public String lastTotal;
     public Long sortOrder;
-    public Boolean pushAlarm;
     public Boolean newBip44;
     public Integer customPath;
 
@@ -96,7 +95,7 @@ public class Account {
     public Account(Long id, String uuid, String nickName, boolean isFavo, String address,
                    String baseChain, boolean hasPrivateKey, String resource, String spec,
                    boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber,
-                   int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal, long sortOrder, boolean pushAlarm, boolean newBip, int customPath) {
+                   int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal, long sortOrder, boolean newBip, int customPath) {
         this.id = id;
         this.uuid = uuid;
         this.nickName = nickName;
@@ -116,7 +115,6 @@ public class Account {
         this.importTime = importTime;
         this.lastTotal = lastTotal;
         this.sortOrder = sortOrder;
-        this.pushAlarm = pushAlarm;
         this.newBip44 = newBip;
         this.customPath = customPath;
     }

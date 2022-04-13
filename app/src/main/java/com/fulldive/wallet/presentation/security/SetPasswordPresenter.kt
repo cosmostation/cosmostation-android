@@ -99,7 +99,7 @@ class SetPasswordPresenter @Inject constructor(
                     .withDefaults()
                     .compositeSubscribe(
                         onSuccess = {
-                            WLog.w("Account was saved")
+                            WLog.w("Password was saved")
                             viewState.finishWithResult(MvpAppCompatActivity.RESULT_OK)
                         }
                     ) {

@@ -14,9 +14,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityOptionsCompat;
 
+import com.fulldive.wallet.presentation.security.CheckPasswordActivity;
 import com.fulldive.wallet.presentation.security.SetPasswordActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -46,6 +50,14 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
     private BaseChain chain;
     private String okAddress = "";
     private int okAddressType;
+
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    restoreOrGenerateAccount();
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,16 +183,17 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
     }
 
     private void onCheckPassword() {
+        Class<?> cls;
         if (!getBaseDao().onHasPassword()) {
-            Intent intent = new Intent(RestoreKeyActivity.this, SetPasswordActivity.class);
-            startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            cls = SetPasswordActivity.class;
         } else {
-            Intent intent = new Intent(RestoreKeyActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            cls = CheckPasswordActivity.class;
         }
+
+        launcher.launch(
+                new Intent(RestoreKeyActivity.this, cls),
+                ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_bottom, R.anim.fade_out)
+        );
     }
 
     public void onCheckOecAddressType(int okAddressType) {
@@ -213,31 +226,33 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
         if (pasteResult != null && pasteResult.getContents() != null) {
             addressEditText.setText(pasteResult.getContents().trim());
             addressEditText.setSelection(addressEditText.getText().length());
-        } else if (requestCode == BaseConstant.CONST_PW_INIT || requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-            String address;
-            switch (chain) {
-                case OKEX_MAIN:
-                    address = okAddress;
-                    break;
-                case INJ_MAIN:
-                    address = WKey.generateAddressFromPriv("inj", userInput);
-                    break;
-                case EVMOS_MAIN:
-                    address = WKey.generateAddressFromPriv("evmos", userInput);
-                    break;
-                default:
-                    address = WKey.getDpAddress(chain, WKey.generatePubKeyHexFromPriv(userInput));
-            }
-            Account account = getBaseDao().onSelectExistAccount(address, chain);
-
-            int customPath = chain.equals(BaseChain.OKEX_MAIN) ? okAddressType : -1;
-            if (account != null) {
-                onOverridePkeyAccount(userInput, account, customPath);
-            } else {
-                onGenPkeyAccount(userInput, address, customPath);
-            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void restoreOrGenerateAccount() {
+        String address;
+        switch (chain) {
+            case OKEX_MAIN:
+                address = okAddress;
+                break;
+            case INJ_MAIN:
+                address = WKey.generateAddressFromPriv("inj", userInput);
+                break;
+            case EVMOS_MAIN:
+                address = WKey.generateAddressFromPriv("evmos", userInput);
+                break;
+            default:
+                address = WKey.getDpAddress(chain, WKey.generatePubKeyHexFromPriv(userInput));
+        }
+        Account account = getBaseDao().onSelectExistAccount(address, chain);
+
+        int customPath = chain.equals(BaseChain.OKEX_MAIN) ? okAddressType : -1;
+        if (account != null) {
+            onOverridePkeyAccount(userInput, account, customPath);
+        } else {
+            onGenPkeyAccount(userInput, address, customPath);
         }
     }
 }

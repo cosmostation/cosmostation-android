@@ -42,7 +42,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_BNB_TICKER = 2043;
     public final static int TASK_FETCH_BNB_MINI_TICKER = 2044;
     public final static int TASK_GEN_TX_BNB_SIMPLE_SEND = 2045;
-    public final static int TASK_PUSH_STATUS_UPDATE = 2057;
     public final static int TASK_MOON_PAY_SIGNATURE = 2058;
     public final static int TASK_FETCH_KAVA_CDP_DEPOSIT = 2061;
     public final static int TASK_GEN_TX_HTLC_REFUND = 2071;
@@ -326,7 +325,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIMPLE_DELEGATE = 5004;
     public final static int CONST_PW_TX_SIMPLE_UNDELEGATE = 5005;
     public final static int CONST_PW_TX_SIMPLE_REWARD = 5006;
-    public final static int CONST_PW_DELETE_ACCOUNT = 5007;
     public final static int CONST_PW_CHECK_MNEMONIC = 5008;
     public final static int CONST_PW_TX_SIMPLE_REDELEGATE = 5009;
     public final static int CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS = 5010;

@@ -5,7 +5,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_PRIVATE_KEY;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
@@ -81,7 +80,6 @@ import android.widget.Toast;
 import com.fulldive.wallet.interactors.accounts.AccountsInteractor;
 import com.fulldive.wallet.interactors.secret.InvalidPasswordException;
 import com.fulldive.wallet.interactors.secret.SecretInteractor;
-import com.fulldive.wallet.presentation.main.intro.IntroActivity;
 import com.fulldive.wallet.presentation.system.keyboard.KeyboardListener;
 import com.fulldive.wallet.presentation.system.keyboard.KeyboardPagerAdapter;
 import com.fulldive.wallet.rx.AppSchedulers;
@@ -277,7 +275,6 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
 
     private String mHdacBurnRawTx;                 //for hdac burn & swap
 
-    private long mIdToDelete;
     private long mIdToCheck;
 
 
@@ -412,7 +409,6 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
         mHdacBurnRawTx = getIntent().getStringExtra("hdacBurnRawTx");
 
 
-        mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck = getIntent().getLongExtra("checkid", -1);
 
         mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
@@ -491,6 +487,14 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
                 actionCheckPassword();
 
                 break;
+            case CONST_PW_CHECK_MNEMONIC:
+                fetchEntropy(MnemonicCheckActivity.class);
+
+                break;
+            case CONST_PW_CHECK_PRIVATE_KEY:
+                fetchEntropy(PrivateKeyCheckActivity.class);
+
+                break;
             case CONST_PW_TX_SIMPLE_SEND:
                 showWaitDialog();
                 if (baseChain.isGRPC()) {
@@ -523,18 +527,6 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
                 showWaitDialog();
                 new ClaimRewardsGrpcTask(getBaseApplication(), this, baseChain, account, mValOpAddresses_V1, mTargetMemo, mTargetFee,
                         getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userInput);
-
-                break;
-            case CONST_PW_DELETE_ACCOUNT:
-                actionDeleteAccount();
-
-                break;
-            case CONST_PW_CHECK_MNEMONIC:
-                fetchEntropy(MnemonicCheckActivity.class);
-
-                break;
-            case CONST_PW_CHECK_PRIVATE_KEY:
-                fetchEntropy(PrivateKeyCheckActivity.class);
 
                 break;
             case CONST_PW_TX_SIMPLE_REDELEGATE:
@@ -873,37 +865,6 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
                                 Toast.makeText(getBaseContext(), R.string.error_invalid_password, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getBaseContext(), R.string.str_unknown_error_msg, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                );
-        compositeDisposable.add(disposable);
-    }
-
-    private void actionDeleteAccount() {
-        showWaitDialog();
-        Disposable disposable = secretInteractor
-                .checkPassword(userInput)
-                .subscribeOn(AppSchedulers.INSTANCE.io())
-                .observeOn(AppSchedulers.INSTANCE.io())
-                .andThen(accountsInteractor.deleteAccount(mIdToDelete))
-                .observeOn(AppSchedulers.INSTANCE.ui())
-                .doOnError(error -> WLog.e(error.toString()))
-                .subscribe(
-                        () -> {
-                            WLog.w("Account was selected after removing");
-                            startMainActivity(0);
-                        },
-                        error -> {
-                            if (error instanceof InvalidPasswordException) {
-                                hideWaitDialog();
-                                onShakeView();
-                                onInitView();
-                                Toast.makeText(getBaseContext(), R.string.error_invalid_password, Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getBaseContext(), R.string.str_unknown_error_msg, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(this, IntroActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
                             }
                         }
                 );

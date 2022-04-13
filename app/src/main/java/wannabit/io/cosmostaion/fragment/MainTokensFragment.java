@@ -301,15 +301,7 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().baseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().account.pushAlarm) {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
+        getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
     }
 
     @Override
@@ -320,12 +312,6 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
                 break;
             case R.id.menu_explorer:
                 getMainActivity().onExplorerView();
-                break;
-            case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().account, true);
-                break;
-            case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().account, false);
                 break;
         }
         return super.onOptionsItemSelected(item);

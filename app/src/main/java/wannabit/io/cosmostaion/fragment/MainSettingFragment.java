@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -70,15 +68,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().baseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().account.pushAlarm) {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
+        getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
     }
 
     @Override
@@ -89,12 +79,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.menu_explorer:
                 getMainActivity().onExplorerView();
-                break;
-            case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().account, true);
-                break;
-            case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().account, false);
                 break;
         }
         return super.onOptionsItemSelected(item);

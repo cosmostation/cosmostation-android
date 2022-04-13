@@ -15,8 +15,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
 
-import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
-
 public class BaseApplication extends Application implements IInjectorHolder {
 
     private Injector appInjector;
@@ -28,9 +26,6 @@ public class BaseApplication extends Application implements IInjectorHolder {
     public void onCreate() {
         super.onCreate();
         appInjector = new Lightsaber.Builder().build().createInjector(new ApplicationComponent(getApplicationContext()));
-
-        //        FirebaseApp.initializeApp(this);
-        new DeviceUuidFactory(this);
 
         registerActivityLifecycleCallbacks(new LifecycleCallbacks());
         registerActivityLifecycleCallbacks(new EnrichableLifecycleCallbacks(this));

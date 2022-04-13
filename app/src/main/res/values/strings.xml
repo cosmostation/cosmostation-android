@@ -269,7 +269,6 @@
     <string name="str_with_qr">Share QR Image</string>
     <string name="str_with_text">Share Text</string>
     <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image or wallet connect</string>
-    <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
 
@@ -624,7 +623,6 @@
     <string name="str_iris_proposal_type_CommunityTaxUsageProposal">CommunityTaxUsage Proposal</string>
     <string name="str_opinion">My Vote</string>
     <string name="str_proposal_id">Proposal Id</string>
-    <string name="str_notification">Notification</string>
     <string name="str_network_error_title">Network Error</string>
     <string name="str_network_error_msg">Can not connect to the network.\nPlease try again in a few minutes.</string>
     <string name="str_unknown_error_msg">Oops! Something went wrong.\nPlease try again later.</string>
@@ -634,11 +632,6 @@
     <string name="str_update_title">Update</string>
     <string name="str_update_msg">New version available.\nPlease update to the latest version from the PlayStore.</string>
     <string name="str_go_store">Go PlayStore</string>
-    <string name="str_alarm_enabled">Push alarm is enabled for detecting each sent <![CDATA[&]]> received tx with this address.</string>
-    <string name="str_alarm_disabled">Push alarm is turned off. You can turn on.</string>
-    <string name="str_push_alarm">Push Alarm</string>
-    <string name="str_push_permission_title">Permission</string>
-    <string name="str_push_permission_msg">Need permission to send a push. Redirect to the setting screen?</string>
     <string name="str_tx_detail">Transaction Detail</string>
     <string name="str_tx_msg_cnt">Message Size</string>
     <string name="str_tx_gas_info">Gas (used/wanted)</string>
@@ -2020,5 +2013,6 @@
     <string name="error_duplicate_account">This account is already exists</string>
     <string name="str_mnemonic_counder_template" translatable="false">"%2d: "</string>
     <string name="str_version_short">v%s</string>
+    <string name="str_words_count">" %d words"</string>
 
 </resources>

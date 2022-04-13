@@ -5,8 +5,6 @@ import android.content.Context;
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
-import wannabit.io.cosmostaion.utils.WLog;
-
 public class BaseDB extends SQLiteOpenHelper {
 
     private static BaseDB instance;
@@ -29,14 +27,11 @@ public class BaseDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_PASSWORD +
                 "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [resource] TEXT, [spec] TEXT)");
 
-//        sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_MNEMONIC +
-//                "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [resource] TEXT, [spec] TEXT, [dpMasterKey] TEXT, [typeSize] INTEGER)");
-
         sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_ACCOUNT +
                 "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [nickName] TEXT, [isFavo] INTEGER DEFAULT 0, [address] TEXT, [baseChain] INTEGER, " +
                 "[hasPrivateKey] INTEGER DEFAULT 0, [resource] TEXT, [spec] TEXT, [fromMnemonic] INTEGER DEFAULT 0, [path] TEXT, " +
                 "[isValidator] INTEGER DEFAULT 0, [sequenceNumber] INTEGER, [accountNumber] INTEGER, [fetchTime] INTEGER, [msize] INTEGER, [importTime] INTEGER, [lastTotal] TEXT, [sortOrder] INTEGER, " +
-                "[pushAlarm] INTEGER DEFAULT 0, [newBip] INTEGER DEFAULT 0, [customPath] INTEGER DEFAULT 0)");
+                "[newBip] INTEGER DEFAULT 0, [customPath] INTEGER DEFAULT 0)");
 
         sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_BALANCE +
                 "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [accountId] INTEGER, [symbol] TEXT, [balance] TEXT, [fetchTime] INTEGER, [frozen] TEXT, [locked] TEXT)");
@@ -51,77 +46,5 @@ public class BaseDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        switch (oldVersion) {
-            case 1:
-                try {
-                    db.beginTransaction();
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_BALANCE + " ADD COLUMN " + "frozen" + " TEXT");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_BALANCE + " ADD COLUMN " + "locked" + " TEXT");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "lastTotal" + " TEXT");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "sortOrder" + " INTEGER");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "pushAlarm" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
-                    db.setTransactionSuccessful();
-                } catch (IllegalStateException e) {
-                    WLog.e("upgrade error" + e.getMessage());
-                } finally {
-                    db.endTransaction();
-                }
-                break;
-
-            case 2:
-                try {
-                    db.beginTransaction();
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "lastTotal" + " TEXT");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "sortOrder" + " INTEGER");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "pushAlarm" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
-                    db.setTransactionSuccessful();
-                } catch (IllegalStateException e) {
-                    WLog.e("upgrade error" + e.getMessage());
-                } finally {
-                    db.endTransaction();
-                }
-                break;
-
-            case 3:
-                try {
-                    db.beginTransaction();
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "pushAlarm" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
-                    db.setTransactionSuccessful();
-                } catch (IllegalStateException e) {
-                    WLog.e("upgrade error" + e.getMessage());
-                } finally {
-                    db.endTransaction();
-                }
-                break;
-            case 4:
-                try {
-                    db.beginTransaction();
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
-                    db.setTransactionSuccessful();
-                } catch (IllegalStateException e) {
-                    WLog.e("upgrade error" + e.getMessage());
-                } finally {
-                    db.endTransaction();
-                }
-                break;
-            case 5:
-                try {
-                    db.beginTransaction();
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
-                    db.setTransactionSuccessful();
-                } catch (IllegalStateException e) {
-                    WLog.e("upgrade error" + e.getMessage());
-                } finally {
-                    db.endTransaction();
-                }
-                break;
-        }
     }
 }

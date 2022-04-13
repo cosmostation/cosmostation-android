@@ -28,12 +28,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fulldive.wallet.presentation.chains.choicenet.ChoiceChainDialogFragment;
+import com.fulldive.wallet.presentation.security.CheckPasswordActivity;
 import com.fulldive.wallet.presentation.security.SetPasswordActivity;
 
 import org.bitcoinj.crypto.MnemonicCode;
@@ -44,7 +49,6 @@ import java.util.Arrays;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
@@ -57,11 +61,11 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener {
 
-    private LinearLayout cpntentsLayout;
+    private LinearLayout contentsLayout;
     private Button pasteButton, confirmButton;
     private final Button[] alphabetBtns = new Button[26];
     private ImageButton deleteButton;
-    private Button mBtnSpace;
+    private Button nextButton;
     private ImageView chainImageView;
     private TextView clearAllButton, wordsCountView;
 
@@ -73,7 +77,15 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private MnemonicAdapter mnemonicAdapter;
     private final ArrayList<String> words = new ArrayList<>();
 
-    private int mIsCustomPath;
+    private int isCustomPath;
+
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    showRestorePathActivity();
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +93,11 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_restore);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        cpntentsLayout = findViewById(R.id.contentsLayer);
+        contentsLayout = findViewById(R.id.contentsLayer);
         pasteButton = findViewById(R.id.pasteButton);
         confirmButton = findViewById(R.id.confirmButton);
         deleteButton = findViewById(R.id.password_back);
-        mBtnSpace = findViewById(R.id.nextButton);
+        nextButton = findViewById(R.id.nextButton);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         chainImageView = findViewById(R.id.chainImg);
         clearAllButton = findViewById(R.id.toolbar_clear);
@@ -94,7 +106,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         pasteButton.setOnClickListener(this);
         confirmButton.setOnClickListener(this);
         deleteButton.setOnClickListener(this);
-        mBtnSpace.setOnClickListener(this);
+        nextButton.setOnClickListener(this);
         clearAllButton.setOnClickListener(this);
 
 
@@ -142,7 +154,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         if (chain == null) {
             ChoiceChainDialogFragment dialog = ChoiceChainDialogFragment.Companion.newInstance(false);
             showDialog(dialog, "dialog", false);
-
         } else {
             onUpdateView();
         }
@@ -161,15 +172,15 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
     private void onUpdateView() {
         chainImageView.setColorFilter(WDp.getChainColor(getBaseContext(), chain), android.graphics.PorterDuff.Mode.SRC_IN);
-        cpntentsLayout.setVisibility(View.VISIBLE);
+        contentsLayout.setVisibility(View.VISIBLE);
         mnemonicsEditText[0].requestFocus();
     }
 
     private void onClearAll() {
-        for (int i = 0; i < mnemonicsEditText.length; i++) {
-            mnemonicsEditText[i].setText("");
-            mnemonicsEditText[0].requestFocus();
+        for (EditText editText : mnemonicsEditText) {
+            editText.setText("");
         }
+        mnemonicsEditText[0].requestFocus();
         onBeforeWord();
         onCheckMnemonicCnt();
     }
@@ -201,15 +212,13 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             }
         }
 
-        wordsCountView.setText("" + words.size() + " words");
+        wordsCountView.setText(getString(R.string.str_words_count, words.size()));
         if ((words.size() == 12 || words.size() == 16 || words.size() == 24) &&
                 WKey.isMnemonicWords(words)) {
             wordsCountView.setTextColor(WDp.getChainColor(getBaseContext(), chain));
         } else {
-            wordsCountView.setTextColor(getResources().getColor(R.color.colorRed));
+            wordsCountView.setTextColor(ContextCompat.getColor(this, R.color.colorRed));
         }
-
-
     }
 
     private boolean isValidWords() {
@@ -335,7 +344,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             onCheckMnemonicCnt();
             return;
 
-        } else if (v.equals(mBtnSpace)) {
+        } else if (v.equals(nextButton)) {
             onNextWord();
             return;
 
@@ -350,35 +359,32 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void onConfirmedWords() {
+        Class<?> cls;
         if (!getBaseDao().onHasPassword()) {
-            Intent intent = new Intent(RestoreActivity.this, SetPasswordActivity.class);
-            startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            cls = SetPasswordActivity.class;
         } else {
-            Intent intent = new Intent(RestoreActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            cls = CheckPasswordActivity.class;
         }
+
+        launcher.launch(
+                new Intent(RestoreActivity.this, cls),
+                ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_bottom, R.anim.fade_out)
+        );
     }
 
     public void onUsingCustomPath(int using) {
-        mIsCustomPath = using;
+        isCustomPath = using;
         onConfirmedWords();
     }
 
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
-            intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(words));
-            intent.putExtra("entropy", WUtil.byteArrayToHexString(WKey.toEntropy(words)));
-            intent.putExtra("size", words.size());
-            intent.putExtra("chain", chain.getChain());
-            intent.putExtra("customPath", mIsCustomPath);
-            startActivity(intent);
-        }
+    private void showRestorePathActivity() {
+        Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
+        intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(words));
+        intent.putExtra("entropy", WUtil.byteArrayToHexString(WKey.toEntropy(words)));
+        intent.putExtra("size", words.size());
+        intent.putExtra("chain", chain.getChain());
+        intent.putExtra("customPath", isCustomPath);
+        startActivity(intent);
     }
 
     @Override

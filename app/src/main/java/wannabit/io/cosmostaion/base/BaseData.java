@@ -1197,7 +1197,7 @@ public class BaseData {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, null, null, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "newBip", "customPath"}, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 Account account = new Account(
@@ -1221,8 +1221,7 @@ public class BaseData {
                         cursor.getString(17),
                         cursor.getLong(18),
                         cursor.getInt(19) > 0,
-                        cursor.getInt(20) > 0,
-                        cursor.getInt(21)
+                        cursor.getInt(20)
                 );
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
@@ -1286,7 +1285,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, "id == ?", new String[]{id}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "newBip", "customPath"}, "id == ?", new String[]{id}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -1309,8 +1308,7 @@ public class BaseData {
                     cursor.getString(17),
                     cursor.getLong(18),
                     cursor.getInt(19) > 0,
-                    cursor.getInt(20) > 0,
-                    cursor.getInt(21)
+                    cursor.getInt(20)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -1325,7 +1323,7 @@ public class BaseData {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, "address == ?", new String[]{address}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "newBip", "customPath"}, "address == ?", new String[]{address}, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
@@ -1350,8 +1348,7 @@ public class BaseData {
                             cursor.getString(17),
                             cursor.getLong(18),
                             cursor.getInt(19) > 0,
-                            cursor.getInt(20) > 0,
-                            cursor.getInt(21)
+                            cursor.getInt(20)
                     );
                     account.setBalances(onSelectBalance(account.id));
                     result.add(account);
@@ -1395,7 +1392,6 @@ public class BaseData {
         values.put("msize", account.msize);
         values.put("importTime", account.importTime);
         values.put("sortOrder", 9999l);
-        values.put("pushAlarm", account.pushAlarm);
         values.put("newBip", account.newBip44);
         values.put("customPath", account.customPath);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_ACCOUNT, null, values);
@@ -1422,21 +1418,6 @@ public class BaseData {
         ContentValues values = new ContentValues();
         values.put("lastTotal", amount);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{"" + account.id});
-    }
-
-    public void onUpdateAccountOrders(ArrayList<Account> accounts) {
-        for (Account account : accounts) {
-            ContentValues values = new ContentValues();
-            values.put("sortOrder", account.sortOrder);
-            getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{"" + account.id});
-        }
-    }
-
-    public Account onUpdatePushEnabled(Account account, boolean using) {
-        ContentValues values = new ContentValues();
-        values.put("pushAlarm", using);
-        getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{"" + account.id});
-        return onSelectAccount("" + account.id);
     }
 
     public long onOverrideAccount(Account account) {
