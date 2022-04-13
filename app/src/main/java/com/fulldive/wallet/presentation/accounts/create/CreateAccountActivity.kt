@@ -17,7 +17,7 @@ import com.joom.lightsaber.getInstance
 import moxy.ktx.moxyPresenter
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
-import wannabit.io.cosmostaion.activities.PasswordSetActivity
+import com.fulldive.wallet.presentation.lockscreen.SetPasswordActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.databinding.ActivityCreateBinding
 
@@ -136,7 +136,7 @@ class CreateAccountActivity : BaseMvpActivity<ActivityCreateBinding>(), CreateAc
 
     override fun requestCreatePassword() {
         launcherSetPassword.launch(
-            Intent(this, PasswordSetActivity::class.java),
+            Intent(this, SetPasswordActivity::class.java),
             ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_bottom, R.anim.fade_out)
         )
     }

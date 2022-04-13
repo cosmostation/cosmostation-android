@@ -53,7 +53,7 @@ public class DeleteAccountGrpcTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password checkPw = context.getBaseDao().onSelectPassword();
+        Password checkPw = context.getBaseDao().getPassword();
         if (!CryptoHelper.verifyData(strings[0], checkPw.resource, context.getString(R.string.key_password))) {
             result.isSuccess = false;
             result.errorCode = ERROR_CODE_INVALID_PASSWORD;

@@ -49,7 +49,7 @@ public class SimpleOkDirectVoteTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Password checkPw = context.getBaseDao().onSelectPassword();
+            Password checkPw = context.getBaseDao().getPassword();
             if (!CryptoHelper.verifyData(strings[0], checkPw.resource, context.getString(R.string.key_password))) {
                 result.isSuccess = false;
                 result.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;

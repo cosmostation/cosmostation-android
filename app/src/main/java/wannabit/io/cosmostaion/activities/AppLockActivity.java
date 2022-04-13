@@ -58,7 +58,7 @@ public class AppLockActivity extends BaseActivity implements ITimelessActivity, 
 
         secretInteractor = getAppInjector().getInstance(SecretInteractor.class);
 
-        layerContents = findViewById(R.id.layer_contents);
+        layerContents = findViewById(R.id.layerContents);
         fingerImage = findViewById(R.id.img_fingerprint);
         unlockMsg = findViewById(R.id.tv_unlock_msg);
         viewPager = findViewById(R.id.keyboardPager);

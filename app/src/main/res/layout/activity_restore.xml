@@ -146,7 +146,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="01 :" />
+                                android:text="01: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -176,7 +176,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="02 :" />
+                                android:text="02: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -206,7 +206,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="03 :" />
+                                android:text="03: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -236,7 +236,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="04 :" />
+                                android:text="04: " />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -272,7 +272,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="05 :" />
+                                android:text="05: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -302,7 +302,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="06 :" />
+                                android:text="06: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -332,7 +332,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="07 :" />
+                                android:text="07: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -362,7 +362,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="08 :" />
+                                android:text="08: " />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -398,7 +398,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="09 :" />
+                                android:text="09: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -428,7 +428,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="10 :" />
+                                android:text="10: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -458,7 +458,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="11 :" />
+                                android:text="11: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -488,7 +488,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="12 :" />
+                                android:text="12: " />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -524,7 +524,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="13 :" />
+                                android:text="13: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -554,7 +554,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="14 :" />
+                                android:text="14: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -584,7 +584,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="15 :" />
+                                android:text="15: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -614,7 +614,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="16 :" />
+                                android:text="16: " />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -650,7 +650,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="17 :" />
+                                android:text="17: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -680,7 +680,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="18 :" />
+                                android:text="18: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -710,7 +710,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="19 :" />
+                                android:text="19: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -740,7 +740,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="20 :" />
+                                android:text="20: " />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -776,7 +776,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="21 :" />
+                                android:text="21: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -806,7 +806,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="22 :" />
+                                android:text="22: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -836,7 +836,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="23 :" />
+                                android:text="23: " />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -866,7 +866,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:text="24 :" />
+                                android:text="24: " />
                         </RelativeLayout>
                     </LinearLayout>
 

@@ -853,13 +853,10 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
             }
         }
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
-                intent.putExtra("denom", coin.denom);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
+            intent.putExtra("denom", coin.denom);
+            startActivity(intent);
         });
     }
 
@@ -944,13 +941,10 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
         holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), 18, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), POOLTokenDetailActivity.class);
-                intent.putExtra("denom", coin.denom);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), POOLTokenDetailActivity.class);
+            intent.putExtra("denom", coin.denom);
+            startActivity(intent);
         });
     }
 
@@ -969,13 +963,10 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
             holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, assets.decimal, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.origin_symbol, totalAmount, assets.decimal));
 
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
-                    intent.putExtra("denom", assets.denom);
-                    startActivity(intent);
-                }
+            holder.itemRoot.setOnClickListener(v -> {
+                Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
+                intent.putExtra("denom", assets.denom);
+                startActivity(intent);
             });
         }
     }
@@ -995,13 +986,10 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
         holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, bep2decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, totalAmount, bep2decimal));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
-                intent.putExtra("denom", coin.denom);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
+            intent.putExtra("denom", coin.denom);
+            startActivity(intent);
         });
     }
 
@@ -1033,13 +1021,10 @@ public class MainTokensFragment extends BaseFragment implements IBusyFetchListen
         holder.itemBalance.setText(WDp.getDpAmount2(cw20Asset.getAmount(), decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), cw20Asset.denom, cw20Asset.getAmount(), decimal));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), ContractTokenGrpcActivity.class);
-                intent.putExtra("cw20Asset", cw20Asset);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), ContractTokenGrpcActivity.class);
+            intent.putExtra("cw20Asset", cw20Asset);
+            startActivity(intent);
         });
     }
 

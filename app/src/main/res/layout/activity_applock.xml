@@ -23,7 +23,7 @@
             android:gravity="center_horizontal">
 
             <LinearLayout
-                android:id="@+id/layer_contents"
+                android:id="@+id/layerContents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

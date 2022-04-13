@@ -305,7 +305,7 @@ public class PasswordCheckActivity extends BaseActivity implements ITimelessActi
         accountsInteractor = getAppInjector().getInstance(AccountsInteractor.class);
         secretInteractor = getAppInjector().getInstance(SecretInteractor.class);
 
-        mLayerContents = findViewById(R.id.layer_contents);
+        mLayerContents = findViewById(R.id.layerContents);
         mPassowrdTitle = findViewById(R.id.titleTextView);
         mPassowrdMsg1 = findViewById(R.id.subtitleTextView);
         mPassowrdMsg2 = findViewById(R.id.hintTextView);

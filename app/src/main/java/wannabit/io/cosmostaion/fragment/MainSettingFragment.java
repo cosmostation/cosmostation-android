@@ -112,10 +112,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         FrameLayout basePriceView = rootView.findViewById(R.id.card_base_price);
         mBtnDiscord = rootView.findViewById(R.id.card_discord);
         mBtnGuide = rootView.findViewById(R.id.card_guide);
-//        mBtnTelegram = rootView.findViewById(R.id.card_telegram);
-//        mBtnExplore = rootView.findViewById(R.id.card_explore);
-//        mBtnHomepage = rootView.findViewById(R.id.card_homepage);
-//        mBtnStarnameWc = rootView.findViewById(R.id.card_starname_wallet_connect);
         mBtnTerm = rootView.findViewById(R.id.card_term);
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
@@ -132,15 +128,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         basePriceView.setOnClickListener(this);
         mBtnDiscord.setOnClickListener(this);
         mBtnGuide.setOnClickListener(this);
-//        mBtnTelegram.setOnClickListener(this);
-//        mBtnExplore.setOnClickListener(this);
-//        mBtnHomepage.setOnClickListener(this);
-//        mBtnStarnameWc.setOnClickListener(this);
         mBtnTerm.setOnClickListener(this);
         mBtnGithub.setOnClickListener(this);
         mBtnVersion.setOnClickListener(this);
 
-        mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
+        mTvVersion.setText(getString(R.string.str_version_short, BuildConfig.VERSION_NAME));
         if (getBaseDao().getUsingAppLock()) {
             mTvAppLock.setText(R.string.str_app_applock_enabled);
         } else {
@@ -181,33 +173,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Dialog_Currency_Set currency_dialog = Dialog_Currency_Set.newInstance(null);
             currency_dialog.setTargetFragment(this, SELECT_CURRENCY);
             showDialog(currency_dialog);
-            return;
 
-//        } else if (v.equals(mBtnBasePrice)) {
-//            //NO more coinmarketcap always using coingecko
-////            Dialog_Market market = Dialog_Market.newInstance(null);
-////            market.setCancelable(true);
-////            market.setTargetFragment(this, SELECT_MARKET);
-////            getFragmentManager().beginTransaction().add(market, "dialog").commitNowAllowingStateLoss();
-////            return;
-//            return;
-//
         } else if (v.equals(mBtnGuide)) {
             Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.fulldive.com/faq"));
             startActivity(guideIntent);
-//        } else if (v.equals(mBtnTelegram)) {
-//            Intent telegram = new Intent(Intent.ACTION_VIEW , Uri.parse("https://t.me/cosmostation"));
-//            startActivity(telegram);
-//
-//        } else if (v.equals(mBtnExplore)) {
-//            String url  = WUtil.getExplorer(getMainActivity().mBaseChain);
-//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//            startActivity(intent);
-//
-//        } else if (v.equals(mBtnHomepage)) {
-//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
-//            startActivity(intent);
-//
         } else if (v.equals(mBtnDiscord)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/BW2unf5s8X"));
             startActivity(telegram);
@@ -224,14 +193,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + getMainActivity().getPackageName()));
             startActivity(intent);
-
-//        } else if (v.equals(mBtnStarnameWc)) {
-//            Dialog_Starname_WC_Confirm wc_dialog = Dialog_Starname_WC_Confirm.newInstance();
-//            wc_dialog.setCancelable(true);
-//            wc_dialog.setTargetFragment(this, SELECT_STARNAME_WALLET_CONNECT);
-//            getFragmentManager().beginTransaction().add(wc_dialog, "dialog").commitNowAllowingStateLoss();
         }
-
     }
 
     public MainActivity getMainActivity() {

@@ -60,8 +60,6 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 import com.squareup.picasso.Picasso;
@@ -74,23 +72,14 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
@@ -98,7 +87,6 @@ import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
-import okhttp3.OkHttpClient;
 import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
@@ -570,12 +558,6 @@ public class WUtil {
         return isNormal;
     }
 
-    public static Gson getPresentor() {
-//        return new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
-        return new GsonBuilder().disableHtmlEscaping().create();
-    }
-
-
     public static String byteArrayToHexString(byte[] bytes) {
         final char[] hexArray = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         char[] hexChars = new char[bytes.length * 2];
@@ -616,33 +598,6 @@ public class WUtil {
         return bytes;
     }
 
-    public static String str2Hex(String bin) {
-        char[] digital = "0123456789abcdef".toCharArray();
-        StringBuffer sb = new StringBuffer();
-        byte[] bs = bin.getBytes();
-        int bit;
-        for (int i = 0; i < bs.length; i++) {
-            bit = (bs[i] & 0x0f0) >> 4;
-            sb.append(digital[bit]);
-            bit = bs[i] & 0x0f;
-            sb.append(digital[bit]);
-        }
-        return sb.toString();
-    }
-
-    public static String hex2Str(String hex) {
-        String digital = "0123456789abcdef";
-        char[] hex2char = hex.toCharArray();
-        byte[] bytes = new byte[hex.length() / 2];
-        int temp;
-        for (int i = 0; i < bytes.length; i++) {
-            temp = digital.indexOf(hex2char[2 * i]) * 16;
-            temp += digital.indexOf(hex2char[2 * i + 1]);
-            bytes[i] = (byte) (temp & 0xff);
-        }
-        return new String(bytes);
-    }
-
     public static String bytes2Hex(byte[] raw) {
         String HEXES = "0123456789ABCDEF";
         if (raw == null) {
@@ -661,55 +616,11 @@ public class WUtil {
     }
 
 
-    //TODO for ssh ignore test
-    public static OkHttpClient.Builder getUnsafeOkHttpClient() {
-        try {
-            // Create a trust manager that does not validate certificate chains
-            final TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
-                        }
-
-                        @Override
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            return new java.security.cert.X509Certificate[]{};
-                        }
-                    }
-            };
-
-            // Install the all-trusting trust manager
-            final SSLContext sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-
-            // Create an ssl socket factory with our all-trusting manager
-            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
-            builder.hostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            });
-            return builder;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     /**
      * Sorts
      */
     public static void onSortByValidatorName(ArrayList<Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
             return o1.description.moniker.compareTo(o2.description.moniker);
         });
         Collections.sort(validators, (o1, o2) -> {
@@ -721,8 +632,6 @@ public class WUtil {
 
     public static void onSortByValidatorNameV1(ArrayList<Staking.Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
             return o1.getDescription().getMoniker().compareTo(o2.getDescription().getMoniker());
         });
         Collections.sort(validators, (o1, o2) -> {
@@ -733,16 +642,8 @@ public class WUtil {
     }
 
     public static void onSortByValidatorPower(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                if (Double.parseDouble(o1.tokens) > Double.parseDouble(o2.tokens)) return -1;
-                else if (Double.parseDouble(o1.tokens) < Double.parseDouble(o2.tokens)) return 1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            return Double.compare(Double.parseDouble(o2.tokens), Double.parseDouble(o1.tokens));
         });
         Collections.sort(validators, (o1, o2) -> {
             if (o1.jailed && !o2.jailed) return 1;
@@ -753,14 +654,7 @@ public class WUtil {
 
     public static void onSortByValidatorPowerV1(ArrayList<Staking.Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
-
-            if (Double.parseDouble(o1.getTokens()) > Double.parseDouble(o2.getTokens()))
-                return -1;
-            else if (Double.parseDouble(o1.getTokens()) < Double.parseDouble(o2.getTokens()))
-                return 1;
-            else return 0;
+            return Double.compare(Double.parseDouble(o2.getTokens()), Double.parseDouble(o1.getTokens()));
         });
         Collections.sort(validators, (o1, o2) -> {
             if (o1.getJailed() && !o2.getJailed()) return 1;
@@ -771,14 +665,7 @@ public class WUtil {
 
     public static void onSortByOKValidatorPower(ArrayList<Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-            if (Double.parseDouble(o1.delegator_shares) > Double.parseDouble(o2.delegator_shares))
-                return -1;
-            else if (Double.parseDouble(o1.delegator_shares) < Double.parseDouble(o2.delegator_shares))
-                return 1;
-            else return 0;
+            return Double.compare(Double.parseDouble(o2.delegator_shares), Double.parseDouble(o1.delegator_shares));
         });
         Collections.sort(validators, (o1, o2) -> {
             if (o1.jailed && !o2.jailed) return 1;
@@ -790,8 +677,6 @@ public class WUtil {
 
     public static void onSortByDelegate(ArrayList<Validator> validators, final BaseData dao) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
             BigDecimal bondingO1 = dao.delegatedAmountByValidator(o1.operator_address);
             BigDecimal bondingO2 = dao.delegatedAmountByValidator(o2.operator_address);
             return bondingO2.compareTo(bondingO1);
@@ -806,8 +691,6 @@ public class WUtil {
 
     public static void onSortByDelegateV1(ArrayList<Staking.Validator> validators, final BaseData dao) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
             BigDecimal bondingO1 = dao.getDelegation(o1.getOperatorAddress());
             BigDecimal bondingO2 = dao.getDelegation(o2.getOperatorAddress());
             return bondingO2.compareTo(bondingO1);
@@ -821,9 +704,6 @@ public class WUtil {
 
     public static void onSortByReward(ArrayList<Validator> validators, String denom, BaseData basedata) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
             BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
             BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
             return rewardO2.compareTo(rewardO1);
@@ -837,8 +717,6 @@ public class WUtil {
 
     public static void onSortByRewardV1(ArrayList<Staking.Validator> validators, String denom, final BaseData dao) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
             BigDecimal rewardO1 = dao.getReward(denom, o1.getOperatorAddress());
             BigDecimal rewardO2 = dao.getReward(denom, o2.getOperatorAddress());
             return rewardO2.compareTo(rewardO1);
@@ -881,8 +759,6 @@ public class WUtil {
 
     public static void onSortingByCommission(ArrayList<Validator> validators, final BaseChain chain) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
             if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate))
                 return 1;
             else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate))
@@ -898,13 +774,10 @@ public class WUtil {
 
     public static void onSortingByCommissionV1(ArrayList<Staking.Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
-            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
-            if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) > Float.parseFloat(o2.getCommission().getCommissionRates().getRate()))
-                return 1;
-            else if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) < Float.parseFloat(o2.getCommission().getCommissionRates().getRate()))
-                return -1;
-            else return 0;
+            return Float.compare(
+                    Float.parseFloat(o1.getCommission().getCommissionRates().getRate()),
+                    Float.parseFloat(o2.getCommission().getCommissionRates().getRate())
+            );
         });
         Collections.sort(validators, (o1, o2) -> {
             if (o1.getJailed() && !o2.getJailed()) return 1;
@@ -964,7 +837,7 @@ public class WUtil {
         Collections.sort(coins, (o1, o2) -> {
             long id1 = baseData.getGravityPoolByDenom(o1.denom).getId();
             long id2 = baseData.getGravityPoolByDenom(o2.denom).getId();
-            return id1 < id2 ? -1 : 1;
+            return Long.compare(id1, id2);
         });
     }
 
@@ -985,7 +858,10 @@ public class WUtil {
             }
         }
 
-        Collections.sort(result, (o1, o2) -> WDp.dateToLong(c, o1.completion_time) < WDp.dateToLong(c, o2.completion_time) ? -1 : 1);
+        Collections.sort(result, (o1, o2) -> Long.compare(
+                WDp.dateToLong(c, o1.completion_time),
+                WDp.dateToLong(c, o2.completion_time)
+        ));
         return result;
     }
 
@@ -997,7 +873,10 @@ public class WUtil {
             }
         }
 
-        Collections.sort(result, (o1, o2) -> Long.parseLong(o1.completion_time) < Long.parseLong(o2.completion_time) ? -1 : 1);
+        Collections.sort(result, (o1, o2) -> Long.compare(
+                Long.parseLong(o1.completion_time),
+                Long.parseLong(o2.completion_time)
+        ));
         return result;
     }
 
@@ -1694,11 +1573,6 @@ public class WUtil {
         }
         return result;
     }
-
-//    public static BigDecimal getCosmosLpTokenPerUsdPrice(BaseData baseData, BigDecimal coin0Amount, BigDecimal coin1Amount) {
-//        BigDecimal totalShare = coin0Amount.add(coin1Amount).movePointLeft(18).setScale(18, RoundingMode.DOWN);
-//        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
-//    }
 
     public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, BalancerPool.Pool pool) {
         try {

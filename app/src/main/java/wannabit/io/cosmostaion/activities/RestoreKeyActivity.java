@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
+import com.fulldive.wallet.presentation.lockscreen.SetPasswordActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -35,40 +36,40 @@ import wannabit.io.cosmostaion.utils.WKey;
 
 public class RestoreKeyActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar mToolbar;
-    private EditText mInput;
-    private Button mCancel, mNext;
-    private LinearLayout mBtnQr, mBtnPaste;
+    private Toolbar toolbar;
+    private EditText addressEditText;
+    private Button cancelButton, nextButton;
+    private LinearLayout scanQRButton, pasteButton;
 
-    private String mUserInput;
+    private String userInput;
 
-    private BaseChain mChain;
+    private BaseChain chain;
     private String okAddress = "";
-    private int mOkAddressType;
+    private int okAddressType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restore_key);
 
-        mToolbar = findViewById(R.id.toolbar);
-        mInput = findViewById(R.id.addressEditText);
-        mCancel = findViewById(R.id.cancelButton);
-        mNext = findViewById(R.id.nextButton);
-        mBtnQr = findViewById(R.id.scanQRButton);
-        mBtnPaste = findViewById(R.id.pasteButton);
+        toolbar = findViewById(R.id.toolbar);
+        addressEditText = findViewById(R.id.addressEditText);
+        cancelButton = findViewById(R.id.cancelButton);
+        nextButton = findViewById(R.id.nextButton);
+        scanQRButton = findViewById(R.id.scanQRButton);
+        pasteButton = findViewById(R.id.pasteButton);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mCancel.setOnClickListener(this);
-        mNext.setOnClickListener(this);
-        mBtnQr.setOnClickListener(this);
-        mBtnPaste.setOnClickListener(this);
+        cancelButton.setOnClickListener(this);
+        nextButton.setOnClickListener(this);
+        scanQRButton.setOnClickListener(this);
+        pasteButton.setOnClickListener(this);
 
         if (getIntent().getStringExtra("chain") != null) {
-            mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
+            chain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         }
 
     }
@@ -84,7 +85,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
     private void onGenPkeyAccount(String pKey, String address, int customPath) {
         showWaitDialog();
-        new GeneratePkeyAccountTask(getBaseApplication(), mChain, this, pKey, address, customPath).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GeneratePkeyAccountTask(getBaseApplication(), chain, this, pKey, address, customPath).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onOverridePkeyAccount(String pKey, Account account, int customPath) {
@@ -101,49 +102,49 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mCancel)) {
+        if (v.equals(cancelButton)) {
             onBackPressed();
 
-        } else if (v.equals(mNext)) {
-            mUserInput = mInput.getText().toString().trim();
-            if (mUserInput.toLowerCase().startsWith("0x")) {
-                mUserInput = mUserInput.substring(2);
+        } else if (v.equals(nextButton)) {
+            userInput = addressEditText.getText().toString().trim();
+            if (userInput.toLowerCase().startsWith("0x")) {
+                userInput = userInput.substring(2);
             }
 
-            if (!WKey.isValidStringPrivateKey(mUserInput)) {
+            if (!WKey.isValidStringPrivateKey(userInput)) {
                 Toast.makeText(this, R.string.error_invalid_private_Key, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (mChain.equals(BaseChain.OKEX_MAIN)) {
+            if (chain.equals(BaseChain.OKEX_MAIN)) {
                 Dialog_Choice_Type_OKex dialog = Dialog_Choice_Type_OKex.newInstance();
                 showDialog(dialog, "dialog", false);
                 return;
             }
 
             String address = "";
-            if (mChain.equals(BaseChain.INJ_MAIN)) {
-                address = WKey.generateAddressFromPriv("inj", mUserInput);
-            } else if (mChain.equals(BaseChain.EVMOS_MAIN)) {
-                address = WKey.generateAddressFromPriv("evmos", mUserInput);
+            if (chain.equals(BaseChain.INJ_MAIN)) {
+                address = WKey.generateAddressFromPriv("inj", userInput);
+            } else if (chain.equals(BaseChain.EVMOS_MAIN)) {
+                address = WKey.generateAddressFromPriv("evmos", userInput);
             } else {
-                address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput));
+                address = WKey.getDpAddress(chain, WKey.generatePubKeyHexFromPriv(userInput));
             }
-            Account account = getBaseDao().onSelectExistAccount(address, mChain);
+            Account account = getBaseDao().onSelectExistAccount(address, chain);
             if (account != null && account.hasPrivateKey) {
                 Toast.makeText(this, R.string.error_already_imported_address, Toast.LENGTH_SHORT).show();
                 return;
             }
             onCheckPassword();
 
-        } else if (v.equals(mBtnQr)) {
+        } else if (v.equals(scanQRButton)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
             integrator.initiateScan();
 
-        } else if (v.equals(mBtnPaste)) {
+        } else if (v.equals(pasteButton)) {
             String userPaste = "";
-            mInput.setText("");
+            addressEditText.setText("");
             if (getBaseDao().mCopySalt != null && getBaseDao().mCopyEncResult != null) {
                 userPaste = CryptoHelper.doDecryptData(getBaseDao().mCopySalt, getBaseDao().mCopyEncResult.getEncDataString(), getBaseDao().mCopyEncResult.getIvDataString());
                 if (TextUtils.isEmpty(userPaste)) {
@@ -164,14 +165,14 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                 }
             }
-            mInput.setText(userPaste);
-            mInput.setSelection(mInput.getText().length());
+            addressEditText.setText(userPaste);
+            addressEditText.setSelection(addressEditText.getText().length());
         }
     }
 
     private void onCheckPassword() {
         if (!getBaseDao().onHasPassword()) {
-            Intent intent = new Intent(RestoreKeyActivity.this, PasswordSetActivity.class);
+            Intent intent = new Intent(RestoreKeyActivity.this, SetPasswordActivity.class);
             startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
@@ -184,17 +185,17 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
     public void onCheckOecAddressType(int okAddressType) {
         if (okAddressType == 0) {
-            okAddress = WKey.generateTenderAddressFromPrivateKey(mUserInput);
+            okAddress = WKey.generateTenderAddressFromPrivateKey(userInput);
         } else {
-            okAddress = WKey.generateEthAddressFromPrivateKey(mUserInput);
+            okAddress = WKey.generateEthAddressFromPrivateKey(userInput);
         }
-        mOkAddressType = okAddressType;
+        this.okAddressType = okAddressType;
         if (okAddress.isEmpty()) {
             Toast.makeText(this, R.string.error_invalid_private_Key, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Account existAccount = getBaseDao().onSelectExistAccount(okAddress, mChain);
+        Account existAccount = getBaseDao().onSelectExistAccount(okAddress, chain);
         if (existAccount != null && existAccount.hasPrivateKey) {
             Toast.makeText(this, R.string.error_already_imported_address, Toast.LENGTH_SHORT).show();
             return;
@@ -210,32 +211,30 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
         IntentResult pasteResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (pasteResult != null && pasteResult.getContents() != null) {
-            mInput.setText(pasteResult.getContents().trim());
-            mInput.setSelection(mInput.getText().length());
+            addressEditText.setText(pasteResult.getContents().trim());
+            addressEditText.setSelection(addressEditText.getText().length());
         } else if (requestCode == BaseConstant.CONST_PW_INIT || requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-            String address = "";
-            if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                address = okAddress;
-            } else if (mChain.equals(BaseChain.INJ_MAIN)) {
-                address = WKey.generateAddressFromPriv("inj", mUserInput);
-            } else if (mChain.equals(BaseChain.EVMOS_MAIN)) {
-                address = WKey.generateAddressFromPriv("evmos", mUserInput);
-            } else {
-                address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput));
+            String address;
+            switch (chain) {
+                case OKEX_MAIN:
+                    address = okAddress;
+                    break;
+                case INJ_MAIN:
+                    address = WKey.generateAddressFromPriv("inj", userInput);
+                    break;
+                case EVMOS_MAIN:
+                    address = WKey.generateAddressFromPriv("evmos", userInput);
+                    break;
+                default:
+                    address = WKey.getDpAddress(chain, WKey.generatePubKeyHexFromPriv(userInput));
             }
-            Account account = getBaseDao().onSelectExistAccount(address, mChain);
+            Account account = getBaseDao().onSelectExistAccount(address, chain);
+
+            int customPath = chain.equals(BaseChain.OKEX_MAIN) ? okAddressType : -1;
             if (account != null) {
-                if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                    onOverridePkeyAccount(mUserInput, account, mOkAddressType);
-                } else {
-                    onOverridePkeyAccount(mUserInput, account, -1);
-                }
+                onOverridePkeyAccount(userInput, account, customPath);
             } else {
-                if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                    onGenPkeyAccount(mUserInput, address, mOkAddressType);
-                } else {
-                    onGenPkeyAccount(mUserInput, address, -1);
-                }
+                onGenPkeyAccount(userInput, address, customPath);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

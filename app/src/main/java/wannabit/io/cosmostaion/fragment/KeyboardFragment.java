@@ -7,13 +7,13 @@ import wannabit.io.cosmostaion.utils.KeyboardListener;
 
 public class KeyboardFragment extends Fragment {
 
-    protected KeyboardListener mListner;
+    protected KeyboardListener keyboardListener;
 
     public void setListener(KeyboardListener listener) {
-        mListner = listener;
+        keyboardListener = listener;
     }
 
-    public void onShuffleKeyboard() {
+    public void shuffleKeyboard() {
     }
 }
 

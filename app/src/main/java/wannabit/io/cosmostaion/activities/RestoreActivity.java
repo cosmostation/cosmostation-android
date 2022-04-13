@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fulldive.wallet.presentation.chains.choicenet.ChoiceChainDialogFragment;
+import com.fulldive.wallet.presentation.lockscreen.SetPasswordActivity;
 
 import org.bitcoinj.crypto.MnemonicCode;
 
@@ -350,7 +351,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
     private void onConfirmedWords() {
         if (!getBaseDao().onHasPassword()) {
-            Intent intent = new Intent(RestoreActivity.this, PasswordSetActivity.class);
+            Intent intent = new Intent(RestoreActivity.this, SetPasswordActivity.class);
             startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {

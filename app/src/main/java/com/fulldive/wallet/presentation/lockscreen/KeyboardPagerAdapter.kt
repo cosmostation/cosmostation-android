@@ -14,7 +14,7 @@ class KeyboardPagerAdapter(
     listener: KeyboardListener
 ) :
     FragmentPagerAdapter(fragmentManager) {
-    private val fragments: List<KeyboardFragment>
+    val fragments: List<KeyboardFragment>
 
     init {
         WLog.w("KeyboardPagerAdapter.init")

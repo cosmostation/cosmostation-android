@@ -93,7 +93,6 @@ import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
@@ -209,7 +208,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
     @Override
     protected void onStart() {
         super.onStart();
-        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity)) {
+        if (!(this instanceof PasswordCheckActivity)) {
             if (getBaseApplication().needShowLockScreen()) {
                 Intent intent = new Intent(BaseActivity.this, AppLockActivity.class);
                 startActivity(intent);
@@ -405,7 +404,7 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
 
 
     public void onDisplayNotification(Intent intent) {
-        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof AppLockActivity)) {
+        if (!(this instanceof PasswordCheckActivity) && !(this instanceof AppLockActivity)) {
             Banner.make(rootView, this, Banner.TOP, R.layout.foreground_push);
             mPushBody = Banner.getInstance().getBannerView().findViewById(R.id.push_body);
             ImageView pushType = Banner.getInstance().getBannerView().findViewById(R.id.push_type);

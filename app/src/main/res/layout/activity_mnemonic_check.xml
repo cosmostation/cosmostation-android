@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="01 :" />
+                        android:text="01: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_0"
@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="02 :" />
+                        android:text="02: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_1"
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="03 :" />
+                        android:text="03: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_2"
@@ -140,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="04 :" />
+                        android:text="04: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_3"
@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="05 :" />
+                        android:text="05: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_4"
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="06 :" />
+                        android:text="06: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_5"
@@ -223,7 +223,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="07 :" />
+                        android:text="07: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_6"
@@ -248,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="08 :" />
+                        android:text="08: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_7"
@@ -281,7 +281,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="09 :" />
+                        android:text="09: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_8"
@@ -306,7 +306,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="10 :" />
+                        android:text="10: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_9"
@@ -331,7 +331,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="11 :" />
+                        android:text="11: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_10"
@@ -356,7 +356,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="12 :" />
+                        android:text="12: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_11"
@@ -389,7 +389,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="13 :" />
+                        android:text="13: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_12"
@@ -414,7 +414,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="14 :" />
+                        android:text="14: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_13"
@@ -439,7 +439,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="15 :" />
+                        android:text="15: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_14"
@@ -464,7 +464,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="16 :" />
+                        android:text="16: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_15"
@@ -497,7 +497,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="17 :" />
+                        android:text="17: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_16"
@@ -522,7 +522,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="18 :" />
+                        android:text="18: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_17"
@@ -547,7 +547,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="19 :" />
+                        android:text="19: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_18"
@@ -572,7 +572,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="20 :" />
+                        android:text="20: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_19"
@@ -605,7 +605,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="21 :" />
+                        android:text="21: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_20"
@@ -630,7 +630,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="22 :" />
+                        android:text="22: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_21"
@@ -655,7 +655,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="23 :" />
+                        android:text="23: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_22"
@@ -680,7 +680,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
                         style="@style/font_ss_10_gray1"
-                        android:text="24 :" />
+                        android:text="24: " />
 
                     <TextView
                         android:id="@+id/tv_mnemonic_23"

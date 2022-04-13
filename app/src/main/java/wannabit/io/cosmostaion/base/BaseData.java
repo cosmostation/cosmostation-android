@@ -1160,7 +1160,7 @@ public class BaseData {
         return chains;
     }
 
-    public Password onSelectPassword() {
+    public Password getPassword() {
         Password result = null;
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_PASSWORD, new String[]{"resource", "spec"}, null, null, null, null, null);
         if (cursor != null) {
@@ -1182,7 +1182,7 @@ public class BaseData {
         return existed;
     }
 
-    public long onInsertPassword(Password password) {
+    public long setPassword(Password password) {
         long result = -1;
         if (onHasPassword()) return result;
 

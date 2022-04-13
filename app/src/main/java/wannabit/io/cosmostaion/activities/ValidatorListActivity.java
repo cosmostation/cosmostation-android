@@ -42,58 +42,53 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 
-    private Toolbar mToolbar;
-    private TextView mToolbarTitle;
-    private ViewPager mValidatorPager;
-    private TabLayout mValidatorTapLayer;
-    private ValidatorPageAdapter mPageAdapter;
+    private ValidatorPageAdapter pageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator_list);
-        mToolbar = findViewById(R.id.toolbar);
-        mToolbarTitle = findViewById(R.id.toolbar_title);
-        mValidatorTapLayer = findViewById(R.id.validator_tab);
-        mValidatorPager = findViewById(R.id.validator_view_pager);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TabLayout validatorTapLayer = findViewById(R.id.validator_tab);
+        ViewPager validatorPager = findViewById(R.id.validator_view_pager);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         baseChain = BaseChain.getChain(account.baseChain);
 
-        mPageAdapter = new ValidatorPageAdapter(getSupportFragmentManager());
-        mValidatorPager.setAdapter(mPageAdapter);
-        mValidatorTapLayer.setupWithViewPager(mValidatorPager);
-        mValidatorTapLayer.setTabRippleColor(null);
+        pageAdapter = new ValidatorPageAdapter(getSupportFragmentManager());
+        validatorPager.setAdapter(pageAdapter);
+        validatorTapLayer.setupWithViewPager(validatorPager);
+        validatorTapLayer.setTabRippleColor(null);
 
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_my_validators);
         tabItemText0.setTextColor(WDp.getTabColor(this, baseChain));
-        mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
+        validatorTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
         tabItemText1.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText1.setText(R.string.str_top_100_validators);
-        mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
+        validatorTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
         tabItemText2.setTextColor(WDp.getTabColor(this, baseChain));
         tabItemText2.setText(R.string.str_other_validators);
-        mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
+        validatorTapLayer.getTabAt(2).setCustomView(tab2);
 
-        mValidatorTapLayer.setTabIconTint(WDp.getChainTintColor(this, baseChain));
-        mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, baseChain));
+        validatorTapLayer.setTabIconTint(WDp.getChainTintColor(this, baseChain));
+        validatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, baseChain));
 
-        mValidatorPager.setOffscreenPageLimit(3);
-        mValidatorPager.setCurrentItem(0, false);
+        validatorPager.setOffscreenPageLimit(3);
+        validatorPager.setCurrentItem(0, false);
 
-        mValidatorPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        validatorPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
             }
@@ -104,7 +99,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             @Override
             public void onPageSelected(int i) {
-                Fragment fragment = mPageAdapter.mFragments.get(i);
+                Fragment fragment = pageAdapter.mFragments.get(i);
                 if (fragment instanceof IRefreshTabListener) {
                     ((IRefreshTabListener) fragment).onRefreshTab();
                 }
@@ -147,8 +142,8 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             showDialog(dialog);
             return;
         }
-        String cosmostation = "";
         if (baseChain.isGRPC()) {
+            String cosmostation = "";
             BigDecimal delegatableAmount = getBaseDao().getDelegatable(baseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), baseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             if (delegatableAmount.compareTo(feeAmount) < 0) {
@@ -281,7 +276,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     public void fetchFinished() {
         if (!isFinishing()) {
             hideWaitDialog();
-            ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
+            ((IRefreshTabListener) pageAdapter.mCurrentFragment).onRefreshTab();
         }
 
     }
@@ -290,9 +285,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     public void fetchBusy() {
         if (!isFinishing()) {
             hideWaitDialog();
-            Fragment fragment = mPageAdapter.mCurrentFragment;
+            Fragment fragment = pageAdapter.mCurrentFragment;
             if (fragment instanceof IBusyFetchListener) {
-                ((IBusyFetchListener) mPageAdapter.mCurrentFragment).onBusyFetch();
+                ((IBusyFetchListener) pageAdapter.mCurrentFragment).onBusyFetch();
             }
         }
 
