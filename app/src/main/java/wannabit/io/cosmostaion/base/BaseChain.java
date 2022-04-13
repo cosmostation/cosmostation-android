@@ -75,6 +75,7 @@ public enum BaseChain {
     PROVENANCE_MAIN("provenance-mainnet"),
     CERBERUS_MAIN("cerberus-mainnet"),
     OMNIFLIX_MAIN("omniflix-mainnet"),
+    CRESCENT_MAIN("crescent-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -237,6 +238,9 @@ public enum BaseChain {
         if (chainName.equals(OMNIFLIX_MAIN.chainName)) {
             return OMNIFLIX_MAIN;
         }
+        if (chainName.equals(CRESCENT_MAIN.chainName)) {
+            return CRESCENT_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -267,6 +271,7 @@ public enum BaseChain {
         result.add(CERTIK_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
+        result.add(CRESCENT_MAIN);
         result.add(CRYPTO_MAIN);
 //        result.add(CUDOS_MAIN);
         result.add(DESMOS_MAIN);

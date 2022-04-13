@@ -727,6 +727,21 @@ public class ApiClient {
         }
         return api_omniflix;
     }
+
+    //Services for crescent mainnet api
+    private static HistoryApi api_crescent = null;
+    public static HistoryApi getCrescentApi(Context c) {
+        if (api_crescent == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_crescent))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_crescent = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_crescent;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
