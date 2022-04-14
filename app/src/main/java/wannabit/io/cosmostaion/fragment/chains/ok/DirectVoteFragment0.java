@@ -112,21 +112,21 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
                 holder.itemFree.setVisibility(View.GONE);
 
                 if (validator.jailed) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
 
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(requireContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
                 if (getSActivity().mValAddesses.contains(validator.operator_address)) {
-                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorOK), android.graphics.PorterDuff.Mode.SRC_IN);
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(requireContext(), R.color.colorOK), android.graphics.PorterDuff.Mode.SRC_IN);
                     holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTrans));
                 } else {
                     holder.itemCheckedBorder.setVisibility(View.GONE);
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTransBg));
                 }
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {

@@ -62,8 +62,7 @@ public class SimpleOkWithdrawTask extends CommonTask {
                 result.errorCode = ERROR_CODE_BROADCAST;
                 return result;
             }
-            context.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
-            context.getBaseDao().mOkAccountInfo = accountResponse.body();
+            context.getBaseDao().updateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
 
             ECKey ecKey;
             if (mAccount.fromMnemonic) {

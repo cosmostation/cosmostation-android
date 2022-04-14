@@ -98,8 +98,8 @@ public class HtlcCreateTask extends CommonTask {
                     result.errorCode = ERROR_CODE_BROADCAST;
                     return result;
                 }
-                context.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mSendAccount.id, response.body()));
-                context.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromBnbLcd(mSendAccount.id, response.body()));
+                context.getBaseDao().updateAccount(WUtil.getAccountFromBnbLcd(mSendAccount.id, response.body()));
+                context.getBaseDao().updateBalances(mSendAccount.id, WUtil.getBalancesFromBnbLcd(mSendAccount.id, response.body()));
                 mSendAccount = context.getBaseDao().onSelectAccount("" + mSendAccount.id);
 
                 if (mSendAccount.fromMnemonic) {

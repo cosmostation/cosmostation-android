@@ -33,20 +33,12 @@ public class Dialog_WatchMode extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.negativeButton);
         Button btn_positive = view.findViewById(R.id.positiveButton);
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((BaseActivity) getActivity()).onAddMnemonicForAccount();
-                dismiss();
-            }
+        btn_negative.setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).onAddMnemonicForAccount();
+            dismiss();
         });
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        btn_positive.setOnClickListener(v -> dismiss());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);

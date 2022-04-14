@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -74,14 +75,14 @@ public class VestingHolder extends BaseHolder {
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
         mVestingRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
         if (denom.equals(TOKEN_HARD)) {
-            mVestingRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
+            mVestingRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBghard));
         } else if (denom.equals(TOKEN_SWP)) {
-            mVestingRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
+            mVestingRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgswp));
         }
-        onBindGRPC(c, chain, baseData, denom);
+        onBindGRPC(c, baseData, denom);
     }
 
-    private void onBindGRPC(Context c, BaseChain chain, BaseData baseData, String denom) {
+    private void onBindGRPC(Context c, BaseData baseData, String denom) {
         ArrayList<Vesting.Period> vps = baseData.onParseRemainVestingsByDenom(denom);
         mVestingCnt.setText("(" + vps.size() + ")");
 

@@ -139,20 +139,20 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 }
             });
             if (mGrpcValidator.getJailed()) {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                 holder.itemRevoked.setVisibility(View.VISIBLE);
             } else {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorGray3));
                 holder.itemRevoked.setVisibility(View.GONE);
             }
-            holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), PorterDuff.Mode.SRC_IN);
+            holder.itemChecked.setColorFilter(ContextCompat.getColor(requireContext(), R.color.colorGray0), PorterDuff.Mode.SRC_IN);
             if (mCheckedGRpcValidator != null && mGrpcValidator.getOperatorAddress().equals(mCheckedGRpcValidator.getOperatorAddress())) {
-                holder.itemChecked.setColorFilter(WDp.getChainColor(getContext(), getSActivity().baseChain), PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(WDp.getChainColor(requireContext(), getSActivity().baseChain), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTrans));
             } else {
                 holder.itemCheckedBorder.setVisibility(View.GONE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTransBg));
             }
         }
 

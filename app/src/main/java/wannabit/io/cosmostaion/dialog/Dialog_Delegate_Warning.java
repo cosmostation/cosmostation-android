@@ -52,7 +52,7 @@ public class Dialog_Delegate_Warning extends DialogFragment {
                 dateImg.setImageResource(R.drawable.img_delegate_28_warning);
                 break;
             case 7:
-                dateImg.setImageResource(R.drawable.dialogicon_undelegate_7);
+                dateImg.setImageResource(R.drawable.img_delegate_7_warning);
                 break;
         }
 

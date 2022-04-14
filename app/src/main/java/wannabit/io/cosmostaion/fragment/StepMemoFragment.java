@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -86,10 +87,10 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                 String memo = mMemo.getText().toString().trim();
                 if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().baseChain)) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
+                    mMemoCnt.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
+                    mMemoCnt.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                 }
                 mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().baseChain) + " byte");
 
@@ -104,10 +105,10 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                 String memo = mMemo.getText().toString().trim();
                 if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().baseChain)) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
+                    mMemoCnt.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
+                    mMemoCnt.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                 }
                 mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().baseChain) + " byte");
             }

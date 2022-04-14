@@ -3,27 +3,15 @@ package wannabit.io.cosmostaion.base;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_MINI_TICKER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_TICKER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_CW20_ASSETS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OKEX_ALL_VALIDATORS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_DEX_TICKERS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_STAKING_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
@@ -54,8 +42,11 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.fulldive.wallet.di.IEnrichableActivity;
+import com.fulldive.wallet.interactors.chains.binance.BinanceInteractor;
+import com.fulldive.wallet.interactors.chains.okex.OkexInteractor;
 import com.fulldive.wallet.presentation.accounts.AddAccountDialogFragment;
 import com.fulldive.wallet.presentation.system.WaitDialogFragment;
+import com.fulldive.wallet.rx.AppSchedulers;
 import com.google.protobuf2.Any;
 import com.joom.lightsaber.Injector;
 
@@ -69,7 +60,9 @@ import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
+import io.reactivex.Completable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
@@ -83,46 +76,23 @@ import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.BnbTicker;
-import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.model.BondingInfo;
-import wannabit.io.cosmostaion.model.NodeInfo;
-import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResBnbFee;
-import wannabit.io.cosmostaion.network.res.ResOkStaking;
-import wannabit.io.cosmostaion.network.res.ResOkTickersList;
-import wannabit.io.cosmostaion.network.res.ResOkTokenList;
-import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
-import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTickerTask;
-import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
-import wannabit.io.cosmostaion.task.FetchTask.BnbTickerTask;
-import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanCw20AssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
-import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.OkAccountBalanceTask;
-import wannabit.io.cosmostaion.task.FetchTask.OkDexTickerTask;
-import wannabit.io.cosmostaion.task.FetchTask.OkStakingInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
-import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcPathsTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcTokensTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationPriceInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoAllTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
@@ -142,6 +112,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements IEnrichableActivity, TaskListener {
@@ -157,8 +128,15 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
 
     protected int mTaskCount;
     private FetchCallBack mFetchCallback;
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
 
     protected final CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+
+    // tmp
+    private BinanceInteractor binanceInteractor;
+    private OkexInteractor okexInteractor;
+
 
     @Override
     public void setAppInjector(@NonNull Injector appInjector) {
@@ -175,6 +153,8 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rootView = findViewById(android.R.id.content);
+        binanceInteractor = getAppInjector().getInstance(BinanceInteractor.class);
+        okexInteractor = getAppInjector().getInstance(OkexInteractor.class);
     }
 
     @Override
@@ -318,159 +298,93 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         startActivity(intent);
     }
 
-    public void onFetchAccountInfo(FetchCallBack callback) {
+    public void fetchAllData(FetchCallBack callback) {
+        getBaseDao().clear();
+        switch (baseChain) {
+            case BNB_MAIN:
+                updateBinanceAccount(callback);
+                break;
+            case OKEX_MAIN:
+                updateOkexAccount(callback);
+                break;
+            default:
+                onFetchAccountInfo(callback);
+        }
+    }
+
+    private void updateBinanceAccount(FetchCallBack callback) {
+        Disposable disposable = binanceInteractor
+                .update(account, baseChain)
+                .andThen(updateBalance())
+                .subscribeOn(AppSchedulers.INSTANCE.io())
+                .observeOn(AppSchedulers.INSTANCE.ui())
+                .doOnError(error -> WLog.e(error.toString()))
+                .subscribe(
+                        callback::fetchFinished,
+                        error -> {
+                            Toast.makeText(getBaseContext(), R.string.str_network_error_msg, Toast.LENGTH_SHORT).show();
+                            callback.fetchBusy();
+                        }
+                );
+        compositeDisposable.add(disposable);
+    }
+
+    private void updateOkexAccount(FetchCallBack callback) {
+        Disposable disposable = okexInteractor
+                .update(account, baseChain)
+                .andThen(updateBalance())
+                .subscribeOn(AppSchedulers.INSTANCE.io())
+                .observeOn(AppSchedulers.INSTANCE.ui())
+                .doOnError(error -> WLog.e(error.toString()))
+                .subscribe(
+                        callback::fetchFinished,
+                        error -> {
+                            Toast.makeText(getBaseContext(), R.string.str_network_error_msg, Toast.LENGTH_SHORT).show();
+                            callback.fetchBusy();
+                        }
+                );
+        compositeDisposable.add(disposable);
+    }
+
+    private void onFetchAccountInfo(FetchCallBack callback) {
         if (mTaskCount > 0) {
             callback.fetchBusy();
         }
         mFetchCallback = callback;
 
-        getBaseDao().mIbcPaths.clear();
-        getBaseDao().mIbcTokens.clear();
-        getBaseDao().mChainParam = null;
-        getBaseDao().mAssets.clear();
-        getBaseDao().mCw20Assets.clear();
+        switch (baseChain) {
+            // grpc
+            case COSMOS_MAIN:
+                mTaskCount = 1;
+                new GravityDexPoolGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        getBaseDao().mSifLmIncentive = null;
+                break;
+            case IOV_MAIN:
+                mTaskCount = 2;
 
-        getBaseDao().mNodeInfo = null;
-        getBaseDao().mAllValidators.clear();
-        getBaseDao().mMyValidators.clear();
-        getBaseDao().mTopValidators.clear();
-        getBaseDao().mOtherValidators.clear();
+                new StarNameGrpcFeeTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new StarNameGrpcConfigTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                break;
+            case OSMOSIS_MAIN:
+                mTaskCount = 1;
+                new OsmosisPoolListGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        getBaseDao().mBalances.clear();
-        getBaseDao().mMyDelegations.clear();
-        getBaseDao().mMyUnbondings.clear();
-        getBaseDao().mMyRewards.clear();
+                break;
+            case KAVA_MAIN:
+                mTaskCount = 3;
 
-        //kava GRPC
-        getBaseDao().mIncentiveParam5 = null;
-        getBaseDao().mIncentiveRewards = null;
-        getBaseDao().mMyHardDeposits.clear();
-        getBaseDao().mMyHardBorrows.clear();
-        getBaseDao().mModuleCoins.clear();
-        getBaseDao().mReserveCoins.clear();
+                new KavaMarketPriceGrpcTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new KavaIncentiveParamTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new KavaIncentiveRewardTask(getBaseApplication(), this, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-
-        //binance
-        getBaseDao().mBnbTokens.clear();
-        getBaseDao().mBnbTickers.clear();
-
-
-        //gRPC
-        getBaseDao().mGRpcNodeInfo = null;
-        getBaseDao().mGRpcAccount = null;
-        getBaseDao().mGRpcTopValidators.clear();
-        getBaseDao().mGRpcOtherValidators.clear();
-        getBaseDao().mGRpcAllValidators.clear();
-        getBaseDao().mGRpcMyValidators.clear();
-
-        getBaseDao().mGrpcBalance.clear();
-        getBaseDao().mGrpcVesting.clear();
-        getBaseDao().mGrpcDelegations.clear();
-        getBaseDao().mGrpcUndelegations.clear();
-        getBaseDao().mGrpcRewards.clear();
-
-        getBaseDao().mGrpcStarNameFee = null;
-        getBaseDao().mGrpcStarNameConfig = null;
-
-        getBaseDao().mGrpcGravityPools.clear();
-
-        if (baseChain.equals(BNB_MAIN)) {
-            mTaskCount = 6;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(account.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AccountInfoTask(getBaseApplication(), this, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BnbTokenListTask(getBaseApplication(), this, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BnbMiniTokenListTask(getBaseApplication(), this, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BnbTickerTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BnbMiniTickerTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new BnbFeesTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (baseChain.equals(BaseChain.OKEX_MAIN)) {
-            mTaskCount = 8;
-            getBaseDao().mOkStaking = null;
-            getBaseDao().mOkUnbonding = null;
-            getBaseDao().mOkTokenList = null;
-            getBaseDao().mOkTickersList = null;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(account.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoAllTask(getBaseApplication(), this, BaseChain.getChain(account.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new AccountInfoTask(getBaseApplication(), this, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new OkAccountBalanceTask(getBaseApplication(), this, account, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new OkTokenListTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new OkDexTickerTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new OkStakingInfoTask(getBaseApplication(), this, account, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new OkUnbondingInfoTask(getBaseApplication(), this, account, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+                break;
+            default:
+                mTaskCount = 0;
+                break;
         }
 
-        // grpc
-        else if (baseChain.equals(COSMOS_MAIN)) {
-            mTaskCount = 10;
-            new NodeInfoGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AuthGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BalanceGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new GravityDexPoolGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (baseChain.equals(IOV_MAIN)) {
-            mTaskCount = 11;
-            new NodeInfoGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AuthGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BalanceGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new StarNameGrpcFeeTask(getBaseApplication(), this, BaseChain.getChain(account.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new StarNameGrpcConfigTask(getBaseApplication(), this, BaseChain.getChain(account.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            mTaskCount = 10;
-            new NodeInfoGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AuthGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BalanceGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new OsmosisPoolListGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            mTaskCount = 12;
-            new NodeInfoGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AuthGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BalanceGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new KavaMarketPriceGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaIncentiveParamTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaIncentiveRewardTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (baseChain.isGRPC()) {
-            mTaskCount = 9;
+        if (baseChain.isGRPC()) {
+            mTaskCount += 9;
             new NodeInfoGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, baseChain, account.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -482,18 +396,15 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
             new UnDelegationsGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
-//        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
         if (isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mPrices.clear();
-                ArrayList<Price> tempPrice = new ArrayList<>();
-                tempPrice = (ArrayList<Price>) result.resultData;
+                ArrayList<Price> tempPrice = (ArrayList<Price>) result.resultData;
                 for (Price price : tempPrice) {
                     getBaseDao().mPrices.add(price);
                 }
@@ -501,90 +412,8 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         }
 
         mTaskCount--;
-        if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
-            account = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-            getBaseDao().mBalances = getBaseDao().onSelectBalance(account.id);
-//            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
-
-
-        } else if (result.taskType == TASK_FETCH_NODE_INFO) {
-            getBaseDao().mNodeInfo = (NodeInfo) result.resultData;
-            mTaskCount = mTaskCount + 1;
-            new StationParamInfoTask(getBaseApplication(), this, baseChain, getBaseDao().getChainId()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (result.taskType == TASK_FETCH_OKEX_ALL_VALIDATORS) {
-            ArrayList<Validator> allValis = (ArrayList<Validator>) result.resultData;
-            if (allValis != null) {
-                getBaseDao().mAllValidators = allValis;
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_TOKENS) {
-            ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>) result.resultData;
-            if (tempTokens != null) {
-                for (BnbToken token : tempTokens) {
-                    token.type = BnbToken.BNB_TOKEN_TYPE_BEP2;
-                    getBaseDao().mBnbTokens.add(token);
-                }
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_MINI_TOKENS) {
-            ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>) result.resultData;
-            if (tempTokens != null) {
-                for (BnbToken token : tempTokens) {
-                    token.type = BnbToken.BNB_TOKEN_TYPE_MINI;
-                    getBaseDao().mBnbTokens.add(token);
-                }
-            }
-
-        } else if (result.taskType == TASK_FETCH_BNB_TICKER) {
-            ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>) result.resultData;
-            if (tempTickers != null) {
-                getBaseDao().mBnbTickers.addAll(tempTickers);
-            }
-
-        } else if (result.taskType == TASK_FETCH_BNB_MINI_TICKER) {
-            ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>) result.resultData;
-            if (tempTickers != null) {
-                getBaseDao().mBnbTickers.addAll(tempTickers);
-            }
-
-        } else if (result.taskType == TASK_FETCH_BNB_FEES) {
-            getBaseDao().mBnbFees.clear();
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mBnbFees = (ArrayList<ResBnbFee>) result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_OK_ACCOUNT_BALANCE) {
-            if (result.isSuccess) {
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(account.id);
-            }
-//            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
-
-        } else if (result.taskType == TASK_FETCH_OK_STAKING_INFO) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mOkStaking = (ResOkStaking) result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_OK_UNBONDING_INFO) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mOkUnbonding = ((ResOkUnbonding) result.resultData);
-            }
-
-        } else if (result.taskType == TASK_FETCH_OK_TOKEN_LIST) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mOkTokenList = ((ResOkTokenList) result.resultData);
-            }
-
-        } else if (result.taskType == TASK_FETCH_OK_DEX_TICKERS) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mOkTickersList = ((ResOkTickersList) result.resultData);
-            }
-
-        }
-
-
         //gRPC callback
-        else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
+        if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
             tendermint.p2p.Types.NodeInfo tempNodeInfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (tempNodeInfo != null) {
                 getBaseDao().mGRpcNodeInfo = tempNodeInfo;
@@ -691,10 +520,8 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICES) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<QueryOuterClass.CurrentPriceResponse> currentPrices = (ArrayList<QueryOuterClass.CurrentPriceResponse>) result.resultData;
-                if (currentPrices != null) {
-                    for (QueryOuterClass.CurrentPriceResponse response : currentPrices) {
-                        getBaseDao().mKavaTokenPrice.put(response.getMarketId(), response);
-                    }
+                for (QueryOuterClass.CurrentPriceResponse response : currentPrices) {
+                    getBaseDao().mKavaTokenPrice.put(response.getMarketId(), response);
                 }
             }
         }
@@ -736,7 +563,6 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
                 }
 
                 if (getBaseDao().mGRpcNodeInfo == null) {
-                    new Exception().printStackTrace();
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -747,64 +573,14 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
                     for (Coin coin : getBaseDao().mGrpcBalance) {
                         snapBalance.add(new Balance(account.id, coin.denom, coin.amount, Calendar.getInstance().getTime().getTime(), "0", "0"));
                     }
-                    getBaseDao().onUpdateBalances(account.id, snapBalance);
+                    getBaseDao().updateBalances(account.id, snapBalance);
                 }
-
-            } else if (baseChain.equals(BNB_MAIN)) {
-                if (getBaseDao().mNodeInfo == null) {
-                    new Exception().printStackTrace();
-                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-
-                }
-            } else if (baseChain.equals(OKEX_MAIN)) {
-                for (Validator all : getBaseDao().mAllValidators) {
-                    if (all.status == Validator.BONDED) {
-                        getBaseDao().mTopValidators.add(all);
-                    } else {
-                        getBaseDao().mOtherValidators.add(all);
-                    }
-                }
-
-                if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
-                    for (String valAddr : getBaseDao().mOkStaking.validator_address) {
-                        for (Validator val : getBaseDao().mAllValidators) {
-                            if (val.operator_address.equals(valAddr)) {
-                                getBaseDao().mMyValidators.add(val);
-                            }
-                        }
-                    }
-                }
-
-                if (getBaseDao().mNodeInfo == null) {
-                    new Exception().printStackTrace();
-                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-
-                }
-
-            } else {
+            } else if (!(baseChain.equals(BNB_MAIN) || baseChain.equals(OKEX_MAIN))) {
                 getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
                 getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
-
-                for (Validator top : getBaseDao().mAllValidators) {
-                    boolean already = false;
-                    for (BondingInfo bond : getBaseDao().mMyDelegations) {
-                        if (bond.validator_address.equals(top.operator_address)) {
-                            already = true;
-                            break;
-                        }
-                    }
-                    for (UnbondingInfo unbond : getBaseDao().mMyUnbondings) {
-                        if (unbond.validator_address.equals(top.operator_address) && !already) {
-                            already = true;
-                            break;
-                        }
-                    }
-                    if (already) getBaseDao().mMyValidators.add(top);
-                }
+                getBaseDao().mMyValidators = new ArrayList<>();
                 if (getBaseDao().mNodeInfo == null) {
-                    new Exception().printStackTrace();
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-
                 }
 
             }
@@ -819,7 +595,13 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
         }
     }
 
-    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private Completable updateBalance() {
+        return Completable.fromCallable(() -> {
+            // TODO: It will be refactored
+            getBaseDao().mBalances = getBaseDao().onSelectBalance(account.id);
+            return true;
+        });
+    }
 
     public void showDialog(DialogFragment dialogFragment) {
         showDialog(dialogFragment, "dialog", true);
@@ -864,13 +646,11 @@ public class BaseActivity extends AppCompatActivity implements IEnrichableActivi
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
                     startActivity(guideIntent);
                 } catch (Exception e) {
-                    new Exception().printStackTrace();
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
 
                 }
 
             } else {
-                new Exception().printStackTrace();
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
 
             }

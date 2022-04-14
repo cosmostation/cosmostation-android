@@ -81,8 +81,8 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchData());
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(this::onFetchData);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new MyDomainAdapter();
@@ -233,9 +233,9 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                     holder.itemDomain.setText("*" + mDomain_gRPC.getName());
                     holder.itemType.setText(mDomain_gRPC.getType().toUpperCase());
                     if (mDomain_gRPC.getType().equals("open")) {
-                        holder.itemType.setTextColor(getResources().getColor(R.color.colorIov));
+                        holder.itemType.setTextColor(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorIov));
                     } else {
-                        holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        holder.itemType.setTextColor(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorWhite));
                     }
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mDomain_gRPC.getValidUntil() * 1000));
                     holder.itemAddressCnt.setText("" + mDomainResolve_gRPC.getResourcesCount());

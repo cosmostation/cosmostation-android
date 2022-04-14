@@ -619,7 +619,7 @@ public class WUtil {
     /**
      * Sorts
      */
-    public static void onSortByValidatorName(ArrayList<Validator> validators) {
+    public static void onSortByValidatorName(List<Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
             return o1.description.moniker.compareTo(o2.description.moniker);
         });
@@ -630,7 +630,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortByValidatorNameV1(ArrayList<Staking.Validator> validators) {
+    public static void onSortByValidatorNameV1(List<Staking.Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
             return o1.getDescription().getMoniker().compareTo(o2.getDescription().getMoniker());
         });
@@ -641,7 +641,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortByValidatorPower(ArrayList<Validator> validators) {
+    public static void onSortByValidatorPower(List<Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
             return Double.compare(Double.parseDouble(o2.tokens), Double.parseDouble(o1.tokens));
         });
@@ -652,7 +652,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortByValidatorPowerV1(ArrayList<Staking.Validator> validators) {
+    public static void onSortByValidatorPowerV1(List<Staking.Validator> validators) {
         Collections.sort(validators, (o1, o2) -> {
             return Double.compare(Double.parseDouble(o2.getTokens()), Double.parseDouble(o1.getTokens()));
         });
@@ -663,10 +663,8 @@ public class WUtil {
         });
     }
 
-    public static void onSortByOKValidatorPower(ArrayList<Validator> validators) {
-        Collections.sort(validators, (o1, o2) -> {
-            return Double.compare(Double.parseDouble(o2.delegator_shares), Double.parseDouble(o1.delegator_shares));
-        });
+    public static void onSortByOKValidatorPower(List<Validator> validators) {
+        Collections.sort(validators, (o1, o2) -> Double.compare(Double.parseDouble(o2.delegator_shares), Double.parseDouble(o1.delegator_shares)));
         Collections.sort(validators, (o1, o2) -> {
             if (o1.jailed && !o2.jailed) return 1;
             else if (!o1.jailed && o2.jailed) return -1;
@@ -675,7 +673,7 @@ public class WUtil {
     }
 
 
-    public static void onSortByDelegate(ArrayList<Validator> validators, final BaseData dao) {
+    public static void onSortByDelegate(List<Validator> validators, final BaseData dao) {
         Collections.sort(validators, (o1, o2) -> {
             BigDecimal bondingO1 = dao.delegatedAmountByValidator(o1.operator_address);
             BigDecimal bondingO2 = dao.delegatedAmountByValidator(o2.operator_address);
@@ -702,7 +700,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortByReward(ArrayList<Validator> validators, String denom, BaseData basedata) {
+    public static void onSortByReward(List<Validator> validators, String denom, BaseData basedata) {
         Collections.sort(validators, (o1, o2) -> {
             BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
             BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
@@ -757,7 +755,7 @@ public class WUtil {
         return BigDecimal.ZERO;
     }
 
-    public static void onSortingByCommission(ArrayList<Validator> validators, final BaseChain chain) {
+    public static void onSortingByCommission(List<Validator> validators, final BaseChain chain) {
         Collections.sort(validators, (o1, o2) -> {
             if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate))
                 return 1;
@@ -1103,11 +1101,11 @@ public class WUtil {
 
     public static String dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equals(COSMOS_MAIN.getMainDenom())) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorAtom));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorAtom));
             textView.setText("ATOM");
 
         } else if (denom.startsWith("pool")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
             if (poolInfo != null) {
                 textView.setText("GDEX-" + poolInfo.getId());
@@ -1116,7 +1114,7 @@ public class WUtil {
             }
 
         } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
                 if (ibcToken.base_denom.startsWith("cw20:")) {
@@ -1134,7 +1132,7 @@ public class WUtil {
             }
 
         } else {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             textView.setText(R.string.str_unknown);
         }
         return denom;
@@ -1142,31 +1140,31 @@ public class WUtil {
 
     public static String dpKavaTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equalsIgnoreCase(KAVA_MAIN.getMainDenom())) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorKava));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorKava));
             textView.setText(R.string.str_kava_c);
         } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorHard));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorHard));
             textView.setText("HARD");
         } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorUsdx));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorUsdx));
             textView.setText("USDX");
         } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorSwp));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorSwp));
             textView.setText("SWP");
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             textView.setText("BNB");
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || denom.equalsIgnoreCase("xrbp")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             textView.setText("XRPB");
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             textView.setText("BUSD");
         } else if (denom.contains("btc")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             textView.setText("BTCB");
         } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
                 if (ibcToken.base_denom.startsWith("cw20:")) {
@@ -1302,20 +1300,20 @@ public class WUtil {
     public static String dpOsmosisTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom != null) {
             if (denom.equals(TOKEN_OSMOSIS)) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorOsmosis));
                 textView.setText("OSMO");
 
             } else if (denom.equals(TOKEN_ION)) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorIon));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorIon));
                 textView.setText("ION");
 
             } else if (denom.startsWith("gamm/pool/")) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 String[] split = denom.split("/");
                 textView.setText("GAMM-" + split[split.length - 1]);
 
             } else if (denom.startsWith("ibc/")) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null && ibcToken.auth) {
                     if (ibcToken.base_denom.startsWith("cw20:")) {
@@ -1367,15 +1365,15 @@ public class WUtil {
     public static String dpSifTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom != null) {
             if (denom.equals(TOKEN_SIF)) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorSif));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorSif));
                 textView.setText("ROWAN");
 
             } else if (denom.startsWith("c")) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 textView.setText(denom.substring(1).toUpperCase());
 
             } else if (denom.startsWith("ibc/")) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null && ibcToken.auth) {
                     if (ibcToken.base_denom.startsWith("cw20:")) {
@@ -1393,7 +1391,7 @@ public class WUtil {
                 }
 
             } else {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
                 textView.setText(R.string.str_unknown);
             }
         }
@@ -2186,7 +2184,7 @@ public class WUtil {
         }
     }
 
-    public static String getMonikerName(String opAddress, ArrayList<Validator> validators, boolean bracket) {
+    public static String getMonikerName(String opAddress, List<Validator> validators, boolean bracket) {
         String result = "";
         for (Validator val : validators) {
             if (val.operator_address.equals(opAddress)) {

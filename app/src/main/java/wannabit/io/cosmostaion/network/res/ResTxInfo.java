@@ -375,14 +375,14 @@ public class ResTxInfo {
         public ArrayList<Event> events;
     }
 
-    public class Event {
+    public static class Event {
         @SerializedName("type")
         public String type;
         @SerializedName("attributes")
         public ArrayList<EventAttribute> attributes;
     }
 
-    public class EventAttribute {
+    public static class EventAttribute {
         @SerializedName("key")
         public String key;
         @SerializedName("value")

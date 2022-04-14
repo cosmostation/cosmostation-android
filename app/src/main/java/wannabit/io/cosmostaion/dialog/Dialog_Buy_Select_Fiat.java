@@ -17,8 +17,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 public class Dialog_Buy_Select_Fiat extends DialogFragment {
 
     public static Dialog_Buy_Select_Fiat newInstance() {
-        Dialog_Buy_Select_Fiat frag = new Dialog_Buy_Select_Fiat();
-        return frag;
+        return new Dialog_Buy_Select_Fiat();
     }
 
     @Override
@@ -35,30 +34,21 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
         LinearLayout usd_layer = view.findViewById(R.id.usd_layer);
         LinearLayout eur_layer = view.findViewById(R.id.eur_layer);
         LinearLayout gbp_layer = view.findViewById(R.id.gbp_layer);
-        usd_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getBaseActivity().onStartMoonpaySignature("usd");
-                dismiss();
+        usd_layer.setOnClickListener(v -> {
+            getBaseActivity().onStartMoonpaySignature("usd");
+            dismiss();
 
-            }
         });
 
-        eur_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getBaseActivity().onStartMoonpaySignature("eur");
-                dismiss();
+        eur_layer.setOnClickListener(v -> {
+            getBaseActivity().onStartMoonpaySignature("eur");
+            dismiss();
 
-            }
         });
 
-        gbp_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getBaseActivity().onStartMoonpaySignature("gbp");
-                dismiss();
-            }
+        gbp_layer.setOnClickListener(v -> {
+            getBaseActivity().onStartMoonpaySignature("gbp");
+            dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

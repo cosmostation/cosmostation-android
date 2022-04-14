@@ -18,15 +18,13 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaMarketPriceGrpcTask extends CommonTask {
 
-    private final BaseChain mChain;
     private final ArrayList<QueryOuterClass.CurrentPriceResponse> mResultData = new ArrayList<>();
     private final QueryGrpc.QueryBlockingStub mStub;
 
-    public KavaMarketPriceGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    public KavaMarketPriceGrpcTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mChain = chain;
         this.result.taskType = TASK_GRPC_FETCH_KAVA_PRICES;
-        this.mStub = kava.pricefeed.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        this.mStub = kava.pricefeed.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(BaseChain.KAVA_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override

@@ -45,3 +45,45 @@ fun BaseChain.getPath(customPath: Int): List<ChildNumber> {
             }
         }
 }
+
+
+fun BaseChain.getPathString(path: Int, customPath: Int): String {
+    val items = mutableListOf("m", "44'")
+    var hint = ""
+
+    val (childNumber, lastHardenedZero, lastZero) = fetchPath(
+        pathConfig,
+        customPath
+    )
+
+    items.add("$childNumber'")
+    var hardPath = true
+    if (lastHardenedZero) {
+        items.add("0'")
+        hardPath = false
+    }
+    if (lastZero) {
+        items.add("0")
+        hardPath = false
+    }
+    if (hardPath) {
+        items.add("$path'")
+    } else {
+        items.add("$path")
+    }
+    if (!lastHardenedZero) {
+        items.add("0")
+    }
+    if ((this != BaseChain.FETCHAI_MAIN || customPath == 2) && !lastZero) {
+        items.add("0")
+    }
+
+    if (this == BaseChain.OKEX_MAIN) {
+        hint = when (customPath) {
+            0 -> " (Tendermint Type)"
+            1 -> " (Ethermint Type)"
+            else -> " (Ethereum Type)"
+        }
+    }
+    return items.joinToString("/") + hint
+}

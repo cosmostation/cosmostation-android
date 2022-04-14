@@ -9,14 +9,14 @@ import javax.inject.Inject
 
 @ProvidedBy(DefaultRepositoryModule::class)
 class SecretRepository @Inject constructor(
-    private val secretLocalStorage: SecretLocalStorage
+    private val secretLocalSource: SecretLocalSource
 ) {
 
     fun setPassword(password: Password): Completable {
-        return secretLocalStorage.setPassword(password)
+        return secretLocalSource.setPassword(password)
     }
 
     fun getPassword(): Single<Password> {
-        return secretLocalStorage.getPassword()
+        return secretLocalSource.getPassword()
     }
 }

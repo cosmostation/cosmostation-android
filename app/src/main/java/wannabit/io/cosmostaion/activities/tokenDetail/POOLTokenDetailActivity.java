@@ -123,7 +123,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mPoolDenom);
             String[] split = mPoolDenom.split("/");
             mToolbarSymbol.setText("GAMM-" + split[split.length - 1]);
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
 
             mDivideDecimal = 18;
             mDisplayDecimal = 18;
@@ -137,7 +137,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             Liquidity.Pool poolInfo = getBaseDao().getGravityPoolByDenom(mPoolDenom);
             if (poolInfo != null) {
                 mToolbarSymbol.setText("GDEX-" + poolInfo.getId());
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
             }
 
             mDivideDecimal = 6;
@@ -150,7 +150,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         } else if (baseChain.equals(INJ_MAIN)) {
             mToolbarSymbolImg.setImageResource(R.drawable.token_ic);
             mToolbarSymbol.setText("SHARE" + mPoolDenom.substring(5));
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
 
             mDivideDecimal = 18;
             mDisplayDecimal = 18;

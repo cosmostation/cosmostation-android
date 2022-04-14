@@ -69,8 +69,8 @@ public class SimpleBnbSendTask extends CommonTask {
                     result.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                     return result;
                 }
-                context.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
-                context.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
+                context.getBaseDao().updateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
+                context.getBaseDao().updateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
                 mAccount = context.getBaseDao().onSelectAccount("" + mAccount.id);
 
                 if (mAccount.fromMnemonic) {

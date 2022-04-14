@@ -25,7 +25,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 
+import com.fulldive.wallet.extensions.ChainExtensionsKt;
 import com.fulldive.wallet.interactors.accounts.AccountsInteractor;
 import com.fulldive.wallet.presentation.accounts.AccountShowDialogFragment;
 import com.fulldive.wallet.presentation.accounts.DeleteConfirmDialogFragment;
@@ -156,7 +158,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         showWaitDialog();
         Disposable disposable = accountsInteractor.deleteAccount(accountId)
                 .subscribeOn(AppSchedulers.INSTANCE.io())
-                .observeOn(AppSchedulers.INSTANCE.io())
                 .observeOn(AppSchedulers.INSTANCE.ui())
                 .doOnError(error -> WLog.e(error.toString()))
                 .subscribe(
@@ -203,7 +204,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             new WithdrawAddressGrpcTask(getBaseApplication(), this, baseChain, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new NodeInfoGrpcTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(account.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new NodeInfoTask(getBaseApplication(), this, baseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
         mAccountName.setText(account.getAccountTitle(this));
@@ -212,7 +213,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         if (account.hasPrivateKey && account.fromMnemonic) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
-            mAccountPath.setText(WDp.getPath(BaseChain.getChain(account.baseChain), Integer.parseInt(account.path), account.customPath));
+            mAccountPath.setText(ChainExtensionsKt.getPathString(baseChain, Integer.parseInt(account.path), account.customPath));
             mPathLayer.setVisibility(View.VISIBLE);
             mImportMsg.setVisibility(View.GONE);
             mBtnCheck.setVisibility(View.VISIBLE);
@@ -230,13 +231,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mBtnCheckKey.setText(getString(R.string.str_check_private_key));
             if (baseChain.equals(OKEX_MAIN)) {
                 mPathLayer.setVisibility(View.VISIBLE);
-                mAccountPathTitle.setText("Address Type");
+                mAccountPathTitle.setText(R.string.str_address_type);
                 if (account.customPath > 0) {
-                    mAccountPath.setText("Ethereum Type Address");
+                    mAccountPath.setText(R.string.str_ethereum_type_address);
                 } else {
-                    mAccountPath.setText("Legacy Tendermint Type Address");
+                    mAccountPath.setText(R.string.str_legacy_tendermint_type_address);
                 }
-                mAccountPath.setTextColor(getResources().getColor(R.color.colorPhoton));
+                mAccountPath.setTextColor(ContextCompat.getColor(this, R.color.colorPhoton));
             }
 
         } else {
@@ -254,7 +255,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onChangeNickName(String name) {
         account.nickName = name;
-        if (getBaseDao().onUpdateAccount(account) > 0) {
+        if (getBaseDao().updateAccount(account) > 0) {
             onInitView();
         }
     }
@@ -321,7 +322,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
             if (TextUtils.isEmpty(mRewardAddress.getText().toString())) {
-                new Exception().printStackTrace();
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
 
                 return;
@@ -341,9 +341,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             if (!TextUtils.isEmpty(rewardAddress)) {
                 mRewardAddress.setText(rewardAddress.trim());
                 if (rewardAddress.equals(account.address)) {
-                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
+                    mRewardAddress.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
                 } else {
-                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));
+                    mRewardAddress.setTextColor(ContextCompat.getColor(this, R.color.colorRed));
                 }
             }
 

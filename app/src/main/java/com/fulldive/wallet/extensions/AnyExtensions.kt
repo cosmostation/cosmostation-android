@@ -70,3 +70,5 @@ inline fun <reified T> unsafeLazy(noinline initializer: () -> T): Lazy<T> =
 
 fun <A, B> combine(a: A, b: B) = a to b
 fun <A, B, C> combine(a: A, b: B, c: C) = Triple(a, b, c)
+
+fun <A> concat(a: List<A>, b: List<A>) = a + b

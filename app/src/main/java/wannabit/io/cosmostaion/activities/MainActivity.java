@@ -245,7 +245,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onFetchAllData() {
-        onFetchAccountInfo(this);
+        fetchAllData(this);
     }
 
     public void onClickProfile() {

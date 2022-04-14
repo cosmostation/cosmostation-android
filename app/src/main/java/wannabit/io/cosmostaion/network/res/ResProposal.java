@@ -68,7 +68,7 @@ public class ResProposal {
         @SerializedName("amount")
         public ArrayList<Coin> amount;
 
-        public class Recipient {
+        public static class Recipient {
             @SerializedName("amount")
             public ArrayList<Coin> amount;
         }

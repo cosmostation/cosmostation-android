@@ -45,7 +45,104 @@ import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.AXELAR_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.AXELAR_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BITCANNA_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.BITCANNA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BITSONG_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.BITSONG_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERBERUS_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERBERUS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CHIHUAHUA_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CHIHUAHUA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.COMDEX_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.COMDEX_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CRYPTO_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CRYPTO_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CUDOS_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CUDOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.DESMOS_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.DESMOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EVMOS_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.EVMOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCHAI_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.GRABRIDGE_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.GRAB_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.IMVERSED_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.IMVERSED_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.INJ_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.INJ_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.JUNO_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.JUNO_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KI_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KONSTELL_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.KONSTELL_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.LUM_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.LUM_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OMNIFLIX_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.OMNIFLIX_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.PROVENANCE_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.PROVENANCE_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.REGEN_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.REGEN_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.RIZON_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.RIZON_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SIFCHAIN_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.SIF_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.STARGAZE_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.STARGAZE_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.STARNAME_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CUDOS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_CHF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_DKK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_EUR;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_NOK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_SEK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EVMOS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HASH;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_INJ;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
+import static wannabit.io.cosmostaion.base.BaseConstant.UMEE_UNKNOWN_RELAYER;
+import static wannabit.io.cosmostaion.base.BaseConstant.UMEE_VAL_URL;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
@@ -68,6 +165,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -1790,16 +1889,9 @@ public class WDp {
         return dpCurrencyValue(formatted, 3);
     }
 
-    public static SpannableString dpAllAssetValueBtc(BaseChain baseChain, BaseData baseData) {
-        BigDecimal totalValue = allAssetToBtc(baseChain, baseData);
-        final String formatted = getDecimalFormat(8).format(totalValue);
-        return dpCurrencyValue(formatted, 8);
-    }
-
     public static SpannableString dpCurrencyValue(String input, int dpPoint) {
         return getDpString(input, dpPoint);
     }
-
 
     public static SpannableString getSelfBondRate(String total, String self) {
         BigDecimal result = new BigDecimal(self).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);
@@ -1811,19 +1903,14 @@ public class WDp {
         return getPercentDp(result);
     }
 
-    public static SpannableString getDpCommissionGrpcRate(Staking.Validator validator) {
-        BigDecimal result = getCommissionGrpcRate(validator);
-        result = result.movePointRight(2).setScale(2, RoundingMode.DOWN);
+    public static SpannableString getDpCommissionGrpcRate(@NotNull Staking.Validator validator) {
+        BigDecimal result = getCommissionGrpcRate(validator)
+                .movePointRight(2).setScale(2, RoundingMode.DOWN);
         return getPercentDp(result);
     }
 
-    public static BigDecimal getCommissionGrpcRate(Staking.Validator validator) {
-        BigDecimal result = BigDecimal.ZERO;
-        if (validator != null && validator.getCommission() != null && validator.getCommission().getCommissionRates() != null &&
-                validator.getCommission().getCommissionRates().getRate() != null) {
-            result = new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18);
-        }
-        return result;
+    public static BigDecimal getCommissionGrpcRate(@NotNull Staking.Validator validator) {
+        return new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18);
     }
 
     public static String DpBNBTxType(Context c, BnbHistory history, String address) {
@@ -1867,87 +1954,6 @@ public class WDp {
         return result;
 
     }
-
-    public static String getPath(BaseChain chain, int position, int customPath) {
-        if (chain.equals(BNB_MAIN)) {
-            return BaseConstant.KEY_BNB_PATH + position;
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            if (customPath == 0) {
-                return BaseConstant.KEY_PATH + position;
-            } else {
-                return BaseConstant.KEY_NEW_KAVA_PATH + position;
-            }
-
-        } else if (chain.equals(BAND_MAIN)) {
-            return BaseConstant.KEY_BAND_PATH + position;
-
-        } else if (chain.equals(IOV_MAIN)) {
-            return BaseConstant.KEY_IOV_PATH + position;
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            if (customPath == 0) {
-                return BaseConstant.KEY_NEW_OK_PATH + position + (" (Tendermint Type) ");
-            } else if (customPath == 1) {
-                return BaseConstant.KEY_NEW_OK_PATH + position + (" (Ethermint Type) ");
-            } else {
-                return BaseConstant.KEY_ETH_PATH + position + (" (Ethereum Type) ");
-            }
-
-        } else if (chain.equals(SECRET_MAIN)) {
-            if (customPath == 0) {
-                return BaseConstant.KEY_PATH + position;
-            } else {
-                return BaseConstant.KEY_NEW_SECRET_PATH + position;
-            }
-
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return BaseConstant.KEY_PERSIS_PATH + position;
-
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return BaseConstant.KEY_CRYPTO_PATH + position;
-
-        } else if (chain.equals(MEDI_MAIN)) {
-            return KEY_MEDI_PATH + position;
-
-        } else if (chain.equals(ALTHEA_TEST)) {
-            return KEY_ALTHEA_PATH + position;
-
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            if (customPath == 1) {
-                return KEY_ETH_NON_LEDGER_PATH + position;
-            } else if (customPath == 2) {
-                return KEY_ETH_LEDGER_LIVE_PATH_1 + position + KEY_ETH_LEDGER_LIVE_PATH_2;
-            } else if (customPath == 3) {
-                return KEY_ETH_LEDGER_LEGACY_PATH + position;
-            }
-            return BaseConstant.KEY_FETCH_BASE_PATH + position;
-
-        } else if (chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
-            return KEY_ETH_PATH + position;
-
-        } else if (chain.equals(BITSONG_MAIN)) {
-            return KEY_BITSONG_PATH + position;
-
-        } else if (chain.equals(DESMOS_MAIN)) {
-            return KEY_DESMOS_PATH + position;
-
-        } else if (chain.equals(LUM_MAIN)) {
-            if (customPath == 0) {
-                return KEY_PATH + position;
-            } else {
-                return KEY_LUM_PATH + position;
-            }
-
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            return KEY_PROVENANCE_PATH + position;
-
-        } else {
-            return BaseConstant.KEY_PATH + position;
-
-        }
-    }
-
 
     public static DecimalFormat getDecimalFormat(int cnt) {
         NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
@@ -2812,5 +2818,4 @@ public class WDp {
         }
         return result;
     }
-
 }

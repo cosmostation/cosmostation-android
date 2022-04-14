@@ -16,9 +16,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fulldive.wallet.extensions.ChainExtensionsKt;
 import com.fulldive.wallet.interactors.secret.MnemonicUtils;
 
 import java.math.BigDecimal;
@@ -132,22 +134,22 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            holder.newPath.setText(WDp.getPath(mChain, position, mCustomPath));
+            holder.newPath.setText(ChainExtensionsKt.getPathString(mChain, position, mCustomPath));
             holder.newAddress.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
             if (temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
-                holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
+                holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorWhite));
+                holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(RestorePathActivity.this, mChain));
             } else {
                 if (temp.hasPrivateKey) {
                     holder.newState.setText(getString(R.string.str_imported));
-                    holder.newState.setTextColor(getResources().getColor(R.color.colorGray1));
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorGray1));
+                    holder.cardNewWallet.setCardBackgroundColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorTransBg));
                 } else {
                     holder.newState.setText(getString(R.string.str_override));
-                    holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                    holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
+                    holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorWhite));
+                    holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(RestorePathActivity.this, mChain));
                 }
             }
             holder.cardNewWallet.setOnClickListener(v -> {

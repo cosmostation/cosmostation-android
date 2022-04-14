@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -500,14 +501,14 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
                 if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) {
                     mBtnNext.setText(R.string.str_next);
-                    mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
+                    mBtnNext.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_btn_photon));
                     mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                     mBtnNext.setTypeface(null, Typeface.NORMAL);
                     return;
                 }
                 if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) {
                     mBtnNext.setText(R.string.str_next);
-                    mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
+                    mBtnNext.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_btn_photon));
                     mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                     mBtnNext.setTypeface(null, Typeface.NORMAL);
                     return;
@@ -521,14 +522,14 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
             } catch (Exception e) {
                 mBtnNext.setText(R.string.str_next);
-                mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
+                mBtnNext.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
             }
 
         } else {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
+            mBtnNext.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_btn_photon));
             mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
 

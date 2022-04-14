@@ -247,7 +247,7 @@ public class GravityListActivity extends BaseActivity {
                     }
                 }
             }
-            mTaskCount = mTaskCount + 1;
+            mTaskCount++;
             for (Liquidity.Pool pool : mPoolList) {
                 new GravityDexManagerGrpcTask(getBaseApplication(), this, baseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -287,12 +287,9 @@ public class GravityListActivity extends BaseActivity {
                     }
                 }
             }
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    hideWaitDialog();
-                    ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
-                }
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                hideWaitDialog();
+                ((IRefreshTabListener) mPageAdapter.mCurrentFragment).onRefreshTab();
             }, 300);
         }
     }

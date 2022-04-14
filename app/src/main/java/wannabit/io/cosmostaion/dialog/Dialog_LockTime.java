@@ -17,8 +17,7 @@ import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 public class Dialog_LockTime extends DialogFragment {
 
     public static Dialog_LockTime newInstance() {
-        Dialog_LockTime frag = new Dialog_LockTime();
-        return frag;
+        return new Dialog_LockTime();
     }
 
     @Override
@@ -37,39 +36,27 @@ public class Dialog_LockTime extends DialogFragment {
         LinearLayout lockTime_30sec = view.findViewById(R.id.lockTime_30sec);
         LinearLayout lockTime_60sec = view.findViewById(R.id.lockTime_60sec);
 
-        lockTime_immediately.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((AppLockSetActivity) getActivity()).onUpdateLockTime(0);
-                dismiss();
+        lockTime_immediately.setOnClickListener(v -> {
+            ((AppLockSetActivity) getActivity()).onUpdateLockTime(0);
+            dismiss();
 
-            }
         });
 
-        lockTime_10sec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((AppLockSetActivity) getActivity()).onUpdateLockTime(1);
-                dismiss();
+        lockTime_10sec.setOnClickListener(v -> {
+            ((AppLockSetActivity) getActivity()).onUpdateLockTime(1);
+            dismiss();
 
-            }
         });
 
-        lockTime_30sec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((AppLockSetActivity) getActivity()).onUpdateLockTime(2);
-                dismiss();
-            }
+        lockTime_30sec.setOnClickListener(v -> {
+            ((AppLockSetActivity) getActivity()).onUpdateLockTime(2);
+            dismiss();
         });
 
-        lockTime_60sec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((AppLockSetActivity) getActivity()).onUpdateLockTime(3);
-                dismiss();
+        lockTime_60sec.setOnClickListener(v -> {
+            ((AppLockSetActivity) getActivity()).onUpdateLockTime(3);
+            dismiss();
 
-            }
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

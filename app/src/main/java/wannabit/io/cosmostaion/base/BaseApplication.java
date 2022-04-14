@@ -40,7 +40,7 @@ public class BaseApplication extends Application implements IInjectorHolder {
 
     public BaseData getBaseDao() {
         if (mBaseData == null)
-            mBaseData = new BaseData(this);
+            mBaseData = getInjector().getInstance(BaseData.class);
         return mBaseData;
     }
 

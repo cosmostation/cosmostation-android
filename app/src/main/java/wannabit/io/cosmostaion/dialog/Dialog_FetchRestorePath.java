@@ -16,8 +16,6 @@ import wannabit.io.cosmostaion.activities.RestoreActivity;
 
 public class Dialog_FetchRestorePath extends DialogFragment {
 
-    private LinearLayout mCosmosPath, mETHNonLedgerPath, mETHLedgerLivePAth, mETHLegacyPath;
-
     public static Dialog_FetchRestorePath newInstance(Bundle bundle) {
         Dialog_FetchRestorePath frag = new Dialog_FetchRestorePath();
         frag.setArguments(bundle);
@@ -34,41 +32,29 @@ public class Dialog_FetchRestorePath extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_fetch_restore_type, null);
 
-        mCosmosPath = view.findViewById(R.id.fetch_cosmos_path);
-        mETHNonLedgerPath = view.findViewById(R.id.fetch_non_ledger_path);
-        mETHLedgerLivePAth = view.findViewById(R.id.fetch_eth_live_path);
-        mETHLegacyPath = view.findViewById(R.id.fetch_eth_legacy_path);
+        LinearLayout mCosmosPath = view.findViewById(R.id.fetch_cosmos_path);
+        LinearLayout mETHNonLedgerPath = view.findViewById(R.id.fetch_non_ledger_path);
+        LinearLayout mETHLedgerLivePAth = view.findViewById(R.id.fetch_eth_live_path);
+        LinearLayout mETHLegacyPath = view.findViewById(R.id.fetch_eth_legacy_path);
 
-        mCosmosPath.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((RestoreActivity) getActivity()).onUsingCustomPath(0);
-                dismiss();
-            }
+        mCosmosPath.setOnClickListener(v -> {
+            ((RestoreActivity) getActivity()).onUsingCustomPath(0);
+            dismiss();
         });
 
-        mETHNonLedgerPath.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((RestoreActivity) getActivity()).onUsingCustomPath(1);
-                dismiss();
-            }
+        mETHNonLedgerPath.setOnClickListener(v -> {
+            ((RestoreActivity) getActivity()).onUsingCustomPath(1);
+            dismiss();
         });
 
-        mETHLedgerLivePAth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((RestoreActivity) getActivity()).onUsingCustomPath(2);
-                dismiss();
-            }
+        mETHLedgerLivePAth.setOnClickListener(v -> {
+            ((RestoreActivity) getActivity()).onUsingCustomPath(2);
+            dismiss();
         });
 
-        mETHLegacyPath.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((RestoreActivity) getActivity()).onUsingCustomPath(3);
-                dismiss();
-            }
+        mETHLegacyPath.setOnClickListener(v -> {
+            ((RestoreActivity) getActivity()).onUsingCustomPath(3);
+            dismiss();
         });
 
 

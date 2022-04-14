@@ -248,7 +248,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             WUtil.onSortByOnlyReward(toClaimValidators, baseChain.getMainDenom(), getBaseDao());
             if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0, 16));
+                toClaimValidators = new ArrayList<>(getBaseDao().getMyValidators().subList(0, 16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
@@ -269,7 +269,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     public void onFetchAllData() {
-        onFetchAccountInfo(this);
+        fetchAllData(this);
     }
 
     @Override

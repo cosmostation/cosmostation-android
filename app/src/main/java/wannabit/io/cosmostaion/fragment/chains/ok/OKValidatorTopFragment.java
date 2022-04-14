@@ -120,15 +120,15 @@ public class OKValidatorTopFragment extends BaseFragment implements IRefreshTabL
                 }
 
                 if (validator.jailed) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
 
                 if (checkIsMyValidator(validator.operator_address)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTransBgOkex));
                 }
 
             }

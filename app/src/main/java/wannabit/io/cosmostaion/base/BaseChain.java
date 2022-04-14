@@ -16,6 +16,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
+import com.fulldive.wallet.extensions.ChainExtensionsKt;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,11 +51,11 @@ public enum BaseChain {
             false
     ),
     IMVERSED_MAIN(
-            "imversed",
+            "imversed-canary",
             "imv1",
             R.drawable.imversed,
-            R.string.str_imversed_net,
-            R.string.str_imversed,
+            R.string.str_imversed_canary_net,
+            R.string.str_imversed_canary,
             "nimv",
             "Imversed Staking Coin",
             "",

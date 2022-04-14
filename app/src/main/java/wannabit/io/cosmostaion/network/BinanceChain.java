@@ -33,10 +33,10 @@ public interface BinanceChain {
     Single<ResBnbHistories> getHistoryAssetRx(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("txAsset") String txAsset);
 
     @GET("api/v1/tokens")
-    Call<ArrayList<BnbToken>> getTokens(@Query("limit") String limit);
+    Call<ArrayList<BnbToken>> getTokens(@Query("limit") int limit);
 
     @GET("api/v1/mini/tokens")
-    Call<ArrayList<BnbToken>> getMiniTokens(@Query("limit") String limit);
+    Call<ArrayList<BnbToken>> getMiniTokens(@Query("limit") int limit);
 
     @GET("api/v1/ticker/24hr")
     Call<ArrayList<BnbTicker>> getTic();

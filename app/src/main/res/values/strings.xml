@@ -276,7 +276,7 @@
 
     <string name="str_cosmos_hub" translatable="false">Cosmos</string>
     <string name="str_cosmos_testnet" translatable="false">Stargate Testnet</string>
-    <string name="str_imversed_net" translatable="false">Imversed</string>
+    <string name="str_imversed_canary_net" translatable="false">Imversed Canary</string>
     <string name="str_iris_net" translatable="false">Iris</string>
     <string name="str_iris_testnet" translatable="false">Bifrost Testnet</string>
     <string name="str_binance_net" translatable="false">Binance</string>
@@ -336,7 +336,7 @@
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
     <string name="str_iris" translatable="false">IRIS</string>
-    <string name="str_imversed" translatable="false">IMVERSED</string>
+    <string name="str_imversed_canary" translatable="false">IMVERSED CANARY</string>
     <string name="str_binance" translatable="false">BINANCE</string>
     <string name="str_binance_test" translatable="false">BINANCE\nTEST</string>
     <string name="str_iov" translatable="false">STARNAME</string>
@@ -2014,5 +2014,8 @@
     <string name="str_mnemonic_counder_template" translatable="false">"%2d: "</string>
     <string name="str_version_short">v%s</string>
     <string name="str_words_count">" %d words"</string>
+    <string name="str_address_type">Address Type</string>
+    <string name="str_ethereum_type_address">Ethereum Type Address</string>
+    <string name="str_legacy_tendermint_type_address">Legacy Tendermint Type Address</string>
 
 </resources>

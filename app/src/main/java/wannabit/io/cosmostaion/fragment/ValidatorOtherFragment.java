@@ -22,7 +22,7 @@ import com.google.common.collect.FluentIterable;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -123,16 +123,16 @@ public class ValidatorOtherFragment extends BaseFragment implements IRefreshTabL
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().baseChain, BigDecimal.ONE));
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                 if (validator.getJailed()) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
                 if (getBaseDao().mGRpcMyValidators.contains(validator)) {
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().baseChain));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTransBg));
                 }
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -163,29 +163,24 @@ public class ValidatorOtherFragment extends BaseFragment implements IRefreshTabL
                 }
 
                 if (validator.jailed) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
 
-                if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
+                if (checkIsMyValidator(getBaseDao().getMyValidators(), validator.description.moniker)) {
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().baseChain));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTransBg));
                 }
             }
         }
 
 
-        private boolean checkIsMyValidator(ArrayList<Validator> userList, final String targetName) {
-            return FluentIterable.from(userList).anyMatch(new Predicate<Validator>() {
-                @Override
-                public boolean apply(@Nullable Validator input) {
-                    return input.description.moniker.equals(targetName);
-                }
-            });
+        private boolean checkIsMyValidator(List<Validator> userList, final String targetName) {
+            return FluentIterable.from(userList).anyMatch((Predicate<Validator>) input -> input.description.moniker.equals(targetName));
         }
 
         @Override

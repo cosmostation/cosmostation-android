@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -112,19 +113,19 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mDenomTitle.setText(getString(R.string.str_bnb_c));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
+                mDenomTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBnb));
                 mMaxAvailable = getSActivity().getAvailable().subtract(new BigDecimal(FEE_BNB_SEND));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
                 mDenomTitle.setText(getString(R.string.str_btc_c));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorWhite));
                 mMaxAvailable = getSActivity().getAvailable();
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
                 mDenomTitle.setText("XRP");
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorWhite));
                 mMaxAvailable = getSActivity().getAvailable();
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
                 mDenomTitle.setText("BUSD");
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorWhite));
                 mMaxAvailable = getSActivity().getAvailable();
             }
             // check relayer capacity
@@ -146,16 +147,16 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
                 mDenomTitle.setText(getString(R.string.str_bnb_c));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
+                mDenomTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBnb));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
                 mDenomTitle.setText(getString(R.string.str_btc_c));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorWhite));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
                 mDenomTitle.setText("XRP");
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorWhite));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
                 mDenomTitle.setText("BUSD");
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorWhite));
             }
             mMaxAvailable = getSActivity().getAvailable();
             // check relayer capacity

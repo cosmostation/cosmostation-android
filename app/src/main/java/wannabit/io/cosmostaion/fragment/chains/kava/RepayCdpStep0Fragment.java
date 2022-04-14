@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -345,7 +346,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
         } catch (Exception e) {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
+            mBtnNext.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_btn_photon));
             mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             return false;
@@ -355,7 +356,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     private void onUpdateNextBtn() {
         if (!onValidateAmount()) {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
+            mBtnNext.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_btn_photon));
             mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             mAfterRiskLayer.setVisibility(View.INVISIBLE);

@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
@@ -79,7 +80,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        mValidatorSize.setText("" + getBaseDao().mMyValidators.size());
+        mValidatorSize.setText("" + getBaseDao().getMyValidators().size());
         onSortValidator();
 
         mOKMyValidatorAdapter.notifyDataSetChanged();
@@ -124,9 +125,9 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final OKMyValidatorHolder holder = (OKMyValidatorHolder) viewHolder;
-                final Validator validator = getBaseDao().mMyValidators.get(position);
+                final Validator validator = getBaseDao().getMyValidators().get(position);
                 if (getSActivity().baseChain.equals(OKEX_MAIN) || getSActivity().baseChain.equals(OK_TEST)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTransBgOkex));
                     holder.itemTvMoniker.setText(validator.description.moniker);
                     holder.itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(validator.delegator_shares), 0, 0));
                     holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
@@ -137,10 +138,10 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
                     }
 
                     if (validator.jailed) {
-                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                        holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                         holder.itemRevoked.setVisibility(View.VISIBLE);
                     } else {
-                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                        holder.itemAvatar.setBorderColor(ContextCompat.getColor(requireContext(), R.color.colorGray3));
                         holder.itemRevoked.setVisibility(View.GONE);
                     }
                 }
@@ -150,17 +151,19 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
 
         @Override
         public int getItemCount() {
-            if (getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
+            List<Validator> items = getBaseDao().getMyValidators();
+            if (items.size() < 1) {
                 return 1;
             } else {
-                return getBaseDao().mMyValidators.size();
+                return items.size();
             }
         }
 
 
         @Override
         public int getItemViewType(int position) {
-            if (getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
+            List<Validator> items = getBaseDao().getMyValidators();
+            if (items.size() < 1) {
                 return TYPE_PROMOTION;
             } else {
                 return TYPE_MY_VALIDATOR;
@@ -197,7 +200,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
     }
 
     public void onSortValidator() {
-        WUtil.onSortByOKValidatorPower(getBaseDao().mMyValidators);
+        WUtil.onSortByOKValidatorPower(getBaseDao().getMyValidators());
     }
 
 }

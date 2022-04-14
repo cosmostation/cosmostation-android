@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
@@ -80,9 +81,9 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
             public void afterTextChanged(Editable s) {
                 String userInput = s.toString().trim();
                 if (TextUtils.isEmpty(userInput) || WUtil.isValidDomain(userInput)) {
-                    mDomainValid.setTextColor(getResources().getColor(R.color.colorGray1));
+                    mDomainValid.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorGray1));
                 } else {
-                    mDomainValid.setTextColor(getResources().getColor(R.color.colorRed));
+                    mDomainValid.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorRed));
                 }
                 BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
                 mStarNameFeeTv.setText(WDp.getDpAmount2(starNameFee, 6, 6));
@@ -94,11 +95,11 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
             if (buttonView.isPressed()) {
                 if (isChecked) {
                     mDomainType.setText(R.string.str_open_upper);
-                    mDomainType.setTextColor(getResources().getColor(R.color.colorIov));
+                    mDomainType.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorIov));
                     mTypeDescription.setText(getString(R.string.str_description_open_domain));
                 } else {
                     mDomainType.setText(R.string.str_closed_upper);
-                    mDomainType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    mDomainType.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorWhite));
                     mTypeDescription.setText(getString(R.string.str_description_closed_domain));
                 }
 

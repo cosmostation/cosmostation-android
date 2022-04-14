@@ -17,8 +17,7 @@ public class ResOkAccountToken {
     @SerializedName("data")
     public OkAccountTokenData data;
 
-
-    public class OkAccountTokenData {
+    public static class OkAccountTokenData {
         @SerializedName("address")
         public String address;
 
@@ -26,7 +25,7 @@ public class ResOkAccountToken {
         public ArrayList<OkCurrency> currencies;
     }
 
-    public class OkCurrency {
+    public static class OkCurrency {
         @SerializedName("symbol")
         public String symbol;
 
@@ -37,6 +36,4 @@ public class ResOkAccountToken {
         public String locked;
 
     }
-
-
 }

@@ -134,7 +134,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         if (mIbcToken == null) {
             mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
             mToolbarSymbol.setText(R.string.str_unknown);
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
 
         } else {
             if (mIbcToken.auth) {
@@ -144,7 +144,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 } catch (Exception e) {
                 }
                 mToolbarSymbol.setText(mIbcToken.display_denom.toUpperCase());
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
                 mTotalValue.setText("" + WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, getBaseDao().getAvailable(mIbcDenom), mIbcDivideDecimal));
 
                 mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
@@ -163,7 +163,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             } else {
                 mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
                 mToolbarSymbol.setText(R.string.str_unknown);
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
                 mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, BigDecimal.ZERO, mIbcDivideDecimal));
 
                 mItemPerPrice.setText("");

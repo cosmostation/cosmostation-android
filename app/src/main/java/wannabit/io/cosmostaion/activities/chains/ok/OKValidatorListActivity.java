@@ -104,7 +104,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
     }
 
     public void onFetchAllData() {
-        onFetchAccountInfo(this);
+        fetchAllData(this);
     }
 
     @Override

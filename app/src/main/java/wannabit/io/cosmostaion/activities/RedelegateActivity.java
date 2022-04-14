@@ -193,7 +193,6 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
                 WUtil.onSortByValidatorPowerV1(mGRpcTopValidators);
 
             } else {
-                new Exception().printStackTrace();
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
 
             }

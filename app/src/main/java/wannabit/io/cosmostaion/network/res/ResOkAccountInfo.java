@@ -9,7 +9,7 @@ public class ResOkAccountInfo {
     @SerializedName("value")
     public Value value;
 
-    public class Value {
+    public static class Value {
         @SerializedName("address")
         public String address;
 
@@ -26,5 +26,4 @@ public class ResOkAccountInfo {
         public String code_hash;
 
     }
-
 }

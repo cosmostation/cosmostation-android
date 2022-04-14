@@ -125,9 +125,9 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 holder.itemDomain.setText("*" + domain.getName());
                 holder.itemType.setText(domain.getType().toUpperCase());
                 if (domain.getType().equals("open")) {
-                    holder.itemType.setTextColor(getResources().getColor(R.color.colorIov));
+                    holder.itemType.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorIov));
                 } else {
-                    holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    holder.itemType.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorWhite));
                 }
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.getValidUntil() * 1000));
                 holder.itemAddressCnt.setText("" + domainAccount.getResourcesCount());

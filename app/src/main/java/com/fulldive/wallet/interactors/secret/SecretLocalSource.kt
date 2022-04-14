@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.dao.Password
 import javax.inject.Inject
 
 @ProvidedBy(DefaultLocalStorageModule::class)
-class SecretLocalStorage @Inject constructor(
+class SecretLocalSource @Inject constructor(
     private val baseData: BaseData
 ) {
 

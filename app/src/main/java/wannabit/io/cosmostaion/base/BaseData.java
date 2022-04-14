@@ -77,7 +77,6 @@ import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
-import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTickersList;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
@@ -254,23 +253,61 @@ public class BaseData {
 
     //COMMON DATA
     public NodeInfo mNodeInfo;
-    public ArrayList<Validator> mAllValidators = new ArrayList<>();
-    public ArrayList<Validator> mMyValidators = new ArrayList<>();
-    public ArrayList<Validator> mTopValidators = new ArrayList<>();
-    public ArrayList<Validator> mOtherValidators = new ArrayList<>();
+    public List<Validator> mAllValidators = new ArrayList<>();
+    public List<Validator> mTopValidators = new ArrayList<>();
+    public List<Validator> mOtherValidators = new ArrayList<>();
+    public List<Validator> mMyValidators = new ArrayList<>();
 
-    public ArrayList<Balance> mBalances = new ArrayList<>();
+    public List<Validator> getMyValidators() {
+        if (mMyValidators.isEmpty()) {
+            final ArrayList<Validator> result = new ArrayList<>();
+            if (mOkStaking != null && mOkStaking.validator_address != null) {
+                for (String valAddr : mOkStaking.validator_address) {
+                    for (Validator val : mAllValidators) {
+                        if (val.operator_address.equals(valAddr)) {
+                            result.add(val);
+                        }
+                    }
+                }
+            }
+
+            if (!mMyDelegations.isEmpty() || !mMyUnbondings.isEmpty()) {
+                for (Validator top : mAllValidators) {
+                    boolean already = false;
+                    for (BondingInfo bond : mMyDelegations) {
+                        if (bond.validator_address.equals(top.operator_address)) {
+                            already = true;
+                            break;
+                        }
+                    }
+                    for (UnbondingInfo unbond : mMyUnbondings) {
+                        if (unbond.validator_address.equals(top.operator_address) && !already) {
+                            already = true;
+                            break;
+                        }
+                    }
+                    if (already) result.add(top);
+                }
+            }
+
+            mMyValidators = result;
+            return result;
+        } else {
+            return mMyValidators;
+        }
+    }
+
+    public List<Balance> mBalances = new ArrayList<>();
     public ArrayList<BondingInfo> mMyDelegations = new ArrayList<>();
     public ArrayList<UnbondingInfo> mMyUnbondings = new ArrayList<>();
     public ArrayList<RewardInfo> mMyRewards = new ArrayList<>();
 
     //COMMON DATA FOR BINANCE
-    public ArrayList<BnbToken> mBnbTokens = new ArrayList<>();
-    public ArrayList<BnbTicker> mBnbTickers = new ArrayList<>();
-    public ArrayList<ResBnbFee> mBnbFees = new ArrayList<>();
+    public List<BnbToken> mBnbTokens = new ArrayList<>();
+    public List<BnbTicker> mBnbTickers = new ArrayList<>();
+    public List<ResBnbFee> mBnbFees = new ArrayList<>();
 
     //COMMON DATA FOR OKEX
-    public ResOkAccountInfo mOkAccountInfo;
     public ResOkStaking mOkStaking;
     public ResOkUnbonding mOkUnbonding;
     public ResOkTokenList mOkTokenList;
@@ -1397,7 +1434,7 @@ public class BaseData {
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_ACCOUNT, null, values);
     }
 
-    public long onUpdateAccount(Account account) {
+    public long updateAccount(Account account) {
         ContentValues values = new ContentValues();
         if (!TextUtils.isEmpty(account.nickName))
             values.put("nickName", account.nickName);
@@ -1586,7 +1623,7 @@ public class BaseData {
         return onInsertBalance(balance);
     }
 
-    public void onUpdateBalances(long accountId, ArrayList<Balance> balances) {
+    public void updateBalances(long accountId, List<Balance> balances) {
         if (balances == null || balances.size() == 0) {
             onDeleteBalance("" + accountId);
             return;
@@ -1609,5 +1646,65 @@ public class BaseData {
 
     public boolean onDeleteBalance(String accountId) {
         return getBaseDB().delete(BaseConstant.DB_TABLE_BALANCE, "accountId = ?", new String[]{accountId}) > 0;
+    }
+
+    public void clear() {
+        mIbcPaths.clear();
+        mIbcTokens.clear();
+        mChainParam = null;
+        mAssets.clear();
+        mCw20Assets.clear();
+
+        mSifLmIncentive = null;
+
+        mNodeInfo = null;
+        mAllValidators.clear();
+        mMyValidators.clear();
+        mTopValidators.clear();
+        mOtherValidators.clear();
+
+        mBalances.clear();
+        mMyDelegations.clear();
+        mMyUnbondings.clear();
+        mMyRewards.clear();
+
+        //kava GRPC
+        mIncentiveParam5 = null;
+        mIncentiveRewards = null;
+        mMyHardDeposits.clear();
+        mMyHardBorrows.clear();
+        mModuleCoins.clear();
+        mReserveCoins.clear();
+
+
+        //binance
+        mBnbTokens.clear();
+        mBnbTickers.clear();
+        mBnbFees.clear();
+
+        //gRPC
+        mGRpcNodeInfo = null;
+        mGRpcAccount = null;
+        mGRpcTopValidators.clear();
+        mGRpcOtherValidators.clear();
+        mGRpcAllValidators.clear();
+        mGRpcMyValidators.clear();
+
+        mGrpcBalance.clear();
+        mGrpcVesting.clear();
+        mGrpcDelegations.clear();
+        mGrpcUndelegations.clear();
+        mGrpcRewards.clear();
+
+        mGrpcStarNameFee = null;
+        mGrpcStarNameConfig = null;
+
+        mGrpcGravityPools.clear();
+
+        //okex
+        mOkStaking = null;
+        mOkUnbonding = null;
+        mOkTokenList = null;
+        mOkTickersList = null;
     }
 }

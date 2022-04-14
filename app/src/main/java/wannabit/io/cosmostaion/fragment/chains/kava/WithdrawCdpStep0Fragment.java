@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -205,7 +206,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
             }
             if (mToWithdrawAmount.compareTo(BigDecimal.ZERO) <= 0 || mCanWithdrawMaxMaxAmount.compareTo(mToWithdrawAmount) < 0) {
                 mBtnNext.setText(R.string.str_next);
-                mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
+                mBtnNext.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
                 mAfterRiskLayer.setVisibility(View.INVISIBLE);
@@ -226,7 +227,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
         } catch (Exception e) {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
+            mBtnNext.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_btn_photon));
             mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             return false;
