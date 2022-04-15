@@ -175,7 +175,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             runOnUiThread(() -> onKeplrEnable(id, strings));
             return null;
         });
-        wcClient.setOnKeplrGetKey((id, strings) -> {
+        wcClient.setOnCosmosGetKeys((id, strings) -> {
             runOnUiThread(() -> {
                 if (!isDeepLink) {
                     onKeplrGetKey(id, currentAccount);
@@ -185,7 +185,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             });
             return null;
         });
-        wcClient.setOnKeplrSignAmino((id, jsonArray) -> {
+        wcClient.setOnCosmosSignAmino((id, jsonArray) -> {
             mjsonArray = jsonArray;
             runOnUiThread(() -> onShowRawDataDialog(processKeplr(id)));
             return null;
