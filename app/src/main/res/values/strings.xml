@@ -1957,15 +1957,23 @@
     <string name="tx_receive">Received</string>
     <string name="tx_transfer">Transfer</string>
     <string name="tx_delegate">Delegate</string>
+    <string name="tx_cancel_undelegate">Cancel Undelegate</string>
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
     <string name="tx_get_reward">Get Reward</string>
     <string name="tx_get_reward_all">Get All Rewards</string>
     <string name="tx_get_commission">Get Commission</string>
+    <string name="tx_fund_pool">Funding\nCommunity Pool</string>
     <string name="tx_change_reward_address">Edit Address</string>
     <string name="tx_vote">Vote</string>
     <string name="tx_submit_proposal">Proposal</string>
+    <string name="tx_deposit_proposal">Proposal Deposit</string>
+    <string name="tx_vote_weighted">Vote Weighted</string>
     <string name="tx_deposit">Deposit</string>
+    <string name="tx_withdraw">Withdraw</string>
+    <string name="tx_authz_grant">Authz Grant</string>
+    <string name="tx_authz_revoke">Authz Revoke</string>
+    <string name="tx_authz_exe">Authz Execute</string>
     <string name="tx_create_validator">Create Val</string>
     <string name="tx_edit_validator">Edit Val</string>
     <string name="tx_unjail">Unjail</string>
@@ -2020,6 +2028,15 @@
     <string name="tx_kava_swap_withdraw">Swap Pool\nWithdraw</string>
     <string name="tx_kava_swap_incentive">Swap Pool\nIncentive</string>
     <string name="tx_kava_delegator_incentive">Delegator\nIncentive</string>
+    <string name="tx_kava_auction_bid">Auction Bid</string>
+    <string name="tx_kava_save_deposit">Saving\nDeposit</string>
+    <string name="tx_kava_save_withdraw">Saving\nWithdraw</string>
+    <string name="tx_kava_hard_mint_incentive">USDX Minting\nIncentive</string>
+    <string name="tx_kava_hard_hard_incentive">Hard Lend\nIncentive</string>
+    <string name="tx_kava_hard_delegator_incentive">Delegator\nIncentive</string>
+    <string name="tx_kava_hard_swap_incentive">Swap\nIncentive</string>
+    <string name="tx_kava_hard_save_incentive">Incentive\nSaving</string>
+
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
@@ -2074,12 +2091,15 @@
 
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
+    <string name="tx_create_topic">Create Topic</string>
+    <string name="tx_add_writer">Add Writer</string>
 
     <string name="tx_sif_join_pool">Add Liquidity</string>
     <string name="tx_sif_exit_pool">Remove Liquidity</string>
     <string name="tx_sif_swap">Swap Coin</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
     <string name="tx_create_user_claim">Claim Incentive</string>
+    <string name="tx_create_distribution_run">Distribution Run</string>
 
     <string name="tx_task_response">Task Response</string>
     <string name="tx_create_task">Create Task </string>
@@ -2111,6 +2131,11 @@
     <string name="tx_save_profile_cover_url">Cover Uri</string>
     <string name="tx_link_account_address">Linked Address</string>
     <string name="tx_link_account_signer">Signer</string>
+    <string name="tx_delete_profile">Delete Profile</string>
+    <string name="tx_create_relation">Create Relationship</string>
+    <string name="tx_delete_relation">Delete Relationship</string>
+    <string name="tx_block_user">Block User</string>
+    <string name="tx_unblock_user">Unblock User</string>
 
     <string name="tx_cosmwasm_store_code">Store\nContract Code</string>
     <string name="tx_cosmwasm_instantiate">Instantiate\nContract</string>
@@ -2118,6 +2143,25 @@
     <string name="tx_cosmwasm_store_code_title">Store Contract Code</string>
     <string name="tx_cosmwasm_instantiate_title">Instantiate Contract</string>
     <string name="tx_cosmwasm_execontract_title">Execute Contract</string>
+
+    <string name="tx_crescent_liquid_stake">Liquid Stake</string>
+    <string name="tx_crescent_liquid_unstake">Liquid Unstake</string>
+    <string name="tx_crescent_liquidity_deposit">Liquidity\nDeposit</string>
+    <string name="tx_crescent_liquidity_withdraw">Liquidity\nWithdraw</string>
+    <string name="tx_crescent_liquidity_create_pair">Liquidity\nCreate Pair</string>
+    <string name="tx_crescent_liquidity_create_pool">Liquidity\nCreate Pool</string>
+    <string name="tx_crescent_liquidity_limit_order">Limit Order</string>
+    <string name="tx_crescent_liquidity_market_order">Market Order</string>
+    <string name="tx_crescent_liquidity_cancel_order">Cancel Order</string>
+    <string name="tx_crescent_liquidity_cancelall_order">Cancel All Order</string>
+    <string name="tx_crescent_farming_stake">Farming Stake</string>
+    <string name="tx_crescent_farming_unstake">Farming Unstake</string>
+    <string name="tx_crescent_farming_harvest">Farming Harvest</string>
+    <string name="tx_crescent_farming_create_fixed_amount_plan">Farming\nCreate Plain(Amount)</string>
+    <string name="tx_crescent_farming_create_ratio_plan">Farming\nCreate Plain(Ratio)</string>
+    <string name="tx_crescent_farming_remove_plan">Farming\nRemove Plain</string>
+    <string name="tx_crescent_farming_advance_epoch">Farming\nEpoch</string>
+    <string name="tx_crescent_farming_claim">Airdrop</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

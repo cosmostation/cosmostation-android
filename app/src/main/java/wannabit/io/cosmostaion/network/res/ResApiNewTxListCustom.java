@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -149,6 +148,10 @@ public class ResApiNewTxListCustom {
                         return c.getString(R.string.tx_ibc_receive);
                     }
 
+                    if (msgType0.contains("MsgClaim") || msgType1.contains("MsgClaim")) {
+                        return c.getString(R.string.tx_crescent_farming_claim);
+                    }
+
                 }
                 String msgType = "";
                 try {
@@ -158,268 +161,469 @@ public class ResApiNewTxListCustom {
                     msgType = getMsgs().getJSONObject(0).getString("type");
                 } catch (Exception e) { }
 
-                if (msgType.contains("MsgDelegate")) {
-                    result = c.getString(R.string.tx_delegate);
-                } else if (msgType.contains("MsgUndelegate")) {
-                    result = c.getString(R.string.tx_undelegate);
-                } else if (msgType.contains("MsgWithdrawDelegatorReward") || msgType.contains("MsgWithdrawDelegationReward")) {
-                    result = c.getString(R.string.tx_get_reward);
-                } else if (msgType.contains("MsgSend")) {
-                    String to_address = "";
-                    String from_address = "";
-                    try {
-                        to_address = getMsgs().getJSONObject(0).getString("to_address");
-                        from_address = getMsgs().getJSONObject(0).getString("from_address");
-                    } catch (Exception e) { }
-                    try {
-                        to_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("to_address");
-                        from_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("from_address");
-                    } catch (Exception e) { }
-                    if (to_address.equals(address)) {
-                        result = c.getString(R.string.tx_receive);
-                    } else if (from_address.equals(address)) {
-                        result = c.getString(R.string.tx_send);
-                    } else {
+                // cosmos default msg type
+                if (msgType.contains("cosmos.") && msgType.contains("staking")) {
+                    if (msgType.contains("MsgCreateValidator")) {
+                        result = c.getString(R.string.tx_create_validator);
+                    } else if (msgType.contains("MsgEditValidator")) {
+                        result = c.getString(R.string.tx_edit_validator);
+                    } else if (msgType.contains("MsgDelegate")) {
+                        result = c.getString(R.string.tx_delegate);
+                    } else if (msgType.contains("MsgUndelegate")) {
+                        result = c.getString(R.string.tx_undelegate);
+                    } else if (msgType.contains("MsgBeginRedelegate")) {
+                        result = c.getString(R.string.tx_redelegate);
+                    } else if (msgType.contains("MsgCancelUnbondingDelegation")) {
+                        result = c.getString(R.string.tx_cancel_undelegate);
+                    }
+
+                } else if (msgType.contains("cosmos.") && msgType.contains("bank")) {
+                    if (msgType.contains("MsgSend")) {
+                        String to_address = "";
+                        String from_address = "";
+                        try {
+                            to_address = getMsgs().getJSONObject(0).getString("to_address");
+                            from_address = getMsgs().getJSONObject(0).getString("from_address");
+                        } catch (Exception e) { }
+                        try {
+                            to_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("to_address");
+                            from_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("from_address");
+                        } catch (Exception e) { }
+                        if (to_address.equals(address)) {
+                            result = c.getString(R.string.tx_receive);
+                        } else if (from_address.equals(address)) {
+                            result = c.getString(R.string.tx_send);
+                        } else {
+                            result = c.getString(R.string.tx_transfer);
+                        }
+                    } else if (msgType.contains("MsgMultiSend")) {
                         result = c.getString(R.string.tx_transfer);
+
                     }
-                } else if (msgType.contains("MsgMultiSend")) {
-                    result = c.getString(R.string.tx_transfer);
-                } else if (msgType.contains("MsgBeginRedelegate")) {
-                    result = c.getString(R.string.tx_redelegate);
-                } else if (msgType.contains("MsgSetWithdrawAddress") || msgType.contains("MsgModifyWithdrawAddress")) {
-                    result = c.getString(R.string.tx_change_reward_address);
-                } else if (msgType.contains("MsgCreateValidator")) {
-                    result = c.getString(R.string.tx_create_validator);
-                } else if (msgType.contains("MsgEditValidator")) {
-                    result = c.getString(R.string.tx_edit_validator);
-                } else if (msgType.contains("MsgUnjail")) {
-                    result = c.getString(R.string.tx_unjail);
-                } else if (msgType.contains("MsgSubmitProposal")) {
-                    result = c.getString(R.string.tx_submit_proposal);
-                } else if (msgType.contains("MsgVote")) {
-                    result = c.getString(R.string.tx_vote);
-                } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
-                    result = c.getString(R.string.tx_get_commission);
-                } else if (msgType.contains("MsgCreateBid")) {
-                    result = c.getString(R.string.tx_create_bid);
-                } else if (msgType.contains("MsgCloseBid")) {
-                    result = c.getString(R.string.tx_close_bid);
-                } else if (msgType.contains("MsgCreateLease")) {
-                    result = c.getString(R.string.tx_create_lease);
-                } else if (msgType.contains("MsgWithdrawLease")) {
-                    result = c.getString(R.string.tx_withdraw_lease);
-                } else if (msgType.contains("MsgCreateDeployment")) {
-                    result = c.getString(R.string.tx_create_deployment);
-                } else if (msgType.contains("MsgUpdateDeployment")) {
-                    result = c.getString(R.string.tx_update_deployment);
-                } else if (msgType.contains("MsgCloseDeployment")) {
-                    result = c.getString(R.string.tx_close_deployment);
-                } else if (msgType.contains("MsgCreateCertificate")) {
-                    result = c.getString(R.string.tx_create_certificate);
-                } else if (msgType.contains("MsgRevokeCertificate")) {
-                    result = c.getString(R.string.tx_revoke_certificate);
-                } else if (msgType.contains("ibc") && msgType.contains("MsgUpdateClient")) {
-                    result = c.getString(R.string.tx_ibc_update_client);
-                } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
-                    result = c.getString(R.string.tx_ibc_send);
-                } else if (msgType.contains("ibc") && msgType.contains("MsgAcknowledgement")) {
-                    result = c.getString(R.string.tx_ibc_acknowledgement);
-                } else if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
-                    result = c.getString(R.string.tx_ibc_receive);
-                } else if (msgType.contains("MsgMintNFT")) {
-                    result = c.getString(R.string.tx_mint_nft);
-                } else if (msgType.contains("MsgTransferNFT")) {
-                    String senderAddr = getMsgs().getJSONObject(0).getString("sender");
-                    String receiveAddr = getMsgs().getJSONObject(0).getString("recipient");
-                    if (senderAddr.equalsIgnoreCase(address)) {
-                        result = c.getString(R.string.tx_send_nft);
-                    } else if (receiveAddr.equalsIgnoreCase(address)) {
-                        result = c.getString(R.string.tx_receive_nft);
-                    } else {
-                        result = c.getString(R.string.tx_transfer_nft);
+
+                } else if (msgType.contains("cosmos.") && msgType.contains("distribution")) {
+                    if (msgType.contains("MsgSetWithdrawAddress") || msgType.contains("MsgModifyWithdrawAddress")) {
+                        result = c.getString(R.string.tx_change_reward_address);
+                    } else if (msgType.contains("MsgWithdrawDelegatorReward") || msgType.contains("MsgWithdrawDelegationReward")) {
+                        result = c.getString(R.string.tx_get_reward);
+                    } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
+                        result = c.getString(R.string.tx_get_commission);
+                    } else if (msgType.contains("MsgFundCommunityPool")) {
+                        result = c.getString(R.string.tx_fund_pool);
                     }
-                } else if (msgType.contains("MsgEditNFT")) {
-                    result = "NFT Edit";
-                } else if (msgType.contains("MsgIssueDenom")) {
-                    result = c.getString(R.string.tx_issue_denom);
-                } else if (msgType.contains("MsgRequestRandom")) {
-                    result = "Random Request";
+
+                } else if (msgType.contains("cosmos.") && msgType.contains("gov")) {
+                    if (msgType.contains("MsgSubmitProposal")) {
+                        result = c.getString(R.string.tx_submit_proposal);
+
+                    } else if (msgType.contains("MsgDeposit")) {
+                        result = c.getString(R.string.tx_deposit_proposal);
+
+                    } else if (msgType.contains("MsgVote")) {
+                        result = c.getString(R.string.tx_vote);
+
+                    } else if (msgType.contains("MsgVoteWeighted")) {
+                        result = c.getString(R.string.tx_vote_weighted);
+
+                    }
+
+                } else if (msgType.contains("cosmos.") && msgType.contains("authz")) {
+                    if (msgType.contains("MsgGrant")) {
+                        result = c.getString(R.string.tx_authz_grant);
+                    } else if (msgType.contains("MsgRevoke")) {
+                        result = c.getString(R.string.tx_authz_revoke);
+                    } else if (msgType.contains("MsgExec")) {
+                        result = c.getString(R.string.tx_authz_exe);
+                    }
+
+                } else if (msgType.contains("cosmos.") && msgType.contains("slashing")) {
+                    if (msgType.contains("MsgUnjail")) {
+                        result = c.getString(R.string.tx_unjail);
+                    }
                 }
 
-                //starname msg
-                else if (msgType.contains("RegisterDomain")) {
-                    result = c.getString(R.string.tx_starname_registe_domain);
-                } else if (msgType.contains("RegisterAccount")) {
-                    result = c.getString(R.string.tx_starname_registe_account);
-                } else if (msgType.contains("DeleteDomain")) {
-                    result = c.getString(R.string.tx_starname_delete_domain);
-                } else if (msgType.contains("DeleteAccount")) {
-                    result = c.getString(R.string.tx_starname_delete_account);
-                } else if (msgType.contains("RenewDomain")) {
-                    result = c.getString(R.string.tx_starname_renew_domain);
-                } else if (msgType.contains("RenewAccount")) {
-                    result = c.getString(R.string.tx_starname_renew_account);
-                } else if (msgType.contains("ReplaceAccountResources")) {
-                    result = c.getString(R.string.tx_starname_update_resource);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
-                    result = c.getString(R.string.tx_kava_bep3_create);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
-                    result = c.getString(R.string.tx_kava_bep3_claim);
-
+                // ibc msg type
+                else if (msgType.contains("ibc.")) {
+                    if (msgType.contains("MsgTransfer")) {
+                        result = c.getString(R.string.tx_ibc_send);
+                    } else if (msgType.contains("MsgUpdateClient")) {
+                        result = c.getString(R.string.tx_ibc_update_client);
+                    } else if (msgType.contains("MsgAcknowledgement")) {
+                        result = c.getString(R.string.tx_ibc_acknowledgement);
+                    } else if (msgType.contains("MsgRecvPacket")) {
+                        result = c.getString(R.string.tx_ibc_receive);
+                    }
                 }
 
-                else if (msgType.contains("MsgCreatePool")) {
-                    result = c.getString(R.string.tx_osmosis_create_pool);
+                // crescent msg type
+                else if (msgType.contains("crescent.") && msgType.contains("liquidstaking")) {
+                    if (msgType.contains("MsgLiquidStake")) {
+                        result = c.getString(R.string.tx_crescent_liquid_stake);
+                    } else if (msgType.contains("MsgLiquidUnstake")) {
+                        result = c.getString(R.string.tx_crescent_liquid_unstake);
+                    }
+                } else if (msgType.contains("crescent.") && msgType.contains("liquidity")) {
+                    if (msgType.contains("MsgCreatePair")) {
+                        result = c.getString(R.string.tx_crescent_liquidity_create_pair);
+                    } else if (msgType.contains("MsgCreatePool")) {
+                        result = c.getString(R.string.tx_crescent_liquidity_create_pool);
+                    } else if (msgType.contains("MsgDeposit")) {
+                        result = c.getString(R.string.tx_crescent_liquidity_deposit);
+                    } else if (msgType.contains("MsgWithdraw")) {
+                        result = c.getString(R.string.tx_crescent_liquidity_withdraw);
+                    } else if (msgType.contains("MsgLimitOrder")) {
+                        result = c.getString(R.string.tx_crescent_liquidity_limit_order);
+                    } else if (msgType.contains("MsgMarketOrder")) {
+                        result = c.getString(R.string.tx_crescent_liquidity_market_order);
+                    } else if (msgType.contains("MsgCancelOrder")) {
+                        result = c.getString(R.string.tx_crescent_liquidity_cancel_order);
+                    } else if (msgType.contains("MsgCancelAllOrders")) {
+                        result = c.getString(R.string.tx_crescent_liquidity_cancelall_order);
+                    }
 
-                } else if (msgType.contains("MsgJoinPool") || msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut")) {
-                    result = c.getString(R.string.tx_osmosis_join_pool);
+                } else if (msgType.contains("crescent.") && msgType.contains("farming")) {
+                    if (msgType.contains("MsgStake")) {
+                        result = c.getString(R.string.tx_crescent_farming_stake);
+                    } else if (msgType.contains("MsgUnstake")) {
+                        result = c.getString(R.string.tx_crescent_farming_unstake);
+                    } else if (msgType.contains("MsgHarvest")) {
+                        result = c.getString(R.string.tx_crescent_farming_harvest);
+                    } else if (msgType.contains("MsgCreateFixedAmountPlan")) {
+                        result = c.getString(R.string.tx_crescent_farming_create_fixed_amount_plan);
+                    } else if (msgType.contains("MsgCreateRatioPlan")) {
+                        result = c.getString(R.string.tx_crescent_farming_create_ratio_plan);
+                    } else if (msgType.contains("MsgRemovePlan")) {
+                        result = c.getString(R.string.tx_crescent_farming_remove_plan);
+                    } else if (msgType.contains("MsgAdvanceEpoch")) {
+                        result = c.getString(R.string.tx_crescent_farming_advance_epoch);
+                    }
 
-                } else if (msgType.contains("MsgExitPool") || msgType.contains("MsgExitSwapExternAmountOut") || msgType.contains("MsgExitSwapShareAmountIn")) {
-                    result = c.getString(R.string.tx_osmosis_exit_pool);
-
-                } else if (msgType.contains("MsgSwapExactAmountIn") || msgType.contains("MsgSwapExactAmountOut")) {
-                    result = c.getString(R.string.tx_osmosis_coin_swap);
-
-                } else if (msgType.contains("MsgLockTokens")) {
-                    result = c.getString(R.string.str_osmosis_token_lockup);
-
-                } else if (msgType.equals("/osmosis.lockup.MsgBeginUnlocking")) {
-                    result = c.getString(R.string.str_osmosis_begin_unlucking);
-
-                } else if (msgType.contains("/osmosis.lockup.MsgBeginUnlockingAll")) {
-                    result = c.getString(R.string.str_osmosis_begin_unlucking_all);
-
+                } else if (msgType.contains("crescent.") && msgType.contains("claim")) {
+                    if (msgType.contains("MsgClaim")) {
+                        result = c.getString(R.string.tx_crescent_farming_claim);
+                    }
                 }
 
-                else if (msgType.contains("MsgSwapWithinBatch")) {
-                    result = c.getString(R.string.tx_gravity_swap_batch);
-
-                } else if (msgType.contains("MsgDepositWithinBatch")) {
-                    result = c.getString(R.string.tx_gravity_deposit_batch);
-
-                } else if (msgType.contains("MsgWithdrawWithinBatch")) {
-                    result = c.getString(R.string.tx_gravity_withdraw_batch);
+                // irismod msg type
+                else if (msgType.contains("irismod.") && msgType.contains("nft")) {
+                    if (msgType.contains("MsgMintNFT")) {
+                        result = c.getString(R.string.tx_mint_nft);
+                    } else if (msgType.contains("MsgTransferNFT")) {
+                        String senderAddr = getMsgs().getJSONObject(0).getString("sender");
+                        String receiveAddr = getMsgs().getJSONObject(0).getString("recipient");
+                        if (senderAddr.equalsIgnoreCase(address)) {
+                            result = c.getString(R.string.tx_send_nft);
+                        } else if (receiveAddr.equalsIgnoreCase(address)) {
+                            result = c.getString(R.string.tx_receive_nft);
+                        } else {
+                            result = c.getString(R.string.tx_transfer_nft);
+                        }
+                    } else if (msgType.contains("MsgEditNFT")) {
+                        result = "NFT Edit";
+                    } else if (msgType.contains("MsgIssueDenom")) {
+                        result = c.getString(R.string.tx_issue_denom);
+                    } else if (msgType.contains("MsgRequestRandom")) {
+                        result = "Random Request";
+                    }
                 }
 
-                else if (msgType.contains("MsgAddRecord")) {
-                    result = c.getString(R.string.tx_medi_add_record);
-
-                } else if (msgType.contains("MsgCreateDID")) {
-                    result = c.getString(R.string.tx_medi_create_did);
+                // crypto msg type
+                else if (msgType.contains("chainmain.") && msgType.contains("nft")) {
+                    if (msgType.contains("MsgMintNFT")) {
+                        result = c.getString(R.string.tx_mint_nft);
+                    } else if (msgType.contains("MsgTransferNFT")) {
+                        String senderAddr = getMsgs().getJSONObject(0).getString("sender");
+                        String receiveAddr = getMsgs().getJSONObject(0).getString("recipient");
+                        if (senderAddr.equalsIgnoreCase(address)) {
+                            result = c.getString(R.string.tx_send_nft);
+                        } else if (receiveAddr.equalsIgnoreCase(address)) {
+                            result = c.getString(R.string.tx_receive_nft);
+                        } else {
+                            result = c.getString(R.string.tx_transfer_nft);
+                        }
+                    } else if (msgType.contains("MsgEditNFT")) {
+                        result = "NFT Edit";
+                    } else if (msgType.contains("MsgIssueDenom")) {
+                        result = c.getString(R.string.tx_issue_denom);
+                    } else if (msgType.contains("MsgRequestRandom")) {
+                        result = "Random Request";
+                    }
                 }
 
-                else if (msgType.contains("MsgCreateTokenswapRequest")) {
-                    result = c.getString(R.string.tx_rizon_create_Token_swap);
+                // starname msg type
+                else if (msgType.contains("starnamed.") && msgType.contains("starname")) {
+                    if (msgType.contains("RegisterDomain")) {
+                        result = c.getString(R.string.tx_starname_registe_domain);
+                    } else if (msgType.contains("RegisterAccount")) {
+                        result = c.getString(R.string.tx_starname_registe_account);
+                    } else if (msgType.contains("DeleteDomain")) {
+                        result = c.getString(R.string.tx_starname_delete_domain);
+                    } else if (msgType.contains("DeleteAccount")) {
+                        result = c.getString(R.string.tx_starname_delete_account);
+                    } else if (msgType.contains("RenewDomain")) {
+                        result = c.getString(R.string.tx_starname_renew_domain);
+                    } else if (msgType.contains("RenewAccount")) {
+                        result = c.getString(R.string.tx_starname_renew_account);
+                    } else if (msgType.contains("ReplaceAccountResources")) {
+                        result = c.getString(R.string.tx_starname_update_resource);
+                    }
                 }
 
-                // sifchain msg
-                else if (msgType.contains("AddLiquidity")) {
-                    result = c.getString(R.string.tx_sif_join_pool);
+                // osmosis msg type
+                else if (msgType.contains("osmosis.") && msgType.contains("gamm")) {
+                    if (msgType.contains("MsgSwapExactAmountIn")) {
+                        result = c.getString(R.string.tx_osmosis_coin_swap);
+                    } else if (msgType.contains("MsgSwapExactAmountOut")) {
+                        result = c.getString(R.string.tx_osmosis_coin_swap);
+                    } else if (msgType.contains("MsgJoinPool")) {
+                        result = c.getString(R.string.tx_osmosis_join_pool);
+                    } else if (msgType.contains("MsgExitPool")) {
+                        result = c.getString(R.string.tx_osmosis_exit_pool);
+                    } else if (msgType.contains("MsgJoinSwapExternAmountIn")) {
+                        result = c.getString(R.string.tx_osmosis_coin_swap);
+                    } else if (msgType.contains("MsgJoinSwapShareAmountOut")) {
+                        result = c.getString(R.string.tx_osmosis_coin_swap);
+                    } else if (msgType.contains("MsgExitSwapExternAmountOut")) {
+                        result = c.getString(R.string.tx_osmosis_coin_swap);
+                    } else if (msgType.contains("MsgExitSwapShareAmountIn")) {
+                        result = c.getString(R.string.tx_osmosis_coin_swap);
+                    } else if (msgType.contains("MsgCreatePool")) {
+                        result = c.getString(R.string.tx_osmosis_create_pool);
+                    } else if (msgType.contains("MsgCreateBalancerPool")) {
+                        result = c.getString(R.string.tx_osmosis_create_pool);
+                    }
+                } else if (msgType.contains("osmosis.") && msgType.contains("lockup")) {
+                    if (msgType.contains("MsgLockTokens")) {
+                        result = c.getString(R.string.tx_osmosis_token_lockup);
+                    } else if (msgType.contains("MsgBeginUnlockingAll")) {
+                        result = c.getString(R.string.tx_osmosis_begin_token_unlock_all);
+                    } else if (msgType.contains("MsgBeginUnlocking")) {
+                        result = c.getString(R.string.tx_osmosis_begin_token_unlock);
+                    }
+                }
 
-                } else if (msgType.contains("Swap")) {
-                    result = c.getString(R.string.tx_sif_swap);
+                // medi msg type
+                else if (msgType.contains("panacea.") && msgType.contains("aol")) {
+                    if (msgType.contains("MsgAddRecord")) {
+                        result = c.getString(R.string.tx_add_record);
+                    } else if (msgType.contains("MsgCreateTopic")) {
+                        result = c.getString(R.string.tx_create_topic);
+                    } else if (msgType.contains("MsgAddWriter")) {
+                        result = c.getString(R.string.tx_add_writer);
+                    }
 
-                } else if (msgType.contains("MsgCreateEthBridgeClaim")) {
-                    result = c.getString(R.string.tx_create_ethereum_bridge);
+                } else if (msgType.contains("panacea.") && msgType.contains("did")) {
+                    if (msgType.contains("MsgCreateDID")) {
+                        result = c.getString(R.string.tx_create_did);
+                    }
+                }
 
-                } else if (msgType.contains("RemoveLiquidity")) {
-                    result = c.getString(R.string.tx_sif_exit_pool);
+                // rizon msg type
+                else if (msgType.contains("rizonworld.") && msgType.contains("tokenswap")) {
+                    if (msgType.contains("MsgCreateTokenswapRequest")) {
+                        result = c.getString(R.string.tx_rizon_create_Token_swap);
+                    }
+                }
 
-                } else if (msgType.contains("MsgCreateUserClaim")) {
-                    result = c.getString(R.string.tx_create_user_claim);
+                // gravity dex msg type
+                else if (msgType.contains("tendermint.") && msgType.contains("liquidity")) {
+                    if (msgType.contains("MsgDepositWithinBatch")) {
+                        result = c.getString(R.string.tx_gravity_deposit_batch);
+                    } else if (msgType.contains("MsgSwapWithinBatch")) {
+                        result = c.getString(R.string.tx_gravity_swap_batch);
+                    } else if (msgType.contains("MsgWithdrawWithinBatch")) {
+                        result = c.getString(R.string.tx_gravity_withdraw_batch);
+                    }
+                }
+
+                // sif msg type
+                else if (msgType.contains("sifnode.") && msgType.contains("clp")) {
+                    if (msgType.contains("MsgRemoveLiquidity")) {
+                        result = c.getString(R.string.tx_sif_exit_pool);
+                    } else if (msgType.contains("MsgCreatePool")) {
+                        result = c.getString(R.string.tx_osmosis_create_pool);
+                    } else if (msgType.contains("MsgAddLiquidity")) {
+                        result = c.getString(R.string.tx_sif_join_pool);
+                    } else if (msgType.contains("MsgSwap")) {
+                        result = c.getString(R.string.tx_sif_swap);
+                    } else if (msgType.contains("MsgDecommissionPool")) {
+
+                    } else if (msgType.contains("MsgUnlockLiquidityRequest")) {
+
+                    } else if (msgType.contains("MsgUpdateRewardsParamsRequest")) {
+
+                    } else if (msgType.contains("MsgAddRewardPeriodRequest")) {
+
+                    } else if (msgType.contains("MsgModifyPmtpRates")) {
+
+                    } else if (msgType.contains("MsgUpdatePmtpParams")) {
+
+                    } else if (msgType.contains("MsgUpdateStakingRewardParams")) {
+
+                    }
+                } else if (msgType.contains("sifnode.") && msgType.contains("dispensation")) {
+                    if (msgType.contains("MsgCreateUserClaim")) {
+                        result = c.getString(R.string.tx_create_user_claim);
+                    } else if (msgType.contains("MsgRunDistribution")) {
+                        result = c.getString(R.string.tx_create_distribution_run);
+                    }
+
+                } else if (msgType.contains("sifnode.") && msgType.contains("ethbridge")) {
+                    if (msgType.contains("MsgCreateEthBridgeClaim")) {
+                        result = c.getString(R.string.tx_create_ethereum_bridge);
+                    }
+                }
+
+                // desmos msg type
+                else if (msgType.contains("desmos.") && msgType.contains("profiles")) {
+                    if (msgType.contains("MsgSaveProfile")) {
+                        result = c.getString(R.string.tx_save_profile);
+                    } else if (msgType.contains("MsgDeleteProfile")) {
+                        result = c.getString(R.string.tx_delete_profile);
+                    } else if (msgType.contains("MsgCreateRelationship")) {
+                        result = c.getString(R.string.tx_create_relation);
+                    } else if (msgType.contains("MsgDeleteRelationship")) {
+                        result = c.getString(R.string.tx_delete_relation);
+                    } else if (msgType.contains("MsgBlockUser")) {
+                        result = c.getString(R.string.tx_block_user);
+                    } else if (msgType.contains("MsgUnblockUser")) {
+                        result = c.getString(R.string.tx_unblock_user);
+                    } else if (msgType.contains("MsgRequestDTagTransfer")) {
+
+                    } else if (msgType.contains("MsgCancelDTagTransferRequest")) {
+
+                    } else if (msgType.contains("MsgAcceptDTagTransferRequest")) {
+
+                    } else if (msgType.contains("MsgRefuseDTagTransferRequest")) {
+
+                    } else if (msgType.contains("MsgLinkChainAccount")) {
+                        result = c.getString(R.string.tx_link_chain_account);
+                    } else if (msgType.contains("MsgUnlinkChainAccount")) {
+
+                    } else if (msgType.contains("MsgLinkApplication")) {
+
+                    } else if (msgType.contains("MsgUnlinkApplication")) {
+
+                    } else if (msgType.contains("MsgUnlinkChainAccount")) {
+
+                    }
+                }
+
+                // wasm msg type
+                else if (msgType.contains("cosmwasm.")) {
+                    if (msgType.contains("MsgStoreCode")) {
+                        result = c.getString(R.string.tx_cosmwasm_store_code);
+                    } else if (msgType.contains("MsgInstantiateContract")) {
+                        result = c.getString(R.string.tx_cosmwasm_instantiate);
+                    } else if (msgType.contains("MsgExecuteContract")) {
+                        result = c.getString(R.string.tx_cosmwasm_execontract);
+
+                    } else if (msgType.contains("MsgMigrateContract")) {
+
+                    } else if (msgType.contains("MsgUpdateAdmin")) {
+
+                    } else if (msgType.contains("MsgClearAdmin")) {
+
+                    } else if (msgType.contains("PinCodesProposal")) {
+
+                    } else if (msgType.contains("UnpinCodesProposal")) {
+
+                    } else if (msgType.contains("StoreCodeProposal")) {
+
+                    } else if (msgType.contains("InstantiateContractProposal")) {
+
+                    } else if (msgType.contains("MigrateContractProposal")) {
+
+                    } else if (msgType.contains("UpdateAdminProposal")) {
+
+                    } else if (msgType.contains("ClearAdminProposal")) {
+
+                    }
+                }
+
+                // kava msg type
+                else if (msgType.contains("kava.") && msgType.contains("auction")) {
+                    if (msgType.contains("MsgPlaceBid")) {
+                        result = c.getString(R.string.tx_kava_auction_bid);
+                    }
+
+                } else if (msgType.contains("kava.") && msgType.contains("cdp")) {
+                    if (msgType.contains("MsgCreateCDP")) {
+                        result = c.getString(R.string.tx_kava_create_cdp);
+                    } else if (msgType.contains("MsgDeposit")) {
+                        result = c.getString(R.string.tx_kava_deposit_cdp);
+                    } else if (msgType.contains("MsgWithdraw")) {
+                        result = c.getString(R.string.tx_kava_withdraw_cdp);
+                    } else if (msgType.contains("MsgDrawDebt")) {
+                        result = c.getString(R.string.tx_kava_drawdebt_cdp);
+                    } else if (msgType.contains("MsgRepayDebt")) {
+                        result = c.getString(R.string.tx_kava_repaydebt_cdp);
+                    } else if (msgType.contains("MsgLiquidate")) {
+                        result = c.getString(R.string.tx_kava_liquidate_cdp);
+                    }
+
+                } else if (msgType.contains("kava.") && msgType.contains("swap")) {
+                    if (msgType.contains("MsgDeposit")) {
+                        result = c.getString(R.string.tx_kava_swap_deposit);
+                    } else if (msgType.contains("MsgWithdraw")) {
+                        result = c.getString(R.string.tx_kava_swap_withdraw);
+                    } else if (msgType.contains("MsgSwapExactForTokens")) {
+                        result = c.getString(R.string.tx_kava_swap_token);
+                    } else if (msgType.contains("MsgSwapForExactTokens")) {
+                        result = c.getString(R.string.tx_kava_swap_token);
+                    }
+
+                } else if (msgType.contains("kava.") && msgType.contains("hard")) {
+                    if (msgType.contains("MsgDeposit")) {
+                        result = c.getString(R.string.tx_kava_hard_deposit);
+                    } else if (msgType.contains("MsgWithdraw")) {
+                        result = c.getString(R.string.tx_kava_hard_withdraw);
+                    } else if (msgType.contains("MsgBorrow")) {
+                        result = c.getString(R.string.tx_kava_hard_borrow);
+                    } else if (msgType.contains("MsgRepay")) {
+                        result = c.getString(R.string.tx_kava_hard_repay);
+                    } else if (msgType.contains("MsgLiquidate")) {
+                        result = c.getString(R.string.tx_kava_hard_liquidate);
+                    }
+
+                } else if (msgType.contains("kava.") && msgType.contains("savings")) {
+                    if (msgType.contains("MsgDeposit")) {
+                        result = c.getString(R.string.tx_kava_save_deposit);
+                    } else if (msgType.contains("MsgWithdraw")) {
+                        result = c.getString(R.string.tx_kava_save_withdraw);
+                    }
+
+                } else if (msgType.contains("kava.") && msgType.contains("incentive")) {
+                    if (msgType.contains("MsgClaimUSDXMintingReward")) {
+                        result = c.getString(R.string.tx_kava_hard_mint_incentive);
+                    } else if (msgType.contains("MsgClaimHardReward")) {
+                        result = c.getString(R.string.tx_kava_hard_hard_incentive);
+                    } else if (msgType.contains("MsgClaimDelegatorReward")) {
+                        result = c.getString(R.string.tx_kava_hard_hard_incentive);
+                    } else if (msgType.contains("MsgClaimSwapReward")) {
+                        result = c.getString(R.string.tx_kava_save_withdraw);
+                    } else if (msgType.contains("MsgClaimSavingsReward")) {
+                        result = c.getString(R.string.tx_kava_hard_save_incentive);
+                    }
+
+                } else if (msgType.contains("kava.") && msgType.contains("bep3")) {
+                    if (msgType.contains("MsgCreateAtomicSwap")) {
+                        result = c.getString(R.string.tx_kava_bep3_create);
+                    } else if (msgType.contains("MsgCreateAtomicSwap")) {
+                        result = c.getString(R.string.tx_kava_bep3_claim);
+                    } else if (msgType.contains("MsgRefundAtomicSwap")) {
+                        result = c.getString(R.string.tx_kava_bep3_refund);
+                    }
 
                 }
 
                 // certik msg
-                else if (msgType.contains("MsgTaskResponse")) {
-                    result = c.getString(R.string.tx_task_response);
-
-                } else if (msgType.contains("MsgCreateTask")) {
-                    result = c .getString(R.string.tx_create_task);
-                }
-
-                // desmos
-                else if (msgType.contains("MsgSaveProfile")) {
-                    result = c .getString(R.string.tx_save_profile);
-
-                } else if (msgType.contains("MsgLinkChainAccount")) {
-                    result = c .getString(R.string.tx_link_chain_account);
-                }
-
-                // kava msg
-                else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_POST_PRICE)) {
-                    result = c.getString(R.string.tx_kava_post_price);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_CREATE_CDP)) {
-                    result = c.getString(R.string.tx_kava_create_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP)) {
-                    result = c.getString(R.string.tx_kava_deposit_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP)) {
-                    result = c.getString(R.string.tx_kava_withdraw_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
-                    result = c.getString(R.string.tx_kava_drawdebt_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
-                    result = c.getString(R.string.tx_kava_repaydebt_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_CDP)) {
-                    result = c.getString(R.string.tx_kava_liquidate_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
-                    result = c.getString(R.string.tx_kava_bep3_refund);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_deposit);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_withdraw);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BORROW_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_borrow);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_REPAY_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_repay);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_liquidate);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN2)) {
-                    result = c.getString(R.string.tx_kava_swap_token);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT)) {
-                    result = c.getString(R.string.tx_kava_swap_deposit);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW)) {
-                    result = c.getString(R.string.tx_kava_swap_withdraw);
-
-                }  else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
-                    result = c.getString(R.string.tx_kava_incentive_reward);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
-                    result = c.getString(R.string.tx_kava_incentive_hard);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE)) {
-                    result = c.getString(R.string.tx_kava_delegator_incentive);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE)) {
-                    result = c.getString(R.string.tx_kava_swap_incentive);
-
-                } else if (msgType.contains("MsgDeposit")) {
-                    result = c.getString(R.string.tx_deposit);
-                }
-
-                // wasm msg type
-                else if (msgType.contains("cosmwasm") && msgType.contains("MsgStoreCode")) {
-                    result = c.getString(R.string.tx_cosmwasm_store_code);
-                } else if (msgType.contains("cosmwasm") && msgType.contains("MsgInstantiateContract")) {
-                    result = c.getString(R.string.tx_cosmwasm_instantiate);
-                } else if (msgType.contains("cosmwasm") && msgType.contains("MsgExecuteContract")) {
-                    result = c.getString(R.string.tx_cosmwasm_execontract);
+                else if (msgType.contains("shentu.") && msgType.contains("oracle")) {
+                    if (msgType.contains("MsgTaskResponse")) {
+                        result = c.getString(R.string.tx_task_response);
+                    } else if (msgType.contains("MsgCreateTask")) {
+                        result = c .getString(R.string.tx_create_task);
+                    }
                 }
 
                 if (getMsgCnt() > 1) {
