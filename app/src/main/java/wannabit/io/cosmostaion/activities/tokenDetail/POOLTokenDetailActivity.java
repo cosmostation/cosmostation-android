@@ -1,5 +1,10 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -28,10 +33,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 
 public class POOLTokenDetailActivity extends BaseActivity implements View.OnClickListener{
 
@@ -154,6 +155,18 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
             mDivideDecimal = 18;
             mDisplayDecimal = 18;
+            mTotalAmount = getBaseDao().getAvailable(mPoolDenom);
+            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, mTotalAmount, mDivideDecimal));
+
+            mBtnIbcSend.setVisibility(View.VISIBLE);
+
+        } else if (mBaseChain.equals(CRESCENT_MAIN)) {
+            mToolbarSymbolImg.setImageResource(R.drawable.token_crescentpool);
+            mToolbarSymbol.setText(mPoolDenom.toUpperCase());
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+
+            mDivideDecimal = 12;
+            mDisplayDecimal = 12;
             mTotalAmount = getBaseDao().getAvailable(mPoolDenom);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, mTotalAmount, mDivideDecimal));
 
