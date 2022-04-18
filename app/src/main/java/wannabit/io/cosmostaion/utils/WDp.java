@@ -4276,8 +4276,8 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParseAutoReward(ServiceOuterClass.GetTxResponse response, String Addr, int position) {
-        BigDecimal result = BigDecimal.ZERO;
+    public static ArrayList<Coin> onParseAutoReward(ServiceOuterClass.GetTxResponse response, String Addr, int position) {
+        ArrayList<Coin> result = new ArrayList<>();
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
                 if (event.getType().equals("transfer")) {
@@ -4285,9 +4285,16 @@ public class WDp {
                         if (event.getAttributes(i).getKey().equals("recipient") && event.getAttributes(i).getValue().equals(Addr)) {
                             for (int j = i; j < event.getAttributesList().size(); j ++) {
                                 if (event.getAttributes(j).getKey().equals("amount") && event.getAttributes(j).getValue() != null) {
-                                    String temp = event.getAttributes(j).getValue().replaceAll("[^0-9]", "");
-                                    result = result.add(new BigDecimal(temp));
-                                    break;
+                                    String rawValue = event.getAttributes(j).getValue();
+                                    for (String rawCoin : rawValue.split(",")) {
+                                        Pattern p = Pattern.compile("([0-9])+");
+                                        Matcher m = p.matcher(rawCoin);
+                                        if (m.find()) {
+                                            String amount = m.group();
+                                            String denom = rawCoin.substring(m.end());
+                                            result.add(new Coin(denom, amount));
+                                        }
+                                    }
                                 }
                             }
                         }

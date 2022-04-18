@@ -61,17 +61,9 @@ public class HistoryNewHolder extends BaseHolder {
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(history.header.chain_id) && !mainActivity.getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
-                    String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.data.txhash);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    mainActivity.startActivity(intent);
-                } else {
-                    Intent txDetail = new Intent(mainActivity, TxDetailgRPCActivity.class);
-                    txDetail.putExtra("txHash", history.data.txhash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    mainActivity.startActivity(txDetail);
-                }
+                String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.data.txhash);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                mainActivity.startActivity(intent);
             }
         });
     }

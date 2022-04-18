@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.base;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -579,7 +581,10 @@ public class BaseData {
         return result;
     }
 
-    public BigDecimal getDelegatable(String denom) {
+    public BigDecimal getDelegatable(BaseChain baseChain, String denom) {
+        if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+            return getAvailable(denom);
+        }
         return getAvailable(denom).add(getVesting(denom));
     }
 

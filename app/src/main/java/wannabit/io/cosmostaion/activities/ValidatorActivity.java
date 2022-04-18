@@ -168,7 +168,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal delegatableAmount = getBaseDao().getDelegatable(WDp.mainDenom(mBaseChain));
+        BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, WDp.mainDenom(mBaseChain));
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
         if (delegatableAmount.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
@@ -456,17 +456,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent txDetail = null;
                     if (history.data.txhash != null) {
                         if (isGRPC(mBaseChain)) {
-                            if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
-                                String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                startActivity(intent);
-
-                            } else {
-                                txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
-                            }
+                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
                         } else {
                             if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
                                 String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
@@ -474,13 +468,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                                 startActivity(intent);
 
                             } else {
-                                txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                                Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                                txDetail.putExtra("txHash", history.data.txhash);
+                                txDetail.putExtra("isGen", false);
+                                txDetail.putExtra("isSuccess", true);
+                                startActivity(txDetail);
                             }
                         }
-                        txDetail.putExtra("txHash", history.data.txhash);
-                        txDetail.putExtra("isGen", false);
-                        txDetail.putExtra("isSuccess", true);
-                        startActivity(txDetail);
                     }
                 }
             });

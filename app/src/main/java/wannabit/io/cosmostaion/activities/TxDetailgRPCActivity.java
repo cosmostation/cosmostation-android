@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,7 +40,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.txDetail.TxAddRecordHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxClaimHTLCHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCloseBidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCloseDeploymentHolder;
@@ -46,7 +48,6 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCommonHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateBidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateCertificateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateDeploymentHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxCreateDidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateHTLCHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateTokenSwapHolder;
@@ -69,8 +70,6 @@ import wannabit.io.cosmostaion.widget.txDetail.TxVoterHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxWithdrawLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxLinkAccountHolder;
 import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
-import wannabit.io.cosmostaion.widget.txDetail.certik.TxCreateTaskHolder;
-import wannabit.io.cosmostaion.widget.txDetail.certik.TxTaskResponseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxExecuteContractHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxInstantContractHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxStoreContractHolder;
@@ -116,9 +115,6 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateUserClaimHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
-
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
     private Toolbar         mToolbar;
     private RecyclerView    mTxRecyclerView;
@@ -131,7 +127,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     private Button          mShareBtn;
     private Button          mExplorerBtn;
 
-    private boolean         mIsGen;
+    private boolean         mIsGen = true;
     private boolean         mIsSuccess;
     private int             mErrorCode;
     private String          mErrorMsg;
@@ -161,7 +157,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain  = getChain(mAccount.baseChain);
-        mIsGen      = getIntent().getBooleanExtra("isGen", false);
         mIsSuccess  = getIntent().getBooleanExtra("isSuccess", false);
         mErrorCode  = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
         mErrorMsg   = getIntent().getStringExtra("errorMsg");
@@ -284,8 +279,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH = 52;
         private static final int TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH = 53;
 
-        private static final int TYPE_TX_ADD_RECORD = 60;
-        private static final int TYPE_TX_CREATE_DID = 61;
         private static final int TYPE_TX_CREATE_TOKEN_SWAP = 62;
 
         private static final int TYPE_TX_ADD_LIQUIDITY = 70;
@@ -293,9 +286,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_SWAP = 72;
         private static final int TYPE_TX_CREATE_ETH_BRIDGE = 73;
         private static final int TYPE_TX_CREATE_USER_CLAIM = 74;
-
-        private static final int TYPE_TX_CREATE_TASK = 80;
-        private static final int TYPE_TX_TASK_RESPONSE = 81;
 
         private static final int TYPE_TX_ISSUE_DENOM = 90;
         private static final int TYPE_TX_MINT_NFT = 91;
@@ -457,13 +447,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 return new TxGravityWithdrawHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_withdraw_within_batch, viewGroup, false));
             }
 
-            else if (viewType == TYPE_TX_ADD_RECORD) {
-                return new TxAddRecordHolder(getLayoutInflater().inflate(R.layout.item_tx_add_record, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_CREATE_DID) {
-                return new TxCreateDidHolder(getLayoutInflater().inflate(R.layout.item_tx_create_did, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_CREATE_TOKEN_SWAP) {
+            else if (viewType == TYPE_TX_CREATE_TOKEN_SWAP) {
                 return new TxCreateTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_create_token_swap, viewGroup, false));
             }
 
@@ -482,15 +466,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_CREATE_USER_CLAIM) {
                 return new TxCreateUserClaimHolder(getLayoutInflater().inflate(R.layout.item_tx_create_user_claim, viewGroup, false));
-
-            }
-
-            // certik
-            else if (viewType == TYPE_TX_CREATE_TASK) {
-                return new TxCreateTaskHolder(getLayoutInflater().inflate(R.layout.item_tx_create_task, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_TASK_RESPONSE) {
-                return new TxTaskResponseHolder(getLayoutInflater().inflate(R.layout.item_tx_task_response, viewGroup, false));
 
             }
 
@@ -710,11 +685,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH;
                 }
 
-                else if (msg.getTypeUrl().contains(panacea.aol.v2.MsgAddRecord.getDescriptor().getFullName())) {
-                    return TYPE_TX_ADD_RECORD;
-                } else if (msg.getTypeUrl().contains(panacea.did.v2.MsgCreateDID.getDescriptor().getFullName())) {
-                    return TYPE_TX_CREATE_DID;
-                } else if (msg.getTypeUrl().contains(rizonworld.rizon.tokenswap.Tx.MsgCreateTokenswapRequest.getDescriptor().getFullName())) {
+                else if (msg.getTypeUrl().contains(rizonworld.rizon.tokenswap.Tx.MsgCreateTokenswapRequest.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_TOKEN_SWAP;
                 }
 
@@ -729,13 +700,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CREATE_ETH_BRIDGE;
                 } else if (msg.getTypeUrl().contains(sifnode.dispensation.v1.Tx.MsgCreateUserClaim.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_USER_CLAIM;
-                }
-
-                // certik msg
-                else if (msg.getTypeUrl().contains(shentu.oracle.v1alpha1.Tx.MsgCreateTask.getDescriptor().getFullName())) {
-                    return TYPE_TX_CREATE_TASK;
-                } else if (msg.getTypeUrl().contains(shentu.oracle.v1alpha1.Tx.MsgTaskResponse.getDescriptor().getFullName())) {
-                    return TYPE_TX_TASK_RESPONSE;
                 }
 
                 // nft msg
