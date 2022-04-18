@@ -1658,8 +1658,8 @@
     <string name="tx_create_user_claim">인센티브 받기</string>
     <string name="tx_create_distribution_run">인센티브 나눔</string>
 
-    <string name="tx_task_response">Task Response</string>
-    <string name="tx_create_task">Create Task </string>
+    <string name="tx_task_response">Task 응답</string>
+    <string name="tx_create_task">Task 생성</string>
 
     <string name="tx_issue_denom">Issue NFT Denom</string>
     <string name="tx_issue_denom_id">Denom ID</string>

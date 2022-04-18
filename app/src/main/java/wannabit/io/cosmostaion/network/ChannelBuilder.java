@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.network;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -166,6 +167,9 @@ public class ChannelBuilder {
     private final static String GRPC_CRESCENT_MAIN = "lcd-crescent-app.cosmostation.io";
     private final static int PORT_CRESCENT_MAIN = 9090;
 
+    private final static String GRPC_MANTLE_MAIN = "lcd-asset-mantle-app.cosmostation.io";
+    private final static int PORT_MANTLE_MAIN = 9090;
+
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -262,6 +266,8 @@ public class ChannelBuilder {
             return getOmniflixMain();
         } else if (chain.equals(CRESCENT_MAIN)) {
             return getCrescentMain();
+        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+            return getMantleMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -770,6 +776,19 @@ public class ChannelBuilder {
             }
         }
         return channel_omniflix_main;
+    }
+
+    //Channel for assetmantle main
+    private static ManagedChannel channel_mantle_main = null;
+    public static ManagedChannel getMantleMain() {
+        if (channel_mantle_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_mantle_main = ManagedChannelBuilder.forAddress(GRPC_MANTLE_MAIN, PORT_MANTLE_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_mantle_main;
     }
 
     //Channel for crescent main

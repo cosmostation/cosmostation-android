@@ -142,6 +142,9 @@
     <string name="url_api_crescent" translatable="false">https://api-crescent.cosmostation.io/</string>
 
 
+    <string name="url_api_mantle" translatable="false">https://api-asset-mantle.cosmostation.io/</string>
+
+
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
     <string name="url_api_rizon" translatable="false">https://api-rizon.cosmostation.io/</string>
@@ -264,6 +267,7 @@
     <string name="str_cerberus_main_net" translatable="false">Cerberus</string>
     <string name="str_omniflix_main_net" translatable="false">Omniflix</string>
     <string name="str_crescent_main_net" translatable="false">Crescent</string>
+    <string name="str_mantle_main_net" translatable="false">Asset Mantle</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -2102,7 +2106,7 @@
     <string name="tx_create_distribution_run">Distribution Run</string>
 
     <string name="tx_task_response">Task Response</string>
-    <string name="tx_create_task">Create Task </string>
+    <string name="tx_create_task">Create Task</string>
 
     <string name="tx_issue_denom">Issue NFT Denom</string>
     <string name="tx_issue_denom_id">Denom ID</string>

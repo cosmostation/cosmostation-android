@@ -742,6 +742,21 @@ public class ApiClient {
         }
         return api_crescent;
     }
+
+    //Services for assetmantle mainnet api
+    private static HistoryApi api_mantle = null;
+    public static HistoryApi getMantleApi(Context c) {
+        if (api_mantle == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_mantle))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_mantle = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_mantle;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
