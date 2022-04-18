@@ -556,6 +556,7 @@ public class BaseConstant {
     public final static String KAVA_GAS_AMOUNT_JOIN_POOL                = "800000";
     public final static String KAVA_GAS_AMOUNT_EXIT_POOL                = "800000";
     public final static String KAVA_GAS_AMOUNT_IBC_SEND                 = "500000";
+    public final static String KAVA_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000";
 
     public final static String BAND_GAS_AMOUNT_SEND                     = "100000";
     public final static String BAND_GAS_AMOUNT_STAKE                    = "200000";

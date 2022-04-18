@@ -1058,7 +1058,7 @@ public class WDp {
     }
 
     public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
-        if (baseChain.equals(OKEX_MAIN) || baseChain.equals(KAVA_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(FETCHAI_MAIN)) {
+        if (baseChain.equals(OKEX_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(FETCHAI_MAIN)) {
             cardRewardAddress.setVisibility(View.GONE);
         } else {
             cardRewardAddress.setVisibility(View.VISIBLE);
