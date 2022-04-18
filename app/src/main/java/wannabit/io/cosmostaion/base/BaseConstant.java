@@ -466,6 +466,7 @@ public class BaseConstant {
     public final static String TOKEN_FLIX           = "uflix";
     public final static String TOKEN_CRE            = "ucre";
     public final static String TOKEN_BCRE           = "ubcre";
+    public final static String TOKEN_MANTLE         = "umntl";
 
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
@@ -833,6 +834,7 @@ public class BaseConstant {
     public final static String CERBERUS_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cerberus/";
     public final static String OMNIFLIX_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/omniflix/";
     public final static String CRESCENT_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/crescent/";
+    public final static String ASSETMANTLE_VAL_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/asset-mantle/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -885,6 +887,7 @@ public class BaseConstant {
     public final static String EXPLORER_CERBERUS_MAIN   = "https://www.mintscan.io/cerberus/";
     public final static String EXPLORER_OMNIFLIX_MAIN   = "https://www.mintscan.io/omniflix/";
     public final static String EXPLORER_CRESCENT_MAIN   = "https://www.mintscan.io/crescent/";
+    public final static String EXPLORER_MANTLE_MAIN     = "https://www.mintscan.io/asset-mantle/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
@@ -937,6 +940,7 @@ public class BaseConstant {
     public final static String CERBERUS_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cerberus/relay-cerberus-unknown.png";
     public final static String OMNIFLIX_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/omniflix/relay-omniflix-unknown.png";
     public final static String CRESCENT_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/crescent/relay-crescent-unknown.png";
+    public final static String MANTLE_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/asset-mantle/relay-assetmantle-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM        = "station";

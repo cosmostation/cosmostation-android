@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -3081,6 +3082,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_crescent);
             guideMsg.setText(R.string.str_front_guide_msg_crescent);
 
+        } else if (mainActivity.mBaseChain.equals(ASSETMANTLE_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_assetmantle));
+            guideTitle.setText(R.string.str_front_guide_title_mantle);
+            guideMsg.setText(R.string.str_front_guide_msg_mantle);
+
         }
     }
 
@@ -3290,6 +3296,11 @@ public class WUtil {
             coinDenom.setText(R.string.str_cre_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_crescent);
 
+        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_assetmantle));
+            coinDenom.setText(R.string.str_mantle_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_mantle);
+
         }
     }
 
@@ -3476,6 +3487,10 @@ public class WUtil {
 
         } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crescent.network/"));
+
+        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://assetmantle.one/"));
+
         }
         return null;
     }
@@ -3612,6 +3627,9 @@ public class WUtil {
         } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crescentnetwork.medium.com/"));
 
+        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.assetmantle.one/"));
+
         }
         return null;
     }
@@ -3741,6 +3759,9 @@ public class WUtil {
 
         } else if (basechain.equals(CRESCENT_MAIN)) {
             return EXPLORER_CRESCENT_MAIN;
+
+        } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+            return EXPLORER_MANTLE_MAIN;
 
         }
 
@@ -3883,6 +3904,9 @@ public class WUtil {
 
             } else if (basechain.equals(CRESCENT_MAIN)) {
                 return EXPLORER_CRESCENT_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+                return EXPLORER_MANTLE_MAIN + "txs/" + hash;
 
             }
 
@@ -4181,7 +4205,7 @@ public class WUtil {
      * Chain Gas Rate
      */
     public static BigDecimal getEstimateGasFeeAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(ASSETMANTLE_MAIN)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -4391,7 +4415,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) ||
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(ASSETMANTLE_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(CRESCENT_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);

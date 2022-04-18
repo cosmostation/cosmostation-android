@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import static org.bitcoinj.core.ECKey.CURVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -504,6 +505,8 @@ public class WKey {
                 result = bech32Encode("omniflix".getBytes(), converted);
             } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)){
                 result = bech32Encode("cre".getBytes(), converted);
+            } else if (chain.equals(ASSETMANTLE_MAIN)){
+                result = bech32Encode("mantle".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -595,6 +598,8 @@ public class WKey {
             return bech32Encode("omniflix".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             return bech32Encode("cre".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+            return bech32Encode("mantle".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
