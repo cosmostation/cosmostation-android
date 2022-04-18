@@ -3982,6 +3982,8 @@ public class WUtil {
             } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward_kava)));
                 return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(KAVA_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(KAVA_GAS_AMOUNT_VOTE);
             } else if (txType == CONST_PW_TX_CLAIM_INCENTIVE || txType == CONST_PW_TX_CLAIM_HARVEST_REWARD) {

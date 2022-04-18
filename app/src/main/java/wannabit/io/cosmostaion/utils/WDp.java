@@ -1058,7 +1058,7 @@ public class WDp {
     }
 
     public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
-        if (baseChain.equals(OKEX_MAIN) || baseChain.equals(KAVA_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(FETCHAI_MAIN)) {
+        if (baseChain.equals(OKEX_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(FETCHAI_MAIN)) {
             cardRewardAddress.setVisibility(View.GONE);
         } else {
             cardRewardAddress.setVisibility(View.VISIBLE);
@@ -2373,6 +2373,10 @@ public class WDp {
                     Assets assets = baseData.getAsset(coin.denom);
                     BigDecimal available = baseData.getAvailable(assets.denom);
                     totalValue = totalValue.add(userCurrencyValue(baseData, assets.origin_symbol, available, assets.decimal));
+                } else if (baseChain.equals(CRESCENT_MAIN) && coin.denom.equals(TOKEN_BCRE)) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 6);
+                    totalValue = totalValue.add(assetValue);
                 } else if (coin.isIbc()) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     IbcToken ibcToken = baseData.getIbcToken(coin.denom);
