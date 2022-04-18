@@ -2163,6 +2163,11 @@
     <string name="tx_crescent_farming_advance_epoch">Farming\nEpoch</string>
     <string name="tx_crescent_farming_claim">Airdrop</string>
 
+    <string name="tx_osmosis_super_fluid_delegate">SuperFluid\nStaking</string>
+    <string name="tx_osmosis_super_fluid_undelegate">SuperFluid\nUnstaking</string>
+    <string name="tx_osmosis_super_fluid_unbondinglock">SuperFluid\nUnbonding Lock</string>
+    <string name="tx_osmosis_super_fluid_lockanddelegate">SuperFluid\nLock <![CDATA[ & ]]> Staking</string>
+
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
     <string name="str_dp_time_format3">HH:mm:ss</string>

@@ -626,7 +626,21 @@ public class ResApiNewTxListCustom {
                     }
                 }
 
-                if (getMsgCnt() > 1) {
+                // osmosis superfluid
+                else if (msgType.contains("osmosis.") && msgType.contains("superfluid")) {
+                if (msgType.contains("MsgSuperfluidDelegate")) {
+                    result = c.getString(R.string.tx_osmosis_super_fluid_delegate);
+                } else if (msgType.contains("MsgSuperfluidUndelegate")) {
+                    result = c.getString(R.string.tx_osmosis_super_fluid_undelegate);
+                } else if (msgType.contains("MsgSuperfluidUnbondLock")) {
+                    result = c.getString(R.string.tx_osmosis_super_fluid_unbondinglock);
+                } else if (msgType.contains("MsgLockAndSuperfluidDelegate")) {
+                    result = c.getString(R.string.tx_osmosis_super_fluid_lockanddelegate);
+                }
+            }
+
+
+            if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }
                 return result;
