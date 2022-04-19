@@ -85,6 +85,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.StationNFTData;
@@ -221,7 +222,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onCalculateFees() {
-        mSelectedGasRate = WUtil.getGasRate(getSActivity().mBaseChain, mSelectedGasPosition);
+        mSelectedGasRate = ChainFactory.getChain(getSActivity().mBaseChain).setGasRate(mSelectedGasPosition);
         if (getSActivity().mBaseChain.equals(BaseChain.SIF_MAIN)) {
             mFee = new BigDecimal("100000000000000000");
         } else {

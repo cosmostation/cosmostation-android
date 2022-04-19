@@ -502,6 +502,8 @@ public class BaseConstant {
     public final static long COSMOS_UNBONDING_TIME = 1814400000;
     public final static long COSMOS_UNBONDING_DAY = 3;
 
+    public final static int PORT_MAIN = 9090;
+
 
     public final static String KEY_PATH                     = "m/44'/118'/0'/0/";
     public final static String KEY_BNB_PATH                 = "m/44'/714'/0'/0/";
@@ -904,6 +906,45 @@ public class BaseConstant {
     public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
     public final static String EXPLORER_CRESCENT_TEST   = "https://testnet.mintscan.io/crescent/";
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
+
+    public final static String COINGECKO_COSMOS_MAIN        = "https://www.coingecko.com/en/coins/cosmos";
+    public final static String COINGECKO_IRIS_MAIN          = "https://www.coingecko.com/en/coins/irisnet";
+    public final static String COINGECKO_AKASH_MAIN         = "https://www.coingecko.com/en/coins/akash-network";
+    public final static String COINGECKO_AXELAR_MAIN        = "https://www.coingecko.com/en/coins/axelar-network";
+    public final static String COINGECKO_BAND_MAIN          = "https://www.coingecko.com/en/coins/band-protocol";
+    public final static String COINGECKO_BITCANNA_MAIN      = "https://www.coingecko.com/en/coins/bitcanna";
+    public final static String COINGECKO_BITSONG_MAIN       = "https://www.coingecko.com/en/coins/bitsong";
+    public final static String COINGECKO_BNB_MAIN           = "https://www.coingecko.com/en/coins/bitcanna";
+    public final static String COINGECKO_CERBERUS_MAIN      = "https://www.coingecko.com/en/coins/cerberus";
+    public final static String COINGECKO_CERTIK_MAIN        = "https://www.coingecko.com/en/coins/certik";
+    public final static String COINGECKO_CHIHUAHUA_MAIN     = "https://www.coingecko.com/en/coins/chihuahua-chain";
+    public final static String COINGECKO_COMDEX_MAIN        = "https://www.coingecko.com/en/coins/comdex";
+    public final static String COINGECKO_CRYPTO_MAIN        = "https://www.coingecko.com/en/coins/crypto-com-chain";
+    public final static String COINGECKO_DESMOS_MAIN        = "https://www.coingecko.com/en/coins/desmos";
+    public final static String COINGECKO_EMONEY_MAIN        = "https://www.coingecko.com/en/coins/e-money";
+    public final static String COINGECKO_EVMOS_MAIN         = "https://www.coingecko.com/en/coins/evmos";
+    public final static String COINGECKO_FETCHAI_MAIN       = "https://www.coingecko.com/en/coins/fetch-ai";
+    public final static String COINGECKO_GRAV_MAIN          = "https://www.coingecko.com/en/coins/graviton";
+    public final static String COINGECKO_INJ_MAIN           = "https://www.coingecko.com/en/coins/injective-protocol";
+    public final static String COINGECKO_JUNO_MAIN          = "https://www.coingecko.com/en/coins/juno-network";
+    public final static String COINGECKO_KAVA_MAIN          = "https://www.coingecko.com/en/coins/kava";
+    public final static String COINGECKO_KI_MAIN            = "https://www.coingecko.com/en/coins/ki";
+    public final static String COINGECKO_KONSTELL_MAIN      = "https://www.coingecko.com/en/coins/konstellation";
+    public final static String COINGECKO_LUM_MAIN           = "https://www.coingecko.com/en/coins/lum-network";
+    public final static String COINGECKO_MEDI_MAIN          = "https://www.coingecko.com/en/coins/medibloc";
+    public final static String COINGECKO_OKEX_MAIN          = "https://www.coingecko.com/en/coins/oec-token";
+    public final static String COINGECKO_OMNIFLIX_MAIN      = "https://www.coingecko.com/en/coins/omniflix-network";
+    public final static String COINGECKO_OSMOSIS_MAIN       = "https://www.coingecko.com/en/coins/osmosis";
+    public final static String COINGECKO_PERSIS_MAIN        = "https://www.coingecko.com/en/coins/persistence";
+    public final static String COINGECKO_PROVENANCE_MAIN    = "https://www.coingecko.com/en/coins/";
+    public final static String COINGECKO_REGEN_MAIN         = "https://www.coingecko.com/en/coins/regen/";
+    public final static String COINGECKO_RIZON_MAIN         = "https://www.coingecko.com/en/coins/rizon/";
+    public final static String COINGECKO_SECRET_MAIN        = "https://www.coingecko.com/en/coins/secret/";
+    public final static String COINGECKO_SIF_MAIN           = "https://www.coingecko.com/en/coins/sifchain/";
+    public final static String COINGECKO_SENTINEL_MAIN      = "https://www.coingecko.com/en/coins/sentinel/";
+    public final static String COINGECKO_STARGAZE_MAIN      = "https://www.coingecko.com/en/coins/stargaze/";
+    public final static String COINGECKO_STARNAME_MAIN      = "https://www.coingecko.com/en/coins/starname/";
+    public final static String COINGECKO_UMEE_MAIN          = "https://www.coingecko.com/en/coins/umee/";
 
 
     public final static String AKASH_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";

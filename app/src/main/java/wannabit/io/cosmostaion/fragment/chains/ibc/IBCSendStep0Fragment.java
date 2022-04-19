@@ -25,13 +25,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Unknown_Relayer;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -142,7 +142,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         WDp.getChainImg(getSActivity(), getSActivity().mBaseChain, mFromChainImg);
         WDp.getChainTitle2(getSActivity(), getSActivity().mBaseChain, mFromChainTv);
 
-        BaseChain toChain = WDp.getChainTypeByChainId(mIbcSelectedRelayer.chain_id);
+        BaseChain toChain = ChainFactory.getChain(mIbcSelectedRelayer.chain_id).getChain();
         WDp.getChainImg(getSActivity(), toChain, mToChainImg);
         WDp.getChainTitle2(getSActivity(), toChain, mToChainTv);
 

@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
@@ -328,9 +329,9 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     }
 
     private void onKeplrEnable(long id, List<String> strings) {
-        BaseChain requestChain = WDp.getChainTypeByChainId(strings.get(0));
+        BaseChain requestChain = ChainFactory.getChain(strings.get(0)).getChain();
         if (requestChain != null) {
-            ArrayList<Account> existAccount = getBaseDao().onSelectAllAccountsByChainWithKey(WDp.getChainTypeByChainId(strings.get(0)));
+            ArrayList<Account> existAccount = getBaseDao().onSelectAllAccountsByChainWithKey(requestChain);
             if (existAccount.size() <= 0) {
                 mWcLayer.setVisibility(View.GONE);
                 mLoadingLayer.setVisibility(View.GONE);

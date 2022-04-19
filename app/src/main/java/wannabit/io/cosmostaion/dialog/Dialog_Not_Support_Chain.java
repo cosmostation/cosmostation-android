@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ConnectWalletActivity;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_Not_Support_Chain extends DialogFragment {
@@ -37,7 +38,7 @@ public class Dialog_Not_Support_Chain extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
 
         errorMsg.setText(String.format(getActivity().getString(R.string.str_error_not_support_msg),
-                WDp.getChainNameByBaseChain(WDp.getChainTypeByChainId(getArguments().getString("chainId")))).toUpperCase());
+                ChainFactory.getChain(ChainFactory.getChain(getArguments().getString("chainId")).getChain()).getChainName()).toUpperCase());
         btn_negative.setOnClickListener(v -> {
             ((ConnectWalletActivity) getActivity()).onDeepLinkDismiss();
             getDialog().dismiss();

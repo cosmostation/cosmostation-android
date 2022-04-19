@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -119,7 +120,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     }
 
     private void onCalculateFees() {
-        mSelectedGasRate = WUtil.getGasRate(getSActivity().mBaseChain, mSelectedGasPosition);
+        mSelectedGasRate = ChainFactory.getChain(getSActivity().mBaseChain).setGasRate(mSelectedGasPosition);
         if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
             mFee = new BigDecimal(FEE_BNB_SEND);
         } else if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {

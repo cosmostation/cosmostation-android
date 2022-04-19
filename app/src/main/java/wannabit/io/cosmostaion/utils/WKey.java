@@ -1,51 +1,10 @@
 package wannabit.io.cosmostaion.utils;
 
 import static org.bitcoinj.core.ECKey.CURVE;
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 import android.util.Base64;
@@ -80,6 +39,7 @@ import java.util.regex.Pattern;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
 
@@ -151,77 +111,8 @@ public class WKey {
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain, int customPath) {
-        if (chain.equals(BNB_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(BAND_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(IOV_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(MEDI_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(BITSONG_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(DESMOS_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(852, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(505, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        }
-
-        else if (chain.equals(KAVA_MAIN)) {
-            if (customPath == 0) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(459, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            }
-
-        } else if (chain.equals(SECRET_MAIN)) {
-            if (customPath == 0) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(529, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            }
-
-        } else if (chain.equals(LUM_MAIN)) {
-            if (customPath == 0) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(880, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            }
-
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            if (customPath == 0) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            } else if (customPath == 1){
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            } else if (customPath == 2) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true));
-            } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED);
-            }
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            if (customPath == 0 || customPath == 1) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(996, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            }
-
+        if (chain != null) {
+            return ChainFactory.getChain(chain).setParentPath(customPath);
         } else {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
         }
@@ -425,88 +316,8 @@ public class WKey {
 
         try {
             byte[] converted = convertBits(hash3, 8,5,true);
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                result = bech32Encode("cosmos".getBytes(), converted);
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)){
-                result = bech32Encode("iaa".getBytes(), converted);
-            } else if (chain.equals(BNB_MAIN)){
-                result = bech32Encode("bnb".getBytes(), converted);
-            } else if (chain.equals(KAVA_MAIN)){
-                result = bech32Encode("kava".getBytes(), converted);
-            } else if (chain.equals(BAND_MAIN)){
-                result = bech32Encode("band".getBytes(), converted);
-            } else if (chain.equals(IOV_MAIN)){
-                result = bech32Encode("star".getBytes(), converted);
-            } else if (chain.equals(CERTIK_MAIN)){
-                result = bech32Encode("certik".getBytes(), converted);
-            } else if (chain.equals(SECRET_MAIN)){
-                result = bech32Encode("secret".getBytes(), converted);
-            } else if (chain.equals(AKASH_MAIN)){
-                result = bech32Encode("akash".getBytes(), converted);
-            } else if (chain.equals(PERSIS_MAIN)){
-                result = bech32Encode("persistence".getBytes(), converted);
-            } else if (chain.equals(SENTINEL_MAIN)){
-                result = bech32Encode("sent".getBytes(), converted);
-            } else if (chain.equals(FETCHAI_MAIN)){
-                result = bech32Encode("fetch".getBytes(), converted);
-            } else if (chain.equals(CRYPTO_MAIN)){
-                result = bech32Encode("cro".getBytes(), converted);
-            } else if (chain.equals(SIF_MAIN)){
-                result = bech32Encode("sif".getBytes(), converted);
-            } else if (chain.equals(KI_MAIN)){
-                result = bech32Encode("ki".getBytes(), converted);
-            } else if (chain.equals(OSMOSIS_MAIN)){
-                result = bech32Encode("osmo".getBytes(), converted);
-            } else if (chain.equals(MEDI_MAIN)){
-                result = bech32Encode("panacea".getBytes(), converted);
-            } else if (chain.equals(EMONEY_MAIN)){
-                result = bech32Encode("emoney".getBytes(), converted);
-            } else if (chain.equals(RIZON_MAIN)){
-                result = bech32Encode("rizon".getBytes(), converted);
-            } else if (chain.equals(JUNO_MAIN)){
-                result = bech32Encode("juno".getBytes(), converted);
-            } else if (chain.equals(REGEN_MAIN)){
-                result = bech32Encode("regen".getBytes(), converted);
-            } else if (chain.equals(BITCANNA_MAIN)){
-                result = bech32Encode("bcna".getBytes(), converted);
-            } else if (chain.equals(ALTHEA_MAIN)){
-                result = bech32Encode("althea".getBytes(), converted);
-            } else if (chain.equals(STARGAZE_MAIN)){
-                result = bech32Encode("stars".getBytes(), converted);
-            } else if (chain.equals(GRABRIDGE_MAIN)){
-                result = bech32Encode("gravity".getBytes(), converted);
-            } else if (chain.equals(COMDEX_MAIN)){
-                result = bech32Encode("comdex".getBytes(), converted);
-            } else if (chain.equals(INJ_MAIN)){
-                result = bech32Encode("inj".getBytes(), converted);
-            } else if (chain.equals(BITSONG_MAIN)){
-                result = bech32Encode("bitsong".getBytes(), converted);
-            } else if (chain.equals(DESMOS_MAIN)){
-                result = bech32Encode("desmos".getBytes(), converted);
-            } else if (chain.equals(LUM_MAIN)){
-                result = bech32Encode("lum".getBytes(), converted);
-            } else if (chain.equals(CHIHUAHUA_MAIN)){
-                result = bech32Encode("chihuahua".getBytes(), converted);
-            } else if (chain.equals(UMEE_MAIN)){
-                result = bech32Encode("umee".getBytes(), converted);
-            } else if (chain.equals(AXELAR_MAIN)){
-                result = bech32Encode("axelar".getBytes(), converted);
-            } else if (chain.equals(KONSTELL_MAIN)){
-                result = bech32Encode("darc".getBytes(), converted);
-            } else if (chain.equals(EVMOS_MAIN)){
-                result = bech32Encode("evmos".getBytes(), converted);
-            } else if (chain.equals(CUDOS_MAIN)){
-                result = bech32Encode("cudos".getBytes(), converted);
-            } else if (chain.equals(PROVENANCE_MAIN)){
-                result = bech32Encode("pb".getBytes(), converted);
-            } else if (chain.equals(CERBERUS_MAIN)){
-                result = bech32Encode("cerberus".getBytes(), converted);
-            } else if (chain.equals(OMNIFLIX_MAIN)){
-                result = bech32Encode("omniflix".getBytes(), converted);
-            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)){
-                result = bech32Encode("cre".getBytes(), converted);
-            } else if (chain.equals(ASSETMANTLE_MAIN)){
-                result = bech32Encode("mantle".getBytes(), converted);
+            if (chain != null) {
+                result = ChainFactory.getChain(chain).getDpAddress(converted);
             }
 
         } catch (Exception e) {
@@ -517,92 +328,6 @@ public class WKey {
 
     public static String getUpgradeOKAddress(String oldAddress) {
         return bech32Encode("ex".getBytes(), bech32Decode(oldAddress).data);
-    }
-
-    public static String convertDpOpAddressToDpAddress(String dpOpAddress, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-            return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            return bech32Encode("iaa".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(KAVA_MAIN)) {
-            return bech32Encode("kava".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(BAND_MAIN)) {
-            return bech32Encode("band".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(IOV_MAIN)) {
-            return bech32Encode("star".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CERTIK_MAIN)) {
-            return bech32Encode("certik".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(SECRET_MAIN)) {
-            return bech32Encode("secret".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(AKASH_MAIN)) {
-            return bech32Encode("akash".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return bech32Encode("persistence".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            return bech32Encode("sent".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            return bech32Encode("fetch".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return bech32Encode("cro".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(SIF_MAIN)) {
-            return bech32Encode("sif".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(KI_MAIN)) {
-            return bech32Encode("ki".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            return bech32Encode("osmo".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(MEDI_MAIN)) {
-            return bech32Encode("panacea".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(EMONEY_MAIN)) {
-            return bech32Encode("emoney".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(RIZON_MAIN)) {
-            return bech32Encode("rizon".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(JUNO_MAIN)) {
-            return bech32Encode("juno".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(REGEN_MAIN)) {
-            return bech32Encode("regen".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            return bech32Encode("bcna".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(ALTHEA_MAIN)) {
-            return bech32Encode("althea".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            return bech32Encode("stars".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            return bech32Encode("gravity".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(COMDEX_MAIN)) {
-            return bech32Encode("comdex".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(INJ_MAIN)) {
-            return bech32Encode("inj".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(BITSONG_MAIN)) {
-            return bech32Encode("bitsong".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(DESMOS_MAIN)) {
-            return bech32Encode("desmos".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(LUM_MAIN)) {
-            return bech32Encode("lum".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CHIHUAHUA_MAIN)) {
-            return bech32Encode("chihuahua".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(UMEE_MAIN)) {
-            return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(AXELAR_MAIN)) {
-            return bech32Encode("axelar".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(KONSTELL_MAIN)) {
-            return bech32Encode("darc".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(EVMOS_MAIN)) {
-            return bech32Encode("evmos".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CUDOS_MAIN)) {
-            return bech32Encode("cudos".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            return bech32Encode("pb".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CERBERUS_MAIN)) {
-            return bech32Encode("cerberus".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(OMNIFLIX_MAIN)) {
-            return bech32Encode("omniflix".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-            return bech32Encode("cre".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(ASSETMANTLE_MAIN)) {
-            return bech32Encode("mantle".getBytes(), bech32Decode(dpOpAddress).data);
-        } else {
-            return "";
-        }
     }
 
     public static String getCreateDpAddressFromEntropy(BaseChain chain, String entropy, int path, int customPath) {
