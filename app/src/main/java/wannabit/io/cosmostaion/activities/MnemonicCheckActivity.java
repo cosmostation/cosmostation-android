@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -188,8 +189,10 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_omniflix));
             } else if (getChain(toCheck.baseChain).equals(CRESCENT_MAIN) || getChain(toCheck.baseChain).equals(CRESCENT_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_crescent));
+            } else if (getChain(toCheck.baseChain).equals(ASSETMANTLE_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_mantle));
             }
-            
+
             if(i >= mWords.size()) mWordsLayer[i].setVisibility(View.INVISIBLE);
             else mWordsLayer[i].setVisibility(View.VISIBLE);
         }

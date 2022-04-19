@@ -56,6 +56,7 @@
     <color name="colorTransBgCerberus">#24d7ad17</color>
     <color name="colorTransBgOmniflix">#246c63ff</color>
     <color name="colorTransBgCrescent">#24ffc780</color>
+    <color name="colorTransBgMantle">#24f3b519</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
@@ -209,6 +210,9 @@
     <color name="colorCrescent">#ffc780</color>
     <color name="colorCrescent2">#ac8a5e</color>
     <color name="colorCrescent3">#452318</color>
+
+    <color name="colorMantle">#f3b519</color>
+    <color name="colorMantle2">#a48e59</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>
