@@ -1371,7 +1371,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_mantle_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), ASSETMANTLE_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Asset Mantle Staking Coin");
+            holder.itemFullName.setText("Asset-Mantle Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_assetmantle));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_MANTLE);

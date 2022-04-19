@@ -520,7 +520,7 @@
     <string name="str_cerberus_net" translatable="false">(Cerberus)</string>
     <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
     <string name="str_crescent_net" translatable="false">(Crescent)</string>
-    <string name="str_mantle_net" translatable="false">(Asset Mantle)</string>
+    <string name="str_mantle_net" translatable="false">(Asset-Mantle)</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_crescent_chain_test" translatable="false">(Crescent Testnet)</string>
