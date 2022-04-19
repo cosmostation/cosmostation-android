@@ -268,7 +268,7 @@
     <string name="str_cerberus_main_net" translatable="false">Cerberus</string>
     <string name="str_omniflix_main_net" translatable="false">Omniflix</string>
     <string name="str_crescent_main_net" translatable="false">Crescent</string>
-    <string name="str_mantle_main_net" translatable="false">Asset Mantle</string>
+    <string name="str_mantle_main_net" translatable="false">AssetMantle</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -520,7 +520,7 @@
     <string name="str_cerberus_net" translatable="false">(Cerberus)</string>
     <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
     <string name="str_crescent_net" translatable="false">(Crescent)</string>
-    <string name="str_mantle_net" translatable="false">(Asset-Mantle)</string>
+    <string name="str_mantle_net" translatable="false">(AssetMantle)</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_crescent_chain_test" translatable="false">(Crescent Testnet)</string>
@@ -575,7 +575,7 @@
     <string name="str_cerberus_main" translatable="false">CERBERUS</string>
     <string name="str_omniflix_main" translatable="false">OMNIFLIX</string>
     <string name="str_crescent_main" translatable="false">CRESCENT</string>
-    <string name="str_mantle_main" translatable="false">ASSET MANTLE</string>
+    <string name="str_mantle_main" translatable="false">ASSETMANTLE</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_crescent_test" translatable="false">CRESCENT TEST</string>
     <string name="str_mintscan">Check Explorer</string>
@@ -685,7 +685,7 @@
     <string name="str_front_guide_title_cerberus"><![CDATA[CERBERUS]]></string>
     <string name="str_front_guide_title_omniflix"><![CDATA[OMNIFLIX]]></string>
     <string name="str_front_guide_title_crescent"><![CDATA[CRESCENT]]></string>
-    <string name="str_front_guide_title_mantle"><![CDATA[ASSET MANTLE]]></string>
+    <string name="str_front_guide_title_mantle"><![CDATA[ASSETMANTLE]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -727,7 +727,7 @@
     <string name="str_front_guide_msg_cerberus"><![CDATA[Cerberus is a community-led tri-headed dog meme coin in Cosmos ecosystem.]]></string>
     <string name="str_front_guide_msg_omniflix"><![CDATA[OmniFlix Network is a blockchain specifically designed for creators and communities, powered by NFTs.]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[Crescent is a Tendermint-based DeFi hub powered by $CRE tokens & Inter-Blockchain Communication protocol.]]></string>
-    <string name="str_front_guide_msg_mantle"><![CDATA[Asset Mantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
+    <string name="str_front_guide_msg_mantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>

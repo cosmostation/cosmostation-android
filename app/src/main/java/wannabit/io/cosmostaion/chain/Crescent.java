@@ -90,7 +90,7 @@ public class Crescent extends Chain {
             setDpMainDenom(c, denomTv);
             amountTv.setText(WDp.getDpAmount2(c, new BigDecimal(amount), 6, 6));
         } else if (symbol.equals(TOKEN_BCRE)) {
-            denomTv.setText(symbol.toUpperCase());
+            denomTv.setText(c.getString(R.string.str_bcre_c));
             denomTv.setTextColor(c.getResources().getColor(R.color.colorCrescent2));
             amountTv.setText(WDp.getDpAmount2(c, new BigDecimal(amount), 6, 6));
         } else if (symbol.startsWith("pool")) {
