@@ -1028,7 +1028,7 @@ public class WDp {
             if (symbol.equals(TOKEN_CRE)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else if (symbol.equals(TOKEN_BCRE)) {
-                denomTv.setText(symbol.toUpperCase());
+                denomTv.setText(R.string.str_bcre_c);
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorCrescent2));
             } else {
                 denomTv.setText(symbol.toUpperCase());
