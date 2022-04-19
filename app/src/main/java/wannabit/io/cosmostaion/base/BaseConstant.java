@@ -771,6 +771,10 @@ public class BaseConstant {
     public final static String CRESCENT_GAS_RATE_LOW                    = "0.000";
     public final static String CRESCENT_GAS_RATE_AVERAGE                = "0.000";
 
+    public final static String MANTLE_GAS_RATE_TINY                     = "0.000";
+    public final static String MANTLE_GAS_RATE_LOW                      = "0.000";
+    public final static String MANTLE_GAS_RATE_AVERAGE                  = "0.000";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -990,4 +994,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_CERBERUS = new BigDecimal("5.9666");
     public final static BigDecimal BLOCK_TIME_OMNIFLIX = new BigDecimal("5.7970");
     public final static BigDecimal BLOCK_TIME_CRESCENT = new BigDecimal("6.355");
+    public final static BigDecimal BLOCK_TIME_MANTLE = new BigDecimal("5.8040");
 }

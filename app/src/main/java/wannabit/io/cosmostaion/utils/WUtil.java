@@ -2748,6 +2748,9 @@ public class WUtil {
             } else if (chain.equals(CRESCENT_MAIN)) {
                 return BLOCK_TIME_CRESCENT;
 
+            } else if (chain.equals(ASSETMANTLE_MAIN)) {
+                return BLOCK_TIME_MANTLE;
+
             }
         }
         return BigDecimal.ZERO;
@@ -4205,7 +4208,7 @@ public class WUtil {
      * Chain Gas Rate
      */
     public static BigDecimal getEstimateGasFeeAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(ASSETMANTLE_MAIN)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -4401,6 +4404,10 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(MANTLE_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4415,7 +4422,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(ASSETMANTLE_MAIN) ||
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(CRESCENT_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
@@ -4695,6 +4702,14 @@ public class WUtil {
                 return new BigDecimal(CRESCENT_GAS_RATE_LOW);
             }
             return new BigDecimal(CRESCENT_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(MANTLE_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(MANTLE_GAS_RATE_LOW);
+            }
+            return new BigDecimal(MANTLE_GAS_RATE_AVERAGE);
 
         }
 
