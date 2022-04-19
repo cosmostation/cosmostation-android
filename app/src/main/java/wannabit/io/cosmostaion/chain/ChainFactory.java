@@ -11,6 +11,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CHIHUAHUA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRBRUS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DARC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DESMOS;
@@ -27,6 +28,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_JUNO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_LUM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MANTLE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_NGM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
@@ -57,6 +59,9 @@ public class ChainFactory {
                 case AKASH_MAIN:
                     return new Akash();
 
+                case ASSETMANTLE_MAIN:
+                    return new AssetMantle();
+
                 case AXELAR_MAIN:
                     return new Axelar();
 
@@ -86,6 +91,9 @@ public class ChainFactory {
 
                 case CRYPTO_MAIN:
                     return new Crypto();
+
+                case CRESCENT_MAIN:
+                    return new Crescent();
 
                 case DESMOS_MAIN:
                     return new Desmos();
@@ -194,6 +202,8 @@ public class ChainFactory {
             return new Comdex();
         } else if (chainInfo.startsWith("crypto-org-") || chainInfo.startsWith("cro1") || chainInfo.equalsIgnoreCase(TOKEN_CRO)) {
             return new Crypto();
+        } else if (chainInfo.startsWith("crescent-") || chainInfo.startsWith("cre1") || chainInfo.equalsIgnoreCase(TOKEN_CRE)) {
+            return new Crypto();
         } else if (chainInfo.startsWith("desmos-") || chainInfo.startsWith("desmos1") || chainInfo.equalsIgnoreCase(TOKEN_DESMOS)) {
             return new Desmos();
         } else if (chainInfo.startsWith("emoney-") || chainInfo.startsWith("emoney1") || chainInfo.equalsIgnoreCase(TOKEN_NGM)) {
@@ -241,6 +251,8 @@ public class ChainFactory {
         } else if (chainInfo.startsWith("iov-") || chainInfo.startsWith("star1") || chainInfo.equalsIgnoreCase(TOKEN_IOV)) {
             return new Stargaze();
         } else if (chainInfo.startsWith("umee-") || chainInfo.startsWith("umee1") || chainInfo.equalsIgnoreCase(TOKEN_UMEE)) {
+            return new Stargaze();
+        } else if (chainInfo.startsWith("mantle-") || chainInfo.startsWith("mantle1") || chainInfo.equalsIgnoreCase(TOKEN_MANTLE)) {
             return new Stargaze();
         }
         return new Cosmos();

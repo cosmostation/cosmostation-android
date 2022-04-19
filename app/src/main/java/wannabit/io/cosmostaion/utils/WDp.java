@@ -1177,7 +1177,7 @@ public class WDp {
     }
 
     public static void DpMainDenom(Context c, String chain, TextView textview) {
-        if (chain != null && chain.isEmpty()) {
+        if (chain != null && !chain.isEmpty()) {
             ChainFactory.getChain(BaseChain.getChain(chain)).setDpMainDenom(c, textview);
         }
     }

@@ -945,6 +945,7 @@ public class BaseConstant {
     public final static String COINGECKO_STARGAZE_MAIN      = "https://www.coingecko.com/en/coins/stargaze/";
     public final static String COINGECKO_STARNAME_MAIN      = "https://www.coingecko.com/en/coins/starname/";
     public final static String COINGECKO_UMEE_MAIN          = "https://www.coingecko.com/en/coins/umee/";
+    public final static String COINGECKO_CRESCENT_MAIN      = "https://www.coingecko.com/en/coins/crescent-network/";
 
 
     public final static String AKASH_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";
