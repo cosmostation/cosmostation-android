@@ -1950,7 +1950,7 @@ public class WDp {
             } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
                 return "crescent";
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
-                return "assetmantle";
+                return "asset-mantle";
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
