@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
@@ -113,6 +114,8 @@ public class TokenDetailSupportHolder extends BaseHolder {
     public void onBindPoolToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
         if (baseChain.equals(COSMOS_MAIN)) {
             dpDecimal = 6;
+        } else if (baseChain.equals(CRESCENT_MAIN)) {
+            dpDecimal = 12;
         } else {
             dpDecimal = 18;
         }

@@ -1722,6 +1722,11 @@
     <string name="tx_crescent_farming_advance_epoch">파밍\n에포치 관리</string>
     <string name="tx_crescent_farming_claim">에어드랍</string>
 
+    <string name="tx_osmosis_super_fluid_delegate">수퍼플로이드\n스테이킹</string>
+    <string name="tx_osmosis_super_fluid_undelegate">수퍼플로이드\n언스테이킹</string>
+    <string name="tx_osmosis_super_fluid_unbondinglock">수퍼플로이드\n언본딩 락</string>
+    <string name="tx_osmosis_super_fluid_lockanddelegate">수퍼플로이드\n락 <![CDATA[ & ]]> 스테이킹</string>
+
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
     <string name="str_dp_time_format3" >HH:mm:ss</string>

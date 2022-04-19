@@ -90,4 +90,11 @@ public class Coin implements Parcelable {
         return Long.parseLong(id);
     }
 
+    public boolean crescnetPool() {
+        if (denom.startsWith("pool")) {
+            return true;
+        }
+        return false;
+    }
+
 }
