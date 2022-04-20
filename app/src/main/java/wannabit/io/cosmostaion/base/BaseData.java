@@ -199,24 +199,26 @@ public class BaseData {
     }
 
     public String getBaseDenom(String denom) {
-        if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.startsWith("cw20:")) {
-                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets: mCw20Assets) {
-                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                            return assets.denom;
+        if (denom != null) {
+            if (denom.startsWith("ibc/")) {
+                IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
+                if (ibcToken != null && ibcToken.auth) {
+                    if (ibcToken.base_denom.startsWith("cw20:")) {
+                        String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                        for (Cw20Assets assets: mCw20Assets) {
+                            if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                                return assets.denom;
+                            }
                         }
+                    } else {
+                        return ibcToken.base_denom;
                     }
                 } else {
-                    return ibcToken.base_denom;
+                    return "UNKNOWN";
                 }
-            } else {
-                return "UNKNOWN";
+            } else if (denom.startsWith("c")) {
+                return denom.substring(1);
             }
-        } else if (denom.startsWith("c")) {
-            return denom.substring(1);
         }
         return denom;
     }

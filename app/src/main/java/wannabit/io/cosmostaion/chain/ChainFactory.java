@@ -13,6 +13,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRBRUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CUDOS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DARC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DESMOS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
@@ -94,6 +95,9 @@ public class ChainFactory {
 
                 case CRESCENT_MAIN:
                     return new Crescent();
+
+                case CUDOS_MAIN:
+                    return new Cudos();
 
                 case DESMOS_MAIN:
                     return new Desmos();
@@ -203,6 +207,8 @@ public class ChainFactory {
         } else if (chainInfo.startsWith("crypto-org-") || chainInfo.startsWith("cro1") || chainInfo.equalsIgnoreCase(TOKEN_CRO)) {
             return new Crypto();
         } else if (chainInfo.startsWith("crescent-") || chainInfo.startsWith("cre1") || chainInfo.equalsIgnoreCase(TOKEN_CRE)) {
+            return new Crypto();
+        } else if (chainInfo.startsWith("cudos-") || chainInfo.startsWith("cudos1") || chainInfo.equalsIgnoreCase(TOKEN_CUDOS)) {
             return new Crypto();
         } else if (chainInfo.startsWith("desmos-") || chainInfo.startsWith("desmos1") || chainInfo.equalsIgnoreCase(TOKEN_DESMOS)) {
             return new Desmos();

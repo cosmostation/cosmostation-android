@@ -920,6 +920,8 @@ public class BaseConstant {
     public final static String COINGECKO_CHIHUAHUA_MAIN     = "https://www.coingecko.com/en/coins/chihuahua-chain";
     public final static String COINGECKO_COMDEX_MAIN        = "https://www.coingecko.com/en/coins/comdex";
     public final static String COINGECKO_CRYPTO_MAIN        = "https://www.coingecko.com/en/coins/crypto-com-chain";
+    public final static String COINGECKO_CRESCENT_MAIN      = "https://www.coingecko.com/en/coins/crescent-network/";
+    public final static String COINGECKO_CUDOS_MAIN         = "https://www.coingecko.com/en/coins/cudos/";
     public final static String COINGECKO_DESMOS_MAIN        = "https://www.coingecko.com/en/coins/desmos";
     public final static String COINGECKO_EMONEY_MAIN        = "https://www.coingecko.com/en/coins/e-money";
     public final static String COINGECKO_EVMOS_MAIN         = "https://www.coingecko.com/en/coins/evmos";
@@ -945,7 +947,6 @@ public class BaseConstant {
     public final static String COINGECKO_STARGAZE_MAIN      = "https://www.coingecko.com/en/coins/stargaze/";
     public final static String COINGECKO_STARNAME_MAIN      = "https://www.coingecko.com/en/coins/starname/";
     public final static String COINGECKO_UMEE_MAIN          = "https://www.coingecko.com/en/coins/umee/";
-    public final static String COINGECKO_CRESCENT_MAIN      = "https://www.coingecko.com/en/coins/crescent-network/";
 
 
     public final static String AKASH_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";
