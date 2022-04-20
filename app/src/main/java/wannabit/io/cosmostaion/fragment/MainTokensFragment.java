@@ -1,112 +1,41 @@
 package wannabit.io.cosmostaion.fragment;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AXELAR;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BCRE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BCRESCENT_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BITCANNA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BITSONG;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CHIHUAHUA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRBRUS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRESCENT_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CUDOS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DARC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DESMOS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EVMOS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FLIX;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_GRABRIDGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_INJ;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_JUNO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_LUM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MANTLE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_NGM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_REGEN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_STARGAZE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 
 import android.content.Context;
 import android.content.Intent;
@@ -161,7 +90,6 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainTokensFragment extends BaseFragment {
@@ -851,93 +779,16 @@ public class MainTokensFragment extends BaseFragment {
     private void onNativeGrpcItem(TokensAdapter.AssetHolder holder, final int position) {
         final Coin coin = mNativeGrpc.get(position);
         if (coin != null) {
-            int decimal = ChainFactory.getChain(getMainActivity().mBaseChain).mainDecimal();
-            String mainDenom = ChainFactory.getChain(getMainActivity().mBaseChain).getMainDenom();
+            Picasso.get().cancelRequest(holder.itemImg);
             holder.itemInnerSymbol.setText("");
+            ChainFactory.getChain(coin.denom).setCoinMainList(getMainActivity(), getBaseDao(), coin.denom, holder.itemSymbol, holder.itemFullName, holder.itemImg, holder.itemBalance, holder.itemValue);
 
-            if (coin.denom.equalsIgnoreCase(mainDenom)) {
-                Picasso.get().cancelRequest(holder.itemImg);
-                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
-                ChainFactory.getChain(coin.denom).setCoinMainDenom(getMainActivity(), holder.itemSymbol, holder.itemFullName, holder.itemImg);
-
-                BigDecimal totalAmount = getBaseDao().getAllMainAsset(mainDenom);
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mainDenom, totalAmount, decimal));
-
-            } else if (coin.denom.equals(TOKEN_ION)) {
-                holder.itemSymbol.setText(getString(R.string.str_uion_c));
-                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorIon));
-                holder.itemFullName.setText("Ion Coin");
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
-
-                BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_ION);
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-
-            } else if (coin.denom.startsWith("e")) {
-                holder.itemSymbol.setText(coin.denom.toUpperCase());
-                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-                holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on E-Money Network");
-                Picasso.get().load(EMONEY_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
-
-                BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-
-            } else if (coin.denom.equals(TOKEN_HARD)) {
-                Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
-                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorHard));
-                holder.itemSymbol.setText(coin.denom.toUpperCase());
-                holder.itemInnerSymbol.setText("");
-                holder.itemFullName.setText("HardPool Gov. Coin");
-
-                BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
-
-            } else if (coin.denom.equals(TOKEN_USDX)) {
-                Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
-                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
-                holder.itemSymbol.setText(coin.denom.toUpperCase());
-                holder.itemInnerSymbol.setText("");
-                holder.itemFullName.setText("USD Stable Asset");
-
-                BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
-
-            } else if (coin.denom.equals(TOKEN_SWP)) {
-                Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
-                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
-                holder.itemSymbol.setText(coin.denom.toUpperCase());
-                holder.itemInnerSymbol.setText("");
-                holder.itemFullName.setText("Kava Swap Coin");
-
-                BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
-
-            } else if (coin.denom.equals(TOKEN_BCRE)) {
-                holder.itemSymbol.setText(getString(R.string.str_bcre_c));
-                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorCrescent2));
-                holder.itemInnerSymbol.setText("");
-                holder.itemFullName.setText("Liquidated CRE");
-                Picasso.get().cancelRequest(holder.itemImg);
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
-
-                BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_BCRE);
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            }
-
-            else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
+            if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 holder.itemSymbol.setText(getString(R.string.str_muon_c));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
-                holder.itemInnerSymbol.setText("");
                 holder.itemFullName.setText("Stargate Staking Coin");
-                Picasso.get().cancelRequest(holder.itemImg);
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
                 BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_COSMOS_TEST);
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
@@ -945,9 +796,7 @@ public class MainTokensFragment extends BaseFragment {
             } else if (coin.denom.equals(TOKEN_IRIS_TEST)) {
                 holder.itemSymbol.setText(getString(R.string.str_bif_c));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_TEST));
-                holder.itemInnerSymbol.setText("");
                 holder.itemFullName.setText("Bifrost Staking Coin");
-                Picasso.get().cancelRequest(holder.itemImg);
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
 
                 BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS_TEST);
@@ -957,9 +806,7 @@ public class MainTokensFragment extends BaseFragment {
             } else if (coin.denom.equals(TOKEN_CRESCENT_TEST)) {
                 holder.itemSymbol.setText(getString(R.string.str_cre_c));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRESCENT_TEST));
-                holder.itemInnerSymbol.setText("");
                 holder.itemFullName.setText("Crescent Staking Coin");
-                Picasso.get().cancelRequest(holder.itemImg);
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_crescent));
 
                 BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRESCENT_TEST);
@@ -969,9 +816,7 @@ public class MainTokensFragment extends BaseFragment {
             } else if (coin.denom.equals(TOKEN_BCRESCENT_TEST)) {
                 holder.itemSymbol.setText(getString(R.string.str_bcre_c));
                 holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorCrescent2));
-                holder.itemInnerSymbol.setText("");
                 holder.itemFullName.setText("Liquidated CRE");
-                Picasso.get().cancelRequest(holder.itemImg);
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
 
                 BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_BCRESCENT_TEST);
@@ -1240,48 +1085,25 @@ public class MainTokensFragment extends BaseFragment {
     //with native tokens
     private void onBindNativeItem(TokensAdapter.AssetHolder holder, int position) {
         final Balance balance = mNative.get(position);
+        ChainFactory.getChain(getMainActivity().mBaseChain).setCoinMainList(getMainActivity(), getBaseDao(), balance.symbol, holder.itemSymbol, holder.itemFullName, holder.itemImg, holder.itemBalance, holder.itemValue);
         if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
             final String denom = mNative.get(position).symbol;
-            final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(denom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(denom);
             if (bnbToken != null) {
-                holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
                 holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
-                holder.itemFullName.setText("Binance Chain Native Coin");
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
-                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, amount, 0));
             }
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
 
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
             final OkToken okToken = getBaseDao().okToken(balance.symbol);
-            holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
-            holder.itemFullName.setText("OEC Staking Coin");
-            if (balance.symbol.equals(TOKEN_OK)) {
-                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_okx));
-
-                BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
-            }
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
         }
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //with Etc tokens (binance, okex)

@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.chain;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_EMONEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_GAS_RATE_TINY;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.squareup.picasso.Picasso;
 
 import org.bitcoinj.crypto.ChildNumber;
 
@@ -101,10 +103,25 @@ public class Emoney extends Chain {
     }
 
     @Override
-    public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
-        symbol.setText(c.getString(R.string.str_ngm_c));
-        fullName.setText("E-money Staking Coin");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.token_emoney));
+    public void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value) {
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        if (denom.equalsIgnoreCase(getMainDenom())) {
+            setDpMainDenom(c, symbol);
+            fullName.setText("E-money Staking Coin");
+            setInfoImg(imageView, 1);
+
+            totalAmount = baseData.getAllMainAsset(denom);
+
+        } else if (denom.startsWith("e")) {
+            symbol.setText(denom.toUpperCase());
+            symbol.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            fullName.setText(denom.substring(1).toUpperCase() + " on E-Money Network");
+            Picasso.get().load(EMONEY_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+
+            totalAmount = baseData.getAvailable(denom);
+        }
+        balance.setText(WDp.getDpAmount2(c, totalAmount, mainDecimal(), 6));
+        value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, mainDecimal()));
     }
 
     @Override

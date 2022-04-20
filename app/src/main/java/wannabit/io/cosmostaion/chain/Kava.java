@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_TINY;
@@ -34,6 +35,7 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.squareup.picasso.Picasso;
 
 import org.bitcoinj.crypto.ChildNumber;
 
@@ -127,10 +129,30 @@ public class Kava extends Chain {
     }
 
     @Override
-    public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
-        symbol.setText(c.getString(R.string.str_kava_c));
-        fullName.setText("Kava Staking Coin");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_token_img));
+    public void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value) {
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        if (denom.equalsIgnoreCase(getMainDenom())) {
+            setDpMainDenom(c, symbol);
+            fullName.setText("Kava Staking Coin");
+            setInfoImg(imageView, 1);
+
+            totalAmount = baseData.getAllMainAsset(denom);
+
+        } else {
+            if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+                fullName.setText("HardPool Gov. Coin");
+            } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+                fullName.setText("USD Stable Asset");
+            } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+                fullName.setText("Kava Swap Coin");
+            }
+            Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(imageView);
+            symbol.setText(denom.toUpperCase());
+            totalAmount = baseData.getAvailable(denom).add(baseData.getVesting(denom));
+            setShowCoinDp(c, baseData, denom, totalAmount.toPlainString(), symbol, balance);
+        }
+        balance.setText(WDp.getDpAmount2(c, totalAmount, WUtil.getKavaCoinDecimal(baseData, denom), 6));
+        value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, WUtil.getKavaCoinDecimal(baseData, denom)));
     }
 
     @Override

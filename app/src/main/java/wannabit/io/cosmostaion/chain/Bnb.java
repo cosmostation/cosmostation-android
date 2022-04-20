@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Bnb extends Chain {
@@ -95,10 +96,17 @@ public class Bnb extends Chain {
     }
 
     @Override
-    public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
-        symbol.setText(c.getString(R.string.str_bnb_c));
-        fullName.setText("Binance Chain Native Coin");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.bnb_token_img));
+    public void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value) {
+        final BigDecimal amount = baseData.getAllBnbTokenAmount(denom);
+        final BnbToken bnbToken = baseData.getBnbToken(denom);
+        if (bnbToken != null) {
+            symbol.setText(bnbToken.original_symbol.toUpperCase());
+            symbol.setTextColor(setChainColor(c, 0));
+            fullName.setText("Binance Chain Native Coin");
+            setInfoImg(imageView, 1);
+            balance.setText(WDp.getDpAmount2(c, amount, 0, 6));
+            value.setText(WDp.dpUserCurrencyValue(baseData, denom, amount, 0));
+        }
     }
 
     @Override

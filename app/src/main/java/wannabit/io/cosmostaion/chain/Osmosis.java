@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Osmosis extends Chain {
@@ -88,7 +89,7 @@ public class Osmosis extends Chain {
 
     @Override
     public void setShowCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv) {
-        int maindecimal = WUtil.getOsmosisCoinDecimal(baseData, symbol);
+        int mainDecimal = WUtil.getOsmosisCoinDecimal(baseData, symbol);
         if (symbol.equals(getMainDenom())) {
             setDpMainDenom(c, denomTv);
 
@@ -105,7 +106,7 @@ public class Osmosis extends Chain {
             denomTv.setText(symbol.toUpperCase());
             denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
         }
-        amountTv.setText(getDpAmount2(c, new BigDecimal(amount), maindecimal, maindecimal));
+        amountTv.setText(getDpAmount2(c, new BigDecimal(amount), mainDecimal, mainDecimal));
     }
 
     @Override
@@ -115,10 +116,25 @@ public class Osmosis extends Chain {
     }
 
     @Override
-    public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
-        symbol.setText(c.getString(R.string.str_osmosis_c));
-        fullName.setText("Osmosis Staking Coin");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.token_osmosis));
+    public void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value) {
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        if (denom.equalsIgnoreCase(getMainDenom())) {
+            setDpMainDenom(c, symbol);
+            fullName.setText("Osmosis Staking Coin");
+            setInfoImg(imageView, 1);
+
+            totalAmount = baseData.getAllMainAsset(denom);
+
+        } else if (denom.equalsIgnoreCase(TOKEN_ION)) {
+            symbol.setText(c.getString(R.string.str_uion_c));
+            symbol.setTextColor(c.getResources().getColor(R.color.colorIon));
+            fullName.setText("Ion Coin");
+            setInfoImg(imageView, 2);
+
+            totalAmount = baseData.getAvailable(TOKEN_ION);
+        }
+        balance.setText(WDp.getDpAmount2(c, totalAmount, mainDecimal(), 6));
+        value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, mainDecimal()));
     }
 
     @Override
@@ -136,6 +152,8 @@ public class Osmosis extends Chain {
             imageView.setImageResource(R.drawable.chain_osmosis);
         } else if (type == 1) {
             imageView.setImageResource(R.drawable.token_osmosis);
+        } else if (type == 2) {
+            imageView.setImageResource(R.drawable.token_ion);
         }
     }
 

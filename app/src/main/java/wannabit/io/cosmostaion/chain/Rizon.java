@@ -101,10 +101,14 @@ public class Rizon extends Chain {
     }
 
     @Override
-    public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
-        symbol.setText(c.getString(R.string.str_rizon_c));
+    public void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value) {
+        setDpMainDenom(c, symbol);
         fullName.setText("Rizon Staking Coin");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.token_rizon));
+        setInfoImg(imageView, 1);
+
+        BigDecimal totalAmount = baseData.getAllMainAsset(denom);
+        balance.setText(WDp.getDpAmount2(c, totalAmount, mainDecimal(), 6));
+        value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, mainDecimal()));
     }
 
     @Override

@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Oec extends Chain {
@@ -109,10 +110,18 @@ public class Oec extends Chain {
     }
 
     @Override
-    public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
-        symbol.setText(c.getString(R.string.str_ok_c));
+    public void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value) {
+        final OkToken okToken = baseData.okToken(denom);
+        symbol.setText(okToken.original_symbol.toUpperCase());
         fullName.setText("OEC Staking Coin");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.token_okx));
+        setInfoImg(imageView, 1);
+        symbol.setTextColor(setChainColor(c, 0));
+
+
+        BigDecimal totalAmount = baseData.getAllExToken(denom);
+        balance.setText(WDp.getDpAmount2(c, totalAmount, mainDecimal(), 6));
+        value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, mainDecimal()));
+
     }
 
     @Override

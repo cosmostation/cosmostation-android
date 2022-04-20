@@ -59,7 +59,7 @@ public abstract class Chain {
     public abstract void setDpMainDenom(Context c, TextView denomTxt);
 
     // Set Coin Main Denom(Token Fragment)
-    public abstract void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView);
+    public abstract void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value);
 
     // Set Chain Title
     public abstract void setChainTitle(Context c, TextView chainName, int type);

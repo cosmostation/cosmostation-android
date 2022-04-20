@@ -112,10 +112,14 @@ public class Lum extends Chain {
     }
 
     @Override
-    public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
-        symbol.setText(c.getString(R.string.str_lum_c));
+    public void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value) {
+        setDpMainDenom(c, symbol);
         fullName.setText("Lum Network Staking Coin");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.token_lum));
+        setInfoImg(imageView, 1);
+
+        BigDecimal totalAmount = baseData.getAllMainAsset(denom);
+        balance.setText(WDp.getDpAmount2(c, totalAmount, mainDecimal(), 6));
+        value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, mainDecimal()));
     }
 
     @Override

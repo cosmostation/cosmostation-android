@@ -11,9 +11,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CRYPTO_UNKNOWN_RELAYER;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CRYPTOORG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_CRYPTO_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.utils.WKey.bech32Decode;
 import static wannabit.io.cosmostaion.utils.WKey.bech32Encode;
 import static wannabit.io.cosmostaion.utils.WUtil.getEstimateGasAmount;
+import static wannabit.io.cosmostaion.utils.WUtil.getIbcDecimal;
 
 import android.content.Context;
 import android.content.Intent;
@@ -102,10 +105,14 @@ public class Crypto extends Chain {
     }
 
     @Override
-    public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
-        symbol.setText(c.getString(R.string.str_cro_c));
+    public void setCoinMainList(Context c, BaseData baseData, String denom, TextView symbol, TextView fullName, ImageView imageView, TextView balance, TextView value) {
+        setDpMainDenom(c, symbol);
         fullName.setText("Cronos");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.tokencrypto));
+        setInfoImg(imageView, 1);
+
+        BigDecimal totalAmount = baseData.getAllMainAsset(denom);
+        balance.setText(WDp.getDpAmount2(c, totalAmount, mainDecimal(), 6));
+        value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, mainDecimal()));
     }
 
     @Override
