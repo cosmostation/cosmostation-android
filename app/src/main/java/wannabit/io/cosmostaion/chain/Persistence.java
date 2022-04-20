@@ -97,7 +97,7 @@ public class Persistence extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorPersis));
-        denomTxt.setText(c.getString(R.string.s_xprt));
+        denomTxt.setText(c.getString(R.string.str_xprt_c));
     }
 
     @Override

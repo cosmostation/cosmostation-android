@@ -118,7 +118,7 @@ public class Fetchai extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorFetch));
-        denomTxt.setText(c.getString(R.string.s_fet));
+        denomTxt.setText(c.getString(R.string.str_fet_c));
     }
 
     @Override

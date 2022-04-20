@@ -98,7 +98,7 @@ public class Crypto extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorCryto));
-        denomTxt.setText(c.getString(R.string.s_cro));
+        denomTxt.setText(c.getString(R.string.str_cro_c));
     }
 
     @Override

@@ -95,7 +95,7 @@ public class Cudos extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorCudos));
-        denomTxt.setText(c.getString(R.string.s_cudos));
+        denomTxt.setText(c.getString(R.string.str_cudos_c));
     }
 
     @Override

@@ -99,7 +99,7 @@ public class Umee extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorUmee));
-        denomTxt.setText(c.getString(R.string.s_umee));
+        denomTxt.setText(c.getString(R.string.str_umee_c));
     }
 
     @Override

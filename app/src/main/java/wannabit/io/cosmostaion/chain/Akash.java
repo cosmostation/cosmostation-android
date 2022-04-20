@@ -97,7 +97,7 @@ public class Akash extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorAkash));
-        denomTxt.setText(c.getString(R.string.s_akt));
+        denomTxt.setText(c.getString(R.string.str_akt_c));
     }
 
     @Override

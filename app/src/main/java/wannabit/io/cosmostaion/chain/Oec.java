@@ -105,7 +105,7 @@ public class Oec extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorOK));
-        denomTxt.setText(c.getString(R.string.s_okt));
+        denomTxt.setText(c.getString(R.string.str_ok_c));
     }
 
     @Override

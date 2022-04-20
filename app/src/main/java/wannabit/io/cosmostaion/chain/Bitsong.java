@@ -97,7 +97,7 @@ public class Bitsong extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorBitsong));
-        denomTxt.setText(c.getString(R.string.s_bitsong));
+        denomTxt.setText(c.getString(R.string.str_bitsong_c));
     }
 
     @Override

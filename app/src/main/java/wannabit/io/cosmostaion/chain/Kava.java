@@ -123,7 +123,7 @@ public class Kava extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorKava));
-        denomTxt.setText(c.getString(R.string.s_kava));
+        denomTxt.setText(c.getString(R.string.str_kava_c));
     }
 
     @Override

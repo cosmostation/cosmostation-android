@@ -111,7 +111,7 @@ public class Osmosis extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
-        denomTxt.setText(c.getString(R.string.s_osmosis));
+        denomTxt.setText(c.getString(R.string.str_osmosis_c));
     }
 
     @Override

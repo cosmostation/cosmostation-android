@@ -107,7 +107,7 @@ public class Crescent extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorCrescent));
-        denomTxt.setText(c.getString(R.string.s_cre));
+        denomTxt.setText(c.getString(R.string.str_cre_c));
     }
 
     @Override

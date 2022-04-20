@@ -97,7 +97,7 @@ public class Konstellation extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorKonstellation));
-        denomTxt.setText(c.getString(R.string.s_konstellation));
+        denomTxt.setText(c.getString(R.string.str_konstellation_c));
     }
 
     @Override

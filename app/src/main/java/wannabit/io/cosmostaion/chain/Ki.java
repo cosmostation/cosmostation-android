@@ -97,7 +97,7 @@ public class Ki extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorKi));
-        denomTxt.setText(c.getString(R.string.s_ki));
+        denomTxt.setText(c.getString(R.string.str_ki_c));
     }
 
     @Override

@@ -108,7 +108,7 @@ public class Lum extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorLum));
-        denomTxt.setText(c.getString(R.string.s_lum));
+        denomTxt.setText(c.getString(R.string.str_lum_c));
     }
 
     @Override

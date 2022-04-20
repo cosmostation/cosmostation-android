@@ -97,7 +97,7 @@ public class Regen extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorRegen));
-        denomTxt.setText(c.getString(R.string.s_regen));
+        denomTxt.setText(c.getString(R.string.str_regen_c));
     }
 
     @Override

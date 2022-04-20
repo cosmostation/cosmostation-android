@@ -1917,51 +1917,6 @@
 
 
     <string name="s_atom" translatable="false">ATOM</string>
-    <string name="s_photon" translatable="false">PHOTON</string>
-    <string name="s_muon" translatable="false">MUON</string>
-    <string name="s_photino" translatable="false">PHOTINO</string>
-    <string name="s_iris" translatable="false">IRIS</string>
-    <string name="s_bnb" translatable="false">BNB</string>
-    <string name="s_iov" translatable="false">IOV</string>
-    <string name="s_kava" translatable="false">KAVA</string>
-    <string name="s_band" translatable="false">BAND</string>
-    <string name="s_okt" translatable="false">OKT</string>
-    <string name="s_ctk" translatable="false">CTK</string>
-    <string name="s_akt" translatable="false">AKT</string>
-    <string name="s_scrt" translatable="false">SCRT</string>
-    <string name="s_bif" translatable="false">BIF</string>
-    <string name="s_xprt" translatable="false">XPRT</string>
-    <string name="s_dvpn" translatable="false">DVPN</string>
-    <string name="s_fet" translatable="false">FET</string>
-    <string name="s_cro" translatable="false">CRO</string>
-    <string name="s_sif" translatable="false">ROWAN</string>
-    <string name="s_ki" translatable="false">XKI</string>
-    <string name="s_rizon" translatable="false">ATOLO</string>
-    <string name="s_medi" translatable="false">MED</string>
-    <string name="s_althea" translatable="false">ALTG</string>
-    <string name="s_osmosis" translatable="false">OSMO</string>
-    <string name="s_umee" translatable="false">UMEE</string>
-    <string name="s_emoney" translatable="false">NGM</string>
-    <string name="s_axelar" translatable="false">AXL</string>
-    <string name="s_juno" translatable="false">JUNO</string>
-    <string name="s_regen" translatable="false">REGEN</string>
-    <string name="s_bitcanna" translatable="false">BCNA</string>
-    <string name="s_stargaze" translatable="false">STARS</string>
-    <string name="s_grabridge" translatable="false">GRAVITON</string>
-    <string name="s_comdex" translatable="false">CMDX</string>
-    <string name="s_inj" translatable="false">INJ</string>
-    <string name="s_bitsong" translatable="false">BTSG</string>
-    <string name="s_desmos" translatable="false">DSM</string>
-    <string name="s_lum" translatable="false">LUM</string>
-    <string name="s_chihuahua" translatable="false">HUAHUA</string>
-    <string name="s_konstellation" translatable="false">DARC</string>
-    <string name="s_evmos" translatable="false">EVMOS</string>
-    <string name="s_cudos" translatable="false">CUDOS</string>
-    <string name="s_provenance" translatable="false">HASH</string>
-    <string name="s_cerberus" translatable="false">CRBRUS</string>
-    <string name="s_omniflix" translatable="false">FLIX</string>
-    <string name="s_cre" translatable="false">CRE</string>
-    <string name="s_mantle" translatable="false">MNTL</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

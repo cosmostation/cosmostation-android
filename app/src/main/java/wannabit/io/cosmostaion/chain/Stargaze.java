@@ -99,7 +99,7 @@ public class Stargaze extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorStargaze));
-        denomTxt.setText(c.getString(R.string.s_stargaze));
+        denomTxt.setText(c.getString(R.string.str_stargaze_c));
     }
 
     @Override

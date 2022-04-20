@@ -97,7 +97,7 @@ public class Juno extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorJuno));
-        denomTxt.setText(c.getString(R.string.s_juno));
+        denomTxt.setText(c.getString(R.string.str_juno_c));
     }
 
     @Override

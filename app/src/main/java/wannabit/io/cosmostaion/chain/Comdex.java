@@ -97,7 +97,7 @@ public class Comdex extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorComdex));
-        denomTxt.setText(c.getString(R.string.s_comdex));
+        denomTxt.setText(c.getString(R.string.str_comdex_c));
     }
 
     @Override

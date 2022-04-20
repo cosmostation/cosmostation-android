@@ -96,7 +96,7 @@ public class AssetMantle extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorMantle));
-        denomTxt.setText(c.getString(R.string.s_mantle));
+        denomTxt.setText(c.getString(R.string.str_mantle_c));
     }
 
     @Override

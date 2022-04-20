@@ -97,7 +97,7 @@ public class Injective extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorInj));
-        denomTxt.setText(c.getString(R.string.s_inj));
+        denomTxt.setText(c.getString(R.string.str_inj_c));
     }
 
     @Override

@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        android:text="@string/s_okt"
+                        android:text="@string/str_ok_c"
                         style="@style/font_ss_12_ok" />
                 </LinearLayout>
             </RelativeLayout>

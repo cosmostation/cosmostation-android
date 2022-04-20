@@ -97,7 +97,7 @@ public class Rizon extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorRizon));
-        denomTxt.setText(c.getString(R.string.s_rizon));
+        denomTxt.setText(c.getString(R.string.str_rizon_c));
     }
 
     @Override

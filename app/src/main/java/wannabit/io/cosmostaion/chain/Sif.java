@@ -96,7 +96,7 @@ public class Sif extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorSif));
-        denomTxt.setText(c.getString(R.string.s_sif));
+        denomTxt.setText(c.getString(R.string.str_sif_c));
     }
 
     @Override

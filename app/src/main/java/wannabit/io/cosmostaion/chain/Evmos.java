@@ -97,7 +97,7 @@ public class Evmos extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorEvmos));
-        denomTxt.setText(c.getString(R.string.s_evmos));
+        denomTxt.setText(c.getString(R.string.str_evmos_c));
     }
 
     @Override

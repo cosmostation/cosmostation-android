@@ -97,7 +97,7 @@ public class Bitcanna extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorBitcanna));
-        denomTxt.setText(c.getString(R.string.s_bitcanna));
+        denomTxt.setText(c.getString(R.string.str_bitcanna_c));
     }
 
     @Override

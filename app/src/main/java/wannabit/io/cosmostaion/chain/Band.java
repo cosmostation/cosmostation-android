@@ -97,7 +97,7 @@ public class Band extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorBand));
-        denomTxt.setText(c.getString(R.string.s_band));
+        denomTxt.setText(c.getString(R.string.str_band_c));
     }
 
     @Override

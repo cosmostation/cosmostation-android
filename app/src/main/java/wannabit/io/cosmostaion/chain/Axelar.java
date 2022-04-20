@@ -97,7 +97,7 @@ public class Axelar extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorAxelar));
-        denomTxt.setText(c.getString(R.string.s_axelar));
+        denomTxt.setText(c.getString(R.string.str_axl_c));
     }
 
     @Override

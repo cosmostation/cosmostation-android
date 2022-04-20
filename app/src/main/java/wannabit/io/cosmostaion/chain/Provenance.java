@@ -96,7 +96,7 @@ public class Provenance extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorProvenance));
-        denomTxt.setText(c.getString(R.string.s_provenance));
+        denomTxt.setText(c.getString(R.string.str_provenance_c));
     }
 
     @Override

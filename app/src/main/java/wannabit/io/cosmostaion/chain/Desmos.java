@@ -97,7 +97,7 @@ public class Desmos extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorDesmos));
-        denomTxt.setText(c.getString(R.string.s_desmos));
+        denomTxt.setText(c.getString(R.string.str_desmos_c));
     }
 
     @Override

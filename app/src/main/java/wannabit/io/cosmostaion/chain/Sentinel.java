@@ -99,7 +99,7 @@ public class Sentinel extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorSentinel));
-        denomTxt.setText(c.getString(R.string.s_dvpn));
+        denomTxt.setText(c.getString(R.string.str_dvpn_c));
     }
 
     @Override

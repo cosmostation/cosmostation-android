@@ -97,7 +97,7 @@ public class Cerberus extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorCerberus));
-        denomTxt.setText(c.getString(R.string.s_cerberus));
+        denomTxt.setText(c.getString(R.string.str_cerberus_c));
     }
 
     @Override

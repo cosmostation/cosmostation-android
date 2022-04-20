@@ -207,9 +207,9 @@ public class ChainFactory {
         } else if (chainInfo.startsWith("crypto-org-") || chainInfo.startsWith("cro1") || chainInfo.equalsIgnoreCase(TOKEN_CRO)) {
             return new Crypto();
         } else if (chainInfo.startsWith("crescent-") || chainInfo.startsWith("cre1") || chainInfo.equalsIgnoreCase(TOKEN_CRE)) {
-            return new Crypto();
+            return new Crescent();
         } else if (chainInfo.startsWith("cudos-") || chainInfo.startsWith("cudos1") || chainInfo.equalsIgnoreCase(TOKEN_CUDOS)) {
-            return new Crypto();
+            return new Cudos();
         } else if (chainInfo.startsWith("desmos-") || chainInfo.startsWith("desmos1") || chainInfo.equalsIgnoreCase(TOKEN_DESMOS)) {
             return new Desmos();
         } else if (chainInfo.startsWith("emoney-") || chainInfo.startsWith("emoney1") || chainInfo.equalsIgnoreCase(TOKEN_NGM)) {
@@ -255,11 +255,11 @@ public class ChainFactory {
         } else if (chainInfo.startsWith("stargaze-") || chainInfo.startsWith("stars1") || chainInfo.equalsIgnoreCase(TOKEN_STARGAZE)) {
             return new Stargaze();
         } else if (chainInfo.startsWith("iov-") || chainInfo.startsWith("star1") || chainInfo.equalsIgnoreCase(TOKEN_IOV)) {
-            return new Stargaze();
+            return new Starname();
         } else if (chainInfo.startsWith("umee-") || chainInfo.startsWith("umee1") || chainInfo.equalsIgnoreCase(TOKEN_UMEE)) {
-            return new Stargaze();
+            return new Umee();
         } else if (chainInfo.startsWith("mantle-") || chainInfo.startsWith("mantle1") || chainInfo.equalsIgnoreCase(TOKEN_MANTLE)) {
-            return new Stargaze();
+            return new AssetMantle();
         }
         return new Cosmos();
     }

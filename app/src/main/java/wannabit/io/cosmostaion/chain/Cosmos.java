@@ -100,7 +100,7 @@ public class Cosmos extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorAtom));
-        denomTxt.setText(c.getString(R.string.s_atom));
+        denomTxt.setText(c.getString(R.string.str_atom_c));
     }
 
     @Override

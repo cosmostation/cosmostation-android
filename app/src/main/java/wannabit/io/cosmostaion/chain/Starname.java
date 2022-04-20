@@ -101,14 +101,15 @@ public class Starname extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorIov));
-        denomTxt.setText(c.getString(R.string.s_iov));
+        denomTxt.setText(c.getString(R.string.str_iov_c));
     }
 
     @Override
     public void setCoinMainDenom(Context c, TextView symbol, TextView fullName, ImageView imageView) {
         symbol.setText(c.getString(R.string.str_iov_c));
+        symbol.setTextColor(WDp.getChainColor(c, getChain()));
         fullName.setText("Starname Staking Coin");
-        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.token_stargaze));
+        imageView.setImageDrawable(c.getResources().getDrawable(R.drawable.token_starname));
     }
 
     @Override

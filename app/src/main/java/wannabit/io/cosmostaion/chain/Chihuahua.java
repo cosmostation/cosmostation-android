@@ -97,7 +97,7 @@ public class Chihuahua extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorChihuahua));
-        denomTxt.setText(c.getString(R.string.s_chihuahua));
+        denomTxt.setText(c.getString(R.string.str_chihuahua_c));
     }
 
     @Override

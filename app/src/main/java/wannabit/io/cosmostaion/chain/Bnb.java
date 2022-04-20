@@ -91,7 +91,7 @@ public class Bnb extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorBnb));
-        denomTxt.setText(c.getString(R.string.s_bnb));
+        denomTxt.setText(c.getString(R.string.str_bnb_c));
     }
 
     @Override

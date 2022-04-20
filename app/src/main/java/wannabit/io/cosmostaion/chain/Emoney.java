@@ -97,7 +97,7 @@ public class Emoney extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorEmoney));
-        denomTxt.setText(c.getString(R.string.s_emoney));
+        denomTxt.setText(c.getString(R.string.str_ngm_c));
     }
 
     @Override

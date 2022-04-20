@@ -108,7 +108,7 @@ public class Secret extends Chain {
     @Override
     public void setDpMainDenom(Context c, TextView denomTxt) {
         denomTxt.setTextColor(c.getResources().getColor(R.color.colorSecret));
-        denomTxt.setText(c.getString(R.string.s_scrt));
+        denomTxt.setText(c.getString(R.string.str_scrt_c));
     }
 
     @Override
