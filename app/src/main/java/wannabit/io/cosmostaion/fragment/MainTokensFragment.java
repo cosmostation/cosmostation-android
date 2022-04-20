@@ -516,7 +516,7 @@ public class MainTokensFragment extends BaseFragment {
         if (isGRPC(getMainActivity().mBaseChain)) {
             WUtil.onSortingCoins(mNativeGrpc, getMainActivity().mBaseChain);
             WUtil.onSortingGravityPool(mGravityDexGrpc, getBaseDao());
-            WUtil.onSortingOsmosisPool(mPoolGrpc);
+            WUtil.onSortingOsmosisPool(getMainActivity().mBaseChain, mPoolGrpc);
             WUtil.onSortingInjectivePool(mInjectivePoolGrpc);
 
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(OKEX_MAIN)) {

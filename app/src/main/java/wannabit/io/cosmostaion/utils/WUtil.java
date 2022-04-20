@@ -1045,12 +1045,17 @@ public class WUtil {
         });
     }
 
-    public static void onSortingOsmosisPool(ArrayList<Coin> coins) {
+    public static void onSortingOsmosisPool(BaseChain chain, ArrayList<Coin> coins) {
         Collections.sort(coins, new Comparator<Coin>() {
             @Override
             public int compare(Coin o1, Coin o2) {
-                if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
-                else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
+                if (chain.equals(OSMOSIS_MAIN)) {
+                    if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
+                    else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
+                } else if (chain.equals(CRESCENT_MAIN)) {
+                    if (o1.crescnetPoolId() < o2.crescnetPoolId()) return -1;
+                    else if (o1.crescnetPoolId() > o2.crescnetPoolId()) return 1;
+                }
                 return 0;
             }
         });

@@ -97,4 +97,9 @@ public class Coin implements Parcelable {
         return false;
     }
 
+    public long crescnetPoolId() {
+        String id = denom.replace("pool", "");
+        return Long.parseLong(id);
+    }
+
 }
