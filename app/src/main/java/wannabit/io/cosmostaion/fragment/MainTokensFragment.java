@@ -1298,7 +1298,7 @@ public class MainTokensFragment extends BaseFragment {
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_EVMOS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
 
         } else if (coin.denom.equals(TOKEN_CUDOS)) {
             holder.itemSymbol.setText(getString(R.string.str_cudos_c));
@@ -1309,7 +1309,7 @@ public class MainTokensFragment extends BaseFragment {
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CUDOS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
 
         } else if (coin.denom.equals(TOKEN_HASH)) {
             holder.itemSymbol.setText(getString(R.string.str_provenance_c));
@@ -1320,7 +1320,7 @@ public class MainTokensFragment extends BaseFragment {
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_HASH);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 9, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 9));
 
         } else if (coin.denom.equals(TOKEN_CRBRUS)) {
             holder.itemSymbol.setText(getString(R.string.str_cerberus_c));
