@@ -43,6 +43,8 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Starname extends Chain {
@@ -231,4 +233,7 @@ public class Starname extends Chain {
         }
         return new BigDecimal(STARNAME_GAS_RATE_AVERAGE);
     }
+
+    @Override
+    public HistoryApi getHistoryApi(Context c) { return ApiClient.getIovApi(c); }
 }

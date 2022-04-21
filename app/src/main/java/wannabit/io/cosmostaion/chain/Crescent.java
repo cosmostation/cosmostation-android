@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_CRESCENT;
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CRESCENT_GAS_RATE_AVERAGE;
@@ -42,6 +43,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Crescent extends Chain {
@@ -233,5 +236,14 @@ public class Crescent extends Chain {
             return new BigDecimal(CRESCENT_GAS_RATE_LOW);
         }
         return new BigDecimal(CRESCENT_GAS_RATE_AVERAGE);
+    }
+
+    @Override
+    public HistoryApi getHistoryApi(Context c) {
+        if (getChain().equals(CRESCENT_MAIN)) {
+            return ApiClient.getCrescentApi(c);
+        } else {
+            return ApiClient.getCrescentTestApi(c);
+        }
     }
 }

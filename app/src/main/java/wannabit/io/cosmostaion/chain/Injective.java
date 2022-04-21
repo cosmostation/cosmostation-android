@@ -11,6 +11,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.INJ_UNKNOWN_RELAYER;
 import static wannabit.io.cosmostaion.base.BaseConstant.INJ_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_INJ;
+import static wannabit.io.cosmostaion.utils.WDp.getDpAmount2;
 import static wannabit.io.cosmostaion.utils.WKey.bech32Decode;
 import static wannabit.io.cosmostaion.utils.WKey.bech32Encode;
 import static wannabit.io.cosmostaion.utils.WUtil.getEstimateGasAmount;
@@ -41,6 +42,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Injective extends Chain {
@@ -85,13 +89,21 @@ public class Injective extends Chain {
 
     @Override
     public void setShowCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv) {
-        if (symbol.equals(getMainDenom())) {
+        if (symbol.equalsIgnoreCase(TOKEN_INJ)) {
             setDpMainDenom(c, denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+        } else if (symbol.startsWith("peggy")){
+            final Assets assets = baseData.getAsset(symbol);
+            if (assets != null) {
+                denomTv.setText(assets.origin_symbol);
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), assets.decimal, assets.decimal));
+            }
         } else {
-            denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             denomTv.setText(symbol.toUpperCase());
+            denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
         }
-        amountTv.setText(WDp.getDpAmount2(c, new BigDecimal(amount), mainDecimal(), mainDecimal()));
     }
 
     @Override
@@ -107,7 +119,7 @@ public class Injective extends Chain {
         setInfoImg(imageView, 1);
 
         BigDecimal totalAmount = baseData.getAllMainAsset(denom);
-        balance.setText(WDp.getDpAmount2(c, totalAmount, mainDecimal(), 6));
+        balance.setText(getDpAmount2(c, totalAmount, mainDecimal(), 6));
         value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, mainDecimal()));
     }
 
@@ -223,4 +235,7 @@ public class Injective extends Chain {
         }
         return new BigDecimal(INJ_GAS_RATE_AVERAGE);
     }
+
+    @Override
+    public HistoryApi getHistoryApi(Context c) { return ApiClient.getInjApi(c); }
 }

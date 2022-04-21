@@ -94,6 +94,8 @@ public class ChainFactory {
                     return new Crypto();
 
                 case CRESCENT_MAIN:
+
+                case CRESCENT_TEST:
                     return new Crescent();
 
                 case CUDOS_MAIN:

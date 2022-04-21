@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.OkToken;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Oec extends Chain {
@@ -233,4 +234,7 @@ public class Oec extends Chain {
     public BigDecimal setGasRate(int position) {
         return new BigDecimal(OK_GAS_RATE_AVERAGE);
     }
+
+    @Override
+    public HistoryApi getHistoryApi(Context c) { return null; }
 }

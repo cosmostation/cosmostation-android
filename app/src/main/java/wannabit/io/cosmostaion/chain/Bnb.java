@@ -36,6 +36,8 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Bnb extends Chain {
@@ -211,5 +213,10 @@ public class Bnb extends Chain {
     @Override
     public BigDecimal setGasRate(int position) {
         return BigDecimal.ZERO.setScale(3);
+    }
+
+    @Override
+    public HistoryApi getHistoryApi(Context c) {
+        return null;
     }
 }

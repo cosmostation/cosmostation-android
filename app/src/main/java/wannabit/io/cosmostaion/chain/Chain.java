@@ -19,6 +19,7 @@ import java.util.List;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.network.HistoryApi;
 
 public abstract class Chain {
 
@@ -108,4 +109,7 @@ public abstract class Chain {
 
     // Set Chain Gas Rate
     public abstract BigDecimal setGasRate(int position);
+
+    // Get History Api
+    public abstract HistoryApi getHistoryApi(Context c);
 }

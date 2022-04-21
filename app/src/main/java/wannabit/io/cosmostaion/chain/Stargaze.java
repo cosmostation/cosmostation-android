@@ -41,6 +41,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Stargaze extends Chain {
@@ -225,4 +227,7 @@ public class Stargaze extends Chain {
         }
         return new BigDecimal(STARGAZE_GAS_RATE_AVERAGE);
     }
+
+    @Override
+    public HistoryApi getHistoryApi(Context c) { return ApiClient.getStargazeApi(c); }
 }

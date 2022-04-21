@@ -43,6 +43,8 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Iris extends Chain {
@@ -237,4 +239,12 @@ public class Iris extends Chain {
         return new BigDecimal(IRIS_GAS_RATE_AVERAGE);
     }
 
+    @Override
+    public HistoryApi getHistoryApi(Context c) {
+        if (getChain().equals(IRIS_MAIN)) {
+            return ApiClient.getIrisApi(c);
+        } else {
+            return ApiClient.getIrisTestApi(c);
+        }
+    }
 }

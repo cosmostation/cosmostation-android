@@ -11,6 +11,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SIF_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_GAS_RATE_TINY;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+import static wannabit.io.cosmostaion.utils.WDp.getDpAmount2;
 import static wannabit.io.cosmostaion.utils.WKey.bech32Decode;
 import static wannabit.io.cosmostaion.utils.WKey.bech32Encode;
 
@@ -40,7 +41,10 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Sif extends Chain {
 
@@ -84,13 +88,17 @@ public class Sif extends Chain {
 
     @Override
     public void setShowCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv) {
-        if (symbol.equals(getMainDenom())) {
+        int decimal = WUtil.getSifCoinDecimal(symbol);
+        if (symbol.equalsIgnoreCase(TOKEN_SIF)) {
             setDpMainDenom(c, denomTv);
-        } else {
+        } else if (symbol.startsWith("c")) {
+            denomTv.setText(symbol.substring(1).toUpperCase());
             denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+        } else {
             denomTv.setText(symbol.toUpperCase());
+            denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
         }
-        amountTv.setText(WDp.getDpAmount2(c, new BigDecimal(amount), mainDecimal(), mainDecimal()));
+        amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
     }
 
     @Override
@@ -106,7 +114,7 @@ public class Sif extends Chain {
         setInfoImg(imageView, 1);
 
         BigDecimal totalAmount = baseData.getAllMainAsset(denom);
-        balance.setText(WDp.getDpAmount2(c, totalAmount, mainDecimal(), 6));
+        balance.setText(getDpAmount2(c, totalAmount, mainDecimal(), 6));
         value.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, mainDecimal()));
     }
 
@@ -224,4 +232,7 @@ public class Sif extends Chain {
         }
         return new BigDecimal(SIF_GAS_RATE_AVERAGE);
     }
+
+    @Override
+    public HistoryApi getHistoryApi(Context c) { return ApiClient.getSifApi(c); }
 }

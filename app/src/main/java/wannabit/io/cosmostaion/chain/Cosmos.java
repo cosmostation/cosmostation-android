@@ -44,6 +44,8 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.HistoryApi;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Cosmos extends Chain {
@@ -239,5 +241,14 @@ public class Cosmos extends Chain {
             return new BigDecimal(COSMOS_GAS_RATE_LOW);
         }
         return new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+    }
+
+    @Override
+    public HistoryApi getHistoryApi(Context c) {
+        if (getChain().equals(COSMOS_MAIN)) {
+            return ApiClient.getCosmosApi(c);
+        } else {
+            return ApiClient.getCosmosTestApi(c);
+        }
     }
 }
