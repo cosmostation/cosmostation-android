@@ -33,7 +33,6 @@ public class Dialog_Empty_Chain extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
 
         btn_negative.setOnClickListener(v -> {
-            ((ConnectWalletActivity) getActivity()).onDeepLinkDismiss();
             getDialog().dismiss();
         });
 
