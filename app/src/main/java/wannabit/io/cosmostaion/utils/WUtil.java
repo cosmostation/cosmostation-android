@@ -3390,7 +3390,7 @@ public class WUtil {
             dexTitle.setText(R.string.str_osmosis_defi_lab);
         } else if (chain.equals(CRESCENT_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.infoicon_crescent), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.token_crescent), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
         } else if (chain.equals(DESMOS_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);

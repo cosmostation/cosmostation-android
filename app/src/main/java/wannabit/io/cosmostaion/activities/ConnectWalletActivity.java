@@ -104,7 +104,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_connect_wallet);
         initView();
 
-        if (fromScheme()) {
+        if (fromScheme(getIntent())) {
             if ("wc".equals(getIntent().getData().getHost())) {
                 isDeepLink = true;
                 mWcURL = getIntent().getData().getQuery();
@@ -134,8 +134,8 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    private boolean fromScheme() {
-        return getIntent().getData() != null && "cosmostation".equals(getIntent().getData().getScheme());
+    private boolean fromScheme(Intent intent) {
+        return intent.getData() != null && "cosmostation".equals(intent.getData().getScheme());
     }
 
     private void settingForDaap(String url) {
@@ -157,7 +157,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        if (fromScheme()) {
+        if (fromScheme(intent)) {
             if (wcSession != null && wcClient.getSession() != null && wcClient != null && wcClient.isConnected()) {
                 return;
             }
