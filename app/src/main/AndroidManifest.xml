@@ -324,6 +324,16 @@
                     android:host="wc"
                     android:scheme="cosmostation" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="dapp"
+                    android:scheme="cosmostation" />
+            </intent-filter>
         </activity>
 
         <activity

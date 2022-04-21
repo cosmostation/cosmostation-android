@@ -158,7 +158,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        if (fromScheme(intent)) {
+        if (fromScheme(intent) && "wc".equals(intent.getData().getHost())) {
             if (wcSession != null && wcClient.getSession() != null && wcClient != null && wcClient.isConnected()) {
                 return;
             }
