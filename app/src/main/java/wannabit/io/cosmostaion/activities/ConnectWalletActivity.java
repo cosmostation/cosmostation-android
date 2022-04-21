@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
@@ -450,6 +451,22 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    private boolean hasAccount(String chainId) {
+        BaseChain requestChain = WDp.getChainTypeByChainId(chainId);
+        if (requestChain == null) {
+            onShowNotSupportChain(chainId);
+            return false;
+        } else {
+            ArrayList<Account> existAccount = getBaseDao().onSelectAllAccountsByChainWithKey(requestChain);
+            if (existAccount.isEmpty()) {
+                onShowNoAccountsForChain();
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
     private WCKeplrWallet onKeplrGetKey(Account account) {
         WCKeplrWallet keplr = new WCKeplrWallet(
                 WUtil.getWalletName(this, account),
@@ -486,20 +503,34 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
 
     private void onShowAccountDialog(Long id, List<String> chains) {
         List<WCCosmostationAccount> accounts = Lists.newArrayList();
+        AtomicInteger accountCheckCount = new AtomicInteger();
         for (String chain : chains) {
+            if (!hasAccount(chain)) {
+                accountCheckCount.getAndIncrement();
+                //@TOBE : need refactoring
+                if (accountCheckCount.get() == chains.size()) {
+                    wcClient.approveRequest(id, Lists.newArrayList(accounts));
+                    if (isDeepLink) {
+                        moveTaskToBack(true);
+                    }
+                }
+                continue;
+            }
+
             Bundle bundle = new Bundle();
             bundle.putLong("id", id);
             bundle.putString("chainName", chain);
             Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
             mDialogWcAccount.setCancelable(true);
             mDialogWcAccount.setOnSelectListener((wcId, account) -> {
+                accountCheckCount.getAndIncrement();
                 chainAccountMap.put(WDp.getChainTypeByChainId(chain).getChain(), account);
                 if (mBaseChain == null) {
                     mBaseChain = WDp.getChainTypeByChainId(chain);
                     onInitView(mWcPeerMeta);
                 }
                 accounts.add(onCosmostationAccount(account));
-                if (accounts.size() == chains.size()) {
+                if (accountCheckCount.get() == chains.size()) {
                     wcClient.approveRequest(id, Lists.newArrayList(accounts));
                     if (isDeepLink) {
                         moveTaskToBack(true);
@@ -508,10 +539,6 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             });
             getSupportFragmentManager().beginTransaction().add(mDialogWcAccount, "dialog" + chain).commitNowAllowingStateLoss();
         }
-    }
-
-    public void onDeepLinkDismiss() {
-        moveTaskToBack(true);
     }
 
     class SignModel {
