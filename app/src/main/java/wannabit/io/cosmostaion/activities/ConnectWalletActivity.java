@@ -2,9 +2,14 @@ package wannabit.io.cosmostaion.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
@@ -24,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import com.trustwallet.walletconnect.WCClient;
 import com.trustwallet.walletconnect.models.WCAccount;
 import com.trustwallet.walletconnect.models.WCPeerMeta;
+import com.trustwallet.walletconnect.models.cosmostation.WCCosmostationAccount;
 import com.trustwallet.walletconnect.models.keplr.WCKeplrWallet;
 import com.trustwallet.walletconnect.models.session.WCSession;
 
@@ -33,6 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,10 +81,13 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     private ImageView mWcImg;
     private TextView mWcName, mWcUrl, mWcAccount;
     private Button mBtnDisconnect;
+    private WebView mWebView;
+    private TextView mTitleText;
     private Dialog_Wc_Raw_Data mDialogWcRawData;
-    private Dialog_Empty_Chain mDialogEmptyChain;
-    private Dialog_Not_Support_Chain mDialogNotSupportChain;
-    private Dialog_WC_Account mDialogWcAccount;
+    private RelativeLayout mStateLayout;
+    private TextView mStateText;
+    private View mStateLight;
+    private TextView mStatePeer;
 
     private String mWcURL;
     private WCClient wcClient;
@@ -83,7 +95,8 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     private WCPeerMeta mWcPeerMeta;
     private JsonArray mjsonArray;
     private Boolean isDeepLink = false;
-    private Map<String, Account> chainAccountMap = Maps.newHashMap();
+    private Boolean isDapp = false;
+    private final Map<String, Account> chainAccountMap = Maps.newHashMap();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,29 +104,65 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_connect_wallet);
         initView();
 
-        if (getIntent().getData() != null && "cosmostation".equals(getIntent().getData().getScheme())) {
-            isDeepLink = true;
-            mWcURL = getIntent().getData().getQuery();
-        } else {
-            mWcURL = getIntent().getStringExtra("wcUrl");
-        }
-
-        if (isDeepLink) {
-            if (!getBaseDao().onHasPassword()) {
-                mEmptyLayer.setVisibility(View.VISIBLE);
-                mLoadingLayer.setVisibility(View.GONE);
-                mBtnDisconnect.setText("Dismiss");
-                return;
+        if (fromScheme()) {
+            if ("wc".equals(getIntent().getData().getHost())) {
+                isDeepLink = true;
+                mWcURL = getIntent().getData().getQuery();
+                if (!getBaseDao().onHasPassword()) {
+                    mEmptyLayer.setVisibility(View.VISIBLE);
+                    mLoadingLayer.setVisibility(View.GONE);
+                    mBtnDisconnect.setText("Dismiss");
+                    return;
+                } else {
+                    Intent intent = new Intent(this, PasswordCheckActivity.class);
+                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                    startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                }
+                mWebView.setVisibility(View.GONE);
             } else {
-                Intent intent = new Intent(this, PasswordCheckActivity.class);
-                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                settingForDaap(getIntent().getData().getQuery());
             }
-        } else {
+        } else if (getIntent().hasExtra("wcUrl")) {
+            mWcURL = getIntent().getStringExtra("wcUrl");
             loadInfo();
             initWalletConnect();
             getKey(mBaseChain.getChain());
+            mWebView.setVisibility(View.GONE);
+        } else if (getIntent().hasExtra("dappUrl")) {
+            settingForDaap(getIntent().getStringExtra("dappUrl"));
+        }
+    }
+
+    private boolean fromScheme() {
+        return getIntent().getData() != null && "cosmostation".equals(getIntent().getData().getScheme());
+    }
+
+    private void settingForDaap(String url) {
+        isDapp = true;
+        mWebView.setVisibility(View.VISIBLE);
+        mWcLayer.setVisibility(View.GONE);
+        mLoadingLayer.setVisibility(View.GONE);
+        mWebView.loadUrl(url);
+        mBtnDisconnect.setVisibility(View.GONE);
+        mTitleText.setText("Browswer");
+        mStateLayout.setVisibility(View.VISIBLE);
+        mStateLight.setBackgroundColor(Color.parseColor("#ff0000"));
+        mStateText.setText("Disconnect");
+        mStatePeer.setText(url);
+        mStatePeer.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (fromScheme()) {
+            if (wcSession != null && wcClient.getSession() != null && wcClient != null && wcClient.isConnected()) {
+                return;
+            }
+            mWcURL = intent.getData().getQuery();
+            initWalletConnect();
         }
     }
 
@@ -129,12 +178,45 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         mLoadingLayer = findViewById(R.id.loading_layer);
         mEmptyLayer = findViewById(R.id.empty_account);
         mWcCardView = findViewById(R.id.wc_card);
+        mTitleText = findViewById(R.id.toolbar_title);
         mWcImg = findViewById(R.id.wc_img);
         mWcName = findViewById(R.id.wc_name);
         mWcUrl = findViewById(R.id.wc_url);
         mWcAccount = findViewById(R.id.wc_address);
         mBtnDisconnect = findViewById(R.id.btn_disconnect);
         mBtnDisconnect.setOnClickListener(this);
+        mStatePeer = findViewById(R.id.wc_peer);
+        mStateLight = findViewById(R.id.wc_light);
+        mStateLayout = findViewById(R.id.wc_state_layout);
+        mStateText = findViewById(R.id.wc_state);
+
+        mWebView = findViewById(R.id.wc_webview);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + "/Cosmostation_Android_Dapp");
+        mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        mWebView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.startsWith("intent:")) {
+                    try {
+                        Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                        Intent existPackage = getPackageManager().getLaunchIntentForPackage(intent.getPackage());
+                        if (existPackage != null) {
+                            startActivity(intent);
+                        } else {
+                            Intent marketIntent = new Intent(Intent.ACTION_VIEW);
+                            marketIntent.setData(Uri.parse("market://details?id=" + intent.getPackage()));
+                            startActivity(marketIntent);
+                        }
+                        return true;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                return true;
+            }
+        });
 
         setSupportActionBar(findViewById(R.id.tool_bar));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -160,13 +242,15 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         });
         wcClient.setOnSessionRequest((id, wcPeerMeta) -> {
             runOnUiThread(() -> {
-                if (!isDeepLink) {
+                if (!isDeepLink && !isDapp) {
                     onInitView(wcPeerMeta);
                     wcClient.approveSession(Lists.newArrayList(chainAccountMap.get(mBaseChain.getChain()).address), 1);
                 } else {
                     mWcPeerMeta = wcPeerMeta;
                     wcClient.approveSession(Lists.newArrayList(), 1);
                 }
+                mStateLight.setBackgroundColor(Color.parseColor("#00d690"));
+                mStateText.setText("Connect");
             });
             return null;
         });
@@ -178,19 +262,25 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             runOnUiThread(() -> onKeplrEnable(id, strings));
             return null;
         });
-        wcClient.setOnCosmosGetKeys((id, strings) -> {
+        wcClient.setOnCosmostationAccounts((id, strings) -> {
             runOnUiThread(() -> {
-                if (!isDeepLink) {
-                    wcClient.approveRequest(id, Lists.newArrayList(onKeplrGetKey(chainAccountMap.get(mBaseChain.getChain()))));
-                } else {
-                    onShowAccountDialog(id, strings);
-                }
+                onShowAccountDialog(id, strings);
             });
             return null;
         });
-        wcClient.setOnCosmosSignAmino((id, jsonArray) -> {
+        wcClient.setOnCosmostationSignTx((id, jsonArray) -> {
             mjsonArray = jsonArray;
-            //parse tx and check map chain id
+            runOnUiThread(() -> onShowRawDataDialog(processKeplr(id)));
+            return null;
+        });
+        wcClient.setOnKeplrGetKeys((id, strings) -> {
+            runOnUiThread(() -> {
+                wcClient.approveRequest(id, Lists.newArrayList(onKeplrGetKey(chainAccountMap.get(mBaseChain.getChain()))));
+            });
+            return null;
+        });
+        wcClient.setOnKeplrSignAmino((id, jsonArray) -> {
+            mjsonArray = jsonArray;
             runOnUiThread(() -> onShowRawDataDialog(processKeplr(id)));
             return null;
         });
@@ -278,6 +368,10 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     }
 
     private void onInitView(WCPeerMeta meta) {
+        if (isDapp) {
+            return;
+        }
+
         Toast.makeText(getBaseContext(), getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show();
         Picasso.get()
                 .load(meta.getIcons().get(0))
@@ -331,6 +425,15 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         getSupportFragmentManager().beginTransaction().add(mDialogWcRawData, "dialog").commitNowAllowingStateLoss();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mWebView.getVisibility() == View.VISIBLE && mWebView.canGoBack()) {
+            mWebView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void onKeplrEnable(long id, List<String> strings) {
         BaseChain requestChain = WDp.getChainTypeByChainId(strings.get(0));
         if (requestChain != null) {
@@ -358,8 +461,17 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         return keplr;
     }
 
+    private WCCosmostationAccount onCosmostationAccount(Account account) {
+        return new WCCosmostationAccount(
+                WUtil.getWalletName(this, account),
+                "secp256k1",
+                getKey(account.baseChain).getPublicKeyAsHex(),
+                WKey.generateTenderAddressFromPrivateKey(getKey(account.baseChain).getPrivateKeyAsHex()),
+                account.address);
+    }
+
     private void onShowNoAccountsForChain() {
-        mDialogEmptyChain = Dialog_Empty_Chain.newInstance();
+        Dialog_Empty_Chain mDialogEmptyChain = Dialog_Empty_Chain.newInstance();
         mDialogEmptyChain.setCancelable(false);
         getSupportFragmentManager().beginTransaction().add(mDialogEmptyChain, "dialog").commitNowAllowingStateLoss();
     }
@@ -367,18 +479,18 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
     private void onShowNotSupportChain(String chainId) {
         Bundle bundle = new Bundle();
         bundle.putString("chainId", chainId);
-        mDialogNotSupportChain = Dialog_Not_Support_Chain.newInstance(bundle);
+        Dialog_Not_Support_Chain mDialogNotSupportChain = Dialog_Not_Support_Chain.newInstance(bundle);
         mDialogNotSupportChain.setCancelable(false);
         getSupportFragmentManager().beginTransaction().add(mDialogNotSupportChain, "dialog").commitNowAllowingStateLoss();
     }
 
     private void onShowAccountDialog(Long id, List<String> chains) {
-        List<WCKeplrWallet> accounts = Lists.newArrayList();
+        List<WCCosmostationAccount> accounts = Lists.newArrayList();
         for (String chain : chains) {
             Bundle bundle = new Bundle();
             bundle.putLong("id", id);
             bundle.putString("chainName", chain);
-            mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
+            Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
             mDialogWcAccount.setCancelable(true);
             mDialogWcAccount.setOnSelectListener((wcId, account) -> {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chain).getChain(), account);
@@ -386,7 +498,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
                     mBaseChain = WDp.getChainTypeByChainId(chain);
                     onInitView(mWcPeerMeta);
                 }
-                accounts.add(onKeplrGetKey(account));
+                accounts.add(onCosmostationAccount(account));
                 if (accounts.size() == chains.size()) {
                     wcClient.approveRequest(id, Lists.newArrayList(accounts));
                     if (isDeepLink) {
@@ -407,7 +519,15 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         Signature signature;
 
         public SignModel(JsonObject txMsg, ECKey key) {
-            this.signed = new Gson().fromJson(txMsg, TreeMap.class);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+
+            try {
+                this.signed = mapper.readValue(txMsg.toString(), TreeMap.class);
+            } catch (IOException e) {
+                this.signed = Maps.newTreeMap();
+                e.printStackTrace();
+            }
             this.signature = MsgGenerator.getWcKeplrBroadcaseReq(key, txMsg);
         }
     }
