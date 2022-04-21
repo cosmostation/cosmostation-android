@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AXELAR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -59,6 +60,11 @@ public class ChainFactory {
 
                 case AKASH_MAIN:
                     return new Akash();
+
+                case ALTHEA_MAIN:
+
+                case ALTHEA_TEST:
+                    return new Althea();
 
                 case ASSETMANTLE_MAIN:
                     return new AssetMantle();
@@ -188,6 +194,10 @@ public class ChainFactory {
             return new Iris();
         } else if (chainInfo.startsWith("akashnet-") || chainInfo.startsWith("akash1") || chainInfo.equalsIgnoreCase(TOKEN_AKASH)) {
             return new Akash();
+        } else if (chainInfo.startsWith("althea-") || chainInfo.startsWith("althea1") || chainInfo.equalsIgnoreCase(TOKEN_ALTHEA)) {
+            return new Althea();
+        } else if (chainInfo.startsWith("mantle-") || chainInfo.startsWith("mantle1") || chainInfo.equalsIgnoreCase(TOKEN_MANTLE)) {
+            return new AssetMantle();
         } else if (chainInfo.startsWith("axelar-") || chainInfo.startsWith("axelar1") || chainInfo.equalsIgnoreCase(TOKEN_AXELAR)) {
             return new Axelar();
         } else if (chainInfo.startsWith("laozi-mainnet") || chainInfo.startsWith("band1") || chainInfo.equalsIgnoreCase(TOKEN_BAND)) {
@@ -260,8 +270,6 @@ public class ChainFactory {
             return new Starname();
         } else if (chainInfo.startsWith("umee-") || chainInfo.startsWith("umee1") || chainInfo.equalsIgnoreCase(TOKEN_UMEE)) {
             return new Umee();
-        } else if (chainInfo.startsWith("mantle-") || chainInfo.startsWith("mantle1") || chainInfo.equalsIgnoreCase(TOKEN_MANTLE)) {
-            return new AssetMantle();
         }
         return new Cosmos();
     }
