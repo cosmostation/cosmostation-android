@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Unknown_Relayer;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -111,11 +110,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         mIbcSelectedRelayer = mIbcSendableRelayers.get(0);
 
         if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
-            for (IbcPath.Path path: mIbcSelectedRelayer.paths) {
-                if (path.auth != null && path.auth) {
-                    mIbcSendablePaths.add(path);
-                }
-            }
+            mIbcSendablePaths = getBaseDao().getIbcRollbackChannel(getSActivity().mToIbcDenom, mIbcSelectedRelayer.paths);
         } else {
             mIbcSendablePaths = mIbcSelectedRelayer.paths;
         }
@@ -206,14 +201,23 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         Collections.sort(paths, new Comparator<IbcPath.Path>() {
             @Override
             public int compare(IbcPath.Path o1, IbcPath.Path o2) {
-                IbcToken ibcToken   = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
+                IbcToken ibcToken = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
                 if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
                     if (o1.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return -1;
                     if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
                 }
-                if(o1.auth != null) return -1;
-                if(o2.auth != null) return 1;
-                else return 0;
+                if (getSActivity().mToIbcDenom.equalsIgnoreCase(WDp.mainDenom(getSActivity().mBaseChain))) {
+                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id)) return -1;
+                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id)) return 1;
+                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id)) return -1;
+                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id)) return 1;
+                } else {
+                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id)) return -1;
+                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id)) return 1;
+                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id)) return -1;
+                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id)) return 1;
+                }
+                return 0;
             }
         });
     }
