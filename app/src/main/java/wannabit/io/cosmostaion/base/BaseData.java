@@ -260,6 +260,17 @@ public class BaseData {
         return result;
     }
 
+    public ArrayList<IbcPath.Path> getIbcRollbackChannel(String denom, ArrayList<IbcPath.Path> paths) {
+        ArrayList<IbcPath.Path> result = new ArrayList<>();
+        IbcToken ibcToken = getIbcToken(denom);
+        for (IbcPath.Path path: paths) {
+            if (path.auth != null && path.auth && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
+                result.add(path);
+            }
+        }
+        return result;
+    }
+
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
     public ArrayList<Validator>         mAllValidators = new ArrayList<>();
