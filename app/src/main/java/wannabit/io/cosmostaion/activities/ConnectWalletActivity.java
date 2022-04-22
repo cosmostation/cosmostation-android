@@ -276,7 +276,11 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
         });
         wcClient.setOnKeplrGetKeys((id, strings) -> {
             runOnUiThread(() -> {
-                wcClient.approveRequest(id, Lists.newArrayList(onKeplrGetKey(chainAccountMap.get(mBaseChain.getChain()))));
+                if (!chainAccountMap.containsKey(WDp.getChainTypeByChainId(strings.get(0)).getChain())) {
+                    onShowAccountDialog(id, strings);
+                } else {
+                    wcClient.approveRequest(id, Lists.newArrayList(onKeplrGetKey(chainAccountMap.get(WDp.getChainTypeByChainId(strings.get(0)).getChain()))));
+                }
             });
             return null;
         });
@@ -328,7 +332,7 @@ public class ConnectWalletActivity extends BaseActivity implements View.OnClickL
             Account account = new Account();
             account.accountNumber = Integer.parseInt(wcStdSignMsg.account_number);
             account.sequenceNumber = Integer.parseInt(wcStdSignMsg.sequence);
-            ReqBroadCast tx = MsgGenerator.getWcTrustBroadcaseReq(account, msgList, wcStdSignMsg.fee, wcStdSignMsg.memo, getKey(wcStdSignMsg.chain_id), wcStdSignMsg.chain_id);
+            ReqBroadCast tx = MsgGenerator.getWcTrustBroadcaseReq(account, msgList, wcStdSignMsg.fee, wcStdSignMsg.memo, getKey(WDp.getChainTypeByChainId(wcStdSignMsg.chain_id).getChain()), wcStdSignMsg.chain_id);
             Gson Presenter = new GsonBuilder().disableHtmlEscaping().create();
             String result = Presenter.toJson(tx);
             wcClient.approveRequest(id, result);
