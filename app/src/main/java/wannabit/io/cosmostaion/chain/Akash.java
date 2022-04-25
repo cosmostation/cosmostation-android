@@ -189,7 +189,7 @@ public class Akash extends Chain {
     @Override
     public void setWalletData(MainActivity mainActivity, ImageView coinImg, TextView coinDenom) {
         coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.akash_token_img));
-        coinDenom.setText(R.string.str_atom_c);
+        coinDenom.setText(R.string.str_akt_c);
         coinDenom.setTextAppearance(R.style.font_ss_14_akash);
     }
 
@@ -226,5 +226,5 @@ public class Akash extends Chain {
         return new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
     }
 
-    public HistoryApi getHistoryApi(Context c) { return ApiClient.getKavaApi(c); }
+    public HistoryApi getHistoryApi(Context c) { return ApiClient.getAkashApi(c); }
 }
