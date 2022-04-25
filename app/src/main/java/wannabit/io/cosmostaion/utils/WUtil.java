@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -1051,12 +1052,17 @@ public class WUtil {
         });
     }
 
-    public static void onSortingOsmosisPool(ArrayList<Coin> coins) {
+    public static void onSortingOsmosisPool(BaseChain chain, ArrayList<Coin> coins) {
         Collections.sort(coins, new Comparator<Coin>() {
             @Override
             public int compare(Coin o1, Coin o2) {
-                if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
-                else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
+                if (chain.equals(OSMOSIS_MAIN)) {
+                    if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
+                    else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
+                } else if (chain.equals(CRESCENT_MAIN)) {
+                    if (o1.crescnetPoolId() < o2.crescnetPoolId()) return -1;
+                    else if (o1.crescnetPoolId() > o2.crescnetPoolId()) return 1;
+                }
                 return 0;
             }
         });
@@ -2817,6 +2823,9 @@ public class WUtil {
             } else if (chain.equals(CRESCENT_MAIN)) {
                 return BLOCK_TIME_CRESCENT;
 
+            } else if (chain.equals(ASSETMANTLE_MAIN)) {
+                return BLOCK_TIME_MANTLE;
+
             }
         }
         return BigDecimal.ZERO;
@@ -3151,6 +3160,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_crescent);
             guideMsg.setText(R.string.str_front_guide_msg_crescent);
 
+        } else if (mainActivity.mBaseChain.equals(ASSETMANTLE_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_assetmantle));
+            guideTitle.setText(R.string.str_front_guide_title_mantle);
+            guideMsg.setText(R.string.str_front_guide_msg_mantle);
+
         }
     }
 
@@ -3360,6 +3374,11 @@ public class WUtil {
             coinDenom.setText(R.string.str_cre_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_crescent);
 
+        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_assetmantle));
+            coinDenom.setText(R.string.str_mantle_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_mantle);
+
         }
     }
 
@@ -3415,7 +3434,7 @@ public class WUtil {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return new Intent(mainActivity, LabsListActivity.class);
         } else if (chain.equals(CRESCENT_MAIN)) {
-            return new Intent(mainActivity, ConnectWalletActivity.class).putExtra("dappUrl", "https://wc.dev.cosmostation.io");
+            return new Intent(mainActivity, ConnectWalletActivity.class).putExtra(ConnectWalletActivity.INTENT_KEY_DAPP_URL, "https://wc.dev.cosmostation.io");
         } else {
             return null;
         }
@@ -3552,6 +3571,10 @@ public class WUtil {
 
         } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescent.network/"));
+
+        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://assetmantle.one/"));
+
         }
         return null;
     }
@@ -3688,6 +3711,9 @@ public class WUtil {
         } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescentnetwork.medium.com/"));
 
+        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.assetmantle.one/"));
+
         }
         return null;
     }
@@ -3815,6 +3841,9 @@ public class WUtil {
 
         } else if (basechain.equals(CRESCENT_MAIN)) {
             return EXPLORER_CRESCENT_MAIN;
+
+        } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+            return EXPLORER_MANTLE_MAIN;
 
         } else if (basechain.equals(COSMOS_TEST)) {
             return EXPLORER_COSMOS_TEST;
@@ -3954,6 +3983,9 @@ public class WUtil {
             } else if (basechain.equals(CRESCENT_MAIN)) {
                 return EXPLORER_CRESCENT_MAIN + "txs/" + hash;
 
+            } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+                return EXPLORER_MANTLE_MAIN + "txs/" + hash;
+
             } else if (basechain.equals(COSMOS_TEST)) {
                 return EXPLORER_COSMOS_TEST + "txs/" + hash;
 
@@ -4048,6 +4080,8 @@ public class WUtil {
             } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward_kava)));
                 return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(KAVA_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(KAVA_GAS_AMOUNT_VOTE);
             } else if (txType == CONST_PW_TX_CLAIM_INCENTIVE || txType == CONST_PW_TX_CLAIM_HARVEST_REWARD) {
@@ -4440,6 +4474,10 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(MANTLE_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
         } else if (basechain.equals(BNB_MAIN)) {
             return new BigDecimal(FEE_BNB_SEND).setScale(8);
 
@@ -4732,6 +4770,14 @@ public class WUtil {
                 return new BigDecimal(CRESCENT_GAS_RATE_LOW);
             }
             return new BigDecimal(CRESCENT_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(MANTLE_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(MANTLE_GAS_RATE_LOW);
+            }
+            return new BigDecimal(MANTLE_GAS_RATE_AVERAGE);
 
         } else if (basechain.equals(BNB_MAIN)) {
             return BigDecimal.ZERO.setScale(3);

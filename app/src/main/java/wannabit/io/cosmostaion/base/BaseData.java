@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.base;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -250,6 +252,17 @@ public class BaseData {
                 if (path.channel_id != null && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
                     result.add(ibcPath);
                 }
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<IbcPath.Path> getIbcRollbackChannel(String denom, ArrayList<IbcPath.Path> paths) {
+        ArrayList<IbcPath.Path> result = new ArrayList<>();
+        IbcToken ibcToken = getIbcToken(denom);
+        for (IbcPath.Path path: paths) {
+            if (path.auth != null && path.auth && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
+                result.add(path);
             }
         }
         return result;
@@ -579,7 +592,10 @@ public class BaseData {
         return result;
     }
 
-    public BigDecimal getDelegatable(String denom) {
+    public BigDecimal getDelegatable(BaseChain baseChain, String denom) {
+        if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+            return getAvailable(denom);
+        }
         return getAvailable(denom).add(getVesting(denom));
     }
 

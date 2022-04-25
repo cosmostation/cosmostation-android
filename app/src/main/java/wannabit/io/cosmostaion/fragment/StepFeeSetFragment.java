@@ -308,7 +308,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
 
         } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
-            BigDecimal delegatable = getBaseDao().getDelegatable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal delegatable = getBaseDao().getDelegatable(getSActivity().mBaseChain, WDp.mainDenom(getSActivity().mBaseChain));
             BigDecimal todelegate = new BigDecimal(getSActivity().mAmount.amount);
             if ((todelegate.add(mFee)).compareTo(delegatable) > 0) {
                 Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();

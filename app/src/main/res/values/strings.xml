@@ -142,6 +142,9 @@
     <string name="url_api_crescent" translatable="false">https://api-crescent.cosmostation.io/</string>
 
 
+    <string name="url_api_mantle" translatable="false">https://api-asset-mantle.cosmostation.io/</string>
+
+
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
     <string name="url_api_rizon" translatable="false">https://api-rizon.cosmostation.io/</string>
@@ -211,6 +214,7 @@
     <string name="str_bif_c" translatable="false">BIF</string>
     <string name="str_cre_c" translatable="false">CRE</string>
     <string name="str_bcre_c" translatable="false">BCRE</string>
+    <string name="str_mantle_c" translatable="false">MNTL</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -264,6 +268,7 @@
     <string name="str_cerberus_main_net" translatable="false">Cerberus</string>
     <string name="str_omniflix_main_net" translatable="false">Omniflix</string>
     <string name="str_crescent_main_net" translatable="false">Crescent</string>
+    <string name="str_mantle_main_net" translatable="false">AssetMantle</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -515,6 +520,7 @@
     <string name="str_cerberus_net" translatable="false">(Cerberus)</string>
     <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
     <string name="str_crescent_net" translatable="false">(Crescent)</string>
+    <string name="str_mantle_net" translatable="false">(AssetMantle)</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_crescent_chain_test" translatable="false">(Crescent Testnet)</string>
@@ -569,6 +575,7 @@
     <string name="str_cerberus_main" translatable="false">CERBERUS</string>
     <string name="str_omniflix_main" translatable="false">OMNIFLIX</string>
     <string name="str_crescent_main" translatable="false">CRESCENT</string>
+    <string name="str_mantle_main" translatable="false">ASSETMANTLE</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_crescent_test" translatable="false">CRESCENT TEST</string>
     <string name="str_mintscan">Check Explorer</string>
@@ -678,6 +685,7 @@
     <string name="str_front_guide_title_cerberus"><![CDATA[CERBERUS]]></string>
     <string name="str_front_guide_title_omniflix"><![CDATA[OMNIFLIX]]></string>
     <string name="str_front_guide_title_crescent"><![CDATA[CRESCENT]]></string>
+    <string name="str_front_guide_title_mantle"><![CDATA[ASSETMANTLE]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -719,6 +727,7 @@
     <string name="str_front_guide_msg_cerberus"><![CDATA[Cerberus is a community-led tri-headed dog meme coin in Cosmos ecosystem.]]></string>
     <string name="str_front_guide_msg_omniflix"><![CDATA[OmniFlix Network is a blockchain specifically designed for creators and communities, powered by NFTs.]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[Crescent is a Tendermint-based DeFi hub powered by $CRE tokens & Inter-Blockchain Communication protocol.]]></string>
+    <string name="str_front_guide_msg_mantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1959,20 +1968,29 @@
     <string name="s_cerberus" translatable="false">CRBRUS</string>
     <string name="s_omniflix" translatable="false">FLIX</string>
     <string name="s_cre" translatable="false">CRE</string>
+    <string name="s_mantle" translatable="false">MNTL</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
     <string name="tx_transfer">Transfer</string>
     <string name="tx_delegate">Delegate</string>
+    <string name="tx_cancel_undelegate">Cancel Undelegate</string>
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
     <string name="tx_get_reward">Get Reward</string>
     <string name="tx_get_reward_all">Get All Rewards</string>
     <string name="tx_get_commission">Get Commission</string>
+    <string name="tx_fund_pool">Funding\nCommunity Pool</string>
     <string name="tx_change_reward_address">Edit Address</string>
     <string name="tx_vote">Vote</string>
     <string name="tx_submit_proposal">Proposal</string>
+    <string name="tx_deposit_proposal">Proposal Deposit</string>
+    <string name="tx_vote_weighted">Vote Weighted</string>
     <string name="tx_deposit">Deposit</string>
+    <string name="tx_withdraw">Withdraw</string>
+    <string name="tx_authz_grant">Authz Grant</string>
+    <string name="tx_authz_revoke">Authz Revoke</string>
+    <string name="tx_authz_exe">Authz Execute</string>
     <string name="tx_create_validator">Create Val</string>
     <string name="tx_edit_validator">Edit Val</string>
     <string name="tx_unjail">Unjail</string>
@@ -2027,6 +2045,15 @@
     <string name="tx_kava_swap_withdraw">Swap Pool\nWithdraw</string>
     <string name="tx_kava_swap_incentive">Swap Pool\nIncentive</string>
     <string name="tx_kava_delegator_incentive">Delegator\nIncentive</string>
+    <string name="tx_kava_auction_bid">Auction Bid</string>
+    <string name="tx_kava_save_deposit">Saving\nDeposit</string>
+    <string name="tx_kava_save_withdraw">Saving\nWithdraw</string>
+    <string name="tx_kava_hard_mint_incentive">USDX Minting\nIncentive</string>
+    <string name="tx_kava_hard_hard_incentive">Hard Lend\nIncentive</string>
+    <string name="tx_kava_hard_delegator_incentive">Delegator\nIncentive</string>
+    <string name="tx_kava_hard_swap_incentive">Swap\nIncentive</string>
+    <string name="tx_kava_hard_save_incentive">Incentive\nSaving</string>
+
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
@@ -2081,15 +2108,18 @@
 
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
+    <string name="tx_create_topic">Create Topic</string>
+    <string name="tx_add_writer">Add Writer</string>
 
     <string name="tx_sif_join_pool">Add Liquidity</string>
     <string name="tx_sif_exit_pool">Remove Liquidity</string>
     <string name="tx_sif_swap">Swap Coin</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
     <string name="tx_create_user_claim">Claim Incentive</string>
+    <string name="tx_create_distribution_run">Distribution Run</string>
 
     <string name="tx_task_response">Task Response</string>
-    <string name="tx_create_task">Create Task </string>
+    <string name="tx_create_task">Create Task</string>
 
     <string name="tx_issue_denom">Issue NFT Denom</string>
     <string name="tx_issue_denom_id">Denom ID</string>
@@ -2118,6 +2148,11 @@
     <string name="tx_save_profile_cover_url">Cover Uri</string>
     <string name="tx_link_account_address">Linked Address</string>
     <string name="tx_link_account_signer">Signer</string>
+    <string name="tx_delete_profile">Delete Profile</string>
+    <string name="tx_create_relation">Create Relationship</string>
+    <string name="tx_delete_relation">Delete Relationship</string>
+    <string name="tx_block_user">Block User</string>
+    <string name="tx_unblock_user">Unblock User</string>
 
     <string name="tx_cosmwasm_store_code">Store\nContract Code</string>
     <string name="tx_cosmwasm_instantiate">Instantiate\nContract</string>
@@ -2125,6 +2160,30 @@
     <string name="tx_cosmwasm_store_code_title">Store Contract Code</string>
     <string name="tx_cosmwasm_instantiate_title">Instantiate Contract</string>
     <string name="tx_cosmwasm_execontract_title">Execute Contract</string>
+
+    <string name="tx_crescent_liquid_stake">Liquid Stake</string>
+    <string name="tx_crescent_liquid_unstake">Liquid Unstake</string>
+    <string name="tx_crescent_liquidity_deposit">Liquidity\nDeposit</string>
+    <string name="tx_crescent_liquidity_withdraw">Liquidity\nWithdraw</string>
+    <string name="tx_crescent_liquidity_create_pair">Liquidity\nCreate Pair</string>
+    <string name="tx_crescent_liquidity_create_pool">Liquidity\nCreate Pool</string>
+    <string name="tx_crescent_liquidity_limit_order">Limit Order</string>
+    <string name="tx_crescent_liquidity_market_order">Market Order</string>
+    <string name="tx_crescent_liquidity_cancel_order">Cancel Order</string>
+    <string name="tx_crescent_liquidity_cancelall_order">Cancel All Order</string>
+    <string name="tx_crescent_farming_stake">Farming Stake</string>
+    <string name="tx_crescent_farming_unstake">Farming Unstake</string>
+    <string name="tx_crescent_farming_harvest">Farming Harvest</string>
+    <string name="tx_crescent_farming_create_fixed_amount_plan">Farming\nCreate Plain(Amount)</string>
+    <string name="tx_crescent_farming_create_ratio_plan">Farming\nCreate Plain(Ratio)</string>
+    <string name="tx_crescent_farming_remove_plan">Farming\nRemove Plain</string>
+    <string name="tx_crescent_farming_advance_epoch">Farming\nEpoch</string>
+    <string name="tx_crescent_farming_claim">Airdrop</string>
+
+    <string name="tx_osmosis_super_fluid_delegate">SuperFluid\nStaking</string>
+    <string name="tx_osmosis_super_fluid_undelegate">SuperFluid\nUnstaking</string>
+    <string name="tx_osmosis_super_fluid_unbondinglock">SuperFluid\nUnbonding Lock</string>
+    <string name="tx_osmosis_super_fluid_lockanddelegate">SuperFluid\nLock <![CDATA[ & ]]> Staking</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

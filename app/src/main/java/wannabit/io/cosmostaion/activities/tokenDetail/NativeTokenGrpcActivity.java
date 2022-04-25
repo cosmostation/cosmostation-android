@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
@@ -174,6 +175,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             if (WUtil.isBep3Coin(mNativeGrpcDenom)) {
                 mBtnIbcSend.setVisibility(View.GONE);
             }
+
+        } else if (mBaseChain.equals(CRESCENT_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
+            mToolbarSymbol.setText(R.string.str_bcre_c);
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorCrescent2));
+            mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
         }
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mNativeGrpcDenom));
