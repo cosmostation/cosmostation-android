@@ -323,7 +323,7 @@ public class ConnectWalletActivity extends BaseActivity {
             JSONArray messagesArray = transactionJson.getJSONArray("messages");
             ArrayList<Msg> msgList = Lists.newArrayList();
             for (int i = 0; i < messagesArray.length(); i++) {
-                JSONObject rawMessage = messagesArray.getJSONObject(0).getJSONObject("rawJsonMessage");
+                JSONObject rawMessage = messagesArray.getJSONObject(i).getJSONObject("rawJsonMessage");
                 Msg msgModel = new Msg();
                 msgModel.type = rawMessage.getString("type");
                 msgModel.value = new Gson().fromJson(rawMessage.getString("value"), Msg.Value.class);
