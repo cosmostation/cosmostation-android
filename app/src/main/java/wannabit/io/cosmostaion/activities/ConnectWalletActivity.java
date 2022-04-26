@@ -556,7 +556,6 @@ public class ConnectWalletActivity extends BaseActivity {
             wcClient.approveRequest(id, strings);
             moveToBackIfNeed();
         } else {
-            mWcLayer.setVisibility(View.GONE);
             mLoadingLayer.setVisibility(View.GONE);
         }
     }
