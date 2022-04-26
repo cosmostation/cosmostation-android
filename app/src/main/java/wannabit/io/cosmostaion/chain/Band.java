@@ -181,7 +181,7 @@ public class Band extends Chain {
 
     @Override
     public void setGuideInfo(MainActivity mainActivity, ImageView guideImg, TextView guideTitle, TextView guideMsg, Button guideBtn1, Button guideBtn2) {
-        guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.bandprotocol_img));
+        guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_bandprotocol));
         guideTitle.setText(R.string.str_front_guide_title_band);
         guideMsg.setText(R.string.str_front_guide_msg_band);
     }

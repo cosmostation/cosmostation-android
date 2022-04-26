@@ -205,7 +205,7 @@ public class Certik extends Chain {
         } else if (sequence == 2) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/")));
         } else if (sequence == 3) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/blog")));
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/certik")));
         }
     }
 
