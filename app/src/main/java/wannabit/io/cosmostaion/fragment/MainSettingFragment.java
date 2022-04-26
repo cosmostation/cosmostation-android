@@ -24,7 +24,6 @@ import com.gun0912.tedpermission.TedPermission;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
@@ -65,15 +64,15 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().mAccount.pushAlarm) {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
+//        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+//            if (getMainActivity().mAccount.pushAlarm) {
+        getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
+//            } else {
+//                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+//            }
+//        } else {
+//            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
+//        }
     }
 
     @Override
@@ -86,11 +85,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
+//                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
                 break;
             case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
+                getMainActivity().onNoticeView();
+//                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -133,7 +134,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnGithub.setOnClickListener(this);
         mBtnVersion.setOnClickListener(this);
 
-        mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
 
         mBtnAlaram.setVisibility(View.GONE);
         return rootView;

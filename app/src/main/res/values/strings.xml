@@ -970,7 +970,7 @@
     <string name="str_error_not_support_chain_title">Error</string>
     <string name="str_error_not_support_chain_msg">No wallet for that chain</string>
     <string name="str_error_not_support_msg">%1$s are not currently supported chain</string>
-
+    <string name="str_notice">notice</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
