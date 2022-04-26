@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -16,86 +17,166 @@
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
+            style="@style/font_ssm_17_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
-            android:text="@string/str_wallet_connect"/>
+            android:text="@string/str_wallet_connect"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/dapp_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/dapp_title"
+                        style="@style/font_ssm_17_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_wc_dapp_title" />
+
+
+                    <ImageView
+                        android:id="@+id/wc_light"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        tools:src="@drawable/ic_pass_gr" />
+
+                    <TextView
+                        android:id="@+id/wc_state"
+                        style="@style/font_ssl_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="3dp"
+                        tools:text="@string/str_wc_dapp_not_connected" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/wc_peer"
+                    style="@style/font_ssl_10_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="https://" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/dapp_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:padding="5dp"
+                android:src="@drawable/close_btn" />
+        </RelativeLayout>
+
     </androidx.appcompat.widget.Toolbar>
+
+    <WebView
+        android:id="@+id/wc_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_disconnect"
+        android:layout_below="@+id/tool_bar"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/wc_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar"
         android:layout_above="@+id/btn_disconnect"
+        android:layout_below="@+id/tool_bar"
         android:keepScreenOn="true"
         android:visibility="gone">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/wc_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardPreventCornerOverlap="true"
-            app:cardCornerRadius="@dimen/space_6"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
-            app:cardElevation="1.5dp"
             app:cardBackgroundColor="@color/colorTransBgKava"
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="1.5dp"
+            app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:padding="@dimen/space_16">
+
                 <ImageView
                     android:id="@+id/wc_img"
                     android:layout_width="@dimen/space_64"
-                    android:layout_height="@dimen/space_64"/>
+                    android:layout_height="@dimen/space_64" />
+
                 <TextView
                     android:id="@+id/wc_name"
+                    style="@style/font_ss_15_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_16"
-                    android:layout_marginRight="@dimen/space_16"
                     android:layout_marginTop="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_16"
                     android:gravity="center"
-                    android:text=""
-                    style="@style/font_ss_15_white"/>
+                    android:text="" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/space_12"
-                    android:background="@color/colorGray3"/>
+                    android:background="@color/colorGray3" />
 
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
-                    android:text="@string/str_connect_to"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_connect_to" />
+
                 <TextView
                     android:id="@+id/wc_url"
+                    style="@style/font_ss_12_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
-                    android:text=""
-                    style="@style/font_ss_12_white"/>
+                    android:text="" />
 
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
-                    android:text="@string/str_address"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_address" />
+
                 <TextView
                     android:id="@+id/wc_address"
+                    style="@style/font_ss_12_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
-                    android:text=""
-                    style="@style/font_ss_12_white"/>
+                    android:text="" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -111,7 +192,6 @@
                 android:layout_centerInParent="true"
                 android:indeterminateDrawable="@drawable/wc_imgs" />
         </RelativeLayout>
-
     </RelativeLayout>
 
 
@@ -120,11 +200,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar">
+
         <ProgressBar
             android:layout_width="@dimen/space_60"
             android:layout_height="@dimen/space_60"
             android:layout_centerInParent="true"
-            android:indeterminateDrawable="@drawable/loading"/>
+            android:indeterminateDrawable="@drawable/loading" />
     </RelativeLayout>
 
     <LinearLayout
@@ -132,16 +213,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
+
         <TextView
+            style="@style/font_ss_14_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_6"
             android:layout_centerInParent="true"
-            style="@style/font_ss_14_white"
-            android:text="No Account for Wallet Connect"/>
+            android:layout_marginTop="@dimen/space_6"
+            android:text="No Account for Wallet Connect" />
     </LinearLayout>
 
     <Button

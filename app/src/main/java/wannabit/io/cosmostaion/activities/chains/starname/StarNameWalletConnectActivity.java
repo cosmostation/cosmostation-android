@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Export_Confirm;
 import wannabit.io.cosmostaion.model.ExportStarName;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class StarNameWalletConnectActivity extends BaseActivity implements View.OnClickListener {
@@ -146,7 +145,7 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnDisconnect)) {
-            Toast.makeText(getBaseContext(), getString(R.string.str_wc_disconnected), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.str_wc_not_connected), Toast.LENGTH_SHORT).show();
             onBackPressed();
         }
     }

@@ -19,11 +19,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ConnectWalletActivity;
 
 public class Dialog_Wc_Raw_Data extends DialogFragment {
+    public WcSignRawDataListener listener = null;
 
-    public static Dialog_Wc_Raw_Data newInstance(Bundle bundle) {
-        Dialog_Wc_Raw_Data frag = new Dialog_Wc_Raw_Data();
-        frag.setArguments(bundle);
-        return frag;
+    public static Dialog_Wc_Raw_Data newInstance(Bundle bundle, WcSignRawDataListener listener) {
+        Dialog_Wc_Raw_Data dialog = new Dialog_Wc_Raw_Data();
+        dialog.setArguments(bundle);
+        dialog.listener = listener;
+        return dialog;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_raw_data, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_raw_data, null);
         TextView raw_data = view.findViewById(R.id.wc_raw_data);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
@@ -44,27 +46,28 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
         int type = getArguments().getInt("type");
         raw_data.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(transaction)));
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
+        btn_negative.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.reject(id);
             }
+            getDialog().dismiss();
         });
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (type == ConnectWalletActivity.TYPE_TRUST_WALLET) {
-                    ((ConnectWalletActivity)getActivity()).approveTrustRequest(id, transaction);
-                } else if (type == ConnectWalletActivity.TYPE_KEPLR_WALLET) {
-                    ((ConnectWalletActivity)getActivity()).approveKeplrRequest(id);
-                }
-                getDialog().dismiss();
+        btn_positive.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.sign(type, id, transaction);
             }
+            getDialog().dismiss();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
+    }
+
+    public interface WcSignRawDataListener {
+        void sign(int type, Long id, String transaction);
+
+        void reject(Long id);
     }
 }

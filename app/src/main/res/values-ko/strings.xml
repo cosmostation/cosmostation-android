@@ -387,8 +387,14 @@
     <string name="str_wallet_connect_msg">바이낸스 덱스 거래소에 지갑을 연결하시겠습니까?</string>
     <string name="str_disconnect">연결 해제</string>
     <string name="str_connect_to">연결 대상</string>
+    <string name="str_wc_peer_name">Cosmostation</string>
+    <string name="str_wc_peer_desc">Cosmostation Wallet Android</string>
+    <string name="str_wc_peer_url">https://cosmostation.io</string>
+    <string name="str_wc_dapp_connected">Connected</string>
+    <string name="str_wc_dapp_not_connected">Not Connected</string>
+    <string name="str_wc_dapp_title">Browser</string>
     <string name="str_wc_connected">지갑이 연결되었습니다.</string>
-    <string name="str_wc_disconnected">지갑이 연결이 해제 되었습니다.</string>
+    <string name="str_wc_not_connected">지갑이 연결이 해제 되었습니다.</string>
     <string name="str_wc_approved">지갑이 인증 되었습니다.</string>
     <string name="str_wc_closed">지갑이 닫혔습니다.</string>
     <string name="str_wc_sign_title">지갑 사인 요청</string>
@@ -1158,6 +1164,7 @@
     <string name="str_gravity_withdraw_address">Withdraw Address</string>
     <string name="str_gravity_withdraw_pool_id">Pool ID</string>
     <string name="str_osmosis_defi_lab"><![CDATA[DeFi Lab]]> </string>
+    <string name="str_crescent_app"><![CDATA[Crescent App]]> </string>
     <string name="str_osmosis_lab"><![CDATA[오스모시스 Lab]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>

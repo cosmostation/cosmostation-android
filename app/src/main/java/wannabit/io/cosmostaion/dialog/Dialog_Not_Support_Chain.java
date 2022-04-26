@@ -37,9 +37,8 @@ public class Dialog_Not_Support_Chain extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
 
         errorMsg.setText(String.format(getActivity().getString(R.string.str_error_not_support_msg),
-                WDp.getChainNameByBaseChain(WDp.getChainTypeByChainId(getArguments().getString("chainId")))).toUpperCase());
+                getArguments().getString("chainId")));
         btn_negative.setOnClickListener(v -> {
-            ((ConnectWalletActivity) getActivity()).onDeepLinkDismiss();
             getDialog().dismiss();
         });
 

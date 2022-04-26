@@ -785,8 +785,14 @@
     <string name="str_wallet_connect_msg">Would you like to link your wallet to Binance Dex Exchange?</string>
     <string name="str_disconnect">Disconnect</string>
     <string name="str_connect_to">Connect to</string>
+    <string name="str_wc_peer_name">Cosmostation</string>
+    <string name="str_wc_peer_desc">Cosmostation Wallet Android</string>
+    <string name="str_wc_peer_url">https://cosmostation.io</string>
+    <string name="str_wc_dapp_connected">Connected</string>
+    <string name="str_wc_dapp_not_connected">Not Connected</string>
+    <string name="str_wc_dapp_title">Browser</string>
     <string name="str_wc_connected">Wallet is connected.</string>
-    <string name="str_wc_disconnected">Wallet is disconnected.</string>
+    <string name="str_wc_not_connected">Wallet is disconnected.</string>
     <string name="str_wc_approved">Wallet is approved.</string>
     <string name="str_wc_closed">Wallet is closed.</string>
     <string name="str_wc_request_responsed">Responsed for Request</string>
@@ -1561,6 +1567,7 @@
     <string name="str_gravity_withdraw_address">Withdraw Address</string>
     <string name="str_gravity_withdraw_pool_id">Pool ID</string>
     <string name="str_osmosis_defi_lab"><![CDATA[DeFi Lab]]> </string>
+    <string name="str_crescent_app"><![CDATA[Crescent App]]> </string>
     <string name="str_osmosis_lab"><![CDATA[Osmosis Lab]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>

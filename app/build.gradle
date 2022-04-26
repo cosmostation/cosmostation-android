@@ -99,8 +99,7 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.8.0'
     implementation files('libs/httpclient-4.5.3.jar')
     implementation files('libs/apache-httpcomponents-httpcore.jar')
-    //for ed25519
-    implementation "com.github.Cosmostation:wallet-connect-kotlin:1.5.6-cosmostation"
+    implementation "com.github.cosmostation:wallet-connect-kotlin:1.6.0"
     implementation 'net.i2p.crypto:eddsa:0.3.0'
     //foreground notification
     implementation 'com.github.shasin89:NotificationBanner:1.1.5'
@@ -114,7 +113,7 @@ dependencies {
 
     //Grpc and protobuf
     implementation 'io.grpc:grpc-okhttp:1.33.1'
-    implementation ('io.grpc:grpc-protobuf:1.33.1') {
+    implementation('io.grpc:grpc-protobuf:1.33.1') {
         exclude group: 'com.google.api'
         exclude group: 'com.google.protobuf.GoGoProtos', module: "protobuf-java"
         exclude group: 'com.google.protobuf.AnyProto', module: "protobuf-java"
