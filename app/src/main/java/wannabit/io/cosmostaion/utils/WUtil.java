@@ -1149,52 +1149,55 @@ public class WUtil {
      * coin decimal
      */
     public static int getKavaCoinDecimal(Coin coin) {
-        if (coin.denom.equalsIgnoreCase(TOKEN_KAVA)) {
-            return 6;
-        } else if (coin.denom.equalsIgnoreCase(TOKEN_HARD)) {
-            return 6;
-        } else if (coin.denom.equalsIgnoreCase("xrpb") || coin.denom.equalsIgnoreCase("xrbp")) {
-            return 8;
-        } else if (coin.denom.equalsIgnoreCase("btc")) {
-            return 8;
-        } else if (coin.denom.equalsIgnoreCase("usdx")) {
-            return 6;
-        } else if (coin.denom.equalsIgnoreCase("bnb")) {
-            return 8;
-        } else if (coin.denom.equalsIgnoreCase("btcb") || coin.denom.equalsIgnoreCase("hbtc")) {
-            return 8;
-        } else if (coin.denom.equalsIgnoreCase("busd")) {
-            return 8;
-        } else if (coin.denom.equalsIgnoreCase("swp")) {
-            return 6;
+        if (coin != null && coin.denom != null) {
+            if (coin.denom.equalsIgnoreCase(TOKEN_KAVA)) {
+                return 6;
+            } else if (coin.denom.equalsIgnoreCase(TOKEN_HARD)) {
+                return 6;
+            } else if (coin.denom.equalsIgnoreCase("xrpb") || coin.denom.equalsIgnoreCase("xrbp")) {
+                return 8;
+            } else if (coin.denom.equalsIgnoreCase("btc")) {
+                return 8;
+            } else if (coin.denom.equalsIgnoreCase("usdx")) {
+                return 6;
+            } else if (coin.denom.equalsIgnoreCase("bnb")) {
+                return 8;
+            } else if (coin.denom.equalsIgnoreCase("btcb") || coin.denom.equalsIgnoreCase("hbtc")) {
+                return 8;
+            } else if (coin.denom.equalsIgnoreCase("busd")) {
+                return 8;
+            } else if (coin.denom.equalsIgnoreCase("swp")) {
+                return 6;
+            }
         }
-        return 0;
-
+        return 6;
     }
 
     public static int getKavaCoinDecimal(BaseData baseData, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
-            return 6;
-        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-            return 6;
-        } else if (denom.equalsIgnoreCase("xrpb") || denom.equalsIgnoreCase("xrbp")) {
-            return 8;
-        } else if (denom.equalsIgnoreCase("btc")) {
-            return 8;
-        } else if (denom.equalsIgnoreCase("usdx")) {
-            return 6;
-        } else if (denom.equalsIgnoreCase("bnb")) {
-            return 8;
-        } else if (denom.equalsIgnoreCase("btcb") || denom.equalsIgnoreCase("hbtc")) {
-            return 8;
-        } else if (denom.equalsIgnoreCase("busd")) {
-            return 8;
-        } else if (denom.equalsIgnoreCase("swp")) {
-            return 6;
-        } else if (denom.startsWith("ibc/")) {
-            return getIbcDecimal(baseData, denom);
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+                return 6;
+            } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+                return 6;
+            } else if (denom.equalsIgnoreCase("xrpb") || denom.equalsIgnoreCase("xrbp")) {
+                return 8;
+            } else if (denom.equalsIgnoreCase("btc")) {
+                return 8;
+            } else if (denom.equalsIgnoreCase("usdx")) {
+                return 6;
+            } else if (denom.equalsIgnoreCase("bnb")) {
+                return 8;
+            } else if (denom.equalsIgnoreCase("btcb") || denom.equalsIgnoreCase("hbtc")) {
+                return 8;
+            } else if (denom.equalsIgnoreCase("busd")) {
+                return 8;
+            } else if (denom.equalsIgnoreCase("swp")) {
+                return 6;
+            } else if (denom.startsWith("ibc/")) {
+                return getIbcDecimal(baseData, denom);
+            }
         }
-        return 1;
+        return 6;
     }
 
     public static int getSifCoinDecimal(BaseData baseData, String denom) {
