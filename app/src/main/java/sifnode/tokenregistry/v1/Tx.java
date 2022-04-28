@@ -3568,29 +3568,30 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n!sifnode/tokenregistry/v1/tx.proto\022\030sif" +
-      "node.tokenregistry.v1\032$sifnode/tokenregi" +
-      "stry/v1/types.proto\"S\n\013MsgRegister\022\014\n\004fr" +
-      "om\030\001 \001(\t\0226\n\005entry\030\002 \001(\0132\'.sifnode.tokenr" +
-      "egistry.v1.RegistryEntry\"\025\n\023MsgRegisterR" +
-      "esponse\"T\n\016MsgSetRegistry\022\014\n\004from\030\001 \001(\t\022" +
-      "4\n\010registry\030\002 \001(\0132\".sifnode.tokenregistr" +
-      "y.v1.Registry\"\030\n\026MsgSetRegistryResponse\"" +
-      ",\n\rMsgDeregister\022\014\n\004from\030\001 \001(\t\022\r\n\005denom\030" +
-      "\002 \001(\t\"\027\n\025MsgDeregisterResponse2\300\002\n\003Msg\022b" +
-      "\n\010Register\022%.sifnode.tokenregistry.v1.Ms" +
-      "gRegister\032-.sifnode.tokenregistry.v1.Msg" +
-      "RegisterResponse\"\000\022h\n\nDeregister\022\'.sifno" +
-      "de.tokenregistry.v1.MsgDeregister\032/.sifn" +
-      "ode.tokenregistry.v1.MsgDeregisterRespon" +
-      "se\"\000\022k\n\013SetRegistry\022(.sifnode.tokenregis" +
-      "try.v1.MsgSetRegistry\0320.sifnode.tokenreg" +
-      "istry.v1.MsgSetRegistryResponse\"\000B3Z1git" +
-      "hub.com/Sifchain/sifnode/x/tokenregistry" +
-      "/typesb\006proto3"
+      "node.tokenregistry.v1\032\024gogoproto/gogo.pr" +
+      "oto\032$sifnode/tokenregistry/v1/types.prot" +
+      "o\"S\n\013MsgRegister\022\014\n\004from\030\001 \001(\t\0226\n\005entry\030" +
+      "\002 \001(\0132\'.sifnode.tokenregistry.v1.Registr" +
+      "yEntry\"\025\n\023MsgRegisterResponse\"T\n\016MsgSetR" +
+      "egistry\022\014\n\004from\030\001 \001(\t\0224\n\010registry\030\002 \001(\0132" +
+      "\".sifnode.tokenregistry.v1.Registry\"\030\n\026M" +
+      "sgSetRegistryResponse\",\n\rMsgDeregister\022\014" +
+      "\n\004from\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\027\n\025MsgDeregi" +
+      "sterResponse2\300\002\n\003Msg\022b\n\010Register\022%.sifno" +
+      "de.tokenregistry.v1.MsgRegister\032-.sifnod" +
+      "e.tokenregistry.v1.MsgRegisterResponse\"\000" +
+      "\022h\n\nDeregister\022\'.sifnode.tokenregistry.v" +
+      "1.MsgDeregister\032/.sifnode.tokenregistry." +
+      "v1.MsgDeregisterResponse\"\000\022k\n\013SetRegistr" +
+      "y\022(.sifnode.tokenregistry.v1.MsgSetRegis" +
+      "try\0320.sifnode.tokenregistry.v1.MsgSetReg" +
+      "istryResponse\"\000B3Z1github.com/Sifchain/s" +
+      "ifnode/x/tokenregistry/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           sifnode.tokenregistry.v1.Types.getDescriptor(),
         });
     internal_static_sifnode_tokenregistry_v1_MsgRegister_descriptor =
@@ -3629,6 +3630,7 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_tokenregistry_v1_MsgDeregisterResponse_descriptor,
         new java.lang.String[] { });
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     sifnode.tokenregistry.v1.Types.getDescriptor();
   }
 

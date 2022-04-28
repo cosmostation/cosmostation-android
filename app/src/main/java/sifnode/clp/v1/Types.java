@@ -636,6 +636,42 @@ public final class Types {
      */
     com.google.protobuf.ByteString
         getPoolUnitsBytes();
+
+    /**
+     * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+     * @return The swapPriceNative.
+     */
+    java.lang.String getSwapPriceNative();
+    /**
+     * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+     * @return The bytes for swapPriceNative.
+     */
+    com.google.protobuf.ByteString
+        getSwapPriceNativeBytes();
+
+    /**
+     * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+     * @return The swapPriceExternal.
+     */
+    java.lang.String getSwapPriceExternal();
+    /**
+     * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+     * @return The bytes for swapPriceExternal.
+     */
+    com.google.protobuf.ByteString
+        getSwapPriceExternalBytes();
+
+    /**
+     * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+     * @return The rewardPeriodNativeDistributed.
+     */
+    java.lang.String getRewardPeriodNativeDistributed();
+    /**
+     * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+     * @return The bytes for rewardPeriodNativeDistributed.
+     */
+    com.google.protobuf.ByteString
+        getRewardPeriodNativeDistributedBytes();
   }
   /**
    * Protobuf type {@code sifnode.clp.v1.Pool}
@@ -653,6 +689,9 @@ public final class Types {
       nativeAssetBalance_ = "";
       externalAssetBalance_ = "";
       poolUnits_ = "";
+      swapPriceNative_ = "";
+      swapPriceExternal_ = "";
+      rewardPeriodNativeDistributed_ = "";
     }
 
     @java.lang.Override
@@ -714,6 +753,24 @@ public final class Types {
               java.lang.String s = input.readStringRequireUtf8();
 
               poolUnits_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              swapPriceNative_ = s;
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              swapPriceExternal_ = s;
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              rewardPeriodNativeDistributed_ = s;
               break;
             }
             default: {
@@ -888,6 +945,120 @@ public final class Types {
       }
     }
 
+    public static final int SWAP_PRICE_NATIVE_FIELD_NUMBER = 5;
+    private volatile java.lang.Object swapPriceNative_;
+    /**
+     * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+     * @return The swapPriceNative.
+     */
+    @java.lang.Override
+    public java.lang.String getSwapPriceNative() {
+      java.lang.Object ref = swapPriceNative_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        swapPriceNative_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+     * @return The bytes for swapPriceNative.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSwapPriceNativeBytes() {
+      java.lang.Object ref = swapPriceNative_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        swapPriceNative_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SWAP_PRICE_EXTERNAL_FIELD_NUMBER = 6;
+    private volatile java.lang.Object swapPriceExternal_;
+    /**
+     * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+     * @return The swapPriceExternal.
+     */
+    @java.lang.Override
+    public java.lang.String getSwapPriceExternal() {
+      java.lang.Object ref = swapPriceExternal_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        swapPriceExternal_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+     * @return The bytes for swapPriceExternal.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSwapPriceExternalBytes() {
+      java.lang.Object ref = swapPriceExternal_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        swapPriceExternal_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REWARD_PERIOD_NATIVE_DISTRIBUTED_FIELD_NUMBER = 7;
+    private volatile java.lang.Object rewardPeriodNativeDistributed_;
+    /**
+     * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+     * @return The rewardPeriodNativeDistributed.
+     */
+    @java.lang.Override
+    public java.lang.String getRewardPeriodNativeDistributed() {
+      java.lang.Object ref = rewardPeriodNativeDistributed_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        rewardPeriodNativeDistributed_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+     * @return The bytes for rewardPeriodNativeDistributed.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRewardPeriodNativeDistributedBytes() {
+      java.lang.Object ref = rewardPeriodNativeDistributed_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        rewardPeriodNativeDistributed_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -914,6 +1085,15 @@ public final class Types {
       if (!getPoolUnitsBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, poolUnits_);
       }
+      if (!getSwapPriceNativeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, swapPriceNative_);
+      }
+      if (!getSwapPriceExternalBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, swapPriceExternal_);
+      }
+      if (!getRewardPeriodNativeDistributedBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, rewardPeriodNativeDistributed_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -935,6 +1115,15 @@ public final class Types {
       }
       if (!getPoolUnitsBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, poolUnits_);
+      }
+      if (!getSwapPriceNativeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, swapPriceNative_);
+      }
+      if (!getSwapPriceExternalBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, swapPriceExternal_);
+      }
+      if (!getRewardPeriodNativeDistributedBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, rewardPeriodNativeDistributed_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -962,6 +1151,12 @@ public final class Types {
           .equals(other.getExternalAssetBalance())) return false;
       if (!getPoolUnits()
           .equals(other.getPoolUnits())) return false;
+      if (!getSwapPriceNative()
+          .equals(other.getSwapPriceNative())) return false;
+      if (!getSwapPriceExternal()
+          .equals(other.getSwapPriceExternal())) return false;
+      if (!getRewardPeriodNativeDistributed()
+          .equals(other.getRewardPeriodNativeDistributed())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -983,6 +1178,12 @@ public final class Types {
       hash = (53 * hash) + getExternalAssetBalance().hashCode();
       hash = (37 * hash) + POOL_UNITS_FIELD_NUMBER;
       hash = (53 * hash) + getPoolUnits().hashCode();
+      hash = (37 * hash) + SWAP_PRICE_NATIVE_FIELD_NUMBER;
+      hash = (53 * hash) + getSwapPriceNative().hashCode();
+      hash = (37 * hash) + SWAP_PRICE_EXTERNAL_FIELD_NUMBER;
+      hash = (53 * hash) + getSwapPriceExternal().hashCode();
+      hash = (37 * hash) + REWARD_PERIOD_NATIVE_DISTRIBUTED_FIELD_NUMBER;
+      hash = (53 * hash) + getRewardPeriodNativeDistributed().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1128,6 +1329,12 @@ public final class Types {
 
         poolUnits_ = "";
 
+        swapPriceNative_ = "";
+
+        swapPriceExternal_ = "";
+
+        rewardPeriodNativeDistributed_ = "";
+
         return this;
       }
 
@@ -1162,6 +1369,9 @@ public final class Types {
         result.nativeAssetBalance_ = nativeAssetBalance_;
         result.externalAssetBalance_ = externalAssetBalance_;
         result.poolUnits_ = poolUnits_;
+        result.swapPriceNative_ = swapPriceNative_;
+        result.swapPriceExternal_ = swapPriceExternal_;
+        result.rewardPeriodNativeDistributed_ = rewardPeriodNativeDistributed_;
         onBuilt();
         return result;
       }
@@ -1223,6 +1433,18 @@ public final class Types {
         }
         if (!other.getPoolUnits().isEmpty()) {
           poolUnits_ = other.poolUnits_;
+          onChanged();
+        }
+        if (!other.getSwapPriceNative().isEmpty()) {
+          swapPriceNative_ = other.swapPriceNative_;
+          onChanged();
+        }
+        if (!other.getSwapPriceExternal().isEmpty()) {
+          swapPriceExternal_ = other.swapPriceExternal_;
+          onChanged();
+        }
+        if (!other.getRewardPeriodNativeDistributed().isEmpty()) {
+          rewardPeriodNativeDistributed_ = other.rewardPeriodNativeDistributed_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -1600,6 +1822,234 @@ public final class Types {
         onChanged();
         return this;
       }
+
+      private java.lang.Object swapPriceNative_ = "";
+      /**
+       * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+       * @return The swapPriceNative.
+       */
+      public java.lang.String getSwapPriceNative() {
+        java.lang.Object ref = swapPriceNative_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          swapPriceNative_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+       * @return The bytes for swapPriceNative.
+       */
+      public com.google.protobuf.ByteString
+          getSwapPriceNativeBytes() {
+        java.lang.Object ref = swapPriceNative_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          swapPriceNative_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+       * @param value The swapPriceNative to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSwapPriceNative(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        swapPriceNative_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSwapPriceNative() {
+        
+        swapPriceNative_ = getDefaultInstance().getSwapPriceNative();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string swap_price_native = 5 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_native &#92;""];</code>
+       * @param value The bytes for swapPriceNative to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSwapPriceNativeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        swapPriceNative_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object swapPriceExternal_ = "";
+      /**
+       * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+       * @return The swapPriceExternal.
+       */
+      public java.lang.String getSwapPriceExternal() {
+        java.lang.Object ref = swapPriceExternal_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          swapPriceExternal_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+       * @return The bytes for swapPriceExternal.
+       */
+      public com.google.protobuf.ByteString
+          getSwapPriceExternalBytes() {
+        java.lang.Object ref = swapPriceExternal_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          swapPriceExternal_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+       * @param value The swapPriceExternal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSwapPriceExternal(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        swapPriceExternal_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSwapPriceExternal() {
+        
+        swapPriceExternal_ = getDefaultInstance().getSwapPriceExternal();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string swap_price_external = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_price_external &#92;""];</code>
+       * @param value The bytes for swapPriceExternal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSwapPriceExternalBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        swapPriceExternal_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object rewardPeriodNativeDistributed_ = "";
+      /**
+       * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+       * @return The rewardPeriodNativeDistributed.
+       */
+      public java.lang.String getRewardPeriodNativeDistributed() {
+        java.lang.Object ref = rewardPeriodNativeDistributed_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          rewardPeriodNativeDistributed_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+       * @return The bytes for rewardPeriodNativeDistributed.
+       */
+      public com.google.protobuf.ByteString
+          getRewardPeriodNativeDistributedBytes() {
+        java.lang.Object ref = rewardPeriodNativeDistributed_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          rewardPeriodNativeDistributed_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+       * @param value The rewardPeriodNativeDistributed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodNativeDistributed(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        rewardPeriodNativeDistributed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRewardPeriodNativeDistributed() {
+        
+        rewardPeriodNativeDistributed_ = getDefaultInstance().getRewardPeriodNativeDistributed();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reward_period_native_distributed = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"reward_period_native_distributed&#92;""];</code>
+       * @param value The bytes for rewardPeriodNativeDistributed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodNativeDistributedBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        rewardPeriodNativeDistributed_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1695,6 +2145,30 @@ public final class Types {
      */
     com.google.protobuf.ByteString
         getLiquidityProviderAddressBytes();
+
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    java.util.List<sifnode.clp.v1.Types.LiquidityUnlock> 
+        getUnlocksList();
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    sifnode.clp.v1.Types.LiquidityUnlock getUnlocks(int index);
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    int getUnlocksCount();
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    java.util.List<? extends sifnode.clp.v1.Types.LiquidityUnlockOrBuilder> 
+        getUnlocksOrBuilderList();
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    sifnode.clp.v1.Types.LiquidityUnlockOrBuilder getUnlocksOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code sifnode.clp.v1.LiquidityProvider}
@@ -1711,6 +2185,7 @@ public final class Types {
     private LiquidityProvider() {
       liquidityProviderUnits_ = "";
       liquidityProviderAddress_ = "";
+      unlocks_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -1733,6 +2208,7 @@ public final class Types {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1768,6 +2244,15 @@ public final class Types {
               liquidityProviderAddress_ = s;
               break;
             }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                unlocks_ = new java.util.ArrayList<sifnode.clp.v1.Types.LiquidityUnlock>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              unlocks_.add(
+                  input.readMessage(sifnode.clp.v1.Types.LiquidityUnlock.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -1783,6 +2268,9 @@ public final class Types {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          unlocks_ = java.util.Collections.unmodifiableList(unlocks_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -1902,6 +2390,46 @@ public final class Types {
       }
     }
 
+    public static final int UNLOCKS_FIELD_NUMBER = 4;
+    private java.util.List<sifnode.clp.v1.Types.LiquidityUnlock> unlocks_;
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<sifnode.clp.v1.Types.LiquidityUnlock> getUnlocksList() {
+      return unlocks_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends sifnode.clp.v1.Types.LiquidityUnlockOrBuilder> 
+        getUnlocksOrBuilderList() {
+      return unlocks_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    @java.lang.Override
+    public int getUnlocksCount() {
+      return unlocks_.size();
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.LiquidityUnlock getUnlocks(int index) {
+      return unlocks_.get(index);
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.LiquidityUnlockOrBuilder getUnlocksOrBuilder(
+        int index) {
+      return unlocks_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1925,6 +2453,9 @@ public final class Types {
       if (!getLiquidityProviderAddressBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, liquidityProviderAddress_);
       }
+      for (int i = 0; i < unlocks_.size(); i++) {
+        output.writeMessage(4, unlocks_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1943,6 +2474,10 @@ public final class Types {
       }
       if (!getLiquidityProviderAddressBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, liquidityProviderAddress_);
+      }
+      for (int i = 0; i < unlocks_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, unlocks_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1968,6 +2503,8 @@ public final class Types {
           .equals(other.getLiquidityProviderUnits())) return false;
       if (!getLiquidityProviderAddress()
           .equals(other.getLiquidityProviderAddress())) return false;
+      if (!getUnlocksList()
+          .equals(other.getUnlocksList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1987,6 +2524,10 @@ public final class Types {
       hash = (53 * hash) + getLiquidityProviderUnits().hashCode();
       hash = (37 * hash) + LIQUIDITY_PROVIDER_ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getLiquidityProviderAddress().hashCode();
+      if (getUnlocksCount() > 0) {
+        hash = (37 * hash) + UNLOCKS_FIELD_NUMBER;
+        hash = (53 * hash) + getUnlocksList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2115,6 +2656,7 @@ public final class Types {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getUnlocksFieldBuilder();
         }
       }
       @java.lang.Override
@@ -2130,6 +2672,12 @@ public final class Types {
 
         liquidityProviderAddress_ = "";
 
+        if (unlocksBuilder_ == null) {
+          unlocks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          unlocksBuilder_.clear();
+        }
         return this;
       }
 
@@ -2156,6 +2704,7 @@ public final class Types {
       @java.lang.Override
       public sifnode.clp.v1.Types.LiquidityProvider buildPartial() {
         sifnode.clp.v1.Types.LiquidityProvider result = new sifnode.clp.v1.Types.LiquidityProvider(this);
+        int from_bitField0_ = bitField0_;
         if (assetBuilder_ == null) {
           result.asset_ = asset_;
         } else {
@@ -2163,6 +2712,15 @@ public final class Types {
         }
         result.liquidityProviderUnits_ = liquidityProviderUnits_;
         result.liquidityProviderAddress_ = liquidityProviderAddress_;
+        if (unlocksBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            unlocks_ = java.util.Collections.unmodifiableList(unlocks_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.unlocks_ = unlocks_;
+        } else {
+          result.unlocks_ = unlocksBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -2222,6 +2780,32 @@ public final class Types {
           liquidityProviderAddress_ = other.liquidityProviderAddress_;
           onChanged();
         }
+        if (unlocksBuilder_ == null) {
+          if (!other.unlocks_.isEmpty()) {
+            if (unlocks_.isEmpty()) {
+              unlocks_ = other.unlocks_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureUnlocksIsMutable();
+              unlocks_.addAll(other.unlocks_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.unlocks_.isEmpty()) {
+            if (unlocksBuilder_.isEmpty()) {
+              unlocksBuilder_.dispose();
+              unlocksBuilder_ = null;
+              unlocks_ = other.unlocks_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              unlocksBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getUnlocksFieldBuilder() : null;
+            } else {
+              unlocksBuilder_.addAllMessages(other.unlocks_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -2250,6 +2834,7 @@ public final class Types {
         }
         return this;
       }
+      private int bitField0_;
 
       private sifnode.clp.v1.Types.Asset asset_;
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -2521,6 +3106,246 @@ public final class Types {
         onChanged();
         return this;
       }
+
+      private java.util.List<sifnode.clp.v1.Types.LiquidityUnlock> unlocks_ =
+        java.util.Collections.emptyList();
+      private void ensureUnlocksIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          unlocks_ = new java.util.ArrayList<sifnode.clp.v1.Types.LiquidityUnlock>(unlocks_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.Types.LiquidityUnlock, sifnode.clp.v1.Types.LiquidityUnlock.Builder, sifnode.clp.v1.Types.LiquidityUnlockOrBuilder> unlocksBuilder_;
+
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public java.util.List<sifnode.clp.v1.Types.LiquidityUnlock> getUnlocksList() {
+        if (unlocksBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(unlocks_);
+        } else {
+          return unlocksBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public int getUnlocksCount() {
+        if (unlocksBuilder_ == null) {
+          return unlocks_.size();
+        } else {
+          return unlocksBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityUnlock getUnlocks(int index) {
+        if (unlocksBuilder_ == null) {
+          return unlocks_.get(index);
+        } else {
+          return unlocksBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder setUnlocks(
+          int index, sifnode.clp.v1.Types.LiquidityUnlock value) {
+        if (unlocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUnlocksIsMutable();
+          unlocks_.set(index, value);
+          onChanged();
+        } else {
+          unlocksBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder setUnlocks(
+          int index, sifnode.clp.v1.Types.LiquidityUnlock.Builder builderForValue) {
+        if (unlocksBuilder_ == null) {
+          ensureUnlocksIsMutable();
+          unlocks_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          unlocksBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder addUnlocks(sifnode.clp.v1.Types.LiquidityUnlock value) {
+        if (unlocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUnlocksIsMutable();
+          unlocks_.add(value);
+          onChanged();
+        } else {
+          unlocksBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder addUnlocks(
+          int index, sifnode.clp.v1.Types.LiquidityUnlock value) {
+        if (unlocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUnlocksIsMutable();
+          unlocks_.add(index, value);
+          onChanged();
+        } else {
+          unlocksBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder addUnlocks(
+          sifnode.clp.v1.Types.LiquidityUnlock.Builder builderForValue) {
+        if (unlocksBuilder_ == null) {
+          ensureUnlocksIsMutable();
+          unlocks_.add(builderForValue.build());
+          onChanged();
+        } else {
+          unlocksBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder addUnlocks(
+          int index, sifnode.clp.v1.Types.LiquidityUnlock.Builder builderForValue) {
+        if (unlocksBuilder_ == null) {
+          ensureUnlocksIsMutable();
+          unlocks_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          unlocksBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder addAllUnlocks(
+          java.lang.Iterable<? extends sifnode.clp.v1.Types.LiquidityUnlock> values) {
+        if (unlocksBuilder_ == null) {
+          ensureUnlocksIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, unlocks_);
+          onChanged();
+        } else {
+          unlocksBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder clearUnlocks() {
+        if (unlocksBuilder_ == null) {
+          unlocks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          unlocksBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public Builder removeUnlocks(int index) {
+        if (unlocksBuilder_ == null) {
+          ensureUnlocksIsMutable();
+          unlocks_.remove(index);
+          onChanged();
+        } else {
+          unlocksBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityUnlock.Builder getUnlocksBuilder(
+          int index) {
+        return getUnlocksFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityUnlockOrBuilder getUnlocksOrBuilder(
+          int index) {
+        if (unlocksBuilder_ == null) {
+          return unlocks_.get(index);  } else {
+          return unlocksBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public java.util.List<? extends sifnode.clp.v1.Types.LiquidityUnlockOrBuilder> 
+           getUnlocksOrBuilderList() {
+        if (unlocksBuilder_ != null) {
+          return unlocksBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(unlocks_);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityUnlock.Builder addUnlocksBuilder() {
+        return getUnlocksFieldBuilder().addBuilder(
+            sifnode.clp.v1.Types.LiquidityUnlock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityUnlock.Builder addUnlocksBuilder(
+          int index) {
+        return getUnlocksFieldBuilder().addBuilder(
+            index, sifnode.clp.v1.Types.LiquidityUnlock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityUnlock unlocks = 4;</code>
+       */
+      public java.util.List<sifnode.clp.v1.Types.LiquidityUnlock.Builder> 
+           getUnlocksBuilderList() {
+        return getUnlocksFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.Types.LiquidityUnlock, sifnode.clp.v1.Types.LiquidityUnlock.Builder, sifnode.clp.v1.Types.LiquidityUnlockOrBuilder> 
+          getUnlocksFieldBuilder() {
+        if (unlocksBuilder_ == null) {
+          unlocksBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              sifnode.clp.v1.Types.LiquidityUnlock, sifnode.clp.v1.Types.LiquidityUnlock.Builder, sifnode.clp.v1.Types.LiquidityUnlockOrBuilder>(
+                  unlocks_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          unlocks_ = null;
+        }
+        return unlocksBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2569,6 +3394,1205 @@ public final class Types {
 
     @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProvider getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface LiquidityUnlockOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.LiquidityUnlock)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 request_height = 1;</code>
+     * @return The requestHeight.
+     */
+    long getRequestHeight();
+
+    /**
+     * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The units.
+     */
+    java.lang.String getUnits();
+    /**
+     * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The bytes for units.
+     */
+    com.google.protobuf.ByteString
+        getUnitsBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.LiquidityUnlock}
+   */
+  public static final class LiquidityUnlock extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityUnlock)
+      LiquidityUnlockOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LiquidityUnlock.newBuilder() to construct.
+    private LiquidityUnlock(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LiquidityUnlock() {
+      units_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LiquidityUnlock();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LiquidityUnlock(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              requestHeight_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              units_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityUnlock_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityUnlock_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Types.LiquidityUnlock.class, sifnode.clp.v1.Types.LiquidityUnlock.Builder.class);
+    }
+
+    public static final int REQUEST_HEIGHT_FIELD_NUMBER = 1;
+    private long requestHeight_;
+    /**
+     * <code>int64 request_height = 1;</code>
+     * @return The requestHeight.
+     */
+    @java.lang.Override
+    public long getRequestHeight() {
+      return requestHeight_;
+    }
+
+    public static final int UNITS_FIELD_NUMBER = 2;
+    private volatile java.lang.Object units_;
+    /**
+     * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The units.
+     */
+    @java.lang.Override
+    public java.lang.String getUnits() {
+      java.lang.Object ref = units_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        units_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The bytes for units.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUnitsBytes() {
+      java.lang.Object ref = units_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        units_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (requestHeight_ != 0L) {
+        output.writeInt64(1, requestHeight_);
+      }
+      if (!getUnitsBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, units_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (requestHeight_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, requestHeight_);
+      }
+      if (!getUnitsBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, units_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Types.LiquidityUnlock)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Types.LiquidityUnlock other = (sifnode.clp.v1.Types.LiquidityUnlock) obj;
+
+      if (getRequestHeight()
+          != other.getRequestHeight()) return false;
+      if (!getUnits()
+          .equals(other.getUnits())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REQUEST_HEIGHT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getRequestHeight());
+      hash = (37 * hash) + UNITS_FIELD_NUMBER;
+      hash = (53 * hash) + getUnits().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.LiquidityUnlock parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Types.LiquidityUnlock prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.LiquidityUnlock}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.LiquidityUnlock)
+        sifnode.clp.v1.Types.LiquidityUnlockOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityUnlock_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityUnlock_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Types.LiquidityUnlock.class, sifnode.clp.v1.Types.LiquidityUnlock.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Types.LiquidityUnlock.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        requestHeight_ = 0L;
+
+        units_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityUnlock_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.LiquidityUnlock getDefaultInstanceForType() {
+        return sifnode.clp.v1.Types.LiquidityUnlock.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.LiquidityUnlock build() {
+        sifnode.clp.v1.Types.LiquidityUnlock result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.LiquidityUnlock buildPartial() {
+        sifnode.clp.v1.Types.LiquidityUnlock result = new sifnode.clp.v1.Types.LiquidityUnlock(this);
+        result.requestHeight_ = requestHeight_;
+        result.units_ = units_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Types.LiquidityUnlock) {
+          return mergeFrom((sifnode.clp.v1.Types.LiquidityUnlock)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Types.LiquidityUnlock other) {
+        if (other == sifnode.clp.v1.Types.LiquidityUnlock.getDefaultInstance()) return this;
+        if (other.getRequestHeight() != 0L) {
+          setRequestHeight(other.getRequestHeight());
+        }
+        if (!other.getUnits().isEmpty()) {
+          units_ = other.units_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Types.LiquidityUnlock parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Types.LiquidityUnlock) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long requestHeight_ ;
+      /**
+       * <code>int64 request_height = 1;</code>
+       * @return The requestHeight.
+       */
+      @java.lang.Override
+      public long getRequestHeight() {
+        return requestHeight_;
+      }
+      /**
+       * <code>int64 request_height = 1;</code>
+       * @param value The requestHeight to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRequestHeight(long value) {
+        
+        requestHeight_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 request_height = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRequestHeight() {
+        
+        requestHeight_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object units_ = "";
+      /**
+       * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return The units.
+       */
+      public java.lang.String getUnits() {
+        java.lang.Object ref = units_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          units_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return The bytes for units.
+       */
+      public com.google.protobuf.ByteString
+          getUnitsBytes() {
+        java.lang.Object ref = units_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          units_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @param value The units to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUnits(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        units_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUnits() {
+        
+        units_ = getDefaultInstance().getUnits();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @param value The bytes for units to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUnitsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        units_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.LiquidityUnlock)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.LiquidityUnlock)
+    private static final sifnode.clp.v1.Types.LiquidityUnlock DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Types.LiquidityUnlock();
+    }
+
+    public static sifnode.clp.v1.Types.LiquidityUnlock getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LiquidityUnlock>
+        PARSER = new com.google.protobuf.AbstractParser<LiquidityUnlock>() {
+      @java.lang.Override
+      public LiquidityUnlock parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LiquidityUnlock(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LiquidityUnlock> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LiquidityUnlock> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Types.LiquidityUnlock getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PmtpEpochOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.PmtpEpoch)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 epoch_counter = 1;</code>
+     * @return The epochCounter.
+     */
+    long getEpochCounter();
+
+    /**
+     * <code>int64 block_counter = 2;</code>
+     * @return The blockCounter.
+     */
+    long getBlockCounter();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.PmtpEpoch}
+   */
+  public static final class PmtpEpoch extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PmtpEpoch)
+      PmtpEpochOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PmtpEpoch.newBuilder() to construct.
+    private PmtpEpoch(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PmtpEpoch() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PmtpEpoch();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PmtpEpoch(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              epochCounter_ = input.readInt64();
+              break;
+            }
+            case 16: {
+
+              blockCounter_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_PmtpEpoch_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_PmtpEpoch_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Types.PmtpEpoch.class, sifnode.clp.v1.Types.PmtpEpoch.Builder.class);
+    }
+
+    public static final int EPOCH_COUNTER_FIELD_NUMBER = 1;
+    private long epochCounter_;
+    /**
+     * <code>int64 epoch_counter = 1;</code>
+     * @return The epochCounter.
+     */
+    @java.lang.Override
+    public long getEpochCounter() {
+      return epochCounter_;
+    }
+
+    public static final int BLOCK_COUNTER_FIELD_NUMBER = 2;
+    private long blockCounter_;
+    /**
+     * <code>int64 block_counter = 2;</code>
+     * @return The blockCounter.
+     */
+    @java.lang.Override
+    public long getBlockCounter() {
+      return blockCounter_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (epochCounter_ != 0L) {
+        output.writeInt64(1, epochCounter_);
+      }
+      if (blockCounter_ != 0L) {
+        output.writeInt64(2, blockCounter_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (epochCounter_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, epochCounter_);
+      }
+      if (blockCounter_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, blockCounter_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Types.PmtpEpoch)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Types.PmtpEpoch other = (sifnode.clp.v1.Types.PmtpEpoch) obj;
+
+      if (getEpochCounter()
+          != other.getEpochCounter()) return false;
+      if (getBlockCounter()
+          != other.getBlockCounter()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + EPOCH_COUNTER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getEpochCounter());
+      hash = (37 * hash) + BLOCK_COUNTER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getBlockCounter());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.PmtpEpoch parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Types.PmtpEpoch prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.PmtpEpoch}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.PmtpEpoch)
+        sifnode.clp.v1.Types.PmtpEpochOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_PmtpEpoch_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_PmtpEpoch_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Types.PmtpEpoch.class, sifnode.clp.v1.Types.PmtpEpoch.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Types.PmtpEpoch.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        epochCounter_ = 0L;
+
+        blockCounter_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_PmtpEpoch_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.PmtpEpoch getDefaultInstanceForType() {
+        return sifnode.clp.v1.Types.PmtpEpoch.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.PmtpEpoch build() {
+        sifnode.clp.v1.Types.PmtpEpoch result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.PmtpEpoch buildPartial() {
+        sifnode.clp.v1.Types.PmtpEpoch result = new sifnode.clp.v1.Types.PmtpEpoch(this);
+        result.epochCounter_ = epochCounter_;
+        result.blockCounter_ = blockCounter_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Types.PmtpEpoch) {
+          return mergeFrom((sifnode.clp.v1.Types.PmtpEpoch)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Types.PmtpEpoch other) {
+        if (other == sifnode.clp.v1.Types.PmtpEpoch.getDefaultInstance()) return this;
+        if (other.getEpochCounter() != 0L) {
+          setEpochCounter(other.getEpochCounter());
+        }
+        if (other.getBlockCounter() != 0L) {
+          setBlockCounter(other.getBlockCounter());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Types.PmtpEpoch parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Types.PmtpEpoch) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long epochCounter_ ;
+      /**
+       * <code>int64 epoch_counter = 1;</code>
+       * @return The epochCounter.
+       */
+      @java.lang.Override
+      public long getEpochCounter() {
+        return epochCounter_;
+      }
+      /**
+       * <code>int64 epoch_counter = 1;</code>
+       * @param value The epochCounter to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEpochCounter(long value) {
+        
+        epochCounter_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 epoch_counter = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEpochCounter() {
+        
+        epochCounter_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long blockCounter_ ;
+      /**
+       * <code>int64 block_counter = 2;</code>
+       * @return The blockCounter.
+       */
+      @java.lang.Override
+      public long getBlockCounter() {
+        return blockCounter_;
+      }
+      /**
+       * <code>int64 block_counter = 2;</code>
+       * @param value The blockCounter to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockCounter(long value) {
+        
+        blockCounter_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 block_counter = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBlockCounter() {
+        
+        blockCounter_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.PmtpEpoch)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.PmtpEpoch)
+    private static final sifnode.clp.v1.Types.PmtpEpoch DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Types.PmtpEpoch();
+    }
+
+    public static sifnode.clp.v1.Types.PmtpEpoch getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PmtpEpoch>
+        PARSER = new com.google.protobuf.AbstractParser<PmtpEpoch>() {
+      @java.lang.Override
+      public PmtpEpoch parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PmtpEpoch(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PmtpEpoch> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PmtpEpoch> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Types.PmtpEpoch getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4133,6 +6157,874 @@ public final class Types {
 
   }
 
+  public interface EventPolicyOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.EventPolicy)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string event_type = 1;</code>
+     * @return The eventType.
+     */
+    java.lang.String getEventType();
+    /**
+     * <code>string event_type = 1;</code>
+     * @return The bytes for eventType.
+     */
+    com.google.protobuf.ByteString
+        getEventTypeBytes();
+
+    /**
+     * <code>string pmtp_period_start_block = 2;</code>
+     * @return The pmtpPeriodStartBlock.
+     */
+    java.lang.String getPmtpPeriodStartBlock();
+    /**
+     * <code>string pmtp_period_start_block = 2;</code>
+     * @return The bytes for pmtpPeriodStartBlock.
+     */
+    com.google.protobuf.ByteString
+        getPmtpPeriodStartBlockBytes();
+
+    /**
+     * <code>string pmtp_period_end_block = 3;</code>
+     * @return The pmtpPeriodEndBlock.
+     */
+    java.lang.String getPmtpPeriodEndBlock();
+    /**
+     * <code>string pmtp_period_end_block = 3;</code>
+     * @return The bytes for pmtpPeriodEndBlock.
+     */
+    com.google.protobuf.ByteString
+        getPmtpPeriodEndBlockBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.EventPolicy}
+   */
+  public static final class EventPolicy extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.EventPolicy)
+      EventPolicyOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use EventPolicy.newBuilder() to construct.
+    private EventPolicy(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EventPolicy() {
+      eventType_ = "";
+      pmtpPeriodStartBlock_ = "";
+      pmtpPeriodEndBlock_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new EventPolicy();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private EventPolicy(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              eventType_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pmtpPeriodStartBlock_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pmtpPeriodEndBlock_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_EventPolicy_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_EventPolicy_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Types.EventPolicy.class, sifnode.clp.v1.Types.EventPolicy.Builder.class);
+    }
+
+    public static final int EVENT_TYPE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object eventType_;
+    /**
+     * <code>string event_type = 1;</code>
+     * @return The eventType.
+     */
+    @java.lang.Override
+    public java.lang.String getEventType() {
+      java.lang.Object ref = eventType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        eventType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string event_type = 1;</code>
+     * @return The bytes for eventType.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEventTypeBytes() {
+      java.lang.Object ref = eventType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        eventType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PMTP_PERIOD_START_BLOCK_FIELD_NUMBER = 2;
+    private volatile java.lang.Object pmtpPeriodStartBlock_;
+    /**
+     * <code>string pmtp_period_start_block = 2;</code>
+     * @return The pmtpPeriodStartBlock.
+     */
+    @java.lang.Override
+    public java.lang.String getPmtpPeriodStartBlock() {
+      java.lang.Object ref = pmtpPeriodStartBlock_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pmtpPeriodStartBlock_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string pmtp_period_start_block = 2;</code>
+     * @return The bytes for pmtpPeriodStartBlock.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPmtpPeriodStartBlockBytes() {
+      java.lang.Object ref = pmtpPeriodStartBlock_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pmtpPeriodStartBlock_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PMTP_PERIOD_END_BLOCK_FIELD_NUMBER = 3;
+    private volatile java.lang.Object pmtpPeriodEndBlock_;
+    /**
+     * <code>string pmtp_period_end_block = 3;</code>
+     * @return The pmtpPeriodEndBlock.
+     */
+    @java.lang.Override
+    public java.lang.String getPmtpPeriodEndBlock() {
+      java.lang.Object ref = pmtpPeriodEndBlock_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pmtpPeriodEndBlock_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string pmtp_period_end_block = 3;</code>
+     * @return The bytes for pmtpPeriodEndBlock.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPmtpPeriodEndBlockBytes() {
+      java.lang.Object ref = pmtpPeriodEndBlock_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pmtpPeriodEndBlock_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getEventTypeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, eventType_);
+      }
+      if (!getPmtpPeriodStartBlockBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, pmtpPeriodStartBlock_);
+      }
+      if (!getPmtpPeriodEndBlockBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, pmtpPeriodEndBlock_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getEventTypeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, eventType_);
+      }
+      if (!getPmtpPeriodStartBlockBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, pmtpPeriodStartBlock_);
+      }
+      if (!getPmtpPeriodEndBlockBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, pmtpPeriodEndBlock_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Types.EventPolicy)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Types.EventPolicy other = (sifnode.clp.v1.Types.EventPolicy) obj;
+
+      if (!getEventType()
+          .equals(other.getEventType())) return false;
+      if (!getPmtpPeriodStartBlock()
+          .equals(other.getPmtpPeriodStartBlock())) return false;
+      if (!getPmtpPeriodEndBlock()
+          .equals(other.getPmtpPeriodEndBlock())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + EVENT_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getEventType().hashCode();
+      hash = (37 * hash) + PMTP_PERIOD_START_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + getPmtpPeriodStartBlock().hashCode();
+      hash = (37 * hash) + PMTP_PERIOD_END_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + getPmtpPeriodEndBlock().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.EventPolicy parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Types.EventPolicy prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.EventPolicy}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.EventPolicy)
+        sifnode.clp.v1.Types.EventPolicyOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_EventPolicy_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_EventPolicy_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Types.EventPolicy.class, sifnode.clp.v1.Types.EventPolicy.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Types.EventPolicy.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        eventType_ = "";
+
+        pmtpPeriodStartBlock_ = "";
+
+        pmtpPeriodEndBlock_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_EventPolicy_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.EventPolicy getDefaultInstanceForType() {
+        return sifnode.clp.v1.Types.EventPolicy.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.EventPolicy build() {
+        sifnode.clp.v1.Types.EventPolicy result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.EventPolicy buildPartial() {
+        sifnode.clp.v1.Types.EventPolicy result = new sifnode.clp.v1.Types.EventPolicy(this);
+        result.eventType_ = eventType_;
+        result.pmtpPeriodStartBlock_ = pmtpPeriodStartBlock_;
+        result.pmtpPeriodEndBlock_ = pmtpPeriodEndBlock_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Types.EventPolicy) {
+          return mergeFrom((sifnode.clp.v1.Types.EventPolicy)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Types.EventPolicy other) {
+        if (other == sifnode.clp.v1.Types.EventPolicy.getDefaultInstance()) return this;
+        if (!other.getEventType().isEmpty()) {
+          eventType_ = other.eventType_;
+          onChanged();
+        }
+        if (!other.getPmtpPeriodStartBlock().isEmpty()) {
+          pmtpPeriodStartBlock_ = other.pmtpPeriodStartBlock_;
+          onChanged();
+        }
+        if (!other.getPmtpPeriodEndBlock().isEmpty()) {
+          pmtpPeriodEndBlock_ = other.pmtpPeriodEndBlock_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Types.EventPolicy parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Types.EventPolicy) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object eventType_ = "";
+      /**
+       * <code>string event_type = 1;</code>
+       * @return The eventType.
+       */
+      public java.lang.String getEventType() {
+        java.lang.Object ref = eventType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          eventType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string event_type = 1;</code>
+       * @return The bytes for eventType.
+       */
+      public com.google.protobuf.ByteString
+          getEventTypeBytes() {
+        java.lang.Object ref = eventType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          eventType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string event_type = 1;</code>
+       * @param value The eventType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        eventType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string event_type = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEventType() {
+        
+        eventType_ = getDefaultInstance().getEventType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string event_type = 1;</code>
+       * @param value The bytes for eventType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        eventType_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object pmtpPeriodStartBlock_ = "";
+      /**
+       * <code>string pmtp_period_start_block = 2;</code>
+       * @return The pmtpPeriodStartBlock.
+       */
+      public java.lang.String getPmtpPeriodStartBlock() {
+        java.lang.Object ref = pmtpPeriodStartBlock_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pmtpPeriodStartBlock_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_start_block = 2;</code>
+       * @return The bytes for pmtpPeriodStartBlock.
+       */
+      public com.google.protobuf.ByteString
+          getPmtpPeriodStartBlockBytes() {
+        java.lang.Object ref = pmtpPeriodStartBlock_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pmtpPeriodStartBlock_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_start_block = 2;</code>
+       * @param value The pmtpPeriodStartBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodStartBlock(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pmtpPeriodStartBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_start_block = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodStartBlock() {
+        
+        pmtpPeriodStartBlock_ = getDefaultInstance().getPmtpPeriodStartBlock();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_start_block = 2;</code>
+       * @param value The bytes for pmtpPeriodStartBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodStartBlockBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pmtpPeriodStartBlock_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object pmtpPeriodEndBlock_ = "";
+      /**
+       * <code>string pmtp_period_end_block = 3;</code>
+       * @return The pmtpPeriodEndBlock.
+       */
+      public java.lang.String getPmtpPeriodEndBlock() {
+        java.lang.Object ref = pmtpPeriodEndBlock_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pmtpPeriodEndBlock_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_end_block = 3;</code>
+       * @return The bytes for pmtpPeriodEndBlock.
+       */
+      public com.google.protobuf.ByteString
+          getPmtpPeriodEndBlockBytes() {
+        java.lang.Object ref = pmtpPeriodEndBlock_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pmtpPeriodEndBlock_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_end_block = 3;</code>
+       * @param value The pmtpPeriodEndBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodEndBlock(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pmtpPeriodEndBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_end_block = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodEndBlock() {
+        
+        pmtpPeriodEndBlock_ = getDefaultInstance().getPmtpPeriodEndBlock();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_end_block = 3;</code>
+       * @param value The bytes for pmtpPeriodEndBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodEndBlockBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pmtpPeriodEndBlock_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.EventPolicy)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.EventPolicy)
+    private static final sifnode.clp.v1.Types.EventPolicy DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Types.EventPolicy();
+    }
+
+    public static sifnode.clp.v1.Types.EventPolicy getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EventPolicy>
+        PARSER = new com.google.protobuf.AbstractParser<EventPolicy>() {
+      @java.lang.Override
+      public EventPolicy parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new EventPolicy(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EventPolicy> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EventPolicy> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Types.EventPolicy getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_Asset_descriptor;
   private static final 
@@ -4149,6 +7041,16 @@ public final class Types {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_LiquidityProvider_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_LiquidityUnlock_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_LiquidityUnlock_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_PmtpEpoch_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_PmtpEpoch_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_WhiteList_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -4158,6 +7060,11 @@ public final class Types {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_LiquidityProviderData_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_EventPolicy_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_EventPolicy_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4169,7 +7076,7 @@ public final class Types {
     java.lang.String[] descriptorData = {
       "\n\032sifnode/clp/v1/types.proto\022\016sifnode.cl" +
       "p.v1\032\024gogoproto/gogo.proto\"\027\n\005Asset\022\016\n\006s" +
-      "ymbol\030\001 \001(\t\"\357\002\n\004Pool\022-\n\016external_asset\030\001" +
+      "ymbol\030\001 \001(\t\"\302\005\n\004Pool\022-\n\016external_asset\030\001" +
       " \001(\0132\025.sifnode.clp.v1.Asset\022l\n\024native_as" +
       "set_balance\030\002 \001(\tBN\332\336\037\'github.com/cosmos" +
       "/cosmos-sdk/types.Uint\310\336\037\000\362\336\037\033yaml:\"nati" +
@@ -4178,18 +7085,35 @@ public final class Types {
       "sdk/types.Uint\310\336\037\000\362\336\037\035yaml:\"external_ass" +
       "et_balance\"\022X\n\npool_units\030\004 \001(\tBD\332\336\037\'git" +
       "hub.com/cosmos/cosmos-sdk/types.Uint\310\336\037\000" +
-      "\362\336\037\021yaml:\"pool_units\"\"\323\001\n\021LiquidityProvi" +
-      "der\022$\n\005asset\030\001 \001(\0132\025.sifnode.clp.v1.Asse" +
-      "t\022t\n\030liquidity_provider_units\030\002 \001(\tBR\332\336\037" +
-      "\'github.com/cosmos/cosmos-sdk/types.Uint" +
-      "\310\336\037\000\362\336\037\037yaml:\"liquidity_provider_units\"\022" +
-      "\"\n\032liquidity_provider_address\030\003 \001(\t\"#\n\tW" +
-      "hiteList\022\026\n\016validator_list\030\001 \003(\t\"\224\001\n\025Liq" +
-      "uidityProviderData\022=\n\022liquidity_provider" +
-      "\030\001 \001(\0132!.sifnode.clp.v1.LiquidityProvide" +
-      "r\022\034\n\024native_asset_balance\030\002 \001(\t\022\036\n\026exter" +
-      "nal_asset_balance\030\003 \001(\tB)Z\'github.com/Si" +
-      "fchain/sifnode/x/clp/typesb\006proto3"
+      "\362\336\037\021yaml:\"pool_units\"\022b\n\021swap_price_nati" +
+      "ve\030\005 \001(\tBG\332\336\037&github.com/cosmos/cosmos-s" +
+      "dk/types.Dec\362\336\037\031yaml:\"swap_price_native " +
+      "\"\022f\n\023swap_price_external\030\006 \001(\tBI\332\336\037&gith" +
+      "ub.com/cosmos/cosmos-sdk/types.Dec\362\336\037\033ya" +
+      "ml:\"swap_price_external \"\022\204\001\n reward_per" +
+      "iod_native_distributed\030\007 \001(\tBZ\332\336\037\'github" +
+      ".com/cosmos/cosmos-sdk/types.Uint\310\336\037\000\362\336\037" +
+      "\'yaml:\"reward_period_native_distributed\"" +
+      "\"\205\002\n\021LiquidityProvider\022$\n\005asset\030\001 \001(\0132\025." +
+      "sifnode.clp.v1.Asset\022t\n\030liquidity_provid" +
+      "er_units\030\002 \001(\tBR\332\336\037\'github.com/cosmos/co" +
+      "smos-sdk/types.Uint\310\336\037\000\362\336\037\037yaml:\"liquidi" +
+      "ty_provider_units\"\022\"\n\032liquidity_provider" +
+      "_address\030\003 \001(\t\0220\n\007unlocks\030\004 \003(\0132\037.sifnod" +
+      "e.clp.v1.LiquidityUnlock\"i\n\017LiquidityUnl" +
+      "ock\022\026\n\016request_height\030\001 \001(\003\022>\n\005units\030\002 \001" +
+      "(\tB/\332\336\037\'github.com/cosmos/cosmos-sdk/typ" +
+      "es.Uint\310\336\037\000\"9\n\tPmtpEpoch\022\025\n\repoch_counte" +
+      "r\030\001 \001(\003\022\025\n\rblock_counter\030\002 \001(\003\"#\n\tWhiteL" +
+      "ist\022\026\n\016validator_list\030\001 \003(\t\"\224\001\n\025Liquidit" +
+      "yProviderData\022=\n\022liquidity_provider\030\001 \001(" +
+      "\0132!.sifnode.clp.v1.LiquidityProvider\022\034\n\024" +
+      "native_asset_balance\030\002 \001(\t\022\036\n\026external_a" +
+      "sset_balance\030\003 \001(\t\"a\n\013EventPolicy\022\022\n\neve" +
+      "nt_type\030\001 \001(\t\022\037\n\027pmtp_period_start_block" +
+      "\030\002 \001(\t\022\035\n\025pmtp_period_end_block\030\003 \001(\tB)Z" +
+      "\'github.com/Sifchain/sifnode/x/clp/types" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4207,25 +7131,43 @@ public final class Types {
     internal_static_sifnode_clp_v1_Pool_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_Pool_descriptor,
-        new java.lang.String[] { "ExternalAsset", "NativeAssetBalance", "ExternalAssetBalance", "PoolUnits", });
+        new java.lang.String[] { "ExternalAsset", "NativeAssetBalance", "ExternalAssetBalance", "PoolUnits", "SwapPriceNative", "SwapPriceExternal", "RewardPeriodNativeDistributed", });
     internal_static_sifnode_clp_v1_LiquidityProvider_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_sifnode_clp_v1_LiquidityProvider_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_LiquidityProvider_descriptor,
-        new java.lang.String[] { "Asset", "LiquidityProviderUnits", "LiquidityProviderAddress", });
-    internal_static_sifnode_clp_v1_WhiteList_descriptor =
+        new java.lang.String[] { "Asset", "LiquidityProviderUnits", "LiquidityProviderAddress", "Unlocks", });
+    internal_static_sifnode_clp_v1_LiquidityUnlock_descriptor =
       getDescriptor().getMessageTypes().get(3);
+    internal_static_sifnode_clp_v1_LiquidityUnlock_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_LiquidityUnlock_descriptor,
+        new java.lang.String[] { "RequestHeight", "Units", });
+    internal_static_sifnode_clp_v1_PmtpEpoch_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_sifnode_clp_v1_PmtpEpoch_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_PmtpEpoch_descriptor,
+        new java.lang.String[] { "EpochCounter", "BlockCounter", });
+    internal_static_sifnode_clp_v1_WhiteList_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_sifnode_clp_v1_WhiteList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_WhiteList_descriptor,
         new java.lang.String[] { "ValidatorList", });
     internal_static_sifnode_clp_v1_LiquidityProviderData_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_sifnode_clp_v1_LiquidityProviderData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_LiquidityProviderData_descriptor,
         new java.lang.String[] { "LiquidityProvider", "NativeAssetBalance", "ExternalAssetBalance", });
+    internal_static_sifnode_clp_v1_EventPolicy_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_sifnode_clp_v1_EventPolicy_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_EventPolicy_descriptor,
+        new java.lang.String[] { "EventType", "PmtpPeriodStartBlock", "PmtpPeriodEndBlock", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.customtype);

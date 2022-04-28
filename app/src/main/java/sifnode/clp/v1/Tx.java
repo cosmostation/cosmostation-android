@@ -14,6 +14,1292 @@ public final class Tx {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  public interface MsgUpdateStakingRewardParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgUpdateStakingRewardParams)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+     * @return The minter.
+     */
+    java.lang.String getMinter();
+    /**
+     * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+     * @return The bytes for minter.
+     */
+    com.google.protobuf.ByteString
+        getMinterBytes();
+
+    /**
+     * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+     * @return The params.
+     */
+    java.lang.String getParams();
+    /**
+     * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+     * @return The bytes for params.
+     */
+    com.google.protobuf.ByteString
+        getParamsBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgUpdateStakingRewardParams}
+   */
+  public static final class MsgUpdateStakingRewardParams extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgUpdateStakingRewardParams)
+      MsgUpdateStakingRewardParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdateStakingRewardParams.newBuilder() to construct.
+    private MsgUpdateStakingRewardParams(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdateStakingRewardParams() {
+      signer_ = "";
+      minter_ = "";
+      params_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdateStakingRewardParams();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUpdateStakingRewardParams(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              signer_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              minter_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              params_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.class, sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signer_;
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MINTER_FIELD_NUMBER = 2;
+    private volatile java.lang.Object minter_;
+    /**
+     * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+     * @return The minter.
+     */
+    @java.lang.Override
+    public java.lang.String getMinter() {
+      java.lang.Object ref = minter_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        minter_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+     * @return The bytes for minter.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMinterBytes() {
+      java.lang.Object ref = minter_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        minter_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PARAMS_FIELD_NUMBER = 3;
+    private volatile java.lang.Object params_;
+    /**
+     * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+     * @return The params.
+     */
+    @java.lang.Override
+    public java.lang.String getParams() {
+      java.lang.Object ref = params_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        params_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+     * @return The bytes for params.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getParamsBytes() {
+      java.lang.Object ref = params_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        params_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSignerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      if (!getMinterBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, minter_);
+      }
+      if (!getParamsBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, params_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSignerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      if (!getMinterBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, minter_);
+      }
+      if (!getParamsBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, params_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams other = (sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (!getMinter()
+          .equals(other.getMinter())) return false;
+      if (!getParams()
+          .equals(other.getParams())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      hash = (37 * hash) + MINTER_FIELD_NUMBER;
+      hash = (53 * hash) + getMinter().hashCode();
+      hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+      hash = (53 * hash) + getParams().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgUpdateStakingRewardParams}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgUpdateStakingRewardParams)
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.class, sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        signer_ = "";
+
+        minter_ = "";
+
+        params_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams build() {
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams buildPartial() {
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams result = new sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams(this);
+        result.signer_ = signer_;
+        result.minter_ = minter_;
+        result.params_ = params_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams other) {
+        if (other == sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          onChanged();
+        }
+        if (!other.getMinter().isEmpty()) {
+          minter_ = other.minter_;
+          onChanged();
+        }
+        if (!other.getParams().isEmpty()) {
+          params_ = other.params_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        
+        signer_ = getDefaultInstance().getSigner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object minter_ = "";
+      /**
+       * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+       * @return The minter.
+       */
+      public java.lang.String getMinter() {
+        java.lang.Object ref = minter_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          minter_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+       * @return The bytes for minter.
+       */
+      public com.google.protobuf.ByteString
+          getMinterBytes() {
+        java.lang.Object ref = minter_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          minter_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+       * @param value The minter to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinter(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        minter_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMinter() {
+        
+        minter_ = getDefaultInstance().getMinter();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string minter = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Minter"];</code>
+       * @param value The bytes for minter to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinterBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        minter_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object params_ = "";
+      /**
+       * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+       * @return The params.
+       */
+      public java.lang.String getParams() {
+        java.lang.Object ref = params_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          params_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+       * @return The bytes for params.
+       */
+      public com.google.protobuf.ByteString
+          getParamsBytes() {
+        java.lang.Object ref = params_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          params_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+       * @param value The params to set.
+       * @return This builder for chaining.
+       */
+      public Builder setParams(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        params_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearParams() {
+        
+        params_ = getDefaultInstance().getParams();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string params = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/x/mint/types.Params"];</code>
+       * @param value The bytes for params to set.
+       * @return This builder for chaining.
+       */
+      public Builder setParamsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        params_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgUpdateStakingRewardParams)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgUpdateStakingRewardParams)
+    private static final sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdateStakingRewardParams>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdateStakingRewardParams>() {
+      @java.lang.Override
+      public MsgUpdateStakingRewardParams parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUpdateStakingRewardParams(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdateStakingRewardParams> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdateStakingRewardParams> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUpdateStakingRewardParamsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgUpdateStakingRewardParamsResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgUpdateStakingRewardParamsResponse}
+   */
+  public static final class MsgUpdateStakingRewardParamsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgUpdateStakingRewardParamsResponse)
+      MsgUpdateStakingRewardParamsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdateStakingRewardParamsResponse.newBuilder() to construct.
+    private MsgUpdateStakingRewardParamsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdateStakingRewardParamsResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdateStakingRewardParamsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUpdateStakingRewardParamsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.class, sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse other = (sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgUpdateStakingRewardParamsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgUpdateStakingRewardParamsResponse)
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.class, sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse build() {
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse buildPartial() {
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse result = new sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse other) {
+        if (other == sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgUpdateStakingRewardParamsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgUpdateStakingRewardParamsResponse)
+    private static final sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdateStakingRewardParamsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdateStakingRewardParamsResponse>() {
+      @java.lang.Override
+      public MsgUpdateStakingRewardParamsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUpdateStakingRewardParamsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdateStakingRewardParamsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdateStakingRewardParamsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MsgRemoveLiquidityOrBuilder extends
       // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgRemoveLiquidity)
       com.google.protobuf.MessageOrBuilder {
@@ -1498,6 +2784,1345 @@ public final class Tx {
 
     @java.lang.Override
     public sifnode.clp.v1.Tx.MsgRemoveLiquidityResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgRemoveLiquidityUnitsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgRemoveLiquidityUnits)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     * @return Whether the externalAsset field is set.
+     */
+    boolean hasExternalAsset();
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     * @return The externalAsset.
+     */
+    sifnode.clp.v1.Types.Asset getExternalAsset();
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     */
+    sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder();
+
+    /**
+     * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+     * @return The withdrawUnits.
+     */
+    java.lang.String getWithdrawUnits();
+    /**
+     * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+     * @return The bytes for withdrawUnits.
+     */
+    com.google.protobuf.ByteString
+        getWithdrawUnitsBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgRemoveLiquidityUnits}
+   */
+  public static final class MsgRemoveLiquidityUnits extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgRemoveLiquidityUnits)
+      MsgRemoveLiquidityUnitsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgRemoveLiquidityUnits.newBuilder() to construct.
+    private MsgRemoveLiquidityUnits(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgRemoveLiquidityUnits() {
+      signer_ = "";
+      withdrawUnits_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgRemoveLiquidityUnits();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgRemoveLiquidityUnits(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              signer_ = s;
+              break;
+            }
+            case 18: {
+              sifnode.clp.v1.Types.Asset.Builder subBuilder = null;
+              if (externalAsset_ != null) {
+                subBuilder = externalAsset_.toBuilder();
+              }
+              externalAsset_ = input.readMessage(sifnode.clp.v1.Types.Asset.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(externalAsset_);
+                externalAsset_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              withdrawUnits_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.class, sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signer_;
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXTERNAL_ASSET_FIELD_NUMBER = 2;
+    private sifnode.clp.v1.Types.Asset externalAsset_;
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     * @return Whether the externalAsset field is set.
+     */
+    @java.lang.Override
+    public boolean hasExternalAsset() {
+      return externalAsset_ != null;
+    }
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     * @return The externalAsset.
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.Asset getExternalAsset() {
+      return externalAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
+    }
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder() {
+      return getExternalAsset();
+    }
+
+    public static final int WITHDRAW_UNITS_FIELD_NUMBER = 3;
+    private volatile java.lang.Object withdrawUnits_;
+    /**
+     * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+     * @return The withdrawUnits.
+     */
+    @java.lang.Override
+    public java.lang.String getWithdrawUnits() {
+      java.lang.Object ref = withdrawUnits_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        withdrawUnits_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+     * @return The bytes for withdrawUnits.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getWithdrawUnitsBytes() {
+      java.lang.Object ref = withdrawUnits_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        withdrawUnits_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSignerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      if (externalAsset_ != null) {
+        output.writeMessage(2, getExternalAsset());
+      }
+      if (!getWithdrawUnitsBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, withdrawUnits_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSignerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      if (externalAsset_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getExternalAsset());
+      }
+      if (!getWithdrawUnitsBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, withdrawUnits_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits other = (sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (hasExternalAsset() != other.hasExternalAsset()) return false;
+      if (hasExternalAsset()) {
+        if (!getExternalAsset()
+            .equals(other.getExternalAsset())) return false;
+      }
+      if (!getWithdrawUnits()
+          .equals(other.getWithdrawUnits())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      if (hasExternalAsset()) {
+        hash = (37 * hash) + EXTERNAL_ASSET_FIELD_NUMBER;
+        hash = (53 * hash) + getExternalAsset().hashCode();
+      }
+      hash = (37 * hash) + WITHDRAW_UNITS_FIELD_NUMBER;
+      hash = (53 * hash) + getWithdrawUnits().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgRemoveLiquidityUnits}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgRemoveLiquidityUnits)
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.class, sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        signer_ = "";
+
+        if (externalAssetBuilder_ == null) {
+          externalAsset_ = null;
+        } else {
+          externalAsset_ = null;
+          externalAssetBuilder_ = null;
+        }
+        withdrawUnits_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits build() {
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits buildPartial() {
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits result = new sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits(this);
+        result.signer_ = signer_;
+        if (externalAssetBuilder_ == null) {
+          result.externalAsset_ = externalAsset_;
+        } else {
+          result.externalAsset_ = externalAssetBuilder_.build();
+        }
+        result.withdrawUnits_ = withdrawUnits_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits other) {
+        if (other == sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          onChanged();
+        }
+        if (other.hasExternalAsset()) {
+          mergeExternalAsset(other.getExternalAsset());
+        }
+        if (!other.getWithdrawUnits().isEmpty()) {
+          withdrawUnits_ = other.withdrawUnits_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        
+        signer_ = getDefaultInstance().getSigner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+
+      private sifnode.clp.v1.Types.Asset externalAsset_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.Types.Asset, sifnode.clp.v1.Types.Asset.Builder, sifnode.clp.v1.Types.AssetOrBuilder> externalAssetBuilder_;
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       * @return Whether the externalAsset field is set.
+       */
+      public boolean hasExternalAsset() {
+        return externalAssetBuilder_ != null || externalAsset_ != null;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       * @return The externalAsset.
+       */
+      public sifnode.clp.v1.Types.Asset getExternalAsset() {
+        if (externalAssetBuilder_ == null) {
+          return externalAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
+        } else {
+          return externalAssetBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public Builder setExternalAsset(sifnode.clp.v1.Types.Asset value) {
+        if (externalAssetBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          externalAsset_ = value;
+          onChanged();
+        } else {
+          externalAssetBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public Builder setExternalAsset(
+          sifnode.clp.v1.Types.Asset.Builder builderForValue) {
+        if (externalAssetBuilder_ == null) {
+          externalAsset_ = builderForValue.build();
+          onChanged();
+        } else {
+          externalAssetBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public Builder mergeExternalAsset(sifnode.clp.v1.Types.Asset value) {
+        if (externalAssetBuilder_ == null) {
+          if (externalAsset_ != null) {
+            externalAsset_ =
+              sifnode.clp.v1.Types.Asset.newBuilder(externalAsset_).mergeFrom(value).buildPartial();
+          } else {
+            externalAsset_ = value;
+          }
+          onChanged();
+        } else {
+          externalAssetBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public Builder clearExternalAsset() {
+        if (externalAssetBuilder_ == null) {
+          externalAsset_ = null;
+          onChanged();
+        } else {
+          externalAsset_ = null;
+          externalAssetBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public sifnode.clp.v1.Types.Asset.Builder getExternalAssetBuilder() {
+        
+        onChanged();
+        return getExternalAssetFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder() {
+        if (externalAssetBuilder_ != null) {
+          return externalAssetBuilder_.getMessageOrBuilder();
+        } else {
+          return externalAsset_ == null ?
+              sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.Types.Asset, sifnode.clp.v1.Types.Asset.Builder, sifnode.clp.v1.Types.AssetOrBuilder> 
+          getExternalAssetFieldBuilder() {
+        if (externalAssetBuilder_ == null) {
+          externalAssetBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.clp.v1.Types.Asset, sifnode.clp.v1.Types.Asset.Builder, sifnode.clp.v1.Types.AssetOrBuilder>(
+                  getExternalAsset(),
+                  getParentForChildren(),
+                  isClean());
+          externalAsset_ = null;
+        }
+        return externalAssetBuilder_;
+      }
+
+      private java.lang.Object withdrawUnits_ = "";
+      /**
+       * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+       * @return The withdrawUnits.
+       */
+      public java.lang.String getWithdrawUnits() {
+        java.lang.Object ref = withdrawUnits_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          withdrawUnits_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+       * @return The bytes for withdrawUnits.
+       */
+      public com.google.protobuf.ByteString
+          getWithdrawUnitsBytes() {
+        java.lang.Object ref = withdrawUnits_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          withdrawUnits_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+       * @param value The withdrawUnits to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWithdrawUnits(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        withdrawUnits_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWithdrawUnits() {
+        
+        withdrawUnits_ = getDefaultInstance().getWithdrawUnits();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string withdraw_units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"withdraw_units&#92;""];</code>
+       * @param value The bytes for withdrawUnits to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWithdrawUnitsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        withdrawUnits_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgRemoveLiquidityUnits)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgRemoveLiquidityUnits)
+    private static final sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgRemoveLiquidityUnits>
+        PARSER = new com.google.protobuf.AbstractParser<MsgRemoveLiquidityUnits>() {
+      @java.lang.Override
+      public MsgRemoveLiquidityUnits parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgRemoveLiquidityUnits(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgRemoveLiquidityUnits> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgRemoveLiquidityUnits> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgRemoveLiquidityUnitsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgRemoveLiquidityUnitsResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgRemoveLiquidityUnitsResponse}
+   */
+  public static final class MsgRemoveLiquidityUnitsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgRemoveLiquidityUnitsResponse)
+      MsgRemoveLiquidityUnitsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgRemoveLiquidityUnitsResponse.newBuilder() to construct.
+    private MsgRemoveLiquidityUnitsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgRemoveLiquidityUnitsResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgRemoveLiquidityUnitsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgRemoveLiquidityUnitsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.class, sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse other = (sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgRemoveLiquidityUnitsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgRemoveLiquidityUnitsResponse)
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.class, sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse build() {
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse buildPartial() {
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse result = new sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse other) {
+        if (other == sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgRemoveLiquidityUnitsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgRemoveLiquidityUnitsResponse)
+    private static final sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgRemoveLiquidityUnitsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgRemoveLiquidityUnitsResponse>() {
+      @java.lang.Override
+      public MsgRemoveLiquidityUnitsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgRemoveLiquidityUnitsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgRemoveLiquidityUnitsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgRemoveLiquidityUnitsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4481,6 +7106,2712 @@ public final class Tx {
 
   }
 
+  public interface MsgModifyPmtpRatesOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgModifyPmtpRates)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <code>string block_rate = 2;</code>
+     * @return The blockRate.
+     */
+    java.lang.String getBlockRate();
+    /**
+     * <code>string block_rate = 2;</code>
+     * @return The bytes for blockRate.
+     */
+    com.google.protobuf.ByteString
+        getBlockRateBytes();
+
+    /**
+     * <code>string running_rate = 3;</code>
+     * @return The runningRate.
+     */
+    java.lang.String getRunningRate();
+    /**
+     * <code>string running_rate = 3;</code>
+     * @return The bytes for runningRate.
+     */
+    com.google.protobuf.ByteString
+        getRunningRateBytes();
+
+    /**
+     * <code>bool end_policy = 4;</code>
+     * @return The endPolicy.
+     */
+    boolean getEndPolicy();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgModifyPmtpRates}
+   */
+  public static final class MsgModifyPmtpRates extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgModifyPmtpRates)
+      MsgModifyPmtpRatesOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgModifyPmtpRates.newBuilder() to construct.
+    private MsgModifyPmtpRates(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgModifyPmtpRates() {
+      signer_ = "";
+      blockRate_ = "";
+      runningRate_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgModifyPmtpRates();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgModifyPmtpRates(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              signer_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              blockRate_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              runningRate_ = s;
+              break;
+            }
+            case 32: {
+
+              endPolicy_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRates_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRates_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgModifyPmtpRates.class, sifnode.clp.v1.Tx.MsgModifyPmtpRates.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signer_;
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int BLOCK_RATE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object blockRate_;
+    /**
+     * <code>string block_rate = 2;</code>
+     * @return The blockRate.
+     */
+    @java.lang.Override
+    public java.lang.String getBlockRate() {
+      java.lang.Object ref = blockRate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        blockRate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string block_rate = 2;</code>
+     * @return The bytes for blockRate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBlockRateBytes() {
+      java.lang.Object ref = blockRate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        blockRate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RUNNING_RATE_FIELD_NUMBER = 3;
+    private volatile java.lang.Object runningRate_;
+    /**
+     * <code>string running_rate = 3;</code>
+     * @return The runningRate.
+     */
+    @java.lang.Override
+    public java.lang.String getRunningRate() {
+      java.lang.Object ref = runningRate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        runningRate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string running_rate = 3;</code>
+     * @return The bytes for runningRate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRunningRateBytes() {
+      java.lang.Object ref = runningRate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        runningRate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int END_POLICY_FIELD_NUMBER = 4;
+    private boolean endPolicy_;
+    /**
+     * <code>bool end_policy = 4;</code>
+     * @return The endPolicy.
+     */
+    @java.lang.Override
+    public boolean getEndPolicy() {
+      return endPolicy_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSignerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      if (!getBlockRateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, blockRate_);
+      }
+      if (!getRunningRateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, runningRate_);
+      }
+      if (endPolicy_ != false) {
+        output.writeBool(4, endPolicy_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSignerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      if (!getBlockRateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, blockRate_);
+      }
+      if (!getRunningRateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, runningRate_);
+      }
+      if (endPolicy_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, endPolicy_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgModifyPmtpRates)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgModifyPmtpRates other = (sifnode.clp.v1.Tx.MsgModifyPmtpRates) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (!getBlockRate()
+          .equals(other.getBlockRate())) return false;
+      if (!getRunningRate()
+          .equals(other.getRunningRate())) return false;
+      if (getEndPolicy()
+          != other.getEndPolicy()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      hash = (37 * hash) + BLOCK_RATE_FIELD_NUMBER;
+      hash = (53 * hash) + getBlockRate().hashCode();
+      hash = (37 * hash) + RUNNING_RATE_FIELD_NUMBER;
+      hash = (53 * hash) + getRunningRate().hashCode();
+      hash = (37 * hash) + END_POLICY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getEndPolicy());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgModifyPmtpRates prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgModifyPmtpRates}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgModifyPmtpRates)
+        sifnode.clp.v1.Tx.MsgModifyPmtpRatesOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRates_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRates_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgModifyPmtpRates.class, sifnode.clp.v1.Tx.MsgModifyPmtpRates.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgModifyPmtpRates.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        signer_ = "";
+
+        blockRate_ = "";
+
+        runningRate_ = "";
+
+        endPolicy_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRates_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgModifyPmtpRates getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgModifyPmtpRates.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgModifyPmtpRates build() {
+        sifnode.clp.v1.Tx.MsgModifyPmtpRates result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgModifyPmtpRates buildPartial() {
+        sifnode.clp.v1.Tx.MsgModifyPmtpRates result = new sifnode.clp.v1.Tx.MsgModifyPmtpRates(this);
+        result.signer_ = signer_;
+        result.blockRate_ = blockRate_;
+        result.runningRate_ = runningRate_;
+        result.endPolicy_ = endPolicy_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgModifyPmtpRates) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgModifyPmtpRates)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgModifyPmtpRates other) {
+        if (other == sifnode.clp.v1.Tx.MsgModifyPmtpRates.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          onChanged();
+        }
+        if (!other.getBlockRate().isEmpty()) {
+          blockRate_ = other.blockRate_;
+          onChanged();
+        }
+        if (!other.getRunningRate().isEmpty()) {
+          runningRate_ = other.runningRate_;
+          onChanged();
+        }
+        if (other.getEndPolicy() != false) {
+          setEndPolicy(other.getEndPolicy());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgModifyPmtpRates parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgModifyPmtpRates) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        
+        signer_ = getDefaultInstance().getSigner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object blockRate_ = "";
+      /**
+       * <code>string block_rate = 2;</code>
+       * @return The blockRate.
+       */
+      public java.lang.String getBlockRate() {
+        java.lang.Object ref = blockRate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          blockRate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string block_rate = 2;</code>
+       * @return The bytes for blockRate.
+       */
+      public com.google.protobuf.ByteString
+          getBlockRateBytes() {
+        java.lang.Object ref = blockRate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          blockRate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string block_rate = 2;</code>
+       * @param value The blockRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockRate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        blockRate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string block_rate = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBlockRate() {
+        
+        blockRate_ = getDefaultInstance().getBlockRate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string block_rate = 2;</code>
+       * @param value The bytes for blockRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockRateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        blockRate_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object runningRate_ = "";
+      /**
+       * <code>string running_rate = 3;</code>
+       * @return The runningRate.
+       */
+      public java.lang.String getRunningRate() {
+        java.lang.Object ref = runningRate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          runningRate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string running_rate = 3;</code>
+       * @return The bytes for runningRate.
+       */
+      public com.google.protobuf.ByteString
+          getRunningRateBytes() {
+        java.lang.Object ref = runningRate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          runningRate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string running_rate = 3;</code>
+       * @param value The runningRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRunningRate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        runningRate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string running_rate = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRunningRate() {
+        
+        runningRate_ = getDefaultInstance().getRunningRate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string running_rate = 3;</code>
+       * @param value The bytes for runningRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRunningRateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        runningRate_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean endPolicy_ ;
+      /**
+       * <code>bool end_policy = 4;</code>
+       * @return The endPolicy.
+       */
+      @java.lang.Override
+      public boolean getEndPolicy() {
+        return endPolicy_;
+      }
+      /**
+       * <code>bool end_policy = 4;</code>
+       * @param value The endPolicy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEndPolicy(boolean value) {
+        
+        endPolicy_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool end_policy = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEndPolicy() {
+        
+        endPolicy_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgModifyPmtpRates)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgModifyPmtpRates)
+    private static final sifnode.clp.v1.Tx.MsgModifyPmtpRates DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgModifyPmtpRates();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRates getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgModifyPmtpRates>
+        PARSER = new com.google.protobuf.AbstractParser<MsgModifyPmtpRates>() {
+      @java.lang.Override
+      public MsgModifyPmtpRates parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgModifyPmtpRates(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgModifyPmtpRates> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgModifyPmtpRates> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgModifyPmtpRates getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgModifyPmtpRatesResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgModifyPmtpRatesResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgModifyPmtpRatesResponse}
+   */
+  public static final class MsgModifyPmtpRatesResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgModifyPmtpRatesResponse)
+      MsgModifyPmtpRatesResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgModifyPmtpRatesResponse.newBuilder() to construct.
+    private MsgModifyPmtpRatesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgModifyPmtpRatesResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgModifyPmtpRatesResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgModifyPmtpRatesResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.class, sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse other = (sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgModifyPmtpRatesResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgModifyPmtpRatesResponse)
+        sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.class, sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse build() {
+        sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse buildPartial() {
+        sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse result = new sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse other) {
+        if (other == sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgModifyPmtpRatesResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgModifyPmtpRatesResponse)
+    private static final sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgModifyPmtpRatesResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgModifyPmtpRatesResponse>() {
+      @java.lang.Override
+      public MsgModifyPmtpRatesResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgModifyPmtpRatesResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgModifyPmtpRatesResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgModifyPmtpRatesResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUpdatePmtpParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgUpdatePmtpParams)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <code>string pmtp_period_governance_rate = 2;</code>
+     * @return The pmtpPeriodGovernanceRate.
+     */
+    java.lang.String getPmtpPeriodGovernanceRate();
+    /**
+     * <code>string pmtp_period_governance_rate = 2;</code>
+     * @return The bytes for pmtpPeriodGovernanceRate.
+     */
+    com.google.protobuf.ByteString
+        getPmtpPeriodGovernanceRateBytes();
+
+    /**
+     * <code>int64 pmtp_period_epoch_length = 3;</code>
+     * @return The pmtpPeriodEpochLength.
+     */
+    long getPmtpPeriodEpochLength();
+
+    /**
+     * <code>int64 pmtp_period_start_block = 4;</code>
+     * @return The pmtpPeriodStartBlock.
+     */
+    long getPmtpPeriodStartBlock();
+
+    /**
+     * <code>int64 pmtp_period_end_block = 5;</code>
+     * @return The pmtpPeriodEndBlock.
+     */
+    long getPmtpPeriodEndBlock();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgUpdatePmtpParams}
+   */
+  public static final class MsgUpdatePmtpParams extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgUpdatePmtpParams)
+      MsgUpdatePmtpParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdatePmtpParams.newBuilder() to construct.
+    private MsgUpdatePmtpParams(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdatePmtpParams() {
+      signer_ = "";
+      pmtpPeriodGovernanceRate_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdatePmtpParams();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUpdatePmtpParams(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              signer_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pmtpPeriodGovernanceRate_ = s;
+              break;
+            }
+            case 24: {
+
+              pmtpPeriodEpochLength_ = input.readInt64();
+              break;
+            }
+            case 32: {
+
+              pmtpPeriodStartBlock_ = input.readInt64();
+              break;
+            }
+            case 40: {
+
+              pmtpPeriodEndBlock_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgUpdatePmtpParams.class, sifnode.clp.v1.Tx.MsgUpdatePmtpParams.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signer_;
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PMTP_PERIOD_GOVERNANCE_RATE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object pmtpPeriodGovernanceRate_;
+    /**
+     * <code>string pmtp_period_governance_rate = 2;</code>
+     * @return The pmtpPeriodGovernanceRate.
+     */
+    @java.lang.Override
+    public java.lang.String getPmtpPeriodGovernanceRate() {
+      java.lang.Object ref = pmtpPeriodGovernanceRate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pmtpPeriodGovernanceRate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string pmtp_period_governance_rate = 2;</code>
+     * @return The bytes for pmtpPeriodGovernanceRate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPmtpPeriodGovernanceRateBytes() {
+      java.lang.Object ref = pmtpPeriodGovernanceRate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pmtpPeriodGovernanceRate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PMTP_PERIOD_EPOCH_LENGTH_FIELD_NUMBER = 3;
+    private long pmtpPeriodEpochLength_;
+    /**
+     * <code>int64 pmtp_period_epoch_length = 3;</code>
+     * @return The pmtpPeriodEpochLength.
+     */
+    @java.lang.Override
+    public long getPmtpPeriodEpochLength() {
+      return pmtpPeriodEpochLength_;
+    }
+
+    public static final int PMTP_PERIOD_START_BLOCK_FIELD_NUMBER = 4;
+    private long pmtpPeriodStartBlock_;
+    /**
+     * <code>int64 pmtp_period_start_block = 4;</code>
+     * @return The pmtpPeriodStartBlock.
+     */
+    @java.lang.Override
+    public long getPmtpPeriodStartBlock() {
+      return pmtpPeriodStartBlock_;
+    }
+
+    public static final int PMTP_PERIOD_END_BLOCK_FIELD_NUMBER = 5;
+    private long pmtpPeriodEndBlock_;
+    /**
+     * <code>int64 pmtp_period_end_block = 5;</code>
+     * @return The pmtpPeriodEndBlock.
+     */
+    @java.lang.Override
+    public long getPmtpPeriodEndBlock() {
+      return pmtpPeriodEndBlock_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSignerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      if (!getPmtpPeriodGovernanceRateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, pmtpPeriodGovernanceRate_);
+      }
+      if (pmtpPeriodEpochLength_ != 0L) {
+        output.writeInt64(3, pmtpPeriodEpochLength_);
+      }
+      if (pmtpPeriodStartBlock_ != 0L) {
+        output.writeInt64(4, pmtpPeriodStartBlock_);
+      }
+      if (pmtpPeriodEndBlock_ != 0L) {
+        output.writeInt64(5, pmtpPeriodEndBlock_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSignerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      if (!getPmtpPeriodGovernanceRateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, pmtpPeriodGovernanceRate_);
+      }
+      if (pmtpPeriodEpochLength_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, pmtpPeriodEpochLength_);
+      }
+      if (pmtpPeriodStartBlock_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, pmtpPeriodStartBlock_);
+      }
+      if (pmtpPeriodEndBlock_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(5, pmtpPeriodEndBlock_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgUpdatePmtpParams)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgUpdatePmtpParams other = (sifnode.clp.v1.Tx.MsgUpdatePmtpParams) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (!getPmtpPeriodGovernanceRate()
+          .equals(other.getPmtpPeriodGovernanceRate())) return false;
+      if (getPmtpPeriodEpochLength()
+          != other.getPmtpPeriodEpochLength()) return false;
+      if (getPmtpPeriodStartBlock()
+          != other.getPmtpPeriodStartBlock()) return false;
+      if (getPmtpPeriodEndBlock()
+          != other.getPmtpPeriodEndBlock()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      hash = (37 * hash) + PMTP_PERIOD_GOVERNANCE_RATE_FIELD_NUMBER;
+      hash = (53 * hash) + getPmtpPeriodGovernanceRate().hashCode();
+      hash = (37 * hash) + PMTP_PERIOD_EPOCH_LENGTH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPmtpPeriodEpochLength());
+      hash = (37 * hash) + PMTP_PERIOD_START_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPmtpPeriodStartBlock());
+      hash = (37 * hash) + PMTP_PERIOD_END_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPmtpPeriodEndBlock());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgUpdatePmtpParams prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgUpdatePmtpParams}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgUpdatePmtpParams)
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgUpdatePmtpParams.class, sifnode.clp.v1.Tx.MsgUpdatePmtpParams.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgUpdatePmtpParams.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        signer_ = "";
+
+        pmtpPeriodGovernanceRate_ = "";
+
+        pmtpPeriodEpochLength_ = 0L;
+
+        pmtpPeriodStartBlock_ = 0L;
+
+        pmtpPeriodEndBlock_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdatePmtpParams getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgUpdatePmtpParams.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdatePmtpParams build() {
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParams result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdatePmtpParams buildPartial() {
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParams result = new sifnode.clp.v1.Tx.MsgUpdatePmtpParams(this);
+        result.signer_ = signer_;
+        result.pmtpPeriodGovernanceRate_ = pmtpPeriodGovernanceRate_;
+        result.pmtpPeriodEpochLength_ = pmtpPeriodEpochLength_;
+        result.pmtpPeriodStartBlock_ = pmtpPeriodStartBlock_;
+        result.pmtpPeriodEndBlock_ = pmtpPeriodEndBlock_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgUpdatePmtpParams) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgUpdatePmtpParams)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgUpdatePmtpParams other) {
+        if (other == sifnode.clp.v1.Tx.MsgUpdatePmtpParams.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          onChanged();
+        }
+        if (!other.getPmtpPeriodGovernanceRate().isEmpty()) {
+          pmtpPeriodGovernanceRate_ = other.pmtpPeriodGovernanceRate_;
+          onChanged();
+        }
+        if (other.getPmtpPeriodEpochLength() != 0L) {
+          setPmtpPeriodEpochLength(other.getPmtpPeriodEpochLength());
+        }
+        if (other.getPmtpPeriodStartBlock() != 0L) {
+          setPmtpPeriodStartBlock(other.getPmtpPeriodStartBlock());
+        }
+        if (other.getPmtpPeriodEndBlock() != 0L) {
+          setPmtpPeriodEndBlock(other.getPmtpPeriodEndBlock());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParams parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgUpdatePmtpParams) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        
+        signer_ = getDefaultInstance().getSigner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object pmtpPeriodGovernanceRate_ = "";
+      /**
+       * <code>string pmtp_period_governance_rate = 2;</code>
+       * @return The pmtpPeriodGovernanceRate.
+       */
+      public java.lang.String getPmtpPeriodGovernanceRate() {
+        java.lang.Object ref = pmtpPeriodGovernanceRate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pmtpPeriodGovernanceRate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_governance_rate = 2;</code>
+       * @return The bytes for pmtpPeriodGovernanceRate.
+       */
+      public com.google.protobuf.ByteString
+          getPmtpPeriodGovernanceRateBytes() {
+        java.lang.Object ref = pmtpPeriodGovernanceRate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pmtpPeriodGovernanceRate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_governance_rate = 2;</code>
+       * @param value The pmtpPeriodGovernanceRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodGovernanceRate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pmtpPeriodGovernanceRate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_governance_rate = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodGovernanceRate() {
+        
+        pmtpPeriodGovernanceRate_ = getDefaultInstance().getPmtpPeriodGovernanceRate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_governance_rate = 2;</code>
+       * @param value The bytes for pmtpPeriodGovernanceRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodGovernanceRateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pmtpPeriodGovernanceRate_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long pmtpPeriodEpochLength_ ;
+      /**
+       * <code>int64 pmtp_period_epoch_length = 3;</code>
+       * @return The pmtpPeriodEpochLength.
+       */
+      @java.lang.Override
+      public long getPmtpPeriodEpochLength() {
+        return pmtpPeriodEpochLength_;
+      }
+      /**
+       * <code>int64 pmtp_period_epoch_length = 3;</code>
+       * @param value The pmtpPeriodEpochLength to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodEpochLength(long value) {
+        
+        pmtpPeriodEpochLength_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 pmtp_period_epoch_length = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodEpochLength() {
+        
+        pmtpPeriodEpochLength_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long pmtpPeriodStartBlock_ ;
+      /**
+       * <code>int64 pmtp_period_start_block = 4;</code>
+       * @return The pmtpPeriodStartBlock.
+       */
+      @java.lang.Override
+      public long getPmtpPeriodStartBlock() {
+        return pmtpPeriodStartBlock_;
+      }
+      /**
+       * <code>int64 pmtp_period_start_block = 4;</code>
+       * @param value The pmtpPeriodStartBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodStartBlock(long value) {
+        
+        pmtpPeriodStartBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 pmtp_period_start_block = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodStartBlock() {
+        
+        pmtpPeriodStartBlock_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long pmtpPeriodEndBlock_ ;
+      /**
+       * <code>int64 pmtp_period_end_block = 5;</code>
+       * @return The pmtpPeriodEndBlock.
+       */
+      @java.lang.Override
+      public long getPmtpPeriodEndBlock() {
+        return pmtpPeriodEndBlock_;
+      }
+      /**
+       * <code>int64 pmtp_period_end_block = 5;</code>
+       * @param value The pmtpPeriodEndBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodEndBlock(long value) {
+        
+        pmtpPeriodEndBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 pmtp_period_end_block = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodEndBlock() {
+        
+        pmtpPeriodEndBlock_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgUpdatePmtpParams)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgUpdatePmtpParams)
+    private static final sifnode.clp.v1.Tx.MsgUpdatePmtpParams DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgUpdatePmtpParams();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParams getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdatePmtpParams>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdatePmtpParams>() {
+      @java.lang.Override
+      public MsgUpdatePmtpParams parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUpdatePmtpParams(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdatePmtpParams> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdatePmtpParams> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgUpdatePmtpParams getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUpdatePmtpParamsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgUpdatePmtpParamsResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgUpdatePmtpParamsResponse}
+   */
+  public static final class MsgUpdatePmtpParamsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgUpdatePmtpParamsResponse)
+      MsgUpdatePmtpParamsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdatePmtpParamsResponse.newBuilder() to construct.
+    private MsgUpdatePmtpParamsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdatePmtpParamsResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdatePmtpParamsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUpdatePmtpParamsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.class, sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse other = (sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgUpdatePmtpParamsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgUpdatePmtpParamsResponse)
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.class, sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse build() {
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse buildPartial() {
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse result = new sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse other) {
+        if (other == sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgUpdatePmtpParamsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgUpdatePmtpParamsResponse)
+    private static final sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdatePmtpParamsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdatePmtpParamsResponse>() {
+      @java.lang.Override
+      public MsgUpdatePmtpParamsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUpdatePmtpParamsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdatePmtpParamsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdatePmtpParamsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MsgSwapOrBuilder extends
       // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgSwap)
       com.google.protobuf.MessageOrBuilder {
@@ -7309,6 +12640,3884 @@ public final class Tx {
 
   }
 
+  public interface MsgUnlockLiquidityRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgUnlockLiquidityRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     * @return Whether the externalAsset field is set.
+     */
+    boolean hasExternalAsset();
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     * @return The externalAsset.
+     */
+    sifnode.clp.v1.Types.Asset getExternalAsset();
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     */
+    sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder();
+
+    /**
+     * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The units.
+     */
+    java.lang.String getUnits();
+    /**
+     * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The bytes for units.
+     */
+    com.google.protobuf.ByteString
+        getUnitsBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgUnlockLiquidityRequest}
+   */
+  public static final class MsgUnlockLiquidityRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgUnlockLiquidityRequest)
+      MsgUnlockLiquidityRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUnlockLiquidityRequest.newBuilder() to construct.
+    private MsgUnlockLiquidityRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUnlockLiquidityRequest() {
+      signer_ = "";
+      units_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUnlockLiquidityRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUnlockLiquidityRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              signer_ = s;
+              break;
+            }
+            case 18: {
+              sifnode.clp.v1.Types.Asset.Builder subBuilder = null;
+              if (externalAsset_ != null) {
+                subBuilder = externalAsset_.toBuilder();
+              }
+              externalAsset_ = input.readMessage(sifnode.clp.v1.Types.Asset.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(externalAsset_);
+                externalAsset_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              units_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.class, sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signer_;
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXTERNAL_ASSET_FIELD_NUMBER = 2;
+    private sifnode.clp.v1.Types.Asset externalAsset_;
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     * @return Whether the externalAsset field is set.
+     */
+    @java.lang.Override
+    public boolean hasExternalAsset() {
+      return externalAsset_ != null;
+    }
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     * @return The externalAsset.
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.Asset getExternalAsset() {
+      return externalAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
+    }
+    /**
+     * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder() {
+      return getExternalAsset();
+    }
+
+    public static final int UNITS_FIELD_NUMBER = 3;
+    private volatile java.lang.Object units_;
+    /**
+     * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The units.
+     */
+    @java.lang.Override
+    public java.lang.String getUnits() {
+      java.lang.Object ref = units_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        units_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The bytes for units.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUnitsBytes() {
+      java.lang.Object ref = units_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        units_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSignerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      if (externalAsset_ != null) {
+        output.writeMessage(2, getExternalAsset());
+      }
+      if (!getUnitsBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, units_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSignerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      if (externalAsset_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getExternalAsset());
+      }
+      if (!getUnitsBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, units_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest other = (sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (hasExternalAsset() != other.hasExternalAsset()) return false;
+      if (hasExternalAsset()) {
+        if (!getExternalAsset()
+            .equals(other.getExternalAsset())) return false;
+      }
+      if (!getUnits()
+          .equals(other.getUnits())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      if (hasExternalAsset()) {
+        hash = (37 * hash) + EXTERNAL_ASSET_FIELD_NUMBER;
+        hash = (53 * hash) + getExternalAsset().hashCode();
+      }
+      hash = (37 * hash) + UNITS_FIELD_NUMBER;
+      hash = (53 * hash) + getUnits().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgUnlockLiquidityRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgUnlockLiquidityRequest)
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.class, sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        signer_ = "";
+
+        if (externalAssetBuilder_ == null) {
+          externalAsset_ = null;
+        } else {
+          externalAsset_ = null;
+          externalAssetBuilder_ = null;
+        }
+        units_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest build() {
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest buildPartial() {
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest result = new sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest(this);
+        result.signer_ = signer_;
+        if (externalAssetBuilder_ == null) {
+          result.externalAsset_ = externalAsset_;
+        } else {
+          result.externalAsset_ = externalAssetBuilder_.build();
+        }
+        result.units_ = units_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest other) {
+        if (other == sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          onChanged();
+        }
+        if (other.hasExternalAsset()) {
+          mergeExternalAsset(other.getExternalAsset());
+        }
+        if (!other.getUnits().isEmpty()) {
+          units_ = other.units_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        
+        signer_ = getDefaultInstance().getSigner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+
+      private sifnode.clp.v1.Types.Asset externalAsset_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.Types.Asset, sifnode.clp.v1.Types.Asset.Builder, sifnode.clp.v1.Types.AssetOrBuilder> externalAssetBuilder_;
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       * @return Whether the externalAsset field is set.
+       */
+      public boolean hasExternalAsset() {
+        return externalAssetBuilder_ != null || externalAsset_ != null;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       * @return The externalAsset.
+       */
+      public sifnode.clp.v1.Types.Asset getExternalAsset() {
+        if (externalAssetBuilder_ == null) {
+          return externalAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
+        } else {
+          return externalAssetBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public Builder setExternalAsset(sifnode.clp.v1.Types.Asset value) {
+        if (externalAssetBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          externalAsset_ = value;
+          onChanged();
+        } else {
+          externalAssetBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public Builder setExternalAsset(
+          sifnode.clp.v1.Types.Asset.Builder builderForValue) {
+        if (externalAssetBuilder_ == null) {
+          externalAsset_ = builderForValue.build();
+          onChanged();
+        } else {
+          externalAssetBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public Builder mergeExternalAsset(sifnode.clp.v1.Types.Asset value) {
+        if (externalAssetBuilder_ == null) {
+          if (externalAsset_ != null) {
+            externalAsset_ =
+              sifnode.clp.v1.Types.Asset.newBuilder(externalAsset_).mergeFrom(value).buildPartial();
+          } else {
+            externalAsset_ = value;
+          }
+          onChanged();
+        } else {
+          externalAssetBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public Builder clearExternalAsset() {
+        if (externalAssetBuilder_ == null) {
+          externalAsset_ = null;
+          onChanged();
+        } else {
+          externalAsset_ = null;
+          externalAssetBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public sifnode.clp.v1.Types.Asset.Builder getExternalAssetBuilder() {
+        
+        onChanged();
+        return getExternalAssetFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      public sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder() {
+        if (externalAssetBuilder_ != null) {
+          return externalAssetBuilder_.getMessageOrBuilder();
+        } else {
+          return externalAsset_ == null ?
+              sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.Types.Asset, sifnode.clp.v1.Types.Asset.Builder, sifnode.clp.v1.Types.AssetOrBuilder> 
+          getExternalAssetFieldBuilder() {
+        if (externalAssetBuilder_ == null) {
+          externalAssetBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.clp.v1.Types.Asset, sifnode.clp.v1.Types.Asset.Builder, sifnode.clp.v1.Types.AssetOrBuilder>(
+                  getExternalAsset(),
+                  getParentForChildren(),
+                  isClean());
+          externalAsset_ = null;
+        }
+        return externalAssetBuilder_;
+      }
+
+      private java.lang.Object units_ = "";
+      /**
+       * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return The units.
+       */
+      public java.lang.String getUnits() {
+        java.lang.Object ref = units_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          units_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return The bytes for units.
+       */
+      public com.google.protobuf.ByteString
+          getUnitsBytes() {
+        java.lang.Object ref = units_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          units_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @param value The units to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUnits(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        units_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUnits() {
+        
+        units_ = getDefaultInstance().getUnits();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string units = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @param value The bytes for units to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUnitsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        units_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgUnlockLiquidityRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgUnlockLiquidityRequest)
+    private static final sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUnlockLiquidityRequest>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUnlockLiquidityRequest>() {
+      @java.lang.Override
+      public MsgUnlockLiquidityRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUnlockLiquidityRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUnlockLiquidityRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUnlockLiquidityRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUnlockLiquidityResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgUnlockLiquidityResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgUnlockLiquidityResponse}
+   */
+  public static final class MsgUnlockLiquidityResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgUnlockLiquidityResponse)
+      MsgUnlockLiquidityResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUnlockLiquidityResponse.newBuilder() to construct.
+    private MsgUnlockLiquidityResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUnlockLiquidityResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUnlockLiquidityResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUnlockLiquidityResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.class, sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse other = (sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgUnlockLiquidityResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgUnlockLiquidityResponse)
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.class, sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse build() {
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse buildPartial() {
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse result = new sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse other) {
+        if (other == sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgUnlockLiquidityResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgUnlockLiquidityResponse)
+    private static final sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUnlockLiquidityResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUnlockLiquidityResponse>() {
+      @java.lang.Override
+      public MsgUnlockLiquidityResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUnlockLiquidityResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUnlockLiquidityResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUnlockLiquidityResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUpdateRewardsParamsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgUpdateRewardsParamsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <pre>
+     * in blocks
+     * </pre>
+     *
+     * <code>uint64 liquidity_removal_lock_period = 2;</code>
+     * @return The liquidityRemovalLockPeriod.
+     */
+    long getLiquidityRemovalLockPeriod();
+
+    /**
+     * <pre>
+     * in blocks
+     * </pre>
+     *
+     * <code>uint64 liquidity_removal_cancel_period = 3;</code>
+     * @return The liquidityRemovalCancelPeriod.
+     */
+    long getLiquidityRemovalCancelPeriod();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgUpdateRewardsParamsRequest}
+   */
+  public static final class MsgUpdateRewardsParamsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgUpdateRewardsParamsRequest)
+      MsgUpdateRewardsParamsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdateRewardsParamsRequest.newBuilder() to construct.
+    private MsgUpdateRewardsParamsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdateRewardsParamsRequest() {
+      signer_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdateRewardsParamsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUpdateRewardsParamsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              signer_ = s;
+              break;
+            }
+            case 16: {
+
+              liquidityRemovalLockPeriod_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+
+              liquidityRemovalCancelPeriod_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.class, sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signer_;
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LIQUIDITY_REMOVAL_LOCK_PERIOD_FIELD_NUMBER = 2;
+    private long liquidityRemovalLockPeriod_;
+    /**
+     * <pre>
+     * in blocks
+     * </pre>
+     *
+     * <code>uint64 liquidity_removal_lock_period = 2;</code>
+     * @return The liquidityRemovalLockPeriod.
+     */
+    @java.lang.Override
+    public long getLiquidityRemovalLockPeriod() {
+      return liquidityRemovalLockPeriod_;
+    }
+
+    public static final int LIQUIDITY_REMOVAL_CANCEL_PERIOD_FIELD_NUMBER = 3;
+    private long liquidityRemovalCancelPeriod_;
+    /**
+     * <pre>
+     * in blocks
+     * </pre>
+     *
+     * <code>uint64 liquidity_removal_cancel_period = 3;</code>
+     * @return The liquidityRemovalCancelPeriod.
+     */
+    @java.lang.Override
+    public long getLiquidityRemovalCancelPeriod() {
+      return liquidityRemovalCancelPeriod_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSignerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      if (liquidityRemovalLockPeriod_ != 0L) {
+        output.writeUInt64(2, liquidityRemovalLockPeriod_);
+      }
+      if (liquidityRemovalCancelPeriod_ != 0L) {
+        output.writeUInt64(3, liquidityRemovalCancelPeriod_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSignerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      if (liquidityRemovalLockPeriod_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, liquidityRemovalLockPeriod_);
+      }
+      if (liquidityRemovalCancelPeriod_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(3, liquidityRemovalCancelPeriod_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest other = (sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (getLiquidityRemovalLockPeriod()
+          != other.getLiquidityRemovalLockPeriod()) return false;
+      if (getLiquidityRemovalCancelPeriod()
+          != other.getLiquidityRemovalCancelPeriod()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      hash = (37 * hash) + LIQUIDITY_REMOVAL_LOCK_PERIOD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLiquidityRemovalLockPeriod());
+      hash = (37 * hash) + LIQUIDITY_REMOVAL_CANCEL_PERIOD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLiquidityRemovalCancelPeriod());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgUpdateRewardsParamsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgUpdateRewardsParamsRequest)
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.class, sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        signer_ = "";
+
+        liquidityRemovalLockPeriod_ = 0L;
+
+        liquidityRemovalCancelPeriod_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest build() {
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest buildPartial() {
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest result = new sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest(this);
+        result.signer_ = signer_;
+        result.liquidityRemovalLockPeriod_ = liquidityRemovalLockPeriod_;
+        result.liquidityRemovalCancelPeriod_ = liquidityRemovalCancelPeriod_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest other) {
+        if (other == sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          onChanged();
+        }
+        if (other.getLiquidityRemovalLockPeriod() != 0L) {
+          setLiquidityRemovalLockPeriod(other.getLiquidityRemovalLockPeriod());
+        }
+        if (other.getLiquidityRemovalCancelPeriod() != 0L) {
+          setLiquidityRemovalCancelPeriod(other.getLiquidityRemovalCancelPeriod());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        
+        signer_ = getDefaultInstance().getSigner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long liquidityRemovalLockPeriod_ ;
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_lock_period = 2;</code>
+       * @return The liquidityRemovalLockPeriod.
+       */
+      @java.lang.Override
+      public long getLiquidityRemovalLockPeriod() {
+        return liquidityRemovalLockPeriod_;
+      }
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_lock_period = 2;</code>
+       * @param value The liquidityRemovalLockPeriod to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLiquidityRemovalLockPeriod(long value) {
+        
+        liquidityRemovalLockPeriod_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_lock_period = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLiquidityRemovalLockPeriod() {
+        
+        liquidityRemovalLockPeriod_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long liquidityRemovalCancelPeriod_ ;
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_cancel_period = 3;</code>
+       * @return The liquidityRemovalCancelPeriod.
+       */
+      @java.lang.Override
+      public long getLiquidityRemovalCancelPeriod() {
+        return liquidityRemovalCancelPeriod_;
+      }
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_cancel_period = 3;</code>
+       * @param value The liquidityRemovalCancelPeriod to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLiquidityRemovalCancelPeriod(long value) {
+        
+        liquidityRemovalCancelPeriod_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_cancel_period = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLiquidityRemovalCancelPeriod() {
+        
+        liquidityRemovalCancelPeriod_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgUpdateRewardsParamsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgUpdateRewardsParamsRequest)
+    private static final sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdateRewardsParamsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdateRewardsParamsRequest>() {
+      @java.lang.Override
+      public MsgUpdateRewardsParamsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUpdateRewardsParamsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdateRewardsParamsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdateRewardsParamsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUpdateRewardsParamsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgUpdateRewardsParamsResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgUpdateRewardsParamsResponse}
+   */
+  public static final class MsgUpdateRewardsParamsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgUpdateRewardsParamsResponse)
+      MsgUpdateRewardsParamsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdateRewardsParamsResponse.newBuilder() to construct.
+    private MsgUpdateRewardsParamsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdateRewardsParamsResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdateRewardsParamsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUpdateRewardsParamsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.class, sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse other = (sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgUpdateRewardsParamsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgUpdateRewardsParamsResponse)
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.class, sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse build() {
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse buildPartial() {
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse result = new sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse other) {
+        if (other == sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgUpdateRewardsParamsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgUpdateRewardsParamsResponse)
+    private static final sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdateRewardsParamsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdateRewardsParamsResponse>() {
+      @java.lang.Override
+      public MsgUpdateRewardsParamsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUpdateRewardsParamsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdateRewardsParamsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdateRewardsParamsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgAddRewardPeriodRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgAddRewardPeriodRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> 
+        getRewardPeriodsList();
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.RewardPeriod getRewardPeriods(int index);
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    int getRewardPeriodsCount();
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> 
+        getRewardPeriodsOrBuilderList();
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder getRewardPeriodsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgAddRewardPeriodRequest}
+   */
+  public static final class MsgAddRewardPeriodRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgAddRewardPeriodRequest)
+      MsgAddRewardPeriodRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgAddRewardPeriodRequest.newBuilder() to construct.
+    private MsgAddRewardPeriodRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgAddRewardPeriodRequest() {
+      signer_ = "";
+      rewardPeriods_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgAddRewardPeriodRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgAddRewardPeriodRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              signer_ = s;
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                rewardPeriods_ = new java.util.ArrayList<sifnode.clp.v1.ParamsOuterClass.RewardPeriod>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              rewardPeriods_.add(
+                  input.readMessage(sifnode.clp.v1.ParamsOuterClass.RewardPeriod.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          rewardPeriods_ = java.util.Collections.unmodifiableList(rewardPeriods_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.class, sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signer_;
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REWARD_PERIODS_FIELD_NUMBER = 2;
+    private java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> rewardPeriods_;
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> getRewardPeriodsList() {
+      return rewardPeriods_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> 
+        getRewardPeriodsOrBuilderList() {
+      return rewardPeriods_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    @java.lang.Override
+    public int getRewardPeriodsCount() {
+      return rewardPeriods_.size();
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.RewardPeriod getRewardPeriods(int index) {
+      return rewardPeriods_.get(index);
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder getRewardPeriodsOrBuilder(
+        int index) {
+      return rewardPeriods_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSignerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      for (int i = 0; i < rewardPeriods_.size(); i++) {
+        output.writeMessage(2, rewardPeriods_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSignerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      for (int i = 0; i < rewardPeriods_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, rewardPeriods_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest other = (sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (!getRewardPeriodsList()
+          .equals(other.getRewardPeriodsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      if (getRewardPeriodsCount() > 0) {
+        hash = (37 * hash) + REWARD_PERIODS_FIELD_NUMBER;
+        hash = (53 * hash) + getRewardPeriodsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgAddRewardPeriodRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgAddRewardPeriodRequest)
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.class, sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getRewardPeriodsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        signer_ = "";
+
+        if (rewardPeriodsBuilder_ == null) {
+          rewardPeriods_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          rewardPeriodsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest build() {
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest buildPartial() {
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest result = new sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest(this);
+        int from_bitField0_ = bitField0_;
+        result.signer_ = signer_;
+        if (rewardPeriodsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            rewardPeriods_ = java.util.Collections.unmodifiableList(rewardPeriods_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.rewardPeriods_ = rewardPeriods_;
+        } else {
+          result.rewardPeriods_ = rewardPeriodsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest other) {
+        if (other == sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          onChanged();
+        }
+        if (rewardPeriodsBuilder_ == null) {
+          if (!other.rewardPeriods_.isEmpty()) {
+            if (rewardPeriods_.isEmpty()) {
+              rewardPeriods_ = other.rewardPeriods_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRewardPeriodsIsMutable();
+              rewardPeriods_.addAll(other.rewardPeriods_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.rewardPeriods_.isEmpty()) {
+            if (rewardPeriodsBuilder_.isEmpty()) {
+              rewardPeriodsBuilder_.dispose();
+              rewardPeriodsBuilder_ = null;
+              rewardPeriods_ = other.rewardPeriods_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              rewardPeriodsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRewardPeriodsFieldBuilder() : null;
+            } else {
+              rewardPeriodsBuilder_.addAllMessages(other.rewardPeriods_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        
+        signer_ = getDefaultInstance().getSigner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        signer_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> rewardPeriods_ =
+        java.util.Collections.emptyList();
+      private void ensureRewardPeriodsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          rewardPeriods_ = new java.util.ArrayList<sifnode.clp.v1.ParamsOuterClass.RewardPeriod>(rewardPeriods_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.RewardPeriod, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder, sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> rewardPeriodsBuilder_;
+
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> getRewardPeriodsList() {
+        if (rewardPeriodsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(rewardPeriods_);
+        } else {
+          return rewardPeriodsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public int getRewardPeriodsCount() {
+        if (rewardPeriodsBuilder_ == null) {
+          return rewardPeriods_.size();
+        } else {
+          return rewardPeriodsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod getRewardPeriods(int index) {
+        if (rewardPeriodsBuilder_ == null) {
+          return rewardPeriods_.get(index);
+        } else {
+          return rewardPeriodsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder setRewardPeriods(
+          int index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod value) {
+        if (rewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.set(index, value);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder setRewardPeriods(
+          int index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder builderForValue) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder addRewardPeriods(sifnode.clp.v1.ParamsOuterClass.RewardPeriod value) {
+        if (rewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.add(value);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder addRewardPeriods(
+          int index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod value) {
+        if (rewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.add(index, value);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder addRewardPeriods(
+          sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder builderForValue) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.add(builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder addRewardPeriods(
+          int index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder builderForValue) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder addAllRewardPeriods(
+          java.lang.Iterable<? extends sifnode.clp.v1.ParamsOuterClass.RewardPeriod> values) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, rewardPeriods_);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder clearRewardPeriods() {
+        if (rewardPeriodsBuilder_ == null) {
+          rewardPeriods_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public Builder removeRewardPeriods(int index) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.remove(index);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder getRewardPeriodsBuilder(
+          int index) {
+        return getRewardPeriodsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder getRewardPeriodsOrBuilder(
+          int index) {
+        if (rewardPeriodsBuilder_ == null) {
+          return rewardPeriods_.get(index);  } else {
+          return rewardPeriodsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> 
+           getRewardPeriodsOrBuilderList() {
+        if (rewardPeriodsBuilder_ != null) {
+          return rewardPeriodsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(rewardPeriods_);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder addRewardPeriodsBuilder() {
+        return getRewardPeriodsFieldBuilder().addBuilder(
+            sifnode.clp.v1.ParamsOuterClass.RewardPeriod.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder addRewardPeriodsBuilder(
+          int index) {
+        return getRewardPeriodsFieldBuilder().addBuilder(
+            index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 2;</code>
+       */
+      public java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder> 
+           getRewardPeriodsBuilderList() {
+        return getRewardPeriodsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.RewardPeriod, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder, sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> 
+          getRewardPeriodsFieldBuilder() {
+        if (rewardPeriodsBuilder_ == null) {
+          rewardPeriodsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              sifnode.clp.v1.ParamsOuterClass.RewardPeriod, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder, sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder>(
+                  rewardPeriods_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          rewardPeriods_ = null;
+        }
+        return rewardPeriodsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgAddRewardPeriodRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgAddRewardPeriodRequest)
+    private static final sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgAddRewardPeriodRequest>
+        PARSER = new com.google.protobuf.AbstractParser<MsgAddRewardPeriodRequest>() {
+      @java.lang.Override
+      public MsgAddRewardPeriodRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgAddRewardPeriodRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgAddRewardPeriodRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgAddRewardPeriodRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgAddRewardPeriodResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.MsgAddRewardPeriodResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.MsgAddRewardPeriodResponse}
+   */
+  public static final class MsgAddRewardPeriodResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgAddRewardPeriodResponse)
+      MsgAddRewardPeriodResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgAddRewardPeriodResponse.newBuilder() to construct.
+    private MsgAddRewardPeriodResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgAddRewardPeriodResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgAddRewardPeriodResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgAddRewardPeriodResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.class, sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse other = (sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.MsgAddRewardPeriodResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.MsgAddRewardPeriodResponse)
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.class, sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Tx.internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse getDefaultInstanceForType() {
+        return sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse build() {
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse buildPartial() {
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse result = new sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse) {
+          return mergeFrom((sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse other) {
+        if (other == sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.MsgAddRewardPeriodResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.MsgAddRewardPeriodResponse)
+    private static final sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse();
+    }
+
+    public static sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgAddRewardPeriodResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgAddRewardPeriodResponse>() {
+      @java.lang.Override
+      public MsgAddRewardPeriodResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgAddRewardPeriodResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgAddRewardPeriodResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgAddRewardPeriodResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_MsgRemoveLiquidity_descriptor;
   private static final 
@@ -7319,6 +16528,16 @@ public final class Tx {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_MsgRemoveLiquidityResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_MsgCreatePool_descriptor;
   private static final 
@@ -7340,6 +16559,26 @@ public final class Tx {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_MsgAddLiquidityResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgModifyPmtpRates_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgModifyPmtpRates_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_MsgSwap_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -7359,6 +16598,36 @@ public final class Tx {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_MsgDecommissionPoolResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7370,126 +16639,268 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\027sifnode/clp/v1/tx.proto\022\016sifnode.clp.v" +
       "1\032\024gogoproto/gogo.proto\032\032sifnode/clp/v1/" +
-      "types.proto\"\271\002\n\022MsgRemoveLiquidity\022!\n\006si" +
-      "gner\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022H\n\016externa" +
-      "l_asset\030\002 \001(\0132\025.sifnode.clp.v1.AssetB\031\362\336" +
-      "\037\025yaml:\"external_asset\"\022_\n\016w_basis_point" +
-      "s\030\003 \001(\tBG\332\336\037&github.com/cosmos/cosmos-sd" +
-      "k/types.Int\310\336\037\000\362\336\037\025yaml:\"w_basis_points\"" +
-      "\022U\n\tasymmetry\030\004 \001(\tBB\332\336\037&github.com/cosm" +
-      "os/cosmos-sdk/types.Int\310\336\037\000\362\336\037\020yaml:\"asy" +
-      "mmetry\"\"\034\n\032MsgRemoveLiquidityResponse\"\330\002" +
-      "\n\rMsgCreatePool\022!\n\006signer\030\001 \001(\tB\021\362\336\037\ryam" +
-      "l:\"signer\"\022H\n\016external_asset\030\002 \001(\0132\025.sif" +
-      "node.clp.v1.AssetB\031\362\336\037\025yaml:\"external_as" +
-      "set\"\022j\n\023native_asset_amount\030\003 \001(\tBM\332\336\037\'g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Uint\310\336" +
-      "\037\000\362\336\037\032yaml:\"native_asset_amount\"\022n\n\025exte" +
-      "rnal_asset_amount\030\004 \001(\tBO\332\336\037\'github.com/" +
-      "cosmos/cosmos-sdk/types.Uint\310\336\037\000\362\336\037\034yaml" +
-      ":\"external_asset_amount\"\"\027\n\025MsgCreatePoo" +
-      "lResponse\"\332\002\n\017MsgAddLiquidity\022!\n\006signer\030" +
-      "\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022H\n\016external_ass" +
-      "et\030\002 \001(\0132\025.sifnode.clp.v1.AssetB\031\362\336\037\025yam" +
-      "l:\"external_asset\"\022j\n\023native_asset_amoun" +
-      "t\030\003 \001(\tBM\332\336\037\'github.com/cosmos/cosmos-sd" +
-      "k/types.Uint\310\336\037\000\362\336\037\032yaml:\"native_asset_a" +
-      "mount\"\022n\n\025external_asset_amount\030\004 \001(\tBO\332" +
-      "\336\037\'github.com/cosmos/cosmos-sdk/types.Ui" +
-      "nt\310\336\037\000\362\336\037\034yaml:\"external_asset_amount\"\"\031" +
-      "\n\027MsgAddLiquidityResponse\"\202\003\n\007MsgSwap\022!\n" +
-      "\006signer\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022@\n\nsent" +
-      "_asset\030\002 \001(\0132\025.sifnode.clp.v1.AssetB\025\362\336\037" +
-      "\021yaml:\"sent_asset\"\022H\n\016received_asset\030\003 \001" +
-      "(\0132\025.sifnode.clp.v1.AssetB\031\362\336\037\025yaml:\"rec" +
-      "eived_asset\"\022Z\n\013sent_amount\030\004 \001(\tBE\332\336\037\'g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Uint\310\336" +
-      "\037\000\362\336\037\022yaml:\"sent_amount\"\022l\n\024min_receivin" +
-      "g_amount\030\005 \001(\tBN\332\336\037\'github.com/cosmos/co" +
-      "smos-sdk/types.Uint\310\336\037\000\362\336\037\033yaml:\"min_rec" +
-      "eiving_amount\"\"\021\n\017MsgSwapResponse\"[\n\023Msg" +
-      "DecommissionPool\022!\n\006signer\030\001 \001(\tB\021\362\336\037\rya" +
-      "ml:\"signer\"\022!\n\006symbol\030\002 \001(\tB\021\362\336\037\ryaml:\"s" +
-      "ymbol\"\"\035\n\033MsgDecommissionPoolResponse2\276\003" +
-      "\n\003Msg\022a\n\017RemoveLiquidity\022\".sifnode.clp.v" +
-      "1.MsgRemoveLiquidity\032*.sifnode.clp.v1.Ms" +
-      "gRemoveLiquidityResponse\022R\n\nCreatePool\022\035" +
-      ".sifnode.clp.v1.MsgCreatePool\032%.sifnode." +
-      "clp.v1.MsgCreatePoolResponse\022X\n\014AddLiqui" +
-      "dity\022\037.sifnode.clp.v1.MsgAddLiquidity\032\'." +
-      "sifnode.clp.v1.MsgAddLiquidityResponse\022@" +
-      "\n\004Swap\022\027.sifnode.clp.v1.MsgSwap\032\037.sifnod" +
-      "e.clp.v1.MsgSwapResponse\022d\n\020Decommission" +
-      "Pool\022#.sifnode.clp.v1.MsgDecommissionPoo" +
-      "l\032+.sifnode.clp.v1.MsgDecommissionPoolRe" +
-      "sponseB)Z\'github.com/Sifchain/sifnode/x/" +
-      "clp/typesb\006proto3"
+      "types.proto\032\033sifnode/clp/v1/params.proto" +
+      "\"\325\001\n\034MsgUpdateStakingRewardParams\022!\n\006sig" +
+      "ner\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022H\n\006minter\030\002" +
+      " \001(\tB8\332\336\0370github.com/cosmos/cosmos-sdk/x" +
+      "/mint/types.Minter\310\336\037\000\022H\n\006params\030\003 \001(\tB8" +
+      "\332\336\0370github.com/cosmos/cosmos-sdk/x/mint/" +
+      "types.Params\310\336\037\000\"&\n$MsgUpdateStakingRewa" +
+      "rdParamsResponse\"\271\002\n\022MsgRemoveLiquidity\022" +
+      "!\n\006signer\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022H\n\016ex" +
+      "ternal_asset\030\002 \001(\0132\025.sifnode.clp.v1.Asse" +
+      "tB\031\362\336\037\025yaml:\"external_asset\"\022_\n\016w_basis_" +
+      "points\030\003 \001(\tBG\332\336\037&github.com/cosmos/cosm" +
+      "os-sdk/types.Int\310\336\037\000\362\336\037\025yaml:\"w_basis_po" +
+      "ints\"\022U\n\tasymmetry\030\004 \001(\tBB\332\336\037&github.com" +
+      "/cosmos/cosmos-sdk/types.Int\310\336\037\000\362\336\037\020yaml" +
+      ":\"asymmetry\"\"\034\n\032MsgRemoveLiquidityRespon" +
+      "se\"\350\001\n\027MsgRemoveLiquidityUnits\022!\n\006signer" +
+      "\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022H\n\016external_as" +
+      "set\030\002 \001(\0132\025.sifnode.clp.v1.AssetB\031\362\336\037\025ya" +
+      "ml:\"external_asset\"\022`\n\016withdraw_units\030\003 " +
+      "\001(\tBH\332\336\037\'github.com/cosmos/cosmos-sdk/ty" +
+      "pes.Uint\310\336\037\000\362\336\037\025yaml:\"withdraw_units\"\"!\n" +
+      "\037MsgRemoveLiquidityUnitsResponse\"\330\002\n\rMsg" +
+      "CreatePool\022!\n\006signer\030\001 \001(\tB\021\362\336\037\ryaml:\"si" +
+      "gner\"\022H\n\016external_asset\030\002 \001(\0132\025.sifnode." +
+      "clp.v1.AssetB\031\362\336\037\025yaml:\"external_asset\"\022" +
+      "j\n\023native_asset_amount\030\003 \001(\tBM\332\336\037\'github" +
+      ".com/cosmos/cosmos-sdk/types.Uint\310\336\037\000\362\336\037" +
+      "\032yaml:\"native_asset_amount\"\022n\n\025external_" +
+      "asset_amount\030\004 \001(\tBO\332\336\037\'github.com/cosmo" +
+      "s/cosmos-sdk/types.Uint\310\336\037\000\362\336\037\034yaml:\"ext" +
+      "ernal_asset_amount\"\"\027\n\025MsgCreatePoolResp" +
+      "onse\"\332\002\n\017MsgAddLiquidity\022!\n\006signer\030\001 \001(\t" +
+      "B\021\362\336\037\ryaml:\"signer\"\022H\n\016external_asset\030\002 " +
+      "\001(\0132\025.sifnode.clp.v1.AssetB\031\362\336\037\025yaml:\"ex" +
+      "ternal_asset\"\022j\n\023native_asset_amount\030\003 \001" +
+      "(\tBM\332\336\037\'github.com/cosmos/cosmos-sdk/typ" +
+      "es.Uint\310\336\037\000\362\336\037\032yaml:\"native_asset_amount" +
+      "\"\022n\n\025external_asset_amount\030\004 \001(\tBO\332\336\037\'gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Uint\310\336\037" +
+      "\000\362\336\037\034yaml:\"external_asset_amount\"\"\031\n\027Msg" +
+      "AddLiquidityResponse\"u\n\022MsgModifyPmtpRat" +
+      "es\022!\n\006signer\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022\022\n" +
+      "\nblock_rate\030\002 \001(\t\022\024\n\014running_rate\030\003 \001(\t\022" +
+      "\022\n\nend_policy\030\004 \001(\010\"\034\n\032MsgModifyPmtpRate" +
+      "sResponse\"\277\001\n\023MsgUpdatePmtpParams\022!\n\006sig" +
+      "ner\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022#\n\033pmtp_per" +
+      "iod_governance_rate\030\002 \001(\t\022 \n\030pmtp_period" +
+      "_epoch_length\030\003 \001(\003\022\037\n\027pmtp_period_start" +
+      "_block\030\004 \001(\003\022\035\n\025pmtp_period_end_block\030\005 " +
+      "\001(\003\"\035\n\033MsgUpdatePmtpParamsResponse\"\202\003\n\007M" +
+      "sgSwap\022!\n\006signer\030\001 \001(\tB\021\362\336\037\ryaml:\"signer" +
+      "\"\022@\n\nsent_asset\030\002 \001(\0132\025.sifnode.clp.v1.A" +
+      "ssetB\025\362\336\037\021yaml:\"sent_asset\"\022H\n\016received_" +
+      "asset\030\003 \001(\0132\025.sifnode.clp.v1.AssetB\031\362\336\037\025" +
+      "yaml:\"received_asset\"\022Z\n\013sent_amount\030\004 \001" +
+      "(\tBE\332\336\037\'github.com/cosmos/cosmos-sdk/typ" +
+      "es.Uint\310\336\037\000\362\336\037\022yaml:\"sent_amount\"\022l\n\024min" +
+      "_receiving_amount\030\005 \001(\tBN\332\336\037\'github.com/" +
+      "cosmos/cosmos-sdk/types.Uint\310\336\037\000\362\336\037\033yaml" +
+      ":\"min_receiving_amount\"\"\021\n\017MsgSwapRespon" +
+      "se\"[\n\023MsgDecommissionPool\022!\n\006signer\030\001 \001(" +
+      "\tB\021\362\336\037\ryaml:\"signer\"\022!\n\006symbol\030\002 \001(\tB\021\362\336" +
+      "\037\ryaml:\"symbol\"\"\035\n\033MsgDecommissionPoolRe" +
+      "sponse\"\310\001\n\031MsgUnlockLiquidityRequest\022!\n\006" +
+      "signer\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022H\n\016exter" +
+      "nal_asset\030\002 \001(\0132\025.sifnode.clp.v1.AssetB\031" +
+      "\362\336\037\025yaml:\"external_asset\"\022>\n\005units\030\003 \001(\t" +
+      "B/\332\336\037\'github.com/cosmos/cosmos-sdk/types" +
+      ".Uint\310\336\037\000\"\034\n\032MsgUnlockLiquidityResponse\"" +
+      "\222\001\n\035MsgUpdateRewardsParamsRequest\022!\n\006sig" +
+      "ner\030\001 \001(\tB\021\362\336\037\ryaml:\"signer\"\022%\n\035liquidit" +
+      "y_removal_lock_period\030\002 \001(\004\022\'\n\037liquidity" +
+      "_removal_cancel_period\030\003 \001(\004\" \n\036MsgUpdat" +
+      "eRewardsParamsResponse\"t\n\031MsgAddRewardPe" +
+      "riodRequest\022!\n\006signer\030\001 \001(\tB\021\362\336\037\ryaml:\"s" +
+      "igner\"\0224\n\016reward_periods\030\002 \003(\0132\034.sifnode" +
+      ".clp.v1.RewardPeriod\"\034\n\032MsgAddRewardPeri" +
+      "odResponse2\304\t\n\003Msg\022a\n\017RemoveLiquidity\022\"." +
+      "sifnode.clp.v1.MsgRemoveLiquidity\032*.sifn" +
+      "ode.clp.v1.MsgRemoveLiquidityResponse\022p\n" +
+      "\024RemoveLiquidityUnits\022\'.sifnode.clp.v1.M" +
+      "sgRemoveLiquidityUnits\032/.sifnode.clp.v1." +
+      "MsgRemoveLiquidityUnitsResponse\022R\n\nCreat" +
+      "ePool\022\035.sifnode.clp.v1.MsgCreatePool\032%.s" +
+      "ifnode.clp.v1.MsgCreatePoolResponse\022X\n\014A" +
+      "ddLiquidity\022\037.sifnode.clp.v1.MsgAddLiqui" +
+      "dity\032\'.sifnode.clp.v1.MsgAddLiquidityRes" +
+      "ponse\022@\n\004Swap\022\027.sifnode.clp.v1.MsgSwap\032\037" +
+      ".sifnode.clp.v1.MsgSwapResponse\022d\n\020Decom" +
+      "missionPool\022#.sifnode.clp.v1.MsgDecommis" +
+      "sionPool\032+.sifnode.clp.v1.MsgDecommissio" +
+      "nPoolResponse\022h\n\017UnlockLiquidity\022).sifno" +
+      "de.clp.v1.MsgUnlockLiquidityRequest\032*.si" +
+      "fnode.clp.v1.MsgUnlockLiquidityResponse\022" +
+      "t\n\023UpdateRewardsParams\022-.sifnode.clp.v1." +
+      "MsgUpdateRewardsParamsRequest\032..sifnode." +
+      "clp.v1.MsgUpdateRewardsParamsResponse\022h\n" +
+      "\017AddRewardPeriod\022).sifnode.clp.v1.MsgAdd" +
+      "RewardPeriodRequest\032*.sifnode.clp.v1.Msg" +
+      "AddRewardPeriodResponse\022a\n\017ModifyPmtpRat" +
+      "es\022\".sifnode.clp.v1.MsgModifyPmtpRates\032*" +
+      ".sifnode.clp.v1.MsgModifyPmtpRatesRespon" +
+      "se\022d\n\020UpdatePmtpParams\022#.sifnode.clp.v1." +
+      "MsgUpdatePmtpParams\032+.sifnode.clp.v1.Msg" +
+      "UpdatePmtpParamsResponse\022\177\n\031UpdateStakin" +
+      "gRewardParams\022,.sifnode.clp.v1.MsgUpdate" +
+      "StakingRewardParams\0324.sifnode.clp.v1.Msg" +
+      "UpdateStakingRewardParamsResponseB)Z\'git" +
+      "hub.com/Sifchain/sifnode/x/clp/typesb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
           sifnode.clp.v1.Types.getDescriptor(),
+          sifnode.clp.v1.ParamsOuterClass.getDescriptor(),
         });
-    internal_static_sifnode_clp_v1_MsgRemoveLiquidity_descriptor =
+    internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParams_descriptor,
+        new java.lang.String[] { "Signer", "Minter", "Params", });
+    internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgUpdateStakingRewardParamsResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_MsgRemoveLiquidity_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_sifnode_clp_v1_MsgRemoveLiquidity_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgRemoveLiquidity_descriptor,
         new java.lang.String[] { "Signer", "ExternalAsset", "WBasisPoints", "Asymmetry", });
     internal_static_sifnode_clp_v1_MsgRemoveLiquidityResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_sifnode_clp_v1_MsgRemoveLiquidityResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgRemoveLiquidityResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnits_descriptor,
+        new java.lang.String[] { "Signer", "ExternalAsset", "WithdrawUnits", });
+    internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgRemoveLiquidityUnitsResponse_descriptor,
+        new java.lang.String[] { });
     internal_static_sifnode_clp_v1_MsgCreatePool_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_sifnode_clp_v1_MsgCreatePool_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgCreatePool_descriptor,
         new java.lang.String[] { "Signer", "ExternalAsset", "NativeAssetAmount", "ExternalAssetAmount", });
     internal_static_sifnode_clp_v1_MsgCreatePoolResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_sifnode_clp_v1_MsgCreatePoolResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgCreatePoolResponse_descriptor,
         new java.lang.String[] { });
     internal_static_sifnode_clp_v1_MsgAddLiquidity_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_sifnode_clp_v1_MsgAddLiquidity_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgAddLiquidity_descriptor,
         new java.lang.String[] { "Signer", "ExternalAsset", "NativeAssetAmount", "ExternalAssetAmount", });
     internal_static_sifnode_clp_v1_MsgAddLiquidityResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_sifnode_clp_v1_MsgAddLiquidityResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgAddLiquidityResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_MsgModifyPmtpRates_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_sifnode_clp_v1_MsgModifyPmtpRates_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgModifyPmtpRates_descriptor,
+        new java.lang.String[] { "Signer", "BlockRate", "RunningRate", "EndPolicy", });
+    internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgModifyPmtpRatesResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgUpdatePmtpParams_descriptor,
+        new java.lang.String[] { "Signer", "PmtpPeriodGovernanceRate", "PmtpPeriodEpochLength", "PmtpPeriodStartBlock", "PmtpPeriodEndBlock", });
+    internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgUpdatePmtpParamsResponse_descriptor,
+        new java.lang.String[] { });
     internal_static_sifnode_clp_v1_MsgSwap_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_sifnode_clp_v1_MsgSwap_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgSwap_descriptor,
         new java.lang.String[] { "Signer", "SentAsset", "ReceivedAsset", "SentAmount", "MinReceivingAmount", });
     internal_static_sifnode_clp_v1_MsgSwapResponse_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_sifnode_clp_v1_MsgSwapResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgSwapResponse_descriptor,
         new java.lang.String[] { });
     internal_static_sifnode_clp_v1_MsgDecommissionPool_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_sifnode_clp_v1_MsgDecommissionPool_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgDecommissionPool_descriptor,
         new java.lang.String[] { "Signer", "Symbol", });
     internal_static_sifnode_clp_v1_MsgDecommissionPoolResponse_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_sifnode_clp_v1_MsgDecommissionPoolResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_MsgDecommissionPoolResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgUnlockLiquidityRequest_descriptor,
+        new java.lang.String[] { "Signer", "ExternalAsset", "Units", });
+    internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgUnlockLiquidityResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(20);
+    internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsRequest_descriptor,
+        new java.lang.String[] { "Signer", "LiquidityRemovalLockPeriod", "LiquidityRemovalCancelPeriod", });
+    internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgUpdateRewardsParamsResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_descriptor =
+      getDescriptor().getMessageTypes().get(22);
+    internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgAddRewardPeriodRequest_descriptor,
+        new java.lang.String[] { "Signer", "RewardPeriods", });
+    internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_MsgAddRewardPeriodResponse_descriptor,
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
@@ -7500,6 +16911,7 @@ public final class Tx {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
     sifnode.clp.v1.Types.getDescriptor();
+    sifnode.clp.v1.ParamsOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

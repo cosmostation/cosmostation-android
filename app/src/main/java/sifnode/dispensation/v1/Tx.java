@@ -3026,6 +3026,12 @@ public final class Tx {
      * @return The distributionType.
      */
     sifnode.dispensation.v1.Types.DistributionType getDistributionType();
+
+    /**
+     * <code>int64 distribution_count = 4;</code>
+     * @return The distributionCount.
+     */
+    long getDistributionCount();
   }
   /**
    * Protobuf type {@code sifnode.dispensation.v1.MsgRunDistribution}
@@ -3091,6 +3097,11 @@ public final class Tx {
               int rawValue = input.readEnum();
 
               distributionType_ = rawValue;
+              break;
+            }
+            case 32: {
+
+              distributionCount_ = input.readInt64();
               break;
             }
             default: {
@@ -3220,6 +3231,17 @@ public final class Tx {
       return result == null ? sifnode.dispensation.v1.Types.DistributionType.UNRECOGNIZED : result;
     }
 
+    public static final int DISTRIBUTION_COUNT_FIELD_NUMBER = 4;
+    private long distributionCount_;
+    /**
+     * <code>int64 distribution_count = 4;</code>
+     * @return The distributionCount.
+     */
+    @java.lang.Override
+    public long getDistributionCount() {
+      return distributionCount_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3243,6 +3265,9 @@ public final class Tx {
       if (distributionType_ != sifnode.dispensation.v1.Types.DistributionType.DISTRIBUTION_TYPE_UNSPECIFIED.getNumber()) {
         output.writeEnum(3, distributionType_);
       }
+      if (distributionCount_ != 0L) {
+        output.writeInt64(4, distributionCount_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -3261,6 +3286,10 @@ public final class Tx {
       if (distributionType_ != sifnode.dispensation.v1.Types.DistributionType.DISTRIBUTION_TYPE_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(3, distributionType_);
+      }
+      if (distributionCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, distributionCount_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3282,6 +3311,8 @@ public final class Tx {
       if (!getDistributionName()
           .equals(other.getDistributionName())) return false;
       if (distributionType_ != other.distributionType_) return false;
+      if (getDistributionCount()
+          != other.getDistributionCount()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3299,6 +3330,9 @@ public final class Tx {
       hash = (53 * hash) + getDistributionName().hashCode();
       hash = (37 * hash) + DISTRIBUTION_TYPE_FIELD_NUMBER;
       hash = (53 * hash) + distributionType_;
+      hash = (37 * hash) + DISTRIBUTION_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getDistributionCount());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3438,6 +3472,8 @@ public final class Tx {
 
         distributionType_ = 0;
 
+        distributionCount_ = 0L;
+
         return this;
       }
 
@@ -3467,6 +3503,7 @@ public final class Tx {
         result.authorizedRunner_ = authorizedRunner_;
         result.distributionName_ = distributionName_;
         result.distributionType_ = distributionType_;
+        result.distributionCount_ = distributionCount_;
         onBuilt();
         return result;
       }
@@ -3525,6 +3562,9 @@ public final class Tx {
         }
         if (other.distributionType_ != 0) {
           setDistributionTypeValue(other.getDistributionTypeValue());
+        }
+        if (other.getDistributionCount() != 0L) {
+          setDistributionCount(other.getDistributionCount());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3760,6 +3800,37 @@ public final class Tx {
         onChanged();
         return this;
       }
+
+      private long distributionCount_ ;
+      /**
+       * <code>int64 distribution_count = 4;</code>
+       * @return The distributionCount.
+       */
+      @java.lang.Override
+      public long getDistributionCount() {
+        return distributionCount_;
+      }
+      /**
+       * <code>int64 distribution_count = 4;</code>
+       * @param value The distributionCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDistributionCount(long value) {
+        
+        distributionCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 distribution_count = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDistributionCount() {
+        
+        distributionCount_ = 0L;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -3865,21 +3936,22 @@ public final class Tx {
       "nDistributionResponse\"t\n\022MsgCreateUserCl" +
       "aim\022\032\n\022user_claim_address\030\001 \001(\t\022B\n\017user_" +
       "claim_type\030\002 \001(\0162).sifnode.dispensation." +
-      "v1.DistributionType\"\220\001\n\022MsgRunDistributi" +
+      "v1.DistributionType\"\254\001\n\022MsgRunDistributi" +
       "on\022\031\n\021authorized_runner\030\001 \001(\t\022\031\n\021distrib" +
       "ution_name\030\002 \001(\t\022D\n\021distribution_type\030\003 " +
       "\001(\0162).sifnode.dispensation.v1.Distributi" +
-      "onType2\351\002\n\003Msg\022|\n\022CreateDistribution\022..s" +
-      "ifnode.dispensation.v1.MsgCreateDistribu" +
-      "tion\0326.sifnode.dispensation.v1.MsgCreate" +
-      "DistributionResponse\022o\n\017CreateUserClaim\022" +
-      "+.sifnode.dispensation.v1.MsgCreateUserC" +
-      "laim\032/.sifnode.dispensation.v1.MsgCreate" +
-      "ClaimResponse\022s\n\017RunDistribution\022+.sifno" +
-      "de.dispensation.v1.MsgRunDistribution\0323." +
-      "sifnode.dispensation.v1.MsgRunDistributi" +
-      "onResponseB2Z0github.com/Sifchain/sifnod" +
-      "e/x/dispensation/typesb\006proto3"
+      "onType\022\032\n\022distribution_count\030\004 \001(\0032\351\002\n\003M" +
+      "sg\022|\n\022CreateDistribution\022..sifnode.dispe" +
+      "nsation.v1.MsgCreateDistribution\0326.sifno" +
+      "de.dispensation.v1.MsgCreateDistribution" +
+      "Response\022o\n\017CreateUserClaim\022+.sifnode.di" +
+      "spensation.v1.MsgCreateUserClaim\032/.sifno" +
+      "de.dispensation.v1.MsgCreateClaimRespons" +
+      "e\022s\n\017RunDistribution\022+.sifnode.dispensat" +
+      "ion.v1.MsgRunDistribution\0323.sifnode.disp" +
+      "ensation.v1.MsgRunDistributionResponseB2" +
+      "Z0github.com/Sifchain/sifnode/x/dispensa" +
+      "tion/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3922,7 +3994,7 @@ public final class Tx {
     internal_static_sifnode_dispensation_v1_MsgRunDistribution_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_dispensation_v1_MsgRunDistribution_descriptor,
-        new java.lang.String[] { "AuthorizedRunner", "DistributionName", "DistributionType", });
+        new java.lang.String[] { "AuthorizedRunner", "DistributionName", "DistributionType", "DistributionCount", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.customtype);

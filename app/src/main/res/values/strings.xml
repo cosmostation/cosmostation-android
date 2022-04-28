@@ -1994,15 +1994,7 @@
     <string name="tx_create_validator">Create Val</string>
     <string name="tx_edit_validator">Edit Val</string>
     <string name="tx_unjail">Unjail</string>
-    <string name="tx_create_bid">Create Bid</string>
-    <string name="tx_close_bid">Close Bid</string>
-    <string name="tx_create_lease">Create Lease</string>
-    <string name="tx_withdraw_lease">Withdraw Lease</string>
-    <string name="tx_create_deployment">Create Deployment</string>
-    <string name="tx_close_deployment">Close Deployment</string>
-    <string name="tx_update_deployment">Update Deployment</string>
-    <string name="tx_create_certificate">Create Certificate</string>
-    <string name="tx_revoke_certificate">Revoke Certificate</string>
+
     <string name="tx_ibc_update_client">IBC Update Client</string>
     <string name="tx_ibc_update_client2">IBC Update Client</string>
     <string name="tx_ibc_send">IBC Send</string>
@@ -2090,6 +2082,21 @@
     <string name="tx_starname_renew_domain">Renew Domain</string>
     <string name="tx_starname_renew_account">Renew Account</string>
     <string name="tx_starname_update_resource">Replace Address</string>
+
+    <string name="tx_create_bid">Create Bid</string>
+    <string name="tx_close_bid">Close Bid</string>
+    <string name="tx_create_lease">Create Lease</string>
+    <string name="tx_withdraw_lease">Withdraw Lease</string>
+    <string name="tx_close_lease">Withdraw Lease</string>
+    <string name="tx_create_deployment">Create Deployment</string>
+    <string name="tx_deposit_deployment">Deposit Deployment</string>
+    <string name="tx_close_deployment">Close Deployment</string>
+    <string name="tx_update_deployment">Update Deployment</string>
+    <string name="tx_close_group">Close Group</string>
+    <string name="tx_pause_group">Pause Group</string>
+    <string name="tx_start_group">Start Group</string>
+    <string name="tx_create_certificate">Create Certificate</string>
+    <string name="tx_revoke_certificate">Revoke Certificate</string>
 
     <string name="tx_osmosis_create_pool">Create Pool</string>
     <string name="tx_osmosis_join_pool">Join Pool</string>
