@@ -3397,11 +3397,7 @@ public class WUtil {
     }
 
     public static void getDexTitle(MainActivity mainActivity, BaseChain chain, RelativeLayout mBtnDex, TextView dexTitle) {
-        if (chain.equals(COSMOS_MAIN)) {
-            mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_gravitydex), null, null, null);
-            dexTitle.setText("Gravity Dex");
-        } else if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
+        if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_nft), null, null, null);
             dexTitle.setText(R.string.str_nft_c);
@@ -3422,7 +3418,7 @@ public class WUtil {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
         } else if (chain.equals(CRESCENT_MAIN)) {
-            mBtnDex.setVisibility(View.VISIBLE);
+            mBtnDex.setVisibility(View.GONE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_crescentapp), null, null, null);
             dexTitle.setText(R.string.str_crescent_app);
         } else if (chain.equals(DESMOS_MAIN)) {
