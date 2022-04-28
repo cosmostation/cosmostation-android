@@ -1920,6 +1920,17 @@ public class WUtil {
         return BigDecimal.ONE;
     }
 
+    public static BigDecimal getSifPoolPrice(sifnode.clp.v1.Types.Pool pool, String denom) {
+        if (denom != null) {
+            if (denom.equals(TOKEN_SIF)) {
+                return new BigDecimal(pool.getSwapPriceNative());
+            } else {
+                return new BigDecimal(pool.getSwapPriceExternal());
+            }
+        }
+        return BigDecimal.ONE;
+    }
+
     public static BigDecimal getSifPoolValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool) {
         int rowanDecimal = getSifCoinDecimal(baseData, TOKEN_SIF);
         BigDecimal rowanAmount = new BigDecimal(pool.getNativeAssetBalance());

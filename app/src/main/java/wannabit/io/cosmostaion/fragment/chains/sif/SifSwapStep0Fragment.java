@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.fragment.chains.sif;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -29,11 +33,8 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.SifPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -55,7 +56,6 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
     private int                 mInputCoinDecimal;
     private int                 mOutputCoinDecimal;
     private BigDecimal          mAvailableMaxAmount;
-    private BigDecimal          mSwapRate;
 
     private String              mInDecimalChecker, mInDecimalSetter;
 
@@ -127,9 +127,6 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
         WUtil.dpSifTokenName(getContext(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
         WUtil.DpSifTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
 
-        BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mInputDenom);
-        BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mOutputDenom);
-        mSwapRate = lpOutputAmount.divide(lpInputAmount, 24, RoundingMode.DOWN).movePointRight(mInputCoinDecimal - mOutputCoinDecimal);
     }
 
     private void onAddAmountWatcher(){
@@ -237,8 +234,9 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
             BigDecimal padding = new BigDecimal("0.98");
+            BigDecimal swapRate = WUtil.getSifPoolPrice(getSActivity().mSifPool, getSActivity().mInputDenom).movePointLeft(18);
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) == 0) { mSwapOutputAmount.setText(""); return; }
-            BigDecimal OutputAmount = InputAmountTemp.multiply(padding).setScale(24, RoundingMode.DOWN).multiply(mSwapRate).setScale(24,RoundingMode.DOWN);
+            BigDecimal OutputAmount = InputAmountTemp.multiply(padding).multiply(swapRate).setScale(24,RoundingMode.DOWN);
 
             // lp fee
             BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mInputDenom);

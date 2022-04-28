@@ -134,11 +134,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
         WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
         WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
-
-        BigDecimal lpInputAmount = WUtil.getPoolLpAmount(mSelectedPool, mInputCoinDenom);
-        BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(mSelectedPool, mOutputCoinDenom);
-        BigDecimal poolSwapRate = lpOutputAmount.divide(lpInputAmount, 24, RoundingMode.DOWN).movePointRight(mInPutDecimal - mOutPutDecimal);
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), poolSwapRate, 0, 6));
+        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), WUtil.getSifPoolPrice(mSelectedPool, mInputCoinDenom).movePointLeft(18), 0, 6));
 
         mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
         WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
