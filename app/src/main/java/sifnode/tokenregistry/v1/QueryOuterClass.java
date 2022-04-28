@@ -1073,21 +1073,23 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n$sifnode/tokenregistry/v1/query.proto\022\030" +
-      "sifnode.tokenregistry.v1\032\034google/api/ann" +
-      "otations.proto\032$sifnode/tokenregistry/v1" +
-      "/types.proto\"L\n\024QueryEntriesResponse\0224\n\010" +
-      "registry\030\001 \001(\0132\".sifnode.tokenregistry.v" +
-      "1.Registry\"\025\n\023QueryEntriesRequest2\243\001\n\005Qu" +
-      "ery\022\231\001\n\007Entries\022-.sifnode.tokenregistry." +
-      "v1.QueryEntriesRequest\032..sifnode.tokenre" +
-      "gistry.v1.QueryEntriesResponse\"/\202\323\344\223\002)\022\'" +
-      "/sifchain/tokenregistry/v1beta1/entriesB" +
-      "3Z1github.com/Sifchain/sifnode/x/tokenre" +
-      "gistry/typesb\006proto3"
+      "sifnode.tokenregistry.v1\032\024gogoproto/gogo" +
+      ".proto\032\034google/api/annotations.proto\032$si" +
+      "fnode/tokenregistry/v1/types.proto\"L\n\024Qu" +
+      "eryEntriesResponse\0224\n\010registry\030\001 \001(\0132\".s" +
+      "ifnode.tokenregistry.v1.Registry\"\025\n\023Quer" +
+      "yEntriesRequest2\243\001\n\005Query\022\231\001\n\007Entries\022-." +
+      "sifnode.tokenregistry.v1.QueryEntriesReq" +
+      "uest\032..sifnode.tokenregistry.v1.QueryEnt" +
+      "riesResponse\"/\202\323\344\223\002)\022\'/sifchain/tokenreg" +
+      "istry/v1beta1/entriesB3Z1github.com/Sifc" +
+      "hain/sifnode/x/tokenregistry/typesb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           sifnode.tokenregistry.v1.Types.getDescriptor(),
         });
@@ -1108,6 +1110,7 @@ public final class QueryOuterClass {
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     sifnode.tokenregistry.v1.Types.getDescriptor();
   }

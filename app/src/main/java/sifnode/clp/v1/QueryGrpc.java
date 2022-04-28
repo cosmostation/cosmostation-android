@@ -244,6 +244,99 @@ public final class QueryGrpc {
     return getGetLiquidityProviderListMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.ParamsReq,
+      sifnode.clp.v1.Querier.ParamsRes> getGetParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetParams",
+      requestType = sifnode.clp.v1.Querier.ParamsReq.class,
+      responseType = sifnode.clp.v1.Querier.ParamsRes.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.ParamsReq,
+      sifnode.clp.v1.Querier.ParamsRes> getGetParamsMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.ParamsReq, sifnode.clp.v1.Querier.ParamsRes> getGetParamsMethod;
+    if ((getGetParamsMethod = QueryGrpc.getGetParamsMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getGetParamsMethod = QueryGrpc.getGetParamsMethod) == null) {
+          QueryGrpc.getGetParamsMethod = getGetParamsMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Querier.ParamsReq, sifnode.clp.v1.Querier.ParamsRes>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetParams"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Querier.ParamsReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Querier.ParamsRes.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("GetParams"))
+              .build();
+        }
+      }
+    }
+    return getGetParamsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.RewardParamsReq,
+      sifnode.clp.v1.Querier.RewardParamsRes> getGetRewardParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetRewardParams",
+      requestType = sifnode.clp.v1.Querier.RewardParamsReq.class,
+      responseType = sifnode.clp.v1.Querier.RewardParamsRes.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.RewardParamsReq,
+      sifnode.clp.v1.Querier.RewardParamsRes> getGetRewardParamsMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.RewardParamsReq, sifnode.clp.v1.Querier.RewardParamsRes> getGetRewardParamsMethod;
+    if ((getGetRewardParamsMethod = QueryGrpc.getGetRewardParamsMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getGetRewardParamsMethod = QueryGrpc.getGetRewardParamsMethod) == null) {
+          QueryGrpc.getGetRewardParamsMethod = getGetRewardParamsMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Querier.RewardParamsReq, sifnode.clp.v1.Querier.RewardParamsRes>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetRewardParams"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Querier.RewardParamsReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Querier.RewardParamsRes.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("GetRewardParams"))
+              .build();
+        }
+      }
+    }
+    return getGetRewardParamsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.PmtpParamsReq,
+      sifnode.clp.v1.Querier.PmtpParamsRes> getGetPmtpParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetPmtpParams",
+      requestType = sifnode.clp.v1.Querier.PmtpParamsReq.class,
+      responseType = sifnode.clp.v1.Querier.PmtpParamsRes.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.PmtpParamsReq,
+      sifnode.clp.v1.Querier.PmtpParamsRes> getGetPmtpParamsMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.PmtpParamsReq, sifnode.clp.v1.Querier.PmtpParamsRes> getGetPmtpParamsMethod;
+    if ((getGetPmtpParamsMethod = QueryGrpc.getGetPmtpParamsMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getGetPmtpParamsMethod = QueryGrpc.getGetPmtpParamsMethod) == null) {
+          QueryGrpc.getGetPmtpParamsMethod = getGetPmtpParamsMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Querier.PmtpParamsReq, sifnode.clp.v1.Querier.PmtpParamsRes>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetPmtpParams"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Querier.PmtpParamsReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Querier.PmtpParamsRes.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("GetPmtpParams"))
+              .build();
+        }
+      }
+    }
+    return getGetPmtpParamsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -341,6 +434,27 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getGetLiquidityProviderListMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getParams(sifnode.clp.v1.Querier.ParamsReq request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.ParamsRes> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetParamsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getRewardParams(sifnode.clp.v1.Querier.RewardParamsReq request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.RewardParamsRes> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetRewardParamsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getPmtpParams(sifnode.clp.v1.Querier.PmtpParamsReq request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.PmtpParamsRes> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetPmtpParamsMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -392,6 +506,27 @@ public final class QueryGrpc {
                 sifnode.clp.v1.Querier.LiquidityProviderListReq,
                 sifnode.clp.v1.Querier.LiquidityProviderListRes>(
                   this, METHODID_GET_LIQUIDITY_PROVIDER_LIST)))
+          .addMethod(
+            getGetParamsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Querier.ParamsReq,
+                sifnode.clp.v1.Querier.ParamsRes>(
+                  this, METHODID_GET_PARAMS)))
+          .addMethod(
+            getGetRewardParamsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Querier.RewardParamsReq,
+                sifnode.clp.v1.Querier.RewardParamsRes>(
+                  this, METHODID_GET_REWARD_PARAMS)))
+          .addMethod(
+            getGetPmtpParamsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Querier.PmtpParamsReq,
+                sifnode.clp.v1.Querier.PmtpParamsRes>(
+                  this, METHODID_GET_PMTP_PARAMS)))
           .build();
     }
   }
@@ -465,6 +600,30 @@ public final class QueryGrpc {
       asyncUnaryCall(
           getChannel().newCall(getGetLiquidityProviderListMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getParams(sifnode.clp.v1.Querier.ParamsReq request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.ParamsRes> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetParamsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getRewardParams(sifnode.clp.v1.Querier.RewardParamsReq request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.RewardParamsRes> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetRewardParamsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getPmtpParams(sifnode.clp.v1.Querier.PmtpParamsReq request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.PmtpParamsRes> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetPmtpParamsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -528,6 +687,27 @@ public final class QueryGrpc {
     public sifnode.clp.v1.Querier.LiquidityProviderListRes getLiquidityProviderList(sifnode.clp.v1.Querier.LiquidityProviderListReq request) {
       return blockingUnaryCall(
           getChannel(), getGetLiquidityProviderListMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Querier.ParamsRes getParams(sifnode.clp.v1.Querier.ParamsReq request) {
+      return blockingUnaryCall(
+          getChannel(), getGetParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Querier.RewardParamsRes getRewardParams(sifnode.clp.v1.Querier.RewardParamsReq request) {
+      return blockingUnaryCall(
+          getChannel(), getGetRewardParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Querier.PmtpParamsRes getPmtpParams(sifnode.clp.v1.Querier.PmtpParamsReq request) {
+      return blockingUnaryCall(
+          getChannel(), getGetPmtpParamsMethod(), getCallOptions(), request);
     }
   }
 
@@ -600,6 +780,30 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getGetLiquidityProviderListMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Querier.ParamsRes> getParams(
+        sifnode.clp.v1.Querier.ParamsReq request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetParamsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Querier.RewardParamsRes> getRewardParams(
+        sifnode.clp.v1.Querier.RewardParamsReq request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetRewardParamsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Querier.PmtpParamsRes> getPmtpParams(
+        sifnode.clp.v1.Querier.PmtpParamsReq request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetPmtpParamsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_POOL = 0;
@@ -609,6 +813,9 @@ public final class QueryGrpc {
   private static final int METHODID_GET_ASSET_LIST = 4;
   private static final int METHODID_GET_LIQUIDITY_PROVIDERS = 5;
   private static final int METHODID_GET_LIQUIDITY_PROVIDER_LIST = 6;
+  private static final int METHODID_GET_PARAMS = 7;
+  private static final int METHODID_GET_REWARD_PARAMS = 8;
+  private static final int METHODID_GET_PMTP_PARAMS = 9;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -654,6 +861,18 @@ public final class QueryGrpc {
         case METHODID_GET_LIQUIDITY_PROVIDER_LIST:
           serviceImpl.getLiquidityProviderList((sifnode.clp.v1.Querier.LiquidityProviderListReq) request,
               (io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.LiquidityProviderListRes>) responseObserver);
+          break;
+        case METHODID_GET_PARAMS:
+          serviceImpl.getParams((sifnode.clp.v1.Querier.ParamsReq) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.ParamsRes>) responseObserver);
+          break;
+        case METHODID_GET_REWARD_PARAMS:
+          serviceImpl.getRewardParams((sifnode.clp.v1.Querier.RewardParamsReq) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.RewardParamsRes>) responseObserver);
+          break;
+        case METHODID_GET_PMTP_PARAMS:
+          serviceImpl.getPmtpParams((sifnode.clp.v1.Querier.PmtpParamsReq) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.PmtpParamsRes>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -723,6 +942,9 @@ public final class QueryGrpc {
               .addMethod(getGetAssetListMethod())
               .addMethod(getGetLiquidityProvidersMethod())
               .addMethod(getGetLiquidityProviderListMethod())
+              .addMethod(getGetParamsMethod())
+              .addMethod(getGetRewardParamsMethod())
+              .addMethod(getGetPmtpParamsMethod())
               .build();
         }
       }

@@ -511,11 +511,4957 @@ public final class ParamsOuterClass {
 
   }
 
+  public interface RewardParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.RewardParams)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * in blocks
+     * </pre>
+     *
+     * <code>uint64 liquidity_removal_lock_period = 1;</code>
+     * @return The liquidityRemovalLockPeriod.
+     */
+    long getLiquidityRemovalLockPeriod();
+
+    /**
+     * <pre>
+     * in blocks
+     * </pre>
+     *
+     * <code>uint64 liquidity_removal_cancel_period = 2;</code>
+     * @return The liquidityRemovalCancelPeriod.
+     */
+    long getLiquidityRemovalCancelPeriod();
+
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> 
+        getRewardPeriodsList();
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.RewardPeriod getRewardPeriods(int index);
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    int getRewardPeriodsCount();
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> 
+        getRewardPeriodsOrBuilderList();
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder getRewardPeriodsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * start time of the current (or last) reward period
+     * </pre>
+     *
+     * <code>string reward_period_start_time = 5;</code>
+     * @return The rewardPeriodStartTime.
+     */
+    java.lang.String getRewardPeriodStartTime();
+    /**
+     * <pre>
+     * start time of the current (or last) reward period
+     * </pre>
+     *
+     * <code>string reward_period_start_time = 5;</code>
+     * @return The bytes for rewardPeriodStartTime.
+     */
+    com.google.protobuf.ByteString
+        getRewardPeriodStartTimeBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.RewardParams}
+   */
+  public static final class RewardParams extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.RewardParams)
+      RewardParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RewardParams.newBuilder() to construct.
+    private RewardParams(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RewardParams() {
+      rewardPeriods_ = java.util.Collections.emptyList();
+      rewardPeriodStartTime_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RewardParams();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RewardParams(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              liquidityRemovalLockPeriod_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+
+              liquidityRemovalCancelPeriod_ = input.readUInt64();
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                rewardPeriods_ = new java.util.ArrayList<sifnode.clp.v1.ParamsOuterClass.RewardPeriod>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              rewardPeriods_.add(
+                  input.readMessage(sifnode.clp.v1.ParamsOuterClass.RewardPeriod.parser(), extensionRegistry));
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              rewardPeriodStartTime_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          rewardPeriods_ = java.util.Collections.unmodifiableList(rewardPeriods_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardParams_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardParams_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.ParamsOuterClass.RewardParams.class, sifnode.clp.v1.ParamsOuterClass.RewardParams.Builder.class);
+    }
+
+    public static final int LIQUIDITY_REMOVAL_LOCK_PERIOD_FIELD_NUMBER = 1;
+    private long liquidityRemovalLockPeriod_;
+    /**
+     * <pre>
+     * in blocks
+     * </pre>
+     *
+     * <code>uint64 liquidity_removal_lock_period = 1;</code>
+     * @return The liquidityRemovalLockPeriod.
+     */
+    @java.lang.Override
+    public long getLiquidityRemovalLockPeriod() {
+      return liquidityRemovalLockPeriod_;
+    }
+
+    public static final int LIQUIDITY_REMOVAL_CANCEL_PERIOD_FIELD_NUMBER = 2;
+    private long liquidityRemovalCancelPeriod_;
+    /**
+     * <pre>
+     * in blocks
+     * </pre>
+     *
+     * <code>uint64 liquidity_removal_cancel_period = 2;</code>
+     * @return The liquidityRemovalCancelPeriod.
+     */
+    @java.lang.Override
+    public long getLiquidityRemovalCancelPeriod() {
+      return liquidityRemovalCancelPeriod_;
+    }
+
+    public static final int REWARD_PERIODS_FIELD_NUMBER = 4;
+    private java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> rewardPeriods_;
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> getRewardPeriodsList() {
+      return rewardPeriods_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> 
+        getRewardPeriodsOrBuilderList() {
+      return rewardPeriods_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    @java.lang.Override
+    public int getRewardPeriodsCount() {
+      return rewardPeriods_.size();
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.RewardPeriod getRewardPeriods(int index) {
+      return rewardPeriods_.get(index);
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder getRewardPeriodsOrBuilder(
+        int index) {
+      return rewardPeriods_.get(index);
+    }
+
+    public static final int REWARD_PERIOD_START_TIME_FIELD_NUMBER = 5;
+    private volatile java.lang.Object rewardPeriodStartTime_;
+    /**
+     * <pre>
+     * start time of the current (or last) reward period
+     * </pre>
+     *
+     * <code>string reward_period_start_time = 5;</code>
+     * @return The rewardPeriodStartTime.
+     */
+    @java.lang.Override
+    public java.lang.String getRewardPeriodStartTime() {
+      java.lang.Object ref = rewardPeriodStartTime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        rewardPeriodStartTime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * start time of the current (or last) reward period
+     * </pre>
+     *
+     * <code>string reward_period_start_time = 5;</code>
+     * @return The bytes for rewardPeriodStartTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRewardPeriodStartTimeBytes() {
+      java.lang.Object ref = rewardPeriodStartTime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        rewardPeriodStartTime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (liquidityRemovalLockPeriod_ != 0L) {
+        output.writeUInt64(1, liquidityRemovalLockPeriod_);
+      }
+      if (liquidityRemovalCancelPeriod_ != 0L) {
+        output.writeUInt64(2, liquidityRemovalCancelPeriod_);
+      }
+      for (int i = 0; i < rewardPeriods_.size(); i++) {
+        output.writeMessage(4, rewardPeriods_.get(i));
+      }
+      if (!getRewardPeriodStartTimeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, rewardPeriodStartTime_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (liquidityRemovalLockPeriod_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, liquidityRemovalLockPeriod_);
+      }
+      if (liquidityRemovalCancelPeriod_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, liquidityRemovalCancelPeriod_);
+      }
+      for (int i = 0; i < rewardPeriods_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, rewardPeriods_.get(i));
+      }
+      if (!getRewardPeriodStartTimeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, rewardPeriodStartTime_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.ParamsOuterClass.RewardParams)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.ParamsOuterClass.RewardParams other = (sifnode.clp.v1.ParamsOuterClass.RewardParams) obj;
+
+      if (getLiquidityRemovalLockPeriod()
+          != other.getLiquidityRemovalLockPeriod()) return false;
+      if (getLiquidityRemovalCancelPeriod()
+          != other.getLiquidityRemovalCancelPeriod()) return false;
+      if (!getRewardPeriodsList()
+          .equals(other.getRewardPeriodsList())) return false;
+      if (!getRewardPeriodStartTime()
+          .equals(other.getRewardPeriodStartTime())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LIQUIDITY_REMOVAL_LOCK_PERIOD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLiquidityRemovalLockPeriod());
+      hash = (37 * hash) + LIQUIDITY_REMOVAL_CANCEL_PERIOD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLiquidityRemovalCancelPeriod());
+      if (getRewardPeriodsCount() > 0) {
+        hash = (37 * hash) + REWARD_PERIODS_FIELD_NUMBER;
+        hash = (53 * hash) + getRewardPeriodsList().hashCode();
+      }
+      hash = (37 * hash) + REWARD_PERIOD_START_TIME_FIELD_NUMBER;
+      hash = (53 * hash) + getRewardPeriodStartTime().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.ParamsOuterClass.RewardParams prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.RewardParams}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.RewardParams)
+        sifnode.clp.v1.ParamsOuterClass.RewardParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardParams_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardParams_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.ParamsOuterClass.RewardParams.class, sifnode.clp.v1.ParamsOuterClass.RewardParams.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.ParamsOuterClass.RewardParams.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getRewardPeriodsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        liquidityRemovalLockPeriod_ = 0L;
+
+        liquidityRemovalCancelPeriod_ = 0L;
+
+        if (rewardPeriodsBuilder_ == null) {
+          rewardPeriods_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          rewardPeriodsBuilder_.clear();
+        }
+        rewardPeriodStartTime_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardParams_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.RewardParams getDefaultInstanceForType() {
+        return sifnode.clp.v1.ParamsOuterClass.RewardParams.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.RewardParams build() {
+        sifnode.clp.v1.ParamsOuterClass.RewardParams result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.RewardParams buildPartial() {
+        sifnode.clp.v1.ParamsOuterClass.RewardParams result = new sifnode.clp.v1.ParamsOuterClass.RewardParams(this);
+        int from_bitField0_ = bitField0_;
+        result.liquidityRemovalLockPeriod_ = liquidityRemovalLockPeriod_;
+        result.liquidityRemovalCancelPeriod_ = liquidityRemovalCancelPeriod_;
+        if (rewardPeriodsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            rewardPeriods_ = java.util.Collections.unmodifiableList(rewardPeriods_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.rewardPeriods_ = rewardPeriods_;
+        } else {
+          result.rewardPeriods_ = rewardPeriodsBuilder_.build();
+        }
+        result.rewardPeriodStartTime_ = rewardPeriodStartTime_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.ParamsOuterClass.RewardParams) {
+          return mergeFrom((sifnode.clp.v1.ParamsOuterClass.RewardParams)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.ParamsOuterClass.RewardParams other) {
+        if (other == sifnode.clp.v1.ParamsOuterClass.RewardParams.getDefaultInstance()) return this;
+        if (other.getLiquidityRemovalLockPeriod() != 0L) {
+          setLiquidityRemovalLockPeriod(other.getLiquidityRemovalLockPeriod());
+        }
+        if (other.getLiquidityRemovalCancelPeriod() != 0L) {
+          setLiquidityRemovalCancelPeriod(other.getLiquidityRemovalCancelPeriod());
+        }
+        if (rewardPeriodsBuilder_ == null) {
+          if (!other.rewardPeriods_.isEmpty()) {
+            if (rewardPeriods_.isEmpty()) {
+              rewardPeriods_ = other.rewardPeriods_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRewardPeriodsIsMutable();
+              rewardPeriods_.addAll(other.rewardPeriods_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.rewardPeriods_.isEmpty()) {
+            if (rewardPeriodsBuilder_.isEmpty()) {
+              rewardPeriodsBuilder_.dispose();
+              rewardPeriodsBuilder_ = null;
+              rewardPeriods_ = other.rewardPeriods_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              rewardPeriodsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRewardPeriodsFieldBuilder() : null;
+            } else {
+              rewardPeriodsBuilder_.addAllMessages(other.rewardPeriods_);
+            }
+          }
+        }
+        if (!other.getRewardPeriodStartTime().isEmpty()) {
+          rewardPeriodStartTime_ = other.rewardPeriodStartTime_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.ParamsOuterClass.RewardParams parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.ParamsOuterClass.RewardParams) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long liquidityRemovalLockPeriod_ ;
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_lock_period = 1;</code>
+       * @return The liquidityRemovalLockPeriod.
+       */
+      @java.lang.Override
+      public long getLiquidityRemovalLockPeriod() {
+        return liquidityRemovalLockPeriod_;
+      }
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_lock_period = 1;</code>
+       * @param value The liquidityRemovalLockPeriod to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLiquidityRemovalLockPeriod(long value) {
+        
+        liquidityRemovalLockPeriod_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_lock_period = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLiquidityRemovalLockPeriod() {
+        
+        liquidityRemovalLockPeriod_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long liquidityRemovalCancelPeriod_ ;
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_cancel_period = 2;</code>
+       * @return The liquidityRemovalCancelPeriod.
+       */
+      @java.lang.Override
+      public long getLiquidityRemovalCancelPeriod() {
+        return liquidityRemovalCancelPeriod_;
+      }
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_cancel_period = 2;</code>
+       * @param value The liquidityRemovalCancelPeriod to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLiquidityRemovalCancelPeriod(long value) {
+        
+        liquidityRemovalCancelPeriod_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * in blocks
+       * </pre>
+       *
+       * <code>uint64 liquidity_removal_cancel_period = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLiquidityRemovalCancelPeriod() {
+        
+        liquidityRemovalCancelPeriod_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> rewardPeriods_ =
+        java.util.Collections.emptyList();
+      private void ensureRewardPeriodsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          rewardPeriods_ = new java.util.ArrayList<sifnode.clp.v1.ParamsOuterClass.RewardPeriod>(rewardPeriods_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.RewardPeriod, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder, sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> rewardPeriodsBuilder_;
+
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod> getRewardPeriodsList() {
+        if (rewardPeriodsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(rewardPeriods_);
+        } else {
+          return rewardPeriodsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public int getRewardPeriodsCount() {
+        if (rewardPeriodsBuilder_ == null) {
+          return rewardPeriods_.size();
+        } else {
+          return rewardPeriodsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod getRewardPeriods(int index) {
+        if (rewardPeriodsBuilder_ == null) {
+          return rewardPeriods_.get(index);
+        } else {
+          return rewardPeriodsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder setRewardPeriods(
+          int index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod value) {
+        if (rewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.set(index, value);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder setRewardPeriods(
+          int index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder builderForValue) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder addRewardPeriods(sifnode.clp.v1.ParamsOuterClass.RewardPeriod value) {
+        if (rewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.add(value);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder addRewardPeriods(
+          int index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod value) {
+        if (rewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.add(index, value);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder addRewardPeriods(
+          sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder builderForValue) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.add(builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder addRewardPeriods(
+          int index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder builderForValue) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder addAllRewardPeriods(
+          java.lang.Iterable<? extends sifnode.clp.v1.ParamsOuterClass.RewardPeriod> values) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, rewardPeriods_);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder clearRewardPeriods() {
+        if (rewardPeriodsBuilder_ == null) {
+          rewardPeriods_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public Builder removeRewardPeriods(int index) {
+        if (rewardPeriodsBuilder_ == null) {
+          ensureRewardPeriodsIsMutable();
+          rewardPeriods_.remove(index);
+          onChanged();
+        } else {
+          rewardPeriodsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder getRewardPeriodsBuilder(
+          int index) {
+        return getRewardPeriodsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder getRewardPeriodsOrBuilder(
+          int index) {
+        if (rewardPeriodsBuilder_ == null) {
+          return rewardPeriods_.get(index);  } else {
+          return rewardPeriodsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> 
+           getRewardPeriodsOrBuilderList() {
+        if (rewardPeriodsBuilder_ != null) {
+          return rewardPeriodsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(rewardPeriods_);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder addRewardPeriodsBuilder() {
+        return getRewardPeriodsFieldBuilder().addBuilder(
+            sifnode.clp.v1.ParamsOuterClass.RewardPeriod.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder addRewardPeriodsBuilder(
+          int index) {
+        return getRewardPeriodsFieldBuilder().addBuilder(
+            index, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.RewardPeriod reward_periods = 4;</code>
+       */
+      public java.util.List<sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder> 
+           getRewardPeriodsBuilderList() {
+        return getRewardPeriodsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.RewardPeriod, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder, sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder> 
+          getRewardPeriodsFieldBuilder() {
+        if (rewardPeriodsBuilder_ == null) {
+          rewardPeriodsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              sifnode.clp.v1.ParamsOuterClass.RewardPeriod, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder, sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder>(
+                  rewardPeriods_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          rewardPeriods_ = null;
+        }
+        return rewardPeriodsBuilder_;
+      }
+
+      private java.lang.Object rewardPeriodStartTime_ = "";
+      /**
+       * <pre>
+       * start time of the current (or last) reward period
+       * </pre>
+       *
+       * <code>string reward_period_start_time = 5;</code>
+       * @return The rewardPeriodStartTime.
+       */
+      public java.lang.String getRewardPeriodStartTime() {
+        java.lang.Object ref = rewardPeriodStartTime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          rewardPeriodStartTime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * start time of the current (or last) reward period
+       * </pre>
+       *
+       * <code>string reward_period_start_time = 5;</code>
+       * @return The bytes for rewardPeriodStartTime.
+       */
+      public com.google.protobuf.ByteString
+          getRewardPeriodStartTimeBytes() {
+        java.lang.Object ref = rewardPeriodStartTime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          rewardPeriodStartTime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * start time of the current (or last) reward period
+       * </pre>
+       *
+       * <code>string reward_period_start_time = 5;</code>
+       * @param value The rewardPeriodStartTime to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodStartTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        rewardPeriodStartTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * start time of the current (or last) reward period
+       * </pre>
+       *
+       * <code>string reward_period_start_time = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRewardPeriodStartTime() {
+        
+        rewardPeriodStartTime_ = getDefaultInstance().getRewardPeriodStartTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * start time of the current (or last) reward period
+       * </pre>
+       *
+       * <code>string reward_period_start_time = 5;</code>
+       * @param value The bytes for rewardPeriodStartTime to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodStartTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        rewardPeriodStartTime_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.RewardParams)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.RewardParams)
+    private static final sifnode.clp.v1.ParamsOuterClass.RewardParams DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.ParamsOuterClass.RewardParams();
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.RewardParams getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RewardParams>
+        PARSER = new com.google.protobuf.AbstractParser<RewardParams>() {
+      @java.lang.Override
+      public RewardParams parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RewardParams(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RewardParams> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RewardParams> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.RewardParams getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PmtpRateParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.PmtpRateParams)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The pmtpPeriodBlockRate.
+     */
+    java.lang.String getPmtpPeriodBlockRate();
+    /**
+     * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for pmtpPeriodBlockRate.
+     */
+    com.google.protobuf.ByteString
+        getPmtpPeriodBlockRateBytes();
+
+    /**
+     * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The pmtpCurrentRunningRate.
+     */
+    java.lang.String getPmtpCurrentRunningRate();
+    /**
+     * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for pmtpCurrentRunningRate.
+     */
+    com.google.protobuf.ByteString
+        getPmtpCurrentRunningRateBytes();
+
+    /**
+     * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The pmtpInterPolicyRate.
+     */
+    java.lang.String getPmtpInterPolicyRate();
+    /**
+     * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for pmtpInterPolicyRate.
+     */
+    com.google.protobuf.ByteString
+        getPmtpInterPolicyRateBytes();
+  }
+  /**
+   * <pre>
+   * These params are non-governable and are calculated on chain
+   * </pre>
+   *
+   * Protobuf type {@code sifnode.clp.v1.PmtpRateParams}
+   */
+  public static final class PmtpRateParams extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PmtpRateParams)
+      PmtpRateParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PmtpRateParams.newBuilder() to construct.
+    private PmtpRateParams(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PmtpRateParams() {
+      pmtpPeriodBlockRate_ = "";
+      pmtpCurrentRunningRate_ = "";
+      pmtpInterPolicyRate_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PmtpRateParams();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PmtpRateParams(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pmtpPeriodBlockRate_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pmtpCurrentRunningRate_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pmtpInterPolicyRate_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpRateParams_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpRateParams_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.class, sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.Builder.class);
+    }
+
+    public static final int PMTP_PERIOD_BLOCK_RATE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object pmtpPeriodBlockRate_;
+    /**
+     * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The pmtpPeriodBlockRate.
+     */
+    @java.lang.Override
+    public java.lang.String getPmtpPeriodBlockRate() {
+      java.lang.Object ref = pmtpPeriodBlockRate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pmtpPeriodBlockRate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for pmtpPeriodBlockRate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPmtpPeriodBlockRateBytes() {
+      java.lang.Object ref = pmtpPeriodBlockRate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pmtpPeriodBlockRate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PMTP_CURRENT_RUNNING_RATE_FIELD_NUMBER = 3;
+    private volatile java.lang.Object pmtpCurrentRunningRate_;
+    /**
+     * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The pmtpCurrentRunningRate.
+     */
+    @java.lang.Override
+    public java.lang.String getPmtpCurrentRunningRate() {
+      java.lang.Object ref = pmtpCurrentRunningRate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pmtpCurrentRunningRate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for pmtpCurrentRunningRate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPmtpCurrentRunningRateBytes() {
+      java.lang.Object ref = pmtpCurrentRunningRate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pmtpCurrentRunningRate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PMTP_INTER_POLICY_RATE_FIELD_NUMBER = 4;
+    private volatile java.lang.Object pmtpInterPolicyRate_;
+    /**
+     * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The pmtpInterPolicyRate.
+     */
+    @java.lang.Override
+    public java.lang.String getPmtpInterPolicyRate() {
+      java.lang.Object ref = pmtpInterPolicyRate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pmtpInterPolicyRate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for pmtpInterPolicyRate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPmtpInterPolicyRateBytes() {
+      java.lang.Object ref = pmtpInterPolicyRate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pmtpInterPolicyRate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPmtpPeriodBlockRateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, pmtpPeriodBlockRate_);
+      }
+      if (!getPmtpCurrentRunningRateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, pmtpCurrentRunningRate_);
+      }
+      if (!getPmtpInterPolicyRateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, pmtpInterPolicyRate_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPmtpPeriodBlockRateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, pmtpPeriodBlockRate_);
+      }
+      if (!getPmtpCurrentRunningRateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, pmtpCurrentRunningRate_);
+      }
+      if (!getPmtpInterPolicyRateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, pmtpInterPolicyRate_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.ParamsOuterClass.PmtpRateParams)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.ParamsOuterClass.PmtpRateParams other = (sifnode.clp.v1.ParamsOuterClass.PmtpRateParams) obj;
+
+      if (!getPmtpPeriodBlockRate()
+          .equals(other.getPmtpPeriodBlockRate())) return false;
+      if (!getPmtpCurrentRunningRate()
+          .equals(other.getPmtpCurrentRunningRate())) return false;
+      if (!getPmtpInterPolicyRate()
+          .equals(other.getPmtpInterPolicyRate())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PMTP_PERIOD_BLOCK_RATE_FIELD_NUMBER;
+      hash = (53 * hash) + getPmtpPeriodBlockRate().hashCode();
+      hash = (37 * hash) + PMTP_CURRENT_RUNNING_RATE_FIELD_NUMBER;
+      hash = (53 * hash) + getPmtpCurrentRunningRate().hashCode();
+      hash = (37 * hash) + PMTP_INTER_POLICY_RATE_FIELD_NUMBER;
+      hash = (53 * hash) + getPmtpInterPolicyRate().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.ParamsOuterClass.PmtpRateParams prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * These params are non-governable and are calculated on chain
+     * </pre>
+     *
+     * Protobuf type {@code sifnode.clp.v1.PmtpRateParams}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.PmtpRateParams)
+        sifnode.clp.v1.ParamsOuterClass.PmtpRateParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpRateParams_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpRateParams_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.class, sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        pmtpPeriodBlockRate_ = "";
+
+        pmtpCurrentRunningRate_ = "";
+
+        pmtpInterPolicyRate_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpRateParams_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PmtpRateParams getDefaultInstanceForType() {
+        return sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PmtpRateParams build() {
+        sifnode.clp.v1.ParamsOuterClass.PmtpRateParams result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PmtpRateParams buildPartial() {
+        sifnode.clp.v1.ParamsOuterClass.PmtpRateParams result = new sifnode.clp.v1.ParamsOuterClass.PmtpRateParams(this);
+        result.pmtpPeriodBlockRate_ = pmtpPeriodBlockRate_;
+        result.pmtpCurrentRunningRate_ = pmtpCurrentRunningRate_;
+        result.pmtpInterPolicyRate_ = pmtpInterPolicyRate_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.ParamsOuterClass.PmtpRateParams) {
+          return mergeFrom((sifnode.clp.v1.ParamsOuterClass.PmtpRateParams)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.ParamsOuterClass.PmtpRateParams other) {
+        if (other == sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.getDefaultInstance()) return this;
+        if (!other.getPmtpPeriodBlockRate().isEmpty()) {
+          pmtpPeriodBlockRate_ = other.pmtpPeriodBlockRate_;
+          onChanged();
+        }
+        if (!other.getPmtpCurrentRunningRate().isEmpty()) {
+          pmtpCurrentRunningRate_ = other.pmtpCurrentRunningRate_;
+          onChanged();
+        }
+        if (!other.getPmtpInterPolicyRate().isEmpty()) {
+          pmtpInterPolicyRate_ = other.pmtpInterPolicyRate_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.ParamsOuterClass.PmtpRateParams parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.ParamsOuterClass.PmtpRateParams) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object pmtpPeriodBlockRate_ = "";
+      /**
+       * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The pmtpPeriodBlockRate.
+       */
+      public java.lang.String getPmtpPeriodBlockRate() {
+        java.lang.Object ref = pmtpPeriodBlockRate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pmtpPeriodBlockRate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for pmtpPeriodBlockRate.
+       */
+      public com.google.protobuf.ByteString
+          getPmtpPeriodBlockRateBytes() {
+        java.lang.Object ref = pmtpPeriodBlockRate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pmtpPeriodBlockRate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The pmtpPeriodBlockRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodBlockRate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pmtpPeriodBlockRate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodBlockRate() {
+        
+        pmtpPeriodBlockRate_ = getDefaultInstance().getPmtpPeriodBlockRate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_block_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for pmtpPeriodBlockRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodBlockRateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pmtpPeriodBlockRate_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object pmtpCurrentRunningRate_ = "";
+      /**
+       * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The pmtpCurrentRunningRate.
+       */
+      public java.lang.String getPmtpCurrentRunningRate() {
+        java.lang.Object ref = pmtpCurrentRunningRate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pmtpCurrentRunningRate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for pmtpCurrentRunningRate.
+       */
+      public com.google.protobuf.ByteString
+          getPmtpCurrentRunningRateBytes() {
+        java.lang.Object ref = pmtpCurrentRunningRate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pmtpCurrentRunningRate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The pmtpCurrentRunningRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpCurrentRunningRate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pmtpCurrentRunningRate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpCurrentRunningRate() {
+        
+        pmtpCurrentRunningRate_ = getDefaultInstance().getPmtpCurrentRunningRate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_current_running_rate = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for pmtpCurrentRunningRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpCurrentRunningRateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pmtpCurrentRunningRate_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object pmtpInterPolicyRate_ = "";
+      /**
+       * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The pmtpInterPolicyRate.
+       */
+      public java.lang.String getPmtpInterPolicyRate() {
+        java.lang.Object ref = pmtpInterPolicyRate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pmtpInterPolicyRate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for pmtpInterPolicyRate.
+       */
+      public com.google.protobuf.ByteString
+          getPmtpInterPolicyRateBytes() {
+        java.lang.Object ref = pmtpInterPolicyRate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pmtpInterPolicyRate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The pmtpInterPolicyRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpInterPolicyRate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pmtpInterPolicyRate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpInterPolicyRate() {
+        
+        pmtpInterPolicyRate_ = getDefaultInstance().getPmtpInterPolicyRate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_inter_policy_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for pmtpInterPolicyRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpInterPolicyRateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pmtpInterPolicyRate_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.PmtpRateParams)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.PmtpRateParams)
+    private static final sifnode.clp.v1.ParamsOuterClass.PmtpRateParams DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.ParamsOuterClass.PmtpRateParams();
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpRateParams getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PmtpRateParams>
+        PARSER = new com.google.protobuf.AbstractParser<PmtpRateParams>() {
+      @java.lang.Override
+      public PmtpRateParams parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PmtpRateParams(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PmtpRateParams> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PmtpRateParams> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PmtpRateParams getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PmtpParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.PmtpParams)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The pmtpPeriodGovernanceRate.
+     */
+    java.lang.String getPmtpPeriodGovernanceRate();
+    /**
+     * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for pmtpPeriodGovernanceRate.
+     */
+    com.google.protobuf.ByteString
+        getPmtpPeriodGovernanceRateBytes();
+
+    /**
+     * <code>int64 pmtp_period_epoch_length = 2;</code>
+     * @return The pmtpPeriodEpochLength.
+     */
+    long getPmtpPeriodEpochLength();
+
+    /**
+     * <code>int64 pmtp_period_start_block = 3;</code>
+     * @return The pmtpPeriodStartBlock.
+     */
+    long getPmtpPeriodStartBlock();
+
+    /**
+     * <code>int64 pmtp_period_end_block = 4;</code>
+     * @return The pmtpPeriodEndBlock.
+     */
+    long getPmtpPeriodEndBlock();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.PmtpParams}
+   */
+  public static final class PmtpParams extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PmtpParams)
+      PmtpParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PmtpParams.newBuilder() to construct.
+    private PmtpParams(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PmtpParams() {
+      pmtpPeriodGovernanceRate_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PmtpParams();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PmtpParams(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pmtpPeriodGovernanceRate_ = s;
+              break;
+            }
+            case 16: {
+
+              pmtpPeriodEpochLength_ = input.readInt64();
+              break;
+            }
+            case 24: {
+
+              pmtpPeriodStartBlock_ = input.readInt64();
+              break;
+            }
+            case 32: {
+
+              pmtpPeriodEndBlock_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpParams_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpParams_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.ParamsOuterClass.PmtpParams.class, sifnode.clp.v1.ParamsOuterClass.PmtpParams.Builder.class);
+    }
+
+    public static final int PMTP_PERIOD_GOVERNANCE_RATE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object pmtpPeriodGovernanceRate_;
+    /**
+     * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The pmtpPeriodGovernanceRate.
+     */
+    @java.lang.Override
+    public java.lang.String getPmtpPeriodGovernanceRate() {
+      java.lang.Object ref = pmtpPeriodGovernanceRate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pmtpPeriodGovernanceRate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for pmtpPeriodGovernanceRate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPmtpPeriodGovernanceRateBytes() {
+      java.lang.Object ref = pmtpPeriodGovernanceRate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pmtpPeriodGovernanceRate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PMTP_PERIOD_EPOCH_LENGTH_FIELD_NUMBER = 2;
+    private long pmtpPeriodEpochLength_;
+    /**
+     * <code>int64 pmtp_period_epoch_length = 2;</code>
+     * @return The pmtpPeriodEpochLength.
+     */
+    @java.lang.Override
+    public long getPmtpPeriodEpochLength() {
+      return pmtpPeriodEpochLength_;
+    }
+
+    public static final int PMTP_PERIOD_START_BLOCK_FIELD_NUMBER = 3;
+    private long pmtpPeriodStartBlock_;
+    /**
+     * <code>int64 pmtp_period_start_block = 3;</code>
+     * @return The pmtpPeriodStartBlock.
+     */
+    @java.lang.Override
+    public long getPmtpPeriodStartBlock() {
+      return pmtpPeriodStartBlock_;
+    }
+
+    public static final int PMTP_PERIOD_END_BLOCK_FIELD_NUMBER = 4;
+    private long pmtpPeriodEndBlock_;
+    /**
+     * <code>int64 pmtp_period_end_block = 4;</code>
+     * @return The pmtpPeriodEndBlock.
+     */
+    @java.lang.Override
+    public long getPmtpPeriodEndBlock() {
+      return pmtpPeriodEndBlock_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPmtpPeriodGovernanceRateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, pmtpPeriodGovernanceRate_);
+      }
+      if (pmtpPeriodEpochLength_ != 0L) {
+        output.writeInt64(2, pmtpPeriodEpochLength_);
+      }
+      if (pmtpPeriodStartBlock_ != 0L) {
+        output.writeInt64(3, pmtpPeriodStartBlock_);
+      }
+      if (pmtpPeriodEndBlock_ != 0L) {
+        output.writeInt64(4, pmtpPeriodEndBlock_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPmtpPeriodGovernanceRateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, pmtpPeriodGovernanceRate_);
+      }
+      if (pmtpPeriodEpochLength_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, pmtpPeriodEpochLength_);
+      }
+      if (pmtpPeriodStartBlock_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, pmtpPeriodStartBlock_);
+      }
+      if (pmtpPeriodEndBlock_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, pmtpPeriodEndBlock_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.ParamsOuterClass.PmtpParams)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.ParamsOuterClass.PmtpParams other = (sifnode.clp.v1.ParamsOuterClass.PmtpParams) obj;
+
+      if (!getPmtpPeriodGovernanceRate()
+          .equals(other.getPmtpPeriodGovernanceRate())) return false;
+      if (getPmtpPeriodEpochLength()
+          != other.getPmtpPeriodEpochLength()) return false;
+      if (getPmtpPeriodStartBlock()
+          != other.getPmtpPeriodStartBlock()) return false;
+      if (getPmtpPeriodEndBlock()
+          != other.getPmtpPeriodEndBlock()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PMTP_PERIOD_GOVERNANCE_RATE_FIELD_NUMBER;
+      hash = (53 * hash) + getPmtpPeriodGovernanceRate().hashCode();
+      hash = (37 * hash) + PMTP_PERIOD_EPOCH_LENGTH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPmtpPeriodEpochLength());
+      hash = (37 * hash) + PMTP_PERIOD_START_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPmtpPeriodStartBlock());
+      hash = (37 * hash) + PMTP_PERIOD_END_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPmtpPeriodEndBlock());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.ParamsOuterClass.PmtpParams prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.PmtpParams}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.PmtpParams)
+        sifnode.clp.v1.ParamsOuterClass.PmtpParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpParams_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpParams_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.ParamsOuterClass.PmtpParams.class, sifnode.clp.v1.ParamsOuterClass.PmtpParams.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.ParamsOuterClass.PmtpParams.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        pmtpPeriodGovernanceRate_ = "";
+
+        pmtpPeriodEpochLength_ = 0L;
+
+        pmtpPeriodStartBlock_ = 0L;
+
+        pmtpPeriodEndBlock_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PmtpParams_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PmtpParams getDefaultInstanceForType() {
+        return sifnode.clp.v1.ParamsOuterClass.PmtpParams.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PmtpParams build() {
+        sifnode.clp.v1.ParamsOuterClass.PmtpParams result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PmtpParams buildPartial() {
+        sifnode.clp.v1.ParamsOuterClass.PmtpParams result = new sifnode.clp.v1.ParamsOuterClass.PmtpParams(this);
+        result.pmtpPeriodGovernanceRate_ = pmtpPeriodGovernanceRate_;
+        result.pmtpPeriodEpochLength_ = pmtpPeriodEpochLength_;
+        result.pmtpPeriodStartBlock_ = pmtpPeriodStartBlock_;
+        result.pmtpPeriodEndBlock_ = pmtpPeriodEndBlock_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.ParamsOuterClass.PmtpParams) {
+          return mergeFrom((sifnode.clp.v1.ParamsOuterClass.PmtpParams)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.ParamsOuterClass.PmtpParams other) {
+        if (other == sifnode.clp.v1.ParamsOuterClass.PmtpParams.getDefaultInstance()) return this;
+        if (!other.getPmtpPeriodGovernanceRate().isEmpty()) {
+          pmtpPeriodGovernanceRate_ = other.pmtpPeriodGovernanceRate_;
+          onChanged();
+        }
+        if (other.getPmtpPeriodEpochLength() != 0L) {
+          setPmtpPeriodEpochLength(other.getPmtpPeriodEpochLength());
+        }
+        if (other.getPmtpPeriodStartBlock() != 0L) {
+          setPmtpPeriodStartBlock(other.getPmtpPeriodStartBlock());
+        }
+        if (other.getPmtpPeriodEndBlock() != 0L) {
+          setPmtpPeriodEndBlock(other.getPmtpPeriodEndBlock());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.ParamsOuterClass.PmtpParams parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.ParamsOuterClass.PmtpParams) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object pmtpPeriodGovernanceRate_ = "";
+      /**
+       * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The pmtpPeriodGovernanceRate.
+       */
+      public java.lang.String getPmtpPeriodGovernanceRate() {
+        java.lang.Object ref = pmtpPeriodGovernanceRate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pmtpPeriodGovernanceRate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for pmtpPeriodGovernanceRate.
+       */
+      public com.google.protobuf.ByteString
+          getPmtpPeriodGovernanceRateBytes() {
+        java.lang.Object ref = pmtpPeriodGovernanceRate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pmtpPeriodGovernanceRate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The pmtpPeriodGovernanceRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodGovernanceRate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pmtpPeriodGovernanceRate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodGovernanceRate() {
+        
+        pmtpPeriodGovernanceRate_ = getDefaultInstance().getPmtpPeriodGovernanceRate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pmtp_period_governance_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for pmtpPeriodGovernanceRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodGovernanceRateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pmtpPeriodGovernanceRate_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long pmtpPeriodEpochLength_ ;
+      /**
+       * <code>int64 pmtp_period_epoch_length = 2;</code>
+       * @return The pmtpPeriodEpochLength.
+       */
+      @java.lang.Override
+      public long getPmtpPeriodEpochLength() {
+        return pmtpPeriodEpochLength_;
+      }
+      /**
+       * <code>int64 pmtp_period_epoch_length = 2;</code>
+       * @param value The pmtpPeriodEpochLength to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodEpochLength(long value) {
+        
+        pmtpPeriodEpochLength_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 pmtp_period_epoch_length = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodEpochLength() {
+        
+        pmtpPeriodEpochLength_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long pmtpPeriodStartBlock_ ;
+      /**
+       * <code>int64 pmtp_period_start_block = 3;</code>
+       * @return The pmtpPeriodStartBlock.
+       */
+      @java.lang.Override
+      public long getPmtpPeriodStartBlock() {
+        return pmtpPeriodStartBlock_;
+      }
+      /**
+       * <code>int64 pmtp_period_start_block = 3;</code>
+       * @param value The pmtpPeriodStartBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodStartBlock(long value) {
+        
+        pmtpPeriodStartBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 pmtp_period_start_block = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodStartBlock() {
+        
+        pmtpPeriodStartBlock_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long pmtpPeriodEndBlock_ ;
+      /**
+       * <code>int64 pmtp_period_end_block = 4;</code>
+       * @return The pmtpPeriodEndBlock.
+       */
+      @java.lang.Override
+      public long getPmtpPeriodEndBlock() {
+        return pmtpPeriodEndBlock_;
+      }
+      /**
+       * <code>int64 pmtp_period_end_block = 4;</code>
+       * @param value The pmtpPeriodEndBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPmtpPeriodEndBlock(long value) {
+        
+        pmtpPeriodEndBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 pmtp_period_end_block = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPmtpPeriodEndBlock() {
+        
+        pmtpPeriodEndBlock_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.PmtpParams)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.PmtpParams)
+    private static final sifnode.clp.v1.ParamsOuterClass.PmtpParams DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.ParamsOuterClass.PmtpParams();
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.PmtpParams getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PmtpParams>
+        PARSER = new com.google.protobuf.AbstractParser<PmtpParams>() {
+      @java.lang.Override
+      public PmtpParams parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PmtpParams(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PmtpParams> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PmtpParams> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PmtpParams getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RewardPeriodOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.RewardPeriod)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string reward_period_id = 1;</code>
+     * @return The rewardPeriodId.
+     */
+    java.lang.String getRewardPeriodId();
+    /**
+     * <code>string reward_period_id = 1;</code>
+     * @return The bytes for rewardPeriodId.
+     */
+    com.google.protobuf.ByteString
+        getRewardPeriodIdBytes();
+
+    /**
+     * <code>uint64 reward_period_start_block = 2;</code>
+     * @return The rewardPeriodStartBlock.
+     */
+    long getRewardPeriodStartBlock();
+
+    /**
+     * <code>uint64 reward_period_end_block = 3;</code>
+     * @return The rewardPeriodEndBlock.
+     */
+    long getRewardPeriodEndBlock();
+
+    /**
+     * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The rewardPeriodAllocation.
+     */
+    java.lang.String getRewardPeriodAllocation();
+    /**
+     * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The bytes for rewardPeriodAllocation.
+     */
+    com.google.protobuf.ByteString
+        getRewardPeriodAllocationBytes();
+
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    java.util.List<sifnode.clp.v1.ParamsOuterClass.PoolMultiplier> 
+        getRewardPeriodPoolMultipliersList();
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.PoolMultiplier getRewardPeriodPoolMultipliers(int index);
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    int getRewardPeriodPoolMultipliersCount();
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder> 
+        getRewardPeriodPoolMultipliersOrBuilderList();
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder getRewardPeriodPoolMultipliersOrBuilder(
+        int index);
+
+    /**
+     * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The rewardPeriodDefaultMultiplier.
+     */
+    java.lang.String getRewardPeriodDefaultMultiplier();
+    /**
+     * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for rewardPeriodDefaultMultiplier.
+     */
+    com.google.protobuf.ByteString
+        getRewardPeriodDefaultMultiplierBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.RewardPeriod}
+   */
+  public static final class RewardPeriod extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.RewardPeriod)
+      RewardPeriodOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RewardPeriod.newBuilder() to construct.
+    private RewardPeriod(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RewardPeriod() {
+      rewardPeriodId_ = "";
+      rewardPeriodAllocation_ = "";
+      rewardPeriodPoolMultipliers_ = java.util.Collections.emptyList();
+      rewardPeriodDefaultMultiplier_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RewardPeriod();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RewardPeriod(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              rewardPeriodId_ = s;
+              break;
+            }
+            case 16: {
+
+              rewardPeriodStartBlock_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+
+              rewardPeriodEndBlock_ = input.readUInt64();
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              rewardPeriodAllocation_ = s;
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                rewardPeriodPoolMultipliers_ = new java.util.ArrayList<sifnode.clp.v1.ParamsOuterClass.PoolMultiplier>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              rewardPeriodPoolMultipliers_.add(
+                  input.readMessage(sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              rewardPeriodDefaultMultiplier_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          rewardPeriodPoolMultipliers_ = java.util.Collections.unmodifiableList(rewardPeriodPoolMultipliers_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardPeriod_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardPeriod_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.ParamsOuterClass.RewardPeriod.class, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder.class);
+    }
+
+    public static final int REWARD_PERIOD_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object rewardPeriodId_;
+    /**
+     * <code>string reward_period_id = 1;</code>
+     * @return The rewardPeriodId.
+     */
+    @java.lang.Override
+    public java.lang.String getRewardPeriodId() {
+      java.lang.Object ref = rewardPeriodId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        rewardPeriodId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string reward_period_id = 1;</code>
+     * @return The bytes for rewardPeriodId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRewardPeriodIdBytes() {
+      java.lang.Object ref = rewardPeriodId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        rewardPeriodId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REWARD_PERIOD_START_BLOCK_FIELD_NUMBER = 2;
+    private long rewardPeriodStartBlock_;
+    /**
+     * <code>uint64 reward_period_start_block = 2;</code>
+     * @return The rewardPeriodStartBlock.
+     */
+    @java.lang.Override
+    public long getRewardPeriodStartBlock() {
+      return rewardPeriodStartBlock_;
+    }
+
+    public static final int REWARD_PERIOD_END_BLOCK_FIELD_NUMBER = 3;
+    private long rewardPeriodEndBlock_;
+    /**
+     * <code>uint64 reward_period_end_block = 3;</code>
+     * @return The rewardPeriodEndBlock.
+     */
+    @java.lang.Override
+    public long getRewardPeriodEndBlock() {
+      return rewardPeriodEndBlock_;
+    }
+
+    public static final int REWARD_PERIOD_ALLOCATION_FIELD_NUMBER = 4;
+    private volatile java.lang.Object rewardPeriodAllocation_;
+    /**
+     * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The rewardPeriodAllocation.
+     */
+    @java.lang.Override
+    public java.lang.String getRewardPeriodAllocation() {
+      java.lang.Object ref = rewardPeriodAllocation_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        rewardPeriodAllocation_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+     * @return The bytes for rewardPeriodAllocation.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRewardPeriodAllocationBytes() {
+      java.lang.Object ref = rewardPeriodAllocation_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        rewardPeriodAllocation_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REWARD_PERIOD_POOL_MULTIPLIERS_FIELD_NUMBER = 5;
+    private java.util.List<sifnode.clp.v1.ParamsOuterClass.PoolMultiplier> rewardPeriodPoolMultipliers_;
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<sifnode.clp.v1.ParamsOuterClass.PoolMultiplier> getRewardPeriodPoolMultipliersList() {
+      return rewardPeriodPoolMultipliers_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder> 
+        getRewardPeriodPoolMultipliersOrBuilderList() {
+      return rewardPeriodPoolMultipliers_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    @java.lang.Override
+    public int getRewardPeriodPoolMultipliersCount() {
+      return rewardPeriodPoolMultipliers_.size();
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier getRewardPeriodPoolMultipliers(int index) {
+      return rewardPeriodPoolMultipliers_.get(index);
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder getRewardPeriodPoolMultipliersOrBuilder(
+        int index) {
+      return rewardPeriodPoolMultipliers_.get(index);
+    }
+
+    public static final int REWARD_PERIOD_DEFAULT_MULTIPLIER_FIELD_NUMBER = 6;
+    private volatile java.lang.Object rewardPeriodDefaultMultiplier_;
+    /**
+     * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The rewardPeriodDefaultMultiplier.
+     */
+    @java.lang.Override
+    public java.lang.String getRewardPeriodDefaultMultiplier() {
+      java.lang.Object ref = rewardPeriodDefaultMultiplier_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        rewardPeriodDefaultMultiplier_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for rewardPeriodDefaultMultiplier.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRewardPeriodDefaultMultiplierBytes() {
+      java.lang.Object ref = rewardPeriodDefaultMultiplier_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        rewardPeriodDefaultMultiplier_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getRewardPeriodIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, rewardPeriodId_);
+      }
+      if (rewardPeriodStartBlock_ != 0L) {
+        output.writeUInt64(2, rewardPeriodStartBlock_);
+      }
+      if (rewardPeriodEndBlock_ != 0L) {
+        output.writeUInt64(3, rewardPeriodEndBlock_);
+      }
+      if (!getRewardPeriodAllocationBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, rewardPeriodAllocation_);
+      }
+      for (int i = 0; i < rewardPeriodPoolMultipliers_.size(); i++) {
+        output.writeMessage(5, rewardPeriodPoolMultipliers_.get(i));
+      }
+      if (!getRewardPeriodDefaultMultiplierBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, rewardPeriodDefaultMultiplier_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getRewardPeriodIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, rewardPeriodId_);
+      }
+      if (rewardPeriodStartBlock_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, rewardPeriodStartBlock_);
+      }
+      if (rewardPeriodEndBlock_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(3, rewardPeriodEndBlock_);
+      }
+      if (!getRewardPeriodAllocationBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, rewardPeriodAllocation_);
+      }
+      for (int i = 0; i < rewardPeriodPoolMultipliers_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, rewardPeriodPoolMultipliers_.get(i));
+      }
+      if (!getRewardPeriodDefaultMultiplierBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, rewardPeriodDefaultMultiplier_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.ParamsOuterClass.RewardPeriod)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.ParamsOuterClass.RewardPeriod other = (sifnode.clp.v1.ParamsOuterClass.RewardPeriod) obj;
+
+      if (!getRewardPeriodId()
+          .equals(other.getRewardPeriodId())) return false;
+      if (getRewardPeriodStartBlock()
+          != other.getRewardPeriodStartBlock()) return false;
+      if (getRewardPeriodEndBlock()
+          != other.getRewardPeriodEndBlock()) return false;
+      if (!getRewardPeriodAllocation()
+          .equals(other.getRewardPeriodAllocation())) return false;
+      if (!getRewardPeriodPoolMultipliersList()
+          .equals(other.getRewardPeriodPoolMultipliersList())) return false;
+      if (!getRewardPeriodDefaultMultiplier()
+          .equals(other.getRewardPeriodDefaultMultiplier())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REWARD_PERIOD_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getRewardPeriodId().hashCode();
+      hash = (37 * hash) + REWARD_PERIOD_START_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getRewardPeriodStartBlock());
+      hash = (37 * hash) + REWARD_PERIOD_END_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getRewardPeriodEndBlock());
+      hash = (37 * hash) + REWARD_PERIOD_ALLOCATION_FIELD_NUMBER;
+      hash = (53 * hash) + getRewardPeriodAllocation().hashCode();
+      if (getRewardPeriodPoolMultipliersCount() > 0) {
+        hash = (37 * hash) + REWARD_PERIOD_POOL_MULTIPLIERS_FIELD_NUMBER;
+        hash = (53 * hash) + getRewardPeriodPoolMultipliersList().hashCode();
+      }
+      hash = (37 * hash) + REWARD_PERIOD_DEFAULT_MULTIPLIER_FIELD_NUMBER;
+      hash = (53 * hash) + getRewardPeriodDefaultMultiplier().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.ParamsOuterClass.RewardPeriod prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.RewardPeriod}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.RewardPeriod)
+        sifnode.clp.v1.ParamsOuterClass.RewardPeriodOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardPeriod_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardPeriod_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.ParamsOuterClass.RewardPeriod.class, sifnode.clp.v1.ParamsOuterClass.RewardPeriod.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.ParamsOuterClass.RewardPeriod.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getRewardPeriodPoolMultipliersFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        rewardPeriodId_ = "";
+
+        rewardPeriodStartBlock_ = 0L;
+
+        rewardPeriodEndBlock_ = 0L;
+
+        rewardPeriodAllocation_ = "";
+
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          rewardPeriodPoolMultipliers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.clear();
+        }
+        rewardPeriodDefaultMultiplier_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_RewardPeriod_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod getDefaultInstanceForType() {
+        return sifnode.clp.v1.ParamsOuterClass.RewardPeriod.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod build() {
+        sifnode.clp.v1.ParamsOuterClass.RewardPeriod result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.RewardPeriod buildPartial() {
+        sifnode.clp.v1.ParamsOuterClass.RewardPeriod result = new sifnode.clp.v1.ParamsOuterClass.RewardPeriod(this);
+        int from_bitField0_ = bitField0_;
+        result.rewardPeriodId_ = rewardPeriodId_;
+        result.rewardPeriodStartBlock_ = rewardPeriodStartBlock_;
+        result.rewardPeriodEndBlock_ = rewardPeriodEndBlock_;
+        result.rewardPeriodAllocation_ = rewardPeriodAllocation_;
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            rewardPeriodPoolMultipliers_ = java.util.Collections.unmodifiableList(rewardPeriodPoolMultipliers_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.rewardPeriodPoolMultipliers_ = rewardPeriodPoolMultipliers_;
+        } else {
+          result.rewardPeriodPoolMultipliers_ = rewardPeriodPoolMultipliersBuilder_.build();
+        }
+        result.rewardPeriodDefaultMultiplier_ = rewardPeriodDefaultMultiplier_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.ParamsOuterClass.RewardPeriod) {
+          return mergeFrom((sifnode.clp.v1.ParamsOuterClass.RewardPeriod)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.ParamsOuterClass.RewardPeriod other) {
+        if (other == sifnode.clp.v1.ParamsOuterClass.RewardPeriod.getDefaultInstance()) return this;
+        if (!other.getRewardPeriodId().isEmpty()) {
+          rewardPeriodId_ = other.rewardPeriodId_;
+          onChanged();
+        }
+        if (other.getRewardPeriodStartBlock() != 0L) {
+          setRewardPeriodStartBlock(other.getRewardPeriodStartBlock());
+        }
+        if (other.getRewardPeriodEndBlock() != 0L) {
+          setRewardPeriodEndBlock(other.getRewardPeriodEndBlock());
+        }
+        if (!other.getRewardPeriodAllocation().isEmpty()) {
+          rewardPeriodAllocation_ = other.rewardPeriodAllocation_;
+          onChanged();
+        }
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          if (!other.rewardPeriodPoolMultipliers_.isEmpty()) {
+            if (rewardPeriodPoolMultipliers_.isEmpty()) {
+              rewardPeriodPoolMultipliers_ = other.rewardPeriodPoolMultipliers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRewardPeriodPoolMultipliersIsMutable();
+              rewardPeriodPoolMultipliers_.addAll(other.rewardPeriodPoolMultipliers_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.rewardPeriodPoolMultipliers_.isEmpty()) {
+            if (rewardPeriodPoolMultipliersBuilder_.isEmpty()) {
+              rewardPeriodPoolMultipliersBuilder_.dispose();
+              rewardPeriodPoolMultipliersBuilder_ = null;
+              rewardPeriodPoolMultipliers_ = other.rewardPeriodPoolMultipliers_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              rewardPeriodPoolMultipliersBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRewardPeriodPoolMultipliersFieldBuilder() : null;
+            } else {
+              rewardPeriodPoolMultipliersBuilder_.addAllMessages(other.rewardPeriodPoolMultipliers_);
+            }
+          }
+        }
+        if (!other.getRewardPeriodDefaultMultiplier().isEmpty()) {
+          rewardPeriodDefaultMultiplier_ = other.rewardPeriodDefaultMultiplier_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.ParamsOuterClass.RewardPeriod parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.ParamsOuterClass.RewardPeriod) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object rewardPeriodId_ = "";
+      /**
+       * <code>string reward_period_id = 1;</code>
+       * @return The rewardPeriodId.
+       */
+      public java.lang.String getRewardPeriodId() {
+        java.lang.Object ref = rewardPeriodId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          rewardPeriodId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string reward_period_id = 1;</code>
+       * @return The bytes for rewardPeriodId.
+       */
+      public com.google.protobuf.ByteString
+          getRewardPeriodIdBytes() {
+        java.lang.Object ref = rewardPeriodId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          rewardPeriodId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string reward_period_id = 1;</code>
+       * @param value The rewardPeriodId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        rewardPeriodId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reward_period_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRewardPeriodId() {
+        
+        rewardPeriodId_ = getDefaultInstance().getRewardPeriodId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reward_period_id = 1;</code>
+       * @param value The bytes for rewardPeriodId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        rewardPeriodId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long rewardPeriodStartBlock_ ;
+      /**
+       * <code>uint64 reward_period_start_block = 2;</code>
+       * @return The rewardPeriodStartBlock.
+       */
+      @java.lang.Override
+      public long getRewardPeriodStartBlock() {
+        return rewardPeriodStartBlock_;
+      }
+      /**
+       * <code>uint64 reward_period_start_block = 2;</code>
+       * @param value The rewardPeriodStartBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodStartBlock(long value) {
+        
+        rewardPeriodStartBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 reward_period_start_block = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRewardPeriodStartBlock() {
+        
+        rewardPeriodStartBlock_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long rewardPeriodEndBlock_ ;
+      /**
+       * <code>uint64 reward_period_end_block = 3;</code>
+       * @return The rewardPeriodEndBlock.
+       */
+      @java.lang.Override
+      public long getRewardPeriodEndBlock() {
+        return rewardPeriodEndBlock_;
+      }
+      /**
+       * <code>uint64 reward_period_end_block = 3;</code>
+       * @param value The rewardPeriodEndBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodEndBlock(long value) {
+        
+        rewardPeriodEndBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 reward_period_end_block = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRewardPeriodEndBlock() {
+        
+        rewardPeriodEndBlock_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object rewardPeriodAllocation_ = "";
+      /**
+       * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return The rewardPeriodAllocation.
+       */
+      public java.lang.String getRewardPeriodAllocation() {
+        java.lang.Object ref = rewardPeriodAllocation_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          rewardPeriodAllocation_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return The bytes for rewardPeriodAllocation.
+       */
+      public com.google.protobuf.ByteString
+          getRewardPeriodAllocationBytes() {
+        java.lang.Object ref = rewardPeriodAllocation_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          rewardPeriodAllocation_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @param value The rewardPeriodAllocation to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodAllocation(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        rewardPeriodAllocation_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRewardPeriodAllocation() {
+        
+        rewardPeriodAllocation_ = getDefaultInstance().getRewardPeriodAllocation();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reward_period_allocation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint"];</code>
+       * @param value The bytes for rewardPeriodAllocation to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodAllocationBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        rewardPeriodAllocation_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<sifnode.clp.v1.ParamsOuterClass.PoolMultiplier> rewardPeriodPoolMultipliers_ =
+        java.util.Collections.emptyList();
+      private void ensureRewardPeriodPoolMultipliersIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          rewardPeriodPoolMultipliers_ = new java.util.ArrayList<sifnode.clp.v1.ParamsOuterClass.PoolMultiplier>(rewardPeriodPoolMultipliers_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.PoolMultiplier, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder, sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder> rewardPeriodPoolMultipliersBuilder_;
+
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public java.util.List<sifnode.clp.v1.ParamsOuterClass.PoolMultiplier> getRewardPeriodPoolMultipliersList() {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(rewardPeriodPoolMultipliers_);
+        } else {
+          return rewardPeriodPoolMultipliersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public int getRewardPeriodPoolMultipliersCount() {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          return rewardPeriodPoolMultipliers_.size();
+        } else {
+          return rewardPeriodPoolMultipliersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier getRewardPeriodPoolMultipliers(int index) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          return rewardPeriodPoolMultipliers_.get(index);
+        } else {
+          return rewardPeriodPoolMultipliersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder setRewardPeriodPoolMultipliers(
+          int index, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier value) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodPoolMultipliersIsMutable();
+          rewardPeriodPoolMultipliers_.set(index, value);
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder setRewardPeriodPoolMultipliers(
+          int index, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder builderForValue) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          ensureRewardPeriodPoolMultipliersIsMutable();
+          rewardPeriodPoolMultipliers_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder addRewardPeriodPoolMultipliers(sifnode.clp.v1.ParamsOuterClass.PoolMultiplier value) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodPoolMultipliersIsMutable();
+          rewardPeriodPoolMultipliers_.add(value);
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder addRewardPeriodPoolMultipliers(
+          int index, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier value) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardPeriodPoolMultipliersIsMutable();
+          rewardPeriodPoolMultipliers_.add(index, value);
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder addRewardPeriodPoolMultipliers(
+          sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder builderForValue) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          ensureRewardPeriodPoolMultipliersIsMutable();
+          rewardPeriodPoolMultipliers_.add(builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder addRewardPeriodPoolMultipliers(
+          int index, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder builderForValue) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          ensureRewardPeriodPoolMultipliersIsMutable();
+          rewardPeriodPoolMultipliers_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder addAllRewardPeriodPoolMultipliers(
+          java.lang.Iterable<? extends sifnode.clp.v1.ParamsOuterClass.PoolMultiplier> values) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          ensureRewardPeriodPoolMultipliersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, rewardPeriodPoolMultipliers_);
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder clearRewardPeriodPoolMultipliers() {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          rewardPeriodPoolMultipliers_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public Builder removeRewardPeriodPoolMultipliers(int index) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          ensureRewardPeriodPoolMultipliersIsMutable();
+          rewardPeriodPoolMultipliers_.remove(index);
+          onChanged();
+        } else {
+          rewardPeriodPoolMultipliersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder getRewardPeriodPoolMultipliersBuilder(
+          int index) {
+        return getRewardPeriodPoolMultipliersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder getRewardPeriodPoolMultipliersOrBuilder(
+          int index) {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          return rewardPeriodPoolMultipliers_.get(index);  } else {
+          return rewardPeriodPoolMultipliersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public java.util.List<? extends sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder> 
+           getRewardPeriodPoolMultipliersOrBuilderList() {
+        if (rewardPeriodPoolMultipliersBuilder_ != null) {
+          return rewardPeriodPoolMultipliersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(rewardPeriodPoolMultipliers_);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder addRewardPeriodPoolMultipliersBuilder() {
+        return getRewardPeriodPoolMultipliersFieldBuilder().addBuilder(
+            sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder addRewardPeriodPoolMultipliersBuilder(
+          int index) {
+        return getRewardPeriodPoolMultipliersFieldBuilder().addBuilder(
+            index, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.PoolMultiplier reward_period_pool_multipliers = 5;</code>
+       */
+      public java.util.List<sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder> 
+           getRewardPeriodPoolMultipliersBuilderList() {
+        return getRewardPeriodPoolMultipliersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.PoolMultiplier, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder, sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder> 
+          getRewardPeriodPoolMultipliersFieldBuilder() {
+        if (rewardPeriodPoolMultipliersBuilder_ == null) {
+          rewardPeriodPoolMultipliersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              sifnode.clp.v1.ParamsOuterClass.PoolMultiplier, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder, sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder>(
+                  rewardPeriodPoolMultipliers_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          rewardPeriodPoolMultipliers_ = null;
+        }
+        return rewardPeriodPoolMultipliersBuilder_;
+      }
+
+      private java.lang.Object rewardPeriodDefaultMultiplier_ = "";
+      /**
+       * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The rewardPeriodDefaultMultiplier.
+       */
+      public java.lang.String getRewardPeriodDefaultMultiplier() {
+        java.lang.Object ref = rewardPeriodDefaultMultiplier_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          rewardPeriodDefaultMultiplier_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for rewardPeriodDefaultMultiplier.
+       */
+      public com.google.protobuf.ByteString
+          getRewardPeriodDefaultMultiplierBytes() {
+        java.lang.Object ref = rewardPeriodDefaultMultiplier_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          rewardPeriodDefaultMultiplier_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The rewardPeriodDefaultMultiplier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodDefaultMultiplier(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        rewardPeriodDefaultMultiplier_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRewardPeriodDefaultMultiplier() {
+        
+        rewardPeriodDefaultMultiplier_ = getDefaultInstance().getRewardPeriodDefaultMultiplier();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string reward_period_default_multiplier = 6 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for rewardPeriodDefaultMultiplier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRewardPeriodDefaultMultiplierBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        rewardPeriodDefaultMultiplier_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.RewardPeriod)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.RewardPeriod)
+    private static final sifnode.clp.v1.ParamsOuterClass.RewardPeriod DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.ParamsOuterClass.RewardPeriod();
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.RewardPeriod getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RewardPeriod>
+        PARSER = new com.google.protobuf.AbstractParser<RewardPeriod>() {
+      @java.lang.Override
+      public RewardPeriod parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RewardPeriod(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RewardPeriod> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RewardPeriod> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.RewardPeriod getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PoolMultiplierOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.PoolMultiplier)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string pool_multiplier_asset = 1;</code>
+     * @return The poolMultiplierAsset.
+     */
+    java.lang.String getPoolMultiplierAsset();
+    /**
+     * <code>string pool_multiplier_asset = 1;</code>
+     * @return The bytes for poolMultiplierAsset.
+     */
+    com.google.protobuf.ByteString
+        getPoolMultiplierAssetBytes();
+
+    /**
+     * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The multiplier.
+     */
+    java.lang.String getMultiplier();
+    /**
+     * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for multiplier.
+     */
+    com.google.protobuf.ByteString
+        getMultiplierBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.PoolMultiplier}
+   */
+  public static final class PoolMultiplier extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PoolMultiplier)
+      PoolMultiplierOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PoolMultiplier.newBuilder() to construct.
+    private PoolMultiplier(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PoolMultiplier() {
+      poolMultiplierAsset_ = "";
+      multiplier_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PoolMultiplier();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PoolMultiplier(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              poolMultiplierAsset_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              multiplier_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PoolMultiplier_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PoolMultiplier_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.class, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder.class);
+    }
+
+    public static final int POOL_MULTIPLIER_ASSET_FIELD_NUMBER = 1;
+    private volatile java.lang.Object poolMultiplierAsset_;
+    /**
+     * <code>string pool_multiplier_asset = 1;</code>
+     * @return The poolMultiplierAsset.
+     */
+    @java.lang.Override
+    public java.lang.String getPoolMultiplierAsset() {
+      java.lang.Object ref = poolMultiplierAsset_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        poolMultiplierAsset_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string pool_multiplier_asset = 1;</code>
+     * @return The bytes for poolMultiplierAsset.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPoolMultiplierAssetBytes() {
+      java.lang.Object ref = poolMultiplierAsset_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        poolMultiplierAsset_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MULTIPLIER_FIELD_NUMBER = 2;
+    private volatile java.lang.Object multiplier_;
+    /**
+     * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The multiplier.
+     */
+    @java.lang.Override
+    public java.lang.String getMultiplier() {
+      java.lang.Object ref = multiplier_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        multiplier_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for multiplier.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMultiplierBytes() {
+      java.lang.Object ref = multiplier_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        multiplier_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPoolMultiplierAssetBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, poolMultiplierAsset_);
+      }
+      if (!getMultiplierBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, multiplier_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPoolMultiplierAssetBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, poolMultiplierAsset_);
+      }
+      if (!getMultiplierBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, multiplier_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.ParamsOuterClass.PoolMultiplier)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.ParamsOuterClass.PoolMultiplier other = (sifnode.clp.v1.ParamsOuterClass.PoolMultiplier) obj;
+
+      if (!getPoolMultiplierAsset()
+          .equals(other.getPoolMultiplierAsset())) return false;
+      if (!getMultiplier()
+          .equals(other.getMultiplier())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + POOL_MULTIPLIER_ASSET_FIELD_NUMBER;
+      hash = (53 * hash) + getPoolMultiplierAsset().hashCode();
+      hash = (37 * hash) + MULTIPLIER_FIELD_NUMBER;
+      hash = (53 * hash) + getMultiplier().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.ParamsOuterClass.PoolMultiplier prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.PoolMultiplier}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.PoolMultiplier)
+        sifnode.clp.v1.ParamsOuterClass.PoolMultiplierOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PoolMultiplier_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PoolMultiplier_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.class, sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        poolMultiplierAsset_ = "";
+
+        multiplier_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.ParamsOuterClass.internal_static_sifnode_clp_v1_PoolMultiplier_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier getDefaultInstanceForType() {
+        return sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier build() {
+        sifnode.clp.v1.ParamsOuterClass.PoolMultiplier result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier buildPartial() {
+        sifnode.clp.v1.ParamsOuterClass.PoolMultiplier result = new sifnode.clp.v1.ParamsOuterClass.PoolMultiplier(this);
+        result.poolMultiplierAsset_ = poolMultiplierAsset_;
+        result.multiplier_ = multiplier_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.ParamsOuterClass.PoolMultiplier) {
+          return mergeFrom((sifnode.clp.v1.ParamsOuterClass.PoolMultiplier)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.ParamsOuterClass.PoolMultiplier other) {
+        if (other == sifnode.clp.v1.ParamsOuterClass.PoolMultiplier.getDefaultInstance()) return this;
+        if (!other.getPoolMultiplierAsset().isEmpty()) {
+          poolMultiplierAsset_ = other.poolMultiplierAsset_;
+          onChanged();
+        }
+        if (!other.getMultiplier().isEmpty()) {
+          multiplier_ = other.multiplier_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.ParamsOuterClass.PoolMultiplier parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.ParamsOuterClass.PoolMultiplier) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object poolMultiplierAsset_ = "";
+      /**
+       * <code>string pool_multiplier_asset = 1;</code>
+       * @return The poolMultiplierAsset.
+       */
+      public java.lang.String getPoolMultiplierAsset() {
+        java.lang.Object ref = poolMultiplierAsset_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          poolMultiplierAsset_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string pool_multiplier_asset = 1;</code>
+       * @return The bytes for poolMultiplierAsset.
+       */
+      public com.google.protobuf.ByteString
+          getPoolMultiplierAssetBytes() {
+        java.lang.Object ref = poolMultiplierAsset_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          poolMultiplierAsset_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string pool_multiplier_asset = 1;</code>
+       * @param value The poolMultiplierAsset to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPoolMultiplierAsset(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        poolMultiplierAsset_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pool_multiplier_asset = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPoolMultiplierAsset() {
+        
+        poolMultiplierAsset_ = getDefaultInstance().getPoolMultiplierAsset();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string pool_multiplier_asset = 1;</code>
+       * @param value The bytes for poolMultiplierAsset to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPoolMultiplierAssetBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        poolMultiplierAsset_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object multiplier_ = "";
+      /**
+       * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The multiplier.
+       */
+      public java.lang.String getMultiplier() {
+        java.lang.Object ref = multiplier_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          multiplier_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for multiplier.
+       */
+      public com.google.protobuf.ByteString
+          getMultiplierBytes() {
+        java.lang.Object ref = multiplier_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          multiplier_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The multiplier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMultiplier(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        multiplier_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMultiplier() {
+        
+        multiplier_ = getDefaultInstance().getMultiplier();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string multiplier = 2 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for multiplier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMultiplierBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        multiplier_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.PoolMultiplier)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.PoolMultiplier)
+    private static final sifnode.clp.v1.ParamsOuterClass.PoolMultiplier DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.ParamsOuterClass.PoolMultiplier();
+    }
+
+    public static sifnode.clp.v1.ParamsOuterClass.PoolMultiplier getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PoolMultiplier>
+        PARSER = new com.google.protobuf.AbstractParser<PoolMultiplier>() {
+      @java.lang.Override
+      public PoolMultiplier parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PoolMultiplier(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PoolMultiplier> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PoolMultiplier> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PoolMultiplier getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_Params_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_Params_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_RewardParams_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_RewardParams_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_PmtpRateParams_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_PmtpRateParams_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_PmtpParams_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_PmtpParams_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_RewardPeriod_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_RewardPeriod_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_PoolMultiplier_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_PoolMultiplier_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -526,13 +5472,42 @@ public final class ParamsOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\033sifnode/clp/v1/params.proto\022\016sifnode.c" +
-      "lp.v1\"+\n\006Params\022!\n\031min_create_pool_thres" +
-      "hold\030\001 \001(\004B)Z\'github.com/Sifchain/sifnod" +
-      "e/x/clp/typesb\006proto3"
+      "lp.v1\032\024gogoproto/gogo.proto\"+\n\006Params\022!\n" +
+      "\031min_create_pool_threshold\030\001 \001(\004\"\266\001\n\014Rew" +
+      "ardParams\022%\n\035liquidity_removal_lock_peri" +
+      "od\030\001 \001(\004\022\'\n\037liquidity_removal_cancel_per" +
+      "iod\030\002 \001(\004\0224\n\016reward_periods\030\004 \003(\0132\034.sifn" +
+      "ode.clp.v1.RewardPeriod\022 \n\030reward_period" +
+      "_start_time\030\005 \001(\t\"\203\002\n\016PmtpRateParams\022N\n\026" +
+      "pmtp_period_block_rate\030\002 \001(\tB.\332\336\037&github" +
+      ".com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022Q\n\031" +
+      "pmtp_current_running_rate\030\003 \001(\tB.\332\336\037&git" +
+      "hub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022" +
+      "N\n\026pmtp_inter_policy_rate\030\004 \001(\tB.\332\336\037&git" +
+      "hub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"" +
+      "\303\001\n\nPmtpParams\022S\n\033pmtp_period_governance" +
+      "_rate\030\001 \001(\tB.\332\336\037&github.com/cosmos/cosmo" +
+      "s-sdk/types.Dec\310\336\037\000\022 \n\030pmtp_period_epoch" +
+      "_length\030\002 \001(\003\022\037\n\027pmtp_period_start_block" +
+      "\030\003 \001(\003\022\035\n\025pmtp_period_end_block\030\004 \001(\003\"\331\002" +
+      "\n\014RewardPeriod\022\030\n\020reward_period_id\030\001 \001(\t" +
+      "\022!\n\031reward_period_start_block\030\002 \001(\004\022\037\n\027r" +
+      "eward_period_end_block\030\003 \001(\004\022M\n\030reward_p" +
+      "eriod_allocation\030\004 \001(\tB+\332\336\037\'github.com/c" +
+      "osmos/cosmos-sdk/types.Uint\022F\n\036reward_pe" +
+      "riod_pool_multipliers\030\005 \003(\0132\036.sifnode.cl" +
+      "p.v1.PoolMultiplier\022T\n reward_period_def" +
+      "ault_multiplier\030\006 \001(\tB*\332\336\037&github.com/co" +
+      "smos/cosmos-sdk/types.Dec\"o\n\016PoolMultipl" +
+      "ier\022\035\n\025pool_multiplier_asset\030\001 \001(\t\022>\n\nmu" +
+      "ltiplier\030\002 \001(\tB*\332\336\037&github.com/cosmos/co" +
+      "smos-sdk/types.DecB)Z\'github.com/Sifchai" +
+      "n/sifnode/x/clp/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_sifnode_clp_v1_Params_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -540,6 +5515,43 @@ public final class ParamsOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_Params_descriptor,
         new java.lang.String[] { "MinCreatePoolThreshold", });
+    internal_static_sifnode_clp_v1_RewardParams_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_sifnode_clp_v1_RewardParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_RewardParams_descriptor,
+        new java.lang.String[] { "LiquidityRemovalLockPeriod", "LiquidityRemovalCancelPeriod", "RewardPeriods", "RewardPeriodStartTime", });
+    internal_static_sifnode_clp_v1_PmtpRateParams_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_sifnode_clp_v1_PmtpRateParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_PmtpRateParams_descriptor,
+        new java.lang.String[] { "PmtpPeriodBlockRate", "PmtpCurrentRunningRate", "PmtpInterPolicyRate", });
+    internal_static_sifnode_clp_v1_PmtpParams_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_sifnode_clp_v1_PmtpParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_PmtpParams_descriptor,
+        new java.lang.String[] { "PmtpPeriodGovernanceRate", "PmtpPeriodEpochLength", "PmtpPeriodStartBlock", "PmtpPeriodEndBlock", });
+    internal_static_sifnode_clp_v1_RewardPeriod_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_sifnode_clp_v1_RewardPeriod_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_RewardPeriod_descriptor,
+        new java.lang.String[] { "RewardPeriodId", "RewardPeriodStartBlock", "RewardPeriodEndBlock", "RewardPeriodAllocation", "RewardPeriodPoolMultipliers", "RewardPeriodDefaultMultiplier", });
+    internal_static_sifnode_clp_v1_PoolMultiplier_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_sifnode_clp_v1_PoolMultiplier_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_PoolMultiplier_descriptor,
+        new java.lang.String[] { "PoolMultiplierAsset", "Multiplier", });
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
