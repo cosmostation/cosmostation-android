@@ -119,15 +119,15 @@ public class MainSendFragment extends BaseFragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-//        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-//            if (getMainActivity().mAccount.pushAlarm) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getMainActivity().mAccount.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-//            } else {
-//                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-//            }
-//        } else {
-//            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-//        }
+            } else {
+                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+            }
+        } else {
+            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
+        }
     }
 
     @Override
@@ -140,11 +140,10 @@ public class MainSendFragment extends BaseFragment {
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
-//                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
+                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
                 break;
             case R.id.menu_notification_on:
-                getMainActivity().onNoticeView();
-//                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
+                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
                 break;
 
         }

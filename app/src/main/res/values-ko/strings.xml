@@ -125,6 +125,7 @@
     <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
     <string name="str_alarm">알람</string>
+    <string name="str_notice">공지사항</string>
     <string name="str_app_applock">앱 잠금</string>
     <string name="str_app_applock_enabled">사용중</string>
     <string name="str_app_applock_diabeld">사용안함</string>
@@ -572,7 +573,6 @@
     <string name="str_error_not_support_chain_title">오류</string>
     <string name="str_error_not_support_chain_msg">해당 체인에 대한 지갑이 없습니다.</string>
     <string name="str_error_not_support_msg">%1$s는 지원하지 않는 체인입니다.</string>
-    <string name="str_notice">공지사항</string>
     
     <string name="str_min_collateral_rate">최소 담보 비율</string>
     <string name="str_stability_fee">연간 수수료</string>
@@ -916,6 +916,7 @@
     <string name="str_app_unlock_title">앱 잠금 해제</string>
     <string name="str_app_unlock_msg1">PIN 번호를 입력하여 앱 잠금을 해제하세요</string>
     <string name="str_app_unlock_msg2">지문 또는 PIN 번호를 입력하여 앱 잠금을 해제하세요</string>
+    <string name="str_using_alarm">알람 사용</string>
     <string name="str_using_applock">앱락 사용</string>
     <string name="str_using_fingerprints">지문 사용</string>
     <string name="str_applock_time">앱락 시간</string>

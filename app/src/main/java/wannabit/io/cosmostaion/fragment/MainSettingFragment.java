@@ -43,7 +43,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET                   = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT  = 9036;
 
-    private FrameLayout mBtnAddWallet, mBtnWallet, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
+    private FrameLayout mBtnAddWallet, mBtnWallet, mBtnNotice, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
                         mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage, mBtnStarnameWc,
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
@@ -64,15 +64,15 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-//        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-//            if (getMainActivity().mAccount.pushAlarm) {
-        getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-//            } else {
-//                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-//            }
-//        } else {
-//            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-//        }
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getMainActivity().mAccount.pushAlarm) {
+                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
+            } else {
+                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+            }
+        } else {
+            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
+        }
     }
 
     @Override
@@ -85,11 +85,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
-//                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
+                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
                 break;
             case R.id.menu_notification_on:
-                getMainActivity().onNoticeView();
-//                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
+                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
                 break;
 
         }
@@ -102,7 +101,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         View rootView = inflater.inflate(R.layout.fragment_main_setting, container, false);
         mBtnAddWallet = rootView.findViewById(R.id.add_wallet);
         mBtnWallet = rootView.findViewById(R.id.card_wallet);
-        mBtnAlaram = rootView.findViewById(R.id.card_alaram);
+        mBtnNotice = rootView.findViewById(R.id.card_notice);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnBasePrice = rootView.findViewById(R.id.card_base_price);
@@ -121,7 +120,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         mBtnAddWallet.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
-        mBtnAlaram.setOnClickListener(this);
+        mBtnNotice.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
         mBtnBasePrice.setOnClickListener(this);
@@ -134,8 +133,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnGithub.setOnClickListener(this);
         mBtnVersion.setOnClickListener(this);
 
-
-        mBtnAlaram.setVisibility(View.GONE);
+//        mBtnAlaram.setVisibility(View.GONE);
         return rootView;
     }
 
@@ -163,10 +161,15 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
 
-        } else if (v.equals(mBtnAlaram)) {
-            Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
+        } else if (v.equals(mBtnNotice)) {
+            getMainActivity().onNoticeView();
 
-        } else if (v.equals(mBtnAppLock)) {
+        }
+//        else if (v.equals(mBtnAlaram)) {
+//            Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
+//
+//        }
+        else if (v.equals(mBtnAppLock)) {
             startActivity(new Intent(getBaseActivity(), AppLockSetActivity.class));
 
         } else if (v.equals(mBtnCurrency)) {

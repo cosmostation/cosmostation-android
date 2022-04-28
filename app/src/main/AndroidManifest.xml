@@ -26,11 +26,11 @@
         tools:replace="android:allowBackup">
         <activity
             android:name=".activities.NoticeActivity"
+            android:exported="false"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:exported="false" />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.IntroActivity"
             android:screenOrientation="portrait"
