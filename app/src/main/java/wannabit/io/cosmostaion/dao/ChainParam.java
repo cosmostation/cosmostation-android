@@ -126,7 +126,10 @@ public class ChainParam {
                 BigDecimal initialProvision = new BigDecimal(mStargazeMintingParams.params.initial_annual_provisions);
                 return initialProvision.divide(getMainSupply(baseChain), 18, RoundingMode.DOWN);
             } else if (baseChain.equals(EVMOS_MAIN)) {
-                BigDecimal annualProvisions = new BigDecimal(mEvmosEpochMintProvision.epoch_mint_provision).multiply(new BigDecimal("365"));
+                if (!mEvmosInflationParams.params.enable_inflation) {
+                    return BigDecimal.ZERO;
+                }
+                BigDecimal annualProvisions = new BigDecimal(mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
                 BigDecimal evmosSupply = getMainSupply(baseChain).subtract(new BigDecimal("200000000000000000000000000"));
                 return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
             } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
@@ -237,7 +240,10 @@ public class ChainParam {
                         BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
                         return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
                     } else if (baseChain.equals(EVMOS_MAIN)) {
-                        BigDecimal ap = new BigDecimal(mEvmosEpochMintProvision.epoch_mint_provision).multiply(new BigDecimal("365"));
+                        if (!mEvmosInflationParams.params.enable_inflation) {
+                            return BigDecimal.ZERO;
+                        }
+                        BigDecimal ap = new BigDecimal(mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
                         BigDecimal stakingRewardsFactor = BigDecimal.ZERO;
                         if (mEvmosInflationParams.params.mInflationDistributions.staking_rewards != null) {
                             stakingRewardsFactor = new BigDecimal(mEvmosInflationParams.params.mInflationDistributions.staking_rewards);
@@ -747,6 +753,9 @@ public class ChainParam {
             @SerializedName("mint_denom")
             public String mint_denom;
 
+            @SerializedName("enable_inflation")
+            public Boolean enable_inflation;
+
             @SerializedName("inflation_distribution")
             public InflationDistributions mInflationDistributions;
 
@@ -765,7 +774,7 @@ public class ChainParam {
 
     public class EvmosEpochMintProvision {
         @SerializedName("epoch_mint_provision")
-        public String epoch_mint_provision;
+        public Coin mEpochMintProvision ;
     }
 
     public class CrescentMintingParams {
