@@ -949,8 +949,16 @@ public class BaseData {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_CURRENCY, currency).commit();
     }
 
+    public boolean getUsingAlarm() {
+        return getSharedPreferences().getBoolean(BaseConstant.PRE_USING_ALARM, false);
+    }
+
     public boolean getUsingAppLock() {
         return getSharedPreferences().getBoolean(BaseConstant.PRE_USING_APP_LOCK, false);
+    }
+
+    public void setUsingAlarm(boolean using) {
+        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_ALARM, using).commit();
     }
 
     public void setUsingAppLock(boolean using) {

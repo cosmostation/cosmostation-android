@@ -412,6 +412,7 @@
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
     <string name="str_alarm">Alarm</string>
+    <string name="str_notice">Notice</string>
     <string name="str_app_applock">App Lock</string>
     <string name="str_app_applock_enabled">Enabled</string>
     <string name="str_app_applock_diabeld">Disabled</string>
@@ -971,7 +972,6 @@
     <string name="str_error_not_support_chain_msg">No wallet for that chain</string>
     <string name="str_error_not_support_msg">%1$s are not currently supported chain</string>
 
-
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
     <string name="str_liquidation_penalty">Liquidation Penalty</string>
@@ -1318,6 +1318,7 @@
     <string name="str_app_unlock_title">Unlock Cosmostation</string>
     <string name="str_app_unlock_msg1">Please insert PIN number for unlock</string>
     <string name="str_app_unlock_msg2">Please insert PIN number or using fingerprint for unlock</string>
+    <string name="str_using_alarm">Using Alarm</string>
     <string name="str_using_applock">Using App Lock</string>
     <string name="str_using_fingerprints">Unlock with Fingerprint</string>
     <string name="str_applock_time">App Lock Time</string>

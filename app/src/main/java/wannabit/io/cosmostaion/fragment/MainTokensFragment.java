@@ -416,11 +416,11 @@ public class MainTokensFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_accounts:
+        switch(item.getItemId()) {
+            case R.id.menu_accounts :
                 getMainActivity().onClickSwitchWallet();
                 break;
-            case R.id.menu_explorer:
+            case R.id.menu_explorer :
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
@@ -429,6 +429,7 @@ public class MainTokensFragment extends BaseFragment {
             case R.id.menu_notification_on:
                 getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }

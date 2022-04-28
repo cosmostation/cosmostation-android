@@ -180,6 +180,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             case R.id.menu_notification_on:
                 getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }
