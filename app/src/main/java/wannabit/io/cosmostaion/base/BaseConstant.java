@@ -767,9 +767,9 @@ public class BaseConstant {
     public final static String OMNIFLIX_GAS_RATE_LOW                    = "0.001";
     public final static String OMNIFLIX_GAS_RATE_AVERAGE                = "0.001";
 
-    public final static String CRESCENT_GAS_RATE_TINY                   = "0.000";
-    public final static String CRESCENT_GAS_RATE_LOW                    = "0.000";
-    public final static String CRESCENT_GAS_RATE_AVERAGE                = "0.000";
+    public final static String CRESCENT_GAS_RATE_TINY                   = "0.01";
+    public final static String CRESCENT_GAS_RATE_LOW                    = "0.02";
+    public final static String CRESCENT_GAS_RATE_AVERAGE                = "0.05";
 
     public final static String MANTLE_GAS_RATE_TINY                     = "0.000";
     public final static String MANTLE_GAS_RATE_LOW                      = "0.000";
