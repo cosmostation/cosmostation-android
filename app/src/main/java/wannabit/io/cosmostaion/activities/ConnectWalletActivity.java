@@ -144,9 +144,11 @@ public class ConnectWalletActivity extends BaseActivity {
         if (connected) {
             mConnectImage.setImageResource(R.drawable.ic_passed_img);
             mConnectText.setText(R.string.str_wc_dapp_connected);
+            mConnectText.setTextColor(getColor(R.color.colorWhite));
         } else {
             mConnectImage.setImageResource(R.drawable.ic_pass_gr);
             mConnectText.setText(R.string.str_wc_dapp_not_connected);
+            mConnectText.setTextColor(getColor(R.color.colorGray5));
         }
     }
 
@@ -263,7 +265,6 @@ public class ConnectWalletActivity extends BaseActivity {
                 } else {
                     mWcPeerMeta = wcPeerMeta;
                     wcClient.approveSession(Lists.newArrayList(), 1);
-                    moveToBackIfNeed();
                 }
                 changeDappConnectStatus(true);
             });

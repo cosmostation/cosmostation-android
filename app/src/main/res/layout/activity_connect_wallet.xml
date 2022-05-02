@@ -61,7 +61,7 @@
 
                     <TextView
                         android:id="@+id/wc_state"
-                        style="@style/font_ssl_10_white"
+                        style="@style/font_ss_10_gray5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
@@ -71,7 +71,7 @@
 
                 <TextView
                     android:id="@+id/wc_peer"
-                    style="@style/font_ssl_10_white"
+                    style="@style/font_ss_10_gray5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="https://" />
