@@ -2202,29 +2202,28 @@ public class WDp {
 
     }
 
-    public static String getKavaPriceFeedSymbol(String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
-            return "kava:usd";
-        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-            return "hard:usd";
-        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
-            return "usdx:usd";
-        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
-            return "swp:usd";
-        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
-            return "bnb:usd";
-        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
-            return "xrp:usd";
-        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
-            return "busd:usd";
-        } else if (denom.contains("btc")) {
-            return "btc:usd";
+    public static String getKavaPriceFeedSymbol(BaseData baseData, String denom) {
+        if (denom != null) {
+            if (denom.startsWith("ibc/")) {
+                IbcToken ibcToken = baseData.getIbcToken(denom);
+                return ibcToken.display_denom + ":usd";
+            } else {
+                String priceDenom = "";
+                if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+                    priceDenom = "kava";
+                } else if (denom.contains("btc")) {
+                    priceDenom = "btc";
+                } else {
+                    priceDenom = denom;
+                }
+                return priceDenom + ":usd";
+            }
         }
         return "";
     }
 
     public static BigDecimal getKavaPriceFeed(BaseData baseData, String denom) {
-        String feedSymbol = getKavaPriceFeedSymbol(denom);
+        String feedSymbol = getKavaPriceFeedSymbol(baseData, denom);
         if (baseData.mKavaTokenPrice.get(feedSymbol) == null){
             return BigDecimal.ZERO;
         }
