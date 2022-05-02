@@ -250,6 +250,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         startActivity(intent);
     }
 
+    public void onNoticeView() {
+        Intent intent = new Intent(this, NoticeActivity.class);
+        intent.putExtra("id",WDp.getChainNameByBaseChain(mBaseChain));
+        startActivity(intent);
+
+    }
+
     public void onChainSelected(BaseChain baseChain) {
         if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
             Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
