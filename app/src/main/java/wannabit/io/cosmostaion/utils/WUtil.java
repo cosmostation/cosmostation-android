@@ -2953,6 +2953,24 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cudos")));
+
+        } else if (mainActivity.mBaseChain.equals(GRABRIDGE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/graviton")));
+
+        } else if (mainActivity.mBaseChain.equals(ASSETMANTLE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/assetmantle")));
+
+        } else if (mainActivity.mBaseChain.equals(CERBERUS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cerberus")));
+
+        } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/evmos")));
+
+        } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/konstellation")));
+
+        } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/provenance-blockchain")));
         }
         return null;
     }
