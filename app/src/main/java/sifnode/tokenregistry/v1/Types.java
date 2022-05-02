@@ -140,21 +140,150 @@ public final class Types {
     // @@protoc_insertion_point(enum_scope:sifnode.tokenregistry.v1.Permission)
   }
 
+  /**
+   * Protobuf enum {@code sifnode.tokenregistry.v1.AdminType}
+   */
+  public enum AdminType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>CLPDEX = 0;</code>
+     */
+    CLPDEX(0),
+    /**
+     * <code>PMTPREWARDS = 1;</code>
+     */
+    PMTPREWARDS(1),
+    /**
+     * <code>TOKENREGISTRY = 2;</code>
+     */
+    TOKENREGISTRY(2),
+    /**
+     * <code>ETHBRIDGE = 3;</code>
+     */
+    ETHBRIDGE(3),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>CLPDEX = 0;</code>
+     */
+    public static final int CLPDEX_VALUE = 0;
+    /**
+     * <code>PMTPREWARDS = 1;</code>
+     */
+    public static final int PMTPREWARDS_VALUE = 1;
+    /**
+     * <code>TOKENREGISTRY = 2;</code>
+     */
+    public static final int TOKENREGISTRY_VALUE = 2;
+    /**
+     * <code>ETHBRIDGE = 3;</code>
+     */
+    public static final int ETHBRIDGE_VALUE = 3;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static AdminType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static AdminType forNumber(int value) {
+      switch (value) {
+        case 0: return CLPDEX;
+        case 1: return PMTPREWARDS;
+        case 2: return TOKENREGISTRY;
+        case 3: return ETHBRIDGE;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<AdminType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        AdminType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<AdminType>() {
+            public AdminType findValueByNumber(int number) {
+              return AdminType.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return sifnode.tokenregistry.v1.Types.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final AdminType[] VALUES = values();
+
+    public static AdminType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private AdminType(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:sifnode.tokenregistry.v1.AdminType)
+  }
+
   public interface GenesisStateOrBuilder extends
       // @@protoc_insertion_point(interface_extends:sifnode.tokenregistry.v1.GenesisState)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string admin_account = 1;</code>
-     * @return The adminAccount.
+     * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+     * @return Whether the adminAccounts field is set.
      */
-    java.lang.String getAdminAccount();
+    boolean hasAdminAccounts();
     /**
-     * <code>string admin_account = 1;</code>
-     * @return The bytes for adminAccount.
+     * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+     * @return The adminAccounts.
      */
-    com.google.protobuf.ByteString
-        getAdminAccountBytes();
+    sifnode.tokenregistry.v1.Types.AdminAccounts getAdminAccounts();
+    /**
+     * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+     */
+    sifnode.tokenregistry.v1.Types.AdminAccountsOrBuilder getAdminAccountsOrBuilder();
 
     /**
      * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
@@ -184,7 +313,6 @@ public final class Types {
       super(builder);
     }
     private GenesisState() {
-      adminAccount_ = "";
     }
 
     @java.lang.Override
@@ -218,9 +346,16 @@ public final class Types {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              sifnode.tokenregistry.v1.Types.AdminAccounts.Builder subBuilder = null;
+              if (adminAccounts_ != null) {
+                subBuilder = adminAccounts_.toBuilder();
+              }
+              adminAccounts_ = input.readMessage(sifnode.tokenregistry.v1.Types.AdminAccounts.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(adminAccounts_);
+                adminAccounts_ = subBuilder.buildPartial();
+              }
 
-              adminAccount_ = s;
               break;
             }
             case 18: {
@@ -268,42 +403,30 @@ public final class Types {
               sifnode.tokenregistry.v1.Types.GenesisState.class, sifnode.tokenregistry.v1.Types.GenesisState.Builder.class);
     }
 
-    public static final int ADMIN_ACCOUNT_FIELD_NUMBER = 1;
-    private volatile java.lang.Object adminAccount_;
+    public static final int ADMIN_ACCOUNTS_FIELD_NUMBER = 1;
+    private sifnode.tokenregistry.v1.Types.AdminAccounts adminAccounts_;
     /**
-     * <code>string admin_account = 1;</code>
-     * @return The adminAccount.
+     * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+     * @return Whether the adminAccounts field is set.
      */
     @java.lang.Override
-    public java.lang.String getAdminAccount() {
-      java.lang.Object ref = adminAccount_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        adminAccount_ = s;
-        return s;
-      }
+    public boolean hasAdminAccounts() {
+      return adminAccounts_ != null;
     }
     /**
-     * <code>string admin_account = 1;</code>
-     * @return The bytes for adminAccount.
+     * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+     * @return The adminAccounts.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAdminAccountBytes() {
-      java.lang.Object ref = adminAccount_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        adminAccount_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public sifnode.tokenregistry.v1.Types.AdminAccounts getAdminAccounts() {
+      return adminAccounts_ == null ? sifnode.tokenregistry.v1.Types.AdminAccounts.getDefaultInstance() : adminAccounts_;
+    }
+    /**
+     * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Types.AdminAccountsOrBuilder getAdminAccountsOrBuilder() {
+      return getAdminAccounts();
     }
 
     public static final int REGISTRY_FIELD_NUMBER = 2;
@@ -346,8 +469,8 @@ public final class Types {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getAdminAccountBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, adminAccount_);
+      if (adminAccounts_ != null) {
+        output.writeMessage(1, getAdminAccounts());
       }
       if (registry_ != null) {
         output.writeMessage(2, getRegistry());
@@ -361,8 +484,9 @@ public final class Types {
       if (size != -1) return size;
 
       size = 0;
-      if (!getAdminAccountBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, adminAccount_);
+      if (adminAccounts_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getAdminAccounts());
       }
       if (registry_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -383,8 +507,11 @@ public final class Types {
       }
       sifnode.tokenregistry.v1.Types.GenesisState other = (sifnode.tokenregistry.v1.Types.GenesisState) obj;
 
-      if (!getAdminAccount()
-          .equals(other.getAdminAccount())) return false;
+      if (hasAdminAccounts() != other.hasAdminAccounts()) return false;
+      if (hasAdminAccounts()) {
+        if (!getAdminAccounts()
+            .equals(other.getAdminAccounts())) return false;
+      }
       if (hasRegistry() != other.hasRegistry()) return false;
       if (hasRegistry()) {
         if (!getRegistry()
@@ -401,8 +528,10 @@ public final class Types {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ADMIN_ACCOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + getAdminAccount().hashCode();
+      if (hasAdminAccounts()) {
+        hash = (37 * hash) + ADMIN_ACCOUNTS_FIELD_NUMBER;
+        hash = (53 * hash) + getAdminAccounts().hashCode();
+      }
       if (hasRegistry()) {
         hash = (37 * hash) + REGISTRY_FIELD_NUMBER;
         hash = (53 * hash) + getRegistry().hashCode();
@@ -540,8 +669,12 @@ public final class Types {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        adminAccount_ = "";
-
+        if (adminAccountsBuilder_ == null) {
+          adminAccounts_ = null;
+        } else {
+          adminAccounts_ = null;
+          adminAccountsBuilder_ = null;
+        }
         if (registryBuilder_ == null) {
           registry_ = null;
         } else {
@@ -574,7 +707,11 @@ public final class Types {
       @java.lang.Override
       public sifnode.tokenregistry.v1.Types.GenesisState buildPartial() {
         sifnode.tokenregistry.v1.Types.GenesisState result = new sifnode.tokenregistry.v1.Types.GenesisState(this);
-        result.adminAccount_ = adminAccount_;
+        if (adminAccountsBuilder_ == null) {
+          result.adminAccounts_ = adminAccounts_;
+        } else {
+          result.adminAccounts_ = adminAccountsBuilder_.build();
+        }
         if (registryBuilder_ == null) {
           result.registry_ = registry_;
         } else {
@@ -628,9 +765,8 @@ public final class Types {
 
       public Builder mergeFrom(sifnode.tokenregistry.v1.Types.GenesisState other) {
         if (other == sifnode.tokenregistry.v1.Types.GenesisState.getDefaultInstance()) return this;
-        if (!other.getAdminAccount().isEmpty()) {
-          adminAccount_ = other.adminAccount_;
-          onChanged();
+        if (other.hasAdminAccounts()) {
+          mergeAdminAccounts(other.getAdminAccounts());
         }
         if (other.hasRegistry()) {
           mergeRegistry(other.getRegistry());
@@ -664,80 +800,123 @@ public final class Types {
         return this;
       }
 
-      private java.lang.Object adminAccount_ = "";
+      private sifnode.tokenregistry.v1.Types.AdminAccounts adminAccounts_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.tokenregistry.v1.Types.AdminAccounts, sifnode.tokenregistry.v1.Types.AdminAccounts.Builder, sifnode.tokenregistry.v1.Types.AdminAccountsOrBuilder> adminAccountsBuilder_;
       /**
-       * <code>string admin_account = 1;</code>
-       * @return The adminAccount.
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+       * @return Whether the adminAccounts field is set.
        */
-      public java.lang.String getAdminAccount() {
-        java.lang.Object ref = adminAccount_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          adminAccount_ = s;
-          return s;
+      public boolean hasAdminAccounts() {
+        return adminAccountsBuilder_ != null || adminAccounts_ != null;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+       * @return The adminAccounts.
+       */
+      public sifnode.tokenregistry.v1.Types.AdminAccounts getAdminAccounts() {
+        if (adminAccountsBuilder_ == null) {
+          return adminAccounts_ == null ? sifnode.tokenregistry.v1.Types.AdminAccounts.getDefaultInstance() : adminAccounts_;
         } else {
-          return (java.lang.String) ref;
+          return adminAccountsBuilder_.getMessage();
         }
       }
       /**
-       * <code>string admin_account = 1;</code>
-       * @return The bytes for adminAccount.
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getAdminAccountBytes() {
-        java.lang.Object ref = adminAccount_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          adminAccount_ = b;
-          return b;
+      public Builder setAdminAccounts(sifnode.tokenregistry.v1.Types.AdminAccounts value) {
+        if (adminAccountsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          adminAccounts_ = value;
+          onChanged();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          adminAccountsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+       */
+      public Builder setAdminAccounts(
+          sifnode.tokenregistry.v1.Types.AdminAccounts.Builder builderForValue) {
+        if (adminAccountsBuilder_ == null) {
+          adminAccounts_ = builderForValue.build();
+          onChanged();
+        } else {
+          adminAccountsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+       */
+      public Builder mergeAdminAccounts(sifnode.tokenregistry.v1.Types.AdminAccounts value) {
+        if (adminAccountsBuilder_ == null) {
+          if (adminAccounts_ != null) {
+            adminAccounts_ =
+              sifnode.tokenregistry.v1.Types.AdminAccounts.newBuilder(adminAccounts_).mergeFrom(value).buildPartial();
+          } else {
+            adminAccounts_ = value;
+          }
+          onChanged();
+        } else {
+          adminAccountsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+       */
+      public Builder clearAdminAccounts() {
+        if (adminAccountsBuilder_ == null) {
+          adminAccounts_ = null;
+          onChanged();
+        } else {
+          adminAccounts_ = null;
+          adminAccountsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.AdminAccounts.Builder getAdminAccountsBuilder() {
+        
+        onChanged();
+        return getAdminAccountsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.AdminAccountsOrBuilder getAdminAccountsOrBuilder() {
+        if (adminAccountsBuilder_ != null) {
+          return adminAccountsBuilder_.getMessageOrBuilder();
+        } else {
+          return adminAccounts_ == null ?
+              sifnode.tokenregistry.v1.Types.AdminAccounts.getDefaultInstance() : adminAccounts_;
         }
       }
       /**
-       * <code>string admin_account = 1;</code>
-       * @param value The adminAccount to set.
-       * @return This builder for chaining.
+       * <code>.sifnode.tokenregistry.v1.AdminAccounts admin_accounts = 1;</code>
        */
-      public Builder setAdminAccount(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        adminAccount_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string admin_account = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAdminAccount() {
-        
-        adminAccount_ = getDefaultInstance().getAdminAccount();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string admin_account = 1;</code>
-       * @param value The bytes for adminAccount to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAdminAccountBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        adminAccount_ = value;
-        onChanged();
-        return this;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.tokenregistry.v1.Types.AdminAccounts, sifnode.tokenregistry.v1.Types.AdminAccounts.Builder, sifnode.tokenregistry.v1.Types.AdminAccountsOrBuilder> 
+          getAdminAccountsFieldBuilder() {
+        if (adminAccountsBuilder_ == null) {
+          adminAccountsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.tokenregistry.v1.Types.AdminAccounts, sifnode.tokenregistry.v1.Types.AdminAccounts.Builder, sifnode.tokenregistry.v1.Types.AdminAccountsOrBuilder>(
+                  getAdminAccounts(),
+                  getParentForChildren(),
+                  isClean());
+          adminAccounts_ = null;
+        }
+        return adminAccountsBuilder_;
       }
 
       private sifnode.tokenregistry.v1.Types.Registry registry_;
@@ -4781,6 +4960,1474 @@ public final class Types {
 
   }
 
+  public interface AdminAccountOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.tokenregistry.v1.AdminAccount)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+     * @return The enum numeric value on the wire for adminType.
+     */
+    int getAdminTypeValue();
+    /**
+     * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+     * @return The adminType.
+     */
+    sifnode.tokenregistry.v1.Types.AdminType getAdminType();
+
+    /**
+     * <code>string admin_address = 2;</code>
+     * @return The adminAddress.
+     */
+    java.lang.String getAdminAddress();
+    /**
+     * <code>string admin_address = 2;</code>
+     * @return The bytes for adminAddress.
+     */
+    com.google.protobuf.ByteString
+        getAdminAddressBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.tokenregistry.v1.AdminAccount}
+   */
+  public static final class AdminAccount extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.AdminAccount)
+      AdminAccountOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AdminAccount.newBuilder() to construct.
+    private AdminAccount(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AdminAccount() {
+      adminType_ = 0;
+      adminAddress_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AdminAccount();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AdminAccount(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              int rawValue = input.readEnum();
+
+              adminType_ = rawValue;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              adminAddress_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccount_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccount_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.tokenregistry.v1.Types.AdminAccount.class, sifnode.tokenregistry.v1.Types.AdminAccount.Builder.class);
+    }
+
+    public static final int ADMIN_TYPE_FIELD_NUMBER = 1;
+    private int adminType_;
+    /**
+     * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+     * @return The enum numeric value on the wire for adminType.
+     */
+    @java.lang.Override public int getAdminTypeValue() {
+      return adminType_;
+    }
+    /**
+     * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+     * @return The adminType.
+     */
+    @java.lang.Override public sifnode.tokenregistry.v1.Types.AdminType getAdminType() {
+      @SuppressWarnings("deprecation")
+      sifnode.tokenregistry.v1.Types.AdminType result = sifnode.tokenregistry.v1.Types.AdminType.valueOf(adminType_);
+      return result == null ? sifnode.tokenregistry.v1.Types.AdminType.UNRECOGNIZED : result;
+    }
+
+    public static final int ADMIN_ADDRESS_FIELD_NUMBER = 2;
+    private volatile java.lang.Object adminAddress_;
+    /**
+     * <code>string admin_address = 2;</code>
+     * @return The adminAddress.
+     */
+    @java.lang.Override
+    public java.lang.String getAdminAddress() {
+      java.lang.Object ref = adminAddress_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        adminAddress_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string admin_address = 2;</code>
+     * @return The bytes for adminAddress.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAdminAddressBytes() {
+      java.lang.Object ref = adminAddress_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        adminAddress_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (adminType_ != sifnode.tokenregistry.v1.Types.AdminType.CLPDEX.getNumber()) {
+        output.writeEnum(1, adminType_);
+      }
+      if (!getAdminAddressBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, adminAddress_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (adminType_ != sifnode.tokenregistry.v1.Types.AdminType.CLPDEX.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, adminType_);
+      }
+      if (!getAdminAddressBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, adminAddress_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.tokenregistry.v1.Types.AdminAccount)) {
+        return super.equals(obj);
+      }
+      sifnode.tokenregistry.v1.Types.AdminAccount other = (sifnode.tokenregistry.v1.Types.AdminAccount) obj;
+
+      if (adminType_ != other.adminType_) return false;
+      if (!getAdminAddress()
+          .equals(other.getAdminAddress())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ADMIN_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + adminType_;
+      hash = (37 * hash) + ADMIN_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAdminAddress().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccount parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.tokenregistry.v1.Types.AdminAccount prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.tokenregistry.v1.AdminAccount}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.tokenregistry.v1.AdminAccount)
+        sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccount_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccount_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.tokenregistry.v1.Types.AdminAccount.class, sifnode.tokenregistry.v1.Types.AdminAccount.Builder.class);
+      }
+
+      // Construct using sifnode.tokenregistry.v1.Types.AdminAccount.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        adminType_ = 0;
+
+        adminAddress_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccount_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Types.AdminAccount getDefaultInstanceForType() {
+        return sifnode.tokenregistry.v1.Types.AdminAccount.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Types.AdminAccount build() {
+        sifnode.tokenregistry.v1.Types.AdminAccount result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Types.AdminAccount buildPartial() {
+        sifnode.tokenregistry.v1.Types.AdminAccount result = new sifnode.tokenregistry.v1.Types.AdminAccount(this);
+        result.adminType_ = adminType_;
+        result.adminAddress_ = adminAddress_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.tokenregistry.v1.Types.AdminAccount) {
+          return mergeFrom((sifnode.tokenregistry.v1.Types.AdminAccount)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.tokenregistry.v1.Types.AdminAccount other) {
+        if (other == sifnode.tokenregistry.v1.Types.AdminAccount.getDefaultInstance()) return this;
+        if (other.adminType_ != 0) {
+          setAdminTypeValue(other.getAdminTypeValue());
+        }
+        if (!other.getAdminAddress().isEmpty()) {
+          adminAddress_ = other.adminAddress_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.tokenregistry.v1.Types.AdminAccount parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.tokenregistry.v1.Types.AdminAccount) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int adminType_ = 0;
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+       * @return The enum numeric value on the wire for adminType.
+       */
+      @java.lang.Override public int getAdminTypeValue() {
+        return adminType_;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+       * @param value The enum numeric value on the wire for adminType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAdminTypeValue(int value) {
+        
+        adminType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+       * @return The adminType.
+       */
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Types.AdminType getAdminType() {
+        @SuppressWarnings("deprecation")
+        sifnode.tokenregistry.v1.Types.AdminType result = sifnode.tokenregistry.v1.Types.AdminType.valueOf(adminType_);
+        return result == null ? sifnode.tokenregistry.v1.Types.AdminType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+       * @param value The adminType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAdminType(sifnode.tokenregistry.v1.Types.AdminType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        adminType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.AdminType admin_type = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAdminType() {
+        
+        adminType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object adminAddress_ = "";
+      /**
+       * <code>string admin_address = 2;</code>
+       * @return The adminAddress.
+       */
+      public java.lang.String getAdminAddress() {
+        java.lang.Object ref = adminAddress_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          adminAddress_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string admin_address = 2;</code>
+       * @return The bytes for adminAddress.
+       */
+      public com.google.protobuf.ByteString
+          getAdminAddressBytes() {
+        java.lang.Object ref = adminAddress_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          adminAddress_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string admin_address = 2;</code>
+       * @param value The adminAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAdminAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        adminAddress_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string admin_address = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAdminAddress() {
+        
+        adminAddress_ = getDefaultInstance().getAdminAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string admin_address = 2;</code>
+       * @param value The bytes for adminAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAdminAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        adminAddress_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.tokenregistry.v1.AdminAccount)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.tokenregistry.v1.AdminAccount)
+    private static final sifnode.tokenregistry.v1.Types.AdminAccount DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.tokenregistry.v1.Types.AdminAccount();
+    }
+
+    public static sifnode.tokenregistry.v1.Types.AdminAccount getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AdminAccount>
+        PARSER = new com.google.protobuf.AbstractParser<AdminAccount>() {
+      @java.lang.Override
+      public AdminAccount parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AdminAccount(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AdminAccount> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AdminAccount> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Types.AdminAccount getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AdminAccountsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.tokenregistry.v1.AdminAccounts)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    java.util.List<sifnode.tokenregistry.v1.Types.AdminAccount> 
+        getAdminAccountsList();
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    sifnode.tokenregistry.v1.Types.AdminAccount getAdminAccounts(int index);
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    int getAdminAccountsCount();
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    java.util.List<? extends sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder> 
+        getAdminAccountsOrBuilderList();
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder getAdminAccountsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code sifnode.tokenregistry.v1.AdminAccounts}
+   */
+  public static final class AdminAccounts extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.AdminAccounts)
+      AdminAccountsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AdminAccounts.newBuilder() to construct.
+    private AdminAccounts(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AdminAccounts() {
+      adminAccounts_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AdminAccounts();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AdminAccounts(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                adminAccounts_ = new java.util.ArrayList<sifnode.tokenregistry.v1.Types.AdminAccount>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              adminAccounts_.add(
+                  input.readMessage(sifnode.tokenregistry.v1.Types.AdminAccount.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          adminAccounts_ = java.util.Collections.unmodifiableList(adminAccounts_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccounts_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccounts_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.tokenregistry.v1.Types.AdminAccounts.class, sifnode.tokenregistry.v1.Types.AdminAccounts.Builder.class);
+    }
+
+    public static final int ADMIN_ACCOUNTS_FIELD_NUMBER = 1;
+    private java.util.List<sifnode.tokenregistry.v1.Types.AdminAccount> adminAccounts_;
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<sifnode.tokenregistry.v1.Types.AdminAccount> getAdminAccountsList() {
+      return adminAccounts_;
+    }
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder> 
+        getAdminAccountsOrBuilderList() {
+      return adminAccounts_;
+    }
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    @java.lang.Override
+    public int getAdminAccountsCount() {
+      return adminAccounts_.size();
+    }
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Types.AdminAccount getAdminAccounts(int index) {
+      return adminAccounts_.get(index);
+    }
+    /**
+     * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder getAdminAccountsOrBuilder(
+        int index) {
+      return adminAccounts_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < adminAccounts_.size(); i++) {
+        output.writeMessage(1, adminAccounts_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < adminAccounts_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, adminAccounts_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.tokenregistry.v1.Types.AdminAccounts)) {
+        return super.equals(obj);
+      }
+      sifnode.tokenregistry.v1.Types.AdminAccounts other = (sifnode.tokenregistry.v1.Types.AdminAccounts) obj;
+
+      if (!getAdminAccountsList()
+          .equals(other.getAdminAccountsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getAdminAccountsCount() > 0) {
+        hash = (37 * hash) + ADMIN_ACCOUNTS_FIELD_NUMBER;
+        hash = (53 * hash) + getAdminAccountsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.tokenregistry.v1.Types.AdminAccounts prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.tokenregistry.v1.AdminAccounts}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.tokenregistry.v1.AdminAccounts)
+        sifnode.tokenregistry.v1.Types.AdminAccountsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccounts_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccounts_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.tokenregistry.v1.Types.AdminAccounts.class, sifnode.tokenregistry.v1.Types.AdminAccounts.Builder.class);
+      }
+
+      // Construct using sifnode.tokenregistry.v1.Types.AdminAccounts.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getAdminAccountsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (adminAccountsBuilder_ == null) {
+          adminAccounts_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          adminAccountsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.tokenregistry.v1.Types.internal_static_sifnode_tokenregistry_v1_AdminAccounts_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Types.AdminAccounts getDefaultInstanceForType() {
+        return sifnode.tokenregistry.v1.Types.AdminAccounts.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Types.AdminAccounts build() {
+        sifnode.tokenregistry.v1.Types.AdminAccounts result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Types.AdminAccounts buildPartial() {
+        sifnode.tokenregistry.v1.Types.AdminAccounts result = new sifnode.tokenregistry.v1.Types.AdminAccounts(this);
+        int from_bitField0_ = bitField0_;
+        if (adminAccountsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            adminAccounts_ = java.util.Collections.unmodifiableList(adminAccounts_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.adminAccounts_ = adminAccounts_;
+        } else {
+          result.adminAccounts_ = adminAccountsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.tokenregistry.v1.Types.AdminAccounts) {
+          return mergeFrom((sifnode.tokenregistry.v1.Types.AdminAccounts)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.tokenregistry.v1.Types.AdminAccounts other) {
+        if (other == sifnode.tokenregistry.v1.Types.AdminAccounts.getDefaultInstance()) return this;
+        if (adminAccountsBuilder_ == null) {
+          if (!other.adminAccounts_.isEmpty()) {
+            if (adminAccounts_.isEmpty()) {
+              adminAccounts_ = other.adminAccounts_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureAdminAccountsIsMutable();
+              adminAccounts_.addAll(other.adminAccounts_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.adminAccounts_.isEmpty()) {
+            if (adminAccountsBuilder_.isEmpty()) {
+              adminAccountsBuilder_.dispose();
+              adminAccountsBuilder_ = null;
+              adminAccounts_ = other.adminAccounts_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              adminAccountsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getAdminAccountsFieldBuilder() : null;
+            } else {
+              adminAccountsBuilder_.addAllMessages(other.adminAccounts_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.tokenregistry.v1.Types.AdminAccounts parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.tokenregistry.v1.Types.AdminAccounts) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<sifnode.tokenregistry.v1.Types.AdminAccount> adminAccounts_ =
+        java.util.Collections.emptyList();
+      private void ensureAdminAccountsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          adminAccounts_ = new java.util.ArrayList<sifnode.tokenregistry.v1.Types.AdminAccount>(adminAccounts_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.tokenregistry.v1.Types.AdminAccount, sifnode.tokenregistry.v1.Types.AdminAccount.Builder, sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder> adminAccountsBuilder_;
+
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public java.util.List<sifnode.tokenregistry.v1.Types.AdminAccount> getAdminAccountsList() {
+        if (adminAccountsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(adminAccounts_);
+        } else {
+          return adminAccountsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public int getAdminAccountsCount() {
+        if (adminAccountsBuilder_ == null) {
+          return adminAccounts_.size();
+        } else {
+          return adminAccountsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.AdminAccount getAdminAccounts(int index) {
+        if (adminAccountsBuilder_ == null) {
+          return adminAccounts_.get(index);
+        } else {
+          return adminAccountsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder setAdminAccounts(
+          int index, sifnode.tokenregistry.v1.Types.AdminAccount value) {
+        if (adminAccountsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAdminAccountsIsMutable();
+          adminAccounts_.set(index, value);
+          onChanged();
+        } else {
+          adminAccountsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder setAdminAccounts(
+          int index, sifnode.tokenregistry.v1.Types.AdminAccount.Builder builderForValue) {
+        if (adminAccountsBuilder_ == null) {
+          ensureAdminAccountsIsMutable();
+          adminAccounts_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          adminAccountsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder addAdminAccounts(sifnode.tokenregistry.v1.Types.AdminAccount value) {
+        if (adminAccountsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAdminAccountsIsMutable();
+          adminAccounts_.add(value);
+          onChanged();
+        } else {
+          adminAccountsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder addAdminAccounts(
+          int index, sifnode.tokenregistry.v1.Types.AdminAccount value) {
+        if (adminAccountsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAdminAccountsIsMutable();
+          adminAccounts_.add(index, value);
+          onChanged();
+        } else {
+          adminAccountsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder addAdminAccounts(
+          sifnode.tokenregistry.v1.Types.AdminAccount.Builder builderForValue) {
+        if (adminAccountsBuilder_ == null) {
+          ensureAdminAccountsIsMutable();
+          adminAccounts_.add(builderForValue.build());
+          onChanged();
+        } else {
+          adminAccountsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder addAdminAccounts(
+          int index, sifnode.tokenregistry.v1.Types.AdminAccount.Builder builderForValue) {
+        if (adminAccountsBuilder_ == null) {
+          ensureAdminAccountsIsMutable();
+          adminAccounts_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          adminAccountsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder addAllAdminAccounts(
+          java.lang.Iterable<? extends sifnode.tokenregistry.v1.Types.AdminAccount> values) {
+        if (adminAccountsBuilder_ == null) {
+          ensureAdminAccountsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, adminAccounts_);
+          onChanged();
+        } else {
+          adminAccountsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder clearAdminAccounts() {
+        if (adminAccountsBuilder_ == null) {
+          adminAccounts_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          adminAccountsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public Builder removeAdminAccounts(int index) {
+        if (adminAccountsBuilder_ == null) {
+          ensureAdminAccountsIsMutable();
+          adminAccounts_.remove(index);
+          onChanged();
+        } else {
+          adminAccountsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.AdminAccount.Builder getAdminAccountsBuilder(
+          int index) {
+        return getAdminAccountsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder getAdminAccountsOrBuilder(
+          int index) {
+        if (adminAccountsBuilder_ == null) {
+          return adminAccounts_.get(index);  } else {
+          return adminAccountsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public java.util.List<? extends sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder> 
+           getAdminAccountsOrBuilderList() {
+        if (adminAccountsBuilder_ != null) {
+          return adminAccountsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(adminAccounts_);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.AdminAccount.Builder addAdminAccountsBuilder() {
+        return getAdminAccountsFieldBuilder().addBuilder(
+            sifnode.tokenregistry.v1.Types.AdminAccount.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.AdminAccount.Builder addAdminAccountsBuilder(
+          int index) {
+        return getAdminAccountsFieldBuilder().addBuilder(
+            index, sifnode.tokenregistry.v1.Types.AdminAccount.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.tokenregistry.v1.AdminAccount admin_accounts = 1;</code>
+       */
+      public java.util.List<sifnode.tokenregistry.v1.Types.AdminAccount.Builder> 
+           getAdminAccountsBuilderList() {
+        return getAdminAccountsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.tokenregistry.v1.Types.AdminAccount, sifnode.tokenregistry.v1.Types.AdminAccount.Builder, sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder> 
+          getAdminAccountsFieldBuilder() {
+        if (adminAccountsBuilder_ == null) {
+          adminAccountsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              sifnode.tokenregistry.v1.Types.AdminAccount, sifnode.tokenregistry.v1.Types.AdminAccount.Builder, sifnode.tokenregistry.v1.Types.AdminAccountOrBuilder>(
+                  adminAccounts_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          adminAccounts_ = null;
+        }
+        return adminAccountsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.tokenregistry.v1.AdminAccounts)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.tokenregistry.v1.AdminAccounts)
+    private static final sifnode.tokenregistry.v1.Types.AdminAccounts DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.tokenregistry.v1.Types.AdminAccounts();
+    }
+
+    public static sifnode.tokenregistry.v1.Types.AdminAccounts getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AdminAccounts>
+        PARSER = new com.google.protobuf.AbstractParser<AdminAccounts>() {
+      @java.lang.Override
+      public AdminAccounts parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AdminAccounts(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AdminAccounts> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AdminAccounts> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Types.AdminAccounts getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_tokenregistry_v1_GenesisState_descriptor;
   private static final 
@@ -4796,6 +6443,16 @@ public final class Types {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_tokenregistry_v1_RegistryEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_tokenregistry_v1_AdminAccount_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_tokenregistry_v1_AdminAccount_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_tokenregistry_v1_AdminAccounts_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_tokenregistry_v1_AdminAccounts_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4806,36 +6463,45 @@ public final class Types {
   static {
     java.lang.String[] descriptorData = {
       "\n$sifnode/tokenregistry/v1/types.proto\022\030" +
-      "sifnode.tokenregistry.v1\"[\n\014GenesisState" +
-      "\022\025\n\radmin_account\030\001 \001(\t\0224\n\010registry\030\002 \001(" +
-      "\0132\".sifnode.tokenregistry.v1.Registry\"D\n" +
-      "\010Registry\0228\n\007entries\030\001 \003(\0132\'.sifnode.tok" +
-      "enregistry.v1.RegistryEntry\"\250\003\n\rRegistry" +
-      "Entry\022\020\n\010decimals\030\002 \001(\003\022\r\n\005denom\030\003 \001(\t\022\022" +
-      "\n\nbase_denom\030\004 \001(\t\022\014\n\004path\030\005 \001(\t\022\026\n\016ibc_" +
-      "channel_id\030\006 \001(\t\022#\n\033ibc_counterparty_cha" +
-      "nnel_id\030\007 \001(\t\022\024\n\014display_name\030\010 \001(\t\022\026\n\016d" +
-      "isplay_symbol\030\t \001(\t\022\017\n\007network\030\n \001(\t\022\017\n\007" +
-      "address\030\013 \001(\t\022\027\n\017external_symbol\030\014 \001(\t\022\026" +
-      "\n\016transfer_limit\030\r \001(\t\0229\n\013permissions\030\017 " +
-      "\003(\0162$.sifnode.tokenregistry.v1.Permissio" +
-      "n\022\022\n\nunit_denom\030\020 \001(\t\022\036\n\026ibc_counterpart" +
-      "y_denom\030\021 \001(\t\022!\n\031ibc_counterparty_chain_" +
-      "id\030\022 \001(\tJ\004\010\001\020\002*D\n\nPermission\022\017\n\013UNSPECIF" +
-      "IED\020\000\022\007\n\003CLP\020\001\022\r\n\tIBCEXPORT\020\002\022\r\n\tIBCIMPO" +
-      "RT\020\003B3Z1github.com/Sifchain/sifnode/x/to" +
-      "kenregistry/typesb\006proto3"
+      "sifnode.tokenregistry.v1\032\024gogoproto/gogo" +
+      ".proto\"\205\001\n\014GenesisState\022?\n\016admin_account" +
+      "s\030\001 \001(\0132\'.sifnode.tokenregistry.v1.Admin" +
+      "Accounts\0224\n\010registry\030\002 \001(\0132\".sifnode.tok" +
+      "enregistry.v1.Registry\"D\n\010Registry\0228\n\007en" +
+      "tries\030\001 \003(\0132\'.sifnode.tokenregistry.v1.R" +
+      "egistryEntry\"\250\003\n\rRegistryEntry\022\020\n\010decima" +
+      "ls\030\002 \001(\003\022\r\n\005denom\030\003 \001(\t\022\022\n\nbase_denom\030\004 " +
+      "\001(\t\022\014\n\004path\030\005 \001(\t\022\026\n\016ibc_channel_id\030\006 \001(" +
+      "\t\022#\n\033ibc_counterparty_channel_id\030\007 \001(\t\022\024" +
+      "\n\014display_name\030\010 \001(\t\022\026\n\016display_symbol\030\t" +
+      " \001(\t\022\017\n\007network\030\n \001(\t\022\017\n\007address\030\013 \001(\t\022\027" +
+      "\n\017external_symbol\030\014 \001(\t\022\026\n\016transfer_limi" +
+      "t\030\r \001(\t\0229\n\013permissions\030\017 \003(\0162$.sifnode.t" +
+      "okenregistry.v1.Permission\022\022\n\nunit_denom" +
+      "\030\020 \001(\t\022\036\n\026ibc_counterparty_denom\030\021 \001(\t\022!" +
+      "\n\031ibc_counterparty_chain_id\030\022 \001(\tJ\004\010\001\020\002\"" +
+      "^\n\014AdminAccount\0227\n\nadmin_type\030\001 \001(\0162#.si" +
+      "fnode.tokenregistry.v1.AdminType\022\025\n\radmi" +
+      "n_address\030\002 \001(\t\"O\n\rAdminAccounts\022>\n\016admi" +
+      "n_accounts\030\001 \003(\0132&.sifnode.tokenregistry" +
+      ".v1.AdminAccount*D\n\nPermission\022\017\n\013UNSPEC" +
+      "IFIED\020\000\022\007\n\003CLP\020\001\022\r\n\tIBCEXPORT\020\002\022\r\n\tIBCIM" +
+      "PORT\020\003*J\n\tAdminType\022\n\n\006CLPDEX\020\000\022\017\n\013PMTPR" +
+      "EWARDS\020\001\022\021\n\rTOKENREGISTRY\020\002\022\r\n\tETHBRIDGE" +
+      "\020\003B3Z1github.com/Sifchain/sifnode/x/toke" +
+      "nregistry/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_sifnode_tokenregistry_v1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_sifnode_tokenregistry_v1_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_tokenregistry_v1_GenesisState_descriptor,
-        new java.lang.String[] { "AdminAccount", "Registry", });
+        new java.lang.String[] { "AdminAccounts", "Registry", });
     internal_static_sifnode_tokenregistry_v1_Registry_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_sifnode_tokenregistry_v1_Registry_fieldAccessorTable = new
@@ -4848,6 +6514,19 @@ public final class Types {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_tokenregistry_v1_RegistryEntry_descriptor,
         new java.lang.String[] { "Decimals", "Denom", "BaseDenom", "Path", "IbcChannelId", "IbcCounterpartyChannelId", "DisplayName", "DisplaySymbol", "Network", "Address", "ExternalSymbol", "TransferLimit", "Permissions", "UnitDenom", "IbcCounterpartyDenom", "IbcCounterpartyChainId", });
+    internal_static_sifnode_tokenregistry_v1_AdminAccount_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_sifnode_tokenregistry_v1_AdminAccount_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_tokenregistry_v1_AdminAccount_descriptor,
+        new java.lang.String[] { "AdminType", "AdminAddress", });
+    internal_static_sifnode_tokenregistry_v1_AdminAccounts_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_sifnode_tokenregistry_v1_AdminAccounts_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_tokenregistry_v1_AdminAccounts_descriptor,
+        new java.lang.String[] { "AdminAccounts", });
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

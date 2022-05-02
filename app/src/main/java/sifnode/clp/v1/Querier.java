@@ -12294,6 +12294,3600 @@ public final class Querier {
 
   }
 
+  public interface ParamsReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.ParamsReq)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.ParamsReq}
+   */
+  public static final class ParamsReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.ParamsReq)
+      ParamsReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ParamsReq.newBuilder() to construct.
+    private ParamsReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ParamsReq() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ParamsReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ParamsReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Querier.ParamsReq.class, sifnode.clp.v1.Querier.ParamsReq.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Querier.ParamsReq)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Querier.ParamsReq other = (sifnode.clp.v1.Querier.ParamsReq) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.ParamsReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Querier.ParamsReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.ParamsReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.ParamsReq)
+        sifnode.clp.v1.Querier.ParamsReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Querier.ParamsReq.class, sifnode.clp.v1.Querier.ParamsReq.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Querier.ParamsReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsReq_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.ParamsReq getDefaultInstanceForType() {
+        return sifnode.clp.v1.Querier.ParamsReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.ParamsReq build() {
+        sifnode.clp.v1.Querier.ParamsReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.ParamsReq buildPartial() {
+        sifnode.clp.v1.Querier.ParamsReq result = new sifnode.clp.v1.Querier.ParamsReq(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Querier.ParamsReq) {
+          return mergeFrom((sifnode.clp.v1.Querier.ParamsReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Querier.ParamsReq other) {
+        if (other == sifnode.clp.v1.Querier.ParamsReq.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Querier.ParamsReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Querier.ParamsReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.ParamsReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.ParamsReq)
+    private static final sifnode.clp.v1.Querier.ParamsReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Querier.ParamsReq();
+    }
+
+    public static sifnode.clp.v1.Querier.ParamsReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ParamsReq>
+        PARSER = new com.google.protobuf.AbstractParser<ParamsReq>() {
+      @java.lang.Override
+      public ParamsReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ParamsReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ParamsReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ParamsReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Querier.ParamsReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ParamsResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.ParamsRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.sifnode.clp.v1.Params params = 1;</code>
+     * @return Whether the params field is set.
+     */
+    boolean hasParams();
+    /**
+     * <code>.sifnode.clp.v1.Params params = 1;</code>
+     * @return The params.
+     */
+    sifnode.clp.v1.ParamsOuterClass.Params getParams();
+    /**
+     * <code>.sifnode.clp.v1.Params params = 1;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.ParamsRes}
+   */
+  public static final class ParamsRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.ParamsRes)
+      ParamsResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ParamsRes.newBuilder() to construct.
+    private ParamsRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ParamsRes() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ParamsRes();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ParamsRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              sifnode.clp.v1.ParamsOuterClass.Params.Builder subBuilder = null;
+              if (params_ != null) {
+                subBuilder = params_.toBuilder();
+              }
+              params_ = input.readMessage(sifnode.clp.v1.ParamsOuterClass.Params.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(params_);
+                params_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsRes_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Querier.ParamsRes.class, sifnode.clp.v1.Querier.ParamsRes.Builder.class);
+    }
+
+    public static final int PARAMS_FIELD_NUMBER = 1;
+    private sifnode.clp.v1.ParamsOuterClass.Params params_;
+    /**
+     * <code>.sifnode.clp.v1.Params params = 1;</code>
+     * @return Whether the params field is set.
+     */
+    @java.lang.Override
+    public boolean hasParams() {
+      return params_ != null;
+    }
+    /**
+     * <code>.sifnode.clp.v1.Params params = 1;</code>
+     * @return The params.
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.Params getParams() {
+      return params_ == null ? sifnode.clp.v1.ParamsOuterClass.Params.getDefaultInstance() : params_;
+    }
+    /**
+     * <code>.sifnode.clp.v1.Params params = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
+      return getParams();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (params_ != null) {
+        output.writeMessage(1, getParams());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (params_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getParams());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Querier.ParamsRes)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Querier.ParamsRes other = (sifnode.clp.v1.Querier.ParamsRes) obj;
+
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.ParamsRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Querier.ParamsRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.ParamsRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.ParamsRes)
+        sifnode.clp.v1.Querier.ParamsResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsRes_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Querier.ParamsRes.class, sifnode.clp.v1.Querier.ParamsRes.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Querier.ParamsRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (paramsBuilder_ == null) {
+          params_ = null;
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_ParamsRes_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.ParamsRes getDefaultInstanceForType() {
+        return sifnode.clp.v1.Querier.ParamsRes.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.ParamsRes build() {
+        sifnode.clp.v1.Querier.ParamsRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.ParamsRes buildPartial() {
+        sifnode.clp.v1.Querier.ParamsRes result = new sifnode.clp.v1.Querier.ParamsRes(this);
+        if (paramsBuilder_ == null) {
+          result.params_ = params_;
+        } else {
+          result.params_ = paramsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Querier.ParamsRes) {
+          return mergeFrom((sifnode.clp.v1.Querier.ParamsRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Querier.ParamsRes other) {
+        if (other == sifnode.clp.v1.Querier.ParamsRes.getDefaultInstance()) return this;
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Querier.ParamsRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Querier.ParamsRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private sifnode.clp.v1.ParamsOuterClass.Params params_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.Params, sifnode.clp.v1.ParamsOuterClass.Params.Builder, sifnode.clp.v1.ParamsOuterClass.ParamsOrBuilder> paramsBuilder_;
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       * @return Whether the params field is set.
+       */
+      public boolean hasParams() {
+        return paramsBuilder_ != null || params_ != null;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       * @return The params.
+       */
+      public sifnode.clp.v1.ParamsOuterClass.Params getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? sifnode.clp.v1.ParamsOuterClass.Params.getDefaultInstance() : params_;
+        } else {
+          return paramsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       */
+      public Builder setParams(sifnode.clp.v1.ParamsOuterClass.Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          params_ = value;
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       */
+      public Builder setParams(
+          sifnode.clp.v1.ParamsOuterClass.Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          params_ = builderForValue.build();
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       */
+      public Builder mergeParams(sifnode.clp.v1.ParamsOuterClass.Params value) {
+        if (paramsBuilder_ == null) {
+          if (params_ != null) {
+            params_ =
+              sifnode.clp.v1.ParamsOuterClass.Params.newBuilder(params_).mergeFrom(value).buildPartial();
+          } else {
+            params_ = value;
+          }
+          onChanged();
+        } else {
+          paramsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       */
+      public Builder clearParams() {
+        if (paramsBuilder_ == null) {
+          params_ = null;
+          onChanged();
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.Params.Builder getParamsBuilder() {
+        
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
+        } else {
+          return params_ == null ?
+              sifnode.clp.v1.ParamsOuterClass.Params.getDefaultInstance() : params_;
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.Params params = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.Params, sifnode.clp.v1.ParamsOuterClass.Params.Builder, sifnode.clp.v1.ParamsOuterClass.ParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.clp.v1.ParamsOuterClass.Params, sifnode.clp.v1.ParamsOuterClass.Params.Builder, sifnode.clp.v1.ParamsOuterClass.ParamsOrBuilder>(
+                  getParams(),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.ParamsRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.ParamsRes)
+    private static final sifnode.clp.v1.Querier.ParamsRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Querier.ParamsRes();
+    }
+
+    public static sifnode.clp.v1.Querier.ParamsRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ParamsRes>
+        PARSER = new com.google.protobuf.AbstractParser<ParamsRes>() {
+      @java.lang.Override
+      public ParamsRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ParamsRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ParamsRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ParamsRes> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Querier.ParamsRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RewardParamsReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.RewardParamsReq)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.RewardParamsReq}
+   */
+  public static final class RewardParamsReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.RewardParamsReq)
+      RewardParamsReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RewardParamsReq.newBuilder() to construct.
+    private RewardParamsReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RewardParamsReq() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RewardParamsReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RewardParamsReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Querier.RewardParamsReq.class, sifnode.clp.v1.Querier.RewardParamsReq.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Querier.RewardParamsReq)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Querier.RewardParamsReq other = (sifnode.clp.v1.Querier.RewardParamsReq) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Querier.RewardParamsReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.RewardParamsReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.RewardParamsReq)
+        sifnode.clp.v1.Querier.RewardParamsReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Querier.RewardParamsReq.class, sifnode.clp.v1.Querier.RewardParamsReq.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Querier.RewardParamsReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsReq_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.RewardParamsReq getDefaultInstanceForType() {
+        return sifnode.clp.v1.Querier.RewardParamsReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.RewardParamsReq build() {
+        sifnode.clp.v1.Querier.RewardParamsReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.RewardParamsReq buildPartial() {
+        sifnode.clp.v1.Querier.RewardParamsReq result = new sifnode.clp.v1.Querier.RewardParamsReq(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Querier.RewardParamsReq) {
+          return mergeFrom((sifnode.clp.v1.Querier.RewardParamsReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Querier.RewardParamsReq other) {
+        if (other == sifnode.clp.v1.Querier.RewardParamsReq.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Querier.RewardParamsReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Querier.RewardParamsReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.RewardParamsReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.RewardParamsReq)
+    private static final sifnode.clp.v1.Querier.RewardParamsReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Querier.RewardParamsReq();
+    }
+
+    public static sifnode.clp.v1.Querier.RewardParamsReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RewardParamsReq>
+        PARSER = new com.google.protobuf.AbstractParser<RewardParamsReq>() {
+      @java.lang.Override
+      public RewardParamsReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RewardParamsReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RewardParamsReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RewardParamsReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Querier.RewardParamsReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RewardParamsResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.RewardParamsRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+     * @return Whether the params field is set.
+     */
+    boolean hasParams();
+    /**
+     * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+     * @return The params.
+     */
+    sifnode.clp.v1.ParamsOuterClass.RewardParams getParams();
+    /**
+     * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.RewardParamsOrBuilder getParamsOrBuilder();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.RewardParamsRes}
+   */
+  public static final class RewardParamsRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.RewardParamsRes)
+      RewardParamsResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RewardParamsRes.newBuilder() to construct.
+    private RewardParamsRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RewardParamsRes() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RewardParamsRes();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RewardParamsRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              sifnode.clp.v1.ParamsOuterClass.RewardParams.Builder subBuilder = null;
+              if (params_ != null) {
+                subBuilder = params_.toBuilder();
+              }
+              params_ = input.readMessage(sifnode.clp.v1.ParamsOuterClass.RewardParams.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(params_);
+                params_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsRes_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Querier.RewardParamsRes.class, sifnode.clp.v1.Querier.RewardParamsRes.Builder.class);
+    }
+
+    public static final int PARAMS_FIELD_NUMBER = 1;
+    private sifnode.clp.v1.ParamsOuterClass.RewardParams params_;
+    /**
+     * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+     * @return Whether the params field is set.
+     */
+    @java.lang.Override
+    public boolean hasParams() {
+      return params_ != null;
+    }
+    /**
+     * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+     * @return The params.
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.RewardParams getParams() {
+      return params_ == null ? sifnode.clp.v1.ParamsOuterClass.RewardParams.getDefaultInstance() : params_;
+    }
+    /**
+     * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.RewardParamsOrBuilder getParamsOrBuilder() {
+      return getParams();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (params_ != null) {
+        output.writeMessage(1, getParams());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (params_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getParams());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Querier.RewardParamsRes)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Querier.RewardParamsRes other = (sifnode.clp.v1.Querier.RewardParamsRes) obj;
+
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.RewardParamsRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Querier.RewardParamsRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.RewardParamsRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.RewardParamsRes)
+        sifnode.clp.v1.Querier.RewardParamsResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsRes_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Querier.RewardParamsRes.class, sifnode.clp.v1.Querier.RewardParamsRes.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Querier.RewardParamsRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (paramsBuilder_ == null) {
+          params_ = null;
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_RewardParamsRes_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.RewardParamsRes getDefaultInstanceForType() {
+        return sifnode.clp.v1.Querier.RewardParamsRes.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.RewardParamsRes build() {
+        sifnode.clp.v1.Querier.RewardParamsRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.RewardParamsRes buildPartial() {
+        sifnode.clp.v1.Querier.RewardParamsRes result = new sifnode.clp.v1.Querier.RewardParamsRes(this);
+        if (paramsBuilder_ == null) {
+          result.params_ = params_;
+        } else {
+          result.params_ = paramsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Querier.RewardParamsRes) {
+          return mergeFrom((sifnode.clp.v1.Querier.RewardParamsRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Querier.RewardParamsRes other) {
+        if (other == sifnode.clp.v1.Querier.RewardParamsRes.getDefaultInstance()) return this;
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Querier.RewardParamsRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Querier.RewardParamsRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private sifnode.clp.v1.ParamsOuterClass.RewardParams params_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.RewardParams, sifnode.clp.v1.ParamsOuterClass.RewardParams.Builder, sifnode.clp.v1.ParamsOuterClass.RewardParamsOrBuilder> paramsBuilder_;
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       * @return Whether the params field is set.
+       */
+      public boolean hasParams() {
+        return paramsBuilder_ != null || params_ != null;
+      }
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       * @return The params.
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardParams getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? sifnode.clp.v1.ParamsOuterClass.RewardParams.getDefaultInstance() : params_;
+        } else {
+          return paramsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       */
+      public Builder setParams(sifnode.clp.v1.ParamsOuterClass.RewardParams value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          params_ = value;
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       */
+      public Builder setParams(
+          sifnode.clp.v1.ParamsOuterClass.RewardParams.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          params_ = builderForValue.build();
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       */
+      public Builder mergeParams(sifnode.clp.v1.ParamsOuterClass.RewardParams value) {
+        if (paramsBuilder_ == null) {
+          if (params_ != null) {
+            params_ =
+              sifnode.clp.v1.ParamsOuterClass.RewardParams.newBuilder(params_).mergeFrom(value).buildPartial();
+          } else {
+            params_ = value;
+          }
+          onChanged();
+        } else {
+          paramsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       */
+      public Builder clearParams() {
+        if (paramsBuilder_ == null) {
+          params_ = null;
+          onChanged();
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardParams.Builder getParamsBuilder() {
+        
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.RewardParamsOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
+        } else {
+          return params_ == null ?
+              sifnode.clp.v1.ParamsOuterClass.RewardParams.getDefaultInstance() : params_;
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.RewardParams params = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.RewardParams, sifnode.clp.v1.ParamsOuterClass.RewardParams.Builder, sifnode.clp.v1.ParamsOuterClass.RewardParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.clp.v1.ParamsOuterClass.RewardParams, sifnode.clp.v1.ParamsOuterClass.RewardParams.Builder, sifnode.clp.v1.ParamsOuterClass.RewardParamsOrBuilder>(
+                  getParams(),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.RewardParamsRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.RewardParamsRes)
+    private static final sifnode.clp.v1.Querier.RewardParamsRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Querier.RewardParamsRes();
+    }
+
+    public static sifnode.clp.v1.Querier.RewardParamsRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RewardParamsRes>
+        PARSER = new com.google.protobuf.AbstractParser<RewardParamsRes>() {
+      @java.lang.Override
+      public RewardParamsRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RewardParamsRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RewardParamsRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RewardParamsRes> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Querier.RewardParamsRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PmtpParamsReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.PmtpParamsReq)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.PmtpParamsReq}
+   */
+  public static final class PmtpParamsReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PmtpParamsReq)
+      PmtpParamsReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PmtpParamsReq.newBuilder() to construct.
+    private PmtpParamsReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PmtpParamsReq() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PmtpParamsReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PmtpParamsReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Querier.PmtpParamsReq.class, sifnode.clp.v1.Querier.PmtpParamsReq.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Querier.PmtpParamsReq)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Querier.PmtpParamsReq other = (sifnode.clp.v1.Querier.PmtpParamsReq) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Querier.PmtpParamsReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.PmtpParamsReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.PmtpParamsReq)
+        sifnode.clp.v1.Querier.PmtpParamsReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Querier.PmtpParamsReq.class, sifnode.clp.v1.Querier.PmtpParamsReq.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Querier.PmtpParamsReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsReq_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.PmtpParamsReq getDefaultInstanceForType() {
+        return sifnode.clp.v1.Querier.PmtpParamsReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.PmtpParamsReq build() {
+        sifnode.clp.v1.Querier.PmtpParamsReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.PmtpParamsReq buildPartial() {
+        sifnode.clp.v1.Querier.PmtpParamsReq result = new sifnode.clp.v1.Querier.PmtpParamsReq(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Querier.PmtpParamsReq) {
+          return mergeFrom((sifnode.clp.v1.Querier.PmtpParamsReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Querier.PmtpParamsReq other) {
+        if (other == sifnode.clp.v1.Querier.PmtpParamsReq.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Querier.PmtpParamsReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Querier.PmtpParamsReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.PmtpParamsReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.PmtpParamsReq)
+    private static final sifnode.clp.v1.Querier.PmtpParamsReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Querier.PmtpParamsReq();
+    }
+
+    public static sifnode.clp.v1.Querier.PmtpParamsReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PmtpParamsReq>
+        PARSER = new com.google.protobuf.AbstractParser<PmtpParamsReq>() {
+      @java.lang.Override
+      public PmtpParamsReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PmtpParamsReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PmtpParamsReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PmtpParamsReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Querier.PmtpParamsReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PmtpParamsResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.PmtpParamsRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+     * @return Whether the params field is set.
+     */
+    boolean hasParams();
+    /**
+     * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+     * @return The params.
+     */
+    sifnode.clp.v1.ParamsOuterClass.PmtpParams getParams();
+    /**
+     * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.PmtpParamsOrBuilder getParamsOrBuilder();
+
+    /**
+     * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+     * @return Whether the pmtpRateParams field is set.
+     */
+    boolean hasPmtpRateParams();
+    /**
+     * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+     * @return The pmtpRateParams.
+     */
+    sifnode.clp.v1.ParamsOuterClass.PmtpRateParams getPmtpRateParams();
+    /**
+     * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+     */
+    sifnode.clp.v1.ParamsOuterClass.PmtpRateParamsOrBuilder getPmtpRateParamsOrBuilder();
+
+    /**
+     * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+     * @return Whether the pmtpEpoch field is set.
+     */
+    boolean hasPmtpEpoch();
+    /**
+     * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+     * @return The pmtpEpoch.
+     */
+    sifnode.clp.v1.Types.PmtpEpoch getPmtpEpoch();
+    /**
+     * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+     */
+    sifnode.clp.v1.Types.PmtpEpochOrBuilder getPmtpEpochOrBuilder();
+
+    /**
+     * <code>int64 height = 4;</code>
+     * @return The height.
+     */
+    long getHeight();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.PmtpParamsRes}
+   */
+  public static final class PmtpParamsRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PmtpParamsRes)
+      PmtpParamsResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PmtpParamsRes.newBuilder() to construct.
+    private PmtpParamsRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PmtpParamsRes() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PmtpParamsRes();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PmtpParamsRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              sifnode.clp.v1.ParamsOuterClass.PmtpParams.Builder subBuilder = null;
+              if (params_ != null) {
+                subBuilder = params_.toBuilder();
+              }
+              params_ = input.readMessage(sifnode.clp.v1.ParamsOuterClass.PmtpParams.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(params_);
+                params_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+              sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.Builder subBuilder = null;
+              if (pmtpRateParams_ != null) {
+                subBuilder = pmtpRateParams_.toBuilder();
+              }
+              pmtpRateParams_ = input.readMessage(sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pmtpRateParams_);
+                pmtpRateParams_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              sifnode.clp.v1.Types.PmtpEpoch.Builder subBuilder = null;
+              if (pmtpEpoch_ != null) {
+                subBuilder = pmtpEpoch_.toBuilder();
+              }
+              pmtpEpoch_ = input.readMessage(sifnode.clp.v1.Types.PmtpEpoch.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pmtpEpoch_);
+                pmtpEpoch_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 32: {
+
+              height_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsRes_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Querier.PmtpParamsRes.class, sifnode.clp.v1.Querier.PmtpParamsRes.Builder.class);
+    }
+
+    public static final int PARAMS_FIELD_NUMBER = 1;
+    private sifnode.clp.v1.ParamsOuterClass.PmtpParams params_;
+    /**
+     * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+     * @return Whether the params field is set.
+     */
+    @java.lang.Override
+    public boolean hasParams() {
+      return params_ != null;
+    }
+    /**
+     * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+     * @return The params.
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PmtpParams getParams() {
+      return params_ == null ? sifnode.clp.v1.ParamsOuterClass.PmtpParams.getDefaultInstance() : params_;
+    }
+    /**
+     * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PmtpParamsOrBuilder getParamsOrBuilder() {
+      return getParams();
+    }
+
+    public static final int PMTP_RATE_PARAMS_FIELD_NUMBER = 2;
+    private sifnode.clp.v1.ParamsOuterClass.PmtpRateParams pmtpRateParams_;
+    /**
+     * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+     * @return Whether the pmtpRateParams field is set.
+     */
+    @java.lang.Override
+    public boolean hasPmtpRateParams() {
+      return pmtpRateParams_ != null;
+    }
+    /**
+     * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+     * @return The pmtpRateParams.
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PmtpRateParams getPmtpRateParams() {
+      return pmtpRateParams_ == null ? sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.getDefaultInstance() : pmtpRateParams_;
+    }
+    /**
+     * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.ParamsOuterClass.PmtpRateParamsOrBuilder getPmtpRateParamsOrBuilder() {
+      return getPmtpRateParams();
+    }
+
+    public static final int PMTP_EPOCH_FIELD_NUMBER = 3;
+    private sifnode.clp.v1.Types.PmtpEpoch pmtpEpoch_;
+    /**
+     * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+     * @return Whether the pmtpEpoch field is set.
+     */
+    @java.lang.Override
+    public boolean hasPmtpEpoch() {
+      return pmtpEpoch_ != null;
+    }
+    /**
+     * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+     * @return The pmtpEpoch.
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.PmtpEpoch getPmtpEpoch() {
+      return pmtpEpoch_ == null ? sifnode.clp.v1.Types.PmtpEpoch.getDefaultInstance() : pmtpEpoch_;
+    }
+    /**
+     * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.PmtpEpochOrBuilder getPmtpEpochOrBuilder() {
+      return getPmtpEpoch();
+    }
+
+    public static final int HEIGHT_FIELD_NUMBER = 4;
+    private long height_;
+    /**
+     * <code>int64 height = 4;</code>
+     * @return The height.
+     */
+    @java.lang.Override
+    public long getHeight() {
+      return height_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (params_ != null) {
+        output.writeMessage(1, getParams());
+      }
+      if (pmtpRateParams_ != null) {
+        output.writeMessage(2, getPmtpRateParams());
+      }
+      if (pmtpEpoch_ != null) {
+        output.writeMessage(3, getPmtpEpoch());
+      }
+      if (height_ != 0L) {
+        output.writeInt64(4, height_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (params_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getParams());
+      }
+      if (pmtpRateParams_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPmtpRateParams());
+      }
+      if (pmtpEpoch_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getPmtpEpoch());
+      }
+      if (height_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, height_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Querier.PmtpParamsRes)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Querier.PmtpParamsRes other = (sifnode.clp.v1.Querier.PmtpParamsRes) obj;
+
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
+      }
+      if (hasPmtpRateParams() != other.hasPmtpRateParams()) return false;
+      if (hasPmtpRateParams()) {
+        if (!getPmtpRateParams()
+            .equals(other.getPmtpRateParams())) return false;
+      }
+      if (hasPmtpEpoch() != other.hasPmtpEpoch()) return false;
+      if (hasPmtpEpoch()) {
+        if (!getPmtpEpoch()
+            .equals(other.getPmtpEpoch())) return false;
+      }
+      if (getHeight()
+          != other.getHeight()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
+      }
+      if (hasPmtpRateParams()) {
+        hash = (37 * hash) + PMTP_RATE_PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getPmtpRateParams().hashCode();
+      }
+      if (hasPmtpEpoch()) {
+        hash = (37 * hash) + PMTP_EPOCH_FIELD_NUMBER;
+        hash = (53 * hash) + getPmtpEpoch().hashCode();
+      }
+      hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getHeight());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.PmtpParamsRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Querier.PmtpParamsRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.PmtpParamsRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.PmtpParamsRes)
+        sifnode.clp.v1.Querier.PmtpParamsResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsRes_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Querier.PmtpParamsRes.class, sifnode.clp.v1.Querier.PmtpParamsRes.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Querier.PmtpParamsRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (paramsBuilder_ == null) {
+          params_ = null;
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+        if (pmtpRateParamsBuilder_ == null) {
+          pmtpRateParams_ = null;
+        } else {
+          pmtpRateParams_ = null;
+          pmtpRateParamsBuilder_ = null;
+        }
+        if (pmtpEpochBuilder_ == null) {
+          pmtpEpoch_ = null;
+        } else {
+          pmtpEpoch_ = null;
+          pmtpEpochBuilder_ = null;
+        }
+        height_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_PmtpParamsRes_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.PmtpParamsRes getDefaultInstanceForType() {
+        return sifnode.clp.v1.Querier.PmtpParamsRes.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.PmtpParamsRes build() {
+        sifnode.clp.v1.Querier.PmtpParamsRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.PmtpParamsRes buildPartial() {
+        sifnode.clp.v1.Querier.PmtpParamsRes result = new sifnode.clp.v1.Querier.PmtpParamsRes(this);
+        if (paramsBuilder_ == null) {
+          result.params_ = params_;
+        } else {
+          result.params_ = paramsBuilder_.build();
+        }
+        if (pmtpRateParamsBuilder_ == null) {
+          result.pmtpRateParams_ = pmtpRateParams_;
+        } else {
+          result.pmtpRateParams_ = pmtpRateParamsBuilder_.build();
+        }
+        if (pmtpEpochBuilder_ == null) {
+          result.pmtpEpoch_ = pmtpEpoch_;
+        } else {
+          result.pmtpEpoch_ = pmtpEpochBuilder_.build();
+        }
+        result.height_ = height_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Querier.PmtpParamsRes) {
+          return mergeFrom((sifnode.clp.v1.Querier.PmtpParamsRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Querier.PmtpParamsRes other) {
+        if (other == sifnode.clp.v1.Querier.PmtpParamsRes.getDefaultInstance()) return this;
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
+        }
+        if (other.hasPmtpRateParams()) {
+          mergePmtpRateParams(other.getPmtpRateParams());
+        }
+        if (other.hasPmtpEpoch()) {
+          mergePmtpEpoch(other.getPmtpEpoch());
+        }
+        if (other.getHeight() != 0L) {
+          setHeight(other.getHeight());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Querier.PmtpParamsRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Querier.PmtpParamsRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private sifnode.clp.v1.ParamsOuterClass.PmtpParams params_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.PmtpParams, sifnode.clp.v1.ParamsOuterClass.PmtpParams.Builder, sifnode.clp.v1.ParamsOuterClass.PmtpParamsOrBuilder> paramsBuilder_;
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       * @return Whether the params field is set.
+       */
+      public boolean hasParams() {
+        return paramsBuilder_ != null || params_ != null;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       * @return The params.
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PmtpParams getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? sifnode.clp.v1.ParamsOuterClass.PmtpParams.getDefaultInstance() : params_;
+        } else {
+          return paramsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       */
+      public Builder setParams(sifnode.clp.v1.ParamsOuterClass.PmtpParams value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          params_ = value;
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       */
+      public Builder setParams(
+          sifnode.clp.v1.ParamsOuterClass.PmtpParams.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          params_ = builderForValue.build();
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       */
+      public Builder mergeParams(sifnode.clp.v1.ParamsOuterClass.PmtpParams value) {
+        if (paramsBuilder_ == null) {
+          if (params_ != null) {
+            params_ =
+              sifnode.clp.v1.ParamsOuterClass.PmtpParams.newBuilder(params_).mergeFrom(value).buildPartial();
+          } else {
+            params_ = value;
+          }
+          onChanged();
+        } else {
+          paramsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       */
+      public Builder clearParams() {
+        if (paramsBuilder_ == null) {
+          params_ = null;
+          onChanged();
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PmtpParams.Builder getParamsBuilder() {
+        
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PmtpParamsOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
+        } else {
+          return params_ == null ?
+              sifnode.clp.v1.ParamsOuterClass.PmtpParams.getDefaultInstance() : params_;
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpParams params = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.PmtpParams, sifnode.clp.v1.ParamsOuterClass.PmtpParams.Builder, sifnode.clp.v1.ParamsOuterClass.PmtpParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.clp.v1.ParamsOuterClass.PmtpParams, sifnode.clp.v1.ParamsOuterClass.PmtpParams.Builder, sifnode.clp.v1.ParamsOuterClass.PmtpParamsOrBuilder>(
+                  getParams(),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
+      }
+
+      private sifnode.clp.v1.ParamsOuterClass.PmtpRateParams pmtpRateParams_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.PmtpRateParams, sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.Builder, sifnode.clp.v1.ParamsOuterClass.PmtpRateParamsOrBuilder> pmtpRateParamsBuilder_;
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       * @return Whether the pmtpRateParams field is set.
+       */
+      public boolean hasPmtpRateParams() {
+        return pmtpRateParamsBuilder_ != null || pmtpRateParams_ != null;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       * @return The pmtpRateParams.
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PmtpRateParams getPmtpRateParams() {
+        if (pmtpRateParamsBuilder_ == null) {
+          return pmtpRateParams_ == null ? sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.getDefaultInstance() : pmtpRateParams_;
+        } else {
+          return pmtpRateParamsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       */
+      public Builder setPmtpRateParams(sifnode.clp.v1.ParamsOuterClass.PmtpRateParams value) {
+        if (pmtpRateParamsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pmtpRateParams_ = value;
+          onChanged();
+        } else {
+          pmtpRateParamsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       */
+      public Builder setPmtpRateParams(
+          sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.Builder builderForValue) {
+        if (pmtpRateParamsBuilder_ == null) {
+          pmtpRateParams_ = builderForValue.build();
+          onChanged();
+        } else {
+          pmtpRateParamsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       */
+      public Builder mergePmtpRateParams(sifnode.clp.v1.ParamsOuterClass.PmtpRateParams value) {
+        if (pmtpRateParamsBuilder_ == null) {
+          if (pmtpRateParams_ != null) {
+            pmtpRateParams_ =
+              sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.newBuilder(pmtpRateParams_).mergeFrom(value).buildPartial();
+          } else {
+            pmtpRateParams_ = value;
+          }
+          onChanged();
+        } else {
+          pmtpRateParamsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       */
+      public Builder clearPmtpRateParams() {
+        if (pmtpRateParamsBuilder_ == null) {
+          pmtpRateParams_ = null;
+          onChanged();
+        } else {
+          pmtpRateParams_ = null;
+          pmtpRateParamsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.Builder getPmtpRateParamsBuilder() {
+        
+        onChanged();
+        return getPmtpRateParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       */
+      public sifnode.clp.v1.ParamsOuterClass.PmtpRateParamsOrBuilder getPmtpRateParamsOrBuilder() {
+        if (pmtpRateParamsBuilder_ != null) {
+          return pmtpRateParamsBuilder_.getMessageOrBuilder();
+        } else {
+          return pmtpRateParams_ == null ?
+              sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.getDefaultInstance() : pmtpRateParams_;
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpRateParams pmtp_rate_params = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.ParamsOuterClass.PmtpRateParams, sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.Builder, sifnode.clp.v1.ParamsOuterClass.PmtpRateParamsOrBuilder> 
+          getPmtpRateParamsFieldBuilder() {
+        if (pmtpRateParamsBuilder_ == null) {
+          pmtpRateParamsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.clp.v1.ParamsOuterClass.PmtpRateParams, sifnode.clp.v1.ParamsOuterClass.PmtpRateParams.Builder, sifnode.clp.v1.ParamsOuterClass.PmtpRateParamsOrBuilder>(
+                  getPmtpRateParams(),
+                  getParentForChildren(),
+                  isClean());
+          pmtpRateParams_ = null;
+        }
+        return pmtpRateParamsBuilder_;
+      }
+
+      private sifnode.clp.v1.Types.PmtpEpoch pmtpEpoch_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.Types.PmtpEpoch, sifnode.clp.v1.Types.PmtpEpoch.Builder, sifnode.clp.v1.Types.PmtpEpochOrBuilder> pmtpEpochBuilder_;
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       * @return Whether the pmtpEpoch field is set.
+       */
+      public boolean hasPmtpEpoch() {
+        return pmtpEpochBuilder_ != null || pmtpEpoch_ != null;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       * @return The pmtpEpoch.
+       */
+      public sifnode.clp.v1.Types.PmtpEpoch getPmtpEpoch() {
+        if (pmtpEpochBuilder_ == null) {
+          return pmtpEpoch_ == null ? sifnode.clp.v1.Types.PmtpEpoch.getDefaultInstance() : pmtpEpoch_;
+        } else {
+          return pmtpEpochBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       */
+      public Builder setPmtpEpoch(sifnode.clp.v1.Types.PmtpEpoch value) {
+        if (pmtpEpochBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pmtpEpoch_ = value;
+          onChanged();
+        } else {
+          pmtpEpochBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       */
+      public Builder setPmtpEpoch(
+          sifnode.clp.v1.Types.PmtpEpoch.Builder builderForValue) {
+        if (pmtpEpochBuilder_ == null) {
+          pmtpEpoch_ = builderForValue.build();
+          onChanged();
+        } else {
+          pmtpEpochBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       */
+      public Builder mergePmtpEpoch(sifnode.clp.v1.Types.PmtpEpoch value) {
+        if (pmtpEpochBuilder_ == null) {
+          if (pmtpEpoch_ != null) {
+            pmtpEpoch_ =
+              sifnode.clp.v1.Types.PmtpEpoch.newBuilder(pmtpEpoch_).mergeFrom(value).buildPartial();
+          } else {
+            pmtpEpoch_ = value;
+          }
+          onChanged();
+        } else {
+          pmtpEpochBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       */
+      public Builder clearPmtpEpoch() {
+        if (pmtpEpochBuilder_ == null) {
+          pmtpEpoch_ = null;
+          onChanged();
+        } else {
+          pmtpEpoch_ = null;
+          pmtpEpochBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       */
+      public sifnode.clp.v1.Types.PmtpEpoch.Builder getPmtpEpochBuilder() {
+        
+        onChanged();
+        return getPmtpEpochFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       */
+      public sifnode.clp.v1.Types.PmtpEpochOrBuilder getPmtpEpochOrBuilder() {
+        if (pmtpEpochBuilder_ != null) {
+          return pmtpEpochBuilder_.getMessageOrBuilder();
+        } else {
+          return pmtpEpoch_ == null ?
+              sifnode.clp.v1.Types.PmtpEpoch.getDefaultInstance() : pmtpEpoch_;
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.PmtpEpoch pmtp_epoch = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.Types.PmtpEpoch, sifnode.clp.v1.Types.PmtpEpoch.Builder, sifnode.clp.v1.Types.PmtpEpochOrBuilder> 
+          getPmtpEpochFieldBuilder() {
+        if (pmtpEpochBuilder_ == null) {
+          pmtpEpochBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.clp.v1.Types.PmtpEpoch, sifnode.clp.v1.Types.PmtpEpoch.Builder, sifnode.clp.v1.Types.PmtpEpochOrBuilder>(
+                  getPmtpEpoch(),
+                  getParentForChildren(),
+                  isClean());
+          pmtpEpoch_ = null;
+        }
+        return pmtpEpochBuilder_;
+      }
+
+      private long height_ ;
+      /**
+       * <code>int64 height = 4;</code>
+       * @return The height.
+       */
+      @java.lang.Override
+      public long getHeight() {
+        return height_;
+      }
+      /**
+       * <code>int64 height = 4;</code>
+       * @param value The height to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHeight(long value) {
+        
+        height_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 height = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHeight() {
+        
+        height_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.PmtpParamsRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.PmtpParamsRes)
+    private static final sifnode.clp.v1.Querier.PmtpParamsRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Querier.PmtpParamsRes();
+    }
+
+    public static sifnode.clp.v1.Querier.PmtpParamsRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PmtpParamsRes>
+        PARSER = new com.google.protobuf.AbstractParser<PmtpParamsRes>() {
+      @java.lang.Override
+      public PmtpParamsRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PmtpParamsRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PmtpParamsRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PmtpParamsRes> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Querier.PmtpParamsRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_PoolReq_descriptor;
   private static final 
@@ -12364,6 +15958,36 @@ public final class Querier {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_LiquidityProvidersRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_ParamsReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_ParamsReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_ParamsRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_ParamsRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_RewardParamsReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_RewardParamsReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_RewardParamsRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_RewardParamsRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_PmtpParamsReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_PmtpParamsReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_PmtpParamsRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_PmtpParamsRes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -12375,83 +15999,102 @@ public final class Querier {
     java.lang.String[] descriptorData = {
       "\n\034sifnode/clp/v1/querier.proto\022\016sifnode." +
       "clp.v1\032\024gogoproto/gogo.proto\032\032sifnode/cl" +
-      "p/v1/types.proto\032*cosmos/base/query/v1be" +
-      "ta1/pagination.proto\032\034google/api/annotat" +
-      "ions.proto\"#\n\007PoolReq\022\016\n\006symbol\030\001 \001(\t:\010\350" +
-      "\240\037\000\210\240\037\000\"Y\n\007PoolRes\022\"\n\004pool\030\001 \001(\0132\024.sifno" +
-      "de.clp.v1.Pool\022\032\n\022clp_module_address\030\002 \001" +
-      "(\t\022\016\n\006height\030\003 \001(\003\"F\n\010PoolsReq\022:\n\npagina" +
-      "tion\030\001 \001(\0132&.cosmos.base.query.v1beta1.P" +
-      "ageRequest\"\230\001\n\010PoolsRes\022#\n\005pools\030\001 \003(\0132\024" +
-      ".sifnode.clp.v1.Pool\022\032\n\022clp_module_addre" +
-      "ss\030\002 \001(\t\022\016\n\006height\030\003 \001(\003\022;\n\npagination\030\004" +
-      " \001(\0132\'.cosmos.base.query.v1beta1.PageRes" +
-      "ponse\"D\n\024LiquidityProviderReq\022\016\n\006symbol\030" +
-      "\001 \001(\t\022\022\n\nlp_address\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"\243\001\n\024" +
-      "LiquidityProviderRes\022=\n\022liquidity_provid" +
-      "er\030\001 \001(\0132!.sifnode.clp.v1.LiquidityProvi" +
-      "der\022\034\n\024native_asset_balance\030\002 \001(\t\022\036\n\026ext" +
-      "ernal_asset_balance\030\003 \001(\t\022\016\n\006height\030\004 \001(" +
-      "\003\"h\n\014AssetListReq\022\022\n\nlp_address\030\001 \001(\t\022:\n" +
+      "p/v1/types.proto\032\033sifnode/clp/v1/params." +
+      "proto\032*cosmos/base/query/v1beta1/paginat" +
+      "ion.proto\032\034google/api/annotations.proto\"" +
+      "#\n\007PoolReq\022\016\n\006symbol\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"Y\n\007" +
+      "PoolRes\022\"\n\004pool\030\001 \001(\0132\024.sifnode.clp.v1.P" +
+      "ool\022\032\n\022clp_module_address\030\002 \001(\t\022\016\n\006heigh" +
+      "t\030\003 \001(\003\"F\n\010PoolsReq\022:\n\npagination\030\001 \001(\0132" +
+      "&.cosmos.base.query.v1beta1.PageRequest\"" +
+      "\230\001\n\010PoolsRes\022#\n\005pools\030\001 \003(\0132\024.sifnode.cl" +
+      "p.v1.Pool\022\032\n\022clp_module_address\030\002 \001(\t\022\016\n" +
+      "\006height\030\003 \001(\003\022;\n\npagination\030\004 \001(\0132\'.cosm" +
+      "os.base.query.v1beta1.PageResponse\"D\n\024Li" +
+      "quidityProviderReq\022\016\n\006symbol\030\001 \001(\t\022\022\n\nlp" +
+      "_address\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"\243\001\n\024LiquidityPr" +
+      "oviderRes\022=\n\022liquidity_provider\030\001 \001(\0132!." +
+      "sifnode.clp.v1.LiquidityProvider\022\034\n\024nati" +
+      "ve_asset_balance\030\002 \001(\t\022\036\n\026external_asset" +
+      "_balance\030\003 \001(\t\022\016\n\006height\030\004 \001(\003\"h\n\014AssetL" +
+      "istReq\022\022\n\nlp_address\030\001 \001(\t\022:\n\npagination" +
+      "\030\002 \001(\0132&.cosmos.base.query.v1beta1.PageR" +
+      "equest:\010\350\240\037\000\210\240\037\000\"\202\001\n\014AssetListRes\022%\n\006ass" +
+      "ets\030\001 \003(\0132\025.sifnode.clp.v1.Asset\022\016\n\006heig" +
+      "ht\030\002 \001(\003\022;\n\npagination\030\003 \001(\0132\'.cosmos.ba" +
+      "se.query.v1beta1.PageResponse\"t\n\030Liquidi" +
+      "tyProviderDataReq\022\022\n\nlp_address\030\001 \001(\t\022:\n" +
       "\npagination\030\002 \001(\0132&.cosmos.base.query.v1" +
-      "beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\202\001\n\014AssetLis" +
-      "tRes\022%\n\006assets\030\001 \003(\0132\025.sifnode.clp.v1.As" +
-      "set\022\016\n\006height\030\002 \001(\003\022;\n\npagination\030\003 \001(\0132" +
-      "\'.cosmos.base.query.v1beta1.PageResponse" +
-      "\"t\n\030LiquidityProviderDataReq\022\022\n\nlp_addre" +
-      "ss\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos.ba" +
-      "se.query.v1beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\256" +
-      "\001\n\030LiquidityProviderDataRes\022F\n\027liquidity" +
-      "_provider_data\030\001 \003(\0132%.sifnode.clp.v1.Li" +
-      "quidityProviderData\022\016\n\006height\030\002 \001(\003\022:\n\np" +
-      "agination\030\003 \001(\0132&.cosmos.base.query.v1be" +
-      "ta1.PageRequest\"p\n\030LiquidityProviderList" +
-      "Req\022\016\n\006symbol\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132" +
-      "&.cosmos.base.query.v1beta1.PageRequest:" +
-      "\010\350\240\037\000\210\240\037\000\"\247\001\n\030LiquidityProviderListRes\022>" +
-      "\n\023liquidity_providers\030\001 \003(\0132!.sifnode.cl" +
-      "p.v1.LiquidityProvider\022\016\n\006height\030\002 \001(\003\022;" +
-      "\n\npagination\030\003 \001(\0132\'.cosmos.base.query.v" +
-      "1beta1.PageResponse\"]\n\025LiquidityProvider" +
-      "sReq\022:\n\npagination\030\002 \001(\0132&.cosmos.base.q" +
-      "uery.v1beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\244\001\n\025L" +
-      "iquidityProvidersRes\022>\n\023liquidity_provid" +
-      "ers\030\001 \003(\0132!.sifnode.clp.v1.LiquidityProv" +
-      "ider\022\016\n\006height\030\002 \001(\003\022;\n\npagination\030\003 \001(\013" +
-      "2\'.cosmos.base.query.v1beta1.PageRespons" +
-      "e2\344\007\n\005Query\022c\n\007GetPool\022\027.sifnode.clp.v1." +
-      "PoolReq\032\027.sifnode.clp.v1.PoolRes\"&\202\323\344\223\002 " +
-      "\022\036/sifchain/clp/v1/pool/{symbol}\022^\n\010GetP" +
-      "ools\022\030.sifnode.clp.v1.PoolsReq\032\030.sifnode" +
-      ".clp.v1.PoolsRes\"\036\202\323\344\223\002\030\022\026/sifchain/clp/" +
-      "v1/pools\022\245\001\n\024GetLiquidityProvider\022$.sifn" +
-      "ode.clp.v1.LiquidityProviderReq\032$.sifnod" +
-      "e.clp.v1.LiquidityProviderRes\"A\202\323\344\223\002;\0229/" +
-      "sifchain/clp/v1/liquidity_provider/{symb" +
-      "ol}/{lp_address}\022\255\001\n\030GetLiquidityProvide" +
-      "rData\022(.sifnode.clp.v1.LiquidityProvider" +
-      "DataReq\032(.sifnode.clp.v1.LiquidityProvid" +
-      "erDataRes\"=\202\323\344\223\0027\0225/sifchain/clp/v1/liqu" +
-      "idity_provider_data/{lp_address}\022|\n\014GetA" +
-      "ssetList\022\034.sifnode.clp.v1.AssetListReq\032\034" +
-      ".sifnode.clp.v1.AssetListRes\"0\202\323\344\223\002*\022(/s" +
-      "ifchain/clp/v1/asset_list/{lp_address}\022\223" +
-      "\001\n\025GetLiquidityProviders\022%.sifnode.clp.v" +
-      "1.LiquidityProvidersReq\032%.sifnode.clp.v1" +
-      ".LiquidityProvidersRes\",\202\323\344\223\002&\022$/sifchai" +
-      "n/clp/v1/liquidity_providers\022\251\001\n\030GetLiqu" +
-      "idityProviderList\022(.sifnode.clp.v1.Liqui" +
-      "dityProviderListReq\032(.sifnode.clp.v1.Liq" +
-      "uidityProviderListRes\"9\202\323\344\223\0023\0221/sifchain" +
-      "/clp/v1/liquidity_provider_list/{symbol}" +
-      "B)Z\'github.com/Sifchain/sifnode/x/clp/ty" +
-      "pesb\006proto3"
+      "beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\256\001\n\030Liquidit" +
+      "yProviderDataRes\022F\n\027liquidity_provider_d" +
+      "ata\030\001 \003(\0132%.sifnode.clp.v1.LiquidityProv" +
+      "iderData\022\016\n\006height\030\002 \001(\003\022:\n\npagination\030\003" +
+      " \001(\0132&.cosmos.base.query.v1beta1.PageReq" +
+      "uest\"p\n\030LiquidityProviderListReq\022\016\n\006symb" +
+      "ol\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos.ba" +
+      "se.query.v1beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\247" +
+      "\001\n\030LiquidityProviderListRes\022>\n\023liquidity" +
+      "_providers\030\001 \003(\0132!.sifnode.clp.v1.Liquid" +
+      "ityProvider\022\016\n\006height\030\002 \001(\003\022;\n\npaginatio" +
+      "n\030\003 \001(\0132\'.cosmos.base.query.v1beta1.Page" +
+      "Response\"]\n\025LiquidityProvidersReq\022:\n\npag" +
+      "ination\030\002 \001(\0132&.cosmos.base.query.v1beta" +
+      "1.PageRequest:\010\350\240\037\000\210\240\037\000\"\244\001\n\025LiquidityPro" +
+      "vidersRes\022>\n\023liquidity_providers\030\001 \003(\0132!" +
+      ".sifnode.clp.v1.LiquidityProvider\022\016\n\006hei" +
+      "ght\030\002 \001(\003\022;\n\npagination\030\003 \001(\0132\'.cosmos.b" +
+      "ase.query.v1beta1.PageResponse\"\013\n\tParams" +
+      "Req\"3\n\tParamsRes\022&\n\006params\030\001 \001(\0132\026.sifno" +
+      "de.clp.v1.Params\"\021\n\017RewardParamsReq\"?\n\017R" +
+      "ewardParamsRes\022,\n\006params\030\001 \001(\0132\034.sifnode" +
+      ".clp.v1.RewardParams\"\017\n\rPmtpParamsReq\"\264\001" +
+      "\n\rPmtpParamsRes\022*\n\006params\030\001 \001(\0132\032.sifnod" +
+      "e.clp.v1.PmtpParams\0228\n\020pmtp_rate_params\030" +
+      "\002 \001(\0132\036.sifnode.clp.v1.PmtpRateParams\022-\n" +
+      "\npmtp_epoch\030\003 \001(\0132\031.sifnode.clp.v1.PmtpE" +
+      "poch\022\016\n\006height\030\004 \001(\0032\272\n\n\005Query\022c\n\007GetPoo" +
+      "l\022\027.sifnode.clp.v1.PoolReq\032\027.sifnode.clp" +
+      ".v1.PoolRes\"&\202\323\344\223\002 \022\036/sifchain/clp/v1/po" +
+      "ol/{symbol}\022^\n\010GetPools\022\030.sifnode.clp.v1" +
+      ".PoolsReq\032\030.sifnode.clp.v1.PoolsRes\"\036\202\323\344" +
+      "\223\002\030\022\026/sifchain/clp/v1/pools\022\245\001\n\024GetLiqui" +
+      "dityProvider\022$.sifnode.clp.v1.LiquidityP" +
+      "roviderReq\032$.sifnode.clp.v1.LiquidityPro" +
+      "viderRes\"A\202\323\344\223\002;\0229/sifchain/clp/v1/liqui" +
+      "dity_provider/{symbol}/{lp_address}\022\255\001\n\030" +
+      "GetLiquidityProviderData\022(.sifnode.clp.v" +
+      "1.LiquidityProviderDataReq\032(.sifnode.clp" +
+      ".v1.LiquidityProviderDataRes\"=\202\323\344\223\0027\0225/s" +
+      "ifchain/clp/v1/liquidity_provider_data/{" +
+      "lp_address}\022|\n\014GetAssetList\022\034.sifnode.cl" +
+      "p.v1.AssetListReq\032\034.sifnode.clp.v1.Asset" +
+      "ListRes\"0\202\323\344\223\002*\022(/sifchain/clp/v1/asset_" +
+      "list/{lp_address}\022\223\001\n\025GetLiquidityProvid" +
+      "ers\022%.sifnode.clp.v1.LiquidityProvidersR" +
+      "eq\032%.sifnode.clp.v1.LiquidityProvidersRe" +
+      "s\",\202\323\344\223\002&\022$/sifchain/clp/v1/liquidity_pr" +
+      "oviders\022\251\001\n\030GetLiquidityProviderList\022(.s" +
+      "ifnode.clp.v1.LiquidityProviderListReq\032(" +
+      ".sifnode.clp.v1.LiquidityProviderListRes" +
+      "\"9\202\323\344\223\0023\0221/sifchain/clp/v1/liquidity_pro" +
+      "vider_list/{symbol}\022b\n\tGetParams\022\031.sifno" +
+      "de.clp.v1.ParamsReq\032\031.sifnode.clp.v1.Par" +
+      "amsRes\"\037\202\323\344\223\002\031\022\027/sifchain/clp/v1/params\022" +
+      "{\n\017GetRewardParams\022\037.sifnode.clp.v1.Rewa" +
+      "rdParamsReq\032\037.sifnode.clp.v1.RewardParam" +
+      "sRes\"&\202\323\344\223\002 \022\036/sifchain/clp/v1/reward_pa" +
+      "rams\022s\n\rGetPmtpParams\022\035.sifnode.clp.v1.P" +
+      "mtpParamsReq\032\035.sifnode.clp.v1.PmtpParams" +
+      "Res\"$\202\323\344\223\002\036\022\034/sifchain/clp/v1/pmtp_param" +
+      "sB)Z\'github.com/Sifchain/sifnode/x/clp/t" +
+      "ypesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
           sifnode.clp.v1.Types.getDescriptor(),
+          sifnode.clp.v1.ParamsOuterClass.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
         });
@@ -12539,6 +16182,42 @@ public final class Querier {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_LiquidityProvidersRes_descriptor,
         new java.lang.String[] { "LiquidityProviders", "Height", "Pagination", });
+    internal_static_sifnode_clp_v1_ParamsReq_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_sifnode_clp_v1_ParamsReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_ParamsReq_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_ParamsRes_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_sifnode_clp_v1_ParamsRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_ParamsRes_descriptor,
+        new java.lang.String[] { "Params", });
+    internal_static_sifnode_clp_v1_RewardParamsReq_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_sifnode_clp_v1_RewardParamsReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_RewardParamsReq_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_RewardParamsRes_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_sifnode_clp_v1_RewardParamsRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_RewardParamsRes_descriptor,
+        new java.lang.String[] { "Params", });
+    internal_static_sifnode_clp_v1_PmtpParamsReq_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_sifnode_clp_v1_PmtpParamsReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_PmtpParamsReq_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_clp_v1_PmtpParamsRes_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_sifnode_clp_v1_PmtpParamsRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_PmtpParamsRes_descriptor,
+        new java.lang.String[] { "Params", "PmtpRateParams", "PmtpEpoch", "Height", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.equal);
@@ -12548,6 +16227,7 @@ public final class Querier {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
     sifnode.clp.v1.Types.getDescriptor();
+    sifnode.clp.v1.ParamsOuterClass.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
   }

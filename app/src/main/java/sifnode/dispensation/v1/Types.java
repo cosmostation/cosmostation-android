@@ -6993,6 +6993,627 @@ public final class Types {
 
   }
 
+  public interface MintControllerOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.dispensation.v1.MintController)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * @return Whether the totalCounter field is set.
+     */
+    boolean hasTotalCounter();
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * @return The totalCounter.
+     */
+    cosmos.base.v1beta1.CoinOuterClass.Coin getTotalCounter();
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalCounterOrBuilder();
+  }
+  /**
+   * Protobuf type {@code sifnode.dispensation.v1.MintController}
+   */
+  public static final class MintController extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.MintController)
+      MintControllerOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MintController.newBuilder() to construct.
+    private MintController(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MintController() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MintController();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MintController(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              cosmos.base.v1beta1.CoinOuterClass.Coin.Builder subBuilder = null;
+              if (totalCounter_ != null) {
+                subBuilder = totalCounter_.toBuilder();
+              }
+              totalCounter_ = input.readMessage(cosmos.base.v1beta1.CoinOuterClass.Coin.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(totalCounter_);
+                totalCounter_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.dispensation.v1.Types.internal_static_sifnode_dispensation_v1_MintController_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.dispensation.v1.Types.internal_static_sifnode_dispensation_v1_MintController_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.dispensation.v1.Types.MintController.class, sifnode.dispensation.v1.Types.MintController.Builder.class);
+    }
+
+    public static final int TOTAL_COUNTER_FIELD_NUMBER = 1;
+    private cosmos.base.v1beta1.CoinOuterClass.Coin totalCounter_;
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * @return Whether the totalCounter field is set.
+     */
+    @java.lang.Override
+    public boolean hasTotalCounter() {
+      return totalCounter_ != null;
+    }
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * @return The totalCounter.
+     */
+    @java.lang.Override
+    public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalCounter() {
+      return totalCounter_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalCounter_;
+    }
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    @java.lang.Override
+    public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalCounterOrBuilder() {
+      return getTotalCounter();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (totalCounter_ != null) {
+        output.writeMessage(1, getTotalCounter());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (totalCounter_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getTotalCounter());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.dispensation.v1.Types.MintController)) {
+        return super.equals(obj);
+      }
+      sifnode.dispensation.v1.Types.MintController other = (sifnode.dispensation.v1.Types.MintController) obj;
+
+      if (hasTotalCounter() != other.hasTotalCounter()) return false;
+      if (hasTotalCounter()) {
+        if (!getTotalCounter()
+            .equals(other.getTotalCounter())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasTotalCounter()) {
+        hash = (37 * hash) + TOTAL_COUNTER_FIELD_NUMBER;
+        hash = (53 * hash) + getTotalCounter().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.dispensation.v1.Types.MintController parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.dispensation.v1.Types.MintController prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.dispensation.v1.MintController}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.dispensation.v1.MintController)
+        sifnode.dispensation.v1.Types.MintControllerOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.dispensation.v1.Types.internal_static_sifnode_dispensation_v1_MintController_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.dispensation.v1.Types.internal_static_sifnode_dispensation_v1_MintController_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.dispensation.v1.Types.MintController.class, sifnode.dispensation.v1.Types.MintController.Builder.class);
+      }
+
+      // Construct using sifnode.dispensation.v1.Types.MintController.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (totalCounterBuilder_ == null) {
+          totalCounter_ = null;
+        } else {
+          totalCounter_ = null;
+          totalCounterBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.dispensation.v1.Types.internal_static_sifnode_dispensation_v1_MintController_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.dispensation.v1.Types.MintController getDefaultInstanceForType() {
+        return sifnode.dispensation.v1.Types.MintController.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.dispensation.v1.Types.MintController build() {
+        sifnode.dispensation.v1.Types.MintController result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.dispensation.v1.Types.MintController buildPartial() {
+        sifnode.dispensation.v1.Types.MintController result = new sifnode.dispensation.v1.Types.MintController(this);
+        if (totalCounterBuilder_ == null) {
+          result.totalCounter_ = totalCounter_;
+        } else {
+          result.totalCounter_ = totalCounterBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.dispensation.v1.Types.MintController) {
+          return mergeFrom((sifnode.dispensation.v1.Types.MintController)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.dispensation.v1.Types.MintController other) {
+        if (other == sifnode.dispensation.v1.Types.MintController.getDefaultInstance()) return this;
+        if (other.hasTotalCounter()) {
+          mergeTotalCounter(other.getTotalCounter());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.dispensation.v1.Types.MintController parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.dispensation.v1.Types.MintController) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private cosmos.base.v1beta1.CoinOuterClass.Coin totalCounter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> totalCounterBuilder_;
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * @return Whether the totalCounter field is set.
+       */
+      public boolean hasTotalCounter() {
+        return totalCounterBuilder_ != null || totalCounter_ != null;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * @return The totalCounter.
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalCounter() {
+        if (totalCounterBuilder_ == null) {
+          return totalCounter_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalCounter_;
+        } else {
+          return totalCounterBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder setTotalCounter(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (totalCounterBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          totalCounter_ = value;
+          onChanged();
+        } else {
+          totalCounterBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder setTotalCounter(
+          cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
+        if (totalCounterBuilder_ == null) {
+          totalCounter_ = builderForValue.build();
+          onChanged();
+        } else {
+          totalCounterBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder mergeTotalCounter(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (totalCounterBuilder_ == null) {
+          if (totalCounter_ != null) {
+            totalCounter_ =
+              cosmos.base.v1beta1.CoinOuterClass.Coin.newBuilder(totalCounter_).mergeFrom(value).buildPartial();
+          } else {
+            totalCounter_ = value;
+          }
+          onChanged();
+        } else {
+          totalCounterBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder clearTotalCounter() {
+        if (totalCounterBuilder_ == null) {
+          totalCounter_ = null;
+          onChanged();
+        } else {
+          totalCounter_ = null;
+          totalCounterBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getTotalCounterBuilder() {
+        
+        onChanged();
+        return getTotalCounterFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalCounterOrBuilder() {
+        if (totalCounterBuilder_ != null) {
+          return totalCounterBuilder_.getMessageOrBuilder();
+        } else {
+          return totalCounter_ == null ?
+              cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalCounter_;
+        }
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_counter = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
+          getTotalCounterFieldBuilder() {
+        if (totalCounterBuilder_ == null) {
+          totalCounterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder>(
+                  getTotalCounter(),
+                  getParentForChildren(),
+                  isClean());
+          totalCounter_ = null;
+        }
+        return totalCounterBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.dispensation.v1.MintController)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.dispensation.v1.MintController)
+    private static final sifnode.dispensation.v1.Types.MintController DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.dispensation.v1.Types.MintController();
+    }
+
+    public static sifnode.dispensation.v1.Types.MintController getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MintController>
+        PARSER = new com.google.protobuf.AbstractParser<MintController>() {
+      @java.lang.Override
+      public MintController parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MintController(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MintController> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MintController> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.dispensation.v1.Types.MintController getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_dispensation_v1_GenesisState_descriptor;
   private static final 
@@ -7028,6 +7649,11 @@ public final class Types {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_dispensation_v1_UserClaims_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_dispensation_v1_MintController_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_dispensation_v1_MintController_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7069,17 +7695,20 @@ public final class Types {
       "nType\022E\n\017user_claim_time\030\003 \001(\tB,\332\336\037(gith" +
       "ub.com/gogo/protobuf/types.Timestamp\"E\n\n" +
       "UserClaims\0227\n\013user_claims\030\001 \003(\0132\".sifnod" +
-      "e.dispensation.v1.UserClaim*\245\001\n\020Distribu" +
-      "tionType\022!\n\035DISTRIBUTION_TYPE_UNSPECIFIE" +
-      "D\020\000\022\035\n\031DISTRIBUTION_TYPE_AIRDROP\020\001\022\'\n#DI" +
-      "STRIBUTION_TYPE_VALIDATOR_SUBSIDY\020\002\022&\n\"D" +
-      "ISTRIBUTION_TYPE_LIQUIDITY_MINING\020\003*\235\001\n\022" +
-      "DistributionStatus\022#\n\037DISTRIBUTION_STATU" +
-      "S_UNSPECIFIED\020\000\022\037\n\033DISTRIBUTION_STATUS_P" +
-      "ENDING\020\001\022!\n\035DISTRIBUTION_STATUS_COMPLETE" +
-      "D\020\002\022\036\n\032DISTRIBUTION_STATUS_FAILED\020\003B2Z0g" +
-      "ithub.com/Sifchain/sifnode/x/dispensatio" +
-      "n/typesb\006proto3"
+      "e.dispensation.v1.UserClaim\"\204\001\n\016MintCont" +
+      "roller\022r\n\rtotal_counter\030\001 \001(\0132\031.cosmos.b" +
+      "ase.v1beta1.CoinB@\310\336\037\000\252\337\037(github.com/cos" +
+      "mos/cosmos-sdk/types.Coins\362\336\037\014yaml:\"coin" +
+      "s\"*\245\001\n\020DistributionType\022!\n\035DISTRIBUTION_" +
+      "TYPE_UNSPECIFIED\020\000\022\035\n\031DISTRIBUTION_TYPE_" +
+      "AIRDROP\020\001\022\'\n#DISTRIBUTION_TYPE_VALIDATOR" +
+      "_SUBSIDY\020\002\022&\n\"DISTRIBUTION_TYPE_LIQUIDIT" +
+      "Y_MINING\020\003*\235\001\n\022DistributionStatus\022#\n\037DIS" +
+      "TRIBUTION_STATUS_UNSPECIFIED\020\000\022\037\n\033DISTRI" +
+      "BUTION_STATUS_PENDING\020\001\022!\n\035DISTRIBUTION_" +
+      "STATUS_COMPLETED\020\002\022\036\n\032DISTRIBUTION_STATU" +
+      "S_FAILED\020\003B2Z0github.com/Sifchain/sifnod" +
+      "e/x/dispensation/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7129,6 +7758,12 @@ public final class Types {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_dispensation_v1_UserClaims_descriptor,
         new java.lang.String[] { "UserClaims", });
+    internal_static_sifnode_dispensation_v1_MintController_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_sifnode_dispensation_v1_MintController_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_dispensation_v1_MintController_descriptor,
+        new java.lang.String[] { "TotalCounter", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.castrepeated);

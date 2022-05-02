@@ -148,10 +148,6 @@ public class ResApiNewTxListCustom {
                         return c.getString(R.string.tx_ibc_receive);
                     }
 
-                    if (msgType0.contains("MsgClaim") || msgType1.contains("MsgClaim")) {
-                        return c.getString(R.string.tx_crescent_farming_claim);
-                    }
-
                 }
                 String msgType = "";
                 try {
@@ -415,6 +411,45 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("panacea.") && msgType.contains("did")) {
                     if (msgType.contains("MsgCreateDID")) {
                         result = c.getString(R.string.tx_create_did);
+                    }
+                }
+
+                // akash
+                else if (msgType.contains("akash.") && msgType.contains("market")) {
+                    if (msgType.contains("MsgCreateBid")) {
+                        result = c.getString(R.string.tx_create_bid);
+                    } else if (msgType.contains("MsgCloseBid")) {
+                        result = c.getString(R.string.tx_close_bid);
+                    } else if (msgType.contains("MsgCreateLease")) {
+                        result = c.getString(R.string.tx_create_lease);
+                    } else if (msgType.contains("MsgWithdrawLease")) {
+                        result = c.getString(R.string.tx_withdraw_lease);
+                    } else if (msgType.contains("MsgCloseLease")) {
+                        result = c.getString(R.string.tx_close_lease);
+                    }
+
+                } else if (msgType.contains("akash.") && msgType.contains("deployment")) {
+                    if (msgType.contains("MsgCreateDeployment")) {
+                        result = c.getString(R.string.tx_create_deployment);
+                    } else if (msgType.contains("MsgDepositDeployment")) {
+                        result = c.getString(R.string.tx_deposit_deployment);
+                    } else if (msgType.contains("MsgUpdateDeployment")) {
+                        result = c.getString(R.string.tx_update_deployment);
+                    } else if (msgType.contains("MsgCloseDeployment")) {
+                        result = c.getString(R.string.tx_close_deployment);
+                    } else if (msgType.contains("MsgCloseGroup")) {
+                        result = c.getString(R.string.tx_close_group);
+                    } else if (msgType.contains("MsgPauseGroup")) {
+                        result = c.getString(R.string.tx_pause_group);
+                    } else if (msgType.contains("MsgStartGroup")) {
+                        result = c.getString(R.string.tx_start_group);
+                    }
+
+                } else if (msgType.contains("akash.") && msgType.contains("cert")) {
+                    if (msgType.contains("MsgCreateCertificate")) {
+                        result = c.getString(R.string.tx_create_certificate);
+                    } else if (msgType.contains("MsgRevokeCertificate")) {
+                        result = c.getString(R.string.tx_revoke_certificate);
                     }
                 }
 

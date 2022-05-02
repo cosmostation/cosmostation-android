@@ -58,6 +58,37 @@ public final class MsgGrpc {
     return getRemoveLiquidityMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits,
+      sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse> getRemoveLiquidityUnitsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RemoveLiquidityUnits",
+      requestType = sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.class,
+      responseType = sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits,
+      sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse> getRemoveLiquidityUnitsMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits, sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse> getRemoveLiquidityUnitsMethod;
+    if ((getRemoveLiquidityUnitsMethod = MsgGrpc.getRemoveLiquidityUnitsMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getRemoveLiquidityUnitsMethod = MsgGrpc.getRemoveLiquidityUnitsMethod) == null) {
+          MsgGrpc.getRemoveLiquidityUnitsMethod = getRemoveLiquidityUnitsMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits, sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RemoveLiquidityUnits"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("RemoveLiquidityUnits"))
+              .build();
+        }
+      }
+    }
+    return getRemoveLiquidityUnitsMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgCreatePool,
       sifnode.clp.v1.Tx.MsgCreatePoolResponse> getCreatePoolMethod;
 
@@ -182,6 +213,192 @@ public final class MsgGrpc {
     return getDecommissionPoolMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest,
+      sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse> getUnlockLiquidityMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UnlockLiquidity",
+      requestType = sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.class,
+      responseType = sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest,
+      sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse> getUnlockLiquidityMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest, sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse> getUnlockLiquidityMethod;
+    if ((getUnlockLiquidityMethod = MsgGrpc.getUnlockLiquidityMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getUnlockLiquidityMethod = MsgGrpc.getUnlockLiquidityMethod) == null) {
+          MsgGrpc.getUnlockLiquidityMethod = getUnlockLiquidityMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest, sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UnlockLiquidity"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UnlockLiquidity"))
+              .build();
+        }
+      }
+    }
+    return getUnlockLiquidityMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest,
+      sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse> getUpdateRewardsParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateRewardsParams",
+      requestType = sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.class,
+      responseType = sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest,
+      sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse> getUpdateRewardsParamsMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest, sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse> getUpdateRewardsParamsMethod;
+    if ((getUpdateRewardsParamsMethod = MsgGrpc.getUpdateRewardsParamsMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getUpdateRewardsParamsMethod = MsgGrpc.getUpdateRewardsParamsMethod) == null) {
+          MsgGrpc.getUpdateRewardsParamsMethod = getUpdateRewardsParamsMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest, sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateRewardsParams"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UpdateRewardsParams"))
+              .build();
+        }
+      }
+    }
+    return getUpdateRewardsParamsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest,
+      sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse> getAddRewardPeriodMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "AddRewardPeriod",
+      requestType = sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.class,
+      responseType = sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest,
+      sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse> getAddRewardPeriodMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest, sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse> getAddRewardPeriodMethod;
+    if ((getAddRewardPeriodMethod = MsgGrpc.getAddRewardPeriodMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getAddRewardPeriodMethod = MsgGrpc.getAddRewardPeriodMethod) == null) {
+          MsgGrpc.getAddRewardPeriodMethod = getAddRewardPeriodMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest, sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AddRewardPeriod"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("AddRewardPeriod"))
+              .build();
+        }
+      }
+    }
+    return getAddRewardPeriodMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgModifyPmtpRates,
+      sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse> getModifyPmtpRatesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ModifyPmtpRates",
+      requestType = sifnode.clp.v1.Tx.MsgModifyPmtpRates.class,
+      responseType = sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgModifyPmtpRates,
+      sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse> getModifyPmtpRatesMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgModifyPmtpRates, sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse> getModifyPmtpRatesMethod;
+    if ((getModifyPmtpRatesMethod = MsgGrpc.getModifyPmtpRatesMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getModifyPmtpRatesMethod = MsgGrpc.getModifyPmtpRatesMethod) == null) {
+          MsgGrpc.getModifyPmtpRatesMethod = getModifyPmtpRatesMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgModifyPmtpRates, sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ModifyPmtpRates"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgModifyPmtpRates.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("ModifyPmtpRates"))
+              .build();
+        }
+      }
+    }
+    return getModifyPmtpRatesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdatePmtpParams,
+      sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse> getUpdatePmtpParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdatePmtpParams",
+      requestType = sifnode.clp.v1.Tx.MsgUpdatePmtpParams.class,
+      responseType = sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdatePmtpParams,
+      sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse> getUpdatePmtpParamsMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdatePmtpParams, sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse> getUpdatePmtpParamsMethod;
+    if ((getUpdatePmtpParamsMethod = MsgGrpc.getUpdatePmtpParamsMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getUpdatePmtpParamsMethod = MsgGrpc.getUpdatePmtpParamsMethod) == null) {
+          MsgGrpc.getUpdatePmtpParamsMethod = getUpdatePmtpParamsMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgUpdatePmtpParams, sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdatePmtpParams"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgUpdatePmtpParams.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UpdatePmtpParams"))
+              .build();
+        }
+      }
+    }
+    return getUpdatePmtpParamsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams,
+      sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse> getUpdateStakingRewardParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateStakingRewardParams",
+      requestType = sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.class,
+      responseType = sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams,
+      sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse> getUpdateStakingRewardParamsMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams, sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse> getUpdateStakingRewardParamsMethod;
+    if ((getUpdateStakingRewardParamsMethod = MsgGrpc.getUpdateStakingRewardParamsMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getUpdateStakingRewardParamsMethod = MsgGrpc.getUpdateStakingRewardParamsMethod) == null) {
+          MsgGrpc.getUpdateStakingRewardParamsMethod = getUpdateStakingRewardParamsMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams, sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateStakingRewardParams"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UpdateStakingRewardParams"))
+              .build();
+        }
+      }
+    }
+    return getUpdateStakingRewardParamsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -239,6 +456,13 @@ public final class MsgGrpc {
 
     /**
      */
+    public void removeLiquidityUnits(sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getRemoveLiquidityUnitsMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void createPool(sifnode.clp.v1.Tx.MsgCreatePool request,
         io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgCreatePoolResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getCreatePoolMethod(), responseObserver);
@@ -265,6 +489,48 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getDecommissionPoolMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void unlockLiquidity(sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUnlockLiquidityMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void updateRewardsParams(sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUpdateRewardsParamsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void addRewardPeriod(sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getAddRewardPeriodMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void modifyPmtpRates(sifnode.clp.v1.Tx.MsgModifyPmtpRates request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getModifyPmtpRatesMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void updatePmtpParams(sifnode.clp.v1.Tx.MsgUpdatePmtpParams request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUpdatePmtpParamsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void updateStakingRewardParams(sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUpdateStakingRewardParamsMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -274,6 +540,13 @@ public final class MsgGrpc {
                 sifnode.clp.v1.Tx.MsgRemoveLiquidity,
                 sifnode.clp.v1.Tx.MsgRemoveLiquidityResponse>(
                   this, METHODID_REMOVE_LIQUIDITY)))
+          .addMethod(
+            getRemoveLiquidityUnitsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits,
+                sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse>(
+                  this, METHODID_REMOVE_LIQUIDITY_UNITS)))
           .addMethod(
             getCreatePoolMethod(),
             asyncUnaryCall(
@@ -302,6 +575,48 @@ public final class MsgGrpc {
                 sifnode.clp.v1.Tx.MsgDecommissionPool,
                 sifnode.clp.v1.Tx.MsgDecommissionPoolResponse>(
                   this, METHODID_DECOMMISSION_POOL)))
+          .addMethod(
+            getUnlockLiquidityMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest,
+                sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse>(
+                  this, METHODID_UNLOCK_LIQUIDITY)))
+          .addMethod(
+            getUpdateRewardsParamsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest,
+                sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse>(
+                  this, METHODID_UPDATE_REWARDS_PARAMS)))
+          .addMethod(
+            getAddRewardPeriodMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest,
+                sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse>(
+                  this, METHODID_ADD_REWARD_PERIOD)))
+          .addMethod(
+            getModifyPmtpRatesMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgModifyPmtpRates,
+                sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse>(
+                  this, METHODID_MODIFY_PMTP_RATES)))
+          .addMethod(
+            getUpdatePmtpParamsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgUpdatePmtpParams,
+                sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse>(
+                  this, METHODID_UPDATE_PMTP_PARAMS)))
+          .addMethod(
+            getUpdateStakingRewardParamsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams,
+                sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse>(
+                  this, METHODID_UPDATE_STAKING_REWARD_PARAMS)))
           .build();
     }
   }
@@ -326,6 +641,14 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgRemoveLiquidityResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getRemoveLiquidityMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void removeLiquidityUnits(sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getRemoveLiquidityUnitsMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -359,6 +682,54 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getDecommissionPoolMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void unlockLiquidity(sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUnlockLiquidityMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void updateRewardsParams(sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUpdateRewardsParamsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void addRewardPeriod(sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getAddRewardPeriodMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void modifyPmtpRates(sifnode.clp.v1.Tx.MsgModifyPmtpRates request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getModifyPmtpRatesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void updatePmtpParams(sifnode.clp.v1.Tx.MsgUpdatePmtpParams request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUpdatePmtpParamsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void updateStakingRewardParams(sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUpdateStakingRewardParamsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -380,6 +751,13 @@ public final class MsgGrpc {
     public sifnode.clp.v1.Tx.MsgRemoveLiquidityResponse removeLiquidity(sifnode.clp.v1.Tx.MsgRemoveLiquidity request) {
       return blockingUnaryCall(
           getChannel(), getRemoveLiquidityMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse removeLiquidityUnits(sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits request) {
+      return blockingUnaryCall(
+          getChannel(), getRemoveLiquidityUnitsMethod(), getCallOptions(), request);
     }
 
     /**
@@ -409,6 +787,48 @@ public final class MsgGrpc {
       return blockingUnaryCall(
           getChannel(), getDecommissionPoolMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse unlockLiquidity(sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getUnlockLiquidityMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse updateRewardsParams(sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getUpdateRewardsParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse addRewardPeriod(sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getAddRewardPeriodMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse modifyPmtpRates(sifnode.clp.v1.Tx.MsgModifyPmtpRates request) {
+      return blockingUnaryCall(
+          getChannel(), getModifyPmtpRatesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse updatePmtpParams(sifnode.clp.v1.Tx.MsgUpdatePmtpParams request) {
+      return blockingUnaryCall(
+          getChannel(), getUpdatePmtpParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse updateStakingRewardParams(sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams request) {
+      return blockingUnaryCall(
+          getChannel(), getUpdateStakingRewardParamsMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -431,6 +851,14 @@ public final class MsgGrpc {
         sifnode.clp.v1.Tx.MsgRemoveLiquidity request) {
       return futureUnaryCall(
           getChannel().newCall(getRemoveLiquidityMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse> removeLiquidityUnits(
+        sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits request) {
+      return futureUnaryCall(
+          getChannel().newCall(getRemoveLiquidityUnitsMethod(), getCallOptions()), request);
     }
 
     /**
@@ -464,13 +892,68 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getDecommissionPoolMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse> unlockLiquidity(
+        sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUnlockLiquidityMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse> updateRewardsParams(
+        sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUpdateRewardsParamsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse> addRewardPeriod(
+        sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getAddRewardPeriodMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse> modifyPmtpRates(
+        sifnode.clp.v1.Tx.MsgModifyPmtpRates request) {
+      return futureUnaryCall(
+          getChannel().newCall(getModifyPmtpRatesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse> updatePmtpParams(
+        sifnode.clp.v1.Tx.MsgUpdatePmtpParams request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUpdatePmtpParamsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse> updateStakingRewardParams(
+        sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUpdateStakingRewardParamsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_REMOVE_LIQUIDITY = 0;
-  private static final int METHODID_CREATE_POOL = 1;
-  private static final int METHODID_ADD_LIQUIDITY = 2;
-  private static final int METHODID_SWAP = 3;
-  private static final int METHODID_DECOMMISSION_POOL = 4;
+  private static final int METHODID_REMOVE_LIQUIDITY_UNITS = 1;
+  private static final int METHODID_CREATE_POOL = 2;
+  private static final int METHODID_ADD_LIQUIDITY = 3;
+  private static final int METHODID_SWAP = 4;
+  private static final int METHODID_DECOMMISSION_POOL = 5;
+  private static final int METHODID_UNLOCK_LIQUIDITY = 6;
+  private static final int METHODID_UPDATE_REWARDS_PARAMS = 7;
+  private static final int METHODID_ADD_REWARD_PERIOD = 8;
+  private static final int METHODID_MODIFY_PMTP_RATES = 9;
+  private static final int METHODID_UPDATE_PMTP_PARAMS = 10;
+  private static final int METHODID_UPDATE_STAKING_REWARD_PARAMS = 11;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -493,6 +976,10 @@ public final class MsgGrpc {
           serviceImpl.removeLiquidity((sifnode.clp.v1.Tx.MsgRemoveLiquidity) request,
               (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgRemoveLiquidityResponse>) responseObserver);
           break;
+        case METHODID_REMOVE_LIQUIDITY_UNITS:
+          serviceImpl.removeLiquidityUnits((sifnode.clp.v1.Tx.MsgRemoveLiquidityUnits) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgRemoveLiquidityUnitsResponse>) responseObserver);
+          break;
         case METHODID_CREATE_POOL:
           serviceImpl.createPool((sifnode.clp.v1.Tx.MsgCreatePool) request,
               (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgCreatePoolResponse>) responseObserver);
@@ -508,6 +995,30 @@ public final class MsgGrpc {
         case METHODID_DECOMMISSION_POOL:
           serviceImpl.decommissionPool((sifnode.clp.v1.Tx.MsgDecommissionPool) request,
               (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgDecommissionPoolResponse>) responseObserver);
+          break;
+        case METHODID_UNLOCK_LIQUIDITY:
+          serviceImpl.unlockLiquidity((sifnode.clp.v1.Tx.MsgUnlockLiquidityRequest) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUnlockLiquidityResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_REWARDS_PARAMS:
+          serviceImpl.updateRewardsParams((sifnode.clp.v1.Tx.MsgUpdateRewardsParamsRequest) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdateRewardsParamsResponse>) responseObserver);
+          break;
+        case METHODID_ADD_REWARD_PERIOD:
+          serviceImpl.addRewardPeriod((sifnode.clp.v1.Tx.MsgAddRewardPeriodRequest) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgAddRewardPeriodResponse>) responseObserver);
+          break;
+        case METHODID_MODIFY_PMTP_RATES:
+          serviceImpl.modifyPmtpRates((sifnode.clp.v1.Tx.MsgModifyPmtpRates) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgModifyPmtpRatesResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_PMTP_PARAMS:
+          serviceImpl.updatePmtpParams((sifnode.clp.v1.Tx.MsgUpdatePmtpParams) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdatePmtpParamsResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_STAKING_REWARD_PARAMS:
+          serviceImpl.updateStakingRewardParams((sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -571,10 +1082,17 @@ public final class MsgGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getRemoveLiquidityMethod())
+              .addMethod(getRemoveLiquidityUnitsMethod())
               .addMethod(getCreatePoolMethod())
               .addMethod(getAddLiquidityMethod())
               .addMethod(getSwapMethod())
               .addMethod(getDecommissionPoolMethod())
+              .addMethod(getUnlockLiquidityMethod())
+              .addMethod(getUpdateRewardsParamsMethod())
+              .addMethod(getAddRewardPeriodMethod())
+              .addMethod(getModifyPmtpRatesMethod())
+              .addMethod(getUpdatePmtpParamsMethod())
+              .addMethod(getUpdateStakingRewardParamsMethod())
               .build();
         }
       }

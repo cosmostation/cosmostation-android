@@ -1542,15 +1542,7 @@
     <string name="tx_create_validator">검증인 생성</string>
     <string name="tx_edit_validator">검증인 편집</string>
     <string name="tx_unjail">검증인 재 활성</string>
-    <string name="tx_create_bid">입찰서 작성</string>
-    <string name="tx_close_bid">입찰 마감</string>
-    <string name="tx_create_lease">임대 생성</string>
-    <string name="tx_withdraw_lease">임대 철회</string>
-    <string name="tx_create_deployment">배포 열기</string>
-    <string name="tx_close_deployment">배포 닫기</string>
-    <string name="tx_update_deployment">배포 업데이트</string>
-    <string name="tx_create_certificate">인증서 생성</string>
-    <string name="tx_revoke_certificate">인증서 해지</string>
+
     <string name="tx_ibc_update_client">IBC 클라이언트\n업데이트</string>
     <string name="tx_ibc_update_client2">IBC 클라이언트 업데이트</string>
     <string name="tx_ibc_send">IBC 보내기</string>
@@ -1640,6 +1632,21 @@
     <string name="tx_starname_renew_domain">Domain 갱신</string>
     <string name="tx_starname_renew_account">Account 갱신</string>
     <string name="tx_starname_update_resource">주소 등록</string>
+
+    <string name="tx_create_bid">입찰서 작성</string>
+    <string name="tx_close_bid">입찰 마감</string>
+    <string name="tx_create_lease">lease 생성</string>
+    <string name="tx_withdraw_lease">lease 철회</string>
+    <string name="tx_close_lease">lease 닫기</string>
+    <string name="tx_create_deployment">배치 열기</string>
+    <string name="tx_deposit_deployment">배치 디파짓</string>
+    <string name="tx_close_deployment">배치 닫기</string>
+    <string name="tx_update_deployment">배치 업데이트</string>
+    <string name="tx_close_group">그룹 닫기</string>
+    <string name="tx_pause_group">그룹 중단</string>
+    <string name="tx_start_group">그룹 시작</string>
+    <string name="tx_create_certificate">인증서 생성</string>
+    <string name="tx_revoke_certificate">인증서 해지</string>
 
     <string name="tx_osmosis_create_pool">풀 생성</string>
     <string name="tx_osmosis_join_pool">풀 참가</string>

@@ -5362,47 +5362,49 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n#sifnode/dispensation/v1/query.proto\022\027s" +
-      "ifnode.dispensation.v1\032#sifnode/dispensa" +
-      "tion/v1/types.proto\"\036\n\034QueryAllDistribut" +
-      "ionsRequest\"m\n\035QueryAllDistributionsResp" +
-      "onse\022<\n\rdistributions\030\001 \003(\0132%.sifnode.di" +
-      "spensation.v1.Distribution\022\016\n\006height\030\002 \001" +
-      "(\003\"\177\n%QueryRecordsByDistributionNameRequ" +
-      "est\022\031\n\021distribution_name\030\001 \001(\t\022;\n\006status" +
-      "\030\002 \001(\0162+.sifnode.dispensation.v1.Distrib" +
-      "utionStatus\"\204\001\n&QueryRecordsByDistributi" +
-      "onNameResponse\022J\n\024distribution_records\030\001" +
-      " \001(\0132,.sifnode.dispensation.v1.Distribut" +
-      "ionRecords\022\016\n\006height\030\002 \001(\003\"5\n\"QueryRecor" +
-      "dsByRecipientAddrRequest\022\017\n\007address\030\001 \001(" +
-      "\t\"\201\001\n#QueryRecordsByRecipientAddrRespons" +
-      "e\022J\n\024distribution_records\030\001 \001(\0132,.sifnod" +
-      "e.dispensation.v1.DistributionRecords\022\016\n" +
-      "\006height\030\002 \001(\003\"^\n\030QueryClaimsByTypeReques" +
-      "t\022B\n\017user_claim_type\030\001 \001(\0162).sifnode.dis" +
-      "pensation.v1.DistributionType\"Y\n\023QueryCl" +
-      "aimsResponse\0222\n\006claims\030\001 \003(\0132\".sifnode.d" +
-      "ispensation.v1.UserClaim\022\016\n\006height\030\002 \001(\003" +
-      "2\265\004\n\005Query\022\203\001\n\020AllDistributions\0225.sifnod" +
-      "e.dispensation.v1.QueryAllDistributionsR" +
-      "equest\0326.sifnode.dispensation.v1.QueryAl" +
-      "lDistributionsResponse\"\000\022\236\001\n\031RecordsByDi" +
-      "stributionName\022>.sifnode.dispensation.v1" +
-      ".QueryRecordsByDistributionNameRequest\032?" +
-      ".sifnode.dispensation.v1.QueryRecordsByD" +
-      "istributionNameResponse\"\000\022\221\001\n\022RecordsByR" +
-      "ecipient\022;.sifnode.dispensation.v1.Query" +
-      "RecordsByRecipientAddrRequest\032<.sifnode." +
-      "dispensation.v1.QueryRecordsByRecipientA" +
-      "ddrResponse\"\000\022q\n\014ClaimsByType\0221.sifnode." +
-      "dispensation.v1.QueryClaimsByTypeRequest" +
-      "\032,.sifnode.dispensation.v1.QueryClaimsRe" +
-      "sponse\"\000B2Z0github.com/Sifchain/sifnode/" +
-      "x/dispensation/typesb\006proto3"
+      "ifnode.dispensation.v1\032\024gogoproto/gogo.p" +
+      "roto\032#sifnode/dispensation/v1/types.prot" +
+      "o\"\036\n\034QueryAllDistributionsRequest\"m\n\035Que" +
+      "ryAllDistributionsResponse\022<\n\rdistributi" +
+      "ons\030\001 \003(\0132%.sifnode.dispensation.v1.Dist" +
+      "ribution\022\016\n\006height\030\002 \001(\003\"\177\n%QueryRecords" +
+      "ByDistributionNameRequest\022\031\n\021distributio" +
+      "n_name\030\001 \001(\t\022;\n\006status\030\002 \001(\0162+.sifnode.d" +
+      "ispensation.v1.DistributionStatus\"\204\001\n&Qu" +
+      "eryRecordsByDistributionNameResponse\022J\n\024" +
+      "distribution_records\030\001 \001(\0132,.sifnode.dis" +
+      "pensation.v1.DistributionRecords\022\016\n\006heig" +
+      "ht\030\002 \001(\003\"5\n\"QueryRecordsByRecipientAddrR" +
+      "equest\022\017\n\007address\030\001 \001(\t\"\201\001\n#QueryRecords" +
+      "ByRecipientAddrResponse\022J\n\024distribution_" +
+      "records\030\001 \001(\0132,.sifnode.dispensation.v1." +
+      "DistributionRecords\022\016\n\006height\030\002 \001(\003\"^\n\030Q" +
+      "ueryClaimsByTypeRequest\022B\n\017user_claim_ty" +
+      "pe\030\001 \001(\0162).sifnode.dispensation.v1.Distr" +
+      "ibutionType\"Y\n\023QueryClaimsResponse\0222\n\006cl" +
+      "aims\030\001 \003(\0132\".sifnode.dispensation.v1.Use" +
+      "rClaim\022\016\n\006height\030\002 \001(\0032\265\004\n\005Query\022\203\001\n\020All" +
+      "Distributions\0225.sifnode.dispensation.v1." +
+      "QueryAllDistributionsRequest\0326.sifnode.d" +
+      "ispensation.v1.QueryAllDistributionsResp" +
+      "onse\"\000\022\236\001\n\031RecordsByDistributionName\022>.s" +
+      "ifnode.dispensation.v1.QueryRecordsByDis" +
+      "tributionNameRequest\032?.sifnode.dispensat" +
+      "ion.v1.QueryRecordsByDistributionNameRes" +
+      "ponse\"\000\022\221\001\n\022RecordsByRecipient\022;.sifnode" +
+      ".dispensation.v1.QueryRecordsByRecipient" +
+      "AddrRequest\032<.sifnode.dispensation.v1.Qu" +
+      "eryRecordsByRecipientAddrResponse\"\000\022q\n\014C" +
+      "laimsByType\0221.sifnode.dispensation.v1.Qu" +
+      "eryClaimsByTypeRequest\032,.sifnode.dispens" +
+      "ation.v1.QueryClaimsResponse\"\000B2Z0github" +
+      ".com/Sifchain/sifnode/x/dispensation/typ" +
+      "esb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           sifnode.dispensation.v1.Types.getDescriptor(),
         });
     internal_static_sifnode_dispensation_v1_QueryAllDistributionsRequest_descriptor =
@@ -5453,6 +5455,7 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_dispensation_v1_QueryClaimsResponse_descriptor,
         new java.lang.String[] { "Claims", "Height", });
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     sifnode.dispensation.v1.Types.getDescriptor();
   }
 
