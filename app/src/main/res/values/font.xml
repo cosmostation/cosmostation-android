@@ -272,6 +272,12 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ss_10_gray5" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorGray5</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+    </style>
+
     <style name="font_ss_12_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorAtom</item>
