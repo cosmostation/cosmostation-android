@@ -3471,9 +3471,9 @@ public class WUtil {
     public static Intent getGuide1Intent(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/cosmostation/%EC%BD%94%EC%8A%A4%EB%AA%A8%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98-%EC%9B%94%EB%A0%9B-%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%82%B9-%EA%B0%80%EC%9D%B4%EB%93%9C-ios-android-web-d7dd26fc88fd"));
+                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cosmostation/d7dd26fc88fd"));
             } else {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/cosmostation/cosmostation-wallet-staking-guide-ios-android-web-5fd64aa0a56b"));
+                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cosmostation/5fd64aa0a56b"));
             }
 
         } else if (chain.equals(IRIS_MAIN)) {
