@@ -2953,6 +2953,24 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cudos")));
+
+        } else if (mainActivity.mBaseChain.equals(GRABRIDGE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/graviton")));
+
+        } else if (mainActivity.mBaseChain.equals(ASSETMANTLE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/assetmantle")));
+
+        } else if (mainActivity.mBaseChain.equals(CERBERUS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cerberus")));
+
+        } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/evmos")));
+
+        } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/konstellation")));
+
+        } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/provenance-blockchain")));
         }
         return null;
     }
@@ -3453,9 +3471,9 @@ public class WUtil {
     public static Intent getGuide1Intent(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
+                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cosmostation/d7dd26fc88fd"));
             } else {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_en.pdf"));
+                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cosmostation/5fd64aa0a56b"));
             }
 
         } else if (chain.equals(IRIS_MAIN)) {
