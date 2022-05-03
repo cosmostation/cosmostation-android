@@ -1714,7 +1714,7 @@ public class MainTokensFragment extends BaseFragment {
             final OkToken okToken = getBaseDao().okToken(balance.symbol);
             holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
-            holder.itemFullName.setText("OEC Staking Coin");
+            holder.itemFullName.setText("OKC Staking Coin");
             if (balance.symbol.equals(TOKEN_OK)) {
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_okx));

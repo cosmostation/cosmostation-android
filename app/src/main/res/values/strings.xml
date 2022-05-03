@@ -237,7 +237,7 @@
     <string name="str_secret_main_net" translatable="false">Secret</string>
     <string name="str_certik_main_net" translatable="false">Certik</string>
     <string name="str_akash_main_net" translatable="false">Akash</string>
-    <string name="str_okex_main_net" translatable="false">OEC</string>
+    <string name="str_okex_main_net" translatable="false">OKC</string>
     <string name="str_sentinel_main_net" translatable="false">Sentinel</string>
     <string name="str_fetch_main_net" translatable="false">Fetch.ai</string>
     <string name="str_crypto_main_net" translatable="false">Crypto.org</string>
@@ -484,8 +484,8 @@
     <string name="str_band_chain_2" translatable="false">Band</string>
     <string name="str_kava_net" translatable="false">(Kava)</string>
     <string name="str_kava_net_2" translatable="false">Kava</string>
-    <string name="str_ok_net" translatable="false">(OEC)</string>
-    <string name="str_ok_net2" translatable="false">OEC</string>
+    <string name="str_ok_net" translatable="false">(OKC)</string>
+    <string name="str_ok_net2" translatable="false">OKC</string>
     <string name="str_certik_chain" translatable="false">(Certik)</string>
     <string name="str_certik_chain_2" translatable="false">Certik</string>
     <string name="str_secret_chain" translatable="false">(Secret)</string>
@@ -543,7 +543,7 @@
     <string name="str_certik_test" translatable="false">CERTIK TEST</string>
     <string name="str_secret_main" translatable="false">SECRET</string>
     <string name="str_akash_main" translatable="false">AKASH</string>
-    <string name="str_okex_main" translatable="false">OEC</string>
+    <string name="str_okex_main" translatable="false">OKC</string>
     <string name="str_persis_main" translatable="false">PERSISTENCE</string>
     <string name="str_sentinel_main" translatable="false">SENTINEL</string>
     <string name="str_fetch_main" translatable="false">FETCH.AI</string>
@@ -650,7 +650,7 @@
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
     <string name="str_front_guide_title_iov"><![CDATA[Starname Service]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
-    <string name="str_front_guide_title_ok"><![CDATA[OEC CHAIN]]></string>
+    <string name="str_front_guide_title_ok"><![CDATA[OKC CHAIN]]></string>
     <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
     <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
@@ -691,7 +691,7 @@
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
     <string name="str_front_guide_msg_iov">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
-    <string name="str_front_guide_msg_ok">OEC Chain is a public decentralized exchange powered by Tendermint.</string>
+    <string name="str_front_guide_msg_ok">OKC Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>
@@ -745,7 +745,7 @@
     <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
     <string name="str_fee_speed_title_kava">Support fixed transfer fee for KAVA Chain.\nSoon update for custom fees.</string>
     <string name="str_fee_speed_title_iov">Support fixed transfer fee for Starname Chain.</string>
-    <string name="str_fee_speed_title_ok">Support fixed transfer fee for OEC Chain.</string>
+    <string name="str_fee_speed_title_ok">Support fixed transfer fee for OKC Chain.</string>
     <string name="str_fee_speed_title_certik">Support fixed transfer fee for Certik Chain.</string>
     <string name="str_fee_speed_title_akash">Support fixed transfer fee for Akash Chain.</string>
     <string name="str_fee_speed_title_secret">Support fixed transfer fee for Secret Chain.</string>
@@ -897,7 +897,7 @@
     <string name="str_secret_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_secret_new_path"><![CDATA[NEW PATH (44\'/529\'/0\'/0)]]></string>
     <string name="str_okex_newpath_title">Select Key Type</string>
-    <string name="str_okex_newpath_msg">OEC Chain support 3 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\nIf you want the latest path select [Ethereum Type] \n\nIf you mistakenly selected the wrong type, it will not affect your original OEC wallet. Simply press [Import Mnemonics] to re-select your type.</string>
+    <string name="str_okex_newpath_msg">OKC Chain support 3 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\nIf you want the latest path select [Ethereum Type] \n\nIf you mistakenly selected the wrong type, it will not affect your original OKC wallet. Simply press [Import Mnemonics] to re-select your type.</string>
     <string name="str_okex_old_type"><![CDATA[Legacy Tendermint Type (44\'/996\'/0\'/0)]]></string>
     <string name="str_okex_new_type"><![CDATA[Legacy Ethermint Type (44\'/996\'/0\'/0)]]></string>
     <string name="str_okex_eth_type"><![CDATA[Ethereum Type (44\'/60\'/0\'/0)]]></string>

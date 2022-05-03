@@ -250,7 +250,7 @@
     <string name="str_front_guide_title_kava"><![CDATA[카바 체인]]></string>
     <string name="str_front_guide_title_iov"><![CDATA[스타네임 메인넷]]></string>
     <string name="str_front_guide_title_band"><![CDATA[밴드 프로토콜]]></string>
-    <string name="str_front_guide_title_ok"><![CDATA[OEC 체인]]></string>
+    <string name="str_front_guide_title_ok"><![CDATA[OKC 체인]]></string>
     <string name="str_front_guide_title_certik"><![CDATA[써틱 체인]]></string>
     <string name="str_front_guide_title_akash"><![CDATA[아카시 네트워크]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[시크릿 네트워크]]></string>
@@ -292,7 +292,7 @@
     <string name="str_front_guide_msg_kava">Tendermint 기반의 레버리지, 헤지 및 CDP를 지원하는 최초의 인터 체인 DeFi 플랫폼.</string>
     <string name="str_front_guide_msg_iov">Tendermint를 기반으로하는 Starname은 빠르고 안전하며 분산 된 범용 네이밍 서비스를 구축합니다.</string>
     <string name="str_front_guide_msg_band">Tendermint를 기반으로 하는 크로스 체인 오라클 플랫폼입니다. 밴드 프로토콜은 실제 데이터와 API를 스마트 계약으로 통합하여 제공합니다.</string>
-    <string name="str_front_guide_msg_ok">OEC Chain은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.</string>
+    <string name="str_front_guide_msg_ok">OKC Chain은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.</string>
     <string name="str_front_guide_msg_certik"><![CDATA[Certik Foundation의 고유 한 공식 검증 보안 시스템을 기반으로하는 공용 플랫폼입니다. Certik은 보안 중심 체인에서 스마트 계약 실행 및 상호 작용을 허용합니다.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[DeFi 용 DeCloud와 세계 최초의 분산 형 클라우드 컴퓨팅 마켓입니다.]]></string>
     <string name="str_front_guide_msg_secret"><![CDATA[프라이버시를 보호하는 스마트 계약을 가능하게하는 최초의 지분 증명 네트워크. 비밀은 개인적이고 안전한 계산을 허용합니다.]]></string>
@@ -499,7 +499,7 @@
     <string name="str_secret_old_path"><![CDATA[변경 전 PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_secret_new_path"><![CDATA[변경 후 PATH (44\'/529\'/0\'/0)]]></string>
     <string name="str_okex_newpath_title">키 타입 선택</string>
-    <string name="str_okex_newpath_msg">OEC체인은 세가지 타입의 키 타입을 지원합니다.\n\n테스트 넷부터 사용하시던 타입을 사용하시려면 [Tendermint Type]를, 이후에 생성하신 경우 [Ethermint Type] 선택하세요. 최근 생성하신 경우 [Ethereum Type] 선택하세요. \n\n잘못 선택한 경우에도 기존 OEC 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.</string>
+    <string name="str_okex_newpath_msg">OKC체인은 세가지 타입의 키 타입을 지원합니다.\n\n테스트 넷부터 사용하시던 타입을 사용하시려면 [Tendermint Type]를, 이후에 생성하신 경우 [Ethermint Type] 선택하세요. 최근 생성하신 경우 [Ethereum Type] 선택하세요. \n\n잘못 선택한 경우에도 기존 OKC 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.</string>
     <string name="str_okex_old_type"><![CDATA[Legacy Tendermint 타입 (44\'/996\'/0\'/0)]]></string>
     <string name="str_okex_new_type"><![CDATA[Legacy Ethermint 타입 (44\'/996\'/0\'/0)]]></string>
     <string name="str_okex_eth_type"><![CDATA[Ethereum 타입 (44\'/60\'/0\'/0)]]></string>
