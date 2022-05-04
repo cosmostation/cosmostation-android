@@ -1872,7 +1872,7 @@ public class WDp {
             } else if (baseChain.equals(IRIS_MAIN)) {
                 return "iris";
             } else if (baseChain.equals(BNB_MAIN)) {
-                return "bnb";
+                return "binance";
             } else if (baseChain.equals(OKEX_MAIN)) {
                 return "okex";
             } else if (baseChain.equals(KAVA_MAIN)) {

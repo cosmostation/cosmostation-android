@@ -411,6 +411,7 @@
     <string name="str_proposer">Proposer</string>
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
+    <string name="str_notice">Notice</string>
     <string name="str_alarm">Alarm</string>
     <string name="str_app_applock">App Lock</string>
     <string name="str_app_applock_enabled">Enabled</string>
