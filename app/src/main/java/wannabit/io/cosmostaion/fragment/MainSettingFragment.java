@@ -31,12 +31,15 @@ import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import wannabit.io.cosmostaion.dialog.Dialog_Starname_WC_Confirm;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -44,7 +47,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET                   = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT  = 9036;
 
-    private FrameLayout mBtnAddWallet, mBtnWallet, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
+    private FrameLayout mBtnAddWallet, mBtnWallet, mBtnNotice, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
                         mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage, mBtnStarnameWc,
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
@@ -101,6 +104,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         View rootView = inflater.inflate(R.layout.fragment_main_setting, container, false);
         mBtnAddWallet = rootView.findViewById(R.id.add_wallet);
         mBtnWallet = rootView.findViewById(R.id.card_wallet);
+        mBtnNotice = rootView.findViewById(R.id.card_notice);
         mBtnAlaram = rootView.findViewById(R.id.card_alaram);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
@@ -120,6 +124,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         mBtnAddWallet.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
+        mBtnNotice.setOnClickListener(this);
         mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
@@ -162,6 +167,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
+
+        } else if (v.equals(mBtnNotice)) {
+            String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).getChainName();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();

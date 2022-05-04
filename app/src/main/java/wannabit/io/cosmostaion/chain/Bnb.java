@@ -136,7 +136,7 @@ public class Bnb extends Chain {
 
     @Override
     public String getChainName() {
-        return "bnb";
+        return "binance";
     }
 
     @Override
