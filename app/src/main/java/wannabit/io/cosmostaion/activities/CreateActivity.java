@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -129,7 +130,9 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         onHideWaitDialog();
         mCardMnemonics.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
 
-        WDp.getLayoutColor(CreateActivity.this, mChain, mWordsLayer);
+        for(int i = 0; i < mWordsLayer.length; i++) {
+            ChainFactory.getChain(mChain).setLayoutColor(CreateActivity.this, i, mWordsLayer);
+        }
 
         mCardAddress.setVisibility(View.VISIBLE);
         mCardMnemonics.setVisibility(View.VISIBLE);

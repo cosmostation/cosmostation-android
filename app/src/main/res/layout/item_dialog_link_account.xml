@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
-                    android:text="@string/s_desmos"
+                    android:text="@string/str_desmos_c"
                     style="@style/font_ss_14_desmos" />
             </LinearLayout>
         </LinearLayout>

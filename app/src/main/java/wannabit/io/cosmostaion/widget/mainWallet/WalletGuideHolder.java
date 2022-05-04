@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletGuideHolder extends BaseHolder {
@@ -34,18 +34,20 @@ public class WalletGuideHolder extends BaseHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
-        WUtil.getGuide(mainActivity, itemGuideImg, itemGuideTitle, itemGuideMsg, itemBtnGuide1, itemBtnGuide2);
+        itemBtnGuide1.setText(R.string.str_home);
+        itemBtnGuide2.setText(R.string.str_blog);
+        ChainFactory.getChain(mainActivity.mBaseChain).setGuideInfo(mainActivity, itemGuideImg, itemGuideTitle, itemGuideMsg, itemBtnGuide1, itemBtnGuide2);
 
         itemBtnGuide1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.startActivity(WUtil.getGuide1Intent(mainActivity.mBaseChain));
+                ChainFactory.getChain(mainActivity.mBaseChain).setMainIntent(mainActivity, 2);
             }
         });
         itemBtnGuide2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.startActivity(WUtil.getGuide2Intent(mainActivity.mBaseChain));
+                ChainFactory.getChain(mainActivity.mBaseChain).setMainIntent(mainActivity, 3);
             }
         });
     }

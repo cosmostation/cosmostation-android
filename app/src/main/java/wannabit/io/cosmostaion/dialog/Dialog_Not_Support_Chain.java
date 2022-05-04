@@ -13,8 +13,6 @@ import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.ConnectWalletActivity;
-import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_Not_Support_Chain extends DialogFragment {
 

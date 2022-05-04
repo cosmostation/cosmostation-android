@@ -28,6 +28,7 @@ import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
@@ -80,7 +81,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         mProposalId         = getIntent().getStringExtra("proposalId");
         mAccount            = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain          = BaseChain.getChain(mAccount.baseChain);
-        mChain              = WDp.getChainNameByBaseChain(mBaseChain);
+        mChain              = ChainFactory.getChain(mBaseChain).getChainName();
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

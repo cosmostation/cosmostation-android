@@ -102,6 +102,7 @@ import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -930,7 +931,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mCw20Assets = (ArrayList<Cw20Assets>) result.resultData;
                 if (getBaseDao().mCw20Assets != null && getBaseDao().mCw20Assets.size() > 0) {
                     for (Cw20Assets assets: getBaseDao().mCw20Assets) {
-                        if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(mBaseChain))) {
+                        if (assets.chain.equalsIgnoreCase(ChainFactory.getChain(mBaseChain).getChainName())) {
                             mTaskCount = mTaskCount + 1;
                             new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }

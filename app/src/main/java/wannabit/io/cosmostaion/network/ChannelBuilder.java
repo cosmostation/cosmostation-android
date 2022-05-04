@@ -44,6 +44,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.PORT_MAIN;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -51,124 +52,84 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 public class ChannelBuilder {
     private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app-and.cosmostation.io";
-    private final static int PORT_COSMOS_MAIN = 9090;
 
     private final static String GRPC_IRIS_MAIN = "lcd-iris-app.cosmostation.io";
-    private final static int PORT_IRIS_MAIN = 9090;
 
     private final static String GRPC_AKASH_MAIN = "lcd-akash-app.cosmostation.io";
-    private final static int PORT_AKASH_MAIN = 9090;
 
     private final static String GRPC_SENTINEL_MAIN = "lcd-sentinel-app.cosmostation.io";
-    private final static int PORT_SENTINEL_MAIN = 9090;
 
     private final static String GRPC_PERSIS_MAIN = "lcd-persistence-app.cosmostation.io";
-    private final static int PORT_PERSIS_MAIN = 9090;
 
     private final static String GRPC_CRYPTO_MAIN = "lcd-cryptocom-app.cosmostation.io";
-    private final static int PORT_CRYPTO_MAIN = 9090;
 
     private final static String GRPC_OSMOSIS_MAIN = "lcd-osmosis-app-and.cosmostation.io";
-    private final static int PORT_OSMOSIS_MAIN = 9090;
 
     private final static String GRPC_STARNAME_MAIN = "lcd-iov-app.cosmostation.io";
-    private final static int PORT_STARNAME_MAIN = 9090;
 
     private final static String GRPC_SIF_MAIN = "lcd-sifchain-app.cosmostation.io";
-    private final static int PORT_SIF_MAIN = 9090;
 
     private final static String GRPC_MEDI_MAIN = "lcd-medibloc-app.cosmostation.io";
-    private final static int PORT_MEDI_MAIN = 9090;
 
     private final static String GRPC_CERTIK_MAIN = "lcd-certik-app.cosmostation.io";
-    private final static int PORT_CERTIK_MAIN = 9090;
 
     private final static String GRPC_EMONEY_MAIN = "lcd-emoney-app.cosmostation.io";
-    private final static int PORT_EMONEY_MAIN = 9090;
 
     private final static String GRPC_FETCH_MAIN = "lcd-fetchai-app.cosmostation.io";
-    private final static int PORT_FETCH_MAIN = 9090;
 
     private final static String GRPC_BAND_MAIN = "lcd-band-app.cosmostation.io";
-    private final static int PORT_BAND_MAIN = 9090;
 
     private final static String GRPC_RIZON_MAIN = "lcd-rizon-app.cosmostation.io";
-    private final static int PORT_RIZON_MAIN = 9090;
 
     private final static String GRPC_JUNO_MAIN = "lcd-juno-app.cosmostation.io";
-    private final static int PORT_JUNO_MAIN = 9090;
 
     private final static String GRPC_REGEN_MAIN = "lcd-regen-app.cosmostation.io";
-    private final static int PORT_REGEN_MAIN = 9090;
 
     private final static String GRPC_BITCANNA_MAIN = "lcd-bitcanna-app.cosmostation.io";
-    private final static int PORT_BITCANNA_MAIN = 9090;
 
     private final static String GRPC_ALTHEA_MAIN = "lcd-althea-app.cosmostation.io";
-    private final static int PORT_ALTHEA_MAIN = 9090;
 
     private final static String GRPC_STARGAZE_MAIN = "lcd-stargaze-app.cosmostation.io";
-    private final static int PORT_STARGAZE_MAIN = 9090;
 
     private final static String GRPC_KI_MAIN = "lcd-kichain-app.cosmostation.io";
-    private final static int PORT_KI_MAIN = 9090;
 
     private final static String GRPC_SECRET_MAIN = "lcd-secret.cosmostation.io";
-    private final static int PORT_SECRET_MAIN = 9090;
 
     private final static String GRPC_INJ_MAIN = "lcd-inj-app.cosmostation.io";
-    private final static int PORT_INJ_MAIN = 9090;
 
     private final static String GRPC_COMDEX_MAIN = "lcd-comdex-app.cosmostation.io";
-    private final static int PORT_COMDEX_MAIN = 9090;
 
     private final static String GRPC_BITSONG_MAIN = "lcd-bitsong-app.cosmostation.io";
-    private final static int PORT_BITSONG_MAIN = 9090;
 
     private final static String GRPC_DESMOS_MAIN = "lcd-desmos-app.cosmostation.io";
-    private final static int PORT_DESMOS_MAIN = 9090;
 
     private final static String GRPC_GRABRIDGE_MAIN = "lcd-gravity-bridge-app.cosmostation.io";
-    private final static int PORT_GRABRIDGE_MAIN = 9090;
 
     private final static String GRPC_LUM_MAIN = "lcd-lum-app.cosmostation.io";
-    private final static int PORT_LUM_MAIN = 9090;
 
     private final static String GRPC_CHIHUAHUA_MAIN = "lcd-chihuahua-app.cosmostation.io";
-    private final static int PORT_CHIHUAHUA_MAIN = 9090;
 
     private final static String GRPC_KAVA_MAIN = "lcd-kava-app.cosmostation.io";
-    private final static int PORT_KAVA_MAIN = 9090;
 
     private final static String GRPC_AXELAR_MAIN = "lcd-axelar-app.cosmostation.io";
-    private final static int PORT_AXELAR_MAIN = 9090;
 
     private final static String GRPC_KONSTELL_MAIN = "lcd-konstellation-app.cosmostation.io";
-    private final static int PORT_KONSTELL_MAIN = 9090;
 
     private final static String GRPC_UMEE_MAIN = "lcd-umee-app.cosmostation.io";
-    private final static int PORT_UMEE_MAIN = 9090;
 
     private final static String GRPC_EVMOS_MAIN = "lcd-evmos-app.cosmostation.io";
-    private final static int PORT_EVMOS_MAIN = 9090;
 
     private final static String GRPC_CUDOS_MAIN = "lcd-cudos-testnet.cosmostation.io";
-    private final static int PORT_CUDOS_MAIN = 9090;
 
     private final static String GRPC_PROVENANCE_MAIN = "lcd-provenance-app.cosmostation.io";
-    private final static int PORT_PROVENANCE_MAIN = 9090;
 
     private final static String GRPC_CERBERUS_MAIN = "lcd-cerberus-app.cosmostation.io";
-    private final static int PORT_CERBERUS_MAIN = 9090;
 
     private final static String GRPC_OMNIFLIX_MAIN = "lcd-omniflix-app.cosmostation.io";
-    private final static int PORT_OMNIFLIX_MAIN = 9090;
 
     private final static String GRPC_CRESCENT_MAIN = "lcd-crescent-app.cosmostation.io";
-    private final static int PORT_CRESCENT_MAIN = 9090;
 
     private final static String GRPC_MANTLE_MAIN = "lcd-asset-mantle-app.cosmostation.io";
-    private final static int PORT_MANTLE_MAIN = 9090;
 
 
 
@@ -289,7 +250,7 @@ public class ChannelBuilder {
     public static ManagedChannel getCosmosMain() {
         if (channel_cosmos_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_cosmos_main = ManagedChannelBuilder.forAddress(GRPC_COSMOS_MAIN, PORT_COSMOS_MAIN)
+                channel_cosmos_main = ManagedChannelBuilder.forAddress(GRPC_COSMOS_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -302,7 +263,7 @@ public class ChannelBuilder {
     public static ManagedChannel getIrisMain() {
         if (channel_iris_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_iris_main = ManagedChannelBuilder.forAddress(GRPC_IRIS_MAIN, PORT_IRIS_MAIN)
+                channel_iris_main = ManagedChannelBuilder.forAddress(GRPC_IRIS_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -315,7 +276,7 @@ public class ChannelBuilder {
     public static ManagedChannel getAkashMain() {
         if (channel_akash_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_akash_main = ManagedChannelBuilder.forAddress(GRPC_AKASH_MAIN, PORT_AKASH_MAIN)
+                channel_akash_main = ManagedChannelBuilder.forAddress(GRPC_AKASH_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -328,7 +289,7 @@ public class ChannelBuilder {
     public static ManagedChannel getSentinelMain() {
         if (channel_sentinel_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_sentinel_main = ManagedChannelBuilder.forAddress(GRPC_SENTINEL_MAIN, PORT_SENTINEL_MAIN)
+                channel_sentinel_main = ManagedChannelBuilder.forAddress(GRPC_SENTINEL_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -341,7 +302,7 @@ public class ChannelBuilder {
     public static ManagedChannel getPersisMain() {
         if (channel_persis_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_persis_main = ManagedChannelBuilder.forAddress(GRPC_PERSIS_MAIN, PORT_PERSIS_MAIN)
+                channel_persis_main = ManagedChannelBuilder.forAddress(GRPC_PERSIS_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -354,7 +315,7 @@ public class ChannelBuilder {
     public static ManagedChannel getCryptoMain() {
         if (channel_crypto_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_crypto_main = ManagedChannelBuilder.forAddress(GRPC_CRYPTO_MAIN, PORT_CRYPTO_MAIN)
+                channel_crypto_main = ManagedChannelBuilder.forAddress(GRPC_CRYPTO_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -367,7 +328,7 @@ public class ChannelBuilder {
     public static ManagedChannel getOsmosisMain() {
         if (channel_osmosis_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_osmosis_main = ManagedChannelBuilder.forAddress(GRPC_OSMOSIS_MAIN, PORT_OSMOSIS_MAIN)
+                channel_osmosis_main = ManagedChannelBuilder.forAddress(GRPC_OSMOSIS_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -380,7 +341,7 @@ public class ChannelBuilder {
     public static ManagedChannel getStarnameMain() {
         if (channel_starname_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_starname_main = ManagedChannelBuilder.forAddress(GRPC_STARNAME_MAIN, PORT_STARNAME_MAIN)
+                channel_starname_main = ManagedChannelBuilder.forAddress(GRPC_STARNAME_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -393,7 +354,7 @@ public class ChannelBuilder {
     public static ManagedChannel getSifMain() {
         if (channel_sif_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_sif_main = ManagedChannelBuilder.forAddress(GRPC_SIF_MAIN, PORT_SIF_MAIN)
+                channel_sif_main = ManagedChannelBuilder.forAddress(GRPC_SIF_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -406,7 +367,7 @@ public class ChannelBuilder {
     public static ManagedChannel getMediMain() {
         if (channel_medi_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_medi_main = ManagedChannelBuilder.forAddress(GRPC_MEDI_MAIN, PORT_MEDI_MAIN)
+                channel_medi_main = ManagedChannelBuilder.forAddress(GRPC_MEDI_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -419,7 +380,7 @@ public class ChannelBuilder {
     public static ManagedChannel getCertikMain() {
         if (channel_certik_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_certik_main = ManagedChannelBuilder.forAddress(GRPC_CERTIK_MAIN, PORT_CERTIK_MAIN)
+                channel_certik_main = ManagedChannelBuilder.forAddress(GRPC_CERTIK_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -432,7 +393,7 @@ public class ChannelBuilder {
     public static ManagedChannel getEmoneyMain() {
         if (channel_emoney_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_emoney_main = ManagedChannelBuilder.forAddress(GRPC_EMONEY_MAIN, PORT_EMONEY_MAIN)
+                channel_emoney_main = ManagedChannelBuilder.forAddress(GRPC_EMONEY_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -445,7 +406,7 @@ public class ChannelBuilder {
     public static ManagedChannel getFetchMain() {
         if (channel_fetch_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_fetch_main = ManagedChannelBuilder.forAddress(GRPC_FETCH_MAIN, PORT_FETCH_MAIN)
+                channel_fetch_main = ManagedChannelBuilder.forAddress(GRPC_FETCH_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -458,7 +419,7 @@ public class ChannelBuilder {
     public static ManagedChannel getBandMain() {
         if (channel_band_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_band_main = ManagedChannelBuilder.forAddress(GRPC_BAND_MAIN, PORT_BAND_MAIN)
+                channel_band_main = ManagedChannelBuilder.forAddress(GRPC_BAND_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -471,7 +432,7 @@ public class ChannelBuilder {
     public static ManagedChannel getRizonMain() {
         if (channel_rizon_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_rizon_main = ManagedChannelBuilder.forAddress(GRPC_RIZON_MAIN, PORT_RIZON_MAIN)
+                channel_rizon_main = ManagedChannelBuilder.forAddress(GRPC_RIZON_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -484,7 +445,7 @@ public class ChannelBuilder {
     public static ManagedChannel getJunoMain() {
         if (channel_juno_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_juno_main = ManagedChannelBuilder.forAddress(GRPC_JUNO_MAIN, PORT_JUNO_MAIN)
+                channel_juno_main = ManagedChannelBuilder.forAddress(GRPC_JUNO_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -497,7 +458,7 @@ public class ChannelBuilder {
     public static ManagedChannel getRegenMain() {
         if (channel_regen_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_regen_main = ManagedChannelBuilder.forAddress(GRPC_REGEN_MAIN, PORT_REGEN_MAIN)
+                channel_regen_main = ManagedChannelBuilder.forAddress(GRPC_REGEN_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -510,7 +471,7 @@ public class ChannelBuilder {
     public static ManagedChannel getBitcannaMain() {
         if (channel_bitcanna_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_bitcanna_main = ManagedChannelBuilder.forAddress(GRPC_BITCANNA_MAIN, PORT_BITCANNA_MAIN)
+                channel_bitcanna_main = ManagedChannelBuilder.forAddress(GRPC_BITCANNA_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -523,7 +484,7 @@ public class ChannelBuilder {
     public static ManagedChannel getAltheaMain() {
         if (channel_althea_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_althea_main = ManagedChannelBuilder.forAddress(GRPC_ALTHEA_MAIN, PORT_ALTHEA_MAIN)
+                channel_althea_main = ManagedChannelBuilder.forAddress(GRPC_ALTHEA_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -536,7 +497,7 @@ public class ChannelBuilder {
     public static ManagedChannel getStargazeMain() {
         if (channel_stargaze_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_stargaze_main = ManagedChannelBuilder.forAddress(GRPC_STARGAZE_MAIN, PORT_STARGAZE_MAIN)
+                channel_stargaze_main = ManagedChannelBuilder.forAddress(GRPC_STARGAZE_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -549,7 +510,7 @@ public class ChannelBuilder {
     public static ManagedChannel getKiMain() {
         if (channel_ki_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_ki_main = ManagedChannelBuilder.forAddress(GRPC_KI_MAIN, PORT_KI_MAIN)
+                channel_ki_main = ManagedChannelBuilder.forAddress(GRPC_KI_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -562,7 +523,7 @@ public class ChannelBuilder {
     public static ManagedChannel getGraBridgeMain() {
         if (channel_grabridge_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_grabridge_main = ManagedChannelBuilder.forAddress(GRPC_GRABRIDGE_MAIN, PORT_GRABRIDGE_MAIN)
+                channel_grabridge_main = ManagedChannelBuilder.forAddress(GRPC_GRABRIDGE_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -575,7 +536,7 @@ public class ChannelBuilder {
     public static ManagedChannel getComdexMain() {
         if (channel_comdex_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_comdex_main = ManagedChannelBuilder.forAddress(GRPC_COMDEX_MAIN, PORT_COMDEX_MAIN)
+                channel_comdex_main = ManagedChannelBuilder.forAddress(GRPC_COMDEX_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -588,7 +549,7 @@ public class ChannelBuilder {
     public static ManagedChannel getSecretMain() {
         if (channel_secret_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_secret_main = ManagedChannelBuilder.forAddress(GRPC_SECRET_MAIN, PORT_SECRET_MAIN)
+                channel_secret_main = ManagedChannelBuilder.forAddress(GRPC_SECRET_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -601,7 +562,7 @@ public class ChannelBuilder {
     public static ManagedChannel getInjMain() {
         if (channel_inj_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_inj_main = ManagedChannelBuilder.forAddress(GRPC_INJ_MAIN, PORT_INJ_MAIN)
+                channel_inj_main = ManagedChannelBuilder.forAddress(GRPC_INJ_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -614,7 +575,7 @@ public class ChannelBuilder {
     public static ManagedChannel getBitsongMain() {
         if (channel_bitsong_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_bitsong_main = ManagedChannelBuilder.forAddress(GRPC_BITSONG_MAIN, PORT_BITSONG_MAIN)
+                channel_bitsong_main = ManagedChannelBuilder.forAddress(GRPC_BITSONG_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -627,7 +588,7 @@ public class ChannelBuilder {
     public static ManagedChannel getDesmosMain() {
         if (channel_desmos_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_desmos_main = ManagedChannelBuilder.forAddress(GRPC_DESMOS_MAIN, PORT_DESMOS_MAIN)
+                channel_desmos_main = ManagedChannelBuilder.forAddress(GRPC_DESMOS_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -640,7 +601,7 @@ public class ChannelBuilder {
     public static ManagedChannel getLumMain() {
         if (channel_lum_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_lum_main = ManagedChannelBuilder.forAddress(GRPC_LUM_MAIN, PORT_LUM_MAIN)
+                channel_lum_main = ManagedChannelBuilder.forAddress(GRPC_LUM_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -653,7 +614,7 @@ public class ChannelBuilder {
     public static ManagedChannel getChihuahuaMain() {
         if (channel_chihuahua_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_chihuahua_main = ManagedChannelBuilder.forAddress(GRPC_CHIHUAHUA_MAIN, PORT_CHIHUAHUA_MAIN)
+                channel_chihuahua_main = ManagedChannelBuilder.forAddress(GRPC_CHIHUAHUA_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -666,7 +627,7 @@ public class ChannelBuilder {
     public static ManagedChannel getKavaMain() {
         if (channel_kava_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_kava_main = ManagedChannelBuilder.forAddress(GRPC_KAVA_MAIN, PORT_KAVA_MAIN)
+                channel_kava_main = ManagedChannelBuilder.forAddress(GRPC_KAVA_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -679,7 +640,7 @@ public class ChannelBuilder {
     public static ManagedChannel getAxelarMain() {
         if (channel_axelar_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_axelar_main = ManagedChannelBuilder.forAddress(GRPC_AXELAR_MAIN, PORT_AXELAR_MAIN)
+                channel_axelar_main = ManagedChannelBuilder.forAddress(GRPC_AXELAR_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -692,7 +653,7 @@ public class ChannelBuilder {
     public static ManagedChannel getKonstellMain() {
         if (channel_konstell_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_konstell_main = ManagedChannelBuilder.forAddress(GRPC_KONSTELL_MAIN, PORT_KONSTELL_MAIN)
+                channel_konstell_main = ManagedChannelBuilder.forAddress(GRPC_KONSTELL_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -705,7 +666,7 @@ public class ChannelBuilder {
     public static ManagedChannel getUmeeMain() {
         if (channel_umee_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_umee_main = ManagedChannelBuilder.forAddress(GRPC_UMEE_MAIN, PORT_UMEE_MAIN)
+                channel_umee_main = ManagedChannelBuilder.forAddress(GRPC_UMEE_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -718,7 +679,7 @@ public class ChannelBuilder {
     public static ManagedChannel getEvmosMain() {
         if (channel_evmos_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_evmos_main = ManagedChannelBuilder.forAddress(GRPC_EVMOS_MAIN, PORT_EVMOS_MAIN)
+                channel_evmos_main = ManagedChannelBuilder.forAddress(GRPC_EVMOS_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -731,7 +692,7 @@ public class ChannelBuilder {
     public static ManagedChannel getCudosMain() {
         if (channel_cudos_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_cudos_main = ManagedChannelBuilder.forAddress(GRPC_CUDOS_MAIN, PORT_CUDOS_MAIN)
+                channel_cudos_main = ManagedChannelBuilder.forAddress(GRPC_CUDOS_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -744,7 +705,7 @@ public class ChannelBuilder {
     public static ManagedChannel getProvenanceMain() {
         if (channel_provenance_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_provenance_main = ManagedChannelBuilder.forAddress(GRPC_PROVENANCE_MAIN, PORT_PROVENANCE_MAIN)
+                channel_provenance_main = ManagedChannelBuilder.forAddress(GRPC_PROVENANCE_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -757,7 +718,7 @@ public class ChannelBuilder {
     public static ManagedChannel getCerberusMain() {
         if (channel_cerberus_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_cerberus_main = ManagedChannelBuilder.forAddress(GRPC_CERBERUS_MAIN, PORT_CERBERUS_MAIN)
+                channel_cerberus_main = ManagedChannelBuilder.forAddress(GRPC_CERBERUS_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -770,7 +731,7 @@ public class ChannelBuilder {
     public static ManagedChannel getOmniflixMain() {
         if (channel_omniflix_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_omniflix_main = ManagedChannelBuilder.forAddress(GRPC_OMNIFLIX_MAIN, PORT_OMNIFLIX_MAIN)
+                channel_omniflix_main = ManagedChannelBuilder.forAddress(GRPC_OMNIFLIX_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -783,7 +744,7 @@ public class ChannelBuilder {
     public static ManagedChannel getMantleMain() {
         if (channel_mantle_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_mantle_main = ManagedChannelBuilder.forAddress(GRPC_MANTLE_MAIN, PORT_MANTLE_MAIN)
+                channel_mantle_main = ManagedChannelBuilder.forAddress(GRPC_MANTLE_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }
@@ -796,7 +757,7 @@ public class ChannelBuilder {
     public static ManagedChannel getCrescentMain() {
         if (channel_crescent_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_crescent_main = ManagedChannelBuilder.forAddress(GRPC_CRESCENT_MAIN, PORT_CRESCENT_MAIN)
+                channel_crescent_main = ManagedChannelBuilder.forAddress(GRPC_CRESCENT_MAIN, PORT_MAIN)
                         .usePlaintext()
                         .build();
             }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -70,7 +71,7 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull RelayerListHolder holder, int position) {
             final IbcPath ibcPath = mIbcSendableRelayers.get(position);
-            final BaseChain toChain = WDp.getChainTypeByChainId(ibcPath.chain_id);
+            final BaseChain toChain = ChainFactory.getChain(ibcPath.chain_id).getChain();
             WDp.getChainImg(getSActivity(), toChain, holder.chainImg);
             WDp.getChainTitle2(getSActivity(), toChain, holder.chainName);
 

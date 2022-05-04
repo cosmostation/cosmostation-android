@@ -50,6 +50,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
@@ -289,10 +290,10 @@ public class ConnectWalletActivity extends BaseActivity {
         wcClient.setOnKeplrGetKeys((id, strings) -> {
             runOnUiThread(() -> {
                 String chainId = strings.get(0);
-                if (!chainAccountMap.containsKey(WDp.getChainTypeByChainId(chainId).getChain())) {
+                if (!chainAccountMap.containsKey(ChainFactory.getChain(chainId).getChain().getChain())) {
                     onShowKeplrAccountDialog(id, chainId);
                 } else {
-                    wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(chainAccountMap.get(WDp.getChainTypeByChainId(chainId).getChain()))));
+                    wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(chainAccountMap.get(ChainFactory.getChain(chainId).getChain().getChain()))));
                     moveToBackIfNeed();
                 }
             });
@@ -336,7 +337,7 @@ public class ConnectWalletActivity extends BaseActivity {
             Account account = new Account();
             account.accountNumber = Integer.parseInt(wcStdSignMsg.account_number);
             account.sequenceNumber = Integer.parseInt(wcStdSignMsg.sequence);
-            ReqBroadCast tx = MsgGenerator.getWcTrustBroadcaseReq(account, msgList, wcStdSignMsg.fee, wcStdSignMsg.memo, getKey(WDp.getChainTypeByChainId(wcStdSignMsg.chain_id).getChain()), wcStdSignMsg.chain_id);
+            ReqBroadCast tx = MsgGenerator.getWcTrustBroadcaseReq(account, msgList, wcStdSignMsg.fee, wcStdSignMsg.memo, getKey(ChainFactory.getChain(wcStdSignMsg.chain_id).getChain().getChain()), wcStdSignMsg.chain_id);
             Gson Presenter = new GsonBuilder().disableHtmlEscaping().create();
             String result = Presenter.toJson(tx);
             wcClient.approveRequest(id, result);
@@ -348,7 +349,7 @@ public class ConnectWalletActivity extends BaseActivity {
 
     public void approveCosmosRequest(long id, String transaction) {
         JsonArray transactionJson = new Gson().fromJson(transaction, JsonArray.class);
-        WcSignModel signModel = new WcSignModel(transactionJson.get(2).getAsJsonObject(), getKey(WDp.getChainTypeByChainId(transactionJson.get(0).getAsString()).getChain()));
+        WcSignModel signModel = new WcSignModel(transactionJson.get(2).getAsJsonObject(), getKey(ChainFactory.getChain(transactionJson.get(0).getAsString()).getChain().getChain()));
         wcClient.approveRequest(id, Lists.newArrayList(signModel));
         Toast.makeText(getBaseContext(), getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT).show();
         moveToBackIfNeed();
@@ -384,7 +385,7 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private boolean hasAccount(String chainId) {
-        BaseChain requestChain = WDp.getChainTypeByChainId(chainId);
+        BaseChain requestChain = ChainFactory.getChain(chainId).getChain();
         if (requestChain == null) {
             onShowNotSupportChain(chainId);
             return false;
@@ -412,9 +413,9 @@ public class ConnectWalletActivity extends BaseActivity {
         Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
         mDialogWcAccount.setCancelable(true);
         mDialogWcAccount.setOnSelectListener((wcId, account) -> {
-            chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
+            chainAccountMap.put(ChainFactory.getChain(chainId).getChain().getChain(), account);
             if (mBaseChain == null) {
-                mBaseChain = WDp.getChainTypeByChainId(chainId);
+                mBaseChain = ChainFactory.getChain(chainId).getChain();
                 onInitView(mWcPeerMeta);
             }
             wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
@@ -447,9 +448,9 @@ public class ConnectWalletActivity extends BaseActivity {
         Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
         mDialogWcAccount.setCancelable(true);
         mDialogWcAccount.setOnSelectListener((wcId, account) -> {
-            chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
+            chainAccountMap.put(ChainFactory.getChain(chains.get(index)).getChain().getChain(), account);
             if (mBaseChain == null) {
-                mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
+                mBaseChain = ChainFactory.getChain(chains.get(index)).getChain();
                 onInitView(mWcPeerMeta);
             }
             selectedAccounts.add(account);

@@ -24,12 +24,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
-import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletChainHolder extends BaseHolder {
@@ -69,7 +68,7 @@ public class WalletChainHolder extends BaseHolder {
         final String denom = WDp.mainDenom(mainActivity.mBaseChain);
         final int decimal = WDp.mainDivideDecimal(mainActivity.mBaseChain);
         mTvChainCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, mainActivity.mBaseChain));
-        WUtil.getWalletData(mainActivity, mainActivity.mBaseChain, mTvChainIcon, mTvChainDenom);
+        ChainFactory.getChain(mainActivity.mBaseChain).setWalletData(mainActivity, mTvChainIcon, mTvChainDenom);
 
         final BigDecimal availableAmount = baseData.getAvailable(denom);
         final BigDecimal vestingAmount = baseData.getVesting(denom);
@@ -107,15 +106,11 @@ public class WalletChainHolder extends BaseHolder {
         });
 
         // dex, nft, desmos profile setting
-        WUtil.getDexTitle(mainActivity, mainActivity.mBaseChain, mBtnDex, mBtnDexTitle);
+        ChainFactory.getChain(mainActivity.mBaseChain).setDexTitle(mainActivity, mBtnDex, mBtnDexTitle);
         mBtnDex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(BaseChain.DESMOS_MAIN)) {
-                    mainActivity.onClickProfile();
-                } else {
-                    mainActivity.startActivity(WUtil.getDexIntent(mainActivity, mainActivity.mBaseChain));
-                }
+                ChainFactory.getChain(mainActivity.mBaseChain).setMainIntent(mainActivity, 0);
             }
         });
 

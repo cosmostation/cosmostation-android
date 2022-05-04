@@ -58,6 +58,7 @@ import kava.swap.v1beta1.Swap;
 import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
@@ -178,7 +179,7 @@ public class BaseData {
         ArrayList<Cw20Assets> result = new ArrayList<>();
         if (mCw20Assets.size() > 0) {
             for (Cw20Assets assets: mCw20Assets) {
-                if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(baseChain)) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                if (assets.chain.equalsIgnoreCase(ChainFactory.getChain(baseChain).getChainName()) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
                     result.add(assets);
                 }
             }
@@ -198,24 +199,26 @@ public class BaseData {
     }
 
     public String getBaseDenom(String denom) {
-        if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.startsWith("cw20:")) {
-                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets: mCw20Assets) {
-                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                            return assets.denom;
+        if (denom != null) {
+            if (denom.startsWith("ibc/")) {
+                IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
+                if (ibcToken != null && ibcToken.auth) {
+                    if (ibcToken.base_denom.startsWith("cw20:")) {
+                        String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                        for (Cw20Assets assets: mCw20Assets) {
+                            if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                                return assets.denom;
+                            }
                         }
+                    } else {
+                        return ibcToken.base_denom;
                     }
                 } else {
-                    return ibcToken.base_denom;
+                    return "UNKNOWN";
                 }
-            } else {
-                return "UNKNOWN";
+            } else if (denom.startsWith("c")) {
+                return denom.substring(1);
             }
-        } else if (denom.startsWith("c")) {
-            return denom.substring(1);
         }
         return denom;
     }
@@ -225,7 +228,7 @@ public class BaseData {
         if (getIbcPath(channelId).relayer_img != null) {
             url = getIbcPath(channelId).relayer_img;
         } else {
-            url = WDp.getDefaultRelayerImg(baseChain);
+            url = ChainFactory.getChain(baseChain).getDefaultRelayerImg();
         }
         return url;
     }

@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.chain.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
@@ -200,7 +201,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
             WDp.getChainTitle(MainActivity.this, mBaseChain, mToolbarChainName);
             mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));
-            WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
+            ChainFactory.getChain(mBaseChain).setFloatBtn(MainActivity.this, mFloatBtn);
 
             mSelectedChain = mBaseChain;
             onChainSelect(mSelectedChain);
