@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
+import com.kenai.jffi.Main;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -15,9 +17,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.ChainParam;
-import wannabit.io.cosmostaion.dialog.Dialog_Help_Mint_Msg;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletMintHolder extends BaseHolder {
@@ -48,22 +49,23 @@ public class WalletMintHolder extends BaseHolder {
         mAprCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("msg1" , mainActivity.getString(R.string.str_apr_help_onchain_msg));
+                String msg2;
+                String msg4;
                 if (param == null || param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
-                    bundle.putString("msg2" , "0%");
+                    msg2 = "0%";
                 } else {
-                    bundle.putString("msg2" , "" + WDp.getPercentDp(param.getDpApr(baseChain)));
+                    msg2 = "" + WDp.getPercentDp(param.getDpApr(baseChain));
                 }
-                bundle.putString("msg3" , mainActivity.getString(R.string.str_apr_help_real_msg));
                 if (param == null || param.getDpRealApr(baseChain).equals(BigDecimal.ZERO)) {
-                    bundle.putString("msg4" , "N/A");
+                    msg4 = "N/A";
                 } else {
-                    bundle.putString("msg4" , "" + WDp.getPercentDp(param.getDpRealApr(baseChain)));
+                    msg4 = "" + WDp.getPercentDp(param.getDpRealApr(baseChain));
                 }
-                Dialog_Help_Mint_Msg dialog = Dialog_Help_Mint_Msg.newInstance(bundle);
-                dialog.setCancelable(true);
-                mainActivity.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                CommonAlertDialog.getInstance(mainActivity)
+                        .showDefaultDialog(mainActivity.getString(R.string.str_apr_help_onchain_msg),
+                                msg2,
+                                mainActivity.getString(R.string.str_apr_help_real_msg),
+                                msg4);
             }
         });
     }

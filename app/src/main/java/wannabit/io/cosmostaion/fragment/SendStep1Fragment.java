@@ -9,6 +9,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -32,7 +33,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -331,9 +331,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onShowEmptyBlanaceWarnDialog() {
-        Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
-        dialog.setCancelable(true);
-        dialog.show(getFragmentManager().beginTransaction(), "dialog");
+        new AlertDialog.Builder(getActivity()).setTitle(R.string.str_empty_warnning_title)
+                .setMessage(R.string.str_empty_warnning_msg)
+                .setPositiveButton("ok",null)
+                .create()
+                .show();
     }
 
     private void setDisplayDecimals(int decimals) {

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,9 +29,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
-import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
-import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
-import wannabit.io.cosmostaion.dialog.Dialog_Update;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -182,32 +181,42 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onNetworkDialog() {
-        Dialog_NetworkError dialog = new Dialog_NetworkError();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.str_network_error_title)
+                .setMessage(R.string.str_network_error_msg)
+                .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        onCheckAppVersion();
+                    }
+                });
+        AlertDialog ad = builder.create();
+        ad.show();
+
     }
 
     private void onDisableDialog() {
-        Dialog_DisabledApp dialog = new Dialog_DisabledApp();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
-
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.str_disabled_app_title)
+                .setMessage(R.string.str_disabled_app_msg)
+                .setPositiveButton(R.string.str_confirm,null)
+                .create()
+                .show();
     }
 
     private void onUpdateDialog() {
-        Dialog_Update dialog = new Dialog_Update();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.str_update_title)
+                .setMessage(R.string.str_update_msg)
+                .setPositiveButton(R.string.str_go_store, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        onStartPlaystore();
+                    }
+                });
+        AlertDialog ad = builder.create();
+        ad.show();
 
-    }
-
-
-    public void onRetryVersionCheck() {
-        onCheckAppVersion();
-    }
-
-    public void onTerminateApp() {
-        finish();
     }
 
     public void onStartPlaystore() {

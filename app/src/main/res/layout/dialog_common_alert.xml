@@ -12,24 +12,40 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
         <TextView
+            android:id="@+id/dialog_msg1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_ss_14_gray8"
             android:gravity="center"
-            android:text="@string/str_error_not_support_chain_title"/>
+            android:text="-"/>
 
         <TextView
-            android:id="@+id/error_msg"
+            android:id="@+id/dialog_msg2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12"
             android:layout_marginLeft="@dimen/space_24"
             android:layout_marginRight="@dimen/space_24"
             style="@style/font_ss_12_gray1"
-            android:gravity="center"
-            android:text="@string/str_error_not_support_chain_msg"/>
+            android:text="-"/>
 
+        <TextView
+            android:id="@+id/dialog_msg3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24"
+            style="@style/font_ss_14_gray8"
+            android:gravity="center"
+            android:text="-"/>
+
+        <TextView
+            android:id="@+id/dialog_msg4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_24"
+            android:layout_marginRight="@dimen/space_24"
+            style="@style/font_ss_12_gray1"
+            android:text="-"/>
 
         <View
             android:layout_width="match_parent"

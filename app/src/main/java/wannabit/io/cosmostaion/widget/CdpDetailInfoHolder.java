@@ -17,9 +17,10 @@ import java.math.RoundingMode;
 import kava.cdp.v1beta1.Genesis;
 import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -136,11 +137,6 @@ public class CdpDetailInfoHolder extends BaseHolder {
     }
 
     private void onShowHelpPopup(CdpDetail5Activity context, String title, String msg) {
-        Bundle bundle = new Bundle();
-        bundle.putString("title", title);
-        bundle.putString("msg", msg);
-        Dialog_Help_Msg dialog = Dialog_Help_Msg.newInstance(bundle);
-        dialog.setCancelable(true);
-        context.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        CommonAlertDialog.getInstance(context).showDefaultDialog(title,msg,null,null);
     }
 }

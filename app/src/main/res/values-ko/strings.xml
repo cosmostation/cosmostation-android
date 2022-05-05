@@ -1302,6 +1302,7 @@
 
     <string name="str_ibc_send_c">IBC 보내기</string>
     <string name="str_ibc_warning_c">Notice</string>
+    <string name="str_ibc_warning_msg">IBC 전송은 거래소 입금을 지원 하지 않습니다. \n거래소로 전송을 원하실 경우 반드시 해당 체인의 본인 계정으로 IBC 전송 후에 다시 일반 전송으로 입금해야합니다. \n또한 본 지갑은 현재 활성화된 릴레이어의 IBC 전송 중계를 지원할뿐 전송간 일어나는 내제적인 문제에 대해서는 책임을 지지 않습니다. \nIBC 트랜잭션을 진행하기전에 선택한 릴레이어에 대한 안정성은 사용자가 직접 검토해야 합니다.</string>
     <string name="str_ibc_warning_msg1">IBC 전송은 거래소 입금을 지원 하지 않습니다. \n거래소로 전송을 원하실 경우 반드시 해당 체인의 본인 계정으로 IBC 전송 후에 다시 일반 전송으로 입금해야합니다.</string>
     <string name="str_ibc_warning_msg2">또한 본 지갑은 현재 활성화된 릴레이어의 IBC 전송 중계를 지원할뿐 전송간 일어나는 내제적인 문제에 대해서는 책임을 지지 않습니다. \nIBC 트랜잭션을 진행하기전에 선택한 릴레이어에 대한 안정성은 사용자가 직접 검토해야 합니다.</string>
     <string name="str_ibc_continue_c">진행하기</string>

@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.activities.tokenDetail;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,7 +35,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -208,12 +209,17 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
-            Bundle bundle = new Bundle();
-            bundle.putString("sendTokenDenom", mIbcDenom);
-            Dialog_IBC_Send_Warning warning = Dialog_IBC_Send_Warning.newInstance(bundle);
-            warning.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.str_ibc_warning_c)
+                    .setMessage(R.string.str_ibc_warning_msg)
+                    .setPositiveButton(R.string.str_ibc_continue_c, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            onCheckIbcTransfer(mIbcDenom);
+                        }
+                    });
+            AlertDialog ad = builder.create();
+            ad.show();
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();

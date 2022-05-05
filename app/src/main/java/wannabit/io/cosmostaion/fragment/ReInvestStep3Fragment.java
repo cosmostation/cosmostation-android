@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,6 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -89,9 +89,11 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
                 getSActivity().onStartReInvest();
 
             } else {
-                Dialog_Reward_Small dialog = Dialog_Reward_Small.newInstance();
-                dialog.setCancelable(true);
-                dialog.show(getFragmentManager().beginTransaction(), "dialog");
+                new AlertDialog.Builder(getActivity()).setTitle(R.string.str_fee_over_title)
+                        .setMessage(R.string.str_fee_over_msg)
+                        .setPositiveButton("ok",null)
+                        .create()
+                        .show();
             }
 
         }

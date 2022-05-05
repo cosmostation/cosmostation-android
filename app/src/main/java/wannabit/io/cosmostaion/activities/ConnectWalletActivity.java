@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,8 +55,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Chain;
-import wannabit.io.cosmostaion.dialog.Dialog_Not_Support_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_WC_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.model.StdSignMsg;
@@ -530,17 +530,22 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowNoAccountsForChain() {
-        Dialog_Empty_Chain mDialogEmptyChain = Dialog_Empty_Chain.newInstance();
-        mDialogEmptyChain.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(mDialogEmptyChain, "dialog").commitNowAllowingStateLoss();
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.str_error_not_support_chain_title)
+                .setMessage(R.string.str_error_not_support_chain_msg)
+                .setPositiveButton(R.string.str_ok,null)
+                .create()
+                .show();
     }
 
     private void onShowNotSupportChain(String chainId) {
-        Bundle bundle = new Bundle();
-        bundle.putString("chainId", chainId);
-        Dialog_Not_Support_Chain mDialogNotSupportChain = Dialog_Not_Support_Chain.newInstance(bundle);
-        mDialogNotSupportChain.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(mDialogNotSupportChain, "dialog").commitNowAllowingStateLoss();
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.str_error_not_support_chain_title)
+                .setMessage(String.format(this.getString(R.string.str_error_not_support_msg), chainId))
+                .setPositiveButton(R.string.str_ok,null)
+                .create()
+                .show();
+
     }
 
     private Bundle makeSignBundle(int type, Long id, String transaction) {

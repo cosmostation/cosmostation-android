@@ -1144,11 +1144,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }catch (Exception e) {
                         Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                     }
-
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             }
         }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+    }
+
+    public void CommonAlertOneButton(String title, String message) {
+
     }
 }

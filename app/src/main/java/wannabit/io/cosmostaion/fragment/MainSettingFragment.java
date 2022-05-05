@@ -166,7 +166,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
 
         } else if (v.equals(mBtnNotice)) {
-            getMainActivity().onNoticeView();
+            getMainActivity().onExplorerView();
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();

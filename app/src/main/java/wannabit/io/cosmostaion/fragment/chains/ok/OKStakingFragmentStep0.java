@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -22,7 +23,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -239,9 +239,11 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
     }
 
     private void onShowEmptyBlanaceWarnDialog() {
-        Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
-        dialog.setCancelable(true);
-        dialog.show(getFragmentManager().beginTransaction(), "dialog");
+        new AlertDialog.Builder(getActivity()).setTitle(R.string.str_empty_warnning_title)
+                .setMessage(R.string.str_empty_warnning_msg)
+                .setPositiveButton("ok",null)
+                .create()
+                .show();
     }
 
     private void setDpDecimals(int decimals) {
