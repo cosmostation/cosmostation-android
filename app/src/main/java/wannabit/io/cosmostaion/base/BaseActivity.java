@@ -1150,8 +1150,4 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
         }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
-
-    public void CommonAlertOneButton(String title, String message) {
-
-    }
 }
