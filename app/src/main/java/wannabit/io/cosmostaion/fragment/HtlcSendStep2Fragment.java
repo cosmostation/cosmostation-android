@@ -359,11 +359,6 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onShowEmptyBlanaceWarnDialog() {
-        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), "OK", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), "OK", view -> { });
     }
 }

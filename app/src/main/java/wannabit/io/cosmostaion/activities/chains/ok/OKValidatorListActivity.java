@@ -125,18 +125,8 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
         BigDecimal availableAmount = getBaseDao().availableAmount(TOKEN_OK);

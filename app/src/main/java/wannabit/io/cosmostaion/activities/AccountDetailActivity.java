@@ -142,18 +142,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     public void onStartChangeRewardAddress() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
 
@@ -301,18 +291,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 return;
             }
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
-                    getString(R.string.str_delete), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onStartDeleteUser();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_delete), view -> onStartDeleteUser(),
+                    getString(R.string.str_close), view -> { });
         } else if (v.equals(mNameEditImg)) {
             Bundle bundle = new Bundle();
             bundle.putLong("id", mAccount.id);
@@ -332,18 +312,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnRewardAddressChange)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
 

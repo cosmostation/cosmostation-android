@@ -196,18 +196,8 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
             final String mainDenom = WDp.mainDenom(mBaseChain);
@@ -220,27 +210,12 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             }
             AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
                     Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" +  getString(R.string.str_ibc_warning_msg2)),
-                    getString(R.string.str_ibc_continue_c), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onCheckIbcTransfer(mIbcDenom);
-                        }
-                    });
+                    getString(R.string.str_ibc_continue_c), view -> onCheckIbcTransfer(mIbcDenom));
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);

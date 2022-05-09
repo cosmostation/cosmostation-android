@@ -136,18 +136,8 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, QueryOuterClass.PoolResponse swapPool) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
         BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -187,18 +177,8 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onCheckStartJoinPool(QueryOuterClass.PoolResponse myPool) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
@@ -222,18 +202,8 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onCheckStartExitPool(QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
 

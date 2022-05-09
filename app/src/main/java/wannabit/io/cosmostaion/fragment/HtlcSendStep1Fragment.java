@@ -124,12 +124,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
                     msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 }
-                AlertDialogUtils.showSingleButtonDialog(getSActivity(), title, msg, "OK", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
+                AlertDialogUtils.showSingleButtonDialog(getSActivity(), title, msg, "OK", view -> { });
             }
         }
     }

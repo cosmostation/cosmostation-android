@@ -141,18 +141,8 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     public void onCheckStartClaimIncentive() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ((BaseActivity)getActivity()).onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> ((BaseActivity)getActivity()).onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
     }

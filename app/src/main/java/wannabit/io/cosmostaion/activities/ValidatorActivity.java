@@ -190,18 +190,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_not_validator_title), getString(R.string.str_not_validator_msg),
-                    getString(R.string.str_cancel), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onBackPressed();
-                        }
-                    },
-                    getString(R.string.str_continue), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onStartDelegate();
-                        }
-                    });
+                    getString(R.string.str_cancel), view -> onBackPressed(),
+                    getString(R.string.str_continue), view -> onStartDelegate());
         } else {
             onStartDelegate();
         }
@@ -216,18 +206,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     public void onCheckRedelegate() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
 
@@ -267,18 +247,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onStartUndelegate() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
         if (getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
@@ -305,18 +275,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onGetReward() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
         BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -340,18 +300,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onCheckReInvest() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
 

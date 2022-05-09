@@ -118,18 +118,8 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         if (v.equals(mBtnDelete)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -148,18 +138,8 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         } else if (v.equals(mBtnRenew)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
 
@@ -182,18 +162,8 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         } else if (v.equals(mBtnEdit)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
 

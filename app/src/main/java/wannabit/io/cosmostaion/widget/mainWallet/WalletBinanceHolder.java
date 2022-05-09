@@ -62,31 +62,11 @@ public class WalletBinanceHolder extends BaseHolder {
             public void onClick(View v) {
                 if (!mainActivity.mAccount.hasPrivateKey) {
                     AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                            mainActivity.getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    mainActivity.onAddMnemonicForAccount();
-                                }
-                            },
-                            mainActivity.getString(R.string.str_close), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                }
-                            });
+                            mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
+                            mainActivity.getString(R.string.str_close), view -> { });
                     AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                            mainActivity.getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    mainActivity.onAddMnemonicForAccount();
-                                }
-                            },
-                            mainActivity.getString(R.string.str_close), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                }
-                            });
+                            mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
+                            mainActivity.getString(R.string.str_close), view -> { });
                     return;
                 }
                 new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {

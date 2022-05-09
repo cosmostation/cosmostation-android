@@ -133,18 +133,8 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             } else {
                 Toast.makeText(NFTokenDetailActivity.this, R.string.error_prepare, Toast.LENGTH_SHORT).show();
@@ -154,18 +144,8 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
 
             } else {

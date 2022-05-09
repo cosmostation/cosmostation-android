@@ -522,18 +522,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //SWAP ID LOOP CHECK
     private void onShowMoreSwapWait() {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
-                getString(R.string.str_close), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onBackPressed();
-                    }
-                },
-                getString(R.string.str_wait), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
+                getString(R.string.str_close), view -> onBackPressed(),
+                getString(R.string.str_wait), view -> { });
     }
 
     public void onWaitSwapMore() {

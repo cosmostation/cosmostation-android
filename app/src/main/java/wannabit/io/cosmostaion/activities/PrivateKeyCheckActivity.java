@@ -93,18 +93,8 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         if(v.equals(mCopy)) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_safe_copy_pkey_title), getString(R.string.str_safe_copy_pkey_msg),
-                    getString(R.string.str_raw_copy), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onRawCopy();
-                        }
-                    },
-                    getString(R.string.str_safe_copy), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onSafeCopy();
-                        }
-                    });
+                    getString(R.string.str_raw_copy), view -> onRawCopy(),
+                    getString(R.string.str_safe_copy), view -> onSafeCopy());
         } else if (v.equals(mOk)) {
             onStartMainActivity(3);
         }

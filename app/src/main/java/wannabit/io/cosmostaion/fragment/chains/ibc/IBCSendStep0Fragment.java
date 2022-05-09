@@ -157,19 +157,11 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mBtnNext)) {
             if (mIbcSelectedPath.auth == null) {
                 AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_ibc_warning_c), getString(R.string.str_ibc_unknown_relayer_msg),
-                        getString(R.string.str_cancel), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        },
-                        getString(R.string.str_continue), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent resultIntent = new Intent();
-                                resultIntent.putExtra("continue", 0);
-                                onActivityResult(SELECT_POPUP_IBC_UNKNOWN_RELAYER, Activity.RESULT_OK, resultIntent);
-                            }
+                        getString(R.string.str_cancel), view -> { },
+                        getString(R.string.str_continue), view -> {
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("continue", 0);
+                            onActivityResult(SELECT_POPUP_IBC_UNKNOWN_RELAYER, Activity.RESULT_OK, resultIntent);
                         });
             } else if (mIbcSelectedPath.auth) {
                 getSActivity().mIbcSelectedRelayer = mIbcSelectedRelayer;

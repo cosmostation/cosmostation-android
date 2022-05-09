@@ -281,18 +281,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             } else {
                 if (!mAccount.hasPrivateKey) {
                     AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                            getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    onAddMnemonicForAccount();
-                                }
-                            },
-                            getString(R.string.str_close), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                }
-                            });
+                            getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                            getString(R.string.str_close), view -> { });
                     return;
                 }
                 BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -307,18 +297,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                onAddMnemonicForAccount();
-                            }
-                        },
-                        getString(R.string.str_close), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -361,18 +341,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onClickIncentive() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onAddMnemonicForAccount();
-                        }
-                    },
-                    getString(R.string.str_close), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> { });
             return;
         }
 

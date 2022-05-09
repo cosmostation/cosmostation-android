@@ -181,32 +181,17 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     private void onNetworkDialog() {
         AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_network_error_title), getString(R.string.str_network_error_msg),
-                getString(R.string.str_retry), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onRetryVersionCheck();
-            }
-        });
+                getString(R.string.str_retry), view -> onRetryVersionCheck());
     }
 
     private void onDisableDialog() {
         AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_disabled_app_title), getString(R.string.str_disabled_app_msg),
-                getString(R.string.str_confirm), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+                getString(R.string.str_confirm), view -> finish());
     }
 
     private void onUpdateDialog() {
         AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
-                getString(R.string.str_go_store), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onStartPlaystore();
-                    }
-                });
+                getString(R.string.str_go_store), view -> onStartPlaystore());
     }
 
 

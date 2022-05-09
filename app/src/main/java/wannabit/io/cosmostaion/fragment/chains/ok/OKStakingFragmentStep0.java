@@ -239,12 +239,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
     }
 
     private void onShowEmptyBlanaceWarnDialog() {
-        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), "OK", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), "OK", view -> { });
     }
 
     private void setDpDecimals(int decimals) {

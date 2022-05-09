@@ -46,35 +46,26 @@ public class WalletMintHolder extends BaseHolder {
             mInflation.setText("-");
             mAPR.setText("-");
         }
-        mAprCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Spanned msg = null;
-                String msg2;
-                String msg3;
+        mAprCard.setOnClickListener(v -> {
+            Spanned msg = null;
+            String msg2;
+            String msg3;
 
-                if (param == null || param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
-                    msg2 = "0%";
-                } else {
-                    msg2 = "" + WDp.getPercentDp(param.getDpApr(baseChain));
-                }
-                if (param == null || param.getDpRealApr(baseChain).equals(BigDecimal.ZERO)) {
-                    msg3 = "N/A";
-                } else {
-                    msg3 = "" + WDp.getPercentDp(param.getDpRealApr(baseChain));
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    msg = Html.fromHtml("<b>" + mainActivity.getString(R.string.str_apr_help_onchain_msg) + "</b>" + "<br>" + msg2 + "<p>" + "<br>"
-                            + "<b>" + mainActivity.getString(R.string.str_apr_help_real_msg) + "</b>" + "<br>" + msg3, Html.FROM_HTML_MODE_LEGACY);
-                }
-                AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null,
-                        "OK", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
+            if (param == null || param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
+                msg2 = "0%";
+            } else {
+                msg2 = "" + WDp.getPercentDp(param.getDpApr(baseChain));
             }
+            if (param == null || param.getDpRealApr(baseChain).equals(BigDecimal.ZERO)) {
+                msg3 = "N/A";
+            } else {
+                msg3 = "" + WDp.getPercentDp(param.getDpRealApr(baseChain));
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                msg = Html.fromHtml("<b>" + mainActivity.getString(R.string.str_apr_help_onchain_msg) + "</b>" + "<br>" + msg2 + "<p>" + "<br>"
+                        + "<b>" + mainActivity.getString(R.string.str_apr_help_real_msg) + "</b>" + "<br>" + msg3, Html.FROM_HTML_MODE_LEGACY);
+            }
+            AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, "OK", view -> { });
         });
     }
 }
