@@ -117,7 +117,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                         getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), view -> { });
+                        getString(R.string.str_close), null);
                 return;
             }
             if (mDomain_gRPC.getType().equals("open")) {
@@ -140,7 +140,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                         getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), view -> { });
+                        getString(R.string.str_close), null);
                 return;
             }
 
@@ -163,7 +163,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                         getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), view -> { });
+                        getString(R.string.str_close), null);
                 return;
             }
 

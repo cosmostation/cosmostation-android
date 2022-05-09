@@ -130,7 +130,7 @@ public class WalletChainHolder extends BaseHolder {
                     if (!mainActivity.mAccount.hasPrivateKey) {
                         AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
                                 mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
-                                mainActivity.getString(R.string.str_close), view -> { });
+                                mainActivity.getString(R.string.str_close), null);
                         return;
                     } else {
                         new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {

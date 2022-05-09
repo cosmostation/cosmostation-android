@@ -196,7 +196,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), view -> { });
+                    getString(R.string.str_close), null);
             return;
         }
 
@@ -224,7 +224,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), view -> { });
+                    getString(R.string.str_close), null);
             return;
         }
 
@@ -264,7 +264,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), view -> { });
+                    getString(R.string.str_close), null);
             return;
         }
 

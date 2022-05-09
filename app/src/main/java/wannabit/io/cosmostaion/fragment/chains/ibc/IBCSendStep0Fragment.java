@@ -157,7 +157,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mBtnNext)) {
             if (mIbcSelectedPath.auth == null) {
                 AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_ibc_warning_c), getString(R.string.str_ibc_unknown_relayer_msg),
-                        getString(R.string.str_cancel), view -> { },
+                        getString(R.string.str_cancel), null,
                         getString(R.string.str_continue), view -> {
                             Intent resultIntent = new Intent();
                             resultIntent.putExtra("continue", 0);
