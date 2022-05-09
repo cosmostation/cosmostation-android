@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,9 +51,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
@@ -279,9 +280,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
             } else {
                 if (!mAccount.hasPrivateKey) {
-                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                            getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    onAddMnemonicForAccount();
+                                }
+                            },
+                            getString(R.string.str_close), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            });
                     return;
                 }
                 BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -295,9 +306,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         } else {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             }
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -339,9 +360,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onClickIncentive() {
         if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onAddMnemonicForAccount();
+                        }
+                    },
+                    getString(R.string.str_close), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
             return;
         }
 

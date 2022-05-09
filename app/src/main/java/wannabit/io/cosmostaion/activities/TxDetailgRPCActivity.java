@@ -32,7 +32,7 @@ import ibc.applications.transfer.v1.Tx;
 import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -104,7 +104,7 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateUserClaimHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
-public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
+public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar         mToolbar;
     private RecyclerView    mTxRecyclerView;
     private CardView        mErrorCardView;
@@ -775,16 +775,23 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void onShowMoreWait() {
-        Dialog_MoreWait waitMore = Dialog_MoreWait.newInstance(null);
-        waitMore.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(waitMore, "dialog").commitNowAllowingStateLoss();
+        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
+                getString(R.string.str_close), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onBackPressed();
+                    }
+                },
+                getString(R.string.str_wait), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onWaitMore();
+                    }
+                });
     }
 
-    @Override
     public void onWaitMore() {
         FetchCnt = 0;
         onFetchTx(mTxHash);
     }
-
-
 }

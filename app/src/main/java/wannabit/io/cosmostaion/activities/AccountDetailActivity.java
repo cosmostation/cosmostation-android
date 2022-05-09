@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,11 +29,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
-import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeInfo;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
@@ -36,13 +41,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -143,9 +141,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onStartChangeRewardAddress() {
         if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onAddMnemonicForAccount();
+                        }
+                    },
+                    getString(R.string.str_close), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
             return;
         }
 
@@ -292,12 +300,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 Toast.makeText(AccountDetailActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
                 return;
             }
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", mAccount.id);
-            Dialog_DeleteConfirm delete = Dialog_DeleteConfirm.newInstance(bundle);
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
+                    getString(R.string.str_delete), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onStartDeleteUser();
+                        }
+                    },
+                    getString(R.string.str_close), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
+                        }
+                    });
         } else if (v.equals(mNameEditImg)) {
             Bundle bundle = new Bundle();
             bundle.putLong("id", mAccount.id);
@@ -316,9 +331,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnRewardAddressChange)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             }
 

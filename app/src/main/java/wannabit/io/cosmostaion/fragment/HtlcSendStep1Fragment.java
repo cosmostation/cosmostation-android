@@ -22,8 +22,8 @@ import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Accounts;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Empty;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
@@ -117,7 +117,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
             } else {
-                Bundle bundle = new Bundle();
                 String title = String.format(getString(R.string.error_can_not_bep3_account_title), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 String msg = "";
                 if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
@@ -125,12 +124,12 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
                     msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 }
-                bundle.putString("title", title);
-                bundle.putString("msg", msg);
-                Dialog_Htlc_Receivable_Empty dialog = Dialog_Htlc_Receivable_Empty.newInstance(bundle);
-                dialog.setCancelable(true);
-                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showSingleButtonDialog(getSActivity(), title, msg, "OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                    }
+                });
             }
         }
     }

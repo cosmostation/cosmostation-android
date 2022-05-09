@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -22,15 +28,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClickListener {
 
@@ -239,9 +239,12 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
     }
 
     private void onShowEmptyBlanaceWarnDialog() {
-        Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
-        dialog.setCancelable(true);
-        dialog.show(getFragmentManager().beginTransaction(), "dialog");
+        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), "OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void setDpDecimals(int decimals) {

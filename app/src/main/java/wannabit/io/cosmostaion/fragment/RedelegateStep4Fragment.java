@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_RedelegateConfirm;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
@@ -85,11 +85,20 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            Dialog_RedelegateConfirm dialog = Dialog_RedelegateConfirm.newInstance();
-            dialog.setCancelable(true);
-            dialog.setTargetFragment(this, REDELEGATE_CONFIRM_DIALOG);
-            dialog.show(getFragmentManager().beginTransaction(), "dialog");
+            AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_redelegation_warnning_title), getString(R.string.str_redelegation_warnning_msg),
+                    getString(R.string.str_no), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
+                        }
+                    },
+                    getString(R.string.str_yes), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent resultIntent = new Intent();
+                            onActivityResult(REDELEGATE_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
+                        }
+                    });
         }
     }
 

@@ -1,5 +1,13 @@
 package wannabit.io.cosmostaion.activities.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -27,23 +35,15 @@ import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
-import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
+import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
 
 public class StarNameAccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -117,9 +117,19 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
     public void onClick(View v) {
         if (v.equals(mBtnDelete)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             }
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -137,9 +147,19 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
         } else if (v.equals(mBtnRenew)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             }
 
@@ -161,9 +181,19 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
         } else if (v.equals(mBtnEdit)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             }
 

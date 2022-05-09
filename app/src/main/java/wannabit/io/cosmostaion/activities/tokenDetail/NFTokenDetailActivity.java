@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,14 +33,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
 
 public class NFTokenDetailActivity extends BaseActivity implements View.OnClickListener{
 
@@ -133,9 +132,19 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             } else {
                 Toast.makeText(NFTokenDetailActivity.this, R.string.error_prepare, Toast.LENGTH_SHORT).show();
@@ -144,9 +153,19 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
 
             } else {

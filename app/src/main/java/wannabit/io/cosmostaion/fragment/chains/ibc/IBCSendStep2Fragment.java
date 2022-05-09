@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -232,9 +232,12 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
 
     private void onShowEmptyBalanceWarnDialog() {
         if (WDp.mainDenom(getSActivity().mBaseChain).equalsIgnoreCase(getSActivity().mToIbcDenom)) {
-            Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
-            dialog.setCancelable(true);
-            dialog.show(getFragmentManager().beginTransaction(), "dialog");
+            AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), "OK", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
             return;
         }
     }

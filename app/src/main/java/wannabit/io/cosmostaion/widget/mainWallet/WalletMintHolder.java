@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import android.os.Bundle;
+import android.os.Build;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,9 +17,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.ChainParam;
-import wannabit.io.cosmostaion.dialog.Dialog_Help_Mint_Msg;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletMintHolder extends BaseHolder {
@@ -48,22 +49,31 @@ public class WalletMintHolder extends BaseHolder {
         mAprCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("msg1" , mainActivity.getString(R.string.str_apr_help_onchain_msg));
+                Spanned msg = null;
+                String msg2;
+                String msg3;
+
                 if (param == null || param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
-                    bundle.putString("msg2" , "0%");
+                    msg2 = "0%";
                 } else {
-                    bundle.putString("msg2" , "" + WDp.getPercentDp(param.getDpApr(baseChain)));
+                    msg2 = "" + WDp.getPercentDp(param.getDpApr(baseChain));
                 }
-                bundle.putString("msg3" , mainActivity.getString(R.string.str_apr_help_real_msg));
                 if (param == null || param.getDpRealApr(baseChain).equals(BigDecimal.ZERO)) {
-                    bundle.putString("msg4" , "N/A");
+                    msg3 = "N/A";
                 } else {
-                    bundle.putString("msg4" , "" + WDp.getPercentDp(param.getDpRealApr(baseChain)));
+                    msg3 = "" + WDp.getPercentDp(param.getDpRealApr(baseChain));
                 }
-                Dialog_Help_Mint_Msg dialog = Dialog_Help_Mint_Msg.newInstance(bundle);
-                dialog.setCancelable(true);
-                mainActivity.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    msg = Html.fromHtml("<b>" + mainActivity.getString(R.string.str_apr_help_onchain_msg) + "</b>" + "<br>" + msg2 + "<p>" + "<br>"
+                            + "<b>" + mainActivity.getString(R.string.str_apr_help_real_msg) + "</b>" + "<br>" + msg3, Html.FROM_HTML_MODE_LEGACY);
+                }
+                AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null,
+                        "OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
             }
         });
     }

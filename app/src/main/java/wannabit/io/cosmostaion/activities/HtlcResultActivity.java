@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,8 +30,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Error;
-import wannabit.io.cosmostaion.dialog.Dialog_MoreSwapWait;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -519,10 +521,19 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     //SWAP ID LOOP CHECK
     private void onShowMoreSwapWait() {
-        Dialog_MoreSwapWait waitSwapMore = Dialog_MoreSwapWait.newInstance(null);
-        waitSwapMore.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(waitSwapMore, "dialog").commitNowAllowingStateLoss();
+        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
+                getString(R.string.str_close), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onBackPressed();
+                    }
+                },
+                getString(R.string.str_wait), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                    }
+                });
     }
 
     public void onWaitSwapMore() {

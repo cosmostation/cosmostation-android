@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -31,14 +34,11 @@ import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
-import wannabit.io.cosmostaion.dialog.Dialog_Starname_WC_Confirm;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -235,12 +235,21 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnStarnameWc)) {
-            Dialog_Starname_WC_Confirm wc_dialog = Dialog_Starname_WC_Confirm.newInstance();
-            wc_dialog.setCancelable(true);
-            wc_dialog.setTargetFragment(this, SELECT_STARNAME_WALLET_CONNECT);
-            getFragmentManager().beginTransaction().add(wc_dialog, "dialog").commitNowAllowingStateLoss();
-        }
+            AlertDialogUtils.showDoubleButtonDialog(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg),
+                    getString(R.string.str_cancel), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
+                        }
+                    },
+                    getString(R.string.str_continue), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent resultIntent = new Intent();
+                            onActivityResult(SELECT_STARNAME_WALLET_CONNECT, Activity.RESULT_OK, resultIntent);
+                        }
+                    });
+        }
     }
 
     public MainActivity getMainActivity() {

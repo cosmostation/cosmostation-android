@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -8,8 +7,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -19,11 +16,9 @@ import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 
 public class CdpDetailMyStatusHolder extends BaseHolder {
     private ImageView           mMyCollateralImg;
@@ -196,11 +191,11 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
     }
 
     private void onShowHelpPopup(CdpDetail5Activity context, String title, String msg) {
-        Bundle bundle = new Bundle();
-        bundle.putString("title", title);
-        bundle.putString("msg", msg);
-        Dialog_Help_Msg dialog = Dialog_Help_Msg.newInstance(bundle);
-        dialog.setCancelable(true);
-        context.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        AlertDialogUtils.showSingleButtonDialog(context, title, msg, "OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }

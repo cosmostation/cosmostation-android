@@ -109,13 +109,11 @@ import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
-import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
-import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
@@ -282,9 +280,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public void onStartSendMainDenom() {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onAddMnemonicForAccount();
+                        }
+                    },
+                    getString(R.string.str_close), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
             return;
         }
 
@@ -321,9 +329,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
         }
         if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onAddMnemonicForAccount();
+                        }
+                    },
+                    getString(R.string.str_close), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
             return;
         }
 
@@ -1083,10 +1101,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowPushEnableDialog() {
-        Dialog_Push_Enable dialog = new Dialog_Push_Enable();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_push_permission_title), getString(R.string.str_push_permission_msg),
+                getString(R.string.str_cancel), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onRedirectPushSet();
+                    }
+                },
+                getString(R.string.str_continue), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                    }
+                });
     }
 
     public void onRedirectPushSet() {
@@ -1108,9 +1135,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowBuyWarnNoKey() {
-        Dialog_Buy_Without_Key dialog = Dialog_Buy_Without_Key.newInstance();
-        dialog.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
+                getString(R.string.str_cancel), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                },
+                getString(R.string.str_continue), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
     }
 
     public void onShowBuySelectFiat() {

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,14 +25,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKValidatorOtherFragment;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKValidatorTopFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class OKValidatorListActivity extends BaseActivity implements FetchCallBack {
 
@@ -124,9 +124,19 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
     public void onStartDirectVote() {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                    getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onAddMnemonicForAccount();
+                        }
+                    },
+                    getString(R.string.str_close), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
             return;
         }
         BigDecimal availableAmount = getBaseDao().availableAmount(TOKEN_OK);

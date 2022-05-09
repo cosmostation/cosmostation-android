@@ -22,8 +22,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameAccountDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
+import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class MyAccountFragment extends BaseFragment implements View.OnClickListener {
@@ -91,9 +92,19 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         if (v.equals(mRegisterAccount)) {
             if (!getSActivity().mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ((BaseActivity)getActivity()).onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             }
 

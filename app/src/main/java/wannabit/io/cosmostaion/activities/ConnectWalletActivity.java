@@ -53,8 +53,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Chain;
-import wannabit.io.cosmostaion.dialog.Dialog_Not_Support_Chain;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_WC_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.model.StdSignMsg;
@@ -531,17 +530,22 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowNoAccountsForChain() {
-        Dialog_Empty_Chain mDialogEmptyChain = Dialog_Empty_Chain.newInstance();
-        mDialogEmptyChain.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(mDialogEmptyChain, "dialog").commitNowAllowingStateLoss();
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), "OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void onShowNotSupportChain(String chainId) {
-        Bundle bundle = new Bundle();
-        bundle.putString("chainId", chainId);
-        Dialog_Not_Support_Chain mDialogNotSupportChain = Dialog_Not_Support_Chain.newInstance(bundle);
-        mDialogNotSupportChain.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(mDialogNotSupportChain, "dialog").commitNowAllowingStateLoss();
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), String.format(getString(R.string.str_error_not_support_msg),
+                chainId), "OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private Bundle makeSignBundle(int type, Long id, String transaction) {

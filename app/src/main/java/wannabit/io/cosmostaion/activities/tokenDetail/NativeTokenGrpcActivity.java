@@ -13,6 +13,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,9 +39,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -219,9 +219,19 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             }
             final String mainDenom = WDp.mainDenom(mBaseChain);
@@ -235,17 +245,29 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
-            Bundle bundle = new Bundle();
-            bundle.putString("sendTokenDenom", mNativeGrpcDenom);
-            Dialog_IBC_Send_Warning warning = Dialog_IBC_Send_Warning.newInstance(bundle);
-            warning.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
-
+            AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
+                    Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" +  getString(R.string.str_ibc_warning_msg2)),
+                    getString(R.string.str_ibc_continue_c), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onCheckIbcTransfer(mNativeGrpcDenom);
+                        }
+                    });
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);

@@ -27,9 +27,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
-import wannabit.io.cosmostaion.dialog.Dialog_IBC_Unknown_Relayer;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -156,10 +156,21 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
 
         } else if (v.equals(mBtnNext)) {
             if (mIbcSelectedPath.auth == null) {
-                Dialog_IBC_Unknown_Relayer warning = Dialog_IBC_Unknown_Relayer.newInstance();
-                warning.setCancelable(true);
-                warning.setTargetFragment(this, SELECT_POPUP_IBC_UNKNOWN_RELAYER);
-                getFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_ibc_warning_c), getString(R.string.str_ibc_unknown_relayer_msg),
+                        getString(R.string.str_cancel), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        },
+                        getString(R.string.str_continue), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent resultIntent = new Intent();
+                                resultIntent.putExtra("continue", 0);
+                                onActivityResult(SELECT_POPUP_IBC_UNKNOWN_RELAYER, Activity.RESULT_OK, resultIntent);
+                            }
+                        });
             } else if (mIbcSelectedPath.auth) {
                 getSActivity().mIbcSelectedRelayer = mIbcSelectedRelayer;
                 getSActivity().mPath = mIbcSelectedPath;

@@ -26,10 +26,8 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
-import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
-import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
-import wannabit.io.cosmostaion.dialog.Dialog_Update;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -182,32 +180,38 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onNetworkDialog() {
-        Dialog_NetworkError dialog = new Dialog_NetworkError();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_network_error_title), getString(R.string.str_network_error_msg),
+                getString(R.string.str_retry), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRetryVersionCheck();
+            }
+        });
     }
 
     private void onDisableDialog() {
-        Dialog_DisabledApp dialog = new Dialog_DisabledApp();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
-
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_disabled_app_title), getString(R.string.str_disabled_app_msg),
+                getString(R.string.str_confirm), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void onUpdateDialog() {
-        Dialog_Update dialog = new Dialog_Update();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
-
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
+                getString(R.string.str_go_store), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onStartPlaystore();
+                    }
+                });
     }
 
 
     public void onRetryVersionCheck() {
         onCheckAppVersion();
-    }
-
-    public void onTerminateApp() {
-        finish();
     }
 
     public void onStartPlaystore() {

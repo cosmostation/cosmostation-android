@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -61,9 +61,32 @@ public class WalletBinanceHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 if (!mainActivity.mAccount.hasPrivateKey) {
-                    Dialog_WatchMode dialog = Dialog_WatchMode.newInstance();
-                    dialog.setCancelable(true);
-                    mainActivity.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+                            mainActivity.getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mainActivity.onAddMnemonicForAccount();
+                                }
+                            },
+                            mainActivity.getString(R.string.str_close), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            });
+                    AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+                            mainActivity.getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mainActivity.onAddMnemonicForAccount();
+                                }
+                            },
+                            mainActivity.getString(R.string.str_close), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            });
                     return;
                 }
                 new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {

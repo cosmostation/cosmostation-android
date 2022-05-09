@@ -8,14 +8,14 @@ import android.view.View;
 import org.apache.commons.lang3.StringUtils;
 
 public class AlertDialogUtils {
-    public static void showSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener) {
-        CommonAlertDialog dialog = makeSingleButtonDialog(context, title, message, buttonTitle, listener);
+    public static void showHeaderImageSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener, int imageResourceId) {
+        CommonAlertDialog dialog = makeHeaderImageSingleButtonDialog(context, title, message, buttonTitle, listener, imageResourceId);
         dialog.create();
         dialog.show();
     }
 
-    public static void showHeaderImageSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener, int imageResourceId) {
-        CommonAlertDialog dialog = makeHeaderImageSingleButtonDialog(context, title, message, buttonTitle, listener, imageResourceId);
+    public static void showSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener) {
+        CommonAlertDialog dialog = makeSingleButtonDialog(context, title, message, buttonTitle, listener);
         dialog.create();
         dialog.show();
     }
