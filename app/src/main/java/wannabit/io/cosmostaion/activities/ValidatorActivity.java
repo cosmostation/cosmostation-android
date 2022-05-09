@@ -225,7 +225,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
             for (Staking.RedelegationResponse data: mGrpcRedelegates) {
                 if (data.getRedelegation().getValidatorDstAddress().equals(mValOpAddress)) {
-                    AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg), "OK", new View.OnClickListener() {
+                    AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg), getString(R.string.str_ok), new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 

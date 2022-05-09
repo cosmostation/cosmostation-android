@@ -236,7 +236,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onShowEmptyBlanaceWarnDialog() {
-        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), "OK", view -> { });
+        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), view -> { });
     }
 
     private void setDpDecimals(int decimals) {

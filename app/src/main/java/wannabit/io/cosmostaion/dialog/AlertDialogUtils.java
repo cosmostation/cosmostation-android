@@ -14,16 +14,26 @@ public class AlertDialogUtils {
         dialog.show();
     }
 
-    public static void showSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener) {
+    public static void showSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener, Boolean cancelable) {
         CommonAlertDialog dialog = makeSingleButtonDialog(context, title, message, buttonTitle, listener);
+        dialog.setCancelable(cancelable);
+        dialog.create();
+        dialog.show();
+    }
+
+    public static void showSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener) {
+        showSingleButtonDialog(context, title, message, buttonTitle, listener, true);
+    }
+
+    public static void showDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, Boolean cancelable) {
+        CommonAlertDialog dialog = makeDoubleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener);
+        dialog.setCancelable(cancelable);
         dialog.create();
         dialog.show();
     }
 
     public static void showDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener) {
-        CommonAlertDialog dialog = makeDoubleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener);
-        dialog.create();
-        dialog.show();
+        showDoubleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener, true);
     }
 
     private static CommonAlertDialog makeSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener) {
@@ -44,7 +54,10 @@ public class AlertDialogUtils {
 
         dialog.leftButton.setText(buttonTitle);
         dialog.leftButton.setOnClickListener(view -> {
-            listener.onClick(view);
+            if (listener != null) {
+                listener.onClick(view);
+            }
+
             dialog.dismiss();
         });
         dialog.rightButton.setVisibility(View.GONE);
@@ -64,7 +77,10 @@ public class AlertDialogUtils {
         dialog.rightButton.setVisibility(View.VISIBLE);
         dialog.rightButton.setText(rightButtonTitle);
         dialog.rightButton.setOnClickListener(view -> {
-            rightButtonListener.onClick(view);
+            if (rightButtonListener != null) {
+                rightButtonListener.onClick(view);
+            }
+
             dialog.dismiss();
         });
         return dialog;

@@ -777,7 +777,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     private void onShowMoreWait() {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
                 getString(R.string.str_close), view -> onBackPressed(),
-                getString(R.string.str_wait), view -> onWaitMore());
+                getString(R.string.str_wait), view -> onWaitMore(), false);
     }
 
     public void onWaitMore() {

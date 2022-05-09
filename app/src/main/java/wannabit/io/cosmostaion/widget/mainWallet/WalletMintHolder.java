@@ -22,14 +22,14 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletMintHolder extends BaseHolder {
-    public CardView     mAprCard;
-    public TextView     mInflation, mAPR;
+    public CardView mAprCard;
+    public TextView mInflation, mAPR;
 
     public WalletMintHolder(@NonNull View itemView) {
         super(itemView);
-        mAprCard            = itemView.findViewById(R.id.apr_card);
-        mInflation          = itemView.findViewById(R.id.mint_inflation);
-        mAPR                = itemView.findViewById(R.id.mint_apr);
+        mAprCard = itemView.findViewById(R.id.apr_card);
+        mInflation = itemView.findViewById(R.id.mint_inflation);
+        mAPR = itemView.findViewById(R.id.mint_apr);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -65,7 +65,8 @@ public class WalletMintHolder extends BaseHolder {
                 msg = Html.fromHtml("<b>" + mainActivity.getString(R.string.str_apr_help_onchain_msg) + "</b>" + "<br>" + msg2 + "<p>" + "<br>"
                         + "<b>" + mainActivity.getString(R.string.str_apr_help_real_msg) + "</b>" + "<br>" + msg3, Html.FROM_HTML_MODE_LEGACY);
             }
-            AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, "OK", view -> { });
+            AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, mainActivity.getString(R.string.str_ok), view -> {
+            });
         });
     }
 }
