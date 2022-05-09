@@ -22,21 +22,21 @@ import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Accounts;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Empty;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_ACCOUNT = 9101;
 
-    private Button          mBeforeBtn, mNextBtn;
-    private RelativeLayout  mReceiverBtn;
-    private ImageView       mKeyStatusImg;
-    private TextView        mRecipientAddressTv;
-    private TextView        mWarnMSg;
+    private Button mBeforeBtn, mNextBtn;
+    private RelativeLayout mReceiverBtn;
+    private ImageView mKeyStatusImg;
+    private TextView mRecipientAddressTv;
+    private TextView mWarnMSg;
 
-    private ArrayList<Account>  mToAccountList;
-    private Account             mToAccount;
+    private ArrayList<Account> mToAccountList;
+    private Account mToAccount;
 
     public static HtlcSendStep1Fragment newInstance(Bundle bundle) {
         HtlcSendStep1Fragment fragment = new HtlcSendStep1Fragment();
@@ -74,7 +74,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mKeyStatusImg.setVisibility(View.VISIBLE);
@@ -89,7 +89,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
 
-        }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
         }
     }
@@ -117,7 +117,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
             } else {
-                Bundle bundle = new Bundle();
                 String title = String.format(getString(R.string.error_can_not_bep3_account_title), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 String msg = "";
                 if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
@@ -125,26 +124,22 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
                     msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 }
-                bundle.putString("title", title);
-                bundle.putString("msg", msg);
-                Dialog_Htlc_Receivable_Empty dialog = Dialog_Htlc_Receivable_Empty.newInstance(bundle);
-                dialog.setCancelable(true);
-                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+                AlertDialogUtils.showSingleButtonDialog(getSActivity(), title, msg, getContext().getString(R.string.str_ok), view -> {
+                });
             }
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
-            mToAccount = mToAccountList.get(data.getIntExtra("position" , 0));
+        if (requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
+            mToAccount = mToAccountList.get(data.getIntExtra("position", 0));
             onUpdateView();
         }
     }
 
     private HtlcSendActivity getSActivity() {
-        return (HtlcSendActivity)getBaseActivity();
+        return (HtlcSendActivity) getBaseActivity();
     }
 
 

@@ -66,7 +66,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_Safe_Copy;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -204,9 +204,9 @@ public class MnemonicCheckActivity extends BaseActivity {
         mCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog_Safe_Copy delete = Dialog_Safe_Copy.newInstance();
-                delete.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(getBaseContext(), getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),
+                        getString(R.string.str_raw_copy), view -> onRawCopy(),
+                        getString(R.string.str_safe_copy), view -> onSafeCopy());
             }
         });
 

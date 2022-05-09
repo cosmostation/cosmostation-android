@@ -54,8 +54,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -69,7 +68,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class TxDetailActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
+public class TxDetailActivity extends BaseActivity implements View.OnClickListener{
 
     private Toolbar mToolbar;
     private RecyclerView mTxRecyclerView;
@@ -238,9 +237,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         } else if (v.equals(mRefundBtn)) {
             if (!mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
 
@@ -1085,9 +1084,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
 
     private void onShowMoreWait() {
-        Dialog_MoreWait waitMore = Dialog_MoreWait.newInstance(null);
-        waitMore.setCancelable(false);
-        waitMore.show(getSupportFragmentManager(), "dialog");
+        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
+                getString(R.string.str_close), view -> onBackPressed(),
+                getString(R.string.str_wait), view -> onWaitMore(), false);
     }
 
     public void onWaitMore() {

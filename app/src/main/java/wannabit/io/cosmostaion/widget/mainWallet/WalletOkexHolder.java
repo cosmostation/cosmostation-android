@@ -22,7 +22,7 @@ import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -68,9 +68,19 @@ public class WalletOkexHolder extends BaseHolder {
             public void onClick(View v) {
                 if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0) return;
                 if (!mainActivity.mAccount.hasPrivateKey) {
-                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                    add.setCancelable(true);
-                    mainActivity.getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+                            mainActivity.getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mainActivity.onAddMnemonicForAccount();
+                                }
+                            },
+                            mainActivity.getString(R.string.str_close), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            });
                     return;
                 }
                 int myValidatorCnt = 0;
@@ -97,9 +107,9 @@ public class WalletOkexHolder extends BaseHolder {
             public void onClick(View v) {
                 if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0) return;
                 if (!mainActivity.mAccount.hasPrivateKey) {
-                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                    add.setCancelable(true);
-                    mainActivity.getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+                            mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
+                            mainActivity.getString(R.string.str_close), view -> { });
                     return;
                 }
 

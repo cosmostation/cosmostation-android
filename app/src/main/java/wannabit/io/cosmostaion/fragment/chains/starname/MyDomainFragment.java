@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import starnamed.x.starname.v1beta1.Types;
@@ -23,8 +22,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameDomainDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
+import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class MyDomainFragment extends BaseFragment implements View.OnClickListener {
@@ -91,9 +91,9 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         if (v.equals(mRegisterDomain)) {
             if (!getSActivity().mAccount.hasPrivateKey) {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        getString(R.string.str_add_mnemonics), view -> ((BaseActivity)getActivity()).onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
                 return;
             }
 

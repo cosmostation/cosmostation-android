@@ -26,33 +26,30 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
-import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
-import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
-import wannabit.io.cosmostaion.dialog.Dialog_Update;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WLog;
 
 
-
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView       bgImg, bgImgGr;
+    private ImageView bgImg, bgImgGr;
     private ShimmerTextView logoTitle;
-    private LinearLayout    bottomLayer1, bottomLayer2;
-    private Button          mStart;
+    private LinearLayout bottomLayer1, bottomLayer2;
+    private Button mStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        bgImg               = findViewById(R.id.intro_bg);
-        bgImgGr             = findViewById(R.id.intro_bg_gr);
-        logoTitle           = findViewById(R.id.logo_title);
-        bottomLayer1        = findViewById(R.id.bottom_layer1);
-        bottomLayer2        = findViewById(R.id.bottom_layer2);
-        mStart              = findViewById(R.id.btn_start);
+        bgImg = findViewById(R.id.intro_bg);
+        bgImgGr = findViewById(R.id.intro_bg_gr);
+        logoTitle = findViewById(R.id.logo_title);
+        bottomLayer1 = findViewById(R.id.bottom_layer1);
+        bottomLayer2 = findViewById(R.id.bottom_layer2);
+        mStart = findViewById(R.id.btn_start);
         mNeedLeaveTime = false;
 
         mStart.setOnClickListener(this);
@@ -85,10 +82,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(getBaseDao().onSelectAccounts().size() == 0) {
+                if (getBaseDao().onSelectAccounts().size() == 0) {
                     onInitView();
                 } else {
-                    if(getBaseApplication().needShowLockScreen()) {
+                    if (getBaseApplication().needShowLockScreen()) {
                         Intent intent = new Intent(IntroActivity.this, AppLockActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
@@ -111,8 +108,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
 
     private void onInitView() {
-        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5 );
-        Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out5 );
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5);
+        Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out5);
         bgImgGr.startAnimation(fadeInAnimation);
         bgImg.startAnimation(fadeOutAnimation);
 
@@ -120,9 +117,12 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         Animation mFadeOutAni = AnimationUtils.loadAnimation(this, R.anim.fade_out2);
         mFadeOutAni.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) { }
+            public void onAnimationStart(Animation animation) {
+            }
+
             @Override
-            public void onAnimationRepeat(Animation animation) { }
+            public void onAnimationRepeat(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -173,7 +173,9 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onFailure(Call<ResVersionCheck> call, Throwable t) {
-                if(BuildConfig.DEBUG) { WLog.w("onCheckAppVersion onFailure " + t.getMessage()); }
+                if (BuildConfig.DEBUG) {
+                    WLog.w("onCheckAppVersion onFailure " + t.getMessage());
+                }
                 onNetworkDialog();
 
             }
@@ -182,32 +184,22 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onNetworkDialog() {
-        Dialog_NetworkError dialog = new Dialog_NetworkError();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_network_error_title), getString(R.string.str_network_error_msg),
+                getString(R.string.str_retry), view -> onRetryVersionCheck(), false);
     }
 
     private void onDisableDialog() {
-        Dialog_DisabledApp dialog = new Dialog_DisabledApp();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
-
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_disabled_app_title), getString(R.string.str_disabled_app_msg),
+                getString(R.string.str_confirm), view -> finish(), false);
     }
 
     private void onUpdateDialog() {
-        Dialog_Update dialog = new Dialog_Update();
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
-
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
+                getString(R.string.str_go_store), view -> onStartPlaystore(), false);
     }
-
 
     public void onRetryVersionCheck() {
         onCheckAppVersion();
-    }
-
-    public void onTerminateApp() {
-        finish();
     }
 
     public void onStartPlaystore() {

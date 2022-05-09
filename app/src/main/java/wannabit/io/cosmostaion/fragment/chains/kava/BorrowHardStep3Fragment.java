@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +18,8 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.BorrowHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Hard_Liquidation_Warning;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_HARD_BORROW_CHECK = 9108;
@@ -70,10 +70,12 @@ public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            Dialog_Hard_Liquidation_Warning dialog = Dialog_Hard_Liquidation_Warning.newInstance(null);
-            dialog.setTargetFragment(BorrowHardStep3Fragment.this, SELECT_HARD_BORROW_CHECK);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_hard_withdraw_warn_title), getString(R.string.str_hard_withdraw_warn_msg),
+                    getString(R.string.str_cancel), view -> { },
+                    getString(R.string.str_confirm), view -> {
+                        Intent resultIntent = new Intent();
+                        onActivityResult(SELECT_HARD_BORROW_CHECK, Activity.RESULT_OK, resultIntent);
+                    });
         }
     }
 

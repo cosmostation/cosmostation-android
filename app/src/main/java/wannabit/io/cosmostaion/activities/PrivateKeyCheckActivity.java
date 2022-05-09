@@ -19,12 +19,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dialog.Dialog_Safe_Copy_pKey;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -94,10 +92,9 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if(v.equals(mCopy)) {
-            Dialog_Safe_Copy_pKey delete = Dialog_Safe_Copy_pKey.newInstance();
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
-
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_safe_copy_pkey_title), getString(R.string.str_safe_copy_pkey_msg),
+                    getString(R.string.str_raw_copy), view -> onRawCopy(),
+                    getString(R.string.str_safe_copy), view -> onSafeCopy());
         } else if (v.equals(mOk)) {
             onStartMainActivity(3);
         }
