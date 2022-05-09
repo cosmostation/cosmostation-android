@@ -143,7 +143,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), view -> { });
+                    getString(R.string.str_close), null);
             return;
         }
 
@@ -292,7 +292,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
                     getString(R.string.str_delete), view -> onStartDeleteUser(),
-                    getString(R.string.str_close), view -> { });
+                    getString(R.string.str_close), null);
         } else if (v.equals(mNameEditImg)) {
             Bundle bundle = new Bundle();
             bundle.putLong("id", mAccount.id);
@@ -313,7 +313,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                         getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), view -> { });
+                        getString(R.string.str_close), null);
                 return;
             }
 
