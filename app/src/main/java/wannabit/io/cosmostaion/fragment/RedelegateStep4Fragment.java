@@ -86,7 +86,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mConfirmBtn)) {
             AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_redelegation_warnning_title), getString(R.string.str_redelegation_warnning_msg),
-                    getString(R.string.str_no), view -> { },
+                    getString(R.string.str_no), null,
                     getString(R.string.str_yes), view -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(REDELEGATE_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);

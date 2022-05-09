@@ -236,7 +236,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnStarnameWc)) {
             AlertDialogUtils.showDoubleButtonDialog(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg),
-                    getString(R.string.str_cancel), view -> { },
+                    getString(R.string.str_cancel), null,
                     getString(R.string.str_continue), view -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_STARNAME_WALLET_CONNECT, Activity.RESULT_OK, resultIntent);

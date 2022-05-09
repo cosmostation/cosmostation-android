@@ -191,7 +191,6 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
     }
 
     private void onShowHelpPopup(CdpDetail5Activity context, String title, String msg) {
-        AlertDialogUtils.showSingleButtonDialog(context, title, msg, context.getString(R.string.str_ok), view -> {
-        });
+        AlertDialogUtils.showSingleButtonDialog(context, title, msg, context.getString(R.string.str_ok), null);
     }
 }
