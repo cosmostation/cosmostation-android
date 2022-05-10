@@ -1650,7 +1650,7 @@ public class WDp {
                 return BITCANNA_MAIN;
             } else if (chainId.contains("stargaze-")) {
                 return STARGAZE_MAIN;
-            } else if (chainId.contains("fetchhub--")) {
+            } else if (chainId.contains("fetchhub-")) {
                 return FETCHAI_MAIN;
             } else if (chainId.contains("kichain-")) {
                 return KI_MAIN;
