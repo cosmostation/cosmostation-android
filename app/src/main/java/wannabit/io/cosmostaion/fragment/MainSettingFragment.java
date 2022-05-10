@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.MnemonicManageActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -46,7 +47,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET                   = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT  = 9036;
 
-    private FrameLayout mBtnAddWallet, mBtnWallet, mBtnNotice, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
+    private FrameLayout mBtnMnemonic, mBtnAddWallet, mBtnWallet, mBtnNotice, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
                         mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage, mBtnStarnameWc,
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
@@ -101,6 +102,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_setting, container, false);
+        mBtnMnemonic = rootView.findViewById(R.id.manage_mnemonic);
         mBtnAddWallet = rootView.findViewById(R.id.add_wallet);
         mBtnWallet = rootView.findViewById(R.id.card_wallet);
         mBtnNotice = rootView.findViewById(R.id.card_notice);
@@ -121,6 +123,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvBasePrice = rootView.findViewById(R.id.base_price_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
 
+        mBtnMnemonic.setOnClickListener(this);
         mBtnAddWallet.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
         mBtnNotice.setOnClickListener(this);
@@ -158,7 +161,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnAddWallet)) {
+        if (v.equals(mBtnMnemonic)) {
+            startActivity(new Intent(getBaseActivity(), MnemonicManageActivity.class));
+
+        } else if (v.equals(mBtnAddWallet)) {
             Bundle bundle = new Bundle();
             Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
             dialog.setCancelable(true);

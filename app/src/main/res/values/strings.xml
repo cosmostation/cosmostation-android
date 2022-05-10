@@ -305,6 +305,7 @@
     <string name="str_create">CREATE</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
     <string name="str_check_private_key_c">CHECK PRIVATE KEY</string>
+    <string name="str_manage_mnemonic">Manage Mnemonic</string>
     <string name="str_start">START</string>
     <string name="str_check">Check</string>
     <string name="str_confirm">Confirm</string>
@@ -401,7 +402,8 @@
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
-    <string name="str_wallet_manage">Wallet Manage</string>
+    <string name="str_mnemonic_manage">Manage Mnemonic</string>
+    <string name="str_wallet_manage">Manage Wallet</string>
     <string name="str_edit_chains">Edit Chains</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>

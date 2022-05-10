@@ -18,6 +18,7 @@
     <string name="str_create">지갑 생성</string>
     <string name="str_check_mnemonic_c">복구 단어 확인</string>
     <string name="str_check_private_key_c">개인키 확인</string>
+    <string name="str_manage_mnemonic">니모닉 관리</string>
     <string name="str_start">시작하기</string>
     <string name="str_check">확인</string>
     <string name="str_confirm">확인</string>
@@ -114,6 +115,7 @@
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">지갑</string>
+    <string name="str_mnemonic_manage">니모닉 관리</string>
     <string name="str_wallet_manage">지갑 관리</string>
     <string name="str_edit_chains">지갑 편집</string>
     <string name="str_validators_list"><![CDATA[검증인 목록]]></string>
