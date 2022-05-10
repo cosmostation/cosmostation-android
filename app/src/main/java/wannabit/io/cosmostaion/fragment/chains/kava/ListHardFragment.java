@@ -82,7 +82,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
             }
         });
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getSActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new HardPoolAdapter();
         mRecyclerView.setAdapter(mAdapter);

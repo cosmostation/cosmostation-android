@@ -65,6 +65,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
         mDenomTitle = rootView.findViewById(R.id.tv_symbol_coin);
         mClearAll = rootView.findViewById(R.id.clearAll);
+        mClearAll = rootView.findViewById(R.id.clearAll);
         mAdd01 = rootView.findViewById(R.id.btn_add_01);
         mAdd1 = rootView.findViewById(R.id.btn_add_1);
         mAdd10 = rootView.findViewById(R.id.btn_add_10);
@@ -236,7 +237,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
 
     private void onShowEmptyBalanceWarnDialog() {
         if (WDp.mainDenom(getSActivity().mBaseChain).equalsIgnoreCase(getSActivity().mToIbcDenom)) {
-            AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+            AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
             return;
         }
     }

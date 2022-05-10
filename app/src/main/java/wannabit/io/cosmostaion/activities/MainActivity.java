@@ -163,7 +163,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         onAccountSwitched();
         onChainSelect(mBaseChain);
-    }
+   }
 
     public void onAddressDialog() {
         Bundle bundle = new Bundle();
