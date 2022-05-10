@@ -210,7 +210,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             } else {
                 BigDecimal max = mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
                 mAmountInput.setText(max.toPlainString());
-                onShowEmptyBlanaceWarnDialog();
+                onShowEmptyBalanceWarnDialog();
             }
 
         } else if (v.equals(mClearAll)) {
@@ -235,8 +235,8 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private void onShowEmptyBlanaceWarnDialog() {
-        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+    private void onShowEmptyBalanceWarnDialog() {
+        AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
     }
 
     private void setDpDecimals(int decimals) {

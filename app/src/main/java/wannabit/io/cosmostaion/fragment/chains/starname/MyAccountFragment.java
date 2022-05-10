@@ -93,7 +93,7 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
         if (v.equals(mRegisterAccount)) {
             if (!getSActivity().mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> ((BaseActivity)getActivity()).onAddMnemonicForAccount(),
+                        getString(R.string.str_add_mnemonics), view -> getSActivity().onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }

@@ -93,9 +93,9 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
             public void onClick(View v) {
                 if (mAccount == null) return;
                 if (!mAccount.hasPrivateKey) {
-                    AlertDialogUtils.showDoubleButtonDialog(getBaseContext(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                    AlertDialogUtils.showDoubleButtonDialog(NFTListActivity.this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                             getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                            getString(R.string.str_close), view -> { });
+                            getString(R.string.str_close), null);
                     return;
                 }
                 Intent intent = new Intent(NFTListActivity.this, NFTCreateActivity.class);
