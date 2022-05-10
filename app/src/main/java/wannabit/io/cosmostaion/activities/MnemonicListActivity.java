@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 
-public class MnemonicManageActivity extends BaseActivity implements View.OnClickListener {
+public class MnemonicListActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
@@ -60,7 +61,7 @@ public class MnemonicManageActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnCreateMnemonic)) {
-
+            startActivity(new Intent(MnemonicListActivity.this, MnemonicCreateActivity.class));
         }
     }
 
@@ -75,6 +76,12 @@ public class MnemonicManageActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void onBindViewHolder(@NonNull ListHolder viewHolder, int position) {
+            viewHolder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class));
+                }
+            });
         }
 
         @Override

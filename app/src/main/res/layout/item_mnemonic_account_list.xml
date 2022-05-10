@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/accountCard"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_68"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@drawable/box_account_unselected"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_8">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/chain_img"
+                android:layout_width="@dimen/space_44"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/space_6"
+                android:paddingRight="@dimen/space_6"
+                android:scaleType="center"
+                android:src="@drawable/default_chain_img" />
+            <LinearLayout
+                android:id="@+id/accountContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/chain_img"
+                android:layout_marginRight="@dimen/space_8"
+                android:layout_marginLeft="@dimen/space_4"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/account_address"
+                        style="@style/font_ss_14_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:ellipsize="middle"
+                        android:maxWidth="@dimen/space_180"
+                        android:singleLine="true"
+                        android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr" />
+
+                    <TextView
+                        android:id="@+id/account_state"
+                        style="@style/font_ss_12_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:ellipsize="middle"
+                        android:gravity="right"
+                        android:maxWidth="@dimen/space_120"
+                        android:singleLine="true"
+                        android:text="Ready" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/space_4">
+                    <TextView
+                        android:id="@+id/key_path"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        style="@style/font_ss_10_gray1"
+                        android:text="m/44'/118'/0'/0/0"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/accountAvailable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_2"
+                            style="@style/font_ssl_12_gray1"
+                            android:text="12345"/>
+                        <TextView
+                            android:id="@+id/accountDenom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:text="Coin"
+                            style="@style/font_ssl_12_gray1"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>

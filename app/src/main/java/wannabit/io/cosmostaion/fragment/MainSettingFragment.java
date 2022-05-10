@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.MnemonicManageActivity;
+import wannabit.io.cosmostaion.activities.MnemonicListActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -162,7 +162,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnMnemonic)) {
-            startActivity(new Intent(getBaseActivity(), MnemonicManageActivity.class));
+            startActivity(new Intent(getBaseActivity(), MnemonicListActivity.class));
 
         } else if (v.equals(mBtnAddWallet)) {
             Bundle bundle = new Bundle();

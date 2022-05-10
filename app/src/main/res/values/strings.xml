@@ -403,6 +403,10 @@
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_mnemonic_manage">Manage Mnemonic</string>
+    <string name="str_mnemonic_detail">Mnemonic Detail</string>
+    <string name="str_mnemonic_create">Mnemonic Create</string>
+    <string name="str_derive_wallet">Derive Wallet</string>
+    <string name="str_delete_mnemonic">Delete Mnemonic</string>
     <string name="str_wallet_manage">Manage Wallet</string>
     <string name="str_edit_chains">Edit Chains</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
@@ -969,7 +973,7 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/0/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
-    <string name="str_add_new">Add New Wallet</string>
+    <string name="str_add_new">Add Wallet</string>
     <string name="str_error_not_support_chain_title">Error</string>
     <string name="str_error_not_support_chain_msg">No wallet for that chain</string>
     <string name="str_error_not_support_msg">%1$s are not currently supported chain</string>
