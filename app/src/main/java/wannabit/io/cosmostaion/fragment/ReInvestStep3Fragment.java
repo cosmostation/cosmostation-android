@@ -88,7 +88,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
             if(onCheckValidateRewardAndFee()) {
                 getSActivity().onStartReInvest();
             } else {
-                AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_fee_over_title), getString(R.string.str_fee_over_msg), getString(R.string.str_ok), null);
+                AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_fee_over_title), getString(R.string.str_fee_over_msg), getString(R.string.str_ok), null);
             }
         }
     }

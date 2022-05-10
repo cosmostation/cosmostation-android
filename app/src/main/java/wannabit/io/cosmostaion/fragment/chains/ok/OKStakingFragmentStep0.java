@@ -211,7 +211,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
             if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
             }
-            onShowEmptyBlanaceWarnDialog();
+            onShowEmptyBalanceWarnDialog();
 
         } else if (v.equals(mClearAll)) {
             mAmountInput.setText("");
@@ -238,8 +238,8 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
 
     }
 
-    private void onShowEmptyBlanaceWarnDialog() {
-        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+    private void onShowEmptyBalanceWarnDialog() {
+        AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
     }
 
     private void setDpDecimals(int decimals) {

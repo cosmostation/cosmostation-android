@@ -330,7 +330,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
                 if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
-                    onShowEmptyBlanaceWarnDialog();
+                    onShowEmptyBalanceWarnDialog();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.movePointLeft(mDecimal).toPlainString());
@@ -358,7 +358,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private void onShowEmptyBlanaceWarnDialog() {
-        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+    private void onShowEmptyBalanceWarnDialog() {
+        AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
     }
 }
