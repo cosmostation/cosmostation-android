@@ -523,7 +523,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     private void onShowMoreSwapWait() {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
                 getString(R.string.str_close), view -> onBackPressed(),
-                getString(R.string.str_wait), view -> { }, false);
+                getString(R.string.str_wait), null, false);
     }
 
     public void onWaitSwapMore() {
