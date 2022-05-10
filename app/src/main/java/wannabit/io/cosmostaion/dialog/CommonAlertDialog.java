@@ -27,5 +27,15 @@ public class CommonAlertDialog extends AlertDialog {
         rightButton = view.findViewById(R.id.btn_right);
         leftButton = view.findViewById(R.id.btn_left);
         setView(view);
+
+    }
+
+    public void onShowWait(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_wait, null);
+        setView(view);
+        setCancelable(false);
+        create();
+        show();
+
     }
 }

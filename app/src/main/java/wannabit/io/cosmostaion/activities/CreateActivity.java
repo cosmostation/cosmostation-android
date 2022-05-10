@@ -126,7 +126,6 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
 
     private void onUpdateView() {
-        onHideWaitDialog();
         mCardMnemonics.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
 
         WDp.getLayoutColor(CreateActivity.this, mChain, mWordsLayer);
@@ -208,7 +207,6 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
                 onStartMainActivity(0);

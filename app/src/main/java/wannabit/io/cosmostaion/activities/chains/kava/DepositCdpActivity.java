@@ -247,7 +247,6 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
         }
 
         if (mTaskCount == 0) {
-            onHideWaitDialog();
             if (mCdpParams == null || mMyCdp == null) {
                 Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();

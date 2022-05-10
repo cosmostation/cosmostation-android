@@ -208,7 +208,6 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onUpdateImgView(boolean isProfile, String hash) {
-        getSActivity().onHideWaitDialog();
         if (isProfile) {
             if (hash != null) {
                 mProfileCoverImg.setClipToOutline(true);

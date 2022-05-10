@@ -110,10 +110,10 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
-import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
@@ -173,7 +173,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     protected BaseApplication               mApplication;
     protected BaseData                      mData;
-    protected Dialog_Wait                   mDialogWait;
     protected boolean                       mNeedLeaveTime = true;
 
     public View                             mRootview;
@@ -182,6 +181,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     protected int                           mTaskCount;
     private FetchCallBack                   mFetchCallback;
+    protected CommonAlertDialog             mCommonAlertDialog;
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -242,20 +242,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowWaitDialog() {
-        if (mDialogWait == null) {
-            mDialogWait = new Dialog_Wait();
-        }
-        if (getSupportFragmentManager().findFragmentByTag("wait") != null && getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
-            return;
-        }
-
-        mDialogWait.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(mDialogWait, "wait").commitNowAllowingStateLoss();
-    }
-
-    public void onHideWaitDialog() {
-        if (mDialogWait != null) {
-            mDialogWait.dismissAllowingStateLoss();
+        try{
+            mCommonAlertDialog.onShowWait(this);
+        }catch (Exception e){
         }
     }
 
@@ -275,7 +264,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         intent.putExtra("page", page);
         startActivity(intent);
     }
-
 
     public void onStartSendMainDenom() {
         if (mAccount == null) return;

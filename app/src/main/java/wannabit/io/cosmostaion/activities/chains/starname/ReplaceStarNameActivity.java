@@ -198,7 +198,6 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
             }
         }
         if (mTaskCount == 0) {
-            onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
     }

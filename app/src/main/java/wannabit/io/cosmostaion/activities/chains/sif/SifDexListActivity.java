@@ -277,7 +277,6 @@ public class SifDexListActivity extends BaseActivity {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onHideWaitDialog();
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }, 300);

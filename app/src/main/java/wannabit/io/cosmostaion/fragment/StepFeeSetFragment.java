@@ -625,6 +625,5 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         } else {
             Toast.makeText(getContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
         }
-        getSActivity().onHideWaitDialog();
     }
 }

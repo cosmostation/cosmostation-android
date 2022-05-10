@@ -809,7 +809,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        onHideWaitDialog();
         if (result.taskType == TASK_PASSWORD_CHECK) {
             if(result.isSuccess) {
                 setResult(Activity.RESULT_OK, getIntent());

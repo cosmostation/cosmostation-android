@@ -288,7 +288,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onHideWaitDialog();
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }, 300);

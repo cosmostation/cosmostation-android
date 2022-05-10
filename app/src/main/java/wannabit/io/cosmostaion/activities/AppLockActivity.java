@@ -232,7 +232,6 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        onHideWaitDialog();
         if(result.isSuccess) {
             onUnlock();
         } else {

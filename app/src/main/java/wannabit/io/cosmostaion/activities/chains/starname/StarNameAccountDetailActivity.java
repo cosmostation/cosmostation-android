@@ -207,7 +207,6 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
         }
         if (mTaskCount == 0) {
-            onHideWaitDialog();
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }

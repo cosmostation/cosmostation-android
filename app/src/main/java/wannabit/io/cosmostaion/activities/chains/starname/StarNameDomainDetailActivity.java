@@ -207,7 +207,6 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         }
 
         if (mTaskCount == 0) {
-            onHideWaitDialog();
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }

@@ -285,9 +285,6 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
                 getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
             }
         }
-        if (mTaskCount == 0) {
-            getSActivity().onHideWaitDialog();
-        }
     }
 
     private EventHorizonActivity getSActivity() { return (EventHorizonActivity)getBaseActivity(); }

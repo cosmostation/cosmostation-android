@@ -166,7 +166,6 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         }
 
         if (mTaskCount == 0) {
-            onHideWaitDialog();
             mPageAdapter.getCurrentFragment().onRefreshTab();
             WLog.w("mAccounts_gRPC " + mAccounts_gRPC.size());
             WLog.w("mDomains_gRPC " + mDomains_gRPC.size());

@@ -367,7 +367,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean)result.resultData);
             }
             onUpdatePushStatusUI();
-            onHideWaitDialog();
 
         }
     }

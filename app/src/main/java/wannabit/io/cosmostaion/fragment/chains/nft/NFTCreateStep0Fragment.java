@@ -174,7 +174,6 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
     }
 
     private void onUpdateImgView(String hash) {
-        getSActivity().onHideWaitDialog();
         if (hash != null) {
             mNftImg.setClipToOutline(true);
             Glide.with(this).load(NFT_INFURA + hash).diskCacheStrategy(DiskCacheStrategy.ALL).fitCenter().into(mNftImg);

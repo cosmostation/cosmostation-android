@@ -364,7 +364,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             mRecyclerView.setVisibility(View.VISIBLE);
             mValidatorAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
-            onHideWaitDialog();
         }
     }
 

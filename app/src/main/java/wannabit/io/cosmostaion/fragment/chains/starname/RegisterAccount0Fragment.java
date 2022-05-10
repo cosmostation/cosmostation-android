@@ -126,7 +126,6 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        getSActivity().onHideWaitDialog();
                         Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
                     }
                 }, 500);
@@ -138,7 +137,6 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        getSActivity().onHideWaitDialog();
                         onNextStep();
                     }
                 }, 500);
@@ -146,7 +144,6 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
 
             @Override
             public void onCompleted() {
-                getSActivity().onHideWaitDialog();
             }
         });
     }

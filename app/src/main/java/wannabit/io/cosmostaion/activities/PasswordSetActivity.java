@@ -191,7 +191,6 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        onHideWaitDialog();
         onNextPage();
     }
 

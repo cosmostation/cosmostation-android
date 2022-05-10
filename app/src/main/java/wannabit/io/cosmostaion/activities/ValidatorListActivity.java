@@ -275,7 +275,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     @Override
     public void fetchFinished() {
         if (!isFinishing()) {
-            onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
 
@@ -284,7 +283,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     @Override
     public void fetchBusy() {
         if(!isFinishing()) {
-            onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onBusyFetch();
         }
 

@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
@@ -323,7 +325,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     @Override
     public void fetchFinished() {
         if (!isFinishing()) {
-            onHideWaitDialog();
             if (mPageAdapter.getItem(0) != null) mPageAdapter.getItem(0).onRefreshTab();
             if (mPageAdapter.getItem(1) != null) mPageAdapter.getItem(1).onRefreshTab();
             if (mPageAdapter.getItem(2) != null) mPageAdapter.getItem(2).onRefreshTab();
@@ -333,7 +334,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     @Override
     public void fetchBusy() {
         if(!isFinishing()) {
-            onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onBusyFetch();
         }
     }

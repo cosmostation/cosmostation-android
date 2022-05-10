@@ -219,7 +219,6 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
                 @Override
                 public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        onHideWaitDialog();
                         mResKavaSwapInfo = response.body();
                         mPageAdapter.mCurrentFragment.onRefreshTab();
                     } else {
@@ -238,7 +237,6 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
                 @Override
                 public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        onHideWaitDialog();
                         mResBnbSwapInfo = response.body();
                         mPageAdapter.mCurrentFragment.onRefreshTab();
                     } else {

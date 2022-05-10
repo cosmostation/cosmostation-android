@@ -162,7 +162,6 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        getSActivity().onHideWaitDialog();
                         Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
                     }
                 }, 500);
@@ -173,7 +172,6 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        getSActivity().onHideWaitDialog();
                         onNextStep();
                     }
                 }, 500);
@@ -181,7 +179,6 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
 
             @Override
             public void onCompleted() {
-                getSActivity().onHideWaitDialog();
             }
         });
     }

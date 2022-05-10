@@ -152,7 +152,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
-        onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
             if(result.isSuccess) {
                 onStartMainActivity(0);
