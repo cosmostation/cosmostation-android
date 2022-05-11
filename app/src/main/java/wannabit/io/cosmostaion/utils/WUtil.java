@@ -3452,6 +3452,10 @@ public class WUtil {
             mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
+        } else if (chain.equals(STATION_TEST)) {
+            mBtnDex.setVisibility(View.VISIBLE);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_osmosislab), null, null, null);
+            dexTitle.setText(R.string.app_name);
         } else if (chain.equals(CRESCENT_MAIN)) {
             mBtnDex.setVisibility(View.GONE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_crescentapp), null, null, null);
@@ -3479,6 +3483,8 @@ public class WUtil {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return new Intent(mainActivity, LabsListActivity.class);
         } else if (chain.equals(CRESCENT_MAIN)) {
+            return new Intent(mainActivity, ConnectWalletActivity.class).putExtra(ConnectWalletActivity.INTENT_KEY_DAPP_URL, "https://wc.dev.cosmostation.io");
+        } else if (chain.equals(STATION_TEST)) {
             return new Intent(mainActivity, ConnectWalletActivity.class).putExtra(ConnectWalletActivity.INTENT_KEY_DAPP_URL, "https://wc.dev.cosmostation.io");
         } else {
             return null;
