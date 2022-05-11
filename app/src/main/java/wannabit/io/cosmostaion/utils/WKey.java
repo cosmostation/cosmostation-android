@@ -352,7 +352,7 @@ public class WKey {
         return "0x" + WUtil.ByteArrayToHexString(address);
     }
 
-    public static String generateTenderAddressFromPrivateKey(String privateKey) {
+    public static byte[] generateTenderAddressBytesFromPrivateKey(String privateKey) {
         String pubKey = generatePubKeyHexFromPriv(privateKey);
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubKey));
@@ -363,7 +363,11 @@ public class WKey {
         byte[] hash3 = new byte[digest2.getDigestSize()];
         digest2.doFinal(hash3, 0);
 
-        return "0x" + WUtil.ByteArrayToHexString(hash3);
+        return hash3;
+    }
+
+    public static String generateTenderAddressFromPrivateKey(String privateKey) {
+        return "0x" + WUtil.ByteArrayToHexString(generateTenderAddressBytesFromPrivateKey(privateKey));
     }
 
     public static String convertAddressOkexToEth(String exAddress)  throws Exception {
