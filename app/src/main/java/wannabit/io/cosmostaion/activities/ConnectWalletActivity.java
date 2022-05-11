@@ -487,8 +487,8 @@ public class ConnectWalletActivity extends BaseActivity {
         return new WCKeplrWallet(
                 WUtil.getWalletName(this, account),
                 "secp256k1",
-                key.getPublicKeyAsHex(),
-                WKey.generateTenderAddressFromPrivateKey(key.getPrivateKeyAsHex()),
+                key.getPubKey(),
+                WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()),
                 account.address,
                 false);
     }
@@ -498,8 +498,8 @@ public class ConnectWalletActivity extends BaseActivity {
         return new WCCosmostationAccount(
                 WUtil.getWalletName(this, account),
                 "secp256k1",
-                key.getPublicKeyAsHex(),
-                WKey.generateTenderAddressFromPrivateKey(key.getPrivateKeyAsHex()),
+                key.getPubKey(),
+                WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()),
                 account.address);
     }
 
@@ -530,7 +530,8 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowNoAccountsForChain() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), getString(R.string.str_ok), view -> { }, false);
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), getString(R.string.str_ok), view -> {
+        }, false);
     }
 
     private void onShowNotSupportChain(String chainId) {
