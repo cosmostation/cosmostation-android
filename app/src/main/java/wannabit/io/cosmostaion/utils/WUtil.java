@@ -45,6 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
@@ -2840,6 +2841,9 @@ public class WUtil {
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return BLOCK_TIME_MANTLE;
 
+            } else if (chain.equals(STATION_TEST)) {
+                return BLOCK_TIME_STATION;
+
             }
         }
         return BigDecimal.ZERO;
@@ -2971,6 +2975,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/provenance-blockchain")));
+
+        } else if (mainActivity.mBaseChain.equals(STATION_TEST)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/juno")));
         }
         return null;
     }
@@ -3197,6 +3204,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_mantle);
             guideMsg.setText(R.string.str_front_guide_msg_mantle);
 
+        } else if (mainActivity.mBaseChain.equals(STATION_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_juno));
+            guideTitle.setText(R.string.str_front_guide_title_station);
+            guideMsg.setText(R.string.str_front_guide_msg_station);
+
         }
     }
 
@@ -3411,6 +3423,11 @@ public class WUtil {
             coinDenom.setText(R.string.str_mantle_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_mantle);
 
+        } else if (chain.equals(STATION_TEST)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_juno));
+            coinDenom.setText(R.string.str_station_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_juno);
+
         }
     }
 
@@ -3603,6 +3620,9 @@ public class WUtil {
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://assetmantle.one/"));
 
+        } else if (chain.equals(STATION_TEST)) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmostation.io/"));
+
         }
         return null;
     }
@@ -3742,6 +3762,9 @@ public class WUtil {
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.assetmantle.one/"));
 
+        } else if (chain.equals(STATION_TEST)) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmostation.io/"));
+
         }
         return null;
     }
@@ -3872,6 +3895,9 @@ public class WUtil {
 
         } else if (basechain.equals(ASSETMANTLE_MAIN)) {
             return EXPLORER_MANTLE_MAIN;
+
+        } else if (basechain.equals(STATION_TEST)) {
+            return EXPLORER_STATION_TEST;
 
         } else if (basechain.equals(COSMOS_TEST)) {
             return EXPLORER_COSMOS_TEST;
@@ -4013,6 +4039,9 @@ public class WUtil {
 
             } else if (basechain.equals(ASSETMANTLE_MAIN)) {
                 return EXPLORER_MANTLE_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(STATION_TEST)) {
+                return EXPLORER_STATION_TEST + "txs/" + hash;
 
             } else if (basechain.equals(COSMOS_TEST)) {
                 return EXPLORER_COSMOS_TEST + "txs/" + hash;
@@ -4513,6 +4542,11 @@ public class WUtil {
             BigDecimal gasRate = new BigDecimal(OK_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(18, RoundingMode.DOWN);
+
+        } else if (basechain.equals(STATION_TEST)) {
+            BigDecimal gasRate = new BigDecimal(STATION_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
         }
         return BigDecimal.ZERO;
     }
@@ -4806,6 +4840,14 @@ public class WUtil {
                 return new BigDecimal(MANTLE_GAS_RATE_LOW);
             }
             return new BigDecimal(MANTLE_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(STATION_TEST)) {
+            if (position == 0) {
+                return new BigDecimal(STATION_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(STATION_GAS_RATE_LOW);
+            }
+            return new BigDecimal(STATION_GAS_RATE_AVERAGE);
 
         } else if (basechain.equals(BNB_MAIN)) {
             return BigDecimal.ZERO.setScale(3);
