@@ -2042,6 +2042,8 @@ public class WDp {
             else if (address.startsWith("omniflix1") && baseChain.equals(OMNIFLIX_MAIN)) { return true; }
             else if (address.startsWith("cre1") && baseChain.equals(CRESCENT_MAIN) || address.startsWith("cre1") && baseChain.equals(CRESCENT_TEST)) { return true; }
             else if (address.startsWith("mantle1") && baseChain.equals(ASSETMANTLE_MAIN)) { return true; }
+            else if (address.startsWith("station1") && baseChain.equals(STATION_TEST)) { return true; }
+
         }
         return false;
     }
@@ -2098,6 +2100,7 @@ public class WDp {
             else if (address.startsWith("omniflix1")) { return Lists.newArrayList(OMNIFLIX_MAIN); }
             else if (address.startsWith("cre1")) { return Lists.newArrayList(CRESCENT_MAIN, CRESCENT_TEST); }
             else if (address.startsWith("mantle1")) { return Lists.newArrayList(ASSETMANTLE_MAIN); }
+            else if (address.startsWith("station1")) { return Lists.newArrayList(STATION_TEST); }
         }
         return null;
     }
@@ -2143,6 +2146,7 @@ public class WDp {
             else if (chain.equals(OMNIFLIX_MAIN)) { return OMNIFLIX_UNKNOWN_RELAYER; }
             else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) { return CRESCENT_UNKNOWN_RELAYER; }
             else if (chain.equals(ASSETMANTLE_MAIN)) { return MANTLE_UNKNOWN_RELAYER; }
+            else if (chain.equals(STATION_TEST)) { return STATION_UNKNOWN_RELAYER; }
         }
         return null;
     }
