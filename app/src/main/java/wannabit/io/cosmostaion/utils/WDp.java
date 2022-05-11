@@ -1719,7 +1719,7 @@ public class WDp {
                 return CRESCENT_MAIN;
             } else if (chainId.contains("mantle-")) {
                 return ASSETMANTLE_MAIN;
-            } else if (chainId.contains("station-")) {
+            } else if (chainId.contains("station2")) {
                 return STATION_TEST;
             }
             else if (chainId.contains("mooncat-")) {
@@ -3658,7 +3658,7 @@ public class WDp {
 
         } else if (BaseChain.getChain(chain).equals(STATION_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorJuno));
-            textview.setText(c.getString(R.string.s_mantle));
+            textview.setText(c.getString(R.string.s_station));
 
         }
 
