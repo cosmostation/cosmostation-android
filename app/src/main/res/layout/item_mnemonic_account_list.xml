@@ -56,7 +56,7 @@
 
                     <TextView
                         android:id="@+id/account_state"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_12_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -89,7 +89,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ssl_12_gray1"
+                            style="@style/font_ssl_12_white"
                             android:text="12345"/>
                         <TextView
                             android:id="@+id/accountDenom"
@@ -97,7 +97,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
                             android:text="Coin"
-                            style="@style/font_ssl_12_gray1"/>
+                            style="@style/font_ssl_12_white"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

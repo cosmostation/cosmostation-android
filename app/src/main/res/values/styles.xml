@@ -63,4 +63,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="PopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:dropDownWidth">8dp</item>
+    </style>
+
 </resources>

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCreateActivity extends BaseActivity {
 
@@ -49,7 +51,11 @@ public class MnemonicCreateActivity extends BaseActivity {
         mDerive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
+                intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
+                intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
+                intent.putExtra("size", mWords.size());
+                startActivity(intent);
             }
         });
     }
