@@ -38,7 +38,6 @@
             android:layout_marginRight="@dimen/space_24"
             tools:text="Description" />
 
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
