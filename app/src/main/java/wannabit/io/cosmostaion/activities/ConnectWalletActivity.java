@@ -39,13 +39,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
-import org.web3j.crypto.Sign;
 import org.web3j.crypto.TransactionEncoder;
-import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
@@ -302,7 +298,11 @@ public class ConnectWalletActivity extends BaseActivity {
                         new Thread(() -> {
                             try {
                                 EthSendTransaction sendResult = processEthSend(wcEthereumTransaction);
-                                wcClient.approveRequest(id, sendResult.getTransactionHash());
+                                if (sendResult == null) {
+                                    wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
+                                } else {
+                                    wcClient.approveRequest(id, sendResult.getTransactionHash());
+                                }
                             } catch (InterruptedException | ExecutionException e) {
                                 wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
                             }
@@ -338,7 +338,13 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private EthSendTransaction processEthSend(WCEthereumTransaction wcEthereumTransaction) throws InterruptedException, ExecutionException {
-        Web3j web3 = Web3j.build(new HttpService("https://eth.bd.evmos.org:8545"));
+        String rpcUrl;
+        if (BaseChain.EVMOS_MAIN.equals(mBaseChain)) {
+            rpcUrl = "https://eth.bd.evmos.org:8545";
+        } else {
+            return null;
+        }
+        Web3j web3 = Web3j.build(new HttpService(rpcUrl));
         Credentials credentials = Credentials.create(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())));
         EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
