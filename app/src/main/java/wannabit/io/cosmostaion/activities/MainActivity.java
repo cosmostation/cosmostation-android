@@ -12,7 +12,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_IN
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep3Fragment.SELECT_CDP_CONFIRM;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -163,7 +165,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         onAccountSwitched();
         onChainSelect(mBaseChain);
-
     }
 
     public void onAddressDialog() {

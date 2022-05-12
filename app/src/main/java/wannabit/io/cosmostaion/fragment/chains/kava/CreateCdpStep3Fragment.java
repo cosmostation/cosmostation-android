@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,11 +21,9 @@ import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Cdp_Warning;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClickListener{
     public final static int SELECT_CDP_CONFIRM = 9105;
@@ -108,11 +108,13 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
     public void onClick(View v) {
         if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
-
         } else if (v.equals(mConfirmBtn)) {
-            Dialog_Cdp_Warning dialog = Dialog_Cdp_Warning.newInstance();
-            dialog.setTargetFragment(CreateCdpStep3Fragment.this, SELECT_CDP_CONFIRM);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_cdp_warn_title), getString(R.string.str_cdp_warn_msg),
+                    getString(R.string.str_cancel),null,
+                    getString(R.string.str_confirm), View -> {
+                        Intent resultIntent = new Intent();
+                        onActivityResult(SELECT_CDP_CONFIRM, Activity.RESULT_OK, resultIntent);
+                        },R.drawable.img_cdp_warning);
         }
     }
 

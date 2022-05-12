@@ -1521,7 +1521,7 @@
     <string name="str_check_estimate_gas_amount">Check Estimate Gas Amount</string>
     <string name="str_apply_estimate_gas_amount">Estimate Gas Amount Applied</string>
     <string name="str_mnemonics_warning_title">Do NOT enter your mnemonics.</string>
-    <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\n the memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
+    <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\nthe memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
     <string name="str_ibc_sender">Sender</string>
     <string name="str_ibc_receiver">Receiver</string>
     <string name="str_ibc_recipent">Recipient</string>

@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Warning;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -198,10 +198,12 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            Dialog_Htlc_Warning dialog = Dialog_Htlc_Warning.newInstance();
-            dialog.setTargetFragment(HtlcSendStep3Fragment.this, SELECT_HTLC_CONFIRM);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_htlc_warn_title), getString(R.string.str_htlc_warn_msg),
+                    getString(R.string.str_cancel),null,
+                    getString(R.string.str_confirm), View -> {
+                        Intent resultIntent = new Intent();
+                        onActivityResult(SELECT_HTLC_CONFIRM, Activity.RESULT_OK, resultIntent);
+                    }, R.drawable.img_bep_3_available);
         }
     }
 
