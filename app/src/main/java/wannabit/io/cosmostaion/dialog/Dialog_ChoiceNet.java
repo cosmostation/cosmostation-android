@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,9 +28,9 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
                          mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj,
-                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos, mCudos, mProvenance, mCerberus, mOmniflix, mCrescent, mMantle, mStation;
-    private LinearLayout mAltheaTestLayer, mCrescentTestLayer;
-    private LinearLayout mCosmosTest, mIrisTest, mAltheaTest, mCrescentTest;
+                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos, mCudos, mProvenance, mCerberus, mOmniflix, mCrescent, mMantle;
+    private LinearLayout mAltheaTestLayer, mCrescentTestLayer, mStationTestLayer;
+    private LinearLayout mCosmosTest, mIrisTest, mAltheaTest, mCrescentTest, mStationTest;
 
     private boolean      mIsAdd = false;
 
@@ -97,12 +98,13 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mOmniflix = view.findViewById(R.id.omniflix_chain);
         mCrescent = view.findViewById(R.id.crescent_chain);
         mMantle = view.findViewById(R.id.mantle_chain);
-        mStation = view.findViewById(R.id.station_chain);
 
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
         mAltheaTest = view.findViewById(R.id.althea_test_net);
         mCrescentTestLayer = view.findViewById(R.id.crescent_test_layer);
         mCrescentTest = view.findViewById(R.id.crescent_test_net);
+        mStationTestLayer = view.findViewById(R.id.station_test_layer);
+        mStationTest = view.findViewById(R.id.station_test_net);
 
         if (getArguments() != null) {
             mIsAdd = true;
@@ -614,18 +616,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
-        mStation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mIsAdd) {
-                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.STATION_TEST);
-                } else {
-                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.STATION_TEST);
-                }
-                getDialog().dismiss();
-            }
-        });
-
         if (BaseChain.SUPPORT_CHAINS().contains(COSMOS_TEST)) {
             mCosmosTestLayer.setVisibility(View.VISIBLE);
             mCosmosTest.setOnClickListener(new View.OnClickListener() {
@@ -680,6 +670,21 @@ public class Dialog_ChoiceNet extends DialogFragment {
                         ((BaseActivity) getActivity()).onChainSelected(CRESCENT_TEST);
                     } else {
                         ((BaseActivity) getActivity()).onChoiceNet(CRESCENT_TEST);
+                    }
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(STATION_TEST)) {
+            mStationTestLayer.setVisibility(View.VISIBLE);
+            mStationTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mIsAdd) {
+                        ((BaseActivity) getActivity()).onChainSelected(STATION_TEST);
+                    } else {
+                        ((BaseActivity) getActivity()).onChoiceNet(STATION_TEST);
                     }
                     getDialog().dismiss();
                 }

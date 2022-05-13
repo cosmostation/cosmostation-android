@@ -528,7 +528,7 @@
     <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
     <string name="str_crescent_net" translatable="false">(Crescent)</string>
     <string name="str_mantle_net" translatable="false">(AssetMantle)</string>
-    <string name="str_station_net" translatable="false">(Station)</string>
+    <string name="str_station_net" translatable="false">(Station Testnet)</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_crescent_chain_test" translatable="false">(Crescent Testnet)</string>
@@ -584,7 +584,7 @@
     <string name="str_omniflix_main" translatable="false">OMNIFLIX</string>
     <string name="str_crescent_main" translatable="false">CRESCENT</string>
     <string name="str_mantle_main" translatable="false">ASSETMANTLE</string>
-    <string name="str_station_test" translatable="false">STATION</string>
+    <string name="str_station_test" translatable="false">STATION TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_crescent_test" translatable="false">CRESCENT TEST</string>
     <string name="str_mintscan">Check Explorer</string>
@@ -738,7 +738,7 @@
     <string name="str_front_guide_msg_omniflix"><![CDATA[OmniFlix Network is a blockchain specifically designed for creators and communities, powered by NFTs.]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[Crescent is a Tendermint-based DeFi hub powered by $CRE tokens & Inter-Blockchain Communication protocol.]]></string>
     <string name="str_front_guide_msg_mantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
-    <string name="str_front_guide_msg_station"><![CDATA[Station test...]]></string>
+    <string name="str_front_guide_msg_station"><![CDATA[Station Test]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>

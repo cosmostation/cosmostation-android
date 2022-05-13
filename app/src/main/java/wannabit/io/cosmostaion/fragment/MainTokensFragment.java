@@ -1380,19 +1380,9 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
-        } else if (coin.denom.equals(TOKEN_STATION)) {
-            holder.itemSymbol.setText(getString(R.string.str_station_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), STATION_TEST));
-            holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Station Staking Coin");
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_juno));
+        }
 
-            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_STATION);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-
-        } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
+        else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
             holder.itemInnerSymbol.setText("");
@@ -1437,6 +1427,18 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
 
             BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_BCRESCENT_TEST);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_STATION)) {
+            holder.itemSymbol.setText(getString(R.string.str_station_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), STATION_TEST));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Station Staking Coin");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_iss));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_STATION);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 

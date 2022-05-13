@@ -777,10 +777,6 @@ public class BaseConstant {
     public final static String MANTLE_GAS_RATE_LOW                      = "0.000";
     public final static String MANTLE_GAS_RATE_AVERAGE                  = "0.000";
 
-    public final static String STATION_GAS_RATE_TINY                    = "0.0025";
-    public final static String STATION_GAS_RATE_LOW                     = "0.005";
-    public final static String STATION_GAS_RATE_AVERAGE                 = "0.025";
-
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -845,7 +841,6 @@ public class BaseConstant {
     public final static String OMNIFLIX_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/omniflix/";
     public final static String CRESCENT_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/crescent/";
     public final static String ASSETMANTLE_VAL_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/asset-mantle/";
-    public final static String STATION_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/juno/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -955,7 +950,6 @@ public class BaseConstant {
     public final static String OMNIFLIX_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/omniflix/relay-omniflix-unknown.png";
     public final static String CRESCENT_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/crescent/relay-crescent-unknown.png";
     public final static String MANTLE_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/asset-mantle/relay-assetmantle-unknown.png";
-    public final static String STATION_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/juno/relay-juno-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM        = "station";
@@ -1006,5 +1000,4 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_OMNIFLIX = new BigDecimal("5.7970");
     public final static BigDecimal BLOCK_TIME_CRESCENT = new BigDecimal("6.355");
     public final static BigDecimal BLOCK_TIME_MANTLE = new BigDecimal("5.8040");
-    public final static BigDecimal BLOCK_TIME_STATION = new BigDecimal("6.3104");
 }

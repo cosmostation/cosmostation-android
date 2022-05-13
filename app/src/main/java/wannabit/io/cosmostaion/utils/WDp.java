@@ -1218,8 +1218,6 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_crescent));
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_assetmantle));
-            } else if (baseChain.equals(STATION_TEST)) {
-                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_juno));
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -1228,6 +1226,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_test_iris));
             } else if (baseChain.equals(CRESCENT_TEST)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_crescent));
+            } else if (baseChain.equals(STATION_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_station));
             }
         } else {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.default_chain_img));
@@ -1320,15 +1320,16 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_crescent_net));
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 chainName.setText(c.getString(R.string.str_mantle_net));
-            } else if (baseChain.equals(STATION_TEST)) {
-                chainName.setText(c.getString(R.string.str_station_net));
+            }
 
-            } else if (baseChain.equals(COSMOS_TEST)) {
+            else if (baseChain.equals(COSMOS_TEST)) {
                 chainName.setText(c.getString(R.string.str_cosmos_testnet));
             } else if (baseChain.equals(IRIS_TEST)) {
                 chainName.setText(c.getString(R.string.str_iris_testnet));
             } else if (baseChain.equals(CRESCENT_TEST)) {
                 chainName.setText(c.getString(R.string.str_crescent_chain_test));
+            } else if (baseChain.equals(STATION_TEST)) {
+                chainName.setText(c.getString(R.string.str_station_net));
             }
         } else {
             chainName.setText("Unknown");
@@ -1422,8 +1423,6 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_crescent_main));
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 chainName.setText(c.getString(R.string.str_mantle_main));
-            } else if (baseChain.equals(STATION_TEST)) {
-                chainName.setText(c.getString(R.string.str_station_test));
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -1432,6 +1431,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_iris_test));
             } else if (baseChain.equals(CRESCENT_TEST)) {
                 chainName.setText(c.getString(R.string.str_crescent_test));
+            } else if (baseChain.equals(STATION_TEST)) {
+                chainName.setText(c.getString(R.string.str_station_test));
             }
         } else {
             chainName.setText("Unknown");
@@ -1539,6 +1540,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorAtom));
         } else if (baseChain.equals(IRIS_TEST)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorIris));
+        } else if (baseChain.equals(STATION_TEST)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorStation));
         }
     }
 
@@ -1629,7 +1632,7 @@ public class WDp {
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_mantle));
             } else if (baseChain.equals(STATION_TEST)) {
-                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_juno));
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_station));
             }
 
 
@@ -1719,11 +1722,12 @@ public class WDp {
                 return CRESCENT_MAIN;
             } else if (chainId.contains("mantle-")) {
                 return ASSETMANTLE_MAIN;
-            } else if (chainId.contains("station2")) {
-                return STATION_TEST;
             }
+
             else if (chainId.contains("mooncat-")) {
                 return CRESCENT_TEST;
+            } else if (chainId.contains("station")) {
+                return STATION_TEST;
             }
         }
         return null;
@@ -1887,7 +1891,9 @@ public class WDp {
                 if (!address.startsWith("mantle1")) {
                     textView.setText("");
                 }
-            } else if (baseChain.equals(STATION_TEST)) {
+            }
+
+            else if (baseChain.equals(STATION_TEST)) {
                 if (!address.startsWith("station1")) {
                     textView.setText("");
                 }
@@ -1981,12 +1987,12 @@ public class WDp {
                 return "crescent";
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 return "asset-mantle";
-            } else if (baseChain.equals(STATION_TEST)) {
-                return "station";
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
                 return "cosmos-testnet";
+            } else if (baseChain.equals(STATION_TEST)) {
+                return "station";
             }
         }
         return null;
@@ -2042,6 +2048,7 @@ public class WDp {
             else if (address.startsWith("omniflix1") && baseChain.equals(OMNIFLIX_MAIN)) { return true; }
             else if (address.startsWith("cre1") && baseChain.equals(CRESCENT_MAIN) || address.startsWith("cre1") && baseChain.equals(CRESCENT_TEST)) { return true; }
             else if (address.startsWith("mantle1") && baseChain.equals(ASSETMANTLE_MAIN)) { return true; }
+
             else if (address.startsWith("station1") && baseChain.equals(STATION_TEST)) { return true; }
 
         }
@@ -2100,6 +2107,7 @@ public class WDp {
             else if (address.startsWith("omniflix1")) { return Lists.newArrayList(OMNIFLIX_MAIN); }
             else if (address.startsWith("cre1")) { return Lists.newArrayList(CRESCENT_MAIN, CRESCENT_TEST); }
             else if (address.startsWith("mantle1")) { return Lists.newArrayList(ASSETMANTLE_MAIN); }
+
             else if (address.startsWith("station1")) { return Lists.newArrayList(STATION_TEST); }
         }
         return null;
@@ -2146,7 +2154,7 @@ public class WDp {
             else if (chain.equals(OMNIFLIX_MAIN)) { return OMNIFLIX_UNKNOWN_RELAYER; }
             else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) { return CRESCENT_UNKNOWN_RELAYER; }
             else if (chain.equals(ASSETMANTLE_MAIN)) { return MANTLE_UNKNOWN_RELAYER; }
-            else if (chain.equals(STATION_TEST)) { return STATION_UNKNOWN_RELAYER; }
+
         }
         return null;
     }
@@ -3201,8 +3209,10 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorCrescent);
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return c.getResources().getColor(R.color.colorMantle);
-            } else if (chain.equals(STATION_TEST)) {
-                return c.getResources().getColor(R.color.colorJuno);
+            }
+
+            else if (chain.equals(STATION_TEST)) {
+                return c.getResources().getColor(R.color.colorStation);
             }
         }
         return c.getResources().getColor(R.color.colorGray0);
@@ -3294,8 +3304,10 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgCrescent);
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgMantle);
-            } else if (chain.equals(STATION_TEST)) {
-                return c.getResources().getColor(R.color.colorTransBgJuno);
+            }
+
+            else if (chain.equals(STATION_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgStation);
             }
         }
         return c.getResources().getColor(R.color.colorTransBg);
@@ -3385,8 +3397,10 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_crescent);
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_mantle);
-            } else if (chain.equals(STATION_TEST)) {
-                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_juno);
+            }
+
+            else if (chain.equals(STATION_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_station);
             }
         }
         return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
@@ -3476,8 +3490,10 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorCrescent);
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorMantle);
-            } else if (chain.equals(STATION_TEST)) {
-                return c.getResources().getColorStateList(R.color.colorJuno);
+            }
+
+            else if (chain.equals(STATION_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorStation);
             }
         }
         return c.getResources().getColorStateList(R.color.colorTransBg);
@@ -3656,10 +3672,6 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorMantle));
             textview.setText(c.getString(R.string.s_mantle));
 
-        } else if (BaseChain.getChain(chain).equals(STATION_TEST)) {
-            textview.setTextColor(c.getResources().getColor(R.color.colorJuno));
-            textview.setText(c.getString(R.string.s_station));
-
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3669,6 +3681,10 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(IRIS_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_bif));
+
+        } else if (BaseChain.getChain(chain).equals(STATION_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorStation));
+            textview.setText(c.getString(R.string.s_station));
 
         }
     }
@@ -3762,12 +3778,12 @@ public class WDp {
             return TOKEN_CRE;
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
             return TOKEN_MANTLE;
-        } else if (chain.equals(STATION_TEST)) {
-            return TOKEN_STATION;
         }
 
         else if (chain.equals(CRESCENT_TEST)) {
             return TOKEN_CRESCENT_TEST;
+        } else if (chain.equals(STATION_TEST)) {
+            return TOKEN_STATION;
         }
         return "";
     }
@@ -3859,8 +3875,10 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_crescent);
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 imageView.setImageResource(R.drawable.token_assetmantle);
-            } else if (baseChain.equals(STATION_TEST)) {
-                imageView.setImageResource(R.drawable.token_juno);
+            }
+
+            else if (baseChain.equals(STATION_TEST)) {
+                imageView.setImageResource(R.drawable.token_iss);
             }
         } else {
             imageView.setImageResource(R.drawable.token_ic);
@@ -4288,8 +4306,6 @@ public class WDp {
             return CRESCENT_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(ASSETMANTLE_MAIN)) {
             return ASSETMANTLE_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(STATION_TEST)) {
-            return STATION_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(OKEX_MAIN)) {
