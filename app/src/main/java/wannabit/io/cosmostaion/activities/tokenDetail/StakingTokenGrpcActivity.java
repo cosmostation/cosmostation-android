@@ -172,8 +172,23 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+<<<<<<< HEAD
                         getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
+=======
+                        getString(R.string.str_add_mnemonics), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onAddMnemonicForAccount();
+                            }
+                        },
+                        getString(R.string.str_close), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
                 return;
             }
             final String mainDenom = WDp.mainDenom(mBaseChain);

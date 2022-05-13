@@ -25,12 +25,15 @@ public class AlertDialogUtils {
         showSingleButtonDialog(context, title, message, buttonTitle, listener, true);
     }
 
+<<<<<<< HEAD
     public static void showHeaderImageDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, int imageResourceId) {
         CommonAlertDialog dialog = makeHeaderImageDoubleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener, imageResourceId);
         dialog.create();
         dialog.show();
     }
 
+=======
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
     public static void showDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, Boolean cancelable) {
         CommonAlertDialog dialog = makeDoubleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener);
         dialog.setCancelable(cancelable);
@@ -86,6 +89,7 @@ public class AlertDialogUtils {
             if (rightButtonListener != null) {
                 rightButtonListener.onClick(view);
             }
+<<<<<<< HEAD
             dialog.dismiss();
         });
         return dialog;
@@ -101,12 +105,19 @@ public class AlertDialogUtils {
             if (rightButtonListener != null) {
                 rightButtonListener.onClick(view);
             }
+=======
+
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
             dialog.dismiss();
         });
         return dialog;
     }
 
     public static Spanned highlightingText(String text) {
+<<<<<<< HEAD
         return Html.fromHtml("<font color=\"#ff0000\">" + text + "</font>");
+=======
+        return Html.fromHtml("<font color=\"#f31963\">" + text + "</font>");
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
     }
 }

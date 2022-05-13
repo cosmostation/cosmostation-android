@@ -296,7 +296,11 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         if(!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+<<<<<<< HEAD
                     getString(R.string.str_close), null);
+=======
+                    getString(R.string.str_close), view -> { });
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
             return false;
         }
 

@@ -204,7 +204,11 @@ public class MnemonicCheckActivity extends BaseActivity {
         mCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 AlertDialogUtils.showDoubleButtonDialog(MnemonicCheckActivity.this, getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),
+=======
+                AlertDialogUtils.showDoubleButtonDialog(getBaseContext(), getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
                         getString(R.string.str_raw_copy), view -> onRawCopy(),
                         getString(R.string.str_safe_copy), view -> onSafeCopy());
             }

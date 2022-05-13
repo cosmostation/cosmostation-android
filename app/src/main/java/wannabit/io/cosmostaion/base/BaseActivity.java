@@ -1083,7 +1083,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public void onShowPushEnableDialog() {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_push_permission_title), getString(R.string.str_push_permission_msg),
                 getString(R.string.str_cancel), view -> onRedirectPushSet(),
+<<<<<<< HEAD
                 getString(R.string.str_continue), null, false);
+=======
+                getString(R.string.str_continue), view -> { }, false);
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
     }
 
     public void onRedirectPushSet() {

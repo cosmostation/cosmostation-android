@@ -128,7 +128,11 @@ public class WalletChainHolder extends BaseHolder {
                 if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
                         mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
                     if (!mainActivity.mAccount.hasPrivateKey) {
+<<<<<<< HEAD
                         AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+=======
+                        AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
                                 mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
                                 mainActivity.getString(R.string.str_close), null);
                         return;

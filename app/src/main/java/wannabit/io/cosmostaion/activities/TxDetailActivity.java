@@ -1084,7 +1084,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
 
     private void onShowMoreWait() {
+<<<<<<< HEAD
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_title), getString(R.string.str_more_wait_msg),
+=======
+        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
                 getString(R.string.str_close), view -> onBackPressed(),
                 getString(R.string.str_wait), view -> onWaitMore(), false);
     }

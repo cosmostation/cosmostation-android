@@ -32,6 +32,10 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
+<<<<<<< HEAD
+=======
+import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeInfo;
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;

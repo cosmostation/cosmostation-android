@@ -32,12 +32,19 @@
             style="@style/font_ss_12_gray1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:gravity="center"
+=======
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
             android:layout_marginLeft="@dimen/space_24"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginRight="@dimen/space_24"
             tools:text="Description" />
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -59,11 +66,14 @@
                 android:textAllCaps="false"
                 tools:text="Button Title" />
 
+<<<<<<< HEAD
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
                 android:background="@color/colorGray10"/>
 
+=======
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
             <Button
                 android:id="@+id/btn_right"
                 style="@style/font_ss_14_gray1"

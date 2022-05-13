@@ -236,7 +236,11 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
 
     private void onShowEmptyBalanceWarnDialog() {
         if (WDp.mainDenom(getSActivity().mBaseChain).equalsIgnoreCase(getSActivity().mToIbcDenom)) {
+<<<<<<< HEAD
             AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+=======
+            AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
             return;
         }
     }

@@ -137,7 +137,11 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+<<<<<<< HEAD
                     getString(R.string.str_close), null);
+=======
+                    getString(R.string.str_close), view -> { });
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
             return;
         }
         BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -178,7 +182,11 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+<<<<<<< HEAD
                     getString(R.string.str_close), null);
+=======
+                    getString(R.string.str_close), view -> { });
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
             return;
         }
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
@@ -203,7 +211,11 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+<<<<<<< HEAD
                     getString(R.string.str_close), null);
+=======
+                    getString(R.string.str_close), view -> { });
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
             return;
         }
 

@@ -331,7 +331,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onShowEmptyBlanaceWarnDialog() {
+<<<<<<< HEAD
         AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+=======
+        AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
     }
 
     private void setDisplayDecimals(int decimals) {

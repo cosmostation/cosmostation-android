@@ -92,8 +92,13 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         if (v.equals(mRegisterDomain)) {
             if (!getSActivity().mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+<<<<<<< HEAD
                         getString(R.string.str_add_mnemonics), view -> getSActivity().onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
+=======
+                        getString(R.string.str_add_mnemonics), view -> ((BaseActivity)getActivity()).onAddMnemonicForAccount(),
+                        getString(R.string.str_close), view -> { });
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
                 return;
             }
 

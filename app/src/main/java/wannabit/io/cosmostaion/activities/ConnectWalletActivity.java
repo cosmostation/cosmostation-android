@@ -590,11 +590,20 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowNoAccountsForChain() {
+<<<<<<< HEAD
         AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), getString(R.string.str_ok), null, false);
     }
 
     private void onShowNotSupportChain(String chainId) {
         AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), String.format(getString(R.string.str_error_not_support_msg), chainId), getString(R.string.str_ok), null, false);
+=======
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), getString(R.string.str_ok), view -> { }, false);
+    }
+
+    private void onShowNotSupportChain(String chainId) {
+        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), String.format(getString(R.string.str_error_not_support_msg),
+                chainId), getString(R.string.str_ok), view -> { }, false);
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
     }
 
     private Bundle makeSignBundle(int type, Long id, String transaction) {

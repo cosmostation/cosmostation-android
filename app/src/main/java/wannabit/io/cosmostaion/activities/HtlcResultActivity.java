@@ -1,9 +1,14 @@
 package wannabit.io.cosmostaion.activities;
 
+<<<<<<< HEAD
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
 
+=======
+import android.app.Activity;
+import android.content.Intent;
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +38,10 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+<<<<<<< HEAD
+=======
+import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Error;
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -519,8 +528,13 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //SWAP ID LOOP CHECK
     private void onShowMoreSwapWait() {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
+<<<<<<< HEAD
                 getString(R.string.str_close), view -> onFinishWithError(),
                 getString(R.string.str_wait), view -> onWaitSwapMore(), false);
+=======
+                getString(R.string.str_close), view -> onBackPressed(),
+                getString(R.string.str_wait), view -> { }, false);
+>>>>>>> 27499f47969bdd4f525f7669fabb913fb236b984
     }
 
     public void onWaitSwapMore() {
