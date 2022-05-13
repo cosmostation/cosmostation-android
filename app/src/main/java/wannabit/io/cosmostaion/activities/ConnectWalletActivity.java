@@ -33,6 +33,7 @@ import com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction;
 import com.trustwallet.walletconnect.models.keplr.WCKeplrWallet;
 import com.trustwallet.walletconnect.models.session.WCSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.core.ECKey;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -348,12 +349,16 @@ public class ConnectWalletActivity extends BaseActivity {
         Credentials credentials = Credentials.create(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())));
         EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+        BigInteger value = BigInteger.ZERO;
+        if (StringUtils.isNotBlank(wcEthereumTransaction.getValue())) {
+            value = new BigInteger(wcEthereumTransaction.getValue().replace("0x", ""), 16);
+        }
         RawTransaction rawTransaction = RawTransaction.createTransaction(
                 nonce,
                 BigInteger.valueOf(2000000020L),
                 BigInteger.valueOf(500000L),
                 wcEthereumTransaction.getTo(),
-                new BigInteger(wcEthereumTransaction.getValue().replace("0x", ""), 16),
+                value,
                 wcEthereumTransaction.getData()
         );
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
