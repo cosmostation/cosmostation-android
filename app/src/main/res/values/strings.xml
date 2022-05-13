@@ -335,6 +335,7 @@
     <string name="str_reinvest_c">RE-INVEST</string>
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
+    <string name="str_unknown_error">Unknown error</string>
     <string name="str_no_more_3day">Hide 3 days</string>
     <string name="str_continue">Continue</string>
     <string name="str_connect">Connect</string>

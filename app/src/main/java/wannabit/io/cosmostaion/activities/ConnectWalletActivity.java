@@ -29,6 +29,7 @@ import com.trustwallet.walletconnect.WCClient;
 import com.trustwallet.walletconnect.models.WCAccount;
 import com.trustwallet.walletconnect.models.WCPeerMeta;
 import com.trustwallet.walletconnect.models.cosmostation.WCCosmostationAccount;
+import com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction;
 import com.trustwallet.walletconnect.models.keplr.WCKeplrWallet;
 import com.trustwallet.walletconnect.models.session.WCSession;
 
@@ -36,6 +37,15 @@ import org.bitcoinj.core.ECKey;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.TransactionEncoder;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -43,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -260,7 +271,11 @@ public class ConnectWalletActivity extends BaseActivity {
             runOnUiThread(() -> {
                 if (!isDeepLink && !isDapp) {
                     onInitView(wcPeerMeta);
-                    wcClient.approveSession(Lists.newArrayList(chainAccountMap.get(mBaseChain.getChain()).address), 1);
+                    if (BaseChain.EVMOS_MAIN.equals(mBaseChain)) {
+                        wcClient.approveSession(Lists.newArrayList(WKey.generateEthAddressFromPrivateKey(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())))), 9001);
+                    } else {
+                        wcClient.approveSession(Lists.newArrayList(chainAccountMap.get(mBaseChain.getChain()).address), 1);
+                    }
                 } else {
                     mWcPeerMeta = wcPeerMeta;
                     wcClient.approveSession(Lists.newArrayList(), 1);
@@ -275,6 +290,25 @@ public class ConnectWalletActivity extends BaseActivity {
         });
         wcClient.setOnKeplrEnable((id, strings) -> {
             runOnUiThread(() -> onKeplrEnable(id, strings));
+            return null;
+        });
+        wcClient.setOnEthSendTransaction((id, wcEthereumTransaction) -> {
+            runOnUiThread(() ->
+                    AlertDialogUtils.showDoubleButtonDialog(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), wcEthereumTransaction.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
+                        new Thread(() -> {
+                            try {
+                                EthSendTransaction sendResult = processEthSend(wcEthereumTransaction);
+                                if (sendResult == null) {
+                                    wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
+                                } else {
+                                    wcClient.approveRequest(id, sendResult.getTransactionHash());
+                                }
+                            } catch (InterruptedException | ExecutionException e) {
+                                wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
+                            }
+                        }).start();
+                    })
+            );
             return null;
         });
         wcClient.setOnCosmostationAccounts((id, strings) -> {
@@ -301,6 +335,30 @@ public class ConnectWalletActivity extends BaseActivity {
             runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
             return null;
         });
+    }
+
+    private EthSendTransaction processEthSend(WCEthereumTransaction wcEthereumTransaction) throws InterruptedException, ExecutionException {
+        String rpcUrl;
+        if (BaseChain.EVMOS_MAIN.equals(mBaseChain)) {
+            rpcUrl = "https://eth.bd.evmos.org:8545";
+        } else {
+            return null;
+        }
+        Web3j web3 = Web3j.build(new HttpService(rpcUrl));
+        Credentials credentials = Credentials.create(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())));
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+        RawTransaction rawTransaction = RawTransaction.createTransaction(
+                nonce,
+                BigInteger.valueOf(2000000020L),
+                BigInteger.valueOf(500000L),
+                wcEthereumTransaction.getTo(),
+                new BigInteger(wcEthereumTransaction.getValue().replace("0x", ""), 16),
+                wcEthereumTransaction.getData()
+        );
+        byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signedMessage);
+        return web3.ethSendRawTransaction(hexValue).sendAsync().get();
     }
 
     private void moveToBackIfNeed() {
@@ -368,11 +426,13 @@ public class ConnectWalletActivity extends BaseActivity {
         }
 
         Toast.makeText(getBaseContext(), getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show();
-        Picasso.get()
-                .load(meta.getIcons().get(0))
-                .fit()
-                .placeholder(R.drawable.validator_none_img)
-                .into(mWcImg);
+        if (!meta.getIcons().isEmpty()) {
+            Picasso.get()
+                    .load(meta.getIcons().get(0))
+                    .fit()
+                    .placeholder(R.drawable.validator_none_img)
+                    .into(mWcImg);
+        }
         mWcName.setText(meta.getName());
         mWcUrl.setText(meta.getUrl());
         mWcLayer.setVisibility(View.VISIBLE);

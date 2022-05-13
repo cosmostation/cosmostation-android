@@ -48,6 +48,7 @@
     <string name="str_reinvest_c">이자 즉시 위임</string>
     <string name="str_before">이전</string>
     <string name="str_cancel">취소</string>
+    <string name="str_unknown_error">Unknown error</string>
     <string name="str_no_more_3day">3일간 숨기기</string>
     <string name="str_continue">계속</string>
     <string name="str_connect">연결</string>
