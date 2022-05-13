@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import java.math.BigDecimal;
@@ -19,7 +21,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_Safe_Score_Staus extends DialogFragment {
-
     public static Dialog_Safe_Score_Staus newInstance(Bundle bundle) {
         Dialog_Safe_Score_Staus frag = new Dialog_Safe_Score_Staus();
         frag.setArguments(bundle);
@@ -29,12 +30,12 @@ public class Dialog_Safe_Score_Staus extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_safe_score_status, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_score_status, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         LinearLayout risk_layer = view.findViewById(R.id.risk_layer);
         TextView risk_rate = view.findViewById(R.id.risk_rate);
@@ -60,9 +61,5 @@ public class Dialog_Safe_Score_Staus extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
 }

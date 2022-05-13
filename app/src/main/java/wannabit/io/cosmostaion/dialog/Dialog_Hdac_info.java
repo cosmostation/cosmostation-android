@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import java.math.BigDecimal;
@@ -31,12 +33,12 @@ public class Dialog_Hdac_info extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_hdac_info, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hdac_info, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         TextView hdac_address = view.findViewById(R.id.hdac_address);
         TextView hdac_amount = view.findViewById(R.id.hdac_amount);
         Button btn_negative = view.findViewById(R.id.btn_nega);
@@ -67,9 +69,5 @@ public class Dialog_Hdac_info extends DialogFragment {
 
             }
         });
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
 }
