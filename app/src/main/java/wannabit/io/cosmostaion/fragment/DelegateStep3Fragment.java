@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Delegate_Warning;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -76,14 +76,26 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     public void onClick(View v) {
         if(v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
-
         } else if (v.equals(mConfirmBtn)) {
-            Bundle bundle = new Bundle();
-            bundle.putInt("day", getBaseDao().mChainParam.getUnbonding(getSActivity().mBaseChain));
-            Dialog_Delegate_Warning dialog = Dialog_Delegate_Warning.newInstance(bundle);
-            dialog.setTargetFragment(DelegateStep3Fragment.this, SELECT_DELEGATE_CHECK);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            int dpDay = getBaseDao().mChainParam.getUnbonding(getSActivity().mBaseChain);
+            int unBondingTimeImage = 0;
+            if (dpDay == 21) {
+                unBondingTimeImage = R.drawable.img_delegate_warning;
+            } else if (dpDay == 3) {
+                unBondingTimeImage = R.drawable.img_delegate_3_warning;
+            } else if (dpDay == 14) {
+                unBondingTimeImage = R.drawable.img_delegate_14_warning;
+            } else if (dpDay == 28) {
+                unBondingTimeImage = R.drawable.img_delegate_28_warning;
+            } else if (dpDay == 7) {
+                unBondingTimeImage = R.drawable.dialogicon_undelegate_7;
+            }
+            AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_delegate_warn_title), getString(R.string.str_delegate_warn_msg),
+                    getString(R.string.str_cancel),null,
+                    getString(R.string.str_confirm), View -> {
+                        Intent resultIntent = new Intent();
+                        onActivityResult(SELECT_DELEGATE_CHECK, Activity.RESULT_OK, resultIntent);
+                        }, unBondingTimeImage);
         }
     }
 

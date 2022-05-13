@@ -25,6 +25,12 @@ public class AlertDialogUtils {
         showSingleButtonDialog(context, title, message, buttonTitle, listener, true);
     }
 
+    public static void showHeaderImageDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, int imageResourceId) {
+        CommonAlertDialog dialog = makeHeaderImageDoubleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener, imageResourceId);
+        dialog.create();
+        dialog.show();
+    }
+
     public static void showDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, Boolean cancelable) {
         CommonAlertDialog dialog = makeDoubleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener);
         dialog.setCancelable(cancelable);
@@ -80,13 +86,27 @@ public class AlertDialogUtils {
             if (rightButtonListener != null) {
                 rightButtonListener.onClick(view);
             }
+            dialog.dismiss();
+        });
+        return dialog;
+    }
 
+    private static CommonAlertDialog makeHeaderImageDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, int imageResourceId) {
+        CommonAlertDialog dialog = makeSingleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener);
+        dialog.headerImageView.setImageResource(imageResourceId);
+        dialog.headerImageView.setVisibility(View.VISIBLE);
+        dialog.rightButton.setVisibility(View.VISIBLE);
+        dialog.rightButton.setText(rightButtonTitle);
+        dialog.rightButton.setOnClickListener(view -> {
+            if (rightButtonListener != null) {
+                rightButtonListener.onClick(view);
+            }
             dialog.dismiss();
         });
         return dialog;
     }
 
     public static Spanned highlightingText(String text) {
-        return Html.fromHtml("<font color=\"#f31963\">" + text + "</font>");
+        return Html.fromHtml("<font color=\"#ff0000\">" + text + "</font>");
     }
 }

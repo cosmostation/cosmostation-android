@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.app.Activity;
-import android.content.Intent;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +33,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Error;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -46,10 +47,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
 
 public class HtlcResultActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar             mToolbar;
@@ -522,8 +519,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //SWAP ID LOOP CHECK
     private void onShowMoreSwapWait() {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
-                getString(R.string.str_close), view -> onBackPressed(),
-                getString(R.string.str_wait), null, false);
+                getString(R.string.str_close), view -> onFinishWithError(),
+                getString(R.string.str_wait), view -> onWaitSwapMore(), false);
     }
 
     public void onWaitSwapMore() {
@@ -543,13 +540,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onCheckSwapId(mExpectedSwapId);
 
             } else {
-                Bundle bundle = new Bundle();
-                bundle.putString("msg", getString(R.string.str_swap_error_msg_create));
-                bundle.putString("error", result.errorMsg);
-                Dialog_Htlc_Error swapError = Dialog_Htlc_Error.newInstance(bundle);
-                swapError.setCancelable(false);
-                getSupportFragmentManager().beginTransaction().add(swapError, "dialog").commitNowAllowingStateLoss();
-
+                AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_swap_error_title),
+                        getString(R.string.str_swap_error_msg_create) +"\n\n"+ AlertDialogUtils.highlightingText(result.errorMsg),
+                        getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
 
         } else if (result.taskType == TASK_GEN_TX_HTLC_CLAIM) {
@@ -561,13 +554,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onFetchClaimTx(mClaimTxHash);
 
             } else {
-                Bundle bundle = new Bundle();
-                bundle.putString("msg", getString(R.string.str_swap_error_msg_claim));
-                bundle.putString("error", result.errorMsg);
-                Dialog_Htlc_Error swapError = Dialog_Htlc_Error.newInstance(bundle);
-                swapError.setCancelable(false);
-                getSupportFragmentManager().beginTransaction().add(swapError, "dialog").commitNowAllowingStateLoss();
-
+                AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_swap_error_title),
+                        getString(R.string.str_swap_error_msg_claim) +"\n\n"+ AlertDialogUtils.highlightingText(result.errorMsg),
+                        getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
         }
     }

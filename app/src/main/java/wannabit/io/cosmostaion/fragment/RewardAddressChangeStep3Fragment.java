@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeConfirm;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RewardAddressChangeStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -73,10 +73,12 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            Dialog_RewardAddressChangeConfirm dialog = Dialog_RewardAddressChangeConfirm.newInstance();
-            dialog.setCancelable(true);
-            dialog.setTargetFragment(this, CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG);
-            dialog.show(getFragmentManager().beginTransaction(), "dialog");
+            AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_reward_address_change_confirm_title), getString(R.string.str_reward_address_change_confirm_msg),
+                    getString(R.string.str_cancel), null,
+                    getString(R.string.str_continue), View -> {
+                        Intent resultIntent = new Intent();
+                        onActivityResult(CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
+                    }, true);
         }
     }
 

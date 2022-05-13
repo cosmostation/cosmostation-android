@@ -118,17 +118,17 @@ public class WalletChainHolder extends BaseHolder {
             }
         });
 
-        if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) ||
+        if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
                 mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
         } else { mBtnWalletConnect.setVisibility(View.GONE); }
         mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) ||
+                if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
                         mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
                     if (!mainActivity.mAccount.hasPrivateKey) {
-                        AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+                        AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
                                 mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
                                 mainActivity.getString(R.string.str_close), null);
                         return;

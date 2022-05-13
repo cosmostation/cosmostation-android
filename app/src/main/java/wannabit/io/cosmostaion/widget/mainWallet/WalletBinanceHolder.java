@@ -61,7 +61,7 @@ public class WalletBinanceHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 if (!mainActivity.mAccount.hasPrivateKey) {
-                    AlertDialogUtils.showDoubleButtonDialog(mainActivity.getBaseContext(), mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+                    AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
                             mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
                             mainActivity.getString(R.string.str_close), null);
                     return;

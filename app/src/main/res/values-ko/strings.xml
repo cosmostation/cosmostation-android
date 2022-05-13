@@ -49,6 +49,7 @@
     <string name="str_reinvest_c">이자 즉시 위임</string>
     <string name="str_before">이전</string>
     <string name="str_cancel">취소</string>
+    <string name="str_unknown_error">Unknown error</string>
     <string name="str_no_more_3day">3일간 숨기기</string>
     <string name="str_continue">계속</string>
     <string name="str_connect">연결</string>
@@ -918,7 +919,7 @@
     <string name="str_more_wait_swap_title">스왑아이디 확인 지연</string>
     <string name="str_more_wait_swap_msg">보내는 체인에서 정상적으로 스왑을 시도하였지만, 스왑아이디가 검색되지 않습니다. \"기다리기\" 버튼을 누르시면 계속해서 스왑아이디를 검색하며 스왑 기능을 진행합니다. \"닫기\" 버튼을 누르시면 일정 시간 이후 원래 지갑으로 코인이 반환됩니다.</string>
     <string name="str_swap_error_title">스왑 Tx 에러</string>
-    <string name="str_swap_error_msg_create">죄송합니다. \n스왑 Tx중 보내기 중 에러가 발생하였습니다. 아래 내용을 확인해 주세요.</string>
+    <string name="str_swap_error_msg_create">죄송합니다.\n스왑 Tx중 보내기 중 에러가 발생하였습니다.\n아래 내용을 확인해 주세요.</string>
     <string name="str_swap_error_msg_claim">죄송합니다. \n스왑 Tx 받기 중 에러가 발생하였습니다. 아래 내용을 확인해 주세요.</string>
     <string name="str_app_unlock_title">앱 잠금 해제</string>
     <string name="str_app_unlock_msg1">PIN 번호를 입력하여 앱 잠금을 해제하세요</string>
@@ -1124,7 +1125,7 @@
     <string name="str_check_estimate_gas_amount">예상 가스량 확인</string>
     <string name="str_apply_estimate_gas_amount">예상 가스량을 사용합니다.</string>
     <string name="str_mnemonics_warning_title">니모닉을 넣지마세요.</string>
-    <string name="str_mnemonics_warning_msg"><b>메모에 니모닉을 입력하면\n 당신의 자산을 잃어버리게 됩니다.</b>\n니모닉 문구를 절대로 공유하지 마십시오.\n노출 또는 분실에 대한 책임은 소유자에게 있습니다.</string>
+    <string name="str_mnemonics_warning_msg"><b>메모에 니모닉을 입력하면\n당신의 자산을 잃어버리게 됩니다.</b>\n니모닉 문구를 절대로 공유하지 마십시오.\n노출 또는 분실에 대한 책임은 소유자에게 있습니다.</string>
     <string name="str_ibc_sender">보내는 주소</string>
     <string name="str_ibc_receiver">받는 주소</string>
     <string name="str_ibc_recipent">받는 주소</string>
