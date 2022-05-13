@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_StarName_Export_Confirm;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -127,12 +127,10 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
         } else if (toExport.addresses.size() < 1) {
             Toast.makeText(getBaseContext(), R.string.error_no_address_export, Toast.LENGTH_SHORT).show();
         } else {
-            Bundle bundle = new Bundle();
-            bundle.putString("msg", String.valueOf(toExport.addresses.size()));
-            bundle.putString("jsonData", jsonData);
-            Dialog_StarName_Export_Confirm exportDialog = Dialog_StarName_Export_Confirm.newInstance(bundle);
-            exportDialog.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(exportDialog, "dialog").commitNowAllowingStateLoss();
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_starname_walletconnect_alert_title),
+                    String.format(getString(R.string.str_starname_walletconnect_alert_msg2), String.valueOf(toExport.addresses.size())),
+                    getString(R.string.str_cancel), null,
+                    getString(R.string.str_continue), view -> onExportAddresses(jsonData), true);
         }
     }
 

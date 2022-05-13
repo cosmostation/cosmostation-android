@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +19,8 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Ok_Deposit_warning;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_DEPOSIT_CHECK = 9106;
@@ -80,12 +80,13 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
     public void onClick(View v) {
         if(v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
-
         } else if (v.equals(mConfirmBtn)) {
-            Dialog_Ok_Deposit_warning dialog = Dialog_Ok_Deposit_warning.newInstance();
-            dialog.setTargetFragment(OKStakingFragmentStep3.this, SELECT_DEPOSIT_CHECK);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_deposit_warn_title), getString(R.string.str_delegate_warn_msg),
+                    getString(R.string.str_cancel),null,
+                    getString(R.string.str_confirm), View -> {
+                        Intent resultIntent = new Intent();
+                        onActivityResult(SELECT_DEPOSIT_CHECK, Activity.RESULT_OK, resultIntent);
+                    },R.drawable.img_delegate_14_warning);
         }
     }
 

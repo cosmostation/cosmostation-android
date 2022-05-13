@@ -32,11 +32,11 @@
             style="@style/font_ss_12_gray1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_marginLeft="@dimen/space_24"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginRight="@dimen/space_24"
             tools:text="Description" />
-
 
         <View
             android:layout_width="match_parent"
@@ -58,6 +58,11 @@
                 android:background="@drawable/btn_dia_white"
                 android:textAllCaps="false"
                 tools:text="Button Title" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/colorGray10"/>
 
             <Button
                 android:id="@+id/btn_right"

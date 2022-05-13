@@ -32,7 +32,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
-import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
@@ -322,10 +321,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 return;
             }
 
-            Dialog_RewardAddressChangeInfo change = Dialog_RewardAddressChangeInfo.newInstance();
-            change.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(change, "dialog").commitNowAllowingStateLoss();
-
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_reward_address_change_title),
+                    getString(R.string.str_reward_address_change_msg) +"\n\n"+ AlertDialogUtils.highlightingText(getString(R.string.str_reward_address_change_market_no)),
+                    getString(R.string.str_cancel), null,
+                    getString(R.string.str_continue), view -> onStartChangeRewardAddress(), true);
         }
 
     }

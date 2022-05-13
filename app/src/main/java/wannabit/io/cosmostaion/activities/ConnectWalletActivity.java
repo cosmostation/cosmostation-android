@@ -617,7 +617,6 @@ public class ConnectWalletActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
         if (fromScheme(intent) && WC_URL_SCHEME_HOST_WC.equals(intent.getData().getHost())) {
             if (wcSession != null && wcClient.getSession() != null && wcClient != null && wcClient.isConnected()) {
                 return;

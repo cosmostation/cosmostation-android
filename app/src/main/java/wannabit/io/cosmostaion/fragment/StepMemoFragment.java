@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -34,10 +36,8 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Mnemonics_Warning;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class StepMemoFragment extends BaseFragment implements View.OnClickListener {
 
@@ -163,7 +163,6 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         if(v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
-
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
             if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
@@ -171,10 +170,18 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                     getSActivity().mTxMemo = mMemo.getText().toString().trim();
                     getSActivity().onNextStep();
                 } else {
-                    Dialog_Mnemonics_Warning warning = Dialog_Mnemonics_Warning.newInstance();
-                    warning.setCancelable(true);
-                    warning.setTargetFragment(this, AGAIN_MEMO);
-                    getFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
+                    AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), AlertDialogUtils.highlightingText(getString(R.string.str_mnemonics_warning_title)),
+                            getString(R.string.str_mnemonics_warning_msg),
+                            getString(R.string.str_enter_again),View -> {
+                                Intent resultIntent = new Intent();
+                                resultIntent.putExtra("memo", 0);
+                                onActivityResult(AGAIN_MEMO, Activity.RESULT_OK, resultIntent);
+                            },
+                            getString(R.string.str_Ignore), View -> {
+                                Intent resultIntent = new Intent();
+                                resultIntent.putExtra("memo", 1);
+                                onActivityResult(AGAIN_MEMO, Activity.RESULT_OK, resultIntent);
+                            }, R.drawable.img_mnemonic_warning);
                 }
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_memo, Toast.LENGTH_SHORT).show();
