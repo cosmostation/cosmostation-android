@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,13 +30,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_My_ValidatorSorting;
+import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class ValidatorMyFragment extends BaseFragment implements View.OnClickListener {
 
@@ -372,10 +372,19 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     }
 
     public void onShowMyValidatorSort() {
-        Dialog_My_ValidatorSorting bottomSheetDialog = Dialog_My_ValidatorSorting.getInstance();
-        bottomSheetDialog.setArguments(null);
-        bottomSheetDialog.setTargetFragment(ValidatorMyFragment.this, SELECT_MY_VALIDATOR_SORTING);
-        bottomSheetDialog.show(getFragmentManager(), "dialog");
+        CustomAlertDialog.showTripleButton(getMainActivity(),getString(R.string.str_sorting_s),null,
+                getString(R.string.str_sorting_by_name), View -> {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("sorting", 0);
+                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent); },
+                getString(R.string.str_sorting_by_my_delegated), View -> {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("sorting", 1);
+                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent); },
+                getString(R.string.str_sorting_by_reward),View -> {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("sorting", 2);
+                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent); });
     }
 
     @Override

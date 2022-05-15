@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,12 +39,12 @@ public class Dialog_Starname_Domain extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_starname_domain, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_domain, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.recycler);
         mStarnameDomain = getArguments().getStringArrayList("domain");
 
@@ -51,9 +52,6 @@ public class Dialog_Starname_Domain extends DialogFragment {
         mRecyclerView.setHasFixedSize(true);
         mDomainListAdapter = new DomainListAdapter();
         mRecyclerView.setAdapter(mDomainListAdapter);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
 
     private class DomainListAdapter extends RecyclerView.Adapter<DomainListAdapter.DomainListHolder> {

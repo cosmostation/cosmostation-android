@@ -31,7 +31,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Lockup_Duration;
+import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Unbonding_All;
 import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Unlock_All;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -206,8 +206,10 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        Dialog_Osmo_Lockup_Duration bottomSheetDialog = Dialog_Osmo_Lockup_Duration.getInstance();
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+        CustomAlertDialog.showTripleButton(this,"Unbonding Duration",null,
+                "1 Day", view -> onStartNewEarning(864001),
+                "7 Day", view -> onStartNewEarning(604800),
+                "14Day",view -> onStartNewEarning(12096001));
     }
 
     public void onStartNewEarning(long unbondingDuration) {

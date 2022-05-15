@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
@@ -162,6 +163,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         onAccountSwitched();
         onChainSelect(mBaseChain);
+        CustomAlertDialog.showTripleButton(this,null,"test",
+                "btn1", null,
+                "btn2",null,
+                "btn3",null);
     }
 
     public void onAddressDialog() {
