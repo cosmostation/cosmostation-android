@@ -18220,6 +18220,1570 @@ public final class QueryOuterClass {
 
   }
 
+  public interface AccountLockedDurationRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.lockup.AccountLockedDurationRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+     * @return The owner.
+     */
+    java.lang.String getOwner();
+    /**
+     * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+     * @return The bytes for owner.
+     */
+    com.google.protobuf.ByteString
+        getOwnerBytes();
+
+    /**
+     * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+     * @return Whether the duration field is set.
+     */
+    boolean hasDuration();
+    /**
+     * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+     * @return The duration.
+     */
+    com.google.protobuf.Duration getDuration();
+    /**
+     * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+     */
+    com.google.protobuf.DurationOrBuilder getDurationOrBuilder();
+  }
+  /**
+   * Protobuf type {@code osmosis.lockup.AccountLockedDurationRequest}
+   */
+  public static final class AccountLockedDurationRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedDurationRequest)
+      AccountLockedDurationRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AccountLockedDurationRequest.newBuilder() to construct.
+    private AccountLockedDurationRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AccountLockedDurationRequest() {
+      owner_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AccountLockedDurationRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AccountLockedDurationRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              owner_ = s;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.Duration.Builder subBuilder = null;
+              if (duration_ != null) {
+                subBuilder = duration_.toBuilder();
+              }
+              duration_ = input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(duration_);
+                duration_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.class, osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.Builder.class);
+    }
+
+    public static final int OWNER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object owner_;
+    /**
+     * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+     * @return The owner.
+     */
+    @java.lang.Override
+    public java.lang.String getOwner() {
+      java.lang.Object ref = owner_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        owner_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+     * @return The bytes for owner.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOwnerBytes() {
+      java.lang.Object ref = owner_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        owner_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DURATION_FIELD_NUMBER = 2;
+    private com.google.protobuf.Duration duration_;
+    /**
+     * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+     * @return Whether the duration field is set.
+     */
+    @java.lang.Override
+    public boolean hasDuration() {
+      return duration_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+     * @return The duration.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Duration getDuration() {
+      return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
+    }
+    /**
+     * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
+      return getDuration();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getOwnerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, owner_);
+      }
+      if (duration_ != null) {
+        output.writeMessage(2, getDuration());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getOwnerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, owner_);
+      }
+      if (duration_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getDuration());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest)) {
+        return super.equals(obj);
+      }
+      osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest other = (osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest) obj;
+
+      if (!getOwner()
+          .equals(other.getOwner())) return false;
+      if (hasDuration() != other.hasDuration()) return false;
+      if (hasDuration()) {
+        if (!getDuration()
+            .equals(other.getDuration())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + OWNER_FIELD_NUMBER;
+      hash = (53 * hash) + getOwner().hashCode();
+      if (hasDuration()) {
+        hash = (37 * hash) + DURATION_FIELD_NUMBER;
+        hash = (53 * hash) + getDuration().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.lockup.AccountLockedDurationRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.lockup.AccountLockedDurationRequest)
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.class, osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.Builder.class);
+      }
+
+      // Construct using osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        owner_ = "";
+
+        if (durationBuilder_ == null) {
+          duration_ = null;
+        } else {
+          duration_ = null;
+          durationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest getDefaultInstanceForType() {
+        return osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest build() {
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest buildPartial() {
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest result = new osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest(this);
+        result.owner_ = owner_;
+        if (durationBuilder_ == null) {
+          result.duration_ = duration_;
+        } else {
+          result.duration_ = durationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest) {
+          return mergeFrom((osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest other) {
+        if (other == osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.getDefaultInstance()) return this;
+        if (!other.getOwner().isEmpty()) {
+          owner_ = other.owner_;
+          onChanged();
+        }
+        if (other.hasDuration()) {
+          mergeDuration(other.getDuration());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object owner_ = "";
+      /**
+       * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+       * @return The owner.
+       */
+      public java.lang.String getOwner() {
+        java.lang.Object ref = owner_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          owner_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+       * @return The bytes for owner.
+       */
+      public com.google.protobuf.ByteString
+          getOwnerBytes() {
+        java.lang.Object ref = owner_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          owner_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+       * @param value The owner to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOwner(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        owner_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOwner() {
+        
+        owner_ = getDefaultInstance().getOwner();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
+       * @param value The bytes for owner to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOwnerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        owner_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Duration duration_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> durationBuilder_;
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       * @return Whether the duration field is set.
+       */
+      public boolean hasDuration() {
+        return durationBuilder_ != null || duration_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       * @return The duration.
+       */
+      public com.google.protobuf.Duration getDuration() {
+        if (durationBuilder_ == null) {
+          return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
+        } else {
+          return durationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder setDuration(com.google.protobuf.Duration value) {
+        if (durationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          duration_ = value;
+          onChanged();
+        } else {
+          durationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder setDuration(
+          com.google.protobuf.Duration.Builder builderForValue) {
+        if (durationBuilder_ == null) {
+          duration_ = builderForValue.build();
+          onChanged();
+        } else {
+          durationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder mergeDuration(com.google.protobuf.Duration value) {
+        if (durationBuilder_ == null) {
+          if (duration_ != null) {
+            duration_ =
+              com.google.protobuf.Duration.newBuilder(duration_).mergeFrom(value).buildPartial();
+          } else {
+            duration_ = value;
+          }
+          onChanged();
+        } else {
+          durationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder clearDuration() {
+        if (durationBuilder_ == null) {
+          duration_ = null;
+          onChanged();
+        } else {
+          duration_ = null;
+          durationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public com.google.protobuf.Duration.Builder getDurationBuilder() {
+        
+        onChanged();
+        return getDurationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
+        if (durationBuilder_ != null) {
+          return durationBuilder_.getMessageOrBuilder();
+        } else {
+          return duration_ == null ?
+              com.google.protobuf.Duration.getDefaultInstance() : duration_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
+          getDurationFieldBuilder() {
+        if (durationBuilder_ == null) {
+          durationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
+                  getDuration(),
+                  getParentForChildren(),
+                  isClean());
+          duration_ = null;
+        }
+        return durationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.lockup.AccountLockedDurationRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.lockup.AccountLockedDurationRequest)
+    private static final osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest();
+    }
+
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AccountLockedDurationRequest>
+        PARSER = new com.google.protobuf.AbstractParser<AccountLockedDurationRequest>() {
+      @java.lang.Override
+      public AccountLockedDurationRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AccountLockedDurationRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AccountLockedDurationRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AccountLockedDurationRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AccountLockedDurationResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.lockup.AccountLockedDurationResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<osmosis.lockup.Lock.PeriodLock> 
+        getLocksList();
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.lockup.Lock.PeriodLock getLocks(int index);
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    int getLocksCount();
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
+        getLocksOrBuilderList();
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code osmosis.lockup.AccountLockedDurationResponse}
+   */
+  public static final class AccountLockedDurationResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedDurationResponse)
+      AccountLockedDurationResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AccountLockedDurationResponse.newBuilder() to construct.
+    private AccountLockedDurationResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AccountLockedDurationResponse() {
+      locks_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AccountLockedDurationResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AccountLockedDurationResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                locks_ = new java.util.ArrayList<osmosis.lockup.Lock.PeriodLock>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              locks_.add(
+                  input.readMessage(osmosis.lockup.Lock.PeriodLock.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          locks_ = java.util.Collections.unmodifiableList(locks_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.class, osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.Builder.class);
+    }
+
+    public static final int LOCKS_FIELD_NUMBER = 1;
+    private java.util.List<osmosis.lockup.Lock.PeriodLock> locks_;
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
+      return locks_;
+    }
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
+        getLocksOrBuilderList() {
+      return locks_;
+    }
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getLocksCount() {
+      return locks_.size();
+    }
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
+      return locks_.get(index);
+    }
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
+        int index) {
+      return locks_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < locks_.size(); i++) {
+        output.writeMessage(1, locks_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < locks_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, locks_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse)) {
+        return super.equals(obj);
+      }
+      osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse other = (osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse) obj;
+
+      if (!getLocksList()
+          .equals(other.getLocksList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getLocksCount() > 0) {
+        hash = (37 * hash) + LOCKS_FIELD_NUMBER;
+        hash = (53 * hash) + getLocksList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.lockup.AccountLockedDurationResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.lockup.AccountLockedDurationResponse)
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.class, osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.Builder.class);
+      }
+
+      // Construct using osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getLocksFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (locksBuilder_ == null) {
+          locks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          locksBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_AccountLockedDurationResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse getDefaultInstanceForType() {
+        return osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse build() {
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse buildPartial() {
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse result = new osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (locksBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            locks_ = java.util.Collections.unmodifiableList(locks_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.locks_ = locks_;
+        } else {
+          result.locks_ = locksBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse) {
+          return mergeFrom((osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse other) {
+        if (other == osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.getDefaultInstance()) return this;
+        if (locksBuilder_ == null) {
+          if (!other.locks_.isEmpty()) {
+            if (locks_.isEmpty()) {
+              locks_ = other.locks_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureLocksIsMutable();
+              locks_.addAll(other.locks_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.locks_.isEmpty()) {
+            if (locksBuilder_.isEmpty()) {
+              locksBuilder_.dispose();
+              locksBuilder_ = null;
+              locks_ = other.locks_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              locksBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getLocksFieldBuilder() : null;
+            } else {
+              locksBuilder_.addAllMessages(other.locks_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<osmosis.lockup.Lock.PeriodLock> locks_ =
+        java.util.Collections.emptyList();
+      private void ensureLocksIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          locks_ = new java.util.ArrayList<osmosis.lockup.Lock.PeriodLock>(locks_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.lockup.Lock.PeriodLock, osmosis.lockup.Lock.PeriodLock.Builder, osmosis.lockup.Lock.PeriodLockOrBuilder> locksBuilder_;
+
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
+        if (locksBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(locks_);
+        } else {
+          return locksBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getLocksCount() {
+        if (locksBuilder_ == null) {
+          return locks_.size();
+        } else {
+          return locksBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
+        if (locksBuilder_ == null) {
+          return locks_.get(index);
+        } else {
+          return locksBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setLocks(
+          int index, osmosis.lockup.Lock.PeriodLock value) {
+        if (locksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLocksIsMutable();
+          locks_.set(index, value);
+          onChanged();
+        } else {
+          locksBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setLocks(
+          int index, osmosis.lockup.Lock.PeriodLock.Builder builderForValue) {
+        if (locksBuilder_ == null) {
+          ensureLocksIsMutable();
+          locks_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          locksBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addLocks(osmosis.lockup.Lock.PeriodLock value) {
+        if (locksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLocksIsMutable();
+          locks_.add(value);
+          onChanged();
+        } else {
+          locksBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addLocks(
+          int index, osmosis.lockup.Lock.PeriodLock value) {
+        if (locksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLocksIsMutable();
+          locks_.add(index, value);
+          onChanged();
+        } else {
+          locksBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addLocks(
+          osmosis.lockup.Lock.PeriodLock.Builder builderForValue) {
+        if (locksBuilder_ == null) {
+          ensureLocksIsMutable();
+          locks_.add(builderForValue.build());
+          onChanged();
+        } else {
+          locksBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addLocks(
+          int index, osmosis.lockup.Lock.PeriodLock.Builder builderForValue) {
+        if (locksBuilder_ == null) {
+          ensureLocksIsMutable();
+          locks_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          locksBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllLocks(
+          java.lang.Iterable<? extends osmosis.lockup.Lock.PeriodLock> values) {
+        if (locksBuilder_ == null) {
+          ensureLocksIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, locks_);
+          onChanged();
+        } else {
+          locksBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearLocks() {
+        if (locksBuilder_ == null) {
+          locks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          locksBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeLocks(int index) {
+        if (locksBuilder_ == null) {
+          ensureLocksIsMutable();
+          locks_.remove(index);
+          onChanged();
+        } else {
+          locksBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.PeriodLock.Builder getLocksBuilder(
+          int index) {
+        return getLocksFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
+          int index) {
+        if (locksBuilder_ == null) {
+          return locks_.get(index);  } else {
+          return locksBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
+           getLocksOrBuilderList() {
+        if (locksBuilder_ != null) {
+          return locksBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(locks_);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.PeriodLock.Builder addLocksBuilder() {
+        return getLocksFieldBuilder().addBuilder(
+            osmosis.lockup.Lock.PeriodLock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.PeriodLock.Builder addLocksBuilder(
+          int index) {
+        return getLocksFieldBuilder().addBuilder(
+            index, osmosis.lockup.Lock.PeriodLock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.lockup.Lock.PeriodLock.Builder> 
+           getLocksBuilderList() {
+        return getLocksFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.lockup.Lock.PeriodLock, osmosis.lockup.Lock.PeriodLock.Builder, osmosis.lockup.Lock.PeriodLockOrBuilder> 
+          getLocksFieldBuilder() {
+        if (locksBuilder_ == null) {
+          locksBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              osmosis.lockup.Lock.PeriodLock, osmosis.lockup.Lock.PeriodLock.Builder, osmosis.lockup.Lock.PeriodLockOrBuilder>(
+                  locks_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          locks_ = null;
+        }
+        return locksBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.lockup.AccountLockedDurationResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.lockup.AccountLockedDurationResponse)
+    private static final osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse();
+    }
+
+    public static osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AccountLockedDurationResponse>
+        PARSER = new com.google.protobuf.AbstractParser<AccountLockedDurationResponse>() {
+      @java.lang.Override
+      public AccountLockedDurationResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AccountLockedDurationResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AccountLockedDurationResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AccountLockedDurationResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface AccountLockedLongerDurationNotUnlockingOnlyRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:osmosis.lockup.AccountLockedLongerDurationNotUnlockingOnlyRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -21629,6 +23193,16 @@ public final class QueryOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_osmosis_lockup_AccountLockedLongerDurationResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_lockup_AccountLockedDurationRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_lockup_AccountLockedDurationRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_lockup_AccountLockedDurationResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_lockup_AccountLockedDurationResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -21725,94 +23299,104 @@ public final class QueryOuterClass {
       "oogle.protobuf.DurationB\033\230\337\037\001\310\336\037\000\362\336\037\017yam" +
       "l:\"duration\"\"V\n#AccountLockedLongerDurat" +
       "ionResponse\022/\n\005locks\030\001 \003(\0132\032.osmosis.loc" +
-      "kup.PeriodLockB\004\310\336\037\000\"\237\001\n2AccountLockedLo" +
-      "ngerDurationNotUnlockingOnlyRequest\022\037\n\005o" +
-      "wner\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022H\n\010duration" +
-      "\030\002 \001(\0132\031.google.protobuf.DurationB\033\230\337\037\001\310" +
-      "\336\037\000\362\336\037\017yaml:\"duration\"\"f\n3AccountLockedL" +
-      "ongerDurationNotUnlockingOnlyResponse\022/\n" +
-      "\005locks\030\001 \003(\0132\032.osmosis.lockup.PeriodLock" +
-      "B\004\310\336\037\000\"\243\001\n\'AccountLockedLongerDurationDe" +
-      "nomRequest\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"own" +
-      "er\"\022H\n\010duration\030\002 \001(\0132\031.google.protobuf." +
-      "DurationB\033\230\337\037\001\310\336\037\000\362\336\037\017yaml:\"duration\"\022\r\n" +
-      "\005denom\030\003 \001(\t\"[\n(AccountLockedLongerDurat" +
-      "ionDenomResponse\022/\n\005locks\030\001 \003(\0132\032.osmosi" +
-      "s.lockup.PeriodLockB\004\310\336\037\0002\311\026\n\005Query\022\214\001\n\r" +
-      "ModuleBalance\022$.osmosis.lockup.ModuleBal" +
-      "anceRequest\032%.osmosis.lockup.ModuleBalan" +
-      "ceResponse\".\202\323\344\223\002(\022&/osmosis/lockup/v1be" +
-      "ta1/module_balance\022\241\001\n\022ModuleLockedAmoun" +
-      "t\022).osmosis.lockup.ModuleLockedAmountReq" +
-      "uest\032*.osmosis.lockup.ModuleLockedAmount" +
-      "Response\"4\202\323\344\223\002.\022,/osmosis/lockup/v1beta" +
-      "1/module_locked_amount\022\271\001\n\026AccountUnlock" +
-      "ableCoins\022-.osmosis.lockup.AccountUnlock" +
-      "ableCoinsRequest\032..osmosis.lockup.Accoun" +
-      "tUnlockableCoinsResponse\"@\202\323\344\223\002:\0228/osmos" +
-      "is/lockup/v1beta1/account_unlockable_coi" +
-      "ns/{owner}\022\265\001\n\025AccountUnlockingCoins\022,.o" +
-      "smosis.lockup.AccountUnlockingCoinsReque" +
-      "st\032-.osmosis.lockup.AccountUnlockingCoin" +
-      "sResponse\"?\202\323\344\223\0029\0227/osmosis/lockup/v1bet" +
-      "a1/account_unlocking_coins/{owner}\022\251\001\n\022A" +
-      "ccountLockedCoins\022).osmosis.lockup.Accou" +
-      "ntLockedCoinsRequest\032*.osmosis.lockup.Ac" +
-      "countLockedCoinsResponse\"<\202\323\344\223\0026\0224/osmos" +
-      "is/lockup/v1beta1/account_locked_coins/{" +
-      "owner}\022\265\001\n\025AccountLockedPastTime\022,.osmos" +
-      "is.lockup.AccountLockedPastTimeRequest\032-" +
-      ".osmosis.lockup.AccountLockedPastTimeRes" +
-      "ponse\"?\202\323\344\223\0029\0227/osmosis/lockup/v1beta1/a" +
-      "ccount_locked_pasttime/{owner}\022\370\001\n%Accou" +
-      "ntLockedPastTimeNotUnlockingOnly\022<.osmos" +
-      "is.lockup.AccountLockedPastTimeNotUnlock" +
-      "ingOnlyRequest\032=.osmosis.lockup.AccountL" +
-      "ockedPastTimeNotUnlockingOnlyResponse\"R\202" +
-      "\323\344\223\002L\022J/osmosis/lockup/v1beta1/account_l" +
-      "ocked_pasttime_not_unlocking_only/{owner" +
-      "}\022\306\001\n\031AccountUnlockedBeforeTime\0220.osmosi" +
-      "s.lockup.AccountUnlockedBeforeTimeReques" +
-      "t\0321.osmosis.lockup.AccountUnlockedBefore" +
-      "TimeResponse\"D\202\323\344\223\002>\022</osmosis/lockup/v1" +
-      "beta1/account_unlocked_before_time/{owne" +
-      "r}\022\312\001\n\032AccountLockedPastTimeDenom\0221.osmo" +
-      "sis.lockup.AccountLockedPastTimeDenomReq" +
-      "uest\0322.osmosis.lockup.AccountLockedPastT" +
-      "imeDenomResponse\"E\202\323\344\223\002?\022=/osmosis/locku" +
-      "p/v1beta1/account_locked_pasttime_denom/" +
-      "{owner}\022\204\001\n\013LockedDenom\022\".osmosis.lockup" +
-      ".LockedDenomRequest\032#.osmosis.lockup.Loc" +
-      "kedDenomResponse\",\202\323\344\223\002&\022$/osmosis/locku" +
-      "p/v1beta1/locked_denom\022\203\001\n\nLockedByID\022\035." +
-      "osmosis.lockup.LockedRequest\032\036.osmosis.l" +
-      "ockup.LockedResponse\"6\202\323\344\223\0020\022./osmosis/l" +
-      "ockup/v1beta1/locked_by_id/{lock_id}\022\313\001\n" +
-      "\032SyntheticLockupsByLockupID\0221.osmosis.lo" +
-      "ckup.SyntheticLockupsByLockupIDRequest\0322" +
-      ".osmosis.lockup.SyntheticLockupsByLockup" +
-      "IDResponse\"F\202\323\344\223\002@\022>/osmosis/lockup/v1be" +
-      "ta1/synthetic_lockups_by_lock_id/{lock_i" +
-      "d}\022\316\001\n\033AccountLockedLongerDuration\0222.osm" +
-      "osis.lockup.AccountLockedLongerDurationR" +
-      "equest\0323.osmosis.lockup.AccountLockedLon" +
-      "gerDurationResponse\"F\202\323\344\223\002@\022>/osmosis/lo" +
-      "ckup/v1beta1/account_locked_longer_durat" +
-      "ion/{owner}\022\221\002\n+AccountLockedLongerDurat" +
-      "ionNotUnlockingOnly\022B.osmosis.lockup.Acc" +
-      "ountLockedLongerDurationNotUnlockingOnly" +
-      "Request\032C.osmosis.lockup.AccountLockedLo" +
-      "ngerDurationNotUnlockingOnlyResponse\"Y\202\323" +
-      "\344\223\002S\022Q/osmosis/lockup/v1beta1/account_lo" +
-      "cked_longer_duration_not_unlocking_only/" +
-      "{owner}\022\343\001\n AccountLockedLongerDurationD" +
-      "enom\0227.osmosis.lockup.AccountLockedLonge" +
-      "rDurationDenomRequest\0328.osmosis.lockup.A" +
-      "ccountLockedLongerDurationDenomResponse\"" +
-      "L\202\323\344\223\002F\022D/osmosis/lockup/v1beta1/account" +
-      "_locked_longer_duration_denom/{owner}B3Z" +
-      "1github.com/osmosis-labs/osmosis/v7/x/lo" +
-      "ckup/typesb\006proto3"
+      "kup.PeriodLockB\004\310\336\037\000\"\211\001\n\034AccountLockedDu" +
+      "rationRequest\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"" +
+      "owner\"\022H\n\010duration\030\002 \001(\0132\031.google.protob" +
+      "uf.DurationB\033\230\337\037\001\310\336\037\000\362\336\037\017yaml:\"duration\"" +
+      "\"P\n\035AccountLockedDurationResponse\022/\n\005loc" +
+      "ks\030\001 \003(\0132\032.osmosis.lockup.PeriodLockB\004\310\336" +
+      "\037\000\"\237\001\n2AccountLockedLongerDurationNotUnl" +
+      "ockingOnlyRequest\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014ya" +
+      "ml:\"owner\"\022H\n\010duration\030\002 \001(\0132\031.google.pr" +
+      "otobuf.DurationB\033\230\337\037\001\310\336\037\000\362\336\037\017yaml:\"durat" +
+      "ion\"\"f\n3AccountLockedLongerDurationNotUn" +
+      "lockingOnlyResponse\022/\n\005locks\030\001 \003(\0132\032.osm" +
+      "osis.lockup.PeriodLockB\004\310\336\037\000\"\243\001\n\'Account" +
+      "LockedLongerDurationDenomRequest\022\037\n\005owne" +
+      "r\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022H\n\010duration\030\002 " +
+      "\001(\0132\031.google.protobuf.DurationB\033\230\337\037\001\310\336\037\000" +
+      "\362\336\037\017yaml:\"duration\"\022\r\n\005denom\030\003 \001(\t\"[\n(Ac" +
+      "countLockedLongerDurationDenomResponse\022/" +
+      "\n\005locks\030\001 \003(\0132\032.osmosis.lockup.PeriodLoc" +
+      "kB\004\310\336\037\0002\201\030\n\005Query\022\214\001\n\rModuleBalance\022$.os" +
+      "mosis.lockup.ModuleBalanceRequest\032%.osmo" +
+      "sis.lockup.ModuleBalanceResponse\".\202\323\344\223\002(" +
+      "\022&/osmosis/lockup/v1beta1/module_balance" +
+      "\022\241\001\n\022ModuleLockedAmount\022).osmosis.lockup" +
+      ".ModuleLockedAmountRequest\032*.osmosis.loc" +
+      "kup.ModuleLockedAmountResponse\"4\202\323\344\223\002.\022," +
+      "/osmosis/lockup/v1beta1/module_locked_am" +
+      "ount\022\271\001\n\026AccountUnlockableCoins\022-.osmosi" +
+      "s.lockup.AccountUnlockableCoinsRequest\032." +
+      ".osmosis.lockup.AccountUnlockableCoinsRe" +
+      "sponse\"@\202\323\344\223\002:\0228/osmosis/lockup/v1beta1/" +
+      "account_unlockable_coins/{owner}\022\265\001\n\025Acc" +
+      "ountUnlockingCoins\022,.osmosis.lockup.Acco" +
+      "untUnlockingCoinsRequest\032-.osmosis.locku" +
+      "p.AccountUnlockingCoinsResponse\"?\202\323\344\223\0029\022" +
+      "7/osmosis/lockup/v1beta1/account_unlocki" +
+      "ng_coins/{owner}\022\251\001\n\022AccountLockedCoins\022" +
+      ").osmosis.lockup.AccountLockedCoinsReque" +
+      "st\032*.osmosis.lockup.AccountLockedCoinsRe" +
+      "sponse\"<\202\323\344\223\0026\0224/osmosis/lockup/v1beta1/" +
+      "account_locked_coins/{owner}\022\265\001\n\025Account" +
+      "LockedPastTime\022,.osmosis.lockup.AccountL" +
+      "ockedPastTimeRequest\032-.osmosis.lockup.Ac" +
+      "countLockedPastTimeResponse\"?\202\323\344\223\0029\0227/os" +
+      "mosis/lockup/v1beta1/account_locked_past" +
+      "time/{owner}\022\370\001\n%AccountLockedPastTimeNo" +
+      "tUnlockingOnly\022<.osmosis.lockup.AccountL" +
+      "ockedPastTimeNotUnlockingOnlyRequest\032=.o" +
+      "smosis.lockup.AccountLockedPastTimeNotUn" +
+      "lockingOnlyResponse\"R\202\323\344\223\002L\022J/osmosis/lo" +
+      "ckup/v1beta1/account_locked_pasttime_not" +
+      "_unlocking_only/{owner}\022\306\001\n\031AccountUnloc" +
+      "kedBeforeTime\0220.osmosis.lockup.AccountUn" +
+      "lockedBeforeTimeRequest\0321.osmosis.lockup" +
+      ".AccountUnlockedBeforeTimeResponse\"D\202\323\344\223" +
+      "\002>\022</osmosis/lockup/v1beta1/account_unlo" +
+      "cked_before_time/{owner}\022\312\001\n\032AccountLock" +
+      "edPastTimeDenom\0221.osmosis.lockup.Account" +
+      "LockedPastTimeDenomRequest\0322.osmosis.loc" +
+      "kup.AccountLockedPastTimeDenomResponse\"E" +
+      "\202\323\344\223\002?\022=/osmosis/lockup/v1beta1/account_" +
+      "locked_pasttime_denom/{owner}\022\204\001\n\013Locked" +
+      "Denom\022\".osmosis.lockup.LockedDenomReques" +
+      "t\032#.osmosis.lockup.LockedDenomResponse\"," +
+      "\202\323\344\223\002&\022$/osmosis/lockup/v1beta1/locked_d" +
+      "enom\022\203\001\n\nLockedByID\022\035.osmosis.lockup.Loc" +
+      "kedRequest\032\036.osmosis.lockup.LockedRespon" +
+      "se\"6\202\323\344\223\0020\022./osmosis/lockup/v1beta1/lock" +
+      "ed_by_id/{lock_id}\022\313\001\n\032SyntheticLockupsB" +
+      "yLockupID\0221.osmosis.lockup.SyntheticLock" +
+      "upsByLockupIDRequest\0322.osmosis.lockup.Sy" +
+      "ntheticLockupsByLockupIDResponse\"F\202\323\344\223\002@" +
+      "\022>/osmosis/lockup/v1beta1/synthetic_lock" +
+      "ups_by_lock_id/{lock_id}\022\316\001\n\033AccountLock" +
+      "edLongerDuration\0222.osmosis.lockup.Accoun" +
+      "tLockedLongerDurationRequest\0323.osmosis.l" +
+      "ockup.AccountLockedLongerDurationRespons" +
+      "e\"F\202\323\344\223\002@\022>/osmosis/lockup/v1beta1/accou" +
+      "nt_locked_longer_duration/{owner}\022\265\001\n\025Ac" +
+      "countLockedDuration\022,.osmosis.lockup.Acc" +
+      "ountLockedDurationRequest\032-.osmosis.lock" +
+      "up.AccountLockedDurationResponse\"?\202\323\344\223\0029" +
+      "\0227/osmosis/lockup/v1beta1/account_locked" +
+      "_duration/{owner}\022\221\002\n+AccountLockedLonge" +
+      "rDurationNotUnlockingOnly\022B.osmosis.lock" +
+      "up.AccountLockedLongerDurationNotUnlocki" +
+      "ngOnlyRequest\032C.osmosis.lockup.AccountLo" +
+      "ckedLongerDurationNotUnlockingOnlyRespon" +
+      "se\"Y\202\323\344\223\002S\022Q/osmosis/lockup/v1beta1/acco" +
+      "unt_locked_longer_duration_not_unlocking" +
+      "_only/{owner}\022\343\001\n AccountLockedLongerDur" +
+      "ationDenom\0227.osmosis.lockup.AccountLocke" +
+      "dLongerDurationDenomRequest\0328.osmosis.lo" +
+      "ckup.AccountLockedLongerDurationDenomRes" +
+      "ponse\"L\202\323\344\223\002F\022D/osmosis/lockup/v1beta1/a" +
+      "ccount_locked_longer_duration_denom/{own" +
+      "er}B3Z1github.com/osmosis-labs/osmosis/v" +
+      "7/x/lockup/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -21980,26 +23564,38 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationResponse_descriptor,
         new java.lang.String[] { "Locks", });
-    internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyRequest_descriptor =
+    internal_static_osmosis_lockup_AccountLockedDurationRequest_descriptor =
       getDescriptor().getMessageTypes().get(26);
+    internal_static_osmosis_lockup_AccountLockedDurationRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_lockup_AccountLockedDurationRequest_descriptor,
+        new java.lang.String[] { "Owner", "Duration", });
+    internal_static_osmosis_lockup_AccountLockedDurationResponse_descriptor =
+      getDescriptor().getMessageTypes().get(27);
+    internal_static_osmosis_lockup_AccountLockedDurationResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_lockup_AccountLockedDurationResponse_descriptor,
+        new java.lang.String[] { "Locks", });
+    internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyRequest_descriptor =
+      getDescriptor().getMessageTypes().get(28);
     internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyRequest_descriptor,
         new java.lang.String[] { "Owner", "Duration", });
     internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyResponse_descriptor,
         new java.lang.String[] { "Locks", });
     internal_static_osmosis_lockup_AccountLockedLongerDurationDenomRequest_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_osmosis_lockup_AccountLockedLongerDurationDenomRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationDenomRequest_descriptor,
         new java.lang.String[] { "Owner", "Duration", "Denom", });
     internal_static_osmosis_lockup_AccountLockedLongerDurationDenomResponse_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_osmosis_lockup_AccountLockedLongerDurationDenomResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationDenomResponse_descriptor,

@@ -1225,6 +1225,1233 @@ public final class QueryOuterClass {
 
   }
 
+  public interface QueryDenomSpotPriceRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.txfees.v1beta1.QueryDenomSpotPriceRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+     * @return The denom.
+     */
+    java.lang.String getDenom();
+    /**
+     * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+     * @return The bytes for denom.
+     */
+    com.google.protobuf.ByteString
+        getDenomBytes();
+  }
+  /**
+   * <pre>
+   * QueryDenomSpotPriceRequest defines grpc request structure for querying spot
+   * price for the specified tx fee denom
+   * </pre>
+   *
+   * Protobuf type {@code osmosis.txfees.v1beta1.QueryDenomSpotPriceRequest}
+   */
+  public static final class QueryDenomSpotPriceRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.txfees.v1beta1.QueryDenomSpotPriceRequest)
+      QueryDenomSpotPriceRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryDenomSpotPriceRequest.newBuilder() to construct.
+    private QueryDenomSpotPriceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryDenomSpotPriceRequest() {
+      denom_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryDenomSpotPriceRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryDenomSpotPriceRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              denom_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.class, osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.Builder.class);
+    }
+
+    public static final int DENOM_FIELD_NUMBER = 1;
+    private volatile java.lang.Object denom_;
+    /**
+     * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+     * @return The denom.
+     */
+    @java.lang.Override
+    public java.lang.String getDenom() {
+      java.lang.Object ref = denom_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        denom_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+     * @return The bytes for denom.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDenomBytes() {
+      java.lang.Object ref = denom_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        denom_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getDenomBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, denom_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getDenomBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, denom_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest)) {
+        return super.equals(obj);
+      }
+      osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest other = (osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest) obj;
+
+      if (!getDenom()
+          .equals(other.getDenom())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DENOM_FIELD_NUMBER;
+      hash = (53 * hash) + getDenom().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryDenomSpotPriceRequest defines grpc request structure for querying spot
+     * price for the specified tx fee denom
+     * </pre>
+     *
+     * Protobuf type {@code osmosis.txfees.v1beta1.QueryDenomSpotPriceRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.txfees.v1beta1.QueryDenomSpotPriceRequest)
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.class, osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.Builder.class);
+      }
+
+      // Construct using osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        denom_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest getDefaultInstanceForType() {
+        return osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest build() {
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest buildPartial() {
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest result = new osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest(this);
+        result.denom_ = denom_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest) {
+          return mergeFrom((osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest other) {
+        if (other == osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.getDefaultInstance()) return this;
+        if (!other.getDenom().isEmpty()) {
+          denom_ = other.denom_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object denom_ = "";
+      /**
+       * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+       * @return The denom.
+       */
+      public java.lang.String getDenom() {
+        java.lang.Object ref = denom_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          denom_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+       * @return The bytes for denom.
+       */
+      public com.google.protobuf.ByteString
+          getDenomBytes() {
+        java.lang.Object ref = denom_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          denom_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+       * @param value The denom to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDenom(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        denom_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDenom() {
+        
+        denom_ = getDefaultInstance().getDenom();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
+       * @param value The bytes for denom to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDenomBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        denom_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.txfees.v1beta1.QueryDenomSpotPriceRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.txfees.v1beta1.QueryDenomSpotPriceRequest)
+    private static final osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest();
+    }
+
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryDenomSpotPriceRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryDenomSpotPriceRequest>() {
+      @java.lang.Override
+      public QueryDenomSpotPriceRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryDenomSpotPriceRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryDenomSpotPriceRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryDenomSpotPriceRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryDenomSpotPriceResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.txfees.v1beta1.QueryDenomSpotPriceResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 poolID = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * @return The poolID.
+     */
+    long getPoolID();
+
+    /**
+     * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+     * @return The spotPrice.
+     */
+    java.lang.String getSpotPrice();
+    /**
+     * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+     * @return The bytes for spotPrice.
+     */
+    com.google.protobuf.ByteString
+        getSpotPriceBytes();
+  }
+  /**
+   * <pre>
+   * QueryDenomSpotPriceRequest defines grpc response structure for querying spot
+   * price for the specified tx fee denom
+   * </pre>
+   *
+   * Protobuf type {@code osmosis.txfees.v1beta1.QueryDenomSpotPriceResponse}
+   */
+  public static final class QueryDenomSpotPriceResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.txfees.v1beta1.QueryDenomSpotPriceResponse)
+      QueryDenomSpotPriceResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryDenomSpotPriceResponse.newBuilder() to construct.
+    private QueryDenomSpotPriceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryDenomSpotPriceResponse() {
+      spotPrice_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryDenomSpotPriceResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryDenomSpotPriceResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              poolID_ = input.readUInt64();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              spotPrice_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.class, osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.Builder.class);
+    }
+
+    public static final int POOLID_FIELD_NUMBER = 1;
+    private long poolID_;
+    /**
+     * <code>uint64 poolID = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * @return The poolID.
+     */
+    @java.lang.Override
+    public long getPoolID() {
+      return poolID_;
+    }
+
+    public static final int SPOT_PRICE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object spotPrice_;
+    /**
+     * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+     * @return The spotPrice.
+     */
+    @java.lang.Override
+    public java.lang.String getSpotPrice() {
+      java.lang.Object ref = spotPrice_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        spotPrice_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+     * @return The bytes for spotPrice.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSpotPriceBytes() {
+      java.lang.Object ref = spotPrice_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        spotPrice_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (poolID_ != 0L) {
+        output.writeUInt64(1, poolID_);
+      }
+      if (!getSpotPriceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, spotPrice_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (poolID_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, poolID_);
+      }
+      if (!getSpotPriceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, spotPrice_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse)) {
+        return super.equals(obj);
+      }
+      osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse other = (osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse) obj;
+
+      if (getPoolID()
+          != other.getPoolID()) return false;
+      if (!getSpotPrice()
+          .equals(other.getSpotPrice())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + POOLID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPoolID());
+      hash = (37 * hash) + SPOT_PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + getSpotPrice().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryDenomSpotPriceRequest defines grpc response structure for querying spot
+     * price for the specified tx fee denom
+     * </pre>
+     *
+     * Protobuf type {@code osmosis.txfees.v1beta1.QueryDenomSpotPriceResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.txfees.v1beta1.QueryDenomSpotPriceResponse)
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.class, osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.Builder.class);
+      }
+
+      // Construct using osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        poolID_ = 0L;
+
+        spotPrice_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.txfees.v1beta1.QueryOuterClass.internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse getDefaultInstanceForType() {
+        return osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse build() {
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse buildPartial() {
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse result = new osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse(this);
+        result.poolID_ = poolID_;
+        result.spotPrice_ = spotPrice_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse) {
+          return mergeFrom((osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse other) {
+        if (other == osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.getDefaultInstance()) return this;
+        if (other.getPoolID() != 0L) {
+          setPoolID(other.getPoolID());
+        }
+        if (!other.getSpotPrice().isEmpty()) {
+          spotPrice_ = other.spotPrice_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long poolID_ ;
+      /**
+       * <code>uint64 poolID = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * @return The poolID.
+       */
+      @java.lang.Override
+      public long getPoolID() {
+        return poolID_;
+      }
+      /**
+       * <code>uint64 poolID = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * @param value The poolID to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPoolID(long value) {
+        
+        poolID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 poolID = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPoolID() {
+        
+        poolID_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object spotPrice_ = "";
+      /**
+       * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * @return The spotPrice.
+       */
+      public java.lang.String getSpotPrice() {
+        java.lang.Object ref = spotPrice_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          spotPrice_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * @return The bytes for spotPrice.
+       */
+      public com.google.protobuf.ByteString
+          getSpotPriceBytes() {
+        java.lang.Object ref = spotPrice_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          spotPrice_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * @param value The spotPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSpotPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        spotPrice_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSpotPrice() {
+        
+        spotPrice_ = getDefaultInstance().getSpotPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string spot_price = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * @param value The bytes for spotPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSpotPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        spotPrice_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.txfees.v1beta1.QueryDenomSpotPriceResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.txfees.v1beta1.QueryDenomSpotPriceResponse)
+    private static final osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse();
+    }
+
+    public static osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryDenomSpotPriceResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryDenomSpotPriceResponse>() {
+      @java.lang.Override
+      public QueryDenomSpotPriceResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryDenomSpotPriceResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryDenomSpotPriceResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryDenomSpotPriceResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface QueryDenomPoolIdRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:osmosis.txfees.v1beta1.QueryDenomPoolIdRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -3279,6 +4506,16 @@ public final class QueryOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_osmosis_txfees_v1beta1_QueryFeeTokensResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_osmosis_txfees_v1beta1_QueryDenomPoolIdRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -3314,26 +4551,36 @@ public final class QueryOuterClass {
       "/v1beta1/feetoken.proto\"\027\n\025QueryFeeToken" +
       "sRequest\"i\n\026QueryFeeTokensResponse\022O\n\nfe" +
       "e_tokens\030\001 \003(\0132 .osmosis.txfees.v1beta1." +
-      "FeeTokenB\031\362\336\037\021yaml:\"fee_tokens\"\310\336\037\000\":\n\027Q" +
-      "ueryDenomPoolIdRequest\022\037\n\005denom\030\001 \001(\tB\020\362" +
-      "\336\037\014yaml:\"denom\"\">\n\030QueryDenomPoolIdRespo" +
-      "nse\022\"\n\006poolID\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"" +
-      "\027\n\025QueryBaseDenomRequest\"C\n\026QueryBaseDen" +
-      "omResponse\022)\n\nbase_denom\030\001 \001(\tB\025\362\336\037\021yaml" +
-      ":\"base_denom\"2\343\003\n\005Query\022\226\001\n\tFeeTokens\022-." +
-      "osmosis.txfees.v1beta1.QueryFeeTokensReq" +
-      "uest\032..osmosis.txfees.v1beta1.QueryFeeTo" +
-      "kensResponse\"*\202\323\344\223\002$\022\"/osmosis/txfees/v1" +
-      "beta1/fee_tokens\022\247\001\n\013DenomPoolId\022/.osmos" +
-      "is.txfees.v1beta1.QueryDenomPoolIdReques" +
-      "t\0320.osmosis.txfees.v1beta1.QueryDenomPoo" +
-      "lIdResponse\"5\202\323\344\223\002/\022-/osmosis/txfees/v1b" +
-      "eta1/denom_pool_id/{denom}\022\226\001\n\tBaseDenom" +
-      "\022-.osmosis.txfees.v1beta1.QueryBaseDenom" +
-      "Request\032..osmosis.txfees.v1beta1.QueryBa" +
-      "seDenomResponse\"*\202\323\344\223\002$\022\"/osmosis/txfees" +
-      "/v1beta1/base_denomB3Z1github.com/osmosi" +
-      "s-labs/osmosis/v7/x/txfees/typesb\006proto3"
+      "FeeTokenB\031\362\336\037\021yaml:\"fee_tokens\"\310\336\037\000\"=\n\032Q" +
+      "ueryDenomSpotPriceRequest\022\037\n\005denom\030\001 \001(\t" +
+      "B\020\362\336\037\014yaml:\"denom\"\"\232\001\n\033QueryDenomSpotPri" +
+      "ceResponse\022\"\n\006poolID\030\001 \001(\004B\022\362\336\037\016yaml:\"po" +
+      "ol_id\"\022W\n\nspot_price\030\002 \001(\tBC\362\336\037\021yaml:\"sp" +
+      "ot_price\"\332\336\037&github.com/cosmos/cosmos-sd" +
+      "k/types.Dec\310\336\037\000\":\n\027QueryDenomPoolIdReque" +
+      "st\022\037\n\005denom\030\001 \001(\tB\020\362\336\037\014yaml:\"denom\"\">\n\030Q" +
+      "ueryDenomPoolIdResponse\022\"\n\006poolID\030\001 \001(\004B" +
+      "\022\362\336\037\016yaml:\"pool_id\"\"\027\n\025QueryBaseDenomReq" +
+      "uest\"C\n\026QueryBaseDenomResponse\022)\n\nbase_d" +
+      "enom\030\001 \001(\tB\025\362\336\037\021yaml:\"base_denom\"2\224\005\n\005Qu" +
+      "ery\022\226\001\n\tFeeTokens\022-.osmosis.txfees.v1bet" +
+      "a1.QueryFeeTokensRequest\032..osmosis.txfee" +
+      "s.v1beta1.QueryFeeTokensResponse\"*\202\323\344\223\002$" +
+      "\022\"/osmosis/txfees/v1beta1/fee_tokens\022\256\001\n" +
+      "\016DenomSpotPrice\0222.osmosis.txfees.v1beta1" +
+      ".QueryDenomSpotPriceRequest\0323.osmosis.tx" +
+      "fees.v1beta1.QueryDenomSpotPriceResponse" +
+      "\"3\202\323\344\223\002-\022+/osmosis/txfees/v1beta1/spot_p" +
+      "rice_by_denom\022\247\001\n\013DenomPoolId\022/.osmosis." +
+      "txfees.v1beta1.QueryDenomPoolIdRequest\0320" +
+      ".osmosis.txfees.v1beta1.QueryDenomPoolId" +
+      "Response\"5\202\323\344\223\002/\022-/osmosis/txfees/v1beta" +
+      "1/denom_pool_id/{denom}\022\226\001\n\tBaseDenom\022-." +
+      "osmosis.txfees.v1beta1.QueryBaseDenomReq" +
+      "uest\032..osmosis.txfees.v1beta1.QueryBaseD" +
+      "enomResponse\"*\202\323\344\223\002$\022\"/osmosis/txfees/v1" +
+      "beta1/base_denomB3Z1github.com/osmosis-l" +
+      "abs/osmosis/v7/x/txfees/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3355,32 +4602,45 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_txfees_v1beta1_QueryFeeTokensResponse_descriptor,
         new java.lang.String[] { "FeeTokens", });
-    internal_static_osmosis_txfees_v1beta1_QueryDenomPoolIdRequest_descriptor =
+    internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceRequest_descriptor,
+        new java.lang.String[] { "Denom", });
+    internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_txfees_v1beta1_QueryDenomSpotPriceResponse_descriptor,
+        new java.lang.String[] { "PoolID", "SpotPrice", });
+    internal_static_osmosis_txfees_v1beta1_QueryDenomPoolIdRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_osmosis_txfees_v1beta1_QueryDenomPoolIdRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_txfees_v1beta1_QueryDenomPoolIdRequest_descriptor,
         new java.lang.String[] { "Denom", });
     internal_static_osmosis_txfees_v1beta1_QueryDenomPoolIdResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_osmosis_txfees_v1beta1_QueryDenomPoolIdResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_txfees_v1beta1_QueryDenomPoolIdResponse_descriptor,
         new java.lang.String[] { "PoolID", });
     internal_static_osmosis_txfees_v1beta1_QueryBaseDenomRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_osmosis_txfees_v1beta1_QueryBaseDenomRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_txfees_v1beta1_QueryBaseDenomRequest_descriptor,
         new java.lang.String[] { });
     internal_static_osmosis_txfees_v1beta1_QueryBaseDenomResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_osmosis_txfees_v1beta1_QueryBaseDenomResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_txfees_v1beta1_QueryBaseDenomResponse_descriptor,
         new java.lang.String[] { "BaseDenom", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.moretags);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
