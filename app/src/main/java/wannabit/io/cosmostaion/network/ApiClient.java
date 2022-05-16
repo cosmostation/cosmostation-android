@@ -773,6 +773,21 @@ public class ApiClient {
         return api_rizon;
     }
 
+    //Services for Nym mainnet api
+    private static HistoryApi api_nym = null;
+    public static HistoryApi getNymApi(Context c) {
+        if (api_nym == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_nym))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_nym = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_nym;
+    }
+
     //Services for Rizon swap_status api
     private static HdacChain api_rizon_swap_status = null;
     public static HdacChain getRizonSwapStatus(Context c) {

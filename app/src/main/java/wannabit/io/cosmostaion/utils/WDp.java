@@ -35,6 +35,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -581,9 +582,20 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
-        }
+        } else if (chain.equals(NYM_MAIN)) {
+            if (coin.denom.equals(TOKEN_NYM)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (coin.denom.equals(TOKEN_NYX)) {
+                denomTv.setText("NYX");
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorNym2));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
-        else if (chain.equals(COSMOS_TEST)) {
+        } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -1045,9 +1057,19 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
-        }
+        } else if (chain.equals(NYM_MAIN)) {
+            if (symbol.equals(TOKEN_NYM)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (symbol.equals(TOKEN_NYX)) {
+                denomTv.setText(R.string.str_nyx_c);
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorNym2));
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
-        else if (chain.equals(COSMOS_TEST)) {
+        } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -1199,7 +1221,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_crescent));
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_assetmantle));
-
+            } else if (baseChain.equals(NYM_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_nym));
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -1300,7 +1323,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_crescent_net));
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 chainName.setText(c.getString(R.string.str_mantle_net));
-
+            } else if (baseChain.equals(NYM_MAIN)) {
+                chainName.setText(c.getString(R.string.str_nym_net));
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -1402,7 +1426,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_crescent_main));
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 chainName.setText(c.getString(R.string.str_mantle_main));
-
+            } else if (baseChain.equals(NYM_MAIN)) {
+                chainName.setText(c.getString(R.string.str_nym_main));
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -1512,6 +1537,8 @@ public class WDp {
             floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorCrescent));
         } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorMantle));
+        } else if (baseChain.equals(NYM_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorNym));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1607,6 +1634,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_crescent));
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_mantle));
+            } else if (baseChain.equals(NYM_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_nym));
             }
             else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_darkgray));
@@ -1694,6 +1723,8 @@ public class WDp {
                 return CRESCENT_MAIN;
             } else if (chainId.contains("mantle-")) {
                 return ASSETMANTLE_MAIN;
+            } else if (chainId.contains("nyx")) {
+                return NYM_MAIN;
             }
 
             else if (chainId.contains("mooncat-")) {
@@ -1861,6 +1892,10 @@ public class WDp {
                 if (!address.startsWith("mantle1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(NYM_MAIN)) {
+                if (!address.startsWith("n1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1951,6 +1986,8 @@ public class WDp {
                 return "crescent";
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 return "asset-mantle";
+            } else if (baseChain.equals(NYM_MAIN)) {
+                return "nym";
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -2010,6 +2047,7 @@ public class WDp {
             else if (address.startsWith("omniflix1") && baseChain.equals(OMNIFLIX_MAIN)) { return true; }
             else if (address.startsWith("cre1") && baseChain.equals(CRESCENT_MAIN) || address.startsWith("cre1") && baseChain.equals(CRESCENT_TEST)) { return true; }
             else if (address.startsWith("mantle1") && baseChain.equals(ASSETMANTLE_MAIN)) { return true; }
+            else if (address.startsWith("n1") && baseChain.equals(NYM_MAIN)) { return true; }
         }
         return false;
     }
@@ -2066,6 +2104,7 @@ public class WDp {
             else if (address.startsWith("omniflix1")) { return Lists.newArrayList(OMNIFLIX_MAIN); }
             else if (address.startsWith("cre1")) { return Lists.newArrayList(CRESCENT_MAIN, CRESCENT_TEST); }
             else if (address.startsWith("mantle1")) { return Lists.newArrayList(ASSETMANTLE_MAIN); }
+            else if (address.startsWith("n1")) { return Lists.newArrayList(NYM_MAIN); }
         }
         return null;
     }
@@ -2111,6 +2150,7 @@ public class WDp {
             else if (chain.equals(OMNIFLIX_MAIN)) { return OMNIFLIX_UNKNOWN_RELAYER; }
             else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) { return CRESCENT_UNKNOWN_RELAYER; }
             else if (chain.equals(ASSETMANTLE_MAIN)) { return MANTLE_UNKNOWN_RELAYER; }
+            else if (chain.equals(NYM_MAIN)) { return NYM_UNKNOWN_RELAYER; }
         }
         return null;
     }
@@ -3165,6 +3205,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorCrescent);
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return c.getResources().getColor(R.color.colorMantle);
+            } else if (chain.equals(NYM_MAIN)) {
+                return c.getResources().getColor(R.color.colorNym);
             }
         }
         return c.getResources().getColor(R.color.colorGray0);
@@ -3256,6 +3298,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgCrescent);
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgMantle);
+            } else if (chain.equals(NYM_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgNym);
             }
         }
         return c.getResources().getColor(R.color.colorTransBg);
@@ -3345,6 +3389,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_crescent);
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_mantle);
+            } else if (chain.equals(NYM_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_nym);
             }
         }
         return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
@@ -3434,6 +3480,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorCrescent);
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorMantle);
+            } else if (chain.equals(NYM_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorNym);
             }
         }
         return c.getResources().getColorStateList(R.color.colorTransBg);
@@ -3612,6 +3660,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorMantle));
             textview.setText(c.getString(R.string.s_mantle));
 
+        } else if (BaseChain.getChain(chain).equals(NYM_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorNym));
+            textview.setText(c.getString(R.string.s_nym));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3714,6 +3766,8 @@ public class WDp {
             return TOKEN_CRE;
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
             return TOKEN_MANTLE;
+        } else if (chain.equals(NYM_MAIN)) {
+            return TOKEN_NYX;
         }
 
         else if (chain.equals(CRESCENT_TEST)) {
@@ -3809,6 +3863,8 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_crescent);
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
                 imageView.setImageResource(R.drawable.token_assetmantle);
+            } else if (baseChain.equals(NYM_MAIN)) {
+                imageView.setImageResource(R.drawable.token_nym);
             }
         } else {
             imageView.setImageResource(R.drawable.token_ic);
@@ -4236,6 +4292,8 @@ public class WDp {
             return CRESCENT_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(ASSETMANTLE_MAIN)) {
             return ASSETMANTLE_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(NYM_MAIN)) {
+            return NYM_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(OKEX_MAIN)) {

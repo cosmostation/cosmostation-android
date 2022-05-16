@@ -34,6 +34,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -2840,6 +2841,9 @@ public class WUtil {
             } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 return BLOCK_TIME_MANTLE;
 
+            } else if (chain.equals(NYM_MAIN)) {
+                return BLOCK_TIME_NYM;
+
             }
         }
         return BigDecimal.ZERO;
@@ -2971,6 +2975,7 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/provenance-blockchain")));
+
         }
         return null;
     }
@@ -3197,6 +3202,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_mantle);
             guideMsg.setText(R.string.str_front_guide_msg_mantle);
 
+        } else if (mainActivity.mBaseChain.equals(NYM_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_nym));
+            guideTitle.setText(R.string.str_front_guide_title_nym);
+            guideMsg.setText(R.string.str_front_guide_msg_nym);
+
         }
     }
 
@@ -3411,6 +3421,11 @@ public class WUtil {
             coinDenom.setText(R.string.str_mantle_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_mantle);
 
+        } else if (chain.equals(NYM_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_nym));
+            coinDenom.setText(R.string.str_nyx_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_nym);
+
         }
     }
 
@@ -3603,6 +3618,9 @@ public class WUtil {
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://assetmantle.one/"));
 
+        } else if (chain.equals(NYM_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net/"));
+
         }
         return null;
     }
@@ -3742,6 +3760,9 @@ public class WUtil {
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.assetmantle.one/"));
 
+        } else if (chain.equals(NYM_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net/blog/"));
+
         }
         return null;
     }
@@ -3872,6 +3893,9 @@ public class WUtil {
 
         } else if (basechain.equals(ASSETMANTLE_MAIN)) {
             return EXPLORER_MANTLE_MAIN;
+
+        } else if (basechain.equals(NYM_MAIN)) {
+            return EXPLORER_NYM_MAIN;
 
         } else if (basechain.equals(COSMOS_TEST)) {
             return EXPLORER_COSMOS_TEST;
@@ -4013,6 +4037,9 @@ public class WUtil {
 
             } else if (basechain.equals(ASSETMANTLE_MAIN)) {
                 return EXPLORER_MANTLE_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(NYM_MAIN)) {
+                return EXPLORER_NYM_MAIN + "txs/" + hash;
 
             } else if (basechain.equals(COSMOS_TEST)) {
                 return EXPLORER_COSMOS_TEST + "txs/" + hash;
@@ -4506,6 +4533,12 @@ public class WUtil {
             BigDecimal gasRate = new BigDecimal(MANTLE_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(NYM_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(NYM_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(BNB_MAIN)) {
             return new BigDecimal(FEE_BNB_SEND).setScale(8);
 
@@ -4806,6 +4839,14 @@ public class WUtil {
                 return new BigDecimal(MANTLE_GAS_RATE_LOW);
             }
             return new BigDecimal(MANTLE_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(NYM_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(NYM_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(NYM_GAS_RATE_LOW);
+            }
+            return new BigDecimal(NYM_GAS_RATE_AVERAGE);
 
         } else if (basechain.equals(BNB_MAIN)) {
             return BigDecimal.ZERO.setScale(3);
