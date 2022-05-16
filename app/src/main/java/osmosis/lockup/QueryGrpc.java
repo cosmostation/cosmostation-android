@@ -433,6 +433,37 @@ public final class QueryGrpc {
     return getAccountLockedLongerDurationMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest,
+      osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse> getAccountLockedDurationMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "AccountLockedDuration",
+      requestType = osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.class,
+      responseType = osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest,
+      osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse> getAccountLockedDurationMethod() {
+    io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest, osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse> getAccountLockedDurationMethod;
+    if ((getAccountLockedDurationMethod = QueryGrpc.getAccountLockedDurationMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getAccountLockedDurationMethod = QueryGrpc.getAccountLockedDurationMethod) == null) {
+          QueryGrpc.getAccountLockedDurationMethod = getAccountLockedDurationMethod =
+              io.grpc.MethodDescriptor.<osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest, osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AccountLockedDuration"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("AccountLockedDuration"))
+              .build();
+        }
+      }
+    }
+    return getAccountLockedDurationMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationNotUnlockingOnlyRequest,
       osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationNotUnlockingOnlyResponse> getAccountLockedLongerDurationNotUnlockingOnlyMethod;
 
@@ -679,6 +710,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Returns account locked records with a specific duration
+     * </pre>
+     */
+    public void accountLockedDuration(osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest request,
+        io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getAccountLockedDurationMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Returns account locked records with longer duration excluding tokens
      * started unlocking
      * </pre>
@@ -791,6 +832,13 @@ public final class QueryGrpc {
                 osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationRequest,
                 osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationResponse>(
                   this, METHODID_ACCOUNT_LOCKED_LONGER_DURATION)))
+          .addMethod(
+            getAccountLockedDurationMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest,
+                osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse>(
+                  this, METHODID_ACCOUNT_LOCKED_DURATION)))
           .addMethod(
             getAccountLockedLongerDurationNotUnlockingOnlyMethod(),
             asyncUnaryCall(
@@ -972,6 +1020,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Returns account locked records with a specific duration
+     * </pre>
+     */
+    public void accountLockedDuration(osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest request,
+        io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getAccountLockedDurationMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Returns account locked records with longer duration excluding tokens
      * started unlocking
      * </pre>
@@ -1140,6 +1199,16 @@ public final class QueryGrpc {
     public osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationResponse accountLockedLongerDuration(osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationRequest request) {
       return blockingUnaryCall(
           getChannel(), getAccountLockedLongerDurationMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Returns account locked records with a specific duration
+     * </pre>
+     */
+    public osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse accountLockedDuration(osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getAccountLockedDurationMethod(), getCallOptions(), request);
     }
 
     /**
@@ -1327,6 +1396,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Returns account locked records with a specific duration
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse> accountLockedDuration(
+        osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getAccountLockedDurationMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Returns account locked records with longer duration excluding tokens
      * started unlocking
      * </pre>
@@ -1362,8 +1442,9 @@ public final class QueryGrpc {
   private static final int METHODID_LOCKED_BY_ID = 10;
   private static final int METHODID_SYNTHETIC_LOCKUPS_BY_LOCKUP_ID = 11;
   private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION = 12;
-  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_NOT_UNLOCKING_ONLY = 13;
-  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_DENOM = 14;
+  private static final int METHODID_ACCOUNT_LOCKED_DURATION = 13;
+  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_NOT_UNLOCKING_ONLY = 14;
+  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_DENOM = 15;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1433,6 +1514,10 @@ public final class QueryGrpc {
         case METHODID_ACCOUNT_LOCKED_LONGER_DURATION:
           serviceImpl.accountLockedLongerDuration((osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationResponse>) responseObserver);
+          break;
+        case METHODID_ACCOUNT_LOCKED_DURATION:
+          serviceImpl.accountLockedDuration((osmosis.lockup.QueryOuterClass.AccountLockedDurationRequest) request,
+              (io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.AccountLockedDurationResponse>) responseObserver);
           break;
         case METHODID_ACCOUNT_LOCKED_LONGER_DURATION_NOT_UNLOCKING_ONLY:
           serviceImpl.accountLockedLongerDurationNotUnlockingOnly((osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationNotUnlockingOnlyRequest) request,
@@ -1516,6 +1601,7 @@ public final class QueryGrpc {
               .addMethod(getLockedByIDMethod())
               .addMethod(getSyntheticLockupsByLockupIDMethod())
               .addMethod(getAccountLockedLongerDurationMethod())
+              .addMethod(getAccountLockedDurationMethod())
               .addMethod(getAccountLockedLongerDurationNotUnlockingOnlyMethod())
               .addMethod(getAccountLockedLongerDurationDenomMethod())
               .build();

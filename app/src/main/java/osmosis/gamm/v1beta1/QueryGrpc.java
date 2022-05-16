@@ -182,6 +182,37 @@ public final class QueryGrpc {
     return getPoolParamsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest,
+      osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse> getTotalPoolLiquidityMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "TotalPoolLiquidity",
+      requestType = osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest.class,
+      responseType = osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest,
+      osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse> getTotalPoolLiquidityMethod() {
+    io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest, osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse> getTotalPoolLiquidityMethod;
+    if ((getTotalPoolLiquidityMethod = QueryGrpc.getTotalPoolLiquidityMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getTotalPoolLiquidityMethod = QueryGrpc.getTotalPoolLiquidityMethod) == null) {
+          QueryGrpc.getTotalPoolLiquidityMethod = getTotalPoolLiquidityMethod =
+              io.grpc.MethodDescriptor.<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest, osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "TotalPoolLiquidity"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("TotalPoolLiquidity"))
+              .build();
+        }
+      }
+    }
+    return getTotalPoolLiquidityMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest,
       osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse> getTotalSharesMethod;
 
@@ -211,37 +242,6 @@ public final class QueryGrpc {
       }
     }
     return getTotalSharesMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest,
-      osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse> getPoolAssetsMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "PoolAssets",
-      requestType = osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest.class,
-      responseType = osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest,
-      osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse> getPoolAssetsMethod() {
-    io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest, osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse> getPoolAssetsMethod;
-    if ((getPoolAssetsMethod = QueryGrpc.getPoolAssetsMethod) == null) {
-      synchronized (QueryGrpc.class) {
-        if ((getPoolAssetsMethod = QueryGrpc.getPoolAssetsMethod) == null) {
-          QueryGrpc.getPoolAssetsMethod = getPoolAssetsMethod =
-              io.grpc.MethodDescriptor.<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest, osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "PoolAssets"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("PoolAssets"))
-              .build();
-        }
-      }
-    }
-    return getPoolAssetsMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceRequest,
@@ -425,19 +425,23 @@ public final class QueryGrpc {
 
     /**
      */
+    public void totalPoolLiquidity(osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getTotalPoolLiquidityMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void totalShares(osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest request,
         io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getTotalSharesMethod(), responseObserver);
     }
 
     /**
-     */
-    public void poolAssets(osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getPoolAssetsMethod(), responseObserver);
-    }
-
-    /**
+     * <pre>
+     * SpotPrice defines a gRPC query handler that returns the spot price given
+     * a base denomination and a quote denomination.
+     * </pre>
      */
     public void spotPrice(osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceRequest request,
         io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceResponse> responseObserver) {
@@ -499,19 +503,19 @@ public final class QueryGrpc {
                 osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse>(
                   this, METHODID_POOL_PARAMS)))
           .addMethod(
+            getTotalPoolLiquidityMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest,
+                osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse>(
+                  this, METHODID_TOTAL_POOL_LIQUIDITY)))
+          .addMethod(
             getTotalSharesMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest,
                 osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse>(
                   this, METHODID_TOTAL_SHARES)))
-          .addMethod(
-            getPoolAssetsMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest,
-                osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse>(
-                  this, METHODID_POOL_ASSETS)))
           .addMethod(
             getSpotPriceMethod(),
             asyncUnaryCall(
@@ -596,6 +600,14 @@ public final class QueryGrpc {
 
     /**
      */
+    public void totalPoolLiquidity(osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getTotalPoolLiquidityMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void totalShares(osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest request,
         io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse> responseObserver) {
       asyncUnaryCall(
@@ -603,14 +615,10 @@ public final class QueryGrpc {
     }
 
     /**
-     */
-    public void poolAssets(osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getPoolAssetsMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
+     * <pre>
+     * SpotPrice defines a gRPC query handler that returns the spot price given
+     * a base denomination and a quote denomination.
+     * </pre>
      */
     public void spotPrice(osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceRequest request,
         io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceResponse> responseObserver) {
@@ -692,19 +700,23 @@ public final class QueryGrpc {
 
     /**
      */
+    public osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse totalPoolLiquidity(osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getTotalPoolLiquidityMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse totalShares(osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest request) {
       return blockingUnaryCall(
           getChannel(), getTotalSharesMethod(), getCallOptions(), request);
     }
 
     /**
-     */
-    public osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse poolAssets(osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getPoolAssetsMethod(), getCallOptions(), request);
-    }
-
-    /**
+     * <pre>
+     * SpotPrice defines a gRPC query handler that returns the spot price given
+     * a base denomination and a quote denomination.
+     * </pre>
      */
     public osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceResponse spotPrice(osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceRequest request) {
       return blockingUnaryCall(
@@ -788,6 +800,14 @@ public final class QueryGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse> totalPoolLiquidity(
+        osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getTotalPoolLiquidityMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse> totalShares(
         osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest request) {
       return futureUnaryCall(
@@ -795,14 +815,10 @@ public final class QueryGrpc {
     }
 
     /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse> poolAssets(
-        osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getPoolAssetsMethod(), getCallOptions()), request);
-    }
-
-    /**
+     * <pre>
+     * SpotPrice defines a gRPC query handler that returns the spot price given
+     * a base denomination and a quote denomination.
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceResponse> spotPrice(
         osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceRequest request) {
@@ -835,8 +851,8 @@ public final class QueryGrpc {
   private static final int METHODID_TOTAL_LIQUIDITY = 2;
   private static final int METHODID_POOL = 3;
   private static final int METHODID_POOL_PARAMS = 4;
-  private static final int METHODID_TOTAL_SHARES = 5;
-  private static final int METHODID_POOL_ASSETS = 6;
+  private static final int METHODID_TOTAL_POOL_LIQUIDITY = 5;
+  private static final int METHODID_TOTAL_SHARES = 6;
   private static final int METHODID_SPOT_PRICE = 7;
   private static final int METHODID_ESTIMATE_SWAP_EXACT_AMOUNT_IN = 8;
   private static final int METHODID_ESTIMATE_SWAP_EXACT_AMOUNT_OUT = 9;
@@ -878,13 +894,13 @@ public final class QueryGrpc {
           serviceImpl.poolParams((osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse>) responseObserver);
           break;
+        case METHODID_TOTAL_POOL_LIQUIDITY:
+          serviceImpl.totalPoolLiquidity((osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest) request,
+              (io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityResponse>) responseObserver);
+          break;
         case METHODID_TOTAL_SHARES:
           serviceImpl.totalShares((osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse>) responseObserver);
-          break;
-        case METHODID_POOL_ASSETS:
-          serviceImpl.poolAssets((osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsRequest) request,
-              (io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolAssetsResponse>) responseObserver);
           break;
         case METHODID_SPOT_PRICE:
           serviceImpl.spotPrice((osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceRequest) request,
@@ -964,8 +980,8 @@ public final class QueryGrpc {
               .addMethod(getTotalLiquidityMethod())
               .addMethod(getPoolMethod())
               .addMethod(getPoolParamsMethod())
+              .addMethod(getTotalPoolLiquidityMethod())
               .addMethod(getTotalSharesMethod())
-              .addMethod(getPoolAssetsMethod())
               .addMethod(getSpotPriceMethod())
               .addMethod(getEstimateSwapExactAmountInMethod())
               .addMethod(getEstimateSwapExactAmountOutMethod())

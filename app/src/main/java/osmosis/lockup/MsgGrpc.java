@@ -123,6 +123,37 @@ public final class MsgGrpc {
     return getBeginUnlockingMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgExtendLockup,
+      osmosis.lockup.Tx.MsgExtendLockupResponse> getExtendLockupMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ExtendLockup",
+      requestType = osmosis.lockup.Tx.MsgExtendLockup.class,
+      responseType = osmosis.lockup.Tx.MsgExtendLockupResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgExtendLockup,
+      osmosis.lockup.Tx.MsgExtendLockupResponse> getExtendLockupMethod() {
+    io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgExtendLockup, osmosis.lockup.Tx.MsgExtendLockupResponse> getExtendLockupMethod;
+    if ((getExtendLockupMethod = MsgGrpc.getExtendLockupMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getExtendLockupMethod = MsgGrpc.getExtendLockupMethod) == null) {
+          MsgGrpc.getExtendLockupMethod = getExtendLockupMethod =
+              io.grpc.MethodDescriptor.<osmosis.lockup.Tx.MsgExtendLockup, osmosis.lockup.Tx.MsgExtendLockupResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ExtendLockup"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.lockup.Tx.MsgExtendLockup.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.lockup.Tx.MsgExtendLockupResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("ExtendLockup"))
+              .build();
+        }
+      }
+    }
+    return getExtendLockupMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -204,6 +235,16 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getBeginUnlockingMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * MsgEditLockup edits the existing lockups by lock ID
+     * </pre>
+     */
+    public void extendLockup(osmosis.lockup.Tx.MsgExtendLockup request,
+        io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgExtendLockupResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getExtendLockupMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -227,6 +268,13 @@ public final class MsgGrpc {
                 osmosis.lockup.Tx.MsgBeginUnlocking,
                 osmosis.lockup.Tx.MsgBeginUnlockingResponse>(
                   this, METHODID_BEGIN_UNLOCKING)))
+          .addMethod(
+            getExtendLockupMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.lockup.Tx.MsgExtendLockup,
+                osmosis.lockup.Tx.MsgExtendLockupResponse>(
+                  this, METHODID_EXTEND_LOCKUP)))
           .build();
     }
   }
@@ -280,6 +328,17 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getBeginUnlockingMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * MsgEditLockup edits the existing lockups by lock ID
+     * </pre>
+     */
+    public void extendLockup(osmosis.lockup.Tx.MsgExtendLockup request,
+        io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgExtendLockupResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getExtendLockupMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -327,6 +386,16 @@ public final class MsgGrpc {
     public osmosis.lockup.Tx.MsgBeginUnlockingResponse beginUnlocking(osmosis.lockup.Tx.MsgBeginUnlocking request) {
       return blockingUnaryCall(
           getChannel(), getBeginUnlockingMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * MsgEditLockup edits the existing lockups by lock ID
+     * </pre>
+     */
+    public osmosis.lockup.Tx.MsgExtendLockupResponse extendLockup(osmosis.lockup.Tx.MsgExtendLockup request) {
+      return blockingUnaryCall(
+          getChannel(), getExtendLockupMethod(), getCallOptions(), request);
     }
   }
 
@@ -379,11 +448,23 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getBeginUnlockingMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * MsgEditLockup edits the existing lockups by lock ID
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.lockup.Tx.MsgExtendLockupResponse> extendLockup(
+        osmosis.lockup.Tx.MsgExtendLockup request) {
+      return futureUnaryCall(
+          getChannel().newCall(getExtendLockupMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_LOCK_TOKENS = 0;
   private static final int METHODID_BEGIN_UNLOCKING_ALL = 1;
   private static final int METHODID_BEGIN_UNLOCKING = 2;
+  private static final int METHODID_EXTEND_LOCKUP = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -413,6 +494,10 @@ public final class MsgGrpc {
         case METHODID_BEGIN_UNLOCKING:
           serviceImpl.beginUnlocking((osmosis.lockup.Tx.MsgBeginUnlocking) request,
               (io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgBeginUnlockingResponse>) responseObserver);
+          break;
+        case METHODID_EXTEND_LOCKUP:
+          serviceImpl.extendLockup((osmosis.lockup.Tx.MsgExtendLockup) request,
+              (io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgExtendLockupResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -478,6 +563,7 @@ public final class MsgGrpc {
               .addMethod(getLockTokensMethod())
               .addMethod(getBeginUnlockingAllMethod())
               .addMethod(getBeginUnlockingMethod())
+              .addMethod(getExtendLockupMethod())
               .build();
         }
       }
