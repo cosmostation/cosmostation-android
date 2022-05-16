@@ -1058,10 +1058,10 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(NYM_MAIN)) {
-            if (symbol.equals(TOKEN_NYM)) {
+            if (symbol.equals(TOKEN_NYX)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-            } else if (symbol.equals(TOKEN_NYX)) {
-                denomTv.setText(R.string.str_nyx_c);
+            } else if (symbol.equals(TOKEN_NYM)) {
+                denomTv.setText(R.string.str_nym_c);
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorNym2));
             } else {
                 denomTv.setText(symbol.toUpperCase());

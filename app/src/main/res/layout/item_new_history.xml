@@ -92,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:layout_toRightOf="@+id/tx_ibc_send_title">
+
                     <TextView
                         android:id="@+id/history_amount_symobl"
                         style="@style/font_ss_12_white"
