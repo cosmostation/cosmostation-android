@@ -33,6 +33,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -170,7 +171,8 @@ public class ChannelBuilder {
     private final static String GRPC_MANTLE_MAIN = "lcd-asset-mantle-app.cosmostation.io";
     private final static int PORT_MANTLE_MAIN = 9090;
 
-
+    private final static String GRPC_NYM_MAIN = "lcd-nym-app.cosmostation.io";
+    private final static int PORT_NYM_MAIN = 9090;
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -268,6 +270,8 @@ public class ChannelBuilder {
             return getCrescentMain();
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
             return getMantleMain();
+        } else if (chain.equals(NYM_MAIN)) {
+            return getNymMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -802,6 +806,19 @@ public class ChannelBuilder {
             }
         }
         return channel_crescent_main;
+    }
+
+    //Channel for nym main
+    private static ManagedChannel channel_nym_main = null;
+    public static ManagedChannel getNymMain() {
+        if (channel_nym_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_nym_main = ManagedChannelBuilder.forAddress(GRPC_NYM_MAIN, PORT_NYM_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_nym_main;
     }
 
     //Channel for stargate testnet

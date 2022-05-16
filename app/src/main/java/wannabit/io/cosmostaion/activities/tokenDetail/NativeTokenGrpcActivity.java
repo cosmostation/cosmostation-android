@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
@@ -180,6 +181,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
             mToolbarSymbol.setText(R.string.str_bcre_c);
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorCrescent2));
+            mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
+
+        } else if (mBaseChain.equals(NYM_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_nym));
+            mToolbarSymbol.setText(R.string.str_nym_c);
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorNym2));
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
         }
 

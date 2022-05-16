@@ -57,6 +57,7 @@
     <color name="colorTransBgOmniflix">#246c63ff</color>
     <color name="colorTransBgCrescent">#24ffc780</color>
     <color name="colorTransBgMantle">#24f3b519</color>
+    <color name="colorTransBgNym">#24ff6c5a</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
@@ -213,6 +214,9 @@
 
     <color name="colorMantle">#f3b519</color>
     <color name="colorMantle2">#a48e59</color>
+
+    <color name="colorNym">#ff6c5a</color>
+    <color name="colorNym2">#ca5345</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

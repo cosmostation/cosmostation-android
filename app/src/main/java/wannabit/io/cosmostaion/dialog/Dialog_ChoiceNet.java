@@ -27,7 +27,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
                          mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj,
-                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos, mCudos, mProvenance, mCerberus, mOmniflix, mCrescent, mMantle;
+                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos, mCudos, mProvenance, mCerberus, mOmniflix, mCrescent, mMantle, mNym;
     private LinearLayout mAltheaTestLayer, mCrescentTestLayer;
     private LinearLayout mCosmosTest, mIrisTest, mAltheaTest, mCrescentTest;
 
@@ -97,6 +97,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mOmniflix = view.findViewById(R.id.omniflix_chain);
         mCrescent = view.findViewById(R.id.crescent_chain);
         mMantle = view.findViewById(R.id.mantle_chain);
+        mNym = view.findViewById(R.id.nym_chain);
 
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
         mAltheaTest = view.findViewById(R.id.althea_test_net);
@@ -608,6 +609,18 @@ public class Dialog_ChoiceNet extends DialogFragment {
                     ((BaseActivity)getActivity()).onChainSelected(BaseChain.ASSETMANTLE_MAIN);
                 } else {
                     ((BaseActivity)getActivity()).onChoiceNet(BaseChain.ASSETMANTLE_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
+        mNym.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.NYM_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.NYM_MAIN);
                 }
                 getDialog().dismiss();
             }
