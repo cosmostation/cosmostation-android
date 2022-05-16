@@ -19,6 +19,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -32,8 +34,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
-import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Unbonding_All;
-import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Unlock_All;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
@@ -241,13 +241,30 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         if (tempLockups.size() > 1) {
             //display dialog for start unbonding all for same class
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("single", lockup.toByteArray());
             OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(tempLockups);
-            bundle.putSerializable("all", lockupsWrapper);
-            bundle.putString("amount", totalToUnbonding.toPlainString());
-            Dialog_Osmo_Unbonding_All bottomSheetDialog = Dialog_Osmo_Unbonding_All.getInstance(bundle);
-            getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+            ArrayList<Lock.PeriodLock> lockups = lockupsWrapper.array;
+
+            String msg = "";
+            for (Lock.PeriodLock lock: lockups) {
+                msg = msg + "# " + lock.getID() + "  ";
+            }
+//        String amount = new BigDecimal(totalToUnbonding.toPlainString()).movePointLeft(18).toPlainString();
+//        msg = msg + "\n" + amount;
+
+            CustomAlertDialog.showDoubleButton(this,"Unbonding all for same durations?",msg,
+                    "Unbonding All", view -> {
+                        onStartUnbonding(lockups);
+                    },
+                    "Unbonding This One", view -> {
+                        try {
+                            Lock.PeriodLock lock = Lock.PeriodLock.parseFrom(lockup.toByteArray());
+                            ArrayList<Lock.PeriodLock> Lock = new ArrayList<>();
+                            Lock.add(lock);
+                            onStartUnbonding(Lock);
+                        } catch (InvalidProtocolBufferException e) {
+                            e.printStackTrace();
+                        }
+                    });
         } else {
             onStartUnbonding(tempLockups);
         }
@@ -281,11 +298,31 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
             Bundle bundle = new Bundle();
             bundle.putSerializable("single", lockup.toByteArray());
             OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(tempLockups);
+            ArrayList<Lock.PeriodLock> lockups = lockupsWrapper.array;
             bundle.putSerializable("all", lockupsWrapper);
             bundle.putString("amount", totalToUnlock.toPlainString());
-            Dialog_Osmo_Unlock_All bottomSheetDialog = Dialog_Osmo_Unlock_All.getInstance(bundle);
-            getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
 
+            String msg = "";
+            for (Lock.PeriodLock lock: lockups) {
+                msg = msg + "# " + lock.getID() + "  ";
+            }
+//        String amount = new BigDecimal(totalToUnlock.toPlainString()).movePointLeft(18).toPlainString();
+//        msg = msg + "\n" + amount;
+
+            CustomAlertDialog.showDoubleButton(this,"Unlock all?",msg,
+                    "Unlock All", view -> {
+                        onStartUnlock(lockups);
+                    },
+                    "Unlock This One", view -> {
+                        try {
+                            Lock.PeriodLock lock = Lock.PeriodLock.parseFrom(lockup.toByteArray());
+                            ArrayList<Lock.PeriodLock> Lock = new ArrayList<>();
+                            Lock.add(lock);
+                            onStartUnlock(Lock);
+                        } catch (InvalidProtocolBufferException e) {
+                            e.printStackTrace();
+                        }
+                    });
         } else {
             onStartUnlock(tempLockups);
         }
