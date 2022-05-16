@@ -252,9 +252,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 //        msg = msg + "\n" + amount;
 
             CustomAlertDialog.showDoubleButton(this,"Unbonding all for same durations?",msg,
-                    "Unbonding All", view -> {
-                        onStartUnbonding(lockups);
-                    },
+                    "Unbonding All", view -> onStartUnbonding(lockups);},
                     "Unbonding This One", view -> {
                         try {
                             Lock.PeriodLock lock = Lock.PeriodLock.parseFrom(lockup.toByteArray());
@@ -295,12 +293,8 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         }
         if (tempLockups.size() > 1) {
             //TODO display dialog for start unbonding all for same class
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("single", lockup.toByteArray());
             OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(tempLockups);
             ArrayList<Lock.PeriodLock> lockups = lockupsWrapper.array;
-            bundle.putSerializable("all", lockupsWrapper);
-            bundle.putString("amount", totalToUnlock.toPlainString());
 
             String msg = "";
             for (Lock.PeriodLock lock: lockups) {
@@ -310,9 +304,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 //        msg = msg + "\n" + amount;
 
             CustomAlertDialog.showDoubleButton(this,"Unlock all?",msg,
-                    "Unlock All", view -> {
-                        onStartUnlock(lockups);
-                    },
+                    "Unlock All", view -> {onStartUnlock(lockups);},
                     "Unlock This One", view -> {
                         try {
                             Lock.PeriodLock lock = Lock.PeriodLock.parseFrom(lockup.toByteArray());
