@@ -247,6 +247,37 @@ public final class QueryGrpc {
     return getUpcomingGaugesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest,
+      osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse> getUpcomingGaugesPerDenomMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpcomingGaugesPerDenom",
+      requestType = osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest.class,
+      responseType = osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest,
+      osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse> getUpcomingGaugesPerDenomMethod() {
+    io.grpc.MethodDescriptor<osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest, osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse> getUpcomingGaugesPerDenomMethod;
+    if ((getUpcomingGaugesPerDenomMethod = QueryGrpc.getUpcomingGaugesPerDenomMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getUpcomingGaugesPerDenomMethod = QueryGrpc.getUpcomingGaugesPerDenomMethod) == null) {
+          QueryGrpc.getUpcomingGaugesPerDenomMethod = getUpcomingGaugesPerDenomMethod =
+              io.grpc.MethodDescriptor.<osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest, osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpcomingGaugesPerDenom"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("UpcomingGaugesPerDenom"))
+              .build();
+        }
+      }
+    }
+    return getUpcomingGaugesPerDenomMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<osmosis.incentives.QueryOuterClass.RewardsEstRequest,
       osmosis.incentives.QueryOuterClass.RewardsEstResponse> getRewardsEstMethod;
 
@@ -411,6 +442,9 @@ public final class QueryGrpc {
     }
 
     /**
+     * <pre>
+     * returns active gauges per denom
+     * </pre>
      */
     public void activeGaugesPerDenom(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest request,
         io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> responseObserver) {
@@ -425,6 +459,16 @@ public final class QueryGrpc {
     public void upcomingGauges(osmosis.incentives.QueryOuterClass.UpcomingGaugesRequest request,
         io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.UpcomingGaugesResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getUpcomingGaugesMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * returns scheduled gauges per denom
+     * </pre>
+     */
+    public void upcomingGaugesPerDenom(osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest request,
+        io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUpcomingGaugesPerDenomMethod(), responseObserver);
     }
 
     /**
@@ -500,6 +544,13 @@ public final class QueryGrpc {
                 osmosis.incentives.QueryOuterClass.UpcomingGaugesRequest,
                 osmosis.incentives.QueryOuterClass.UpcomingGaugesResponse>(
                   this, METHODID_UPCOMING_GAUGES)))
+          .addMethod(
+            getUpcomingGaugesPerDenomMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest,
+                osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse>(
+                  this, METHODID_UPCOMING_GAUGES_PER_DENOM)))
           .addMethod(
             getRewardsEstMethod(),
             asyncUnaryCall(
@@ -591,6 +642,9 @@ public final class QueryGrpc {
     }
 
     /**
+     * <pre>
+     * returns active gauges per denom
+     * </pre>
      */
     public void activeGaugesPerDenom(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest request,
         io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> responseObserver) {
@@ -607,6 +661,17 @@ public final class QueryGrpc {
         io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.UpcomingGaugesResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getUpcomingGaugesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * returns scheduled gauges per denom
+     * </pre>
+     */
+    public void upcomingGaugesPerDenom(osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest request,
+        io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUpcomingGaugesPerDenomMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -702,6 +767,9 @@ public final class QueryGrpc {
     }
 
     /**
+     * <pre>
+     * returns active gauges per denom
+     * </pre>
      */
     public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse activeGaugesPerDenom(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest request) {
       return blockingUnaryCall(
@@ -716,6 +784,16 @@ public final class QueryGrpc {
     public osmosis.incentives.QueryOuterClass.UpcomingGaugesResponse upcomingGauges(osmosis.incentives.QueryOuterClass.UpcomingGaugesRequest request) {
       return blockingUnaryCall(
           getChannel(), getUpcomingGaugesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * returns scheduled gauges per denom
+     * </pre>
+     */
+    public osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse upcomingGaugesPerDenom(osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getUpcomingGaugesPerDenomMethod(), getCallOptions(), request);
     }
 
     /**
@@ -814,6 +892,9 @@ public final class QueryGrpc {
     }
 
     /**
+     * <pre>
+     * returns active gauges per denom
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> activeGaugesPerDenom(
         osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest request) {
@@ -830,6 +911,17 @@ public final class QueryGrpc {
         osmosis.incentives.QueryOuterClass.UpcomingGaugesRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getUpcomingGaugesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * returns scheduled gauges per denom
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse> upcomingGaugesPerDenom(
+        osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUpcomingGaugesPerDenomMethod(), getCallOptions()), request);
     }
 
     /**
@@ -864,8 +956,9 @@ public final class QueryGrpc {
   private static final int METHODID_ACTIVE_GAUGES = 4;
   private static final int METHODID_ACTIVE_GAUGES_PER_DENOM = 5;
   private static final int METHODID_UPCOMING_GAUGES = 6;
-  private static final int METHODID_REWARDS_EST = 7;
-  private static final int METHODID_LOCKABLE_DURATIONS = 8;
+  private static final int METHODID_UPCOMING_GAUGES_PER_DENOM = 7;
+  private static final int METHODID_REWARDS_EST = 8;
+  private static final int METHODID_LOCKABLE_DURATIONS = 9;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -911,6 +1004,10 @@ public final class QueryGrpc {
         case METHODID_UPCOMING_GAUGES:
           serviceImpl.upcomingGauges((osmosis.incentives.QueryOuterClass.UpcomingGaugesRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.UpcomingGaugesResponse>) responseObserver);
+          break;
+        case METHODID_UPCOMING_GAUGES_PER_DENOM:
+          serviceImpl.upcomingGaugesPerDenom((osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomRequest) request,
+              (io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.UpcomingGaugesPerDenomResponse>) responseObserver);
           break;
         case METHODID_REWARDS_EST:
           serviceImpl.rewardsEst((osmosis.incentives.QueryOuterClass.RewardsEstRequest) request,
@@ -988,6 +1085,7 @@ public final class QueryGrpc {
               .addMethod(getActiveGaugesMethod())
               .addMethod(getActiveGaugesPerDenomMethod())
               .addMethod(getUpcomingGaugesMethod())
+              .addMethod(getUpcomingGaugesPerDenomMethod())
               .addMethod(getRewardsEstMethod())
               .addMethod(getLockableDurationsMethod())
               .build();

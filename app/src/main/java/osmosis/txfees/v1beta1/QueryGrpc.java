@@ -58,6 +58,37 @@ public final class QueryGrpc {
     return getFeeTokensMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest,
+      osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse> getDenomSpotPriceMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DenomSpotPrice",
+      requestType = osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.class,
+      responseType = osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest,
+      osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse> getDenomSpotPriceMethod() {
+    io.grpc.MethodDescriptor<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest, osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse> getDenomSpotPriceMethod;
+    if ((getDenomSpotPriceMethod = QueryGrpc.getDenomSpotPriceMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getDenomSpotPriceMethod = QueryGrpc.getDenomSpotPriceMethod) == null) {
+          QueryGrpc.getDenomSpotPriceMethod = getDenomSpotPriceMethod =
+              io.grpc.MethodDescriptor.<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest, osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DenomSpotPrice"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("DenomSpotPrice"))
+              .build();
+        }
+      }
+    }
+    return getDenomSpotPriceMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdRequest,
       osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdResponse> getDenomPoolIdMethod;
 
@@ -182,6 +213,13 @@ public final class QueryGrpc {
 
     /**
      */
+    public void denomSpotPrice(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest request,
+        io.grpc.stub.StreamObserver<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDenomSpotPriceMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void denomPoolId(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdRequest request,
         io.grpc.stub.StreamObserver<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getDenomPoolIdMethod(), responseObserver);
@@ -203,6 +241,13 @@ public final class QueryGrpc {
                 osmosis.txfees.v1beta1.QueryOuterClass.QueryFeeTokensRequest,
                 osmosis.txfees.v1beta1.QueryOuterClass.QueryFeeTokensResponse>(
                   this, METHODID_FEE_TOKENS)))
+          .addMethod(
+            getDenomSpotPriceMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest,
+                osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse>(
+                  this, METHODID_DENOM_SPOT_PRICE)))
           .addMethod(
             getDenomPoolIdMethod(),
             asyncUnaryCall(
@@ -250,6 +295,14 @@ public final class QueryGrpc {
 
     /**
      */
+    public void denomSpotPrice(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest request,
+        io.grpc.stub.StreamObserver<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getDenomSpotPriceMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void denomPoolId(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdRequest request,
         io.grpc.stub.StreamObserver<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdResponse> responseObserver) {
       asyncUnaryCall(
@@ -289,6 +342,13 @@ public final class QueryGrpc {
     public osmosis.txfees.v1beta1.QueryOuterClass.QueryFeeTokensResponse feeTokens(osmosis.txfees.v1beta1.QueryOuterClass.QueryFeeTokensRequest request) {
       return blockingUnaryCall(
           getChannel(), getFeeTokensMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse denomSpotPrice(osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getDenomSpotPriceMethod(), getCallOptions(), request);
     }
 
     /**
@@ -335,6 +395,14 @@ public final class QueryGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse> denomSpotPrice(
+        osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getDenomSpotPriceMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdResponse> denomPoolId(
         osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdRequest request) {
       return futureUnaryCall(
@@ -351,8 +419,9 @@ public final class QueryGrpc {
   }
 
   private static final int METHODID_FEE_TOKENS = 0;
-  private static final int METHODID_DENOM_POOL_ID = 1;
-  private static final int METHODID_BASE_DENOM = 2;
+  private static final int METHODID_DENOM_SPOT_PRICE = 1;
+  private static final int METHODID_DENOM_POOL_ID = 2;
+  private static final int METHODID_BASE_DENOM = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -374,6 +443,10 @@ public final class QueryGrpc {
         case METHODID_FEE_TOKENS:
           serviceImpl.feeTokens((osmosis.txfees.v1beta1.QueryOuterClass.QueryFeeTokensRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.txfees.v1beta1.QueryOuterClass.QueryFeeTokensResponse>) responseObserver);
+          break;
+        case METHODID_DENOM_SPOT_PRICE:
+          serviceImpl.denomSpotPrice((osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceRequest) request,
+              (io.grpc.stub.StreamObserver<osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomSpotPriceResponse>) responseObserver);
           break;
         case METHODID_DENOM_POOL_ID:
           serviceImpl.denomPoolId((osmosis.txfees.v1beta1.QueryOuterClass.QueryDenomPoolIdRequest) request,
@@ -445,6 +518,7 @@ public final class QueryGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
               .addMethod(getFeeTokensMethod())
+              .addMethod(getDenomSpotPriceMethod())
               .addMethod(getDenomPoolIdMethod())
               .addMethod(getBaseDenomMethod())
               .build();
