@@ -11,10 +11,10 @@ import androidx.fragment.app.DialogFragment;
 import wannabit.io.cosmostaion.R;
 
 
-public class Dialog_Wait extends DialogFragment {
+public class DialogFragment_Wait extends DialogFragment {
 
-    public static Dialog_Wait newInstance() {
-        Dialog_Wait frag = new Dialog_Wait();
+    public static DialogFragment_Wait newInstance() {
+        DialogFragment_Wait frag = new DialogFragment_Wait();
         return frag;
     }
 

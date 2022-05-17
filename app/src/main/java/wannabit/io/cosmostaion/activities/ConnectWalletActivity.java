@@ -67,8 +67,8 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_WC_Account;
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
+import wannabit.io.cosmostaion.dialog.DialogFragment_Wc_Account;
+import wannabit.io.cosmostaion.dialog.DialogFragment_WcRawData;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.WcSignModel;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -474,7 +474,7 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chainId);
-        Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
+        DialogFragment_Wc_Account mDialogWcAccount = DialogFragment_Wc_Account.newInstance(bundle);
         mDialogWcAccount.setCancelable(true);
         mDialogWcAccount.setOnSelectListener((wcId, account) -> {
             chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
@@ -509,7 +509,7 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chains.get(index));
-        Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
+        DialogFragment_Wc_Account mDialogWcAccount = DialogFragment_Wc_Account.newInstance(bundle);
         mDialogWcAccount.setCancelable(true);
         mDialogWcAccount.setOnSelectListener((wcId, account) -> {
             chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
@@ -570,7 +570,7 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowSignDialog(Bundle bundle) {
-        Dialog_Wc_Raw_Data dialog = Dialog_Wc_Raw_Data.newInstance(bundle, new Dialog_Wc_Raw_Data.WcSignRawDataListener() {
+        DialogFragment_WcRawData dialog = DialogFragment_WcRawData.newInstance(bundle, new DialogFragment_WcRawData.WcSignRawDataListener() {
             @Override
             public void sign(int type, Long id, String transaction) {
                 if (type == ConnectWalletActivity.TYPE_TRUST_WALLET) {

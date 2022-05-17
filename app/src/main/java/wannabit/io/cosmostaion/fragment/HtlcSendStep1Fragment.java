@@ -23,7 +23,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Accounts;
+import wannabit.io.cosmostaion.dialog.DialogFragment_HtlcReceivableAccounts;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
@@ -111,7 +111,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
             if (mToAccountList.size() > 0) {
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", getSActivity().mRecipientChain.getChain());
-                Dialog_Htlc_Receivable_Accounts dialog = Dialog_Htlc_Receivable_Accounts.newInstance(bundle);
+                DialogFragment_HtlcReceivableAccounts dialog = DialogFragment_HtlcReceivableAccounts.newInstance(bundle);
                 dialog.setCancelable(true);
                 dialog.setTargetFragment(this, SELECT_ACCOUNT);
                 getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
-public class Dialog_ChoiceNet extends DialogFragment {
+public class DialogFragment_ChoiceNet extends DialogFragment {
 
 
     private LinearLayout mCosmosTestLayer, mIrisTestLayer;
@@ -33,8 +33,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private boolean      mIsAdd = false;
 
-    public static Dialog_ChoiceNet newInstance(Bundle bundle) {
-        Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
+    public static DialogFragment_ChoiceNet newInstance(Bundle bundle) {
+        DialogFragment_ChoiceNet frag = new DialogFragment_ChoiceNet();
         frag.setArguments(bundle);
         return frag;
     }

@@ -17,11 +17,11 @@ import com.google.gson.JsonParser;
 
 import wannabit.io.cosmostaion.R;
 
-public class Dialog_Wc_Raw_Data extends DialogFragment {
+public class DialogFragment_WcRawData extends DialogFragment {
     public WcSignRawDataListener listener = null;
 
-    public static Dialog_Wc_Raw_Data newInstance(Bundle bundle, WcSignRawDataListener listener) {
-        Dialog_Wc_Raw_Data dialog = new Dialog_Wc_Raw_Data();
+    public static DialogFragment_WcRawData newInstance(Bundle bundle, WcSignRawDataListener listener) {
+        DialogFragment_WcRawData dialog = new DialogFragment_WcRawData();
         dialog.setArguments(bundle);
         dialog.listener = listener;
         return dialog;

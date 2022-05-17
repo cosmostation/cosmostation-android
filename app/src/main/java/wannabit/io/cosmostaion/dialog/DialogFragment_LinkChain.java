@@ -23,16 +23,17 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-public class Dialog_Htlc_Receive_Chain extends DialogFragment {
+public class DialogFragment_LinkChain extends DialogFragment {
 
-    private RecyclerView                mRecyclerView;
-    private TextView                    mDialogTitle;
-    private DestinationChainListAdapter mDestinationChainListAdapter;
-    private ArrayList<BaseChain>        mToChainList;
+    private RecyclerView         mRecyclerView;
+    private TextView             mDialogTitle;
+    private LinkChainAdapter     mLinkChainAdapter;
+    private ArrayList<BaseChain> mLinkChainList = new ArrayList<>();
 
-    public static Dialog_Htlc_Receive_Chain newInstance(Bundle bundle) {
-        Dialog_Htlc_Receive_Chain frag = new Dialog_Htlc_Receive_Chain();
+    public static DialogFragment_LinkChain newInstance(Bundle bundle) {
+        DialogFragment_LinkChain frag = new DialogFragment_LinkChain();
         frag.setArguments(bundle);
         return frag;
     }
@@ -46,28 +47,30 @@ public class Dialog_Htlc_Receive_Chain extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDialogTitle           = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_receive_chain);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setText(R.string.str_select_link_chain);
         mRecyclerView = view.findViewById(R.id.recycler);
-        mToChainList = BaseChain.getHtlcSendable(BaseChain.getChain(getArguments().getString("chainName")));
+        mLinkChainList = WUtil.getDesmosAirDropChains();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mDestinationChainListAdapter = new DestinationChainListAdapter();
-        mRecyclerView.setAdapter(mDestinationChainListAdapter);
+        mLinkChainAdapter = new LinkChainAdapter();
+        mRecyclerView.setAdapter(mLinkChainAdapter);
     }
 
-    private class DestinationChainListAdapter extends RecyclerView.Adapter<DestinationChainListAdapter.DestinationChainHolder> {
+    private class LinkChainAdapter extends RecyclerView.Adapter<LinkChainAdapter.RelayerListHolder> {
 
         @NonNull
         @Override
-        public DestinationChainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new DestinationChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_destination_chain, viewGroup, false));
+        public LinkChainAdapter.RelayerListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new LinkChainAdapter.RelayerListHolder(getLayoutInflater().inflate(R.layout.item_dialog_link_chain, viewGroup, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull DestinationChainHolder holder, int position) {
-            final BaseChain baseChain = mToChainList.get(position);
-            WDp.onDpChain(getContext(), baseChain, holder.chainImg, holder.chainName);
+        public void onBindViewHolder(@NonNull LinkChainAdapter.RelayerListHolder holder, int position) {
+            final BaseChain baseChain = mLinkChainList.get(position);
+            WDp.getChainImg(getSActivity(), baseChain, holder.chainImg);
+            WDp.getChainTitle2(getSActivity(), baseChain, holder.chainName);
+
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,14 +84,14 @@ public class Dialog_Htlc_Receive_Chain extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            return mToChainList.size();
+            return mLinkChainList.size();
         }
 
-        public class DestinationChainHolder extends RecyclerView.ViewHolder {
+        public class RelayerListHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
             ImageView chainImg;
             TextView chainName;
-            public DestinationChainHolder(@NonNull View itemView) {
+            public RelayerListHolder(@NonNull View itemView) {
                 super(itemView);
                 rootLayer   = itemView.findViewById(R.id.rootLayer);
                 chainImg    = itemView.findViewById(R.id.chainImg);

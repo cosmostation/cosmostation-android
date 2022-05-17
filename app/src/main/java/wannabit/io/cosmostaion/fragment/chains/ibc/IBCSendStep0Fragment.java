@@ -28,8 +28,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
-import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
+import wannabit.io.cosmostaion.dialog.DialogFragment_IbcReceiveChain;
+import wannabit.io.cosmostaion.dialog.DialogFragment_IbcRelayerChannel;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -172,7 +172,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mToChainLayer)) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("chain", mIbcSendableRelayers);
-            Dialog_IBC_Receive_Chain dialog = Dialog_IBC_Receive_Chain.newInstance(bundle);
+            DialogFragment_IbcReceiveChain dialog = DialogFragment_IbcReceiveChain.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -180,7 +180,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mToRelayer)) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("channel", mIbcSendablePaths);
-            Dialog_IBC_Relayer_Channel dialog = Dialog_IBC_Relayer_Channel.newInstance(bundle);
+            DialogFragment_IbcRelayerChannel dialog = DialogFragment_IbcRelayerChannel.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_RELAYER);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

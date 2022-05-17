@@ -30,7 +30,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.DialogFragment_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
@@ -304,7 +304,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
             bundle.putString("title", mAccountName.getText().toString());
-            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            DialogFragment_AccountShow show = DialogFragment_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 

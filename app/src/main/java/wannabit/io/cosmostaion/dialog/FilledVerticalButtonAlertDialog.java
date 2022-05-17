@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.R;
 
 public class FilledVerticalButtonAlertDialog extends AlertDialog {
     TextView titleTextView, messageTextView;
-    Button Button1, Button2, Button3;
+    Button firstButton, secondButton, thirdButton;
 
     public FilledVerticalButtonAlertDialog(Context context) {
         super(context);
@@ -21,38 +21,38 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
 
         titleTextView = view.findViewById(R.id.dialog_title);
         messageTextView = view.findViewById(R.id.dialog_msg);
-        Button1 = view.findViewById(R.id.btn_one);
-        Button2 = view.findViewById(R.id.btn_two);
-        Button3 = view.findViewById(R.id.btn_three);
+        firstButton = view.findViewById(R.id.btn_one);
+        secondButton = view.findViewById(R.id.btn_two);
+        thirdButton = view.findViewById(R.id.btn_three);
         setView(view);
 
     }
 
-    public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener, CharSequence Button2Title, View.OnClickListener Button2Listener, Boolean cancelable) {
-        FilledVerticalButtonAlertDialog dialog = makeDoubleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener);
+    public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, Boolean cancelable) {
+        FilledVerticalButtonAlertDialog dialog = makeDoubleButton(context, title, message, firstButtonTitle, firstButtonListener, secondButtonTitle, secondButtonListener);
         dialog.setCancelable(cancelable);
         dialog.create();
         dialog.show();
     }
 
-    public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener, CharSequence Button2Title, View.OnClickListener Button2Listener) {
-        showDoubleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener, true);
+    public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, CharSequence secondButtonTitle, View.OnClickListener secondButtonListener) {
+        showDoubleButton(context, title, message, firstButtonTitle, firstButtonListener, secondButtonTitle, secondButtonListener, true);
     }
 
-    public static void showTripleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener,
-                                        CharSequence Button2Title, View.OnClickListener Button2Listener, CharSequence Button3Title, View.OnClickListener Button3Listener, Boolean cancelable) {
-        FilledVerticalButtonAlertDialog dialog = makeTripleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener, Button3Title, Button3Listener);
+    public static void showTripleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener,
+                                        CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, CharSequence thirdButtonTitle, View.OnClickListener thirdButtonListener, Boolean cancelable) {
+        FilledVerticalButtonAlertDialog dialog = makeTripleButton(context, title, message, firstButtonTitle, firstButtonListener, secondButtonTitle, secondButtonListener, thirdButtonTitle, thirdButtonListener);
         dialog.setCancelable(cancelable);
         dialog.create();
         dialog.show();
     }
 
-    public static void showTripleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener,
-                                        CharSequence Button2Title, View.OnClickListener Button2Listener, CharSequence Button3Title, View.OnClickListener Button3Listener) {
-        showTripleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener, Button3Title, Button3Listener, true);
+    public static void showTripleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener,
+                                        CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, CharSequence thirdButtonTitle, View.OnClickListener thirdButtonListener) {
+        showTripleButton(context, title, message, firstButtonTitle, firstButtonListener, secondButtonTitle, secondButtonListener, thirdButtonTitle, thirdButtonListener, true);
     }
 
-    private static FilledVerticalButtonAlertDialog makeDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener, CharSequence Button2Title, View.OnClickListener Button2Listener) {
+    private static FilledVerticalButtonAlertDialog makeDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, CharSequence secondButtonTitle, View.OnClickListener secondButtonListener) {
         FilledVerticalButtonAlertDialog dialog = new FilledVerticalButtonAlertDialog(context);
         if (StringUtils.isEmpty(title)) {
             dialog.titleTextView.setVisibility(View.GONE);
@@ -68,35 +68,35 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
             dialog.messageTextView.setVisibility(View.VISIBLE);
         }
 
-        dialog.Button1.setText(Button1Title);
-        dialog.Button1.setOnClickListener(view -> {
-            if (Button1Listener != null) {
-                Button1Listener.onClick(view);
+        dialog.firstButton.setText(firstButtonTitle);
+        dialog.firstButton.setOnClickListener(view -> {
+            if (firstButtonListener != null) {
+                firstButtonListener.onClick(view);
             }
             dialog.dismiss();
         });
 
-        dialog.Button2.setText(Button2Title);
-        dialog.Button2.setOnClickListener(view -> {
-            if (Button2Listener != null) {
-                Button2Listener.onClick(view);
+        dialog.secondButton.setText(secondButtonTitle);
+        dialog.secondButton.setOnClickListener(view -> {
+            if (secondButtonListener != null) {
+                secondButtonListener.onClick(view);
             }
             dialog.dismiss();
         });
 
-        dialog.Button3.setVisibility(View.GONE);
+        dialog.thirdButton.setVisibility(View.GONE);
 
         return dialog;
     }
 
-    private static FilledVerticalButtonAlertDialog makeTripleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener,
-                                                                    CharSequence Button2Title, View.OnClickListener Button2Listener, CharSequence Button3Title, View.OnClickListener Button3Listener) {
-        FilledVerticalButtonAlertDialog dialog = makeDoubleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener);
-        dialog.Button3.setText(Button3Title);
-        dialog.Button3.setVisibility(View.VISIBLE);
-        dialog.Button3.setOnClickListener(view -> {
-            if (Button3Listener != null) {
-                Button3Listener.onClick(view);
+    private static FilledVerticalButtonAlertDialog makeTripleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener,
+                                                                    CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, CharSequence thirdButtonTitle, View.OnClickListener thirdButtonListener) {
+        FilledVerticalButtonAlertDialog dialog = makeDoubleButton(context, title, message, firstButtonTitle, firstButtonListener, secondButtonTitle, secondButtonListener);
+        dialog.thirdButton.setText(thirdButtonTitle);
+        dialog.thirdButton.setVisibility(View.VISIBLE);
+        dialog.thirdButton.setOnClickListener(view -> {
+            if (thirdButtonListener != null) {
+                thirdButtonListener.onClick(view);
             }
             dialog.dismiss();
         });

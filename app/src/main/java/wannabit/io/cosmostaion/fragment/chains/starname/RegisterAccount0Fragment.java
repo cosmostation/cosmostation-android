@@ -25,10 +25,9 @@ import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Starname_Domain;
+import wannabit.io.cosmostaion.dialog.DialogFragment_StarNameDomain;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
@@ -84,7 +83,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
         if (v.equals(mDomainLayer)) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
-            Dialog_Starname_Domain dialog = Dialog_Starname_Domain.newInstance(bundle);
+            DialogFragment_StarNameDomain dialog = DialogFragment_StarNameDomain.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_STARNAME_DOMAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

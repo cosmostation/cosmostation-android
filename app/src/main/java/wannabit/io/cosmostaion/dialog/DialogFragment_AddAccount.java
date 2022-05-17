@@ -19,13 +19,13 @@ import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.RestoreKeyActivity;
 import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity;
 
-public class Dialog_AddAccount extends DialogFragment {
+public class DialogFragment_AddAccount extends DialogFragment {
 
     private LinearLayout btn_import_key, btn_import_mnemonic, btn_watch_address;
     private Button       btn_create;
 
-    public static Dialog_AddAccount newInstance(Bundle bundle) {
-        Dialog_AddAccount frag = new Dialog_AddAccount();
+    public static DialogFragment_AddAccount newInstance(Bundle bundle) {
+        DialogFragment_AddAccount frag = new DialogFragment_AddAccount();
         frag.setArguments(bundle);
         return frag;
     }

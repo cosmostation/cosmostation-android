@@ -26,10 +26,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Wc_Transfer extends DialogFragment {
+public class DialogFragment_WcTransfer extends DialogFragment {
 
-    public static Dialog_Wc_Transfer newInstance(Bundle bundle) {
-        Dialog_Wc_Transfer frag = new Dialog_Wc_Transfer();
+    public static DialogFragment_WcTransfer newInstance(Bundle bundle) {
+        DialogFragment_WcTransfer frag = new DialogFragment_WcTransfer();
         frag.setArguments(bundle);
         return frag;
     }

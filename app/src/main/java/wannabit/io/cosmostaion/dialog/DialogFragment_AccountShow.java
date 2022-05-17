@@ -27,15 +27,15 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 
-public class Dialog_AccountShow extends DialogFragment {
+public class DialogFragment_AccountShow extends DialogFragment {
 
     private Button      btn_nega, btn_posi;
     private TextView    mTitle, mAddress;
     private ImageView   mQr;
-    private Bitmap          mBitmap;
+    private Bitmap      mBitmap;
 
-    public static Dialog_AccountShow newInstance(Bundle bundle) {
-        Dialog_AccountShow frag = new Dialog_AccountShow();
+    public static DialogFragment_AccountShow newInstance(Bundle bundle) {
+        DialogFragment_AccountShow frag = new DialogFragment_AccountShow();
         frag.setArguments(bundle);
         return frag;
     }

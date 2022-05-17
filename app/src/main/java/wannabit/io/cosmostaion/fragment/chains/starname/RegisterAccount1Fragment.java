@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
+import wannabit.io.cosmostaion.dialog.DialogFragment_StarNameResource;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
@@ -193,7 +193,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                         Bundle bundle = new Bundle();
                         StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
                         bundle.putSerializable("resources", wrapper);
-                        Dialog_StarName_Resource dialog = Dialog_StarName_Resource.newInstance(bundle);
+                        DialogFragment_StarNameResource dialog = DialogFragment_StarNameResource.newInstance(bundle);
                         dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
                         dialog.show(getFragmentManager(), "dialog");
                     }

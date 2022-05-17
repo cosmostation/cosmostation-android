@@ -4,40 +4,43 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
+public class DialogFragment_LinkAccounts extends DialogFragment {
 
     private RecyclerView        mRecyclerView;
     private TextView            mDialogTitle;
     private AccountListAdapter  mAccountListAdapter;
 
-    private ArrayList<Account>  mAccounts = new ArrayList<>();
+    private ArrayList<Account>              mAccounts = new ArrayList<>();
+    private ResAirdropClaimCheck            mCheckClaim;
 
-    public static Dialog_IBC_Receivable_Accouts newInstance(Bundle bundle) {
-        Dialog_IBC_Receivable_Accouts frag = new Dialog_IBC_Receivable_Accouts();
+    public static DialogFragment_LinkAccounts newInstance(Bundle bundle) {
+        DialogFragment_LinkAccounts frag = new DialogFragment_LinkAccounts();
         frag.setArguments(bundle);
         return frag;
     }
@@ -52,9 +55,9 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mDialogTitle           = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_account);
+        mDialogTitle.setText(R.string.str_select_link_account);
         mRecyclerView = view.findViewById(R.id.recycler);
-        mAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(getArguments().getString("chainName")));
+        mAccounts = getSActivity().getBaseDao().onSelectAllAccountsByChainWithKey(BaseChain.getChain(getArguments().getString("chainName")));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
@@ -68,24 +71,29 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
         @NonNull
         @Override
         public AccountListAdapter.AccountHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new AccountListAdapter.AccountHolder(getLayoutInflater().inflate(R.layout.item_dialog_accountlist_account, viewGroup, false));
+            return new AccountListAdapter.AccountHolder(getLayoutInflater().inflate(R.layout.item_dialog_link_account, viewGroup, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull AccountListAdapter.AccountHolder holder, int position) {
             final Account account = mAccounts.get(position);
-            final BaseChain baseChain = BaseChain.getChain(account.baseChain);
-            final int dpDecimal = WDp.mainDisplayDecimal(baseChain);
-            holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             holder.accountAddress.setText(account.address);
+            holder.accountName.setText(WUtil.getWalletName(getContext(), account));
+            ApiClient.getAirDrop(getContext()).getClaimable(account.address).enqueue(new Callback<ResAirdropClaimCheck>() {
+                @Override
+                public void onResponse(Call<ResAirdropClaimCheck> call, Response<ResAirdropClaimCheck> response) {
+                    if (response.isSuccessful()) {
+                        mCheckClaim = new ResAirdropClaimCheck(response.body());
+                        holder.accountAvailable.setText(mCheckClaim.getUnclaimedAirdropAmount().toString());
+                    }
+                }
 
-            if(TextUtils.isEmpty(account.nickName)) holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
-            else holder.accountName.setText(account.nickName);
-            if (account.hasPrivateKey) {
-                holder.accountKeyState.setColorFilter(WDp.getChainColor(getContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-            WDp.DpMainDenom(getSActivity(), baseChain, holder.accountDenom);
-            holder.accountAvailable.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(account.lastTotal), dpDecimal, 6));
+                @Override
+                public void onFailure(Call<ResAirdropClaimCheck> call, Throwable t) {
+                    WLog.w("error : " + t.getMessage());
+                }
+            });
+
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -105,13 +113,11 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
 
 
         public class AccountHolder extends RecyclerView.ViewHolder {
-            RelativeLayout rootLayer;
-            ImageView accountKeyState;
-            TextView accountName, accountAddress, accountAvailable, accountDenom;
+            RelativeLayout  rootLayer;
+            TextView        accountName, accountAddress, accountAvailable, accountDenom;
             public AccountHolder(@NonNull View itemView) {
                 super(itemView);
                 rootLayer           = itemView.findViewById(R.id.rootLayer);
-                accountKeyState     = itemView.findViewById(R.id.accountKeyState);
                 accountName         = itemView.findViewById(R.id.accountName);
                 accountAddress      = itemView.findViewById(R.id.accountAddress);
                 accountAvailable    = itemView.findViewById(R.id.accountAvailable);

@@ -25,15 +25,15 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_IBC_Receive_Chain extends DialogFragment {
+public class DialogFragment_IbcReceiveChain extends DialogFragment {
 
     private RecyclerView            mRecyclerView;
     private TextView                mDialogTitle;
     private RelayerListAdapter      mRelayerListAdapter;
     private ArrayList<IbcPath>      mIbcSendableRelayers = new ArrayList<>();
 
-    public static Dialog_IBC_Receive_Chain newInstance(Bundle bundle) {
-        Dialog_IBC_Receive_Chain frag = new Dialog_IBC_Receive_Chain();
+    public static DialogFragment_IbcReceiveChain newInstance(Bundle bundle) {
+        DialogFragment_IbcReceiveChain frag = new DialogFragment_IbcReceiveChain();
         frag.setArguments(bundle);
         return frag;
     }

@@ -51,8 +51,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.DialogFragment_AccountShow;
+import wannabit.io.cosmostaion.dialog.DialogFragment_AddAccount;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
@@ -171,7 +171,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
         else
             bundle.putString("title", mAccount.nickName);
-        Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+        DialogFragment_AccountShow show = DialogFragment_AccountShow.newInstance(bundle);
         show.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
     }
@@ -260,7 +260,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             public void run() {
                 Bundle bundle = new Bundle();
                 bundle.putString("chain", baseChain.getChain());
-                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
+                DialogFragment_AddAccount add = DialogFragment_AddAccount.newInstance(bundle);
                 add.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             }

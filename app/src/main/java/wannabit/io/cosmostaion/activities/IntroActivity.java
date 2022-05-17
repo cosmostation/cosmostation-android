@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.dialog.DialogFragment_ChoiceNet;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -145,7 +145,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         if (v.equals(mStart)) {
             Bundle bundle = new Bundle();
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
+            DialogFragment_ChoiceNet dialog = DialogFragment_ChoiceNet.newInstance(bundle);
             dialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
         }

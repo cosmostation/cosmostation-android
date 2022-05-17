@@ -14,15 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Hdac_info extends DialogFragment {
+public class DialogFragment_StarNameConfirm extends DialogFragment {
 
-    public static Dialog_Hdac_info newInstance(Bundle bundle) {
-        Dialog_Hdac_info frag = new Dialog_Hdac_info();
+    public static DialogFragment_StarNameConfirm newInstance(Bundle bundle) {
+        DialogFragment_StarNameConfirm frag = new DialogFragment_StarNameConfirm();
         frag.setArguments(bundle);
         return frag;
     }
@@ -30,40 +27,36 @@ public class Dialog_Hdac_info extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return inflater.inflate(R.layout.dialog_hdac_info, container);
+        return inflater.inflate(R.layout.dialog_starname_confirm, container);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView hdac_address = view.findViewById(R.id.hdac_address);
-        TextView hdac_amount = view.findViewById(R.id.hdac_amount);
         Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        Button btn_posi = view.findViewById(R.id.btn_posi);
 
-        String mHdacAddress = getArguments().getString("hdacAddress");
-        String mHdacBalance = getArguments().getString("hdacBalance");
-        hdac_address.setText(mHdacAddress);
-        hdac_amount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mHdacBalance), 8, 8));
+        TextView starnameTv = view.findViewById(R.id.tv_startname);
+        TextView addressTv = view.findViewById(R.id.tv_address);
+        starnameTv.setText(getArguments().getString("starname"));
+        addressTv.setText(getArguments().getString("originAddress"));
 
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("hdac", 0);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
             }
         });
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
+
+        btn_posi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("hdac", 1);
+                resultIntent.putExtra("starname", getArguments().getString("starname"));
+                resultIntent.putExtra("originAddress", getArguments().getString("originAddress"));
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
-
             }
         });
     }

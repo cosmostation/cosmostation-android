@@ -19,10 +19,10 @@ import com.google.gson.JsonObject;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 
-public class Dialog_Wc_Cancel extends DialogFragment {
+public class DialogFragment_WcCancel extends DialogFragment {
 
-    public static Dialog_Wc_Cancel newInstance(Bundle bundle) {
-        Dialog_Wc_Cancel frag = new Dialog_Wc_Cancel();
+    public static DialogFragment_WcCancel newInstance(Bundle bundle) {
+        DialogFragment_WcCancel frag = new DialogFragment_WcCancel();
         frag.setArguments(bundle);
         return frag;
     }

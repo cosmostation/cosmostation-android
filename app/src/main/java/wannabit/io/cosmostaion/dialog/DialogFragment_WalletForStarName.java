@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Wallet_for_Starname extends DialogFragment {
+public class DialogFragment_WalletForStarName extends DialogFragment {
 
     private RecyclerView             mRecyclerView;
     private WalletForStarNameAdapter mAdapter;
@@ -35,8 +35,8 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
     private String                   mUri;
     private ArrayList<Account>       mWalletList = new ArrayList<>();
 
-    public static Dialog_Wallet_for_Starname newInstance(Bundle bundle) {
-        Dialog_Wallet_for_Starname frag = new Dialog_Wallet_for_Starname();
+    public static DialogFragment_WalletForStarName newInstance(Bundle bundle) {
+        DialogFragment_WalletForStarName frag = new DialogFragment_WalletForStarName();
         frag.setArguments(bundle);
         return frag;
     }

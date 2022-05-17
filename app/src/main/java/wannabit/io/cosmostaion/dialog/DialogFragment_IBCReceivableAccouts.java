@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,24 +23,21 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.ConnectWalletActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_WC_Account extends DialogFragment {
+public class DialogFragment_IBCReceivableAccouts extends DialogFragment {
 
-    private RecyclerView       mRecyclerView;
-    private TextView           mDialogTitle;
-    private AccountListAdapter mAccountListAdapter;
+    private RecyclerView        mRecyclerView;
+    private TextView            mDialogTitle;
+    private AccountListAdapter  mAccountListAdapter;
 
-    private ArrayList<Account> mAccounts = new ArrayList<>();
-    private OnDialogSelectListener mOnSelectListener = null;
-    private Long id;
+    private ArrayList<Account>  mAccounts = new ArrayList<>();
 
-    public static Dialog_WC_Account newInstance(Bundle bundle) {
-        Dialog_WC_Account frag = new Dialog_WC_Account();
+    public static DialogFragment_IBCReceivableAccouts newInstance(Bundle bundle) {
+        DialogFragment_IBCReceivableAccouts frag = new DialogFragment_IBCReceivableAccouts();
         frag.setArguments(bundle);
         return frag;
     }
@@ -56,17 +54,13 @@ public class Dialog_WC_Account extends DialogFragment {
         mDialogTitle           = view.findViewById(R.id.dialog_title);
         mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView = view.findViewById(R.id.recycler);
-        mAccounts = getSActivity().getBaseDao().onSelectAllAccountsByChainWithKey(WDp.getChainTypeByChainId(getArguments().getString("chainName")));
-        id = getArguments().getLong("id");
+        mAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(getArguments().getString("chainName")));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
         mRecyclerView.setAdapter(mAccountListAdapter);
     }
 
-    public void setOnSelectListener(OnDialogSelectListener mOnSelectListener) {
-        this.mOnSelectListener = mOnSelectListener;
-    }
 
 
     private class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountHolder> {
@@ -82,19 +76,24 @@ public class Dialog_WC_Account extends DialogFragment {
             final Account account = mAccounts.get(position);
             final BaseChain baseChain = BaseChain.getChain(account.baseChain);
             final int dpDecimal = WDp.mainDisplayDecimal(baseChain);
-            holder.accountKeyState.setColorFilter(WDp.getChainColor(getContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             holder.accountAddress.setText(account.address);
 
-            if (TextUtils.isEmpty(account.nickName))
-                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
+            if(TextUtils.isEmpty(account.nickName)) holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
+            if (account.hasPrivateKey) {
+                holder.accountKeyState.setColorFilter(WDp.getChainColor(getContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
             WDp.DpMainDenom(getSActivity(), baseChain, holder.accountDenom);
             holder.accountAvailable.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(account.lastTotal), dpDecimal, 6));
-            holder.rootLayer.setOnClickListener(v -> {
-                if (mOnSelectListener != null) {
-                    mOnSelectListener.onSelect(id, account);
+            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("position", position);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    getDialog().dismiss();
                 }
-                getDialog().dismiss();
             });
 
         }
@@ -109,24 +108,19 @@ public class Dialog_WC_Account extends DialogFragment {
             RelativeLayout rootLayer;
             ImageView accountKeyState;
             TextView accountName, accountAddress, accountAvailable, accountDenom;
-
             public AccountHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer = itemView.findViewById(R.id.rootLayer);
-                accountKeyState = itemView.findViewById(R.id.accountKeyState);
-                accountName = itemView.findViewById(R.id.accountName);
-                accountAddress = itemView.findViewById(R.id.accountAddress);
-                accountAvailable = itemView.findViewById(R.id.accountAvailable);
-                accountDenom = itemView.findViewById(R.id.accountDenom);
+                rootLayer           = itemView.findViewById(R.id.rootLayer);
+                accountKeyState     = itemView.findViewById(R.id.accountKeyState);
+                accountName         = itemView.findViewById(R.id.accountName);
+                accountAddress      = itemView.findViewById(R.id.accountAddress);
+                accountAvailable    = itemView.findViewById(R.id.accountAvailable);
+                accountDenom        = itemView.findViewById(R.id.accountDenom);
             }
         }
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
-    }
-
-    public interface OnDialogSelectListener {
-        void onSelect(Long id, Account account);
+        return (BaseActivity)getActivity();
     }
 }

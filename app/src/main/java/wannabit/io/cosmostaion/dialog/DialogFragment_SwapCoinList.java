@@ -36,15 +36,15 @@ import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Swap_Coin_List extends DialogFragment {
+public class DialogFragment_SwapCoinList extends DialogFragment {
 
     private TextView             mDialogTitle;
     private RecyclerView         mRecyclerView;
     private SwapChainListAdapter mSwapChainListAdapter;
     private ArrayList<String>    mSwapCoinList;
 
-    public static Dialog_Swap_Coin_List newInstance(Bundle bundle) {
-        Dialog_Swap_Coin_List frag = new Dialog_Swap_Coin_List();
+    public static DialogFragment_SwapCoinList newInstance(Bundle bundle) {
+        DialogFragment_SwapCoinList frag = new DialogFragment_SwapCoinList();
         frag.setArguments(bundle);
         return frag;
     }

@@ -24,8 +24,8 @@ import wannabit.io.cosmostaion.activities.chains.desmos.LinkAccountActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_Link_Accounts;
-import wannabit.io.cosmostaion.dialog.Dialog_Link_Chain;
+import wannabit.io.cosmostaion.dialog.DialogFragment_LinkAccounts;
+import wannabit.io.cosmostaion.dialog.DialogFragment_LinkChain;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -131,7 +131,7 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
             getSActivity().onNextStep();
 
         } else if (v.equals(mBtnLinkChain)) {
-            Dialog_Link_Chain dialog = Dialog_Link_Chain.newInstance(null);
+            DialogFragment_LinkChain dialog = DialogFragment_LinkChain.newInstance(null);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_LINK_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -143,7 +143,7 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
             }
             Bundle bundle = new Bundle();
             bundle.putString("chainName", mSelectedChain.getChain());
-            Dialog_Link_Accounts dialog = Dialog_Link_Accounts.newInstance(bundle);
+            DialogFragment_LinkAccounts dialog = DialogFragment_LinkAccounts.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_LINK_ACCOUNT);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

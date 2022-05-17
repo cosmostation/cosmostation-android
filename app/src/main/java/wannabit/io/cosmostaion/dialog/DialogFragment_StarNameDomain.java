@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,19 +20,16 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
-public class Dialog_Link_Chain extends DialogFragment {
+public class DialogFragment_StarNameDomain extends DialogFragment {
 
-    private RecyclerView         mRecyclerView;
-    private TextView             mDialogTitle;
-    private LinkChainAdapter     mLinkChainAdapter;
-    private ArrayList<BaseChain> mLinkChainList = new ArrayList<>();
+    private RecyclerView        mRecyclerView;
+    private TextView            mDialogTitle;
+    private DomainListAdapter   mDomainListAdapter;
+    private ArrayList<String>   mStarnameDomain = new ArrayList<>();
 
-    public static Dialog_Link_Chain newInstance(Bundle bundle) {
-        Dialog_Link_Chain frag = new Dialog_Link_Chain();
+    public static DialogFragment_StarNameDomain newInstance(Bundle bundle) {
+        DialogFragment_StarNameDomain frag = new DialogFragment_StarNameDomain();
         frag.setArguments(bundle);
         return frag;
     }
@@ -48,29 +44,27 @@ public class Dialog_Link_Chain extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_link_chain);
+        mDialogTitle.setText(R.string.str_select_starname_domain);
         mRecyclerView = view.findViewById(R.id.recycler);
-        mLinkChainList = WUtil.getDesmosAirDropChains();
+        mStarnameDomain = getArguments().getStringArrayList("domain");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mLinkChainAdapter = new LinkChainAdapter();
-        mRecyclerView.setAdapter(mLinkChainAdapter);
+        mDomainListAdapter = new DomainListAdapter();
+        mRecyclerView.setAdapter(mDomainListAdapter);
     }
 
-    private class LinkChainAdapter extends RecyclerView.Adapter<LinkChainAdapter.RelayerListHolder> {
+    private class DomainListAdapter extends RecyclerView.Adapter<DomainListAdapter.DomainListHolder> {
 
         @NonNull
         @Override
-        public LinkChainAdapter.RelayerListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new LinkChainAdapter.RelayerListHolder(getLayoutInflater().inflate(R.layout.item_dialog_link_chain, viewGroup, false));
+        public DomainListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new DomainListHolder(getLayoutInflater().inflate(R.layout.item_dialog_starname_domain_list, viewGroup, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull LinkChainAdapter.RelayerListHolder holder, int position) {
-            final BaseChain baseChain = mLinkChainList.get(position);
-            WDp.getChainImg(getSActivity(), baseChain, holder.chainImg);
-            WDp.getChainTitle2(getSActivity(), baseChain, holder.chainName);
-
+        public void onBindViewHolder(@NonNull DomainListHolder holder, int position) {
+            final String domain = mStarnameDomain.get(position);
+            holder.domainName.setText(domain);
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -84,18 +78,16 @@ public class Dialog_Link_Chain extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            return mLinkChainList.size();
+            return mStarnameDomain.size();
         }
 
-        public class RelayerListHolder extends RecyclerView.ViewHolder {
+        public class DomainListHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
-            ImageView chainImg;
-            TextView chainName;
-            public RelayerListHolder(@NonNull View itemView) {
+            TextView domainName;
+            public DomainListHolder(@NonNull View itemView) {
                 super(itemView);
                 rootLayer   = itemView.findViewById(R.id.rootLayer);
-                chainImg    = itemView.findViewById(R.id.chainImg);
-                chainName   = itemView.findViewById(R.id.chainName);
+                domainName   = itemView.findViewById(R.id.domainName);
             }
         }
 
