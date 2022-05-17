@@ -33,7 +33,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
@@ -206,7 +206,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        CustomAlertDialog.showTripleButton(this,"Unbonding Duration",null,
+        PaddedVerticalButtonAlertDialog.showTripleButton(this,"Unbonding Duration",null,
                 "1 Day", view -> onStartNewEarning(864001),
                 "7 Day", view -> onStartNewEarning(604800),
                 "14Day",view -> onStartNewEarning(12096001));
@@ -251,8 +251,8 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 //        String amount = new BigDecimal(totalToUnbonding.toPlainString()).movePointLeft(18).toPlainString();
 //        msg = msg + "\n" + amount;
 
-            CustomAlertDialog.showDoubleButton(this,"Unbonding all for same durations?",msg,
-                    "Unbonding All", view -> onStartUnbonding(lockups);},
+            PaddedVerticalButtonAlertDialog.showDoubleButton(this,"Unbonding all for same durations?",msg,
+                    "Unbonding All", view -> onStartUnbonding(lockups),
                     "Unbonding This One", view -> {
                         try {
                             Lock.PeriodLock lock = Lock.PeriodLock.parseFrom(lockup.toByteArray());
@@ -303,8 +303,8 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 //        String amount = new BigDecimal(totalToUnlock.toPlainString()).movePointLeft(18).toPlainString();
 //        msg = msg + "\n" + amount;
 
-            CustomAlertDialog.showDoubleButton(this,"Unlock all?",msg,
-                    "Unlock All", view -> {onStartUnlock(lockups);},
+            PaddedVerticalButtonAlertDialog.showDoubleButton(this,"Unlock all?",msg,
+                    "Unlock All", view -> onStartUnlock(lockups),
                     "Unlock This One", view -> {
                         try {
                             Lock.PeriodLock lock = Lock.PeriodLock.parseFrom(lockup.toByteArray());

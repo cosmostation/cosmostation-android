@@ -30,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -372,7 +372,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     }
 
     public void onShowMyValidatorSort() {
-        CustomAlertDialog.showTripleButton(getMainActivity(),getString(R.string.str_sorting_s),null,
+        PaddedVerticalButtonAlertDialog.showTripleButton(getMainActivity(),getString(R.string.str_sorting_s),null,
                 getString(R.string.str_sorting_by_name), View -> {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("sorting", 0);

@@ -1,8 +1,15 @@
 package wannabit.io.cosmostaion.dialog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,22 +36,12 @@ import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
-
 public class Dialog_Swap_Coin_List extends DialogFragment {
 
-    private TextView mDialogTitle;
-    private RecyclerView mRecyclerView;
+    private TextView             mDialogTitle;
+    private RecyclerView         mRecyclerView;
     private SwapChainListAdapter mSwapChainListAdapter;
-    private ArrayList<String> mSwapCoinList;
+    private ArrayList<String>    mSwapCoinList;
 
     public static Dialog_Swap_Coin_List newInstance(Bundle bundle) {
         Dialog_Swap_Coin_List frag = new Dialog_Swap_Coin_List();
@@ -54,14 +52,14 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_recycler_dialog_template, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_swap_coin_list, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mSwapCoinList = getArguments().getStringArrayList("denoms");
-        mDialogTitle = view.findViewById(R.id.dialog_swap_title);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
         if (getTargetRequestCode() == 8500) { mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in)); }
         else { mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out)); }
         mRecyclerView = view.findViewById(R.id.recycler);
@@ -69,10 +67,6 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mSwapChainListAdapter);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
 
     private class SwapChainListAdapter extends RecyclerView.Adapter<SwapChainListAdapter.SwapChainHolder> {

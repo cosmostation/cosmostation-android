@@ -40,7 +40,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravityPoolListFragment;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravitySwapFragment;
 import wannabit.io.cosmostaion.model.GDexManager;
@@ -154,7 +154,7 @@ public class GravityListActivity extends BaseActivity {
 
     public void onClickMyPool(long poolId) {
         WLog.w("onClickMyPool " + poolId);
-        CustomAlertDialog.showDoubleButton(this,null,null,
+        PaddedVerticalButtonAlertDialog.showDoubleButton(this,null,null,
                 getString(R.string.str_title_pool_join), view -> onCheckStartDepositPool(poolId),
                 getString(R.string.str_title_pool_exit), view -> onCheckStartWithdrawPool(poolId));
     }

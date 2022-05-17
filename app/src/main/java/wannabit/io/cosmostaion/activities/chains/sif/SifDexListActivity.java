@@ -36,7 +36,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexEthPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexIbcPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexSwapFragment;
@@ -151,7 +151,7 @@ public class SifDexListActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("pool", pool);
         bundle.putSerializable("myProvider", myProvider);
-        CustomAlertDialog.showDoubleButton(this,null,null,
+        PaddedVerticalButtonAlertDialog.showDoubleButton(this,null,null,
                 getString(R.string.str_title_pool_join), view -> onCheckStartDepositPool(pool),
                 getString(R.string.str_title_pool_exit), view -> onCheckStartWithdrawPool(pool, myProvider));
     }

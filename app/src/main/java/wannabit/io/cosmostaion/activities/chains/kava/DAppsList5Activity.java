@@ -42,7 +42,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListKavaPoolFragment;
@@ -166,7 +166,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     }
 
     public void onClickMyPool(QueryOuterClass.PoolResponse mPool, QueryOuterClass.DepositResponse mDeposit) {
-        CustomAlertDialog.showDoubleButton(this,null,null,
+        PaddedVerticalButtonAlertDialog.showDoubleButton(this,null,null,
                 getString(R.string.str_title_pool_join), view -> onCheckStartJoinPool(mPool),
                 getString(R.string.str_title_pool_exit), view -> onCheckStartExitPool(mPool, mDeposit));
     }

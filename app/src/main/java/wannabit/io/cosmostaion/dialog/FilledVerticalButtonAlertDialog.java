@@ -11,11 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import wannabit.io.cosmostaion.R;
 
-public class CustomAlertDialog extends AlertDialog {
+public class FilledVerticalButtonAlertDialog extends AlertDialog {
     TextView titleTextView, messageTextView;
     Button Button1, Button2, Button3;
 
-    public CustomAlertDialog(Context context) {
+    public FilledVerticalButtonAlertDialog(Context context) {
         super(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_custom_template, null);
 
@@ -29,7 +29,7 @@ public class CustomAlertDialog extends AlertDialog {
     }
 
     public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener, CharSequence Button2Title, View.OnClickListener Button2Listener, Boolean cancelable) {
-        CustomAlertDialog dialog = makeDoubleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener);
+        FilledVerticalButtonAlertDialog dialog = makeDoubleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener);
         dialog.setCancelable(cancelable);
         dialog.create();
         dialog.show();
@@ -41,7 +41,7 @@ public class CustomAlertDialog extends AlertDialog {
 
     public static void showTripleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener,
                                         CharSequence Button2Title, View.OnClickListener Button2Listener, CharSequence Button3Title, View.OnClickListener Button3Listener, Boolean cancelable) {
-        CustomAlertDialog dialog = makeTripleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener, Button3Title, Button3Listener);
+        FilledVerticalButtonAlertDialog dialog = makeTripleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener, Button3Title, Button3Listener);
         dialog.setCancelable(cancelable);
         dialog.create();
         dialog.show();
@@ -52,8 +52,8 @@ public class CustomAlertDialog extends AlertDialog {
         showTripleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener, Button3Title, Button3Listener, true);
     }
 
-    private static CustomAlertDialog makeDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener, CharSequence Button2Title, View.OnClickListener Button2Listener) {
-        CustomAlertDialog dialog = new CustomAlertDialog(context);
+    private static FilledVerticalButtonAlertDialog makeDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener, CharSequence Button2Title, View.OnClickListener Button2Listener) {
+        FilledVerticalButtonAlertDialog dialog = new FilledVerticalButtonAlertDialog(context);
         if (StringUtils.isEmpty(title)) {
             dialog.titleTextView.setVisibility(View.GONE);
         } else {
@@ -89,9 +89,9 @@ public class CustomAlertDialog extends AlertDialog {
         return dialog;
     }
 
-    private static CustomAlertDialog makeTripleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener,
-                                                      CharSequence Button2Title, View.OnClickListener Button2Listener, CharSequence Button3Title, View.OnClickListener Button3Listener) {
-        CustomAlertDialog dialog = makeDoubleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener);
+    private static FilledVerticalButtonAlertDialog makeTripleButton(Context context, CharSequence title, CharSequence message, CharSequence Button1Title, View.OnClickListener Button1Listener,
+                                                                    CharSequence Button2Title, View.OnClickListener Button2Listener, CharSequence Button3Title, View.OnClickListener Button3Listener) {
+        FilledVerticalButtonAlertDialog dialog = makeDoubleButton(context, title, message, Button1Title, Button1Listener, Button2Title, Button2Listener);
         dialog.Button3.setText(Button3Title);
         dialog.Button3.setVisibility(View.VISIBLE);
         dialog.Button3.setOnClickListener(view -> {
