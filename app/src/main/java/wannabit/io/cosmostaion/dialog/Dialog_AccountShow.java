@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.zxing.BarcodeFormat;
@@ -45,12 +47,12 @@ public class Dialog_AccountShow extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_account_show, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_account_show, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
 
         btn_nega = view.findViewById(R.id.btn_nega);
@@ -93,14 +95,7 @@ public class Dialog_AccountShow extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
-
-
 
     private static Bitmap toBitmap(BitMatrix matrix) {
         int height = matrix.getHeight();

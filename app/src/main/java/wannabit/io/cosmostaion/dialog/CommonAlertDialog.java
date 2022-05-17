@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class CommonAlertDialog extends AlertDialog {
     TextView titleTextView;
@@ -28,4 +29,5 @@ public class CommonAlertDialog extends AlertDialog {
         leftButton = view.findViewById(R.id.btn_left);
         setView(view);
     }
+
 }

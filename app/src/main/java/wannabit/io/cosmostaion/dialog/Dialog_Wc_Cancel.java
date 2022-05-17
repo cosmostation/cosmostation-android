@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.binance.dex.api.client.encoding.message.CancelOrderMessage;
@@ -30,12 +32,12 @@ public class Dialog_Wc_Cancel extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_wc_cancel, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_cancel, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         TextView symbol_tv = view.findViewById(R.id.wc_cancel_symbol);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
@@ -58,9 +60,5 @@ public class Dialog_Wc_Cancel extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
 }
