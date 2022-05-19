@@ -33,7 +33,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.NYM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -480,7 +480,7 @@ public class MainTokensFragment extends BaseFragment {
             } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_ION) ||
                         getMainActivity().mBaseChain.equals(EMONEY_MAIN) && coin.denom.startsWith("e") ||
                         getMainActivity().mBaseChain.equals(CRESCENT_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_BCRE) ||
-                        getMainActivity().mBaseChain.equals(NYM_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_NYM)) {
+                        getMainActivity().mBaseChain.equals(NYX_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_NYM)) {
                 mNativeGrpc.add(coin);
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN) && coin.denom.startsWith("c") ||
                         getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN) && coin.denom.startsWith("gravity") ||
@@ -1386,10 +1386,10 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_NYX)) {
             holder.itemSymbol.setText(getString(R.string.str_nyx_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), NYM_MAIN));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), NYX_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Nym Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_nym));
+            holder.itemFullName.setText("Nyx Staking Coin");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_nyx));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_NYX);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1397,7 +1397,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_NYM)) {
             holder.itemSymbol.setText(getString(R.string.str_nym_c));
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorNym2));
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorNyx2));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Mixnet Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_nym));
@@ -1406,7 +1406,9 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
-        } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
+        }
+
+        else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
             holder.itemInnerSymbol.setText("");
