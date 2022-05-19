@@ -106,7 +106,7 @@ public class MnemonicCheckActivity extends BaseActivity {
         Account toCheck = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
         mMnemonicLayer.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), getChain(toCheck.baseChain)));
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
-        WDp.setLayoutColor(MnemonicCheckActivity.this, mBaseChain, mWords, mWordsLayer);
+        WDp.setLayoutColor(MnemonicCheckActivity.this, getChain(toCheck.baseChain), mWords, mWordsLayer);
 
         for(int i = 0; i < mWords.size(); i++) {
             mTvWords[i].setText(mWords.get(i));

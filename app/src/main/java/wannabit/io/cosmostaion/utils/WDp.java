@@ -1166,7 +1166,7 @@ public class WDp {
     }
 
     public static void setLayoutColor(Context c, BaseChain baseChain, ArrayList<String> words, LinearLayout[] wordsLayer) {
-        for(int i = 0; i < wordsLayer.length; i++) {
+        for (int i = 0; i < wordsLayer.length; i++) {
             if (baseChain.equals(COSMOS_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_atom));
             } else if (baseChain.equals(IRIS_MAIN)) {

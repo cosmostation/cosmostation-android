@@ -4333,18 +4333,15 @@ public class WUtil {
      * Chain Gas Rate
      */
     public static BigDecimal getEstimateGasFeeAmount(Context c, BaseChain basechain, int txType, int valCnt) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(NYX_MAIN) || basechain.equals(COSMOS_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) ||
+                basechain.equals(REGEN_MAIN) ||  basechain.equals(ALTHEA_MAIN) || basechain.equals(NYX_MAIN) ||
+                basechain.equals(COSMOS_TEST) || basechain.equals(ALTHEA_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             BigDecimal gasRate = new BigDecimal(IRIS_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
-        } else if (basechain.equals(AKASH_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -4401,28 +4398,13 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(RIZON_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
         } else if (basechain.equals(JUNO_MAIN)) {
             BigDecimal gasRate = new BigDecimal(JUNO_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(REGEN_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
         } else if (basechain.equals(BITCANNA_MAIN)) {
             BigDecimal gasRate = new BigDecimal(BITCANNA_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
-        } else if (basechain.equals(ALTHEA_MAIN) || basechain.equals(ALTHEA_TEST)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
