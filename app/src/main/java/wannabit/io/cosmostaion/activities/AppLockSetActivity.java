@@ -18,7 +18,7 @@ import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.Dialog_LockTime;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 
 public class AppLockSetActivity extends BaseActivity implements View.OnClickListener {
 
@@ -113,10 +113,11 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
             onUpdateView();
 
         } else if (v.equals(mBtnAppLockTime)) {
-            Dialog_LockTime timeUpdate = Dialog_LockTime.newInstance();
-            timeUpdate.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(timeUpdate, "dialog").commitNowAllowingStateLoss();
-
+            FilledVerticalButtonAlertDialog.showQuadrupleButton(this,null,null,
+                    getString(R.string.str_applock_time_immediately), view -> onUpdateLockTime(0), null,
+                    getString(R.string.str_applock_time_10sec), view -> onUpdateLockTime(1), null,
+                    getString(R.string.str_applock_time_30sec), view -> onUpdateLockTime(2), null,
+                    getString(R.string.str_applock_time_60sec), view -> onUpdateLockTime(3), null);
         }
     }
 

@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -47,7 +45,7 @@ public class Dialog_WC_Account extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return inflater.inflate(R.layout.dialog_recycler_dialog_template, container);
+        return inflater.inflate(R.layout.dialog_template_recycler, container);
     }
 
     @Override

@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipboardManager;
@@ -38,20 +44,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
-import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
-import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
-import wannabit.io.cosmostaion.dialog.Dialog_LumRestorePath;
-import wannabit.io.cosmostaion.dialog.Dialog_OkexRestoreType;
-import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener{
 
@@ -293,33 +289,41 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
             if (isValidWords()) {
                 if (mChain.equals(KAVA_MAIN)) {
-                    Dialog_KavaRestorePath dialog = Dialog_KavaRestorePath.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    FilledVerticalButtonAlertDialog.showDoubleButton(this,getString(R.string.str_kava_newpath_title),getString(R.string.str_kava_newpath_msg),
+                            getString(R.string.str_kava_old_path), view -> onUsingCustomPath(0), null,
+                            getString(R.string.str_kava_new_path), view -> onUsingCustomPath(1), null,
+                            false);
                     return;
 
                 } else if (mChain.equals(SECRET_MAIN)) {
-                    Dialog_SecretRestorePath dialog = Dialog_SecretRestorePath.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    FilledVerticalButtonAlertDialog.showDoubleButton(this,getString(R.string.str_secret_newpath_title),getString(R.string.str_secret_newpath_msg),
+                            getString(R.string.str_secret_old_path), view -> onUsingCustomPath(0), null,
+                            getString(R.string.str_secret_new_path), view -> onUsingCustomPath(1), null,
+                            false);
                     return;
 
                 } else if (mChain.equals(OKEX_MAIN)) {
-                    Dialog_OkexRestoreType dialog = Dialog_OkexRestoreType.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    FilledVerticalButtonAlertDialog.showTripleButton(this,getString(R.string.str_okex_newpath_title),getString(R.string.str_okex_newpath_msg),
+                            getString(R.string.str_okex_old_type), view -> onUsingCustomPath(0), null,
+                            getString(R.string.str_okex_new_type), view -> onUsingCustomPath(1), null,
+                            getString(R.string.str_okex_eth_type), view -> onUsingCustomPath(2), null,
+                            false);
                     return;
 
                 } else if (mChain.equals(FETCHAI_MAIN)) {
-                    Dialog_FetchRestorePath dialog = Dialog_FetchRestorePath.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    FilledVerticalButtonAlertDialog.showQuadrupleButton(this,getString(R.string.str_secret_newpath_title),getString(R.string.str_fetch_eth_path_msg),
+                            getString(R.string.str_fetch_cosmos_path), view -> onUsingCustomPath(0), null,
+                            getString(R.string.str_fetch_eth_path), view -> onUsingCustomPath(1), null,
+                            getString(R.string.str_fetch_eth_ledger_path), view -> onUsingCustomPath(2), null,
+                            getString(R.string.str_fetch_eth_ledger_live), view -> onUsingCustomPath(3), null,
+                            false);
                     return;
 
                 } else if (mChain.equals(LUM_MAIN)) {
-                    Dialog_LumRestorePath dialog = Dialog_LumRestorePath.newInstance(null);
-                    dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    FilledVerticalButtonAlertDialog.showDoubleButton(this,getString(R.string.str_lum_newpath_title),getString(R.string.str_lum_newpath_msg),
+                            getString(R.string.str_lum_basic_type), view -> onUsingCustomPath(0), null,
+                            getString(R.string.str_lum_airdrop_type), view -> onUsingCustomPath(1), null,
+                            false);
                     return;
 
                 } else {
