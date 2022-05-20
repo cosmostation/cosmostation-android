@@ -57,19 +57,18 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class LabsListActivity extends BaseActivity implements TaskListener {
 
-    private Toolbar                 mToolbar;
-    private ViewPager               mLabPager;
-    private TabLayout               mLabTapLayer;
-    private OsmoLabPageAdapter      mPageAdapter;
+    private Toolbar mToolbar;
+    private ViewPager mLabPager;
+    private TabLayout mLabTapLayer;
+    private OsmoLabPageAdapter mPageAdapter;
 
-    public ArrayList<BalancerPool.Pool>                 mPoolList = new ArrayList<>();
-    public ArrayList<String>                            mAllDenoms = new ArrayList<>();
-    public ArrayList<BalancerPool.Pool>                 mPoolMyList = new ArrayList<>();
-    public ArrayList<BalancerPool.Pool>                 mPoolOtherList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.IncentivizedPool>  mIncentivizedPool = new ArrayList<>();
-    public ArrayList<GaugeOuterClass.Gauge>             mActiveGauges = new ArrayList<>();
-    public ArrayList<Lock.PeriodLock>                   mPeriodLockUps = new ArrayList<>();
-
+    public ArrayList<BalancerPool.Pool> mPoolList = new ArrayList<>();
+    public ArrayList<String> mAllDenoms = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool> mPoolMyList = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool> mPoolOtherList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.IncentivizedPool> mIncentivizedPool = new ArrayList<>();
+    public ArrayList<GaugeOuterClass.Gauge> mActiveGauges = new ArrayList<>();
+    public ArrayList<Lock.PeriodLock> mPeriodLockUps = new ArrayList<>();
 
 
     @Override
@@ -115,9 +114,13 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
         mLabPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
+
             @Override
             public void onPageSelected(int i) {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
@@ -140,7 +143,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
     public void onClickMyPool(long poolId) {
         WLog.w("onClickMyPool " + poolId);
-        PaddedVerticalButtonAlertDialog.showDoubleButton(this,null,null,
+        PaddedVerticalButtonAlertDialog.showDoubleButton(this, null, null,
                 getString(R.string.str_title_pool_join), view -> onCheckStartJoinPool(poolId),
                 getString(R.string.str_title_pool_exit), view -> onCheckStartExitPool(poolId));
     }
@@ -177,8 +180,10 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
 
         BalancerPool.Pool tempPool = null;
-        for (BalancerPool.Pool pool: mPoolList) {
-            if (pool.getId() == poolId) { tempPool = pool; }
+        for (BalancerPool.Pool pool : mPoolList) {
+            if (pool.getId() == poolId) {
+                tempPool = pool;
+            }
         }
         String coin0denom = tempPool.getPoolAssets(0).getToken().getDenom();
         String coin1Denom = tempPool.getPoolAssets(1).getToken().getDenom();
@@ -187,10 +192,14 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
         BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
 
-        if (coin0denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { coin0Available = coin0Available.subtract(feeAmount); }
-        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { coin1Available = coin1Available.subtract(feeAmount); }
+        if (coin0denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+            coin0Available = coin0Available.subtract(feeAmount);
+        }
+        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+            coin1Available = coin1Available.subtract(feeAmount);
+        }
 
-        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <=0 ) {
+        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(LabsListActivity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -223,7 +232,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     }
 
 
-
     public void onFetchPoolListInfo() {
         WLog.w("onFetchPoolListInfo ");
         mTaskCount = 4;
@@ -245,12 +253,12 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mGrpcOsmosisPool = (ArrayList<BalancerPool.Pool>)result.resultData;
-                for (BalancerPool.Pool pool: getBaseDao().mGrpcOsmosisPool) {
+                getBaseDao().mGrpcOsmosisPool = (ArrayList<BalancerPool.Pool>) result.resultData;
+                for (BalancerPool.Pool pool : getBaseDao().mGrpcOsmosisPool) {
                     if (getBaseDao().mChainParam != null && getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
                         mPoolList.add(pool);
-                        for (BalancerPool.Pool swap: mPoolList) {
-                            for (Pool.PoolAsset  poolAsset: swap.getPoolAssetsList()) {
+                        for (BalancerPool.Pool swap : mPoolList) {
+                            for (Pool.PoolAsset poolAsset : swap.getPoolAssetsList()) {
                                 if (!mAllDenoms.contains(poolAsset.getToken().getDenom())) {
                                     mAllDenoms.add(poolAsset.getToken().getDenom());
                                 }
@@ -268,17 +276,17 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED) {
             if (result.isSuccess && result.resultData != null) {
-                mIncentivizedPool = (ArrayList<QueryOuterClass.IncentivizedPool>)result.resultData;
+                mIncentivizedPool = (ArrayList<QueryOuterClass.IncentivizedPool>) result.resultData;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES) {
             if (result.isSuccess && result.resultData != null) {
-                mActiveGauges = (ArrayList<GaugeOuterClass.Gauge>)result.resultData;
+                mActiveGauges = (ArrayList<GaugeOuterClass.Gauge>) result.resultData;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS) {
             if (result.isSuccess && result.resultData != null) {
-                mPeriodLockUps = (ArrayList<Lock.PeriodLock>)result.resultData;
+                mPeriodLockUps = (ArrayList<Lock.PeriodLock>) result.resultData;
             }
         }
 
