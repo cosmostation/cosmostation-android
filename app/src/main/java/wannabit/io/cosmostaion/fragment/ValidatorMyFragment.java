@@ -30,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -41,9 +41,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    private MyValidatorAdapter          mMyValidatorAdapter;
-    private TextView                    mValidatorSize, mSortType;
-    private LinearLayout                mBtnSort;
+    private MyValidatorAdapter mMyValidatorAdapter;
+    private TextView mValidatorSize, mSortType;
+    private LinearLayout mBtnSort;
 
     public static ValidatorMyFragment newInstance(Bundle bundle) {
         ValidatorMyFragment fragment = new ValidatorMyFragment();
@@ -59,11 +59,11 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_validator_my, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mValidatorSize          = rootView.findViewById(R.id.validator_cnt);
-        mSortType               = rootView.findViewById(R.id.token_sort_type);
-        mBtnSort                = rootView.findViewById(R.id.btn_validator_sort);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mValidatorSize = rootView.findViewById(R.id.validator_cnt);
+        mSortType = rootView.findViewById(R.id.token_sort_type);
+        mBtnSort = rootView.findViewById(R.id.btn_validator_sort);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -89,9 +89,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if (!isAdded()) return;
         if (isGRPC(getMainActivity().mBaseChain)) {
-            mValidatorSize.setText(""+getBaseDao().mGRpcMyValidators.size());
+            mValidatorSize.setText("" + getBaseDao().mGRpcMyValidators.size());
         } else {
-            mValidatorSize.setText(""+getBaseDao().mMyValidators.size());
+            mValidatorSize.setText("" + getBaseDao().mMyValidators.size());
         }
         onSortValidator();
         mMyValidatorAdapter.notifyDataSetChanged();
@@ -105,7 +105,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     }
 
     public ValidatorListActivity getMainActivity() {
-        return (ValidatorListActivity)getBaseActivity();
+        return (ValidatorListActivity) getBaseActivity();
     }
 
     @Override
@@ -117,20 +117,20 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
 
     private class MyValidatorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_MY_VALIDATOR              = 1;
-        private static final int TYPE_PROMOTION                 = 2;
-        private static final int TYPE_HEADER_WITHDRAW_ALL       = 3;
+        private static final int TYPE_MY_VALIDATOR = 1;
+        private static final int TYPE_PROMOTION = 2;
+        private static final int TYPE_HEADER_WITHDRAW_ALL = 3;
 
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if(viewType == TYPE_MY_VALIDATOR) {
+            if (viewType == TYPE_MY_VALIDATOR) {
                 return new RewardMyValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_my_validator, viewGroup, false));
-            } else if(viewType == TYPE_PROMOTION) {
-                return  new RewardPromotionHolder(getLayoutInflater().inflate(R.layout.item_reward_promotion, viewGroup, false));
-            } else if(viewType == TYPE_HEADER_WITHDRAW_ALL) {
-                return  new RewardWithdrawHolder(getLayoutInflater().inflate(R.layout.item_reward_withdraw_all, viewGroup, false));
+            } else if (viewType == TYPE_PROMOTION) {
+                return new RewardPromotionHolder(getLayoutInflater().inflate(R.layout.item_reward_promotion, viewGroup, false));
+            } else if (viewType == TYPE_HEADER_WITHDRAW_ALL) {
+                return new RewardWithdrawHolder(getLayoutInflater().inflate(R.layout.item_reward_withdraw_all, viewGroup, false));
             }
             return null;
         }
@@ -138,7 +138,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
             if (getItemViewType(position) == TYPE_PROMOTION) {
-                RewardPromotionHolder holder = (RewardPromotionHolder)viewHolder;
+                RewardPromotionHolder holder = (RewardPromotionHolder) viewHolder;
                 holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +149,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 });
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
-                final RewardWithdrawHolder holder = (RewardWithdrawHolder)viewHolder;
+                final RewardWithdrawHolder holder = (RewardWithdrawHolder) viewHolder;
                 WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);
                 final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
                 if (isGRPC(getMainActivity().mBaseChain)) {
@@ -169,7 +169,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 });
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
-                final RewardMyValidatorHolder holder = (RewardMyValidatorHolder)viewHolder;
+                final RewardMyValidatorHolder holder = (RewardMyValidatorHolder) viewHolder;
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                 final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
                 if (isGRPC(getMainActivity().mBaseChain)) {
@@ -179,7 +179,8 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     final BigDecimal rewardAmount = getBaseDao().getReward(WDp.mainDenom(getMainActivity().mBaseChain), validator.getOperatorAddress());
                     try {
                         Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
                     holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
@@ -216,7 +217,8 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     final BigDecimal rewardAmount = getBaseDao().rewardAmountByValidator(WDp.mainDenom(getMainActivity().mBaseChain), validator.operator_address);
                     try {
                         Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                     holder.itemTvMoniker.setText(validator.description.moniker);
@@ -244,7 +246,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         @Override
         public int getItemCount() {
             if (isGRPC(getMainActivity().mBaseChain)) {
-                if(getBaseDao().mGRpcMyValidators == null || getBaseDao().mGRpcMyValidators.size() < 1) {
+                if (getBaseDao().mGRpcMyValidators == null || getBaseDao().mGRpcMyValidators.size() < 1) {
                     return 1;
                 } else if (getBaseDao().mGRpcMyValidators.size() == 1) {
                     return 1;
@@ -253,7 +255,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 }
 
             } else {
-                if(getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
+                if (getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
                     return 1;
                 } else if (getBaseDao().mMyValidators.size() == 1) {
                     return 1;
@@ -267,7 +269,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         @Override
         public int getItemViewType(int position) {
             if (isGRPC(getMainActivity().mBaseChain)) {
-                if (getBaseDao().mGRpcMyValidators == null ||getBaseDao().mGRpcMyValidators.size() < 1) {
+                if (getBaseDao().mGRpcMyValidators == null || getBaseDao().mGRpcMyValidators.size() < 1) {
                     return TYPE_PROMOTION;
                 } else if (getBaseDao().mGRpcMyValidators.size() > 1 && position == getBaseDao().mGRpcMyValidators.size()) {
                     return TYPE_HEADER_WITHDRAW_ALL;
@@ -276,7 +278,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 }
 
             } else {
-                if (getBaseDao().mMyValidators == null ||getBaseDao().mMyValidators.size() < 1) {
+                if (getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
                     return TYPE_PROMOTION;
                 } else if (getBaseDao().mMyValidators.size() > 1 && position == getBaseDao().mMyValidators.size()) {
                     return TYPE_HEADER_WITHDRAW_ALL;
@@ -288,39 +290,38 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         }
 
 
-
         public class RewardMyValidatorHolder extends RecyclerView.ViewHolder {
-            CardView        itemRoot;
+            CardView itemRoot;
             CircleImageView itemAvatar;
-            ImageView       itemFree;
-            ImageView       itemRevoked, itemBandOracleOff;
-            TextView        itemTvMoniker;
-            TextView        itemTvDelegateAmount;
-            TextView        itemTvUndelegateAmount;
-            TextView        itemTvReward;
+            ImageView itemFree;
+            ImageView itemRevoked, itemBandOracleOff;
+            TextView itemTvMoniker;
+            TextView itemTvDelegateAmount;
+            TextView itemTvUndelegateAmount;
+            TextView itemTvReward;
 
             public RewardMyValidatorHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot            = itemView.findViewById(R.id.card_validator);
-                itemAvatar          = itemView.findViewById(R.id.avatar_validator);
-                itemFree            = itemView.findViewById(R.id.avatar_validator_free);
-                itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-                itemBandOracleOff   = itemView.findViewById(R.id.band_oracle_off);
+                itemRoot = itemView.findViewById(R.id.card_validator);
+                itemAvatar = itemView.findViewById(R.id.avatar_validator);
+                itemFree = itemView.findViewById(R.id.avatar_validator_free);
+                itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
+                itemBandOracleOff = itemView.findViewById(R.id.band_oracle_off);
                 itemTvDelegateAmount = itemView.findViewById(R.id.delegate_amount_validator);
                 itemTvUndelegateAmount = itemView.findViewById(R.id.undelegate_amount_validator);
-                itemTvReward        = itemView.findViewById(R.id.my_reward_validator);
+                itemTvReward = itemView.findViewById(R.id.my_reward_validator);
             }
         }
 
         public class RewardPromotionHolder extends RecyclerView.ViewHolder {
-            CardView    itemRoot;
-            Button      itemBtnDelegateStart;
+            CardView itemRoot;
+            Button itemBtnDelegateStart;
 
             public RewardPromotionHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot                = itemView.findViewById(R.id.card_validator);
-                itemBtnDelegateStart    = itemView.findViewById(R.id.btn_start_delegate);
+                itemRoot = itemView.findViewById(R.id.card_validator);
+                itemBtnDelegateStart = itemView.findViewById(R.id.btn_start_delegate);
             }
         }
 
@@ -330,9 +331,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
             public RewardWithdrawHolder(@NonNull View itemView) {
                 super(itemView);
-                itemTvAllRewards        = itemView.findViewById(R.id.tx_all_rewards);
-                itemTvDenom             = itemView.findViewById(R.id.tx_demon);
-                itemBtnWithdrawAll      = itemView.findViewById(R.id.btn_withdraw_all);
+                itemTvAllRewards = itemView.findViewById(R.id.tx_all_rewards);
+                itemTvDenom = itemView.findViewById(R.id.tx_demon);
+                itemBtnWithdrawAll = itemView.findViewById(R.id.btn_withdraw_all);
             }
         }
 
@@ -372,19 +373,22 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     }
 
     public void onShowMyValidatorSort() {
-        CustomAlertDialog.showTripleButton(getMainActivity(),getString(R.string.str_sorting_s),null,
+        PaddedVerticalButtonAlertDialog.showTripleButton(getMainActivity(), getString(R.string.str_sorting_s), null,
                 getString(R.string.str_sorting_by_name), View -> {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("sorting", 0);
-                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent); },
+                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                },
                 getString(R.string.str_sorting_by_my_delegated), View -> {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("sorting", 1);
-                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent); },
-                getString(R.string.str_sorting_by_reward),View -> {
+                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                },
+                getString(R.string.str_sorting_by_reward), View -> {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("sorting", 2);
-                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent); });
+                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                });
     }
 
     @Override

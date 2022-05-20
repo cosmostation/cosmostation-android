@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +16,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.ConnectWalletActivity;
 
 public class Dialog_Wc_Raw_Data extends DialogFragment {
     public WcSignRawDataListener listener = null;

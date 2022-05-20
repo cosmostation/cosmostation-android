@@ -33,7 +33,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
@@ -45,59 +45,63 @@ import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondedHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondingHolder;
 
 public class EarningDetailActivity extends BaseActivity implements View.OnClickListener {
-    private static final int                    TYPE_BONDED        = 1;
-    private static final int                    TYPE_UNBONDING     = 2;
-    private static final int                    TYPE_UNBONDED      = 3;
+    private static final int TYPE_BONDED = 1;
+    private static final int TYPE_UNBONDING = 2;
+    private static final int TYPE_UNBONDED = 3;
 
-    private int                                 mSection;          // section 구분
+    private int mSection;          // section 구분
 
-    private Toolbar                             mToolbar;
-    private RecyclerView                        mRecyclerView;
-    private Button                              mBtnNewEarning;
-    private TextView                            mPoolIdTv;
-    private TextView                            mPoolCoinPairTv;
-    private TextView                            mPoolAprsTv1, mPoolAprsTv7, mPoolAprsTv14;
-    private TextView                            mAvailableAmountTv, mAvailableDenomTv, mAvailableValueTv;
+    private Toolbar mToolbar;
+    private RecyclerView mRecyclerView;
+    private Button mBtnNewEarning;
+    private TextView mPoolIdTv;
+    private TextView mPoolCoinPairTv;
+    private TextView mPoolAprsTv1, mPoolAprsTv7, mPoolAprsTv14;
+    private TextView mAvailableAmountTv, mAvailableDenomTv, mAvailableValueTv;
 
-    private EarningDetailsAdapter               mAdapter;
-    private RecyclerViewHeader                  mRecyclerViewHeader;
+    private EarningDetailsAdapter mAdapter;
+    private RecyclerViewHeader mRecyclerViewHeader;
 
-    private BalancerPool.Pool                   mPool;
-    private ArrayList<GaugeOuterClass.Gauge>    mGauges;
-    public ArrayList<Lock.PeriodLock>           mLockUps = new ArrayList<>();
-    public ArrayList<Lock.PeriodLock>           mBondedList = new ArrayList<>();
-    public ArrayList<Lock.PeriodLock>           mUnbondingList = new ArrayList<>();
-    public ArrayList<Lock.PeriodLock>           mUnbondedList = new ArrayList<>();
+    private BalancerPool.Pool mPool;
+    private ArrayList<GaugeOuterClass.Gauge> mGauges;
+    public ArrayList<Lock.PeriodLock> mLockUps = new ArrayList<>();
+    public ArrayList<Lock.PeriodLock> mBondedList = new ArrayList<>();
+    public ArrayList<Lock.PeriodLock> mUnbondingList = new ArrayList<>();
+    public ArrayList<Lock.PeriodLock> mUnbondedList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_earning_detail);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mRecyclerView       = findViewById(R.id.recycler);
-        mBtnNewEarning      = findViewById(R.id.btn_start_earning);
-        mPoolIdTv           = findViewById(R.id.pool_id);
-        mPoolCoinPairTv     = findViewById(R.id.coin_pair);
-        mPoolAprsTv1        = findViewById(R.id.aprs1);
-        mPoolAprsTv7        = findViewById(R.id.aprs7);
-        mPoolAprsTv14       = findViewById(R.id.aprs14);
-        mAvailableAmountTv  = findViewById(R.id.available_amount);
-        mAvailableDenomTv   = findViewById(R.id.available_denom);
-        mAvailableValueTv   = findViewById(R.id.available_value);
+        mToolbar = findViewById(R.id.tool_bar);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnNewEarning = findViewById(R.id.btn_start_earning);
+        mPoolIdTv = findViewById(R.id.pool_id);
+        mPoolCoinPairTv = findViewById(R.id.coin_pair);
+        mPoolAprsTv1 = findViewById(R.id.aprs1);
+        mPoolAprsTv7 = findViewById(R.id.aprs7);
+        mPoolAprsTv14 = findViewById(R.id.aprs14);
+        mAvailableAmountTv = findViewById(R.id.available_amount);
+        mAvailableDenomTv = findViewById(R.id.available_denom);
+        mAvailableValueTv = findViewById(R.id.available_value);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount            = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain          = BaseChain.getChain(mAccount.baseChain);
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         try {
             mPool = BalancerPool.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
             OsmosisGaugeWrapper gaugeWrapper = (OsmosisGaugeWrapper) getIntent().getSerializableExtra("osmosisGauges");
-            if (gaugeWrapper != null) { mGauges = gaugeWrapper.array; }
+            if (gaugeWrapper != null) {
+                mGauges = gaugeWrapper.array;
+            }
             OsmosisPeriodLockWrapper lockupWrapper = (OsmosisPeriodLockWrapper) getIntent().getSerializableExtra("osmosislockups");
-            if (lockupWrapper != null) { mLockUps = lockupWrapper.array; }
+            if (lockupWrapper != null) {
+                mLockUps = lockupWrapper.array;
+            }
 
         } catch (Exception e) {
             WLog.w("Passing bundle Error");
@@ -130,7 +134,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         mAvailableValueTv.setText(WDp.getDpRawDollor(getBaseContext(), availableValue, 2));
 
         //display recycler
-        for (Lock.PeriodLock lockup: mLockUps) {
+        for (Lock.PeriodLock lockup : mLockUps) {
             long now = new Date().getTime();
             long endTime = lockup.getEndTime().getSeconds() * 1000;
             if (endTime == -62135596800000l) {
@@ -206,10 +210,10 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        CustomAlertDialog.showTripleButton(this,"Unbonding Duration",null,
+        PaddedVerticalButtonAlertDialog.showTripleButton(this, "Unbonding Duration", null,
                 "1 Day", view -> onStartNewEarning(864001),
                 "7 Day", view -> onStartNewEarning(604800),
-                "14Day",view -> onStartNewEarning(12096001));
+                "14Day", view -> onStartNewEarning(12096001));
     }
 
     public void onStartNewEarning(long unbondingDuration) {
@@ -232,7 +236,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         ArrayList<Lock.PeriodLock> tempLockups = new ArrayList<>();
         BigDecimal totalToUnbonding = BigDecimal.ZERO;
-        for (Lock.PeriodLock lock: mBondedList) {
+        for (Lock.PeriodLock lock : mBondedList) {
             if (lock.getDuration().getSeconds() == lockup.getDuration().getSeconds()) {
                 tempLockups.add(lock);
                 totalToUnbonding = totalToUnbonding.add(new BigDecimal(lock.getCoins(0).getAmount()));
@@ -245,14 +249,14 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
             ArrayList<Lock.PeriodLock> lockups = lockupsWrapper.array;
 
             String msg = "";
-            for (Lock.PeriodLock lock: lockups) {
+            for (Lock.PeriodLock lock : lockups) {
                 msg = msg + "# " + lock.getID() + "  ";
             }
 //        String amount = new BigDecimal(totalToUnbonding.toPlainString()).movePointLeft(18).toPlainString();
 //        msg = msg + "\n" + amount;
 
-            CustomAlertDialog.showDoubleButton(this,"Unbonding all for same durations?",msg,
-                    "Unbonding All", view -> onStartUnbonding(lockups);},
+            PaddedVerticalButtonAlertDialog.showDoubleButton(this, "Unbonding all for same durations?", msg,
+                    "Unbonding All", view -> onStartUnbonding(lockups),
                     "Unbonding This One", view -> {
                         try {
                             Lock.PeriodLock lock = Lock.PeriodLock.parseFrom(lockup.toByteArray());
@@ -287,7 +291,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         ArrayList<Lock.PeriodLock> tempLockups = new ArrayList<>();
         BigDecimal totalToUnlock = BigDecimal.ZERO;
-        for (Lock.PeriodLock lock: mUnbondedList) {
+        for (Lock.PeriodLock lock : mUnbondedList) {
             tempLockups.add(lock);
             totalToUnlock = totalToUnlock.add(new BigDecimal(lock.getCoins(0).getAmount()));
         }
@@ -297,14 +301,14 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
             ArrayList<Lock.PeriodLock> lockups = lockupsWrapper.array;
 
             String msg = "";
-            for (Lock.PeriodLock lock: lockups) {
+            for (Lock.PeriodLock lock : lockups) {
                 msg = msg + "# " + lock.getID() + "  ";
             }
 //        String amount = new BigDecimal(totalToUnlock.toPlainString()).movePointLeft(18).toPlainString();
 //        msg = msg + "\n" + amount;
 
-            CustomAlertDialog.showDoubleButton(this,"Unlock all?",msg,
-                    "Unlock All", view -> {onStartUnlock(lockups);},
+            PaddedVerticalButtonAlertDialog.showDoubleButton(this, "Unlock all?", msg,
+                    "Unlock All", view -> onStartUnlock(lockups),
                     "Unlock This One", view -> {
                         try {
                             Lock.PeriodLock lock = Lock.PeriodLock.parseFrom(lockup.toByteArray());
@@ -347,17 +351,17 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_BONDED) {
-                final EarningBondedHolder holder = (EarningBondedHolder)viewHolder;
+                final EarningBondedHolder holder = (EarningBondedHolder) viewHolder;
                 final Lock.PeriodLock lockup = mBondedList.get(position);
                 holder.onBindView(getBaseContext(), EarningDetailActivity.this, getBaseDao(), mPool, lockup, mGauges);
 
             } else if (getItemViewType(position) == TYPE_UNBONDING) {
-                final EarningUnbondingHolder holder = (EarningUnbondingHolder)viewHolder;
+                final EarningUnbondingHolder holder = (EarningUnbondingHolder) viewHolder;
                 final Lock.PeriodLock lockup = mUnbondingList.get(position - mBondedList.size());
                 holder.onBindView(getBaseContext(), EarningDetailActivity.this, getBaseDao(), mPool, lockup, mGauges);
 
             } else if (getItemViewType(position) == TYPE_UNBONDED) {
-                final EarningUnbondedHolder holder = (EarningUnbondedHolder)viewHolder;
+                final EarningUnbondedHolder holder = (EarningUnbondedHolder) viewHolder;
                 final Lock.PeriodLock lockup = mUnbondedList.get(position - mBondedList.size() - mUnbondingList.size());
                 holder.onBindView(getBaseContext(), EarningDetailActivity.this, getBaseDao(), mPool, lockup, mGauges);
 
@@ -490,6 +494,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
     public interface SectionCallback {
         boolean isSection(int position);
+
         String SecitonHeader(ArrayList<Lock.PeriodLock> lockArrayList, int section);
     }
 }

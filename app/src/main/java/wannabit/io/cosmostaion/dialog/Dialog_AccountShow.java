@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -34,8 +32,6 @@ public class Dialog_AccountShow extends DialogFragment {
     private Button      btn_nega, btn_posi;
     private TextView    mTitle, mAddress;
     private ImageView   mQr;
-
-
     private Bitmap          mBitmap;
 
     public static Dialog_AccountShow newInstance(Bundle bundle) {
