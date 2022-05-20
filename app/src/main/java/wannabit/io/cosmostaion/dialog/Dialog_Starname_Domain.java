@@ -23,10 +23,10 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_Starname_Domain extends DialogFragment {
 
-    private RecyclerView        mRecyclerView;
-    private TextView            mtextView;
-    private DomainListAdapter   mDomainListAdapter;
-    private ArrayList<String>   mStarnameDomain = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private TextView mtextView;
+    private DomainListAdapter mDomainListAdapter;
+    private ArrayList<String> mStarnameDomain = new ArrayList<>();
 
     public static Dialog_Starname_Domain newInstance(Bundle bundle) {
         Dialog_Starname_Domain frag = new Dialog_Starname_Domain();
@@ -84,17 +84,18 @@ public class Dialog_Starname_Domain extends DialogFragment {
         public class DomainListHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
             TextView domainName;
+
             public DomainListHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer   = itemView.findViewById(R.id.rootLayer);
-                domainName   = itemView.findViewById(R.id.domainName);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                domainName = itemView.findViewById(R.id.domainName);
             }
         }
 
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 
 }
