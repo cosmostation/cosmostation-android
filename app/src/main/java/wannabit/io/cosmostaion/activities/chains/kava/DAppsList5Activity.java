@@ -42,7 +42,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Pool_Kava;
+import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListKavaPoolFragment;
@@ -166,12 +166,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     }
 
     public void onClickMyPool(QueryOuterClass.PoolResponse mPool, QueryOuterClass.DepositResponse mDeposit) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("mKavaPool", mPool);
-        bundle.putSerializable("mKavaDeposit", mDeposit);
-        Dialog_Pool_Kava bottomSheetDialog = Dialog_Pool_Kava.getInstance();
-        bottomSheetDialog.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+        CustomAlertDialog.showDoubleButton(this,null,null,
+                getString(R.string.str_title_pool_join), view -> onCheckStartJoinPool(mPool),
+                getString(R.string.str_title_pool_exit), view -> onCheckStartExitPool(mPool, mDeposit));
     }
 
     public void onCheckStartJoinPool(QueryOuterClass.PoolResponse myPool) {

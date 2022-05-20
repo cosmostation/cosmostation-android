@@ -41,7 +41,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Pool_Osmosis;
+import wannabit.io.cosmostaion.dialog.CustomAlertDialog;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListFarmingFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListSwapFragment;
@@ -140,11 +140,9 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
     public void onClickMyPool(long poolId) {
         WLog.w("onClickMyPool " + poolId);
-        Bundle bundle = new Bundle();
-        bundle.putLong("poolId", poolId);
-        Dialog_Pool_Osmosis bottomSheetDialog = Dialog_Pool_Osmosis.getInstance();
-        bottomSheetDialog.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+        CustomAlertDialog.showDoubleButton(this,null,null,
+                getString(R.string.str_title_pool_join), view -> onCheckStartJoinPool(poolId),
+                getString(R.string.str_title_pool_exit), view -> onCheckStartExitPool(poolId));
     }
 
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId) {
