@@ -38,8 +38,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receive_Chain;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Send_Coin;
+import wannabit.io.cosmostaion.dialog.DialogFragment_HtlcReceiveChain;
+import wannabit.io.cosmostaion.dialog.DialogFragment_HtlcSendCoin;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
@@ -220,7 +220,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         if (v.equals(mBtnToChain)) {
             Bundle bundle = new Bundle();
             bundle.putString("chainName", getSActivity().mBaseChain.getChain());
-            Dialog_Htlc_Receive_Chain dialog = Dialog_Htlc_Receive_Chain.newInstance(bundle);
+            DialogFragment_HtlcReceiveChain dialog = DialogFragment_HtlcReceiveChain.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_DESTINATION_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -228,7 +228,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mBtnToSendCoin)) {
             Bundle bundle = new Bundle();
             bundle.putString("chainName", getSActivity().mBaseChain.getChain());
-            Dialog_Htlc_Send_Coin dialog = Dialog_Htlc_Send_Coin.newInstance(bundle);
+            DialogFragment_HtlcSendCoin dialog = DialogFragment_HtlcSendCoin.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_TO_SEND_COIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

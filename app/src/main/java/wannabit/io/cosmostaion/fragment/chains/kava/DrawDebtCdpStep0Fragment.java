@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -29,12 +27,10 @@ import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.BorrowCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
+import wannabit.io.cosmostaion.dialog.DialogFragment_SafeScoreConfirm;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 
 public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int CDP_DRAW_DEBT_CONFIRM_DIALOG = 6019;
@@ -316,7 +312,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                     bundle.putString("afterLiquidationPrice", mAfterLiquidationPrice.toPlainString());
                     bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                     bundle.putString("denom", mCollateralDenom);
-                    Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
+                    DialogFragment_SafeScoreConfirm dialog = DialogFragment_SafeScoreConfirm.newInstance(bundle);
                     dialog.setCancelable(true);
                     dialog.setTargetFragment(this, CDP_DRAW_DEBT_CONFIRM_DIALOG);
                     dialog.show(getFragmentManager().beginTransaction(), "dialog");

@@ -35,8 +35,8 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
-import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
+import wannabit.io.cosmostaion.dialog.DialogFragment_ChoiceNet;
+import wannabit.io.cosmostaion.dialog.DialogFragment_CurrencySet;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -160,7 +160,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         if (v.equals(mBtnAddWallet)) {
             Bundle bundle = new Bundle();
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
+            DialogFragment_ChoiceNet dialog = DialogFragment_ChoiceNet.newInstance(bundle);
             dialog.setCancelable(true);
             getMainActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
@@ -179,7 +179,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), AppLockSetActivity.class));
 
         } else if (v.equals(mBtnCurrency)) {
-            Dialog_Currency_Set currency_dialog = Dialog_Currency_Set.newInstance(null);
+            DialogFragment_CurrencySet currency_dialog = DialogFragment_CurrencySet.newInstance(null);
             currency_dialog.setCancelable(true);
             currency_dialog.setTargetFragment(this, SELECT_CURRENCY);
             getFragmentManager().beginTransaction().add(currency_dialog, "dialog").commitNowAllowingStateLoss();

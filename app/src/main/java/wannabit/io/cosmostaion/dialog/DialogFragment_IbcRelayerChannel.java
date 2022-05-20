@@ -21,19 +21,17 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.dao.IbcPath;
 
-public class Dialog_Link_Chain extends DialogFragment {
+public class DialogFragment_IbcRelayerChannel extends DialogFragment {
 
-    private RecyclerView         mRecyclerView;
-    private TextView             mDialogTitle;
-    private LinkChainAdapter     mLinkChainAdapter;
-    private ArrayList<BaseChain> mLinkChainList = new ArrayList<>();
+    private RecyclerView                    mRecyclerView;
+    private TextView                        mDialogTitle;
+    private RelayerListAdapter              mRelayerListAdapter;
+    private ArrayList<IbcPath.Path>         mIbcSendablePaths = new ArrayList<>();
 
-    public static Dialog_Link_Chain newInstance(Bundle bundle) {
-        Dialog_Link_Chain frag = new Dialog_Link_Chain();
+    public static DialogFragment_IbcRelayerChannel newInstance(Bundle bundle) {
+        DialogFragment_IbcRelayerChannel frag = new DialogFragment_IbcRelayerChannel();
         frag.setArguments(bundle);
         return frag;
     }
@@ -48,29 +46,32 @@ public class Dialog_Link_Chain extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_link_chain);
+        mDialogTitle.setText(R.string.str_select_ibc_relayer);
         mRecyclerView = view.findViewById(R.id.recycler);
-        mLinkChainList = WUtil.getDesmosAirDropChains();
+        mIbcSendablePaths = (ArrayList<IbcPath.Path>) getArguments().getSerializable("channel");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mLinkChainAdapter = new LinkChainAdapter();
-        mRecyclerView.setAdapter(mLinkChainAdapter);
+        mRelayerListAdapter = new RelayerListAdapter();
+        mRecyclerView.setAdapter(mRelayerListAdapter);
     }
 
-    private class LinkChainAdapter extends RecyclerView.Adapter<LinkChainAdapter.RelayerListHolder> {
+    private class RelayerListAdapter extends RecyclerView.Adapter<RelayerListAdapter.RelayerListHolder> {
 
         @NonNull
         @Override
-        public LinkChainAdapter.RelayerListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new LinkChainAdapter.RelayerListHolder(getLayoutInflater().inflate(R.layout.item_dialog_link_chain, viewGroup, false));
+        public RelayerListAdapter.RelayerListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new RelayerListAdapter.RelayerListHolder(getLayoutInflater().inflate(R.layout.item_dialog_ibc_relayer_list, viewGroup, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull LinkChainAdapter.RelayerListHolder holder, int position) {
-            final BaseChain baseChain = mLinkChainList.get(position);
-            WDp.getChainImg(getSActivity(), baseChain, holder.chainImg);
-            WDp.getChainTitle2(getSActivity(), baseChain, holder.chainName);
-
+        public void onBindViewHolder(@NonNull RelayerListAdapter.RelayerListHolder holder, int position) {
+            final IbcPath.Path path = mIbcSendablePaths.get(position);
+            holder.channelTitle.setText(path.channel_id);
+            if (path.auth == null) {
+                holder.channelStatus.setImageDrawable(getSActivity().getDrawable(R.drawable.unknown));
+            } else if (path.auth) {
+                holder.channelStatus.setImageDrawable(getSActivity().getDrawable(R.drawable.wellknown));
+            }
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -84,18 +85,18 @@ public class Dialog_Link_Chain extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            return mLinkChainList.size();
+            return mIbcSendablePaths.size();
         }
 
         public class RelayerListHolder extends RecyclerView.ViewHolder {
-            LinearLayout rootLayer;
-            ImageView chainImg;
-            TextView chainName;
+            LinearLayout    rootLayer;
+            TextView        channelTitle;
+            ImageView       channelStatus;
             public RelayerListHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer   = itemView.findViewById(R.id.rootLayer);
-                chainImg    = itemView.findViewById(R.id.chainImg);
-                chainName   = itemView.findViewById(R.id.chainName);
+                rootLayer       = itemView.findViewById(R.id.rootLayer);
+                channelTitle    = itemView.findViewById(R.id.channel_title);
+                channelStatus   = itemView.findViewById(R.id.channel_status);
             }
         }
 
@@ -104,5 +105,4 @@ public class Dialog_Link_Chain extends DialogFragment {
     private BaseActivity getSActivity() {
         return (BaseActivity)getActivity();
     }
-
 }

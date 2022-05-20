@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
-public class Dialog_Htlc_Send_Coin extends DialogFragment {
+public class DialogFragment_HtlcSendCoin extends DialogFragment {
 
     private RecyclerView          mRecyclerView;
     private TextView              mDialogTitle;
@@ -43,8 +43,8 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
     private BaseChain             mBaseChain;
     private ArrayList<String>     mSwappableCoinList;
 
-    public static Dialog_Htlc_Send_Coin newInstance(Bundle bundle) {
-        Dialog_Htlc_Send_Coin frag = new Dialog_Htlc_Send_Coin();
+    public static DialogFragment_HtlcSendCoin newInstance(Bundle bundle) {
+        DialogFragment_HtlcSendCoin frag = new DialogFragment_HtlcSendCoin();
         frag.setArguments(bundle);
         return frag;
     }

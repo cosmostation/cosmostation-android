@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,16 +21,18 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Starname_Domain extends DialogFragment {
+public class DialogFragment_HtlcReceiveChain extends DialogFragment {
 
-    private RecyclerView mRecyclerView;
-    private TextView mtextView;
-    private DomainListAdapter mDomainListAdapter;
-    private ArrayList<String> mStarnameDomain = new ArrayList<>();
+    private RecyclerView                mRecyclerView;
+    private TextView                    mDialogTitle;
+    private DestinationChainListAdapter mDestinationChainListAdapter;
+    private ArrayList<BaseChain>        mToChainList;
 
-    public static Dialog_Starname_Domain newInstance(Bundle bundle) {
-        Dialog_Starname_Domain frag = new Dialog_Starname_Domain();
+    public static DialogFragment_HtlcReceiveChain newInstance(Bundle bundle) {
+        DialogFragment_HtlcReceiveChain frag = new DialogFragment_HtlcReceiveChain();
         frag.setArguments(bundle);
         return frag;
     }
@@ -43,28 +46,28 @@ public class Dialog_Starname_Domain extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mtextView = view.findViewById(R.id.dialog_title);
-        mtextView.setText(R.string.str_select_starname_domain);
+        mDialogTitle           = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setText(R.string.str_select_receive_chain);
         mRecyclerView = view.findViewById(R.id.recycler);
-        mStarnameDomain = getArguments().getStringArrayList("domain");
+        mToChainList = BaseChain.getHtlcSendable(BaseChain.getChain(getArguments().getString("chainName")));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mDomainListAdapter = new DomainListAdapter();
-        mRecyclerView.setAdapter(mDomainListAdapter);
+        mDestinationChainListAdapter = new DestinationChainListAdapter();
+        mRecyclerView.setAdapter(mDestinationChainListAdapter);
     }
 
-    private class DomainListAdapter extends RecyclerView.Adapter<DomainListAdapter.DomainListHolder> {
+    private class DestinationChainListAdapter extends RecyclerView.Adapter<DestinationChainListAdapter.DestinationChainHolder> {
 
         @NonNull
         @Override
-        public DomainListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new DomainListHolder(getLayoutInflater().inflate(R.layout.item_dialog_starname_domain_list, viewGroup, false));
+        public DestinationChainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new DestinationChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_destination_chain, viewGroup, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull DomainListHolder holder, int position) {
-            final String domain = mStarnameDomain.get(position);
-            holder.domainName.setText(domain);
+        public void onBindViewHolder(@NonNull DestinationChainHolder holder, int position) {
+            final BaseChain baseChain = mToChainList.get(position);
+            WDp.onDpChain(getContext(), baseChain, holder.chainImg, holder.chainName);
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -78,24 +81,25 @@ public class Dialog_Starname_Domain extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            return mStarnameDomain.size();
+            return mToChainList.size();
         }
 
-        public class DomainListHolder extends RecyclerView.ViewHolder {
+        public class DestinationChainHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
-            TextView domainName;
-
-            public DomainListHolder(@NonNull View itemView) {
+            ImageView chainImg;
+            TextView chainName;
+            public DestinationChainHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer = itemView.findViewById(R.id.rootLayer);
-                domainName = itemView.findViewById(R.id.domainName);
+                rootLayer   = itemView.findViewById(R.id.rootLayer);
+                chainImg    = itemView.findViewById(R.id.chainImg);
+                chainName   = itemView.findViewById(R.id.chainName);
             }
         }
 
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
+        return (BaseActivity)getActivity();
     }
 
 }

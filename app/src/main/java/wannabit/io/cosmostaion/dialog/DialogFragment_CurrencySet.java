@@ -15,10 +15,10 @@ import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 
-public class Dialog_Currency_Set extends DialogFragment {
+public class DialogFragment_CurrencySet extends DialogFragment {
 
-    public static Dialog_Currency_Set newInstance(Bundle bundle) {
-        Dialog_Currency_Set frag = new Dialog_Currency_Set();
+    public static DialogFragment_CurrencySet newInstance(Bundle bundle) {
+        DialogFragment_CurrencySet frag = new DialogFragment_CurrencySet();
         frag.setArguments(bundle);
         return frag;
     }

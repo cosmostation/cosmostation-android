@@ -110,10 +110,10 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.DialogFragment_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
-import wannabit.io.cosmostaion.dialog.Dialog_Wait;
+import wannabit.io.cosmostaion.dialog.DialogFragment_Wait;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
@@ -173,7 +173,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     protected BaseApplication               mApplication;
     protected BaseData                      mData;
-    protected Dialog_Wait                   mDialogWait;
+    protected DialogFragment_Wait mDialogWait;
     protected boolean                       mNeedLeaveTime = true;
 
     public View                             mRootview;
@@ -243,7 +243,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowWaitDialog() {
         if (mDialogWait == null) {
-            mDialogWait = new Dialog_Wait();
+            mDialogWait = new DialogFragment_Wait();
         }
         if (getSupportFragmentManager().findFragmentByTag("wait") != null && getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
             return;
@@ -360,7 +360,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             public void run() {
                 Bundle bundle = new Bundle();
                 bundle.putString("chain", baseChain.getChain());
-                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
+                DialogFragment_AddAccount add = DialogFragment_AddAccount.newInstance(bundle);
                 add.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             }

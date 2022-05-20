@@ -47,9 +47,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Cancel;
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Trade;
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Transfer;
+import wannabit.io.cosmostaion.dialog.DialogFragment_WcCancel;
+import wannabit.io.cosmostaion.dialog.DialogFragment_WcTrade;
+import wannabit.io.cosmostaion.dialog.DialogFragment_WcTransfer;
 import wannabit.io.cosmostaion.model.type.BnbParam;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -59,9 +59,9 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     private ImageView mWcImg;
     private TextView mWcName, mWcUrl, mWcAccount;
     private Button mBtnDisconnect;
-    private Dialog_Wc_Trade mDialogTrade;
-    private Dialog_Wc_Cancel mDialogCancel;
-    private Dialog_Wc_Transfer mDialogTransfer;
+    private DialogFragment_WcTrade mDialogTrade;
+    private DialogFragment_WcCancel mDialogCancel;
+    private DialogFragment_WcTransfer mDialogTransfer;
 
     private String mWcURL;
     private WCClient wcClient;
@@ -202,19 +202,19 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     }
 
     private void onShowNewOrderDialog(Bundle bundle) {
-        mDialogTrade = Dialog_Wc_Trade.newInstance(bundle);
+        mDialogTrade = DialogFragment_WcTrade.newInstance(bundle);
         mDialogTrade.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(mDialogTrade, "dialog").commitNowAllowingStateLoss();
     }
 
     private void onShowCancelDialog(Bundle bundle) {
-        mDialogCancel = Dialog_Wc_Cancel.newInstance(bundle);
+        mDialogCancel = DialogFragment_WcCancel.newInstance(bundle);
         mDialogCancel.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(mDialogCancel, "dialog").commitNowAllowingStateLoss();
     }
 
     private void onShowTransferDialog(Bundle bundle) {
-        mDialogTransfer = Dialog_Wc_Transfer.newInstance(bundle);
+        mDialogTransfer = DialogFragment_WcTransfer.newInstance(bundle);
         mDialogTransfer.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(mDialogTransfer, "dialog").commitNowAllowingStateLoss();
     }

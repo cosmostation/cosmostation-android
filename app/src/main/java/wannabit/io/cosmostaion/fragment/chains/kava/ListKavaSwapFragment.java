@@ -24,7 +24,7 @@ import kava.swap.v1beta1.Swap;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
+import wannabit.io.cosmostaion.dialog.DialogFragment_SwapCoinList;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -183,7 +183,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         if (v.equals(mBtnInputCoinList)) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mAllDenoms);
-            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            DialogFragment_SwapCoinList dialog = DialogFragment_SwapCoinList.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
@@ -208,7 +208,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
-            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            DialogFragment_SwapCoinList dialog = DialogFragment_SwapCoinList.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

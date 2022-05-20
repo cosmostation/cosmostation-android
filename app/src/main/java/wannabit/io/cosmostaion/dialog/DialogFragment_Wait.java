@@ -6,17 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 
 
-public class Dialog_Wait extends DialogFragment {
+public class DialogFragment_Wait extends DialogFragment {
 
-    public static Dialog_Wait newInstance() {
-        Dialog_Wait frag = new Dialog_Wait();
+    public static DialogFragment_Wait newInstance() {
+        DialogFragment_Wait frag = new DialogFragment_Wait();
         return frag;
     }
 

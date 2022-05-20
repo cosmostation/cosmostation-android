@@ -20,10 +20,10 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Safe_Score_Confirm extends DialogFragment {
+public class DialogFragment_SafeScoreConfirm extends DialogFragment {
 
-    public static Dialog_Safe_Score_Confirm newInstance(Bundle bundle) {
-        Dialog_Safe_Score_Confirm frag = new Dialog_Safe_Score_Confirm();
+    public static DialogFragment_SafeScoreConfirm newInstance(Bundle bundle) {
+        DialogFragment_SafeScoreConfirm frag = new DialogFragment_SafeScoreConfirm();
         frag.setArguments(bundle);
         return frag;
     }

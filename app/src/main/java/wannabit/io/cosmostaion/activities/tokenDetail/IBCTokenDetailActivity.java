@@ -34,7 +34,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.DialogFragment_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -189,7 +189,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             bundle.putString("address", mAccount.address);
             if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
             else { bundle.putString("title", mAccount.nickName); }
-            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            DialogFragment_AccountShow show = DialogFragment_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
