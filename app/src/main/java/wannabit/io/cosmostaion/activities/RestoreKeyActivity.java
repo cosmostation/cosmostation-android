@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_Choice_Type_OKex;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GeneratePkeyAccountTask;
@@ -116,9 +116,10 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
             }
 
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
-                Dialog_Choice_Type_OKex dialog = Dialog_Choice_Type_OKex.newInstance();
-                dialog.setCancelable(false);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                FilledVerticalButtonAlertDialog.showDoubleButton(this,getString(R.string.str_okex_address_title),null,
+                        getString(R.string.str_okex_old_address), view -> onCheckOecAddressType(0), null,
+                        getString(R.string.str_okex_new_address), view -> onCheckOecAddressType(1), null,
+                        false);
                 return;
             }
 

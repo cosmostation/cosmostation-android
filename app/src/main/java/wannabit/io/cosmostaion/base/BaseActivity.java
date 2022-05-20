@@ -111,9 +111,8 @@ import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
-import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
@@ -423,11 +422,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShareType(String address) {
-        Bundle bundle = new Bundle();
-        bundle.putString("address", address);
-        Dialog_ShareType add = Dialog_ShareType.newInstance(bundle);
-        add.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+        FilledVerticalButtonAlertDialog.showDoubleButton(this,null,null,
+                getString(R.string.str_with_qr), view -> onShare(false, address), getDrawable(R.drawable.cosmos_wh_main),
+                getString(R.string.str_with_text), view -> onShare(true, address), getDrawable(R.drawable.chain_test_cosmos));
     }
 
     public void onDeleteAccount(long id) {
@@ -1111,9 +1108,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowBuySelectFiat() {
-        Dialog_Buy_Select_Fiat dialog = Dialog_Buy_Select_Fiat.newInstance();
-        dialog.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        FilledVerticalButtonAlertDialog.showTripleButton(this,getString(R.string.str_okex_newpath_title),getString(R.string.str_okex_newpath_msg),
+                getString(R.string.str_okex_old_type), view -> onStartMoonpaySignature("usd"), getDrawable(R.drawable.fiat_usd),
+                getString(R.string.str_okex_new_type), view -> onStartMoonpaySignature("eur"), getDrawable(R.drawable.fiat_eu),
+                getString(R.string.str_okex_eth_type), view -> onStartMoonpaySignature("gbp"), getDrawable(R.drawable.fiat_gbp));
     }
 
     public void onStartMoonpaySignature(String fiat) {
