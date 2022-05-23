@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,16 +25,15 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_Wallet_for_Starname extends DialogFragment {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView             mRecyclerView;
     private WalletForStarNameAdapter mAdapter;
-
-    private StarnameAssets      mStarNameAsset;
-    private String              mUri;
-    private ArrayList<Account>  mWalletList = new ArrayList<>();
+    private TextView                 mDialogTitle;
+    private StarnameAssets           mStarNameAsset;
+    private String                   mUri;
+    private ArrayList<Account>       mWalletList = new ArrayList<>();
 
     public static Dialog_Wallet_for_Starname newInstance(Bundle bundle) {
         Dialog_Wallet_for_Starname frag = new Dialog_Wallet_for_Starname();
@@ -46,11 +44,12 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_template_recycler, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         try {
             mStarNameAsset = getArguments().getParcelable("asset");
             mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(mStarNameAsset.chainName));
@@ -59,15 +58,13 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
             mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(StarnameAssets.getStarNameGetChain(mUri)));
 
         }
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wallet_for_starname, null);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setText(R.string.str_select_wallet_for_address);
         mRecyclerView = view.findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new WalletForStarNameAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
 
     private class WalletForStarNameAdapter extends RecyclerView.Adapter<WalletForStarNameAdapter.WalletForStarNameHolder> {
