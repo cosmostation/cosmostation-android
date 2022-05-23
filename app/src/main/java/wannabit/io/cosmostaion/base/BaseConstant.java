@@ -1006,5 +1006,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_OMNIFLIX = new BigDecimal("5.7970");
     public final static BigDecimal BLOCK_TIME_CRESCENT = new BigDecimal("6.355");
     public final static BigDecimal BLOCK_TIME_MANTLE = new BigDecimal("5.8040");
-    public final static BigDecimal BLOCK_TIME_NYX = new BigDecimal("5.7000");
+    public final static BigDecimal BLOCK_TIME_NYX = new BigDecimal("5.685");
 }

@@ -1395,7 +1395,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_NYM)) {
             holder.itemSymbol.setText(getString(R.string.str_nym_c));
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorNyx2));
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorNym));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Mixnet Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_nym));

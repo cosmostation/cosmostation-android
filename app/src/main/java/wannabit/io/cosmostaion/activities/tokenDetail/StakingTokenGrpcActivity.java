@@ -23,7 +23,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.common.collect.Lists;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
@@ -63,7 +66,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
     private String                          mMainDenom;
 
     private int                 mDivideDecimal = 6;
-    private int                 mDisplayDecimal = 6;
     private BigDecimal          mTotalAmount = BigDecimal.ZERO;
 
     @Override
@@ -95,7 +97,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mMainDenom = WDp.mainDenom(mBaseChain);
         mDivideDecimal = WDp.mainDivideDecimal(mBaseChain);
-        mDisplayDecimal = WDp.mainDivideDecimal(mBaseChain);
 
         if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) { mHasVesting = true; }
         mBtnIbcSend.setVisibility(View.VISIBLE);
@@ -201,6 +202,17 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }

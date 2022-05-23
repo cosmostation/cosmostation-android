@@ -585,7 +585,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else if (symbol.equals(TOKEN_NYM)) {
                 denomTv.setText(R.string.str_nym_c);
-                denomTv.setTextColor(c.getResources().getColor(R.color.colorNyx2));
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorNym));
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
@@ -3408,7 +3408,7 @@ public class WDp {
             denomTv.setTextColor(c.getResources().getColor(R.color.colorCrescent2));
             denomTv.setText(c.getString(R.string.str_bcre_c));
         } else if (denom.equalsIgnoreCase(TOKEN_NYM)) {
-            denomTv.setTextColor(c.getResources().getColor(R.color.colorNyx2));
+            denomTv.setTextColor(c.getResources().getColor(R.color.colorNym));
             denomTv.setText(c.getString(R.string.str_nym_c));
         } else {
             WDp.DpMainDenom(c, baseChain, denomTv);
