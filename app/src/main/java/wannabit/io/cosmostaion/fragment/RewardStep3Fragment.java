@@ -63,7 +63,6 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mDenomResultAmount = rootView.findViewById(R.id.expected_amount_title);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRewardAmount);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomResultAmount);
 
         mBeforeBtn.setOnClickListener(this);
@@ -82,6 +81,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         }
         mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mDenomFeeType);
         if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
             mTvGoalLayer.setVisibility(View.GONE);
             mExpectedLayer.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
@@ -25,6 +26,11 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import com.google.common.collect.Lists;
+
+import java.math.BigDecimal;
+import java.util.List;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -40,6 +46,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -318,6 +325,18 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
             if (TextUtils.isEmpty(mRewardAddress.getText().toString())) {
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
 

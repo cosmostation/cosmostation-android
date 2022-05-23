@@ -70,6 +70,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.common.collect.Lists;
 import com.google.protobuf2.Any;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -293,6 +294,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
             startActivity(intent);
 

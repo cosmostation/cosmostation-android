@@ -56,7 +56,6 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
         mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mRewardDenom);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mCurrentDenom);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mExpectedDenom);
 
@@ -71,6 +70,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), mDpDecimal, mDpDecimal));
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), mDpDecimal, mDpDecimal));
+        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeDenom);
         BigDecimal current = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
         BigDecimal expected = current.add(new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN));
         mCurrentAmount.setText(WDp.getDpAmount2(getContext(), current, mDpDecimal, mDpDecimal));

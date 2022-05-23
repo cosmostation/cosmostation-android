@@ -54,7 +54,6 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvRedelegateDenom);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -68,6 +67,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         BigDecimal feeAmount= new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, mDpDecimal, mDpDecimal));
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeDenom);
 
         mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
         mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValAddress).getDescription().getMoniker());
