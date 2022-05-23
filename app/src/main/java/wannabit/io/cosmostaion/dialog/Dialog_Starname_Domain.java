@@ -1,19 +1,17 @@
 package wannabit.io.cosmostaion.dialog;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,9 +23,10 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_Starname_Domain extends DialogFragment {
 
-    private RecyclerView        mRecyclerView;
-    private DomainListAdapter   mDomainListAdapter;
-    private ArrayList<String>   mStarnameDomain = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private TextView mtextView;
+    private DomainListAdapter mDomainListAdapter;
+    private ArrayList<String> mStarnameDomain = new ArrayList<>();
 
     public static Dialog_Starname_Domain newInstance(Bundle bundle) {
         Dialog_Starname_Domain frag = new Dialog_Starname_Domain();
@@ -38,22 +37,20 @@ public class Dialog_Starname_Domain extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_template_recycler, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_domain, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mtextView = view.findViewById(R.id.dialog_title);
+        mtextView.setText(R.string.str_select_starname_domain);
         mRecyclerView = view.findViewById(R.id.recycler);
         mStarnameDomain = getArguments().getStringArrayList("domain");
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mDomainListAdapter = new DomainListAdapter();
         mRecyclerView.setAdapter(mDomainListAdapter);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
 
     private class DomainListAdapter extends RecyclerView.Adapter<DomainListAdapter.DomainListHolder> {
@@ -87,17 +84,18 @@ public class Dialog_Starname_Domain extends DialogFragment {
         public class DomainListHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
             TextView domainName;
+
             public DomainListHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer   = itemView.findViewById(R.id.rootLayer);
-                domainName   = itemView.findViewById(R.id.domainName);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                domainName = itemView.findViewById(R.id.domainName);
             }
         }
 
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 
 }

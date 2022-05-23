@@ -96,9 +96,12 @@ public class ListFarmingFragment extends BaseFragment {
         for (BalancerPool.Pool pool: filteredIncentivizedPool) {
             boolean isMaine = false;
             for (Lock.PeriodLock  lockup: mPeriodLockUps) {
-                String tempPoolId = lockup.getCoins(0).getDenom().replaceAll("gamm/pool/", "");
-                if (pool.getId() == Long.parseLong(tempPoolId)) {
-                    isMaine = true;
+                String lockupDenom = lockup.getCoins(0).getDenom();
+                if (!lockupDenom.startsWith("ibc/")) {
+                    String tempPoolId = lockup.getCoins(0).getDenom().replaceAll("gamm/pool/", "");
+                    if (pool.getId() == Long.parseLong(tempPoolId)) {
+                        isMaine = true;
+                    }
                 }
             }
             if (isMaine) {

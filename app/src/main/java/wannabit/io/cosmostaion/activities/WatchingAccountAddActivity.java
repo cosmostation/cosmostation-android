@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
+
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -24,14 +26,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.Dialog_Choice_Cosmos;
-import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iris;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
 
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -181,14 +180,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
     }
 
     private void onShowCosmosSelect(String input) {
-        Dialog_Choice_Cosmos dialog = Dialog_Choice_Cosmos.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        FilledVerticalButtonAlertDialog.showDoubleButton(this,null,null,
+                getString(R.string.str_cosmos_main_net), view -> onChoiceNet(BaseChain.COSMOS_MAIN), getDrawable(R.drawable.cosmos_wh_main),
+                getString(R.string.str_cosmos_test_net), view -> onChoiceNet(BaseChain.COSMOS_TEST), getDrawable(R.drawable.chain_test_cosmos),
+                false);
     }
 
     private void onShowIrisSelect(String input) {
-        Dialog_Choice_Iris dialog = Dialog_Choice_Iris.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        FilledVerticalButtonAlertDialog.showDoubleButton(this,null,null,
+                getString(R.string.str_iris_main_net), view -> onChoiceNet(BaseChain.IRIS_MAIN), getDrawable(R.drawable.irisnet),
+                getString(R.string.str_iris_test_net), view -> onChoiceNet(BaseChain.IRIS_TEST), getDrawable(R.drawable.chain_test_iris),
+                false);
     }
 }

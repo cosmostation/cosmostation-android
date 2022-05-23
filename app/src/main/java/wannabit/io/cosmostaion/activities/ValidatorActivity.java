@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.common.collect.Lists;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -70,33 +71,33 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
-    private ImageView                                   mChainBg;
-    private Toolbar                                     mToolbar;
-    private SwipeRefreshLayout                          mSwipeRefreshLayout;
-    private RecyclerView                                mRecyclerView;
-    private SpannableString                             mSelfBondingRate;
-    private int                                         mTaskCount;
+    private ImageView mChainBg;
+    private Toolbar mToolbar;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private SpannableString mSelfBondingRate;
+    private int mTaskCount;
 
-    private ValidatorAdapter                            mValidatorAdapter;
+    private ValidatorAdapter mValidatorAdapter;
 
     //gRPC
-    private String                                  mValOpAddress;
-    private Staking.Validator                       mGrpcValidator;
-    private Staking.DelegationResponse              mGrpcMyDelegation;
-    private Staking.UnbondingDelegation             mGrpcMyUndelegation;
-    private Staking.DelegationResponse              mGrpcSelfDelegation;
-    private List<Staking.RedelegationResponse>      mGrpcRedelegates;
-    private ArrayList<ResApiNewTxListCustom>        mApiNewTxCustomHistory = new ArrayList<>();
+    private String mValOpAddress;
+    private Staking.Validator mGrpcValidator;
+    private Staking.DelegationResponse mGrpcMyDelegation;
+    private Staking.UnbondingDelegation mGrpcMyUndelegation;
+    private Staking.DelegationResponse mGrpcSelfDelegation;
+    private List<Staking.RedelegationResponse> mGrpcRedelegates;
+    private ArrayList<ResApiNewTxListCustom> mApiNewTxCustomHistory = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator);
-        mChainBg                    = findViewById(R.id.chain_bg);
-        mToolbar                    = findViewById(R.id.tool_bar);
-        mSwipeRefreshLayout         = findViewById(R.id.layer_refresher);
-        mRecyclerView               = findViewById(R.id.recycler);
+        mChainBg = findViewById(R.id.chain_bg);
+        mToolbar = findViewById(R.id.tool_bar);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -123,7 +124,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAccount == null) { onBackPressed(); }
+        if (mAccount == null) {
+            onBackPressed();
+        }
 
         mValidatorAdapter = new ValidatorAdapter();
         mRecyclerView.setAdapter(mValidatorAdapter);
@@ -144,7 +147,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onInitFetch() {
-        if(mTaskCount > 0) return;
+        if (mTaskCount > 0) return;
         mTaskCount = 6;
         getBaseDao().mGrpcDelegations.clear();
         getBaseDao().mGrpcUndelegations.clear();
@@ -169,6 +172,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, WDp.mainDenom(mBaseChain));
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
         if (delegatableAmount.compareTo(feeAmount) < 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<String> availableFeeDenomList = Lists.newArrayList();
+        for (String denom : WDp.getGasDenomList(mBaseChain)) {
+            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                availableFeeDenomList.add(denom);
+            }
+        }
+        if (availableFeeDenomList.isEmpty()) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -206,14 +220,21 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
-        if (availableAmount.compareTo(feeAmount) < 0) {
+
+        List<String> availableFeeDenomList = Lists.newArrayList();
+        for (String denom : WDp.getGasDenomList(mBaseChain)) {
+            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                availableFeeDenomList.add(denom);
+            }
+        }
+        if (availableFeeDenomList.isEmpty()) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
+
         if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
-            for (Staking.RedelegationResponse data: mGrpcRedelegates) {
+            for (Staking.RedelegationResponse data : mGrpcRedelegates) {
                 if (data.getRedelegation().getValidatorDstAddress().equals(mValOpAddress)) {
                     AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg), getString(R.string.str_ok), null);
                     return;
@@ -245,9 +266,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
-        if (availableAmount.compareTo(feeAmount) < 0) {
+
+        List<String> availableFeeDenomList = Lists.newArrayList();
+        for (String denom : WDp.getGasDenomList(mBaseChain)) {
+            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                availableFeeDenomList.add(denom);
+            }
+        }
+        if (availableFeeDenomList.isEmpty()) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -264,18 +291,26 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     getString(R.string.str_close), null);
             return;
         }
-        BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-        if (availableAmount.compareTo(feeAmount) < 0) {
+
+        List<String> availableFeeDenomList = Lists.newArrayList();
+        for (String denom : WDp.getGasDenomList(mBaseChain)) {
+            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                availableFeeDenomList.add(denom);
+            }
+        }
+        if (availableFeeDenomList.isEmpty()) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
+
         if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(feeAmount) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        ArrayList<String> valAdds= new ArrayList<>();
+        ArrayList<String> valAdds = new ArrayList<>();
         valAdds.add(mValOpAddress);
         Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
         claimReward.putStringArrayListExtra("valOpAddresses", valAdds);
@@ -290,14 +325,20 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
-        if (availableAmount.compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+
+        List<String> availableFeeDenomList = Lists.newArrayList();
+        for (String denom : WDp.getGasDenomList(mBaseChain)) {
+            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                availableFeeDenomList.add(denom);
+            }
+        }
+        if (availableFeeDenomList.isEmpty()) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(feeAmount) < 0 ) {
+        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -305,7 +346,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         new WithdrawAddressGrpcTask(getBaseApplication(), new TaskListener() {
             @Override
             public void onTaskResponse(TaskResult result) {
-                String rewardAddress = (String)result.resultData;
+                String rewardAddress = (String) result.resultData;
                 if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
                     Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
                     return;
@@ -328,37 +369,42 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if (isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_API_STAKE_HISTORY) {
-            ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
-                if (hits != null && hits.size() > 0) {
-                    mApiNewTxCustomHistory = hits;
+            ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
+            if (hits != null && hits.size() > 0) {
+                mApiNewTxCustomHistory = hits;
 
             }
         } else if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
             ArrayList<Staking.DelegationResponse> delegations = (ArrayList<Staking.DelegationResponse>) result.resultData;
-            if (delegations != null) { getBaseDao().mGrpcDelegations = delegations; }
+            if (delegations != null) {
+                getBaseDao().mGrpcDelegations = delegations;
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_UNDELEGATIONS) {
             ArrayList<Staking.UnbondingDelegation> undelegations = (ArrayList<Staking.UnbondingDelegation>) result.resultData;
-            if (undelegations != null) { getBaseDao().mGrpcUndelegations = undelegations; }
+            if (undelegations != null) {
+                getBaseDao().mGrpcUndelegations = undelegations;
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
-            if (rewards != null) { getBaseDao().mGrpcRewards = rewards; }
+            if (rewards != null) {
+                getBaseDao().mGrpcRewards = rewards;
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_VALIDATOR_INFO) {
-            mGrpcValidator = (Staking.Validator)result.resultData;
+            mGrpcValidator = (Staking.Validator) result.resultData;
 
         } else if (result.taskType == TASK_GRPC_FETCH_SELF_BONDING) {
-            mGrpcSelfDelegation = (Staking.DelegationResponse)result.resultData;
+            mGrpcSelfDelegation = (Staking.DelegationResponse) result.resultData;
 
         } else if (result.taskType == TASK_GRPC_FETCH_REDELEGATIONS_TO) {
-            mGrpcRedelegates = (List<Staking.RedelegationResponse>)result.resultData;
+            mGrpcRedelegates = (List<Staking.RedelegationResponse>) result.resultData;
         }
 
 
-
         if (mTaskCount == 0) {
-            mGrpcMyDelegation   = getBaseDao().getDelegationInfo(mValOpAddress);
+            mGrpcMyDelegation = getBaseDao().getDelegationInfo(mValOpAddress);
             mGrpcMyUndelegation = getBaseDao().getUndelegationInfo(mValOpAddress);
 
             mRecyclerView.setVisibility(View.VISIBLE);
@@ -369,27 +415,27 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private class ValidatorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_VALIDATOR             = 0;
-        private static final int TYPE_MY_VALIDATOR          = 1;
-        private static final int TYPE_ACTION                = 2;
-        private static final int TYPE_HISTORY_HEADER        = 3;
-        private static final int TYPE_HISTORY               = 4;
-        private static final int TYPE_HISTORY_EMPTY         = 5;
+        private static final int TYPE_VALIDATOR = 0;
+        private static final int TYPE_MY_VALIDATOR = 1;
+        private static final int TYPE_ACTION = 2;
+        private static final int TYPE_HISTORY_HEADER = 3;
+        private static final int TYPE_HISTORY = 4;
+        private static final int TYPE_HISTORY_EMPTY = 5;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if(viewType == TYPE_VALIDATOR) {
+            if (viewType == TYPE_VALIDATOR) {
                 return new ValidatorHolder(getLayoutInflater().inflate(R.layout.item_validator_detail, viewGroup, false));
-            } else if(viewType == TYPE_MY_VALIDATOR) {
+            } else if (viewType == TYPE_MY_VALIDATOR) {
                 return new MyValidatorHolder(getLayoutInflater().inflate(R.layout.item_validator_my_detail, viewGroup, false));
-            } else if(viewType == TYPE_ACTION) {
+            } else if (viewType == TYPE_ACTION) {
                 return new MyActionHolder(getLayoutInflater().inflate(R.layout.item_validator_my_action, viewGroup, false));
-            } else if(viewType == TYPE_HISTORY_HEADER) {
+            } else if (viewType == TYPE_HISTORY_HEADER) {
                 return new HistoryHeaderHolder(getLayoutInflater().inflate(R.layout.item_validator_history_header, viewGroup, false));
-            } else if(viewType == TYPE_HISTORY) {
+            } else if (viewType == TYPE_HISTORY) {
                 return new HistoryNewHolder(getLayoutInflater().inflate(R.layout.item_new_history, viewGroup, false));
-            } else if(viewType == TYPE_HISTORY_EMPTY) {
+            } else if (viewType == TYPE_HISTORY_EMPTY) {
                 return new HistoryEmptyHolder(getLayoutInflater().inflate(R.layout.item_validator_history_empty, viewGroup, false));
             }
             return null;
@@ -415,7 +461,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
-            final HistoryNewHolder holder = (HistoryNewHolder)viewHolder;
+            final HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
             final ResApiNewTxListCustom history;
             if (isGRPC(mBaseChain)) {
                 if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
@@ -477,7 +523,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindValidatorV1(RecyclerView.ViewHolder viewHolder) {
-            final ValidatorHolder holder = (ValidatorHolder)viewHolder;
+            final ValidatorHolder holder = (ValidatorHolder) viewHolder;
             final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
             holder.itemTvAddress.setText(mGrpcValidator.getOperatorAddress());
@@ -526,7 +572,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
             try {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             if (mBaseChain.equals(ALTHEA_TEST)) {
                 holder.itemTvYieldRate.setText("--");
@@ -542,7 +589,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindMyValidatorV1(RecyclerView.ViewHolder viewHolder) {
-            final MyValidatorHolder holder = (MyValidatorHolder)viewHolder;
+            final MyValidatorHolder holder = (MyValidatorHolder) viewHolder;
             final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
             holder.itemTvAddress.setText(mGrpcValidator.getOperatorAddress());
@@ -560,7 +607,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             if (mGrpcSelfDelegation != null) {
                 holder.itemTvSelfBondRate.setText(WDp.getSelfBondRate(mGrpcValidator.getTokens(), mGrpcSelfDelegation.getBalance().getAmount()));
-            } else{
+            } else {
                 holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
             }
             if (mGrpcValidator.getJailed()) {
@@ -591,7 +638,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
             try {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             if (mBaseChain.equals(ALTHEA_TEST)) {
                 holder.itemTvYieldRate.setText("--");
@@ -599,7 +647,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindActionV1(RecyclerView.ViewHolder viewHolder) {
-            final MyActionHolder holder = (MyActionHolder)viewHolder;
+            final MyActionHolder holder = (MyActionHolder) viewHolder;
             final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mBaseChain));
             holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), getBaseDao().getDelegation(mValOpAddress), dpDecimal, dpDecimal));
@@ -660,14 +708,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         @Override
         public int getItemViewType(int position) {
             if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                if(position == 0) {
+                if (position == 0) {
                     return TYPE_VALIDATOR;
                 } else if (position == 1) {
                     return TYPE_HISTORY_HEADER;
                 }
 
             } else {
-                if(position == 0) {
+                if (position == 0) {
                     return TYPE_MY_VALIDATOR;
                 } else if (position == 1) {
                     return TYPE_ACTION;
@@ -690,8 +738,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     return 3;
                 }
             } else {
-                if (mApiNewTxCustomHistory.size() > 0){
-                    return mApiNewTxCustomHistory.size() +3;
+                if (mApiNewTxCustomHistory.size() > 0) {
+                    return mApiNewTxCustomHistory.size() + 3;
                 } else {
                     return 4;
                 }
@@ -700,91 +748,91 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         public class ValidatorHolder extends RecyclerView.ViewHolder {
             CircleImageView itemAvatar;
-            ImageView    itemImgRevoked;
-            ImageView    itemImgFree;
-            ImageView    itemBandOracleOff;
-            TextView    itemTvMoniker;
-            TextView    itemTvAddress;
-            TextView    itemTvWebsite;
-            TextView    itemTvDescription;
-            TextView    itemTvTotalBondAmount;
-            TextView    itemTvSelfBondRate;
-            TextView    itemTvYieldRate;
-            TextView    itemTvCommissionRate;
-            Button      itemBtnDelegate;
+            ImageView itemImgRevoked;
+            ImageView itemImgFree;
+            ImageView itemBandOracleOff;
+            TextView itemTvMoniker;
+            TextView itemTvAddress;
+            TextView itemTvWebsite;
+            TextView itemTvDescription;
+            TextView itemTvTotalBondAmount;
+            TextView itemTvSelfBondRate;
+            TextView itemTvYieldRate;
+            TextView itemTvCommissionRate;
+            Button itemBtnDelegate;
 
             public ValidatorHolder(View v) {
                 super(v);
-                itemAvatar              = itemView.findViewById(R.id.validator_avatar);
-                itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemImgFree             = itemView.findViewById(R.id.avatar_validator_free);
-                itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
-                itemBandOracleOff       = itemView.findViewById(R.id.band_oracle_off);
-                itemTvAddress           = itemView.findViewById(R.id.validator_address);
-                itemTvWebsite           = itemView.findViewById(R.id.validator_site);
-                itemTvDescription       = itemView.findViewById(R.id.validator_description);
-                itemTvTotalBondAmount   = itemView.findViewById(R.id.validator_total_bonded);
-                itemTvSelfBondRate      = itemView.findViewById(R.id.validator_self_bond_rate);
-                itemTvYieldRate         = itemView.findViewById(R.id.validator_yield);
-                itemTvCommissionRate    = itemView.findViewById(R.id.validator_commission);
-                itemBtnDelegate         = itemView.findViewById(R.id.validator_btn_delegate);
+                itemAvatar = itemView.findViewById(R.id.validator_avatar);
+                itemImgRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemImgFree = itemView.findViewById(R.id.avatar_validator_free);
+                itemTvMoniker = itemView.findViewById(R.id.validator_moniker);
+                itemBandOracleOff = itemView.findViewById(R.id.band_oracle_off);
+                itemTvAddress = itemView.findViewById(R.id.validator_address);
+                itemTvWebsite = itemView.findViewById(R.id.validator_site);
+                itemTvDescription = itemView.findViewById(R.id.validator_description);
+                itemTvTotalBondAmount = itemView.findViewById(R.id.validator_total_bonded);
+                itemTvSelfBondRate = itemView.findViewById(R.id.validator_self_bond_rate);
+                itemTvYieldRate = itemView.findViewById(R.id.validator_yield);
+                itemTvCommissionRate = itemView.findViewById(R.id.validator_commission);
+                itemBtnDelegate = itemView.findViewById(R.id.validator_btn_delegate);
             }
         }
 
         public class MyValidatorHolder extends RecyclerView.ViewHolder {
-            CardView            itemRoot;
-            CircleImageView     itemAvatar;
-            ImageView           itemImgRevoked;
-            ImageView           itemImgFree;
-            ImageView           itemBandOracleOff;
-            TextView            itemTvMoniker, itemTvAddress, itemTvWebsite, itemTvDescription, itemTvTotalBondAmount,
-                                itemTvYieldRate, itemTvSelfBondRate, itemTvCommissionRate;
+            CardView itemRoot;
+            CircleImageView itemAvatar;
+            ImageView itemImgRevoked;
+            ImageView itemImgFree;
+            ImageView itemBandOracleOff;
+            TextView itemTvMoniker, itemTvAddress, itemTvWebsite, itemTvDescription, itemTvTotalBondAmount,
+                    itemTvYieldRate, itemTvSelfBondRate, itemTvCommissionRate;
 
             public MyValidatorHolder(View v) {
                 super(v);
-                itemRoot                = itemView.findViewById(R.id.root);
-                itemAvatar              = itemView.findViewById(R.id.validator_avatar);
-                itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemImgFree             = itemView.findViewById(R.id.avatar_validator_free);
-                itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
-                itemBandOracleOff       = itemView.findViewById(R.id.band_oracle_off);
-                itemTvAddress           = itemView.findViewById(R.id.validator_address);
-                itemTvWebsite           = itemView.findViewById(R.id.validator_site);
-                itemTvDescription       = itemView.findViewById(R.id.validator_description);
-                itemTvTotalBondAmount   = itemView.findViewById(R.id.validator_total_bonded);
-                itemTvSelfBondRate      = itemView.findViewById(R.id.validator_self_bond_rate);
-                itemTvYieldRate         = itemView.findViewById(R.id.validator_yield);
-                itemTvCommissionRate    = itemView.findViewById(R.id.validator_commission);
+                itemRoot = itemView.findViewById(R.id.root);
+                itemAvatar = itemView.findViewById(R.id.validator_avatar);
+                itemImgRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemImgFree = itemView.findViewById(R.id.avatar_validator_free);
+                itemTvMoniker = itemView.findViewById(R.id.validator_moniker);
+                itemBandOracleOff = itemView.findViewById(R.id.band_oracle_off);
+                itemTvAddress = itemView.findViewById(R.id.validator_address);
+                itemTvWebsite = itemView.findViewById(R.id.validator_site);
+                itemTvDescription = itemView.findViewById(R.id.validator_description);
+                itemTvTotalBondAmount = itemView.findViewById(R.id.validator_total_bonded);
+                itemTvSelfBondRate = itemView.findViewById(R.id.validator_self_bond_rate);
+                itemTvYieldRate = itemView.findViewById(R.id.validator_yield);
+                itemTvCommissionRate = itemView.findViewById(R.id.validator_commission);
             }
         }
 
         public class MyActionHolder extends RecyclerView.ViewHolder {
-            CardView            itemRoot;
-            TextView            itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward, itemTvSimpleReward;
-            Button              itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward, itemBtnReinvest ;
-            TextView            itemAtomTitle, itemPhotonTitle;
-            RelativeLayout      itemAtomLayer, itemPhotonLayer;
-            TextView            itemDailyReturn, itemMonthlyReturn;
+            CardView itemRoot;
+            TextView itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward, itemTvSimpleReward;
+            Button itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward, itemBtnReinvest;
+            TextView itemAtomTitle, itemPhotonTitle;
+            RelativeLayout itemAtomLayer, itemPhotonLayer;
+            TextView itemDailyReturn, itemMonthlyReturn;
 
             public MyActionHolder(View v) {
                 super(v);
-                itemRoot                = itemView.findViewById(R.id.root);
-                itemTvDelegatedAmount   = itemView.findViewById(R.id.validator_delegated);
-                itemTvUnbondingAmount   = itemView.findViewById(R.id.validator_unbonding);
-                itemTvAtomReward        = itemView.findViewById(R.id.validator_atom_reward);
-                itemTvPhotonReward      = itemView.findViewById(R.id.validator_photon_reward);
-                itemBtnDelegate         = itemView.findViewById(R.id.validator_btn_delegate);
-                itemBtnUndelegate       = itemView.findViewById(R.id.validator_btn_undelegate);
-                itemBtnRedelegate       = itemView.findViewById(R.id.validator_btn_redelegate);
-                itemBtnReward           = itemView.findViewById(R.id.validator_btn_claim_reward);
-                itemBtnReinvest         = itemView.findViewById(R.id.validator_btn_reinvest);
-                itemAtomTitle           = itemView.findViewById(R.id.action_atom_title);
-                itemPhotonTitle         = itemView.findViewById(R.id.action_photon_title);
-                itemPhotonLayer         = itemView.findViewById(R.id.validator_photon_reward_layer);
-                itemAtomLayer           = itemView.findViewById(R.id.validator_atom_reward_layer);
-                itemTvSimpleReward      = itemView.findViewById(R.id.validator_simple_reward);
-                itemDailyReturn         = itemView.findViewById(R.id.validator_daily_return);
-                itemMonthlyReturn       = itemView.findViewById(R.id.validator_monthly_return);
+                itemRoot = itemView.findViewById(R.id.root);
+                itemTvDelegatedAmount = itemView.findViewById(R.id.validator_delegated);
+                itemTvUnbondingAmount = itemView.findViewById(R.id.validator_unbonding);
+                itemTvAtomReward = itemView.findViewById(R.id.validator_atom_reward);
+                itemTvPhotonReward = itemView.findViewById(R.id.validator_photon_reward);
+                itemBtnDelegate = itemView.findViewById(R.id.validator_btn_delegate);
+                itemBtnUndelegate = itemView.findViewById(R.id.validator_btn_undelegate);
+                itemBtnRedelegate = itemView.findViewById(R.id.validator_btn_redelegate);
+                itemBtnReward = itemView.findViewById(R.id.validator_btn_claim_reward);
+                itemBtnReinvest = itemView.findViewById(R.id.validator_btn_reinvest);
+                itemAtomTitle = itemView.findViewById(R.id.action_atom_title);
+                itemPhotonTitle = itemView.findViewById(R.id.action_photon_title);
+                itemPhotonLayer = itemView.findViewById(R.id.validator_photon_reward_layer);
+                itemAtomLayer = itemView.findViewById(R.id.validator_atom_reward_layer);
+                itemTvSimpleReward = itemView.findViewById(R.id.validator_simple_reward);
+                itemDailyReturn = itemView.findViewById(R.id.validator_daily_return);
+                itemMonthlyReturn = itemView.findViewById(R.id.validator_monthly_return);
             }
         }
 
@@ -801,13 +849,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             public HistoryNewHolder(View v) {
                 super(v);
-                historyRoot                     = itemView.findViewById(R.id.card_history);
-                historyType                     = itemView.findViewById(R.id.history_type);
-                historySuccess                  = itemView.findViewById(R.id.history_success);
-                history_time                    = itemView.findViewById(R.id.history_time);
-                history_time_gap                = itemView.findViewById(R.id.history_time_gap);
-                history_amount                  = itemView.findViewById(R.id.history_amount);
-                history_amount_symbol           = itemView.findViewById(R.id.history_amount_symobl);
+                historyRoot = itemView.findViewById(R.id.card_history);
+                historyType = itemView.findViewById(R.id.history_type);
+                historySuccess = itemView.findViewById(R.id.history_success);
+                history_time = itemView.findViewById(R.id.history_time);
+                history_time_gap = itemView.findViewById(R.id.history_time_gap);
+                history_amount = itemView.findViewById(R.id.history_amount);
+                history_amount_symbol = itemView.findViewById(R.id.history_amount_symobl);
             }
         }
 

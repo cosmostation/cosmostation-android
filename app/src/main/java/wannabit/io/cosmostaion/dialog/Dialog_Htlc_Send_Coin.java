@@ -12,8 +12,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,10 +37,11 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 public class Dialog_Htlc_Send_Coin extends DialogFragment {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView          mRecyclerView;
+    private TextView              mDialogTitle;
     private ToSwapCoinListAdapter mToSwapCoinListAdapter;
-    private BaseChain mBaseChain;
-    private ArrayList<String> mSwappableCoinList;
+    private BaseChain             mBaseChain;
+    private ArrayList<String>     mSwappableCoinList;
 
     public static Dialog_Htlc_Send_Coin newInstance(Bundle bundle) {
         Dialog_Htlc_Send_Coin frag = new Dialog_Htlc_Send_Coin();
@@ -52,12 +52,14 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.dialog_template_recycler, container);
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_send_coin, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setText(R.string.str_select_to_send_coin);
         mRecyclerView = view.findViewById(R.id.recycler);
         mBaseChain = BaseChain.getChain(getArguments().getString("chainName"));
         mSwappableCoinList = BaseChain.getHtlcSwappableCoin(mBaseChain);
@@ -65,9 +67,6 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
         mRecyclerView.setHasFixedSize(true);
         mToSwapCoinListAdapter = new ToSwapCoinListAdapter();
         mRecyclerView.setAdapter(mToSwapCoinListAdapter);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
     }
 
 

@@ -27,8 +27,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.common.collect.Lists;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
@@ -131,8 +134,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         getString(R.string.str_close), null);
                 return;
             }
-            BigDecimal mainDenomAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
 
             if (mApiProposal != null && !mApiProposal.proposal_status.isEmpty() && !mApiProposal.proposal_status.contains("VOTING")) {
                 Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
@@ -143,10 +144,19 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (mainDenomAvailable.compareTo(feeAmount) < 0) {
+
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
+
             Intent intent = new Intent(VoteDetailsActivity.this, VoteActivity.class);
             intent.putExtra("proposalId", mProposalId);
             intent.putExtra("title", "# " + mApiProposal.id + ". " + mApiProposal.title);

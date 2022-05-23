@@ -50,7 +50,6 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
         mProposalTitle.setText(getSActivity().mProposeTitle);
         mProposer.setText(getSActivity().mProposer);
         mBeforeBtn.setOnClickListener(this);
@@ -63,6 +62,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mDenomFeeType);
         mOpinion.setText(getSActivity().mOpinion);
         mMemo.setText(getSActivity().mTxMemo);
     }

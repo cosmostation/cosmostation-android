@@ -24,14 +24,14 @@ import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView                  mRecyclerView;
+    private TextView                      mtextView;
     private ChainForResourceHolderAdapter mAdapter;
-    private ArrayList<Types.Resource> mAlreadyChains;
-    private ArrayList<StarnameAssets> mAllChains;
+    private ArrayList<Types.Resource>     mAlreadyChains;
+    private ArrayList<StarnameAssets>     mAllChains;
 
     public static Dialog_StarName_Resource newInstance(Bundle bundle) {
         Dialog_StarName_Resource frag = new Dialog_StarName_Resource();
@@ -41,7 +41,9 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_resource, null);
+        final View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mtextView           = view.findViewById(R.id.dialog_title);
+        mtextView.setText(R.string.str_select_chain_for_address);
         mRecyclerView = view.findViewById(R.id.recycler);
         StarnameResourceWrapper wrapper = (StarnameResourceWrapper)getArguments().getSerializable("resources");
         mAlreadyChains = wrapper.array;

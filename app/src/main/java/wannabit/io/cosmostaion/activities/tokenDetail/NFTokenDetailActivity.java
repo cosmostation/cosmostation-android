@@ -24,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.common.collect.Lists;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import irismod.nft.Nft;
 import irismod.nft.QueryOuterClass;
@@ -150,12 +152,19 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
             } else {
                 Intent intent = new Intent(getBaseContext(), NFTSendActivity.class);
-                BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SEND_NFT, 0);
-                if (mainAvailable.compareTo(feeAmount) < 0) {
+
+                List<String> availableFeeDenomList = Lists.newArrayList();
+                for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                    if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                        availableFeeDenomList.add(denom);
+                    }
+                }
+                if (availableFeeDenomList.isEmpty()) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 intent.putExtra("mDenomId", mDenomId);
                 intent.putExtra("mTokenId", mTokenId);
                 intent.putExtra("mIrisResponse", mIrisResponse);
