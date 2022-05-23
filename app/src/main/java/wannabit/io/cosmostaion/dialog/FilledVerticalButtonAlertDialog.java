@@ -61,7 +61,7 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
                                            CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, Drawable secondButtonImage,
                                            CharSequence thirdButtonTitle, View.OnClickListener thirdButtonListener, Drawable thirdButtonImage,
                                            CharSequence quadrupleButtonTitle, View.OnClickListener quadrupleButtonListener, Drawable quadrupleButtonImage, Boolean cancelable) {
-        FilledVerticalButtonAlertDialog dialog = makeTripleButton(context, title, message, firstButtonTitle, firstButtonListener, firstButtonImage, secondButtonTitle, secondButtonListener, secondButtonImage, thirdButtonTitle, thirdButtonListener, thirdButtonImage);
+        FilledVerticalButtonAlertDialog dialog = makeQuadrupleButton(context, title, message, firstButtonTitle, firstButtonListener, firstButtonImage, secondButtonTitle, secondButtonListener, secondButtonImage, thirdButtonTitle, thirdButtonListener, thirdButtonImage, quadrupleButtonTitle, quadrupleButtonListener, quadrupleButtonImage);
         dialog.setCancelable(cancelable);
         dialog.create();
         dialog.show();
