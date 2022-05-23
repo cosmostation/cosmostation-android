@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
@@ -101,6 +102,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.ChainParam;
@@ -111,6 +113,7 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
@@ -3107,185 +3110,185 @@ public class WDp {
     }
 
     public static void DpMainDenom(Context c, String chain, TextView textview) {
-        if (BaseChain.getChain(chain).equals(COSMOS_MAIN)) {
+        if (getChain(chain).equals(COSMOS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAtom));
             textview.setText(c.getString(R.string.s_atom));
 
-        } else if (BaseChain.getChain(chain).equals(IRIS_MAIN)) {
+        } else if (getChain(chain).equals(IRIS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_iris));
 
-        } else if (BaseChain.getChain(chain).equals(BNB_MAIN)) {
+        } else if (getChain(chain).equals(BNB_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
             textview.setText(c.getString(R.string.s_bnb));
 
-        } else if (BaseChain.getChain(chain).equals(KAVA_MAIN)) {
+        } else if (getChain(chain).equals(KAVA_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorKava));
             textview.setText(c.getString(R.string.s_kava));
 
-        } else if (BaseChain.getChain(chain).equals(IOV_MAIN)) {
+        } else if (getChain(chain).equals(IOV_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));
             textview.setText(c.getString(R.string.s_iov));
 
-        } else if (BaseChain.getChain(chain).equals(BAND_MAIN)) {
+        } else if (getChain(chain).equals(BAND_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBand));
             textview.setText(c.getString(R.string.s_band));
 
-        } else if (BaseChain.getChain(chain).equals(OKEX_MAIN)) {
+        } else if (getChain(chain).equals(OKEX_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorOK));
             textview.setText(c.getString(R.string.s_okt));
 
-        } else if (BaseChain.getChain(chain).equals(CERTIK_MAIN)) {
+        } else if (getChain(chain).equals(CERTIK_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCertik));
             textview.setText(c.getString(R.string.s_ctk));
 
-        } else if (BaseChain.getChain(chain).equals(SECRET_MAIN)) {
+        } else if (getChain(chain).equals(SECRET_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorSecret));
             textview.setText(c.getString(R.string.s_scrt));
 
-        } else if (BaseChain.getChain(chain).equals(AKASH_MAIN)) {
+        } else if (getChain(chain).equals(AKASH_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAkash));
             textview.setText(c.getString(R.string.s_akt));
 
-        } else if (BaseChain.getChain(chain).equals(PERSIS_MAIN)) {
+        } else if (getChain(chain).equals(PERSIS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorPersis));
             textview.setText(c.getString(R.string.s_xprt));
 
-        } else if (BaseChain.getChain(chain).equals(SENTINEL_MAIN)) {
+        } else if (getChain(chain).equals(SENTINEL_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorSentinel));
             textview.setText(c.getString(R.string.s_dvpn));
 
-        } else if (BaseChain.getChain(chain).equals(FETCHAI_MAIN)) {
+        } else if (getChain(chain).equals(FETCHAI_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorFetch));
             textview.setText(c.getString(R.string.s_fet));
 
-        } else if (BaseChain.getChain(chain).equals(CRYPTO_MAIN)) {
+        } else if (getChain(chain).equals(CRYPTO_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCryto));
             textview.setText(c.getString(R.string.s_cro));
 
-        } else if (BaseChain.getChain(chain).equals(SIF_MAIN)) {
+        } else if (getChain(chain).equals(SIF_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorSif));
             textview.setText(c.getString(R.string.s_sif));
 
-        } else if (BaseChain.getChain(chain).equals(KI_MAIN)) {
+        } else if (getChain(chain).equals(KI_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorKi));
             textview.setText(c.getString(R.string.s_ki));
 
-        } else if (BaseChain.getChain(chain).equals(OSMOSIS_MAIN)) {
+        } else if (getChain(chain).equals(OSMOSIS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
             textview.setText(c.getString(R.string.s_osmosis));
 
-        } else if (BaseChain.getChain(chain).equals(MEDI_MAIN)) {
+        } else if (getChain(chain).equals(MEDI_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorMedi));
             textview.setText(c.getString(R.string.s_medi));
 
-        } else if (BaseChain.getChain(chain).equals(EMONEY_MAIN)) {
+        } else if (getChain(chain).equals(EMONEY_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorEmoney));
             textview.setText(c.getString(R.string.s_emoney));
 
-        } else if (BaseChain.getChain(chain).equals(RIZON_MAIN)) {
+        } else if (getChain(chain).equals(RIZON_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorRizon));
             textview.setText(c.getString(R.string.s_rizon));
 
-        } else if (BaseChain.getChain(chain).equals(JUNO_MAIN)) {
+        } else if (getChain(chain).equals(JUNO_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorJuno));
             textview.setText(c.getString(R.string.s_juno));
 
-        } else if (BaseChain.getChain(chain).equals(REGEN_MAIN)) {
+        } else if (getChain(chain).equals(REGEN_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorRegen));
             textview.setText(c.getString(R.string.s_regen));
 
-        } else if (BaseChain.getChain(chain).equals(BITCANNA_MAIN)) {
+        } else if (getChain(chain).equals(BITCANNA_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBitcanna));
             textview.setText(c.getString(R.string.s_bitcanna));
 
-        } else if (BaseChain.getChain(chain).equals(ALTHEA_MAIN)) {
+        } else if (getChain(chain).equals(ALTHEA_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAlthea));
             textview.setText(c.getString(R.string.s_althea));
 
-        } else if (BaseChain.getChain(chain).equals(STARGAZE_MAIN)) {
+        } else if (getChain(chain).equals(STARGAZE_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorStargaze));
             textview.setText(c.getString(R.string.s_stargaze));
 
-        } else if (BaseChain.getChain(chain).equals(GRABRIDGE_MAIN)) {
+        } else if (getChain(chain).equals(GRABRIDGE_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorGraBridge));
             textview.setText(c.getString(R.string.s_grabridge));
 
-        } else if (BaseChain.getChain(chain).equals(COMDEX_MAIN)) {
+        } else if (getChain(chain).equals(COMDEX_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorComdex));
             textview.setText(c.getString(R.string.s_comdex));
 
-        } else if (BaseChain.getChain(chain).equals(INJ_MAIN)) {
+        } else if (getChain(chain).equals(INJ_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorInj));
             textview.setText(c.getString(R.string.s_inj));
 
-        } else if (BaseChain.getChain(chain).equals(BITSONG_MAIN)) {
+        } else if (getChain(chain).equals(BITSONG_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBitsong));
             textview.setText(c.getString(R.string.s_bitsong));
 
-        } else if (BaseChain.getChain(chain).equals(DESMOS_MAIN)) {
+        } else if (getChain(chain).equals(DESMOS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorDesmos));
             textview.setText(c.getString(R.string.s_desmos));
 
-        } else if (BaseChain.getChain(chain).equals(LUM_MAIN)) {
+        } else if (getChain(chain).equals(LUM_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorLum));
             textview.setText(c.getString(R.string.s_lum));
 
-        } else if (BaseChain.getChain(chain).equals(CHIHUAHUA_MAIN)) {
+        } else if (getChain(chain).equals(CHIHUAHUA_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorChihuahua));
             textview.setText(c.getString(R.string.s_chihuahua));
 
-        } else if (BaseChain.getChain(chain).equals(AXELAR_MAIN)) {
+        } else if (getChain(chain).equals(AXELAR_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAxelar));
             textview.setText(c.getString(R.string.s_axelar));
 
-        } else if (BaseChain.getChain(chain).equals(KONSTELL_MAIN)) {
+        } else if (getChain(chain).equals(KONSTELL_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorKonstellation));
             textview.setText(c.getString(R.string.s_konstellation));
 
-        } else if (BaseChain.getChain(chain).equals(UMEE_MAIN)) {
+        } else if (getChain(chain).equals(UMEE_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorUmee));
             textview.setText(c.getString(R.string.s_umee));
 
-        } else if (BaseChain.getChain(chain).equals(EVMOS_MAIN)) {
+        } else if (getChain(chain).equals(EVMOS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorEvmos));
             textview.setText(c.getString(R.string.s_evmos));
 
-        } else if (BaseChain.getChain(chain).equals(CUDOS_MAIN)) {
+        } else if (getChain(chain).equals(CUDOS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCudos));
             textview.setText(c.getString(R.string.s_cudos));
 
-        } else if (BaseChain.getChain(chain).equals(PROVENANCE_MAIN)) {
+        } else if (getChain(chain).equals(PROVENANCE_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorProvenance));
             textview.setText(c.getString(R.string.s_provenance));
 
-        } else if (BaseChain.getChain(chain).equals(CERBERUS_MAIN)) {
+        } else if (getChain(chain).equals(CERBERUS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCerberus));
             textview.setText(c.getString(R.string.s_cerberus));
 
-        } else if (BaseChain.getChain(chain).equals(OMNIFLIX_MAIN)) {
+        } else if (getChain(chain).equals(OMNIFLIX_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorOmniflix));
             textview.setText(c.getString(R.string.s_omniflix));
 
-        } else if (BaseChain.getChain(chain).equals(CRESCENT_MAIN) || BaseChain.getChain(chain).equals(CRESCENT_TEST)) {
+        } else if (getChain(chain).equals(CRESCENT_MAIN) || getChain(chain).equals(CRESCENT_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCrescent));
             textview.setText(c.getString(R.string.s_cre));
 
-        } else if (BaseChain.getChain(chain).equals(ASSETMANTLE_MAIN)) {
+        } else if (getChain(chain).equals(ASSETMANTLE_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorMantle));
             textview.setText(c.getString(R.string.s_mantle));
 
-        } else if (BaseChain.getChain(chain).equals(NYX_MAIN)) {
+        } else if (getChain(chain).equals(NYX_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorNyx));
             textview.setText(c.getString(R.string.s_nyx));
 
         }
 
-        else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
+        else if (getChain(chain).equals(COSMOS_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAtom));
             textview.setText(c.getString(R.string.s_muon));
 
-        } else if (BaseChain.getChain(chain).equals(IRIS_TEST)) {
+        } else if (getChain(chain).equals(IRIS_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_bif));
 
@@ -3389,6 +3392,27 @@ public class WDp {
             return TOKEN_CRESCENT_TEST;
         }
         return "";
+    }
+
+    public static ArrayList<String> getGasDenomList(BaseChain baseChain) {
+        if (baseChain.equals(NYX_MAIN)) {
+            return Lists.newArrayList(TOKEN_NYM);
+        } else if (baseChain.equals(CRESCENT_MAIN)) {
+            return Lists.newArrayList(TOKEN_CRE, TOKEN_BCRE);
+        }
+        return Lists.newArrayList(mainDenom(baseChain));
+    }
+
+    public static void setGasDenomTv(Context c, BaseChain baseChain, String denom, TextView denomTv) {
+        if (denom.equalsIgnoreCase(TOKEN_BCRE)) {
+            denomTv.setTextColor(c.getResources().getColor(R.color.colorCrescent2));
+            denomTv.setText(c.getString(R.string.str_bcre_c));
+        } else if (denom.equalsIgnoreCase(TOKEN_NYM)) {
+            denomTv.setTextColor(c.getResources().getColor(R.color.colorNyx2));
+            denomTv.setText(c.getString(R.string.str_nym_c));
+        } else {
+            WDp.DpMainDenom(c, baseChain, denomTv);
+        }
     }
 
     public static void getStakingTokenImg(BaseChain baseChain, ImageView imageView) {
