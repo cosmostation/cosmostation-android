@@ -233,20 +233,24 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                         getString(R.string.str_close), null);
                 return;
             }
-            final String mainDenom = WDp.mainDenom(mBaseChain);
+
             final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
-            mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
-            if (mainDenom.equalsIgnoreCase(mNativeGrpcDenom)) {
-                mTotalAmount = mTotalAmount.subtract(feeAmount);
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
             }
-            if (mTotalAmount.compareTo(BigDecimal.ZERO) <= 0) {
+            if (availableFeeDenomList.isEmpty()) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
+
             AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
                     Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" +  getString(R.string.str_ibc_warning_msg2)),
                     getString(R.string.str_ibc_continue_c), view -> onCheckIbcTransfer(mNativeGrpcDenom));
+
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
@@ -264,7 +268,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                 }
             }
             if (availableFeeDenomList.isEmpty()) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
 

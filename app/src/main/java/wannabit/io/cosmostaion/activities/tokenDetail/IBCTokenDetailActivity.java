@@ -65,7 +65,6 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
     private String                          mIbcDenom;
     private IbcToken                        mIbcToken;
-    private BigDecimal                      mMaxAvailable = BigDecimal.ZERO;
     private int                             mIbcDivideDecimal = 6;
     private int                             mIbcDisplayDecimal = 6;
 
@@ -202,17 +201,24 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                         getString(R.string.str_close), null);
                 return;
             }
-            final String mainDenom = WDp.mainDenom(mBaseChain);
+
             final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
-            mMaxAvailable = getBaseDao().getAvailable(mainDenom).subtract(feeAmount);
-            if (mMaxAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
+
             AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
                     Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" +  getString(R.string.str_ibc_warning_msg2)),
                     getString(R.string.str_ibc_continue_c), view -> onCheckIbcTransfer(mIbcDenom));
+
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
