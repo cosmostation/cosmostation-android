@@ -378,8 +378,8 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.NYM_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getNymApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+            } else if (mChain.equals(BaseChain.NYX_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getNyxApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

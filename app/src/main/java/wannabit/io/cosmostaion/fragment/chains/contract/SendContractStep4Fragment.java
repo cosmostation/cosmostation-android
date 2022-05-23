@@ -51,8 +51,6 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
         mBeforeBtn          = rootView.findViewById(R.id.btn_before);
         mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -66,6 +64,7 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
 
         mDpdecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpdecimal, mDpdecimal));
+        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeDenom);
 
         mCw20Assets = getBaseDao().getCw20_gRPC(getSActivity().mContractAddress);
         if (mCw20Assets != null) {
