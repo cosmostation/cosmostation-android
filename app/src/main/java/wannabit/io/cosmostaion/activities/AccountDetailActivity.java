@@ -47,6 +47,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
@@ -303,6 +304,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
                     AlertDialogUtils.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(),
                     getString(R.string.str_close), null);
+
         } else if (v.equals(mNameEditImg)) {
             Bundle bundle = new Bundle();
             bundle.putLong("id", mAccount.id);
@@ -329,18 +331,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
             if (TextUtils.isEmpty(mRewardAddress.getText().toString())) {
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
-            List<String> availableFeeDenomList = Lists.newArrayList();
-            for (String denom : WDp.getGasDenomList(mBaseChain)) {
-                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                    availableFeeDenomList.add(denom);
-                }
-            }
-            if (availableFeeDenomList.isEmpty()) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
 

@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/space_24">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/dialog_header_image"
@@ -24,6 +23,7 @@
             style="@style/font_ss_17_gray8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
             android:gravity="center"
             tools:text="Title" />
 
@@ -35,13 +35,13 @@
             android:gravity="center"
             android:layout_marginLeft="@dimen/space_24"
             android:layout_marginTop="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_12"
             android:layout_marginRight="@dimen/space_24"
             tools:text="Description" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="@dimen/space_32"
             android:background="@color/colorGray10" />
 
         <LinearLayout

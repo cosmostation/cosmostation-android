@@ -307,11 +307,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(feeAmount) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         ArrayList<String> valAdds = new ArrayList<>();
         valAdds.add(mValOpAddress);
         Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
@@ -337,11 +332,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
         if (availableFeeDenomList.isEmpty()) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
             return;
         }
 

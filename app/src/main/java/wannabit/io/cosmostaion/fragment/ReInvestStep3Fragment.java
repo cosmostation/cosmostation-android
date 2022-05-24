@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -85,18 +84,8 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            if(onCheckValidateRewardAndFee()) {
-                getSActivity().onStartReInvest();
-            } else {
-                AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_fee_over_title), getString(R.string.str_fee_over_msg), getString(R.string.str_ok), null);
-            }
+            getSActivity().onStartReInvest();
         }
-    }
-
-    private boolean onCheckValidateRewardAndFee() {
-        BigDecimal reward       = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
-        BigDecimal feeAtom      = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        return feeAtom.compareTo(reward) < 0;
     }
 
     private ReInvestActivity getSActivity() {
