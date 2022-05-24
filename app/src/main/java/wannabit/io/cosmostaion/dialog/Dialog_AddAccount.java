@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
@@ -22,7 +22,7 @@ import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity;
 public class Dialog_AddAccount extends DialogFragment {
 
     private LinearLayout btn_import_key, btn_import_mnemonic, btn_watch_address;
-    private Button       btn_create;
+    private Button btn_create;
 
     public static Dialog_AddAccount newInstance(Bundle bundle) {
         Dialog_AddAccount frag = new Dialog_AddAccount();
@@ -33,12 +33,12 @@ public class Dialog_AddAccount extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorBlack)));
-        return inflater.inflate(R.layout.dialog_add_account, container);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_account, null);
 
         btn_import_key = view.findViewById(R.id.btn_import_key);
         btn_import_mnemonic = view.findViewById(R.id.btn_import_mnemonic);
@@ -88,5 +88,9 @@ public class Dialog_AddAccount extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view);
+        return builder.create();
     }
 }

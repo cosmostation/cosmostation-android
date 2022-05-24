@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -137,7 +138,7 @@ public class GravityListActivity extends BaseActivity {
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, Liquidity.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -166,7 +167,7 @@ public class GravityListActivity extends BaseActivity {
     public void onCheckStartDepositPool(long poolId) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -202,7 +203,7 @@ public class GravityListActivity extends BaseActivity {
         WLog.w("onCheckStartExitPool " + poolId);
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }

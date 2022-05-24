@@ -7,6 +7,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,30 +50,30 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HtlcResultActivity extends BaseActivity implements View.OnClickListener {
-    private Toolbar             mToolbar;
-    private NestedScrollView    mTxScrollView;
-    private CardView            mErrorCardView;
-    private TextView            mErrorMsgTv;
-    private RelativeLayout      mLoadingLayer;
-    private TextView            mLoadingProgress;
-    private LinearLayout        mControlLayer;
-    private Button              mSenderBtn, mReceiverBtn;
+    private Toolbar mToolbar;
+    private NestedScrollView mTxScrollView;
+    private CardView mErrorCardView;
+    private TextView mErrorMsgTv;
+    private RelativeLayout mLoadingLayer;
+    private TextView mLoadingProgress;
+    private LinearLayout mControlLayer;
+    private Button mSenderBtn, mReceiverBtn;
 
-    private ArrayList<Coin>     mTargetCoins;
-    private BaseChain           mRecipientChain;
-    private Account             mRecipientAccount;
-    private Fee                 mSendFee;
-    private Fee                 mClaimFee;
+    private ArrayList<Coin> mTargetCoins;
+    private BaseChain mRecipientChain;
+    private Account mRecipientAccount;
+    private Fee mSendFee;
+    private Fee mClaimFee;
 
 
-    private String              mExpectedSwapId;
-    private String              mRandomNumber;
-    private String              mCreateTxHash;
-    private String              mClaimTxHash;
-    private ResBnbTxInfo        mResSendBnbTxInfo;
-    private ResBnbTxInfo        mResReceiveBnbTxInfo;
-    private ResTxInfo           mResSendTxInfo;
-    private ResTxInfo           mResReceiveTxInfo;
+    private String mExpectedSwapId;
+    private String mRandomNumber;
+    private String mCreateTxHash;
+    private String mClaimTxHash;
+    private ResBnbTxInfo mResSendBnbTxInfo;
+    private ResBnbTxInfo mResReceiveBnbTxInfo;
+    private ResTxInfo mResSendTxInfo;
+    private ResTxInfo mResReceiveTxInfo;
 
 
     @Override
@@ -343,9 +344,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchSendTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResSendBnbTxInfo = response.body();
                     }
                     onUpdateSendView();
@@ -354,7 +355,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx BNB onFailure");
-                    if(BuildConfig.DEBUG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                 }
             });
 
@@ -362,9 +363,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchSendTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResSendTxInfo = response.body();
                     }
                     onUpdateSendView();
@@ -373,22 +374,23 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx KAVA onFailure");
-                    if(BuildConfig.DEBUG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                 }
             });
         }
     }
 
     private int ClaimFetchCnt = 0;
+
     private void onFetchClaimTx(String hash) {
         WLog.w("onFetchClaimTx " + hash);
         if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchClaimTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResReceiveBnbTxInfo = response.body();
                         onUpdateView();
                     } else {
@@ -410,7 +412,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("onFetchClaimTx BNB onFailure");
-                    if(BuildConfig.DEBUG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     onUpdateView();
                 }
             });
@@ -419,9 +421,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if(isFinishing()) return;
+                    if (isFinishing()) return;
                     WLog.w("onFetchClaimTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
                         mResReceiveTxInfo = response.body();
                         onUpdateView();
                     } else {
@@ -443,7 +445,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     WLog.w("onFetchClaimTx KAVA onFailure");
-                    if(BuildConfig.DEBUG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     onUpdateView();
                 }
             });
@@ -457,6 +459,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     //Check HTLC SWAP ID
     private int SwapFetchCnt = 0;
+
     private void onCheckSwapId(String expectedSwapId) {
         WLog.w("onCheckSwapId " + SwapFetchCnt + " " + expectedSwapId);
         if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
@@ -541,7 +544,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
             } else {
                 AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_swap_error_title),
-                        getString(R.string.str_swap_error_msg_create) +"\n\n"+ AlertDialogUtils.highlightingText(result.errorMsg),
+                        Html.fromHtml(getString(R.string.str_swap_error_msg_create) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(result.errorMsg) + "</font>"),
                         getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
 
@@ -555,7 +558,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
             } else {
                 AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_swap_error_title),
-                        getString(R.string.str_swap_error_msg_claim) +"\n\n"+ AlertDialogUtils.highlightingText(result.errorMsg),
+                        Html.fromHtml(getString(R.string.str_swap_error_msg_claim) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(result.errorMsg) + "</font>"),
                         getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
         }
