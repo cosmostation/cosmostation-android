@@ -594,7 +594,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (!TextUtils.isEmpty(mGrpcValidator.getDescription().getDetails())) {
                 holder.itemTvDescription.setText(mGrpcValidator.getDescription().getDetails());
             } else {
-                holder.itemTvDescription.setVisibility(View.GONE);c
+                holder.itemTvDescription.setVisibility(View.GONE);
             }
 
             if (mGrpcSelfDelegation != null) {

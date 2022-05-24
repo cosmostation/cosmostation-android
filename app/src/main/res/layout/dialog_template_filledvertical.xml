@@ -26,7 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_12"
-            android:layout_marginBottom="@dimen/space_32"
             android:layout_gravity="center"
             style="@style/font_ss_12_gray1"
             android:gravity="center"
@@ -36,6 +35,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
+            android:layout_marginTop="@dimen/space_12"
             android:background="@color/colorGray10"/>
 
         <Button
