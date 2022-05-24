@@ -26,26 +26,26 @@ import wannabit.io.cosmostaion.utils.WKey;
 
 public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar          mToolbar;
-    private CardView         mCardView;
-    private TextView         mPKey;
-    private Button           mCopy, mOk;
+    private Toolbar mToolbar;
+    private CardView mCardView;
+    private TextView mPKey;
+    private Button mCopy, mOk;
 
-    private String           mEntropy;
+    private String mEntropy;
     private DeterministicKey deterministicKey;
 
-    private String           mKeyString = "";
+    private String mKeyString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_key_check);
 
-        mToolbar      = findViewById(R.id.tool_bar);
-        mCardView     = findViewById(R.id.card_root);
-        mPKey         = findViewById(R.id.private_key);
-        mCopy         = findViewById(R.id.btn_copy);
-        mOk           = findViewById(R.id.btn_ok);
+        mToolbar = findViewById(R.id.tool_bar);
+        mCardView = findViewById(R.id.card_root);
+        mPKey = findViewById(R.id.private_key);
+        mCopy = findViewById(R.id.btn_copy);
+        mOk = findViewById(R.id.btn_ok);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -54,7 +54,7 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
         mCopy.setOnClickListener(this);
         mOk.setOnClickListener(this);
 
-        mAccount = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
+        mAccount = getBaseDao().onSelectAccount("" + getIntent().getLongExtra("checkid", -1));
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), BaseChain.getChain(mAccount.baseChain)));
         onUpdateView();
     }
@@ -91,9 +91,9 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mCopy)) {
+        if (v.equals(mCopy)) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_safe_copy_pkey_title), getString(R.string.str_safe_copy_pkey_msg),
-                    getString(R.string.str_raw_copy), view -> onRawCopy(),
+                    AlertDialogUtils.highlightingText(getString(R.string.str_raw_copy)), view -> onRawCopy(),
                     getString(R.string.str_safe_copy), view -> onSafeCopy());
         } else if (v.equals(mOk)) {
             onStartMainActivity(3);

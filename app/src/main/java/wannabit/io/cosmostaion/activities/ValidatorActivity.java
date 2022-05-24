@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -164,7 +165,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onCheckDelegate() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -210,7 +211,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     public void onCheckRedelegate() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -236,7 +237,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
             for (Staking.RedelegationResponse data : mGrpcRedelegates) {
                 if (data.getRedelegation().getValidatorDstAddress().equals(mValOpAddress)) {
-                    AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg), getString(R.string.str_ok), null);
+                    AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg),
+                            AlertDialogUtils.highlightingText(getString(R.string.str_ok)), null);
                     return;
                 }
             }
@@ -253,7 +255,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onStartUndelegate() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -287,7 +289,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onGetReward() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -320,7 +322,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onCheckReInvest() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }

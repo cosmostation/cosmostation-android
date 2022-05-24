@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClickListener{
+public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_CDP_CONFIRM = 9105;
 
     private TextView mCollateralAmount, mCollateralDenom, mCollateralValue;
@@ -35,7 +35,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
     private TextView mCurrentPriceTitle, mCurrentPrice;
     private TextView mLiquidationPriceTitle, mLiquidationPrice;
     private TextView mMemo;
-    private Button   mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static CreateCdpStep3Fragment newInstance(Bundle bundle) {
         CreateCdpStep3Fragment fragment = new CreateCdpStep3Fragment();
@@ -92,14 +92,13 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
         mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
 
-
         WDp.DpRiskRate(getContext(), getSActivity().mRiskRate, mRiskRate, null);
 
         mCurrentPriceTitle.setText(String.format(getString(R.string.str_current_title3), cDenom.toUpperCase()));
-        mCurrentPrice.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getPrice().getPrice()).movePointLeft(18).toPlainString(),  4));
+        mCurrentPrice.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getPrice().getPrice()).movePointLeft(18).toPlainString(), 4));
 
         mLiquidationPriceTitle.setText(String.format(getString(R.string.str_liquidation_title3), cDenom.toUpperCase()));
-        mLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mLiquidationPrice.toPlainString(),  4));
+        mLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mLiquidationPrice.toPlainString(), 4));
 
         mMemo.setText(getSActivity().mTxMemo);
     }
@@ -110,11 +109,11 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
             getSActivity().onBeforeStep();
         } else if (v.equals(mConfirmBtn)) {
             AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_cdp_warn_title), getString(R.string.str_cdp_warn_msg),
-                    getString(R.string.str_cancel),null,
+                    AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_CDP_CONFIRM, Activity.RESULT_OK, resultIntent);
-                        },R.drawable.img_cdp_warning);
+                    }, R.drawable.img_cdp_warning);
         }
     }
 
@@ -127,7 +126,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
 
 
     private CreateCdpActivity getSActivity() {
-        return (CreateCdpActivity)getBaseActivity();
+        return (CreateCdpActivity) getBaseActivity();
     }
 
     private Genesis.CollateralParam getCParam() {

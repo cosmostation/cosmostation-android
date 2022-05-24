@@ -8,6 +8,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,32 +41,32 @@ import wannabit.io.cosmostaion.widget.NftMyHolder;
 
 public class NFTListActivity extends BaseActivity implements TaskListener {
 
-    private Toolbar             mToolbar;
-    private TextView            mTitle;
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private TextView            mEmptyNfts;
-    private RelativeLayout      mLoadingLayer, mBtnCreateNft;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private TextView mEmptyNfts;
+    private RelativeLayout mLoadingLayer, mBtnCreateNft;
 
-    private NFTListAdapter      mNFTListAdapter;
+    private NFTListAdapter mNFTListAdapter;
 
-    private ArrayList<Nft.IDCollection>                      mMyIrisNFTs = new ArrayList<>();
-    private ArrayList<chainmain.nft.v1.Nft.IDCollection>     mMyCryptoNFTs = new ArrayList<>();
-    private ArrayList<String>                                mTokenIds = new ArrayList<>();
+    private ArrayList<Nft.IDCollection> mMyIrisNFTs = new ArrayList<>();
+    private ArrayList<chainmain.nft.v1.Nft.IDCollection> mMyCryptoNFTs = new ArrayList<>();
+    private ArrayList<String> mTokenIds = new ArrayList<>();
 
-    private ByteString  mPageKey;
+    private ByteString mPageKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nft_list);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mTitle                  = findViewById(R.id.toolbar_title);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mEmptyNfts              = findViewById(R.id.empty_nfts);
-        mLoadingLayer           = findViewById(R.id.loadingLayer);
-        mBtnCreateNft           = findViewById(R.id.btn_create_nft);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mEmptyNfts = findViewById(R.id.empty_nfts);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
+        mBtnCreateNft = findViewById(R.id.btn_create_nft);
         mTitle.setText(getString(R.string.str_nft_c));
 
         setSupportActionBar(mToolbar);
@@ -94,7 +95,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
                 if (mAccount == null) return;
                 if (!mAccount.hasPrivateKey) {
                     AlertDialogUtils.showDoubleButtonDialog(NFTListActivity.this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                            getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                            Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                             getString(R.string.str_close), null);
                     return;
                 }
@@ -149,7 +150,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
                     mPageKey = result.resultByteData;
                     if (tempList.size() > 0) {
                         for (Nft.IDCollection collection : tempList) {
-                            for (String tokenId: collection.getTokenIdsList()) {
+                            for (String tokenId : collection.getTokenIdsList()) {
                                 mMyIrisNFTs.add(collection);
                                 mTokenIds.add(tokenId);
                             }
@@ -163,7 +164,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
                     mPageKey = result.resultByteData;
                     if (tempList.size() > 0) {
                         for (chainmain.nft.v1.Nft.IDCollection collection : tempList) {
-                            for (String tokenId: collection.getTokenIdsList()) {
+                            for (String tokenId : collection.getTokenIdsList()) {
                                 mMyCryptoNFTs.add(collection);
                                 mTokenIds.add(tokenId);
                             }
@@ -195,7 +196,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            final NftMyHolder holder = (NftMyHolder)viewHolder;
+            final NftMyHolder holder = (NftMyHolder) viewHolder;
             if (mBaseChain.equals(IRIS_MAIN)) {
                 if (mMyIrisNFTs != null && mMyIrisNFTs.size() > 0) {
                     final Nft.IDCollection collection = mMyIrisNFTs.get(position);

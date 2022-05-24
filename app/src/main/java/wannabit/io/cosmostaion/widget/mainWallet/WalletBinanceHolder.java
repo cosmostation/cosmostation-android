@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.widget.mainWallet;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 
 import android.Manifest;
+import android.text.Html;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,27 +28,27 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletBinanceHolder extends BaseHolder {
-    public TextView         mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked, mTvBnbFrozen;
-    public RelativeLayout   mBtnWalletConnect, mBtnBep3Send;
+    public TextView mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked, mTvBnbFrozen;
+    public RelativeLayout mBtnWalletConnect, mBtnBep3Send;
 
     public WalletBinanceHolder(@NonNull View itemView) {
         super(itemView);
-        mTvBnbTotal         = itemView.findViewById(R.id.bnb_amount);
-        mTvBnbValue         = itemView.findViewById(R.id.bnb_value);
-        mTvBnbBalance       = itemView.findViewById(R.id.bnb_available);
-        mTvBnbLocked        = itemView.findViewById(R.id.bnb_locked);
-        mTvBnbFrozen        = itemView.findViewById(R.id.bnb_frozen);
-        mBtnWalletConnect   = itemView.findViewById(R.id.btn_wallet_connect);
-        mBtnBep3Send        = itemView.findViewById(R.id.btn_bep3_send);
+        mTvBnbTotal = itemView.findViewById(R.id.bnb_amount);
+        mTvBnbValue = itemView.findViewById(R.id.bnb_value);
+        mTvBnbBalance = itemView.findViewById(R.id.bnb_available);
+        mTvBnbLocked = itemView.findViewById(R.id.bnb_locked);
+        mTvBnbFrozen = itemView.findViewById(R.id.bnb_frozen);
+        mBtnWalletConnect = itemView.findViewById(R.id.btn_wallet_connect);
+        mBtnBep3Send = itemView.findViewById(R.id.btn_bep3_send);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         final String denom = WDp.mainDenom(mainActivity.mBaseChain);
-        final BigDecimal availableAmount    = baseData.availableAmount(denom);
-        final BigDecimal lockedAmount       = baseData.lockedAmount(denom);
-        final BigDecimal frozenAmount       = baseData.frozenAmount(denom);
-        final BigDecimal totalAmount        = availableAmount.add(lockedAmount).add(frozenAmount);
+        final BigDecimal availableAmount = baseData.availableAmount(denom);
+        final BigDecimal lockedAmount = baseData.lockedAmount(denom);
+        final BigDecimal frozenAmount = baseData.frozenAmount(denom);
+        final BigDecimal totalAmount = availableAmount.add(lockedAmount).add(frozenAmount);
 
         mTvBnbTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 0, 6));
         mTvBnbBalance.setText(WDp.getDpAmount2(mainActivity, availableAmount, 0, 6));
@@ -62,7 +63,7 @@ public class WalletBinanceHolder extends BaseHolder {
             public void onClick(View v) {
                 if (!mainActivity.mAccount.hasPrivateKey) {
                     AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                            mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
+                            Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
                             mainActivity.getString(R.string.str_close), null);
                     return;
                 }
@@ -79,9 +80,9 @@ public class WalletBinanceHolder extends BaseHolder {
                         Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .setRationaleMessage(mainActivity.getString(R.string.str_permission_qr))
-                .check();
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .setRationaleMessage(mainActivity.getString(R.string.str_permission_qr))
+                        .check();
             }
         });
         mBtnBep3Send.setOnClickListener(new View.OnClickListener() {

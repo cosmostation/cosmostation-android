@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,7 +69,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class TxDetailActivity extends BaseActivity implements View.OnClickListener{
+public class TxDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
     private RecyclerView mTxRecyclerView;
@@ -222,13 +223,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
 
-        } else if(v.equals(mExplorerBtn)) {
+        } else if (v.equals(mExplorerBtn)) {
             if (mBaseChain.equals(BNB_MAIN)) {
-                String url  = WUtil.getTxExplorer(mBaseChain, mResBnbTxInfo.hash);
+                String url = WUtil.getTxExplorer(mBaseChain, mResBnbTxInfo.hash);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
-            } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)){
-                String url  = WUtil.getTxExplorer(mBaseChain, mResTxInfo.txhash);
+            } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)) {
+                String url = WUtil.getTxExplorer(mBaseChain, mResTxInfo.txhash);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else {
@@ -238,7 +239,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         } else if (v.equals(mRefundBtn)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }
@@ -322,9 +323,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindRewardAll(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_UNJAIL) {
                 onBindUnjail(viewHolder, position);
-            }
-
-            else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
+            } else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
                 onBindCreateHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CLAIM) {
                 onBindClaimHTLC(viewHolder, position);
@@ -440,7 +439,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
-                holder.itemHash.setText("0x"+mResTxInfo.txhash);
+                holder.itemHash.setText("0x" + mResTxInfo.txhash);
                 holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
             } else {
