@@ -12,6 +12,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,7 +25,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,11 +38,11 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 public class Dialog_Htlc_Send_Coin extends DialogFragment {
 
-    private RecyclerView          mRecyclerView;
-    private TextView              mDialogTitle;
+    private RecyclerView mRecyclerView;
+    private TextView mDialogTitle;
     private ToSwapCoinListAdapter mToSwapCoinListAdapter;
-    private BaseChain             mBaseChain;
-    private ArrayList<String>     mSwappableCoinList;
+    private BaseChain mBaseChain;
+    private ArrayList<String> mSwappableCoinList;
 
     public static Dialog_Htlc_Send_Coin newInstance(Bundle bundle) {
         Dialog_Htlc_Send_Coin frag = new Dialog_Htlc_Send_Coin();
@@ -52,12 +53,12 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return inflater.inflate(R.layout.dialog_template_recycler, container);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mDialogTitle.setText(R.string.str_select_to_send_coin);
         mRecyclerView = view.findViewById(R.id.recycler);
@@ -67,6 +68,9 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
         mRecyclerView.setHasFixedSize(true);
         mToSwapCoinListAdapter = new ToSwapCoinListAdapter();
         mRecyclerView.setAdapter(mToSwapCoinListAdapter);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view);
+        return builder.create();
     }
 
 
@@ -91,19 +95,22 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
                     holder.coinName.setText("BTC");
                     try {
                         Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BTCB.png").into(holder.coinImg);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
                 } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_XRPB)) {
                     holder.coinName.setText("XRP");
                     try {
                         Picasso.get().load(BINANCE_TOKEN_IMG_URL + "XRP.png").into(holder.coinImg);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
                 } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BUSD)) {
                     holder.coinName.setText("BUSD");
                     try {
                         Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BUSD.png").into(holder.coinImg);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
                 }
 
@@ -115,19 +122,22 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
                     holder.coinName.setText("BTC");
                     try {
                         Picasso.get().load(KAVA_COIN_IMG_URL + "btcb.png").into(holder.coinImg);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
                 } else if (tosendCoin.equals(TOKEN_HTLC_KAVA_XRPB)) {
                     holder.coinName.setText("XRP");
                     try {
                         Picasso.get().load(KAVA_COIN_IMG_URL + "xrpb.png").into(holder.coinImg);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
                 } else if (tosendCoin.equals(TOKEN_HTLC_KAVA_BUSD)) {
                     holder.coinName.setText("BUSD");
                     try {
                         Picasso.get().load(KAVA_COIN_IMG_URL + "busd.png").into(holder.coinImg);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
                 }
 
@@ -153,11 +163,12 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
             RelativeLayout rootLayer;
             ImageView coinImg;
             TextView coinName;
+
             public ToSwapCoinHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer   = itemView.findViewById(R.id.rootLayer);
-                coinImg    = itemView.findViewById(R.id.coinImg);
-                coinName   = itemView.findViewById(R.id.coinName);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                coinImg = itemView.findViewById(R.id.coinImg);
+                coinName = itemView.findViewById(R.id.coinName);
             }
         }
     }
