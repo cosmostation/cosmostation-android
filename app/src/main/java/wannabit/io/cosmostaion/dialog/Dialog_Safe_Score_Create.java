@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.dialog;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,8 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import java.math.BigDecimal;
@@ -31,12 +31,12 @@ public class Dialog_Safe_Score_Create extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return inflater.inflate(R.layout.dialog_safe_score_create, container);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_score_create, null);
 
         LinearLayout risk_layer = view.findViewById(R.id.risk_layer);
         TextView risk_rate = view.findViewById(R.id.risk_rate);
@@ -50,10 +50,10 @@ public class Dialog_Safe_Score_Create extends DialogFragment {
         WDp.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("riskRate")), risk_rate, risk_score, risk_layer);
 
         current_price_title.setText(String.format(getString(R.string.str_current_title3), getArguments().getString("denom").toUpperCase()));
-        current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")).movePointLeft(18) , 4));
+        current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")).movePointLeft(18), 4));
 
         liquidation_price_title.setText(String.format(getString(R.string.str_liquidation_title3), getArguments().getString("denom").toUpperCase()));
-        liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("liquidationPrice")) , 4));
+        liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("liquidationPrice")), 4));
 
         Button btn_negative = view.findViewById(R.id.btn_nega);
         btn_negative.setOnClickListener(new View.OnClickListener() {
@@ -72,5 +72,9 @@ public class Dialog_Safe_Score_Create extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view);
+        return builder.create();
     }
 }

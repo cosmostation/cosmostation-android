@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,31 +67,31 @@ import wannabit.io.cosmostaion.widget.TintableImageView;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
-    private Toolbar                     mToolbar;
-    private ImageView                   mToolbarChainImg;
-    private TextView                    mToolbarTitle;
-    private TextView                    mToolbarChainName;
+    private Toolbar mToolbar;
+    private ImageView mToolbarChainImg;
+    private TextView mToolbarTitle;
+    private TextView mToolbarChainName;
 
-    private StopViewPager               mContentsPager;
-    private TabLayout                   mTabLayer;
-    public MainViewPageAdapter          mPageAdapter;
-    public FloatingActionButton         mFloatBtn;
+    private StopViewPager mContentsPager;
+    private TabLayout mTabLayer;
+    public MainViewPageAdapter mPageAdapter;
+    public FloatingActionButton mFloatBtn;
 
-    private BaseChain                   mSelectedChain;
-    private ArrayList<BaseChain>        mExpendedChains = new ArrayList<>();
-    private ArrayList<ChainAccounts>    mChainAccounts = new ArrayList<>();
+    private BaseChain mSelectedChain;
+    private ArrayList<BaseChain> mExpendedChains = new ArrayList<>();
+    private ArrayList<ChainAccounts> mChainAccounts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarTitle           = findViewById(R.id.toolbar_title);
-        mToolbarChainImg        = findViewById(R.id.toolbar_net_image);
-        mToolbarChainName       = findViewById(R.id.toolbar_net_name);
-        mContentsPager          = findViewById(R.id.view_pager);
-        mTabLayer               = findViewById(R.id.bottom_tab);
-        mFloatBtn               = findViewById(R.id.btn_floating);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
+        mToolbarChainImg = findViewById(R.id.toolbar_net_image);
+        mToolbarChainName = findViewById(R.id.toolbar_net_name);
+        mContentsPager = findViewById(R.id.view_pager);
+        mTabLayer = findViewById(R.id.bottom_tab);
+        mFloatBtn = findViewById(R.id.btn_floating);
 
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,43 +111,45 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTabLayer.setTabRippleColor(null);
 
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon0  = tab0.findViewById(R.id.tabItemIcon);
-        TextView tabItemText0  = tab0.findViewById(R.id.tabItemText);
+        TintableImageView tabItemIcon0 = tab0.findViewById(R.id.tabItemIcon);
+        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemIcon0.setImageResource(R.drawable.wallet_ic);
         tabItemText0.setText(R.string.str_main_wallet);
         mTabLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView   tabItemIcon1  = tab1.findViewById(R.id.tabItemIcon);
-        TextView            tabItemText1  = tab1.findViewById(R.id.tabItemText);
+        TintableImageView tabItemIcon1 = tab1.findViewById(R.id.tabItemIcon);
+        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
         tabItemIcon1.setImageResource(R.drawable.tokens_ic);
         tabItemText1.setText(R.string.str_main_tokens);
         mTabLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView   tabItemIcon2  = tab2.findViewById(R.id.tabItemIcon);
-        TextView            tabItemText2  = tab2.findViewById(R.id.tabItemText);
+        TintableImageView tabItemIcon2 = tab2.findViewById(R.id.tabItemIcon);
+        TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
         tabItemIcon2.setImageResource(R.drawable.ts_ic);
         tabItemText2.setText(R.string.str_main_history);
         mTabLayer.getTabAt(2).setCustomView(tab2);
 
         View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView   tabItemIcon3  = tab3.findViewById(R.id.tabItemIcon);
-        TextView            tabItemText3  = tab3.findViewById(R.id.tabItemText);
+        TintableImageView tabItemIcon3 = tab3.findViewById(R.id.tabItemIcon);
+        TextView tabItemText3 = tab3.findViewById(R.id.tabItemText);
         tabItemIcon3.setImageResource(R.drawable.setting_ic);
         tabItemText3.setText(R.string.str_main_set);
         mTabLayer.getTabAt(3).setCustomView(tab3);
 
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
 
             @Override
             public void onPageSelected(int position) {
-                if(mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
+                if (mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
                 if (position != 0) mFloatBtn.hide();
@@ -206,7 +209,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onChainSelect(mSelectedChain);
         }
 
-        if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+        if (TextUtils.isEmpty(mAccount.nickName))
+            mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
     }
 
@@ -219,7 +223,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mSelectedChain = baseChain;
         getBaseDao().setLastChain(mSelectedChain.getChain());
 
-        for (BaseChain chain: mDisplayChains) {
+        for (BaseChain chain : mDisplayChains) {
             if (mExpendedChains.contains(chain) || mSelectedChain.equals(chain)) {
                 mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().onSelectAccountsByChain(chain)));
             } else {
@@ -280,7 +284,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             } else {
                 if (!mAccount.hasPrivateKey) {
                     AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                            getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                            Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                             getString(R.string.str_close), null);
                     return;
                 }
@@ -296,7 +300,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }
@@ -331,7 +335,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public void fetchBusy() {
-        if(!isFinishing()) {
+        if (!isFinishing()) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onBusyFetch();
         }
@@ -340,7 +344,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onClickIncentive() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }

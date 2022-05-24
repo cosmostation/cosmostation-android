@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,21 +35,21 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class OKValidatorListActivity extends BaseActivity implements FetchCallBack {
 
-    private Toolbar                 mToolbar;
-    private TextView                mToolbarTitle;
-    private ViewPager               mValidatorPager;
-    private TabLayout               mValidatorTapLayer;
-    private OKValidatorPageAdapter  mPageAdapter;
+    private Toolbar mToolbar;
+    private TextView mToolbarTitle;
+    private ViewPager mValidatorPager;
+    private TabLayout mValidatorTapLayer;
+    private OKValidatorPageAdapter mPageAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator_list);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mToolbarTitle       = findViewById(R.id.toolbar_title);
-        mValidatorTapLayer  = findViewById(R.id.validator_tab);
-        mValidatorPager     = findViewById(R.id.validator_view_pager);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
+        mValidatorTapLayer = findViewById(R.id.validator_tab);
+        mValidatorPager = findViewById(R.id.validator_view_pager);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -106,7 +107,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
 
     @Override
     public void fetchFinished() {
-        if(!isFinishing()) {
+        if (!isFinishing()) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
@@ -115,7 +116,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
 
     @Override
     public void fetchBusy() {
-        if(!isFinishing()) {
+        if (!isFinishing()) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onBusyFetch();
         }
@@ -125,7 +126,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }

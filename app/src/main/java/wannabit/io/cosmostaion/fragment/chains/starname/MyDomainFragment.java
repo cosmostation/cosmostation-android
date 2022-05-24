@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.fragment.chains.starname;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,19 +23,18 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameDomainDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class MyDomainFragment extends BaseFragment implements View.OnClickListener {
-    private SwipeRefreshLayout      mSwipeRefreshLayout;
-    private RecyclerView            mRecyclerView;
-    private TextView                mDomainCnt;
-    private Button                  mRegisterDomain;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private TextView mDomainCnt;
+    private Button mRegisterDomain;
 
-    private MyDomainAdapter         mMyDomainAdapter;
-    public ArrayList<Types.Domain>  mDomains_gRPC = new ArrayList<>();
+    private MyDomainAdapter mMyDomainAdapter;
+    public ArrayList<Types.Domain> mDomains_gRPC = new ArrayList<>();
 
     public static MyDomainFragment newInstance(Bundle bundle) {
         MyDomainFragment fragment = new MyDomainFragment();
@@ -50,10 +50,10 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_starname_my_domain, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mDomainCnt              = rootView.findViewById(R.id.domain_cnt);
-        mRegisterDomain         = rootView.findViewById(R.id.btn_register);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mDomainCnt = rootView.findViewById(R.id.domain_cnt);
+        mRegisterDomain = rootView.findViewById(R.id.btn_register);
         mRegisterDomain.setOnClickListener(this);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -84,7 +84,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
     }
 
     public StarNameListActivity getSActivity() {
-        return (StarNameListActivity)getBaseActivity();
+        return (StarNameListActivity) getBaseActivity();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         if (v.equals(mRegisterDomain)) {
             if (!getSActivity().mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> getSActivity().onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> getSActivity().onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }
@@ -104,8 +104,8 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
 
 
     private class MyDomainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_MY_DOMAIN                 = 1;
-        private static final int TYPE_PROMOTION                 = 2;
+        private static final int TYPE_MY_DOMAIN = 1;
+        private static final int TYPE_PROMOTION = 2;
 
 
         @NonNull
@@ -113,8 +113,8 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_MY_DOMAIN) {
                 return new MyDomainAdapter.MyDomainHolder(getLayoutInflater().inflate(R.layout.item_starname_domain, viewGroup, false));
-            } else if(viewType == TYPE_PROMOTION) {
-                return  new MyDomainAdapter.MyDomainPromotionHolder(getLayoutInflater().inflate(R.layout.item_starname_domain_promotion, viewGroup, false));
+            } else if (viewType == TYPE_PROMOTION) {
+                return new MyDomainAdapter.MyDomainPromotionHolder(getLayoutInflater().inflate(R.layout.item_starname_domain_promotion, viewGroup, false));
             }
             return null;
         }
@@ -124,7 +124,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
             if (getItemViewType(position) == TYPE_MY_DOMAIN) {
                 final Types.Domain domain = mDomains_gRPC.get(position);
                 final Types.Account domainAccount = getSActivity().getDomainResolve(domain.getName());
-                final MyDomainHolder holder = (MyDomainHolder)viewHolder;
+                final MyDomainHolder holder = (MyDomainHolder) viewHolder;
 
                 holder.itemDomain.setText("*" + domain.getName());
                 holder.itemType.setText(domain.getType().toUpperCase());
@@ -176,13 +176,14 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         public class MyDomainHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
             TextView itemDomain, itemType, itemExpireDate, itemAddressCnt;
+
             public MyDomainHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot            = itemView.findViewById(R.id.card_root);
-                itemDomain          = itemView.findViewById(R.id.starname_domain_name);
-                itemType            = itemView.findViewById(R.id.domain_type);
-                itemExpireDate      = itemView.findViewById(R.id.expire_date);
-                itemAddressCnt      = itemView.findViewById(R.id.connected_addressed);
+                itemRoot = itemView.findViewById(R.id.card_root);
+                itemDomain = itemView.findViewById(R.id.starname_domain_name);
+                itemType = itemView.findViewById(R.id.domain_type);
+                itemExpireDate = itemView.findViewById(R.id.expire_date);
+                itemAddressCnt = itemView.findViewById(R.id.connected_addressed);
             }
         }
 

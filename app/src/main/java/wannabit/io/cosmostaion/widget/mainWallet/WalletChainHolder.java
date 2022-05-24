@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.widget.mainWallet;
 
 import android.Manifest;
 import android.content.Intent;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -32,35 +33,35 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletChainHolder extends BaseHolder {
-    public CardView         mTvChainCard;
-    public ImageView        mTvChainIcon;
-    public TextView         mTvChainDenom;
-    public TextView         mTvChainTotal, mTvChainValue, mTvChainAvailable, mTvChainDelegated, mTvChainUnBonding, mTvChainRewards;
-    public RelativeLayout   mChainVestingLayer;
-    public TextView         mTvChainVesting;
-    public RelativeLayout   mBtnStake, mBtnVote, mBtnDex, mBtnWalletConnect;
-    public TextView         mBtnDexTitle;
+    public CardView mTvChainCard;
+    public ImageView mTvChainIcon;
+    public TextView mTvChainDenom;
+    public TextView mTvChainTotal, mTvChainValue, mTvChainAvailable, mTvChainDelegated, mTvChainUnBonding, mTvChainRewards;
+    public RelativeLayout mChainVestingLayer;
+    public TextView mTvChainVesting;
+    public RelativeLayout mBtnStake, mBtnVote, mBtnDex, mBtnWalletConnect;
+    public TextView mBtnDexTitle;
 
     public WalletChainHolder(@NonNull View itemView) {
         super(itemView);
-        mTvChainCard         = itemView.findViewById(R.id.card_root);
-        mTvChainIcon         = itemView.findViewById(R.id.chain_icon);
-        mTvChainDenom        = itemView.findViewById(R.id.chain_denom);
-        mTvChainTotal        = itemView.findViewById(R.id.chain_amount);
-        mTvChainValue        = itemView.findViewById(R.id.chain_value);
-        mTvChainAvailable    = itemView.findViewById(R.id.chain_available);
-        mTvChainDelegated    = itemView.findViewById(R.id.chain_delegate);
-        mTvChainUnBonding    = itemView.findViewById(R.id.chain_unbonding);
-        mTvChainRewards      = itemView.findViewById(R.id.chain_reward);
+        mTvChainCard = itemView.findViewById(R.id.card_root);
+        mTvChainIcon = itemView.findViewById(R.id.chain_icon);
+        mTvChainDenom = itemView.findViewById(R.id.chain_denom);
+        mTvChainTotal = itemView.findViewById(R.id.chain_amount);
+        mTvChainValue = itemView.findViewById(R.id.chain_value);
+        mTvChainAvailable = itemView.findViewById(R.id.chain_available);
+        mTvChainDelegated = itemView.findViewById(R.id.chain_delegate);
+        mTvChainUnBonding = itemView.findViewById(R.id.chain_unbonding);
+        mTvChainRewards = itemView.findViewById(R.id.chain_reward);
 
-        mChainVestingLayer   = itemView.findViewById(R.id.chain_vesting_layer);
-        mTvChainVesting      = itemView.findViewById(R.id.chain_vesting);
+        mChainVestingLayer = itemView.findViewById(R.id.chain_vesting_layer);
+        mTvChainVesting = itemView.findViewById(R.id.chain_vesting);
 
-        mBtnStake            = itemView.findViewById(R.id.btn_delegate);
-        mBtnVote             = itemView.findViewById(R.id.btn_vote);
-        mBtnDex              = itemView.findViewById(R.id.btn_dex);
-        mBtnDexTitle         = itemView.findViewById(R.id.dex_title);
-        mBtnWalletConnect    = itemView.findViewById(R.id.btn_wallet_connect);
+        mBtnStake = itemView.findViewById(R.id.btn_delegate);
+        mBtnVote = itemView.findViewById(R.id.btn_vote);
+        mBtnDex = itemView.findViewById(R.id.btn_dex);
+        mBtnDexTitle = itemView.findViewById(R.id.dex_title);
+        mBtnWalletConnect = itemView.findViewById(R.id.btn_wallet_connect);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -85,8 +86,11 @@ public class WalletChainHolder extends BaseHolder {
         mTvChainRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, decimal, 6));
         mTvChainValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, decimal));
 
-        if (!vestingAmount.equals(BigDecimal.ZERO)) { mChainVestingLayer.setVisibility(View.VISIBLE);
-        } else { mChainVestingLayer.setVisibility(View.GONE); }
+        if (!vestingAmount.equals(BigDecimal.ZERO)) {
+            mChainVestingLayer.setVisibility(View.VISIBLE);
+        } else {
+            mChainVestingLayer.setVisibility(View.GONE);
+        }
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
@@ -121,7 +125,9 @@ public class WalletChainHolder extends BaseHolder {
         if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
                 mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
-        } else { mBtnWalletConnect.setVisibility(View.GONE); }
+        } else {
+            mBtnWalletConnect.setVisibility(View.GONE);
+        }
         mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +135,7 @@ public class WalletChainHolder extends BaseHolder {
                         mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
                     if (!mainActivity.mAccount.hasPrivateKey) {
                         AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                                mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
+                                Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
                                 mainActivity.getString(R.string.str_close), null);
                         return;
                     } else {

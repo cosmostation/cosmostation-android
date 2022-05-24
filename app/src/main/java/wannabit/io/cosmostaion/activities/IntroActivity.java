@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -195,7 +196,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     private void onUpdateDialog() {
         AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
-                getString(R.string.str_go_store), view -> onStartPlaystore(), false);
+                Html.fromHtml("<font color=\"#05D2DD\">" + getString(R.string.str_go_store) + "</font>"), view -> onStartPlaystore(), false);
     }
 
     public void onRetryVersionCheck() {
