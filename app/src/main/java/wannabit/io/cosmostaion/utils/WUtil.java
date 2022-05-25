@@ -4545,6 +4545,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(NYX_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(NYM_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4850,7 +4855,17 @@ public class WUtil {
             }
             return new BigDecimal(MANTLE_GAS_RATE_AVERAGE);
 
-        } else if (basechain.equals(BNB_MAIN)) {
+        } else if (basechain.equals(NYX_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(NYM_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(NYM_GAS_RATE_LOW);
+            }
+            return new BigDecimal(NYM_GAS_RATE_AVERAGE);
+
+        }
+
+        else if (basechain.equals(BNB_MAIN)) {
             return BigDecimal.ZERO.setScale(3);
 
         } else if (basechain.equals(OKEX_MAIN)) {
@@ -5074,12 +5089,6 @@ public class WUtil {
                 }
                 WLog.w("originalVesting " + denom + "  " + originalVesting);
 
-//                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
-//                    if (vesting.getDenom().equals(denom)) {
-//                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
-//                    }
-//                }
-
                 long cTime = Calendar.getInstance().getTime().getTime();
                 long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
                 if (cTime < vestingEnd) {
@@ -5087,12 +5096,9 @@ public class WUtil {
                 }
                 WLog.w("remainVesting " + denom + "  " + remainVesting);
 
-                if (coin.denom.equalsIgnoreCase(WDp.mainDenom(baseChain))) {
-                    BigDecimal stakedAmount = baseData.getDelegationSum();
-                    if (remainVesting.compareTo(stakedAmount) >= 0) {
-                        delegatedVesting = stakedAmount;
-                    } else {
-                        delegatedVesting = remainVesting;
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
                     }
                 }
 

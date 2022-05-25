@@ -437,12 +437,12 @@
     <string name="str_proposal_id">의제 번호</string>
     <string name="str_notification">알람</string>
     <string name="str_network_error_title">네트워크 에러</string>
-    <string name="str_network_error_msg">현재 네트워크에 접속할 수 없습니다. 잠시후 다시 시도해 주세요.</string>
+    <string name="str_network_error_msg">현재 네트워크에 접속할 수 없습니다. \n잠시후 다시 시도해 주세요.</string>
     <string name="str_retry">재시도</string>
     <string name="str_disabled_app_title">점검중</string>
-    <string name="str_disabled_app_msg">시스템 점검중입니다. 자세한 내용은 커뮤니티 체널을 확인해 주세요.</string>
+    <string name="str_disabled_app_msg">시스템 점검중입니다. \n자세한 내용은 커뮤니티 체널을 확인해 주세요.</string>
     <string name="str_update_title">업데이트</string>
-    <string name="str_update_msg">새로운 버전이 나왔습니다. 플레이스토어에서 업데이트 해주세요.</string>
+    <string name="str_update_msg">새로운 버전이 나왔습니다. \n플레이스토어에서 업데이트 해주세요.</string>
     <string name="str_go_store">플레이스토어 이동</string>
     <string name="str_alarm_enabled">푸시 알람이 활성화 되어있습니다. 이 주소와 관련된 전송을 감시합니다.</string>
     <string name="str_alarm_disabled">푸시 알림이 꺼져있습니다.</string>
@@ -1503,7 +1503,7 @@
     <string name="error_no_more_today">오늘은 보이지 않습니다.</string>
     <string name="error_no_address_export">연결할 주소가 없습니다.</string>
     <string name="error_remain_borrow_small">상환 후 남는 대출 금액이 $10 이하입니다.</string>
-    <string name="error_waste_fee">Tx 수수료가 아자금액 보다 높습니다.</string>
+    <string name="error_waste_fee">Tx 수수료가 이자금액 보다 높습니다.</string>
     <string name="error_not_enough_to_deposit_pool">예금 할 수량이 충분하지 않습니다.</string>
     <string name="error_not_enough_to_withdraw_pool">출금 할 수량이 충분하지 않습니다.</string>
     <string name="error_already_rizon_swap">이미 진행중인 스왑요청이 있습니다.</string>

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.widget.mainWallet;
 
 import android.Manifest;
 import android.content.Intent;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -134,7 +135,7 @@ public class WalletChainHolder extends BaseHolder {
                         mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.STATION_TEST) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
                     if (!mainActivity.mAccount.hasPrivateKey) {
                         AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                                mainActivity.getString(R.string.str_add_mnemonics), view -> mainActivity.onAddMnemonicForAccount(),
+                                Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
                                 mainActivity.getString(R.string.str_close), null);
                         return;
                     } else {

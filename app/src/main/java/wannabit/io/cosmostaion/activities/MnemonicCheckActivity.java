@@ -118,7 +118,7 @@ public class MnemonicCheckActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 AlertDialogUtils.showDoubleButtonDialog(MnemonicCheckActivity.this, getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),
-                        getString(R.string.str_raw_copy), view -> onRawCopy(),
+                        AlertDialogUtils.highlightingText(getString(R.string.str_raw_copy)), view -> onRawCopy(),
                         getString(R.string.str_safe_copy), view -> onSafeCopy());
             }
         });

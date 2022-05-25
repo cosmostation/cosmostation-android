@@ -12,6 +12,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,43 +50,43 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class RestoreActivity extends BaseActivity implements View.OnClickListener{
+public class RestoreActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar             mToolbar;
-    private LinearLayout        mContentsLayer;
-    private Button              mPaste, mBtnConfirm;
-    private Button[]            mAlphabetBtns = new Button[26];
-    private ImageButton         mBtnDelete;
-    private Button              mBtnSpace;
-    private RecyclerView        mRecyclerView;
-    private ImageView           mChainImg;
-    private TextView            mClearAll, mWordCnt;
+    private Toolbar mToolbar;
+    private LinearLayout mContentsLayer;
+    private Button mPaste, mBtnConfirm;
+    private Button[] mAlphabetBtns = new Button[26];
+    private ImageButton mBtnDelete;
+    private Button mBtnSpace;
+    private RecyclerView mRecyclerView;
+    private ImageView mChainImg;
+    private TextView mClearAll, mWordCnt;
 
-    private EditText[]          mEtMnemonics = new EditText[24];
-    private int                 mMnemonicPosition = 0;
+    private EditText[] mEtMnemonics = new EditText[24];
+    private int mMnemonicPosition = 0;
 
-    private BaseChain           mChain;
-    private ArrayList<String>   mAllMnemonic;
-    private MnemonicAdapter     mMnemonicAdapter;
-    private ArrayList<String>   mWords = new ArrayList<>();
+    private BaseChain mChain;
+    private ArrayList<String> mAllMnemonic;
+    private MnemonicAdapter mMnemonicAdapter;
+    private ArrayList<String> mWords = new ArrayList<>();
 
-    private int                 mIsCustomPath;
+    private int mIsCustomPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_restore);
-        mToolbar        = findViewById(R.id.tool_bar);
-        mContentsLayer  = findViewById(R.id.contentsLayer);
-        mPaste          = findViewById(R.id.btn_paste);
-        mBtnConfirm     = findViewById(R.id.btn_confirm);
-        mBtnDelete      = findViewById(R.id.password_back);
-        mBtnSpace       = findViewById(R.id.btn_next);
-        mRecyclerView   = findViewById(R.id.recycler);
-        mChainImg       = findViewById(R.id.chainImg);
-        mClearAll       = findViewById(R.id.toolbar_clear);
-        mWordCnt        = findViewById(R.id.words_cnt);
+        mToolbar = findViewById(R.id.tool_bar);
+        mContentsLayer = findViewById(R.id.contentsLayer);
+        mPaste = findViewById(R.id.btn_paste);
+        mBtnConfirm = findViewById(R.id.btn_confirm);
+        mBtnDelete = findViewById(R.id.password_back);
+        mBtnSpace = findViewById(R.id.btn_next);
+        mRecyclerView = findViewById(R.id.recycler);
+        mChainImg = findViewById(R.id.chainImg);
+        mClearAll = findViewById(R.id.toolbar_clear);
+        mWordCnt = findViewById(R.id.words_cnt);
 
         mPaste.setOnClickListener(this);
         mBtnConfirm.setOnClickListener(this);
@@ -104,19 +105,19 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mAllMnemonic = new ArrayList<String>(MnemonicCode.INSTANCE.getWordList());
-        for(int i = 0; i < mAlphabetBtns.length; i++) {
-            mAlphabetBtns[i] = findViewById(getResources().getIdentifier("password_char" + i , "id", getPackageName()));
+        for (int i = 0; i < mAlphabetBtns.length; i++) {
+            mAlphabetBtns[i] = findViewById(getResources().getIdentifier("password_char" + i, "id", getPackageName()));
             mAlphabetBtns[i].setOnClickListener(this);
         }
 
-        for(int i = 0; i < mEtMnemonics.length; i++) {
+        for (int i = 0; i < mEtMnemonics.length; i++) {
             final int position = i;
-            mEtMnemonics[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i , "id", getPackageName()));
+            mEtMnemonics[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", getPackageName()));
             mEtMnemonics[i].setShowSoftInputOnFocus(false);
             mEtMnemonics[i].setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    if(hasFocus) {
+                    if (hasFocus) {
                         mMnemonicPosition = position;
                     }
                 }
@@ -162,7 +163,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void onClearAll() {
-        for(int i = 0; i < mEtMnemonics.length; i++) {
+        for (int i = 0; i < mEtMnemonics.length; i++) {
             mEtMnemonics[i].setText("");
             mEtMnemonics[0].requestFocus();
         }
@@ -171,7 +172,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void onBeforeWord() {
-        if(mMnemonicPosition > 0) {
+        if (mMnemonicPosition > 0) {
             mEtMnemonics[mMnemonicPosition - 1].requestFocus();
             mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
         }
@@ -180,7 +181,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void onNextWord() {
-        if(mMnemonicPosition < 23) {
+        if (mMnemonicPosition < 23) {
             mEtMnemonics[mMnemonicPosition + 1].requestFocus();
         }
         mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
@@ -189,17 +190,17 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
     private void onCheckMnemonicCnt() {
         mWords.clear();
-        for(int i = 0; i < mEtMnemonics.length; i++) {
-            if(!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
+        for (int i = 0; i < mEtMnemonics.length; i++) {
+            if (!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
                 mWords.add(mEtMnemonics[i].getText().toString().trim());
             } else {
                 break;
             }
         }
 
-        mWordCnt.setText(""+ mWords.size() + " words");
-        if( (mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
-            WKey.isMnemonicWords(mWords)) {
+        mWordCnt.setText("" + mWords.size() + " words");
+        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
+                WKey.isMnemonicWords(mWords)) {
             mWordCnt.setTextColor(WDp.getChainColor(getBaseContext(), mChain));
         } else {
             mWordCnt.setTextColor(getResources().getColor(R.color.colorRed));
@@ -209,7 +210,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private boolean isValidWords() {
-        if( (mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
+        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
                 WKey.isMnemonicWords(mWords) && WKey.isValidStringHdSeedFromWords(mWords)) {
             return true;
         } else {
@@ -223,17 +224,17 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             onClearAll();
             return;
 
-        } else  if (v.equals(mPaste)) {
+        } else if (v.equals(mPaste)) {
             onClearAll();
 
             if (getBaseDao().mCopySalt != null && getBaseDao().mCopyEncResult != null) {
                 String words = CryptoHelper.doDecryptData(getBaseDao().mCopySalt, getBaseDao().mCopyEncResult.getEncDataString(), getBaseDao().mCopyEncResult.getIvDataString());
-                if(TextUtils.isEmpty(words)) {
+                if (TextUtils.isEmpty(words)) {
                     return;
                 }
                 ArrayList<String> newinsert = new ArrayList<>(Arrays.asList(words.split("\\s+")));
                 for (int i = 0; i < mEtMnemonics.length; i++) {
-                    if(newinsert.size() > i) {
+                    if (newinsert.size() > i) {
                         String toinsert = newinsert.get(i).replace(" ", "");
                         mEtMnemonics[i].setText(toinsert);
                     }
@@ -248,16 +249,16 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 onCheckMnemonicCnt();
 
             } else {
-                ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                     String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getBaseContext()).toString().trim();
-                    if(TextUtils.isEmpty(userPaste)) {
+                    if (TextUtils.isEmpty(userPaste)) {
                         Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                         return;
                     }
                     ArrayList<String> newinsert = new ArrayList<>(Arrays.asList(userPaste.split("\\s+")));
                     for (int i = 0; i < mEtMnemonics.length; i++) {
-                        if(newinsert.size() > i) {
+                        if (newinsert.size() > i) {
                             String toinsert = newinsert.get(i).replace(" ", "");
                             mEtMnemonics[i].setText(toinsert);
                         }
@@ -279,8 +280,8 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
         } else if (v.equals(mBtnConfirm)) {
             mWords.clear();
-            for(int i = 0; i < mEtMnemonics.length; i++) {
-                if(!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
+            for (int i = 0; i < mEtMnemonics.length; i++) {
+                if (!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
                     mWords.add(mEtMnemonics[i].getText().toString().trim());
                 } else {
                     break;
@@ -289,29 +290,29 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
             if (isValidWords()) {
                 if (mChain.equals(KAVA_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showDoubleButton(this,getString(R.string.str_kava_newpath_title),getString(R.string.str_kava_newpath_msg),
+                    FilledVerticalButtonAlertDialog.showDoubleButton(this, getString(R.string.str_kava_newpath_title), getString(R.string.str_kava_newpath_msg),
                             getString(R.string.str_kava_old_path), view -> onUsingCustomPath(0), null,
                             getString(R.string.str_kava_new_path), view -> onUsingCustomPath(1), null,
                             false);
                     return;
 
                 } else if (mChain.equals(SECRET_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showDoubleButton(this,getString(R.string.str_secret_newpath_title),getString(R.string.str_secret_newpath_msg),
+                    FilledVerticalButtonAlertDialog.showDoubleButton(this, getString(R.string.str_secret_newpath_title), getString(R.string.str_secret_newpath_msg),
                             getString(R.string.str_secret_old_path), view -> onUsingCustomPath(0), null,
                             getString(R.string.str_secret_new_path), view -> onUsingCustomPath(1), null,
                             false);
                     return;
 
                 } else if (mChain.equals(OKEX_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showTripleButton(this,getString(R.string.str_okex_newpath_title),getString(R.string.str_okex_newpath_msg),
+                    FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_okex_newpath_title), getString(R.string.str_okex_newpath_msg),
                             getString(R.string.str_okex_old_type), view -> onUsingCustomPath(0), null,
                             getString(R.string.str_okex_new_type), view -> onUsingCustomPath(1), null,
-                            getString(R.string.str_okex_eth_type), view -> onUsingCustomPath(2), null,
+                            Html.fromHtml("<b>" + getString(R.string.str_okex_eth_type) + "</b>"), view -> onUsingCustomPath(2), null,
                             false);
                     return;
 
                 } else if (mChain.equals(FETCHAI_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showQuadrupleButton(this,getString(R.string.str_secret_newpath_title),getString(R.string.str_fetch_eth_path_msg),
+                    FilledVerticalButtonAlertDialog.showQuadrupleButton(this, getString(R.string.str_secret_newpath_title), getString(R.string.str_fetch_eth_path_msg),
                             getString(R.string.str_fetch_cosmos_path), view -> onUsingCustomPath(0), null,
                             getString(R.string.str_fetch_eth_path), view -> onUsingCustomPath(1), null,
                             getString(R.string.str_fetch_eth_ledger_path), view -> onUsingCustomPath(2), null,
@@ -320,7 +321,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                     return;
 
                 } else if (mChain.equals(LUM_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showDoubleButton(this,getString(R.string.str_lum_newpath_title),getString(R.string.str_lum_newpath_msg),
+                    FilledVerticalButtonAlertDialog.showDoubleButton(this, getString(R.string.str_lum_newpath_title), getString(R.string.str_lum_newpath_msg),
                             getString(R.string.str_lum_basic_type), view -> onUsingCustomPath(0), null,
                             getString(R.string.str_lum_airdrop_type), view -> onUsingCustomPath(1), null,
                             false);
@@ -337,7 +338,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
         } else if (v.equals(mBtnDelete)) {
             String existed = mEtMnemonics[mMnemonicPosition].getText().toString().trim();
-            if(TextUtils.isEmpty(existed)) {
+            if (TextUtils.isEmpty(existed)) {
                 onBeforeWord();
             } else {
                 mEtMnemonics[mMnemonicPosition].setText(existed.substring(0, existed.length() - 1));
@@ -351,7 +352,8 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             onNextWord();
             return;
 
-        } if(v instanceof Button) {
+        }
+        if (v instanceof Button) {
             String input = ((Button) v).getText().toString();
             mEtMnemonics[mMnemonicPosition].setText(mEtMnemonics[mMnemonicPosition].getText().toString() + input);
             mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
@@ -363,7 +365,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void onConfirmedWords() {
-        if(!getBaseDao().onHasPassword()) {
+        if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(RestoreActivity.this, PasswordSetActivity.class);
             startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
@@ -405,7 +407,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
     public class MnemonicAdapter extends RecyclerView.Adapter<MnemonicAdapter.MnemonicHolder> implements Filterable {
 
-        private ArrayList<String>   mFilteredMnemonic = new ArrayList<>();
+        private ArrayList<String> mFilteredMnemonic = new ArrayList<>();
 
         @NonNull
         @Override
@@ -469,8 +471,8 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
             public MnemonicHolder(View v) {
                 super(v);
-                itemRoot    = itemView.findViewById(R.id.root_mnemonic);
-                itemMnemonic    = itemView.findViewById(R.id.tv_mnemonic);
+                itemRoot = itemView.findViewById(R.id.root_mnemonic);
+                itemMnemonic = itemView.findViewById(R.id.tv_mnemonic);
             }
         }
     }

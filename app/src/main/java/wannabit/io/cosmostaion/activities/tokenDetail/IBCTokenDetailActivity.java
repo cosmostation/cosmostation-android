@@ -40,63 +40,63 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class IBCTokenDetailActivity extends BaseActivity implements View.OnClickListener{
+public class IBCTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar                         mToolbar;
-    private ImageView                       mToolbarSymbolImg;
-    private TextView                        mToolbarSymbol;
-    private TextView                        mToolbarChannel;
-    private TextView                        mItemPerPrice;
-    private ImageView                       mItemUpDownImg;
-    private TextView                        mItemUpDownPrice;
+    private Toolbar mToolbar;
+    private ImageView mToolbarSymbolImg;
+    private TextView mToolbarSymbol;
+    private TextView mToolbarChannel;
+    private TextView mItemPerPrice;
+    private ImageView mItemUpDownImg;
+    private TextView mItemUpDownPrice;
 
-    private CardView                        mBtnAddressPopup;
-    private ImageView                       mKeyState;
-    private TextView                        mAddress;
-    private TextView                        mTotalValue;
+    private CardView mBtnAddressPopup;
+    private ImageView mKeyState;
+    private TextView mAddress;
+    private TextView mTotalValue;
 
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
 
-    private RelativeLayout                  mBtnIbcSend;
-    private RelativeLayout                  mBtnSend;
+    private RelativeLayout mBtnIbcSend;
+    private RelativeLayout mBtnSend;
 
-    private IBCTokenAdapter                 mAdapter;
+    private IBCTokenAdapter mAdapter;
 
-    private String                          mIbcDenom;
-    private IbcToken                        mIbcToken;
-    private int                             mIbcDivideDecimal = 6;
-    private int                             mIbcDisplayDecimal = 6;
+    private String mIbcDenom;
+    private IbcToken mIbcToken;
+    private int mIbcDivideDecimal = 6;
+    private int mIbcDisplayDecimal = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ibc_token_detail);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
-        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
-        mToolbarChannel         = findViewById(R.id.toolbar_channel);
-        mItemPerPrice           = findViewById(R.id.per_price);
-        mItemUpDownImg          = findViewById(R.id.ic_price_updown);
-        mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mToolbarChannel = findViewById(R.id.toolbar_channel);
+        mItemPerPrice = findViewById(R.id.per_price);
+        mItemUpDownImg = findViewById(R.id.ic_price_updown);
+        mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
-        mBtnAddressPopup        = findViewById(R.id.card_root);
-        mKeyState               = findViewById(R.id.img_account);
-        mAddress                = findViewById(R.id.account_Address);
-        mTotalValue             = findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
-        mBtnSend                = findViewById(R.id.btn_send);
+        mBtnAddressPopup = findViewById(R.id.card_root);
+        mKeyState = findViewById(R.id.img_account);
+        mAddress = findViewById(R.id.account_Address);
+        mTotalValue = findViewById(R.id.total_value);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
+        mBtnSend = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain  = BaseChain.getChain(mAccount.baseChain);
-        mIbcDenom   = getIntent().getStringExtra("denom");
-        mIbcToken   = getBaseDao().getIbcToken(mIbcDenom);
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mIbcDenom = getIntent().getStringExtra("denom");
+        mIbcToken = getBaseDao().getIbcToken(mIbcDenom);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -143,7 +143,8 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 mIbcDivideDecimal = mIbcToken.decimal;
                 try {
                     Picasso.get().load(mIbcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(mToolbarSymbolImg);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
                 mToolbarSymbol.setText(mIbcToken.display_denom.toUpperCase());
                 mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
                 mTotalValue.setText("" + WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, getBaseDao().getAvailable(mIbcDenom), mIbcDivideDecimal));
@@ -188,8 +189,11 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
-            else { bundle.putString("title", mAccount.nickName); }
+            if (TextUtils.isEmpty(mAccount.nickName)) {
+                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+            } else {
+                bundle.putString("title", mAccount.nickName);
+            }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -197,7 +201,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }
@@ -216,13 +220,13 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             }
 
             AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
-                    Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" +  getString(R.string.str_ibc_warning_msg2)),
-                    getString(R.string.str_ibc_continue_c), view -> onCheckIbcTransfer(mIbcDenom));
+                    Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" + getString(R.string.str_ibc_warning_msg2)),
+                    Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_ibc_continue_c) + "</font>"), view -> onCheckIbcTransfer(mIbcDenom));
 
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }
@@ -254,13 +258,13 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     }
 
     private class IBCTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_IBC_STATUS                    = 1;
-        private static final int TYPE_HISTORY                       = 2;
+        private static final int TYPE_IBC_STATUS = 1;
+        private static final int TYPE_HISTORY = 2;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if(viewType == TYPE_IBC_STATUS) {
+            if (viewType == TYPE_IBC_STATUS) {
                 return new IbcStatusHolder(getLayoutInflater().inflate(R.layout.item_ibc_token_status, viewGroup, false));
             }
             return null;
@@ -296,7 +300,8 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             }
             try {
                 Picasso.get().load(getBaseDao().getIbcRelayerImg(mBaseChain, mIbcToken.channel_id)).into(holder.itemRelayer);
-            } catch (Exception e){}
+            } catch (Exception e) {
+            }
             holder.itemCurrentAmount.setText(WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));
             holder.itemCurrentDenom.setText("ibc/" + mIbcToken.hash);
 
@@ -305,19 +310,19 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         }
 
         public class IbcStatusHolder extends RecyclerView.ViewHolder {
-            private ImageView           itemRelayer;
-            private TextView            itemCurrentAmount;
-            private TextView            itemCurrentDenom;
-            private TextView            itemAcrossChain;
-            private TextView            itemAcrossDenom;
+            private ImageView itemRelayer;
+            private TextView itemCurrentAmount;
+            private TextView itemCurrentDenom;
+            private TextView itemAcrossChain;
+            private TextView itemAcrossDenom;
 
             public IbcStatusHolder(View v) {
                 super(v);
-                itemRelayer             = itemView.findViewById(R.id.img_relayer);
-                itemCurrentAmount       = itemView.findViewById(R.id.current_amount);
-                itemCurrentDenom        = itemView.findViewById(R.id.current_denom);
-                itemAcrossChain         = itemView.findViewById(R.id.across_chain);
-                itemAcrossDenom         = itemView.findViewById(R.id.across_denom);
+                itemRelayer = itemView.findViewById(R.id.img_relayer);
+                itemCurrentAmount = itemView.findViewById(R.id.current_amount);
+                itemCurrentDenom = itemView.findViewById(R.id.current_denom);
+                itemAcrossChain = itemView.findViewById(R.id.across_chain);
+                itemAcrossDenom = itemView.findViewById(R.id.across_denom);
             }
         }
     }

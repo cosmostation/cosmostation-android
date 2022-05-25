@@ -66,6 +66,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 import org.bitcoinj.core.ECKey;
@@ -75,6 +76,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
 
 import cosmos.base.abci.v1beta1.Abci;
 import osmosis.lockup.Lock;
@@ -297,8 +299,14 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 }
 
             } else {
-                if (mFee.compareTo(mainDenomAvailable) > 0) {
-                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                List<String> availableFeeDenomList = Lists.newArrayList();
+                for (String denom : WDp.getGasDenomList(getSActivity().mBaseChain)) {
+                    if (getBaseDao().getAvailable(denom).compareTo(mFee) >= 0) {
+                        availableFeeDenomList.add(denom);
+                    }
+                }
+                if (availableFeeDenomList.isEmpty()) {
+                    Toast.makeText(getContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -308,35 +316,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             BigDecimal todelegate = new BigDecimal(getSActivity().mAmount.amount);
             if ((todelegate.add(mFee)).compareTo(delegatable) > 0) {
                 Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-        } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_REWARD) {
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
-            if (mFee.compareTo(available) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (String opAddress: getSActivity().mValAddresses) {
-                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
-            }
-
-            if (mFee.compareTo(rewardSum) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_waste_fee), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-        } else if (getSActivity().mTxType == CONST_PW_TX_REINVEST) {
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
-            if (mFee.compareTo(available) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            BigDecimal reinvest = new BigDecimal(getSActivity().mAmount.amount);
-            if (mFee.compareTo(reinvest) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_waste_fee), Toast.LENGTH_SHORT).show();
                 return false;
             }
 

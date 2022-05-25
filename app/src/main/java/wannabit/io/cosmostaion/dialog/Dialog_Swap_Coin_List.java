@@ -10,6 +10,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,10 +39,10 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_Swap_Coin_List extends DialogFragment {
 
-    private TextView             mDialogTitle;
-    private RecyclerView         mRecyclerView;
+    private TextView mDialogTitle;
+    private RecyclerView mRecyclerView;
     private SwapChainListAdapter mSwapChainListAdapter;
-    private ArrayList<String>    mSwapCoinList;
+    private ArrayList<String> mSwapCoinList;
 
     public static Dialog_Swap_Coin_List newInstance(Bundle bundle) {
         Dialog_Swap_Coin_List frag = new Dialog_Swap_Coin_List();
@@ -52,21 +53,27 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return inflater.inflate(R.layout.dialog_template_recycler, container);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         mSwapCoinList = getArguments().getStringArrayList("denoms");
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        if (getTargetRequestCode() == 8500) { mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in)); }
-        else { mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out)); }
+        if (getTargetRequestCode() == 8500) {
+            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in));
+        } else {
+            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out));
+        }
         mRecyclerView = view.findViewById(R.id.recycler);
         mSwapChainListAdapter = new SwapChainListAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mSwapChainListAdapter);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view);
+        return builder.create();
     }
 
     private class SwapChainListAdapter extends RecyclerView.Adapter<SwapChainListAdapter.SwapChainHolder> {
@@ -89,7 +96,8 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                 }
                 try {
                     Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
@@ -99,7 +107,8 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                     } else {
                         holder.chainName.setText(mSwapCoinList.get(position).toUpperCase());
                     }
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             } else if (inputCoin.equals(TOKEN_ATOM)) {
                 holder.chainName.setText(getString(R.string.str_atom_c));
                 Picasso.get().cancelRequest(holder.chainImg);
@@ -140,7 +149,9 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
         }
 
         @Override
-        public int getItemCount() { return mSwapCoinList.size(); }
+        public int getItemCount() {
+            return mSwapCoinList.size();
+        }
 
         public class SwapChainHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;

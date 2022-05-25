@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OEC_TX;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
@@ -12,13 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OEC_TX;
 
 public class HistoryOldHolder extends BaseHolder {
     private CardView historyRoot;
@@ -43,19 +42,9 @@ public class HistoryOldHolder extends BaseHolder {
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (history.txType.equals("HTL_TRANSFER") || history.txType.equals("CLAIM_HTL") || history.txType.equals("REFUND_HTL") || history.txType.equals("TRANSFER")) {
-                    Intent txDetail = new Intent(mainActivity, TxDetailActivity.class);
-                    txDetail.putExtra("txHash", history.txHash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    txDetail.putExtra("bnbTime", history.timeStamp);
-                    mainActivity.startActivity(txDetail);
-
-                } else {
-                    String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.txHash);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    mainActivity.startActivity(intent);
-                }
+                String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.txHash);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                mainActivity.startActivity(intent);
             }
         });
     }

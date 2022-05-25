@@ -6,6 +6,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HAR
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,6 @@ import kava.hard.v1beta1.Hard;
 import kava.hard.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
-import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -39,19 +39,19 @@ import wannabit.io.cosmostaion.widget.HardMyStatusHolder;
 import wannabit.io.cosmostaion.widget.HardPoolHolder;
 
 public class ListHardFragment extends BaseFragment implements TaskListener {
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private RelativeLayout      mProgress;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private RelativeLayout mProgress;
 
-    private Account             mAccount;
-    private BaseChain           mBaseChain;
-    private HardPoolAdapter     mAdapter;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private HardPoolAdapter mAdapter;
 
-    private Hard.Params                                         mHardParams;
-    private ArrayList<QueryOuterClass.DepositResponse>          mMyDeposits = new ArrayList<>();
-    private ArrayList<QueryOuterClass.BorrowResponse>           mMyBorrows = new ArrayList<>();
-    private ArrayList<QueryOuterClass.MoneyMarketInterestRate>  mInterestRates = new ArrayList<>();
-    private IncentiveReward                                     mIncentiveRewards;
+    private Hard.Params mHardParams;
+    private ArrayList<QueryOuterClass.DepositResponse> mMyDeposits = new ArrayList<>();
+    private ArrayList<QueryOuterClass.BorrowResponse> mMyBorrows = new ArrayList<>();
+    private ArrayList<QueryOuterClass.MoneyMarketInterestRate> mInterestRates = new ArrayList<>();
+    private IncentiveReward mIncentiveRewards;
 
     public static ListHardFragment newInstance(Bundle bundle) {
         ListHardFragment fragment = new ListHardFragment();
@@ -67,9 +67,9 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cdp_market, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mProgress               = rootView.findViewById(R.id.reward_progress);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mProgress = rootView.findViewById(R.id.reward_progress);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -100,6 +100,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     }
 
     private int mTaskCount = 0;
+
     public void onFetchHardInfo() {
         mMyDeposits.clear();
         mMyBorrows.clear();
@@ -112,7 +113,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
@@ -141,15 +142,15 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     public void onCheckStartClaimIncentive() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> getSActivity().onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> getSActivity().onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
     }
 
     private class HardPoolAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_MY_HARD_STATUS        = 1;
-        private static final int TYPE_HARD_POOL             = 2;
+        private static final int TYPE_MY_HARD_STATUS = 1;
+        private static final int TYPE_HARD_POOL = 2;
 
         @NonNull
         @Override
@@ -190,6 +191,6 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     }
 
     private DAppsList5Activity getSActivity() {
-        return (DAppsList5Activity)getBaseActivity();
+        return (DAppsList5Activity) getBaseActivity();
     }
 }

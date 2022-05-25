@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/space_24">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,8 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
+            android:layout_gravity="center"
             style="@style/font_ss_17_gray8"
             android:gravity="center"
             android:text=""
@@ -28,8 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_12"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
+            android:layout_gravity="center"
             style="@style/font_ss_12_gray1"
             android:gravity="center"
             android:text=""
@@ -38,56 +35,75 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="@dimen/space_32"
+            android:layout_marginTop="@dimen/space_12"
             android:background="@color/colorGray10"/>
 
         <Button
             android:id="@+id/btn_one"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_16"
-            android:background="@drawable/btn_bottom_select_dialog"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/space_24"
+            android:paddingRight="@dimen/space_10"
+            android:background="#00ff0000"
             android:drawableLeft="@drawable/chain_test_cosmos"
             style="@style/font_ss_15_gray8"
             android:text="Button Title"
-            android:textColor="@color/color_bottom_dialog_btn_text"
             android:textAllCaps="false"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
 
         <Button
             android:id="@+id/btn_two"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_12"
-            android:background="@drawable/btn_bottom_select_dialog"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/space_24"
+            android:paddingRight="@dimen/space_10"
+            android:background="#00ff0000"
             android:drawableLeft="@drawable/chain_test_cosmos"
             style="@style/font_ss_15_gray8"
             android:text="Button Title"
-            android:textColor="@color/color_bottom_dialog_btn_text"
             android:textAllCaps="false"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
 
         <Button
             android:id="@+id/btn_three"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_12"
-            android:background="@drawable/btn_bottom_select_dialog"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/space_24"
+            android:paddingRight="@dimen/space_10"
+            android:background="#00ff0000"
             android:drawableLeft="@drawable/chain_test_cosmos"
             style="@style/font_ss_15_gray8"
             android:text="Button Title"
-            android:textColor="@color/color_bottom_dialog_btn_text"
             android:textAllCaps="false"
             android:visibility="gone"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
+
         <Button
             android:id="@+id/btn_four"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_12"
-            android:background="@drawable/btn_bottom_select_dialog"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/space_24"
+            android:paddingRight="@dimen/space_10"
+            android:background="#00ff0000"
             android:drawableLeft="@drawable/chain_test_cosmos"
             style="@style/font_ss_15_gray8"
             android:text="Button Title"
-            android:textColor="@color/color_bottom_dialog_btn_text"
             android:textAllCaps="false"
             android:visibility="gone"/>
 

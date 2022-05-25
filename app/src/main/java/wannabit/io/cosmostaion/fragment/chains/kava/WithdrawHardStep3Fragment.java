@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_HARD_WITHDRAW_CHECK = 9107;
 
-    private Button   mBeforeBtn, mConfirmBtn;
+    private Button mBeforeBtn, mConfirmBtn;
     private TextView mWithdrawAmount, mWithdrawDenom;
     private TextView mFeesAmount, mFeesDenom;
     private TextView mMemo;
@@ -71,7 +71,7 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
 
         } else if (v.equals(mConfirmBtn)) {
             AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_hard_withdraw_warn_title), getString(R.string.str_hard_withdraw_warn_msg),
-                    getString(R.string.str_cancel), null,
+                    AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
                     getString(R.string.str_confirm), view -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_HARD_WITHDRAW_CHECK, Activity.RESULT_OK, resultIntent);
@@ -87,6 +87,6 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
     }
 
     private WithdrawHardActivity getSActivity() {
-        return (WithdrawHardActivity)getBaseActivity();
+        return (WithdrawHardActivity) getBaseActivity();
     }
 }
