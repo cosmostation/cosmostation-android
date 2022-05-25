@@ -377,7 +377,6 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
-
             } else if (mChain.equals(BaseChain.NYX_MAIN)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getNyxApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
@@ -386,9 +385,14 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
-            }
+            } else if (mChain.equals(BaseChain.STATION_TEST)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getStationApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
 
-            else if (mChain.equals(BaseChain.COSMOS_TEST)) {
+            } else if (mChain.equals(BaseChain.COSMOS_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

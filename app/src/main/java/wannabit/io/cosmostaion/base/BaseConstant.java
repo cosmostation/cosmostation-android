@@ -467,9 +467,9 @@ public class BaseConstant {
     public final static String TOKEN_CRE            = "ucre";
     public final static String TOKEN_BCRE           = "ubcre";
     public final static String TOKEN_MANTLE         = "umntl";
+    public final static String TOKEN_STATION        = "uiss";
     public final static String TOKEN_NYX            = "unyx";
     public final static String TOKEN_NYM            = "unym";
-
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -899,6 +899,7 @@ public class BaseConstant {
     public final static String EXPLORER_OMNIFLIX_MAIN   = "https://www.mintscan.io/omniflix/";
     public final static String EXPLORER_CRESCENT_MAIN   = "https://www.mintscan.io/crescent/";
     public final static String EXPLORER_MANTLE_MAIN     = "https://www.mintscan.io/asset-mantle/";
+    public final static String EXPLORER_STATION_TEST    = "https://testnet.mintscan.io/station/";
     public final static String EXPLORER_NYX_MAIN        = "https://www.mintscan.io/nyx/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 

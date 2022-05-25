@@ -123,7 +123,7 @@ public class WalletChainHolder extends BaseHolder {
         });
 
         if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
-                mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
+                mainActivity.mBaseChain.equals(BaseChain.STATION_TEST) || mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
         } else {
             mBtnWalletConnect.setVisibility(View.GONE);
@@ -132,7 +132,7 @@ public class WalletChainHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
-                        mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
+                        mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.STATION_TEST) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
                     if (!mainActivity.mAccount.hasPrivateKey) {
                         AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
                                 Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),

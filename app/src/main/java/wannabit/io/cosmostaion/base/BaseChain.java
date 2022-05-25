@@ -77,8 +77,8 @@ public enum BaseChain {
     OMNIFLIX_MAIN("omniflix-mainnet"),
     CRESCENT_MAIN("crescent-mainnet"),
     ASSETMANTLE_MAIN("assetmantle-mainnet"),
+    STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
-
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
     IRIS_TEST_LEGACY1("bifrost-2"),
@@ -246,10 +246,12 @@ public enum BaseChain {
         if (chainName.equals(ASSETMANTLE_MAIN.chainName)) {
             return ASSETMANTLE_MAIN;
         }
+        if (chainName.equals(STATION_TEST.chainName)) {
+            return STATION_TEST;
+        }
         if (chainName.equals(NYX_MAIN.chainName)) {
             return NYX_MAIN;
         }
-
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
             return COSMOS_TEST;
@@ -309,6 +311,7 @@ public enum BaseChain {
         result.add(STARGAZE_MAIN);
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
+        result.add(STATION_TEST);
 
 //        result.add(CRESCENT_TEST);
 

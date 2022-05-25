@@ -43,6 +43,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
@@ -106,6 +107,7 @@ public class MnemonicCheckActivity extends BaseActivity {
         Account toCheck = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
         mMnemonicLayer.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), getChain(toCheck.baseChain)));
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
+
         WDp.setLayoutColor(MnemonicCheckActivity.this, getChain(toCheck.baseChain), mWords, mWordsLayer);
 
         for(int i = 0; i < mWords.size(); i++) {

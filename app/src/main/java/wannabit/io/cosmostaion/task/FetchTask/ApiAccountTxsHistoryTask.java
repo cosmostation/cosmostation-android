@@ -374,6 +374,12 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.STATION_TEST)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getStationApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
             } else if (mChain.equals(BaseChain.NYX_MAIN)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getNyxApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
@@ -382,7 +388,6 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
-
             }
 
             else if (mChain.equals(COSMOS_TEST)) {
