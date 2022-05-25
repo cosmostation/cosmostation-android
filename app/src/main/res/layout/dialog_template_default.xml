@@ -23,7 +23,7 @@
             style="@style/font_ss_17_gray8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginTop="@dimen/space_24"
             android:gravity="center"
             tools:text="Title" />
 
