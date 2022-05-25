@@ -78,18 +78,20 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
         } else if (v.equals(mConfirmBtn)) {
-            int dpDay = getBaseDao().mChainParam.getUnbonding(getSActivity().mBaseChain);
             int unBondingTimeImage = 0;
-            if (dpDay == 21) {
-                unBondingTimeImage = R.drawable.img_delegate_warning;
-            } else if (dpDay == 3) {
-                unBondingTimeImage = R.drawable.img_delegate_3_warning;
-            } else if (dpDay == 14) {
-                unBondingTimeImage = R.drawable.img_delegate_14_warning;
-            } else if (dpDay == 28) {
-                unBondingTimeImage = R.drawable.img_delegate_28_warning;
-            } else if (dpDay == 7) {
-                unBondingTimeImage = R.drawable.dialogicon_undelegate_7;
+            if (getBaseDao().mChainParam != null) {
+                int dpDay = getBaseDao().mChainParam.getUnbonding(getSActivity().mBaseChain);
+                if (dpDay == 21) {
+                    unBondingTimeImage = R.drawable.img_delegate_warning;
+                } else if (dpDay == 3) {
+                    unBondingTimeImage = R.drawable.img_delegate_3_warning;
+                } else if (dpDay == 14) {
+                    unBondingTimeImage = R.drawable.img_delegate_14_warning;
+                } else if (dpDay == 28) {
+                    unBondingTimeImage = R.drawable.img_delegate_28_warning;
+                } else if (dpDay == 7) {
+                    unBondingTimeImage = R.drawable.dialogicon_undelegate_7;
+                }
             }
             AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_delegate_warn_title), getString(R.string.str_delegate_warn_msg),
                     AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
