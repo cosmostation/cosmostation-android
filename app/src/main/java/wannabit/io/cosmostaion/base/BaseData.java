@@ -517,7 +517,7 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
 
     //Osmosis pool list
-    public ArrayList<BalancerPool.Pool>                              mGrpcOsmosisPool = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool>                         mGrpcOsmosisPool = new ArrayList<>();
 
     //Gravity pool list
     public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
@@ -580,18 +580,28 @@ public class BaseData {
                             }
                         }
                     }
+                
+                } else if (profile.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                    Vesting.DelayedVestingAccount vestingAccount = Vesting.DelayedVestingAccount.parseFrom(profile.getAccount().getValue());
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                    if (cTime < vestingEnd) {
+                        for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                            if (vesting.getDenom().equals(denom)) {
+                                result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                            }
+                        }
+                    }
                 }
             } catch (InvalidProtocolBufferException e) { }
 
         } else {
-            if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                try {
+            try {
+                if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
                     Vesting.PeriodicVestingAccount vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
                     return WDp.onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
-                } catch (InvalidProtocolBufferException e) { }
 
-            } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                try {
+                } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
                     Vesting.ContinuousVestingAccount vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(mGRpcAccount.getValue());
                     long cTime = Calendar.getInstance().getTime().getTime();
                     long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
@@ -602,8 +612,20 @@ public class BaseData {
                             }
                         }
                     }
-                } catch (InvalidProtocolBufferException e) { }
-            }
+
+                } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                    Vesting.DelayedVestingAccount vestingAccount = Vesting.DelayedVestingAccount.parseFrom(mGRpcAccount.getValue());
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                    if (cTime < vestingEnd) {
+                        for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                            if (vesting.getDenom().equals(denom)) {
+                                result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                            }
+                        }
+                    }
+                }
+            } catch (InvalidProtocolBufferException e) { }
         }
         return result;
     }

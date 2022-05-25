@@ -66,6 +66,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 import org.bitcoinj.core.ECKey;
@@ -75,6 +76,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
 
 import cosmos.base.abci.v1beta1.Abci;
 import osmosis.lockup.Lock;
@@ -297,8 +299,14 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 }
 
             } else {
-                if (mFee.compareTo(mainDenomAvailable) > 0) {
-                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                List<String> availableFeeDenomList = Lists.newArrayList();
+                for (String denom : WDp.getGasDenomList(getSActivity().mBaseChain)) {
+                    if (getBaseDao().getAvailable(denom).compareTo(mFee) >= 0) {
+                        availableFeeDenomList.add(denom);
+                    }
+                }
+                if (availableFeeDenomList.isEmpty()) {
+                    Toast.makeText(getContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }

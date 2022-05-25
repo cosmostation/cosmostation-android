@@ -104,7 +104,13 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
                 WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, toSendAmount.toPlainString(), mDenomSendAmount, mSendAmount, getSActivity().mBaseChain);
                 WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.toPlainString(), mDenomCurrentAmount, mCurrentBalance, getSActivity().mBaseChain);
-                WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
+                BigDecimal remainAmount = BigDecimal.ZERO;
+                if (getSActivity().mTxFee.amount.get(0).denom.equalsIgnoreCase(toSendDenom)) {
+                    remainAmount = currentAvai.subtract(toSendAmount).subtract(feeAmount);
+                } else {
+                    remainAmount = currentAvai.subtract(toSendAmount);
+                }
+                WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, remainAmount.toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
             }
 
         } else {
