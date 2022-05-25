@@ -307,8 +307,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(feeAmount) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -340,8 +340,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(BigDecimal.ZERO) <= 0 ) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
         }
 
