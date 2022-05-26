@@ -42,15 +42,15 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int SELECT_CURRENCY                 = 9034;
-    public final static int SELECT_MARKET                   = 9035;
-    public final static int SELECT_STARNAME_WALLET_CONNECT  = 9036;
+    public final static int SELECT_CURRENCY = 9034;
+    public final static int SELECT_MARKET = 9035;
+    public final static int SELECT_STARNAME_WALLET_CONNECT = 9036;
 
     private FrameLayout mBtnAddWallet, mBtnWallet, mBtnNotice, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
-                        mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage, mBtnStarnameWc,
-                        mBtnTerm, mBtnGithub, mBtnVersion;
+            mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage, mBtnStarnameWc,
+            mBtnTerm, mBtnGithub, mBtnVersion;
 
-    private TextView    mTvAppLock, mTvCurrency, mTvBasePrice, mTvVersion;
+    private TextView mTvAppLock, mTvCurrency, mTvBasePrice, mTvVersion;
 
     public static MainSettingFragment newInstance(Bundle bundle) {
         MainSettingFragment fragment = new MainSettingFragment();
@@ -80,11 +80,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_accounts :
+        switch (item.getItemId()) {
+            case R.id.menu_accounts:
                 getMainActivity().onClickSwitchWallet();
                 break;
-            case R.id.menu_explorer :
+            case R.id.menu_explorer:
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
@@ -146,10 +146,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         mTvCurrency.setText(getBaseDao().getCurrencyString());
         mTvBasePrice.setText(getString(R.string.str_coingecko));
-        if(getBaseDao().getUsingAppLock()) {
+        if (getBaseDao().getUsingAppLock()) {
             mTvAppLock.setText(R.string.str_app_applock_enabled);
         } else {
             mTvAppLock.setText(R.string.str_app_applock_diabeld);
@@ -166,11 +166,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
-
-        } else if (v.equals(mBtnNotice)) {
-            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(getMainActivity().mBaseChain);
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
@@ -194,39 +189,44 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 //            return;
             return;
 
+        } else if (v.equals(mBtnExplore)) {
+            String url = WUtil.getExplorer(getMainActivity().mBaseChain);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+
+        } else if (v.equals(mBtnNotice)) {
+            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(getMainActivity().mBaseChain);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+
         } else if (v.equals(mBtnGuide)) {
-            if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
+            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
                 startActivity(guideIntent);
             } else {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
                 startActivity(guideIntent);
             }
 
         } else if (v.equals(mBtnTelegram)) {
-            Intent telegram = new Intent(Intent.ACTION_VIEW , Uri.parse("https://t.me/cosmostation"));
+            Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
             startActivity(telegram);
-
-        } else if (v.equals(mBtnExplore)) {
-            String url  = WUtil.getExplorer(getMainActivity().mBaseChain);
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
 
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
             startActivity(intent);
 
         } else if (v.equals(mBtnTerm)) {
-            if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_kr.html"));
                 startActivity(intent);
-            }  else {
+            } else {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_en.html"));
                 startActivity(intent);
             }
 
         } else if (v.equals(mBtnGithub)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://github.com/cosmostation/cosmostation-android"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cosmostation/cosmostation-android"));
             startActivity(intent);
 
         } else if (v.equals(mBtnVersion)) {
@@ -245,12 +245,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     public MainActivity getMainActivity() {
-        return (MainActivity)getBaseActivity();
+        return (MainActivity) getBaseActivity();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
             getBaseDao().setCurrency(data.getIntExtra("currency", 0));
             mTvCurrency.setText(getBaseDao().getCurrencyString());
 
@@ -258,21 +258,21 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
-                @Override
-                public void onPermissionGranted() {
-                    IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
-                    integrator.setOrientationLocked(true);
-                    integrator.initiateScan();
-                }
+                        @Override
+                        public void onPermissionGranted() {
+                            IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
+                            integrator.setOrientationLocked(true);
+                            integrator.initiateScan();
+                        }
 
-                @Override
-                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                    Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                }
-            })
-            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .setRationaleMessage(getString(R.string.str_permission_qr))
-            .check();
+                        @Override
+                        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                            Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .setRationaleMessage(getString(R.string.str_permission_qr))
+                    .check();
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
