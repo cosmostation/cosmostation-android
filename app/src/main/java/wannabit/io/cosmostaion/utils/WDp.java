@@ -1328,7 +1328,7 @@ public class WDp {
                 return LUM_MAIN;
             } else if (chainId.contains("chihuahua-")) {
                 return CHIHUAHUA_MAIN;
-            } else if (chainId.contains("kava-")) {
+            } else if (chainId.contains("kava-") || chainId.contains("kava_")) {
                 return KAVA_MAIN;
             } else if (chainId.contains("axelar-")) {
                 return AXELAR_MAIN;
