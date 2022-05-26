@@ -18,16 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_Currency_Set extends DialogFragment {
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private CurrencySetAdapter mCurrencySetAdapter;
-
-    private String[] mSymbolList = new String[16];
-    private String[] mUnitList = new String[16];
 
     public static Dialog_Currency_Set newInstance(Bundle bundle) {
         Dialog_Currency_Set frag = new Dialog_Currency_Set();
@@ -67,8 +63,8 @@ public class Dialog_Currency_Set extends DialogFragment {
 
         @Override
         public void onBindViewHolder(@NonNull CurrencySetAdapter.CurrencyHolder holder, int position) {
-            mSymbolList = getResources().getStringArray(R.array.currency_symbol_array);
-            mUnitList = getResources().getStringArray(R.array.currency_unit_array);
+            String[] mSymbolList = getResources().getStringArray(R.array.currency_symbol_array);
+            String[] mUnitList = getResources().getStringArray(R.array.currency_unit_array);
 
             holder.currencyImg.setText(mSymbolList[position]);
             holder.currencyName.setText(mUnitList[position]);
@@ -85,7 +81,7 @@ public class Dialog_Currency_Set extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            return mSymbolList == null ? 0 : mSymbolList.length;
+            return getResources().getStringArray(R.array.currency_symbol_array).length;
         }
 
         public class CurrencyHolder extends RecyclerView.ViewHolder {
