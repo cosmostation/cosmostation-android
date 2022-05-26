@@ -644,7 +644,7 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("kava.") && msgType.contains("bep3")) {
                     if (msgType.contains("MsgCreateAtomicSwap")) {
                         result = c.getString(R.string.tx_kava_bep3_create);
-                    } else if (msgType.contains("MsgCreateAtomicSwap")) {
+                    } else if (msgType.contains("MsgClaimAtomicSwap")) {
                         result = c.getString(R.string.tx_kava_bep3_claim);
                     } else if (msgType.contains("MsgRefundAtomicSwap")) {
                         result = c.getString(R.string.tx_kava_bep3_refund);
