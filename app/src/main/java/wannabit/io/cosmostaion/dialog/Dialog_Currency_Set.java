@@ -57,16 +57,16 @@ public class Dialog_Currency_Set extends DialogFragment {
         return builder.create();
     }
 
-    private class CurrencySetAdapter extends RecyclerView.Adapter<CurrencySetAdapter.ChainListHolder> {
+    private class CurrencySetAdapter extends RecyclerView.Adapter<CurrencySetAdapter.CurrencyHolder> {
 
         @NonNull
         @Override
-        public CurrencySetAdapter.ChainListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new CurrencySetAdapter.ChainListHolder(getLayoutInflater().inflate(R.layout.item_dialog_currency_set, viewGroup, false));
+        public CurrencySetAdapter.CurrencyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new CurrencySetAdapter.CurrencyHolder(getLayoutInflater().inflate(R.layout.item_dialog_currency_set, viewGroup, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull CurrencySetAdapter.ChainListHolder holder, int position) {
+        public void onBindViewHolder(@NonNull CurrencySetAdapter.CurrencyHolder holder, int position) {
             mSymbolList = getResources().getStringArray(R.array.currency_symbol_array);
             mUnitList = getResources().getStringArray(R.array.currency_unit_array);
 
@@ -88,12 +88,12 @@ public class Dialog_Currency_Set extends DialogFragment {
             return mSymbolList == null ? 0 : mSymbolList.length;
         }
 
-        public class ChainListHolder extends RecyclerView.ViewHolder {
+        public class CurrencyHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
             TextView currencyImg;
             TextView currencyName;
 
-            public ChainListHolder(@NonNull View itemView) {
+            public CurrencyHolder(@NonNull View itemView) {
                 super(itemView);
                 rootLayer = itemView.findViewById(R.id.rootLayer);
                 currencyImg = itemView.findViewById(R.id.currencyImg);
@@ -101,9 +101,5 @@ public class Dialog_Currency_Set extends DialogFragment {
             }
         }
 
-    }
-
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
     }
 }
