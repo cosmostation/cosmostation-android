@@ -9,6 +9,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PROFILE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -41,6 +43,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import desmos.profiles.v1beta1.ModelsProfile;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.desmos.ProfileActivity;
 import wannabit.io.cosmostaion.activities.chains.desmos.ProfileDetailActivity;
@@ -58,8 +63,11 @@ import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -321,6 +329,35 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         intent.putExtra("wcUrl", wcUrl);
         startActivityForResult(intent, CONST_PW_SIMPLE_CHECK);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    }
+
+    public void onNoticeView(CardView noticeView, TextView noticeContent) {
+        noticeView.setCardBackgroundColor(WDp.getChainBgColor(this, mBaseChain));
+        ApiClient.getMintscan(this).getNotice(WDp.getChainNameByBaseChain(mBaseChain), true).enqueue(new Callback<ResNotice>() {
+            @Override
+            public void onResponse(Call<ResNotice> call, Response<ResNotice> response) {
+                if (response != null && response.body() != null && response.isSuccessful()) {
+                    ResNotice noticeInfo = response.body();
+                    if (noticeInfo.boards.isEmpty()) {
+                        noticeView.setVisibility(View.GONE);
+                    } else {
+                        noticeView.setVisibility(View.VISIBLE);
+                        noticeContent.setText(noticeInfo.boards.get(0).title);
+
+                        noticeView.setOnClickListener(view -> {
+                            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(mBaseChain) + "/" + noticeInfo.boards.get(0).id;
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResNotice> call, Throwable t) {
+                WLog.w("error : " + t.getMessage());
+            }
+        });
     }
 
     @Override
