@@ -37,12 +37,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/img_notice"
+                    <TextView
+                        android:id="@+id/text_notice"
                         android:layout_width="@dimen/space_30"
                         android:layout_height="@dimen/space_12"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/badge_news" />
+                        android:background="@drawable/round_bg"
+                        android:gravity="center"
+                        android:text="News"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="8dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/info_notice"
@@ -51,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
-                        android:layout_toRightOf="@+id/img_notice"
+                        android:layout_toRightOf="@+id/text_notice"
                         android:fontFamily="sans-serif"
                         android:singleLine="true"
                         android:text=""
