@@ -6,7 +6,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,12 +27,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletChainHolder;
@@ -45,7 +54,7 @@ public class MainSendFragment extends BaseFragment {
     private CardView mNoticeView;
     private ImageView itemKeyStatus;
     private TextView mWalletAddress;
-    private TextView mNoticeContent;
+    private TextView mNoticeInfo;
     private TextView mTotalValue;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -71,7 +80,7 @@ public class MainSendFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_send, container, false);
         mNoticeView = rootView.findViewById(R.id.notice_root);
-        mNoticeContent = rootView.findViewById(R.id.content_notice);
+        mNoticeInfo = rootView.findViewById(R.id.info_notice);
         mCardView = rootView.findViewById(R.id.card_root);
         itemKeyStatus = rootView.findViewById(R.id.img_account);
         mWalletAddress = rootView.findViewById(R.id.wallet_address);
@@ -171,7 +180,7 @@ public class MainSendFragment extends BaseFragment {
         mAccount = getMainActivity().mAccount;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
-        getMainActivity().onNoticeView(mNoticeView, mNoticeContent);
+        onNoticeView();
 
         if (mAccount.hasPrivateKey) {
             itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -182,6 +191,35 @@ public class MainSendFragment extends BaseFragment {
 
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         mMainWalletAdapter.notifyDataSetChanged();
+    }
+
+    private void onNoticeView() {
+        mNoticeView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
+        ApiClient.getMintscan(getContext()).getNotice(WDp.getChainNameByBaseChain(mBaseChain), true).enqueue(new Callback<ResNotice>() {
+            @Override
+            public void onResponse(Call<ResNotice> call, Response<ResNotice> response) {
+                if (response != null && response.body() != null && response.isSuccessful()) {
+                    ResNotice noticeInfo = response.body();
+                    if (noticeInfo.boards.isEmpty()) {
+                        mNoticeView.setVisibility(View.GONE);
+                    } else {
+                        mNoticeView.setVisibility(View.VISIBLE);
+                        mNoticeInfo.setText(noticeInfo.boards.get(0).title);
+
+                        mNoticeView.setOnClickListener(view -> {
+                            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(mBaseChain) + "/" + noticeInfo.boards.get(0).id;
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResNotice> call, Throwable t) {
+                WLog.w("error : " + t.getMessage());
+            }
+        });
     }
 
     public MainActivity getMainActivity() {
