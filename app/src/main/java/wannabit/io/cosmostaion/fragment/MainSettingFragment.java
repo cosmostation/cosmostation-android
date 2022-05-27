@@ -211,7 +211,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnTelegram)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
             startActivity(telegram);
-
+          
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
             startActivity(intent);
