@@ -167,11 +167,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
 
-        } else if (v.equals(mBtnNotice)) {
-            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(getMainActivity().mBaseChain);
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
-
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
 
@@ -194,6 +189,16 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 //            return;
             return;
 
+        } else if (v.equals(mBtnExplore)) {
+            String url = WUtil.getExplorer(getMainActivity().mBaseChain);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+
+        } else if (v.equals(mBtnNotice)) {
+            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(getMainActivity().mBaseChain);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+
         } else if (v.equals(mBtnGuide)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
@@ -206,12 +211,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnTelegram)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
             startActivity(telegram);
-
-        } else if (v.equals(mBtnExplore)) {
-            String url = WUtil.getExplorer(getMainActivity().mBaseChain);
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
-
+          
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
             startActivity(intent);
