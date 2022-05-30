@@ -27,6 +27,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,6 +58,7 @@ public class MainSendFragment extends BaseFragment {
     private CardView mNoticeView;
     private ImageView itemKeyStatus;
     private TextView mWalletAddress;
+    private TextView mNoticeTitle;
     private TextView mNoticeInfo;
     private TextView mTotalValue;
 
@@ -80,6 +85,7 @@ public class MainSendFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_send, container, false);
         mNoticeView = rootView.findViewById(R.id.notice_root);
+        mNoticeTitle = rootView.findViewById(R.id.title_notice);
         mNoticeInfo = rootView.findViewById(R.id.info_notice);
         mCardView = rootView.findViewById(R.id.card_root);
         itemKeyStatus = rootView.findViewById(R.id.img_account);
@@ -204,6 +210,7 @@ public class MainSendFragment extends BaseFragment {
                         mNoticeView.setVisibility(View.GONE);
                     } else {
                         mNoticeView.setVisibility(View.VISIBLE);
+                        mNoticeTitle.setText(StringUtils.capitalize(noticeInfo.boards.get(0).type.toLowerCase(Locale.ROOT)));
                         mNoticeInfo.setText(noticeInfo.boards.get(0).title);
 
                         mNoticeView.setOnClickListener(view -> {
