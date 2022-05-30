@@ -82,6 +82,7 @@ public class ConnectWalletActivity extends BaseActivity {
     public final static int TYPE_COSMOS_WALLET = 2;
 
     public static final String WC_URL_SCHEME_HOST_WC = "wc";
+    public static final String WC_URL_SCHEME_HOST_DAPP = "dapp";
     public static final String WC_URL_SCHEME_COSMOSTATION = "cosmostation";
     public static final String INTENT_KEY_WC_URL = "wcUrl";
     public static final String INTENT_KEY_DAPP_URL = "dappUrl";
@@ -246,7 +247,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     }
                 }
 
-                return true;
+                return false;
             }
         });
     }
@@ -629,6 +630,13 @@ public class ConnectWalletActivity extends BaseActivity {
             }
             mWcURL = intent.getData().getQuery();
             initWalletConnect();
+        } else if (fromScheme(intent) && WC_URL_SCHEME_HOST_DAPP.equals(intent.getData().getHost())) {
+            if (mWebView.getVisibility() != View.VISIBLE) {
+                Toast.makeText(ConnectWalletActivity.this, R.string.str_unknown_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mWebView.loadUrl(intent.getData().getQuery());
         }
     }
 
