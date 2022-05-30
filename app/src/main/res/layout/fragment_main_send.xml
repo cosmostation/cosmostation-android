@@ -4,64 +4,133 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_root"
+
+    <LinearLayout
+        android:id="@+id/card_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
-        <LinearLayout
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/notice_root"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/space_16"
-            android:paddingTop="@dimen/space_12"
-            android:paddingBottom="@dimen/space_12"
-            android:paddingRight="@dimen/space_4">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/img_account"
-                    android:layout_width="@dimen/space_24"
-                    android:layout_height="@dimen/space_24"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/key_off"/>
-                <TextView
-                    android:id="@+id/wallet_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/img_account"
-                    android:layout_marginLeft="@dimen/space_6"
-                    android:layout_centerVertical="true"
-                    style="@style/font_ss_12_white"
-                    android:singleLine="true"
-                    android:text=""/>
-            </RelativeLayout>
-            <TextView
-                android:id="@+id/total_value"
+            android:layout_height="@dimen/space_40"
+            android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginRight="@dimen/space_12"
+            app:cardBackgroundColor="@color/colorTransBg"
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="1.5dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/space_12"
+                android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_2"
-                style="@style/font_ss_21_white"
-                android:singleLine="true"
-                android:text="0.000"
-                android:gravity="center_horizontal"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:paddingLeft="@dimen/space_16"
+                android:paddingTop="@dimen/space_6"
+                android:paddingRight="@dimen/space_6"
+                android:paddingBottom="@dimen/space_6">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/title_notice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/round_bg"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/space_4"
+                        android:paddingVertical="@dimen/space_2"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="8sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif"/>
+
+                    <TextView
+                        android:id="@+id/info_notice"
+                        style="@style/font_ss_12_white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:layout_toRightOf="@+id/title_notice"
+                        android:fontFamily="sans-serif"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textSize="10sp"
+
+                        android:textStyle="normal" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginRight="@dimen/space_12"
+            app:cardBackgroundColor="@color/colorTransBg"
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="1.5dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/space_16"
+                android:paddingTop="@dimen/space_12"
+                android:paddingRight="@dimen/space_4"
+                android:paddingBottom="@dimen/space_12">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_account"
+                        android:layout_width="@dimen/space_24"
+                        android:layout_height="@dimen/space_24"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/key_off" />
+
+                    <TextView
+                        android:id="@+id/wallet_address"
+                        style="@style/font_ss_12_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:layout_toRightOf="@+id/img_account"
+                        android:singleLine="true"
+                        android:text="" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/total_value"
+                    style="@style/font_ss_21_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:gravity="center_horizontal"
+                    android:paddingRight="@dimen/space_12"
+                    android:singleLine="true"
+                    android:text="0.000" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/card_root"
-        android:layout_marginTop="@dimen/space_2">
+        android:layout_below="@+id/card_body">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"

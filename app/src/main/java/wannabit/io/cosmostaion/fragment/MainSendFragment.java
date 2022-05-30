@@ -6,7 +6,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,12 +27,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletChainHolder;
@@ -41,17 +54,20 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPriceHolder;
 
 public class MainSendFragment extends BaseFragment {
-    private CardView                        mCardView;
-    private ImageView                       itemKeyStatus;
-    private TextView                        mWalletAddress;
-    private TextView                        mTotalValue;
+    private CardView mCardView;
+    private CardView mNoticeView;
+    private ImageView itemKeyStatus;
+    private TextView mWalletAddress;
+    private TextView mNoticeTitle;
+    private TextView mNoticeInfo;
+    private TextView mTotalValue;
 
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
-    private MainWalletAdapter               mMainWalletAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private MainWalletAdapter mMainWalletAdapter;
 
-    private Account                         mAccount;
-    private BaseChain                       mBaseChain;
+    private Account mAccount;
+    private BaseChain mBaseChain;
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -67,13 +83,16 @@ public class MainSendFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView           = inflater.inflate(R.layout.fragment_main_send, container, false);
-        mCardView               = rootView.findViewById(R.id.card_root);
-        itemKeyStatus           = rootView.findViewById(R.id.img_account);
-        mWalletAddress          = rootView.findViewById(R.id.wallet_address);
-        mTotalValue             = rootView.findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
+        View rootView = inflater.inflate(R.layout.fragment_main_send, container, false);
+        mNoticeView = rootView.findViewById(R.id.notice_root);
+        mNoticeTitle = rootView.findViewById(R.id.title_notice);
+        mNoticeInfo = rootView.findViewById(R.id.info_notice);
+        mCardView = rootView.findViewById(R.id.card_root);
+        itemKeyStatus = rootView.findViewById(R.id.img_account);
+        mWalletAddress = rootView.findViewById(R.id.wallet_address);
+        mTotalValue = rootView.findViewById(R.id.total_value);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
 
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +118,7 @@ public class MainSendFragment extends BaseFragment {
                     if (getMainActivity().mFloatBtn.isShown()) {
                         getMainActivity().mFloatBtn.hide();
                     }
-                }
-                else if (dy < 0) {
+                } else if (dy < 0) {
                     if (!getMainActivity().mFloatBtn.isShown()) {
                         getMainActivity().mFloatBtn.show();
                     }
@@ -132,11 +150,11 @@ public class MainSendFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_accounts :
+        switch (item.getItemId()) {
+            case R.id.menu_accounts:
                 getMainActivity().onClickSwitchWallet();
                 break;
-            case R.id.menu_explorer :
+            case R.id.menu_explorer:
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
@@ -169,6 +187,8 @@ public class MainSendFragment extends BaseFragment {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
+        onNoticeView();
+
         if (mAccount.hasPrivateKey) {
             itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
@@ -179,21 +199,51 @@ public class MainSendFragment extends BaseFragment {
         mMainWalletAdapter.notifyDataSetChanged();
     }
 
+    private void onNoticeView() {
+        mNoticeView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
+        ApiClient.getMintscan(getContext()).getNotice(WDp.getChainNameByBaseChain(mBaseChain), true).enqueue(new Callback<ResNotice>() {
+            @Override
+            public void onResponse(Call<ResNotice> call, Response<ResNotice> response) {
+                if (response != null && response.body() != null && response.isSuccessful()) {
+                    ResNotice noticeInfo = response.body();
+                    if (noticeInfo.boards.isEmpty()) {
+                        mNoticeView.setVisibility(View.GONE);
+                    } else {
+                        mNoticeView.setVisibility(View.VISIBLE);
+                        mNoticeTitle.setText(StringUtils.capitalize(noticeInfo.boards.get(0).type.toLowerCase(Locale.ROOT)));
+                        mNoticeInfo.setText(noticeInfo.boards.get(0).title);
+
+                        mNoticeView.setOnClickListener(view -> {
+                            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(mBaseChain) + "/" + noticeInfo.boards.get(0).id;
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResNotice> call, Throwable t) {
+                WLog.w("error : " + t.getMessage());
+            }
+        });
+    }
+
 
     public MainActivity getMainActivity() {
-        return (MainActivity)getBaseActivity();
+        return (MainActivity) getBaseActivity();
     }
 
     private class MainWalletAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_WALLET            = 0;
-        private static final int TYPE_BINANCE           = 1;
-        private static final int TYPE_OKEX              = 2;
+        private static final int TYPE_WALLET = 0;
+        private static final int TYPE_BINANCE = 1;
+        private static final int TYPE_OKEX = 2;
 
-        private static final int TYPE_KAVA_INCENTIVE    = 40;
-        private static final int TYPE_DESMOS_APP        = 50;
-        private static final int TYPE_PRICE             = 80;
-        private static final int TYPE_MINT              = 81;
-        private static final int TYPE_GIUDE             = 82;
+        private static final int TYPE_KAVA_INCENTIVE = 40;
+        private static final int TYPE_DESMOS_APP = 50;
+        private static final int TYPE_PRICE = 80;
+        private static final int TYPE_MINT = 81;
+        private static final int TYPE_GIUDE = 82;
 
         @NonNull
         @Override
@@ -206,9 +256,7 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_WALLET) {
                 return new WalletChainHolder(getLayoutInflater().inflate(R.layout.item_wallet_chain, viewGroup, false));
-            }
-
-            else if (viewType == TYPE_PRICE) {
+            } else if (viewType == TYPE_PRICE) {
                 return new WalletPriceHolder(getLayoutInflater().inflate(R.layout.item_wallet_price, viewGroup, false));
 
             } else if (viewType == TYPE_MINT) {
@@ -235,10 +283,12 @@ public class MainSendFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain == null) { return 0; }
+            if (getMainActivity().mBaseChain == null) {
+                return 0;
+            }
             if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
                 return 5;
-            } else if (isGRPC(getMainActivity().mBaseChain )) {
+            } else if (isGRPC(getMainActivity().mBaseChain)) {
                 return 4;
             } else {
                 return 3;
@@ -286,8 +336,11 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                 if (position == 0) {
-                    if (getMainActivity().mBaseChain.equals(BNB_MAIN)) { return TYPE_BINANCE; }
-                    else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) { return TYPE_OKEX; }
+                    if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
+                        return TYPE_BINANCE;
+                    } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+                        return TYPE_OKEX;
+                    }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {

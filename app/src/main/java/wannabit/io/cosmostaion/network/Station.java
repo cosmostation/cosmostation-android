@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Price;
@@ -18,6 +19,7 @@ import wannabit.io.cosmostaion.network.res.ResCw20Assets;
 import wannabit.io.cosmostaion.network.res.ResIbcPaths;
 import wannabit.io.cosmostaion.network.res.ResIbcTokens;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
+import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 
 public interface Station {
@@ -45,6 +47,9 @@ public interface Station {
 
     @GET("/v1/assets/cw20")
     Call<ResCw20Assets> getCw20Assets();
+
+    @GET("v1/boards")
+    Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
 
     //desmos airdrop
     @POST("airdrop/grants")
