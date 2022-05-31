@@ -85,7 +85,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
         } else if (v.equals(mNext)) {
             mUserInput = mInput.getText().toString().trim();
-            onShowCosmosSelect(mUserInput);
             ArrayList<BaseChain> chains = WDp.getChainsFromAddress(mUserInput);
             if (chains != null) {
                 if (getBaseDao().onSelectAccountsByChain(chains.get(0)).size() >= 5) {
