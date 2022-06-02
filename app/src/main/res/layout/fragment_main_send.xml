@@ -40,16 +40,15 @@
                     <TextView
                         android:id="@+id/title_notice"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/space_14"
                         android:layout_centerVertical="true"
                         android:background="@drawable/round_bg"
+                        android:fontFamily="sans-serif"
                         android:gravity="center"
-                        android:paddingHorizontal="@dimen/space_4"
-                        android:paddingVertical="@dimen/space_2"
+                        android:paddingHorizontal="@dimen/space_6"
                         android:textColor="@color/colorWhite"
                         android:textSize="8sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/info_notice"
