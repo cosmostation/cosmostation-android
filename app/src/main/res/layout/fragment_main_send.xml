@@ -43,13 +43,12 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:background="@drawable/round_bg"
-                        android:gravity="center"
+                        android:fontFamily="sans-serif"
                         android:paddingHorizontal="@dimen/space_4"
                         android:paddingVertical="@dimen/space_2"
                         android:textColor="@color/colorWhite"
                         android:textSize="8sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/info_notice"

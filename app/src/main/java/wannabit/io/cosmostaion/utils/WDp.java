@@ -581,21 +581,22 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        }  else if (chain.equals(NYX_MAIN)) {
+            if (symbol.equals(TOKEN_NYX)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (symbol.equals(TOKEN_NYM)) {
+                denomTv.setText(R.string.str_nym_c);
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorNym));
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         } else if (chain.equals(STATION_TEST)) {
             if (symbol.equals(TOKEN_STATION)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-            } else if (chain.equals(NYX_MAIN)) {
-                if (symbol.equals(TOKEN_NYX)) {
-                    DpMainDenom(c, chain.getChain(), denomTv);
-                } else if (symbol.equals(TOKEN_NYM)) {
-                    denomTv.setText(R.string.str_nym_c);
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorNym));
-                } else {
-                    denomTv.setText(symbol.toUpperCase());
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                }
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
             } else if (chain.equals(COSMOS_TEST)) {
                 if (symbol.equals(TOKEN_COSMOS_TEST)) {
                     DpMainDenom(c, chain.getChain(), denomTv);
