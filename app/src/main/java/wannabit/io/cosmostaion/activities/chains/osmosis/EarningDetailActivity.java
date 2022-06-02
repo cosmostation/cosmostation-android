@@ -214,7 +214,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         PaddedVerticalButtonAlertDialog.showTripleButton(this, "Unbonding Duration", null,
                 "1 Day", view -> onStartNewEarning(864001),
                 "7 Day", view -> onStartNewEarning(604800),
-                "14Day", view -> onStartNewEarning(12096001));
+                "14Day", view -> onStartNewEarning(1209600));
     }
 
     public void onStartNewEarning(long unbondingDuration) {
