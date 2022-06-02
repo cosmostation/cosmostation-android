@@ -103,7 +103,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.ChainParam;
@@ -114,7 +113,6 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
@@ -581,49 +579,50 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(NYX_MAIN)) {
+            if (symbol.equals(TOKEN_NYX)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (symbol.equals(TOKEN_NYM)) {
+                denomTv.setText(R.string.str_nym_c);
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorNym));
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         } else if (chain.equals(STATION_TEST)) {
             if (symbol.equals(TOKEN_STATION)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-            } else if (chain.equals(NYX_MAIN)) {
-                if (symbol.equals(TOKEN_NYX)) {
-                    DpMainDenom(c, chain.getChain(), denomTv);
-                } else if (symbol.equals(TOKEN_NYM)) {
-                    denomTv.setText(R.string.str_nym_c);
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorNym));
-                } else {
-                    denomTv.setText(symbol.toUpperCase());
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                }
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-            } else if (chain.equals(COSMOS_TEST)) {
-                if (symbol.equals(TOKEN_COSMOS_TEST)) {
-                    DpMainDenom(c, chain.getChain(), denomTv);
-                } else {
-                    denomTv.setText(symbol.toUpperCase());
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                }
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-            } else if (chain.equals(IRIS_TEST)) {
-                if (symbol.equals(TOKEN_IRIS_TEST)) {
-                    DpMainDenom(c, chain.getChain(), denomTv);
-                } else {
-                    denomTv.setText(symbol.toUpperCase());
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                }
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-            } else if (chain.equals(CRESCENT_TEST)) {
-                if (symbol.equals(TOKEN_CRESCENT_TEST)) {
-                    DpMainDenom(c, chain.getChain(), denomTv);
-                } else {
-                    denomTv.setText(symbol.toUpperCase());
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                }
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
             }
+
+        } else if (chain.equals(COSMOS_TEST)) {
+            if (symbol.equals(TOKEN_COSMOS_TEST)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(IRIS_TEST)) {
+            if (symbol.equals(TOKEN_IRIS_TEST)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(CRESCENT_TEST)) {
+            if (symbol.equals(TOKEN_CRESCENT_TEST)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
     }
 
