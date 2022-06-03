@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.ConnectWalletActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
@@ -30,6 +29,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class Dialog_WC_Account extends DialogFragment {
 
     private RecyclerView mRecyclerView;
+    private TextView mDialogTitle;
     private AccountListAdapter mAccountListAdapter;
 
     private ArrayList<Account> mAccounts = new ArrayList<>();
@@ -50,7 +50,9 @@ public class Dialog_WC_Account extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_htlc_receivable_accouts, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView = view.findViewById(R.id.recycler);
         mAccounts = getSActivity().getBaseDao().onSelectAllAccountsByChainWithKey(WDp.getChainTypeByChainId(getArguments().getString("chainName")));
         id = getArguments().getLong("id");

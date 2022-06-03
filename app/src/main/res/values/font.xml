@@ -647,6 +647,18 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_ss_14_station" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorStation</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_ss_14_nyx" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorNyx</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
     <style name="font_ss_14_hdac" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorHdac</item>

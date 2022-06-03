@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.common.collect.Lists;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import irismod.nft.Nft;
 import irismod.nft.QueryOuterClass;
@@ -38,18 +41,18 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
-public class NFTokenDetailActivity extends BaseActivity implements View.OnClickListener{
+public class NFTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar             mToolbar;
-    private ImageView           mNftImg;
-    private RelativeLayout      mBtnIbcSend, mBtnSend;
+    private Toolbar mToolbar;
+    private ImageView mNftImg;
+    private RelativeLayout mBtnIbcSend, mBtnSend;
 
-    private RecyclerView        mRecyclerView;
-    private NFTDetailAdapter    mAdapter;
+    private RecyclerView mRecyclerView;
+    private NFTDetailAdapter mAdapter;
 
-    private Nft.BaseNFT                      myIrisNftInfo;
+    private Nft.BaseNFT myIrisNftInfo;
     private QueryOuterClass.QueryNFTResponse mIrisResponse;
-    private chainmain.nft.v1.Nft.BaseNFT     myCryptoNftInfo;
+    private chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo;
 
     private String mDenomId;
     private String mTokenId;
@@ -58,11 +61,11 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail_nft);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mNftImg                 = findViewById(R.id.nft_img);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
-        mBtnSend                = findViewById(R.id.btn_send);
+        mToolbar = findViewById(R.id.tool_bar);
+        mNftImg = findViewById(R.id.nft_img);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
+        mBtnSend = findViewById(R.id.btn_send);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -116,7 +119,8 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
                         placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(mNftImg);
             }
 
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -133,7 +137,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             } else {
@@ -144,18 +148,25 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
 
             } else {
                 Intent intent = new Intent(getBaseContext(), NFTSendActivity.class);
-                BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SEND_NFT, 0);
-                if (mainAvailable.compareTo(feeAmount) < 0) {
+
+                List<String> availableFeeDenomList = Lists.newArrayList();
+                for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                    if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                        availableFeeDenomList.add(denom);
+                    }
+                }
+                if (availableFeeDenomList.isEmpty()) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 intent.putExtra("mDenomId", mDenomId);
                 intent.putExtra("mTokenId", mTokenId);
                 intent.putExtra("mIrisResponse", mIrisResponse);
@@ -165,8 +176,8 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private class NFTDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_INFO                  = 1;
-        private static final int TYPE_RAW                   = 2;
+        private static final int TYPE_INFO = 1;
+        private static final int TYPE_RAW = 2;
 
         @NonNull
         @Override
@@ -184,7 +195,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
             if (getItemViewType(position) == TYPE_INFO) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
                 holder.onBindNftInfo(NFTokenDetailActivity.this, mBaseChain, mIrisResponse, myCryptoNftInfo, mDenomId, mTokenId);
-            } else if (getItemViewType(position) == TYPE_RAW){
+            } else if (getItemViewType(position) == TYPE_RAW) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
                 holder.onBindNftRawData(NFTokenDetailActivity.this, mBaseChain, mIrisResponse, myCryptoNftInfo);
             }

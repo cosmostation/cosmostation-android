@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,9 +24,10 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_Starname_Domain extends DialogFragment {
 
-    private RecyclerView        mRecyclerView;
-    private DomainListAdapter   mDomainListAdapter;
-    private ArrayList<String>   mStarnameDomain = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private TextView mDialogTitle;
+    private DomainListAdapter mDomainListAdapter;
+    private ArrayList<String> mStarnameDomain = new ArrayList<>();
 
     public static Dialog_Starname_Domain newInstance(Bundle bundle) {
         Dialog_Starname_Domain frag = new Dialog_Starname_Domain();
@@ -43,7 +43,9 @@ public class Dialog_Starname_Domain extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_domain, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setText(R.string.str_select_starname_domain);
         mRecyclerView = view.findViewById(R.id.recycler);
         mStarnameDomain = getArguments().getStringArrayList("domain");
 
@@ -87,17 +89,18 @@ public class Dialog_Starname_Domain extends DialogFragment {
         public class DomainListHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
             TextView domainName;
+
             public DomainListHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer   = itemView.findViewById(R.id.rootLayer);
-                domainName   = itemView.findViewById(R.id.domainName);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                domainName = itemView.findViewById(R.id.domainName);
             }
         }
 
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 
 }

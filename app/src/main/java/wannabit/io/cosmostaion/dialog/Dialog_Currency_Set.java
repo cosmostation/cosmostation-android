@@ -10,12 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import wannabit.io.cosmostaion.R;
 
 public class Dialog_Currency_Set extends DialogFragment {
+
+    private RecyclerView mRecyclerView;
+    private TextView mDialogTitle;
+    private CurrencySetAdapter mCurrencySetAdapter;
 
     public static Dialog_Currency_Set newInstance(Bundle bundle) {
         Dialog_Currency_Set frag = new Dialog_Currency_Set();
@@ -29,218 +37,65 @@ public class Dialog_Currency_Set extends DialogFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_currency_set, null);
-
-        LinearLayout usd_layer = view.findViewById(R.id.usd_layer);
-        LinearLayout eur_layer = view.findViewById(R.id.eur_layer);
-        LinearLayout krw_layer = view.findViewById(R.id.krw_layer);
-        LinearLayout jpy_layer = view.findViewById(R.id.jpy_layer);
-        LinearLayout cny_layer = view.findViewById(R.id.cny_layer);
-        LinearLayout rub_layer = view.findViewById(R.id.rub_layer);
-        LinearLayout gbp_layer = view.findViewById(R.id.gbp_layer);
-        LinearLayout inr_layer = view.findViewById(R.id.inr_layer);
-        LinearLayout brl_layer = view.findViewById(R.id.brl_layer);
-        LinearLayout idr_layer = view.findViewById(R.id.idr_layer);
-        LinearLayout dkk_layer = view.findViewById(R.id.dkk_layer);
-        LinearLayout nok_layer = view.findViewById(R.id.nok_layer);
-        LinearLayout sek_layer = view.findViewById(R.id.sek_layer);
-        LinearLayout chf_layer = view.findViewById(R.id.chf_layer);
-        LinearLayout aud_layer = view.findViewById(R.id.aud_layer);
-        LinearLayout cad_layer = view.findViewById(R.id.cad_layer);
-        LinearLayout myr_layer = view.findViewById(R.id.myr_layer);
-
-        usd_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 0);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        eur_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 1);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        krw_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 2);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-            }
-        });
-
-        jpy_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 3);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        cny_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 4);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        rub_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 5);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        gbp_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 6);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        inr_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 7);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        brl_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 8);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        idr_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 9);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        dkk_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 10);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        nok_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 11);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        sek_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 12);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        chf_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 13);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        aud_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 14);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        cad_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 15);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
-
-        myr_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", 16);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
-
-            }
-        });
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_choice, null);
+        mRecyclerView = view.findViewById(R.id.recycler);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setVisibility(View.GONE);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mCurrencySetAdapter = new CurrencySetAdapter();
+        mRecyclerView.setAdapter(mCurrencySetAdapter);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
     }
 
+    private class CurrencySetAdapter extends RecyclerView.Adapter<CurrencySetAdapter.CurrencyHolder> {
+
+        @NonNull
+        @Override
+        public CurrencySetAdapter.CurrencyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new CurrencySetAdapter.CurrencyHolder(getLayoutInflater().inflate(R.layout.item_dialog_currency_set, viewGroup, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull CurrencySetAdapter.CurrencyHolder holder, int position) {
+            String[] mSymbolList = getResources().getStringArray(R.array.currency_symbol_array);
+            String[] mUnitList = getResources().getStringArray(R.array.currency_unit_array);
+
+            holder.currencyImg.setText(mSymbolList[position]);
+            holder.currencyName.setText(mUnitList[position]);
+            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("currency", position);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return getResources().getStringArray(R.array.currency_symbol_array).length;
+        }
+
+        public class CurrencyHolder extends RecyclerView.ViewHolder {
+            LinearLayout rootLayer;
+            TextView currencyImg;
+            TextView currencyName;
+
+            public CurrencyHolder(@NonNull View itemView) {
+                super(itemView);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                currencyImg = itemView.findViewById(R.id.currencyImg);
+                currencyName = itemView.findViewById(R.id.currencyName);
+            }
+        }
+
+    }
 }

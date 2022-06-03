@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +41,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Pool_Gravity_Dex;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravityPoolListFragment;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravitySwapFragment;
 import wannabit.io.cosmostaion.model.GDexManager;
@@ -56,16 +57,16 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class GravityListActivity extends BaseActivity {
 
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ViewPager                   mLabPager;
-    private TabLayout                   mLabTapLayer;
-    private CosmosGravityPageAdapter    mPageAdapter;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ViewPager mLabPager;
+    private TabLayout mLabTapLayer;
+    private CosmosGravityPageAdapter mPageAdapter;
 
-    public ArrayList<Liquidity.Pool>                        mPoolList = new ArrayList<>();
-    public ArrayList<String>                                mAllDenoms = new ArrayList<>();
-    public ArrayList<Liquidity.Pool>                        mPoolMyList = new ArrayList<>();
-    public ArrayList<Liquidity.Pool>                        mPoolOtherList = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mPoolList = new ArrayList<>();
+    public ArrayList<String> mAllDenoms = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mPoolMyList = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mPoolOtherList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +107,13 @@ public class GravityListActivity extends BaseActivity {
 
         mLabPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
+
             @Override
             public void onPageSelected(int i) {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
@@ -133,7 +138,7 @@ public class GravityListActivity extends BaseActivity {
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, Liquidity.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -154,25 +159,24 @@ public class GravityListActivity extends BaseActivity {
 
     public void onClickMyPool(long poolId) {
         WLog.w("onClickMyPool " + poolId);
-        Bundle bundle = new Bundle();
-        bundle.putLong("poolId", poolId);
-        Dialog_Pool_Gravity_Dex bottomSheetDialog = Dialog_Pool_Gravity_Dex.getInstance();
-        bottomSheetDialog.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
-
+        PaddedVerticalButtonAlertDialog.showDoubleButton(this, null, null,
+                getString(R.string.str_title_pool_join), view -> onCheckStartDepositPool(poolId),
+                getString(R.string.str_title_pool_exit), view -> onCheckStartWithdrawPool(poolId));
     }
 
     public void onCheckStartDepositPool(long poolId) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
 
         Liquidity.Pool tempPool = null;
-        for (Liquidity.Pool pool: mPoolList) {
-            if (pool.getId() == poolId) { tempPool = pool; }
+        for (Liquidity.Pool pool : mPoolList) {
+            if (pool.getId() == poolId) {
+                tempPool = pool;
+            }
         }
         String coin0denom = tempPool.getReserveCoinDenoms(0);
         String coin1Denom = tempPool.getReserveCoinDenoms(1);
@@ -181,9 +185,11 @@ public class GravityListActivity extends BaseActivity {
         BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
         BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
 
-        if (coin1Denom.equalsIgnoreCase(TOKEN_ATOM)) { coin1Available = coin1Available.subtract(feeAmount); }
+        if (coin1Denom.equalsIgnoreCase(TOKEN_ATOM)) {
+            coin1Available = coin1Available.subtract(feeAmount);
+        }
 
-        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <=0 ) {
+        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(GravityListActivity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -197,7 +203,7 @@ public class GravityListActivity extends BaseActivity {
         WLog.w("onCheckStartExitPool " + poolId);
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -217,7 +223,7 @@ public class GravityListActivity extends BaseActivity {
 
     public void onFetchPoolListInfo() {
         mTaskCount = 3;
-        mPoolList .clear();
+        mPoolList.clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
         getBaseDao().mGDexPoolTokens.clear();
@@ -239,7 +245,7 @@ public class GravityListActivity extends BaseActivity {
                 }
             }
             mTaskCount = mTaskCount + 1;
-            for (Liquidity.Pool pool: mPoolList ) {
+            for (Liquidity.Pool pool : mPoolList) {
                 new GravityDexManagerGrpcTask(getBaseApplication(), this, mBaseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                 if (getBaseDao().getAvailable(pool.getPoolCoinDenom()) != BigDecimal.ZERO) {
@@ -262,7 +268,7 @@ public class GravityListActivity extends BaseActivity {
         } else if (result.taskType == TASK_GRPC_FETCH_TOTAL_SUPPLY) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<CoinOuterClass.Coin> supplys = (ArrayList<CoinOuterClass.Coin>) result.resultData;
-                for (CoinOuterClass.Coin coin: supplys) {
+                for (CoinOuterClass.Coin coin : supplys) {
                     if (coin.getDenom().startsWith("pool")) {
                         getBaseDao().mGDexPoolTokens.add((new Coin(coin.getDenom(), coin.getAmount())));
                     }
@@ -271,8 +277,8 @@ public class GravityListActivity extends BaseActivity {
         }
         if (mTaskCount == 0) {
             mAllDenoms.add(TOKEN_ATOM);
-            for (Liquidity.Pool pool: mPoolList ) {
-                for (String denom: pool.getReserveCoinDenomsList()) {
+            for (Liquidity.Pool pool : mPoolList) {
+                for (String denom : pool.getReserveCoinDenomsList()) {
                     if (!mAllDenoms.contains(denom)) {
                         mAllDenoms.add(denom);
                     }
@@ -289,7 +295,7 @@ public class GravityListActivity extends BaseActivity {
     }
 
     public GDexManager getGDexManager(String address) {
-        for (GDexManager gDexManager: getBaseDao().mGDexManager) {
+        for (GDexManager gDexManager : getBaseDao().mGDexManager) {
             if (gDexManager.address.equalsIgnoreCase(address)) {
                 return gDexManager;
             }
@@ -297,10 +303,10 @@ public class GravityListActivity extends BaseActivity {
         return null;
     }
 
-    public BigDecimal getLpAmount (String address, String denom) {
+    public BigDecimal getLpAmount(String address, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         if (getGDexManager(address) != null) {
-            for (Coin coin: getGDexManager(address).reserve) {
+            for (Coin coin : getGDexManager(address).reserve) {
                 if (coin.denom.equalsIgnoreCase(denom)) {
                     result = new BigDecimal(coin.amount);
                 }
@@ -334,7 +340,7 @@ public class GravityListActivity extends BaseActivity {
     public BigDecimal getGdexLpTokenPerUsdPrice(Liquidity.Pool pool) {
         BigDecimal poolValue = getGdexPoolValue(pool);
         BigDecimal totalShare = BigDecimal.ZERO;
-        for (Coin coin: getBaseDao().mGDexPoolTokens) {
+        for (Coin coin : getBaseDao().mGDexPoolTokens) {
             if (coin.denom.equalsIgnoreCase(pool.getPoolCoinDenom())) {
                 totalShare = new BigDecimal(coin.amount);
             }
@@ -346,7 +352,7 @@ public class GravityListActivity extends BaseActivity {
         BigDecimal result = BigDecimal.ZERO;
         BigDecimal myShare = getBaseDao().getAvailable(pool.getPoolCoinDenom());
         BigDecimal totalShare = BigDecimal.ZERO;
-        for (Coin coin: getBaseDao().mGDexPoolTokens) {
+        for (Coin coin : getBaseDao().mGDexPoolTokens) {
             if (coin.denom.equalsIgnoreCase(pool.getPoolCoinDenom())) {
                 totalShare = new BigDecimal(coin.amount);
             }

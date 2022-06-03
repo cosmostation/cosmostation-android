@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Pool_Sif_Dex;
+import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexEthPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexIbcPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexSwapFragment;
@@ -48,21 +49,21 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SifDexListActivity extends BaseActivity {
 
-    private Toolbar                     mToolbar;
-    private ViewPager                   mLabPager;
-    private TabLayout                   mLabTapLayer;
-    private SifDexPageAdapter           mPageAdapter;
+    private Toolbar mToolbar;
+    private ViewPager mLabPager;
+    private TabLayout mLabTapLayer;
+    private SifDexPageAdapter mPageAdapter;
 
-    public ArrayList<Types.Pool>                    mPoolList = new ArrayList<>();
-    public ArrayList<String>                        mAllDenoms = new ArrayList<>();
-    public ArrayList<Types.Asset>                   mPoolMyAsset = new ArrayList<>();
-    public ArrayList<String>                        mMyEthAssets = new ArrayList<>();
-    public ArrayList<String>                        mMyIbcAssets = new ArrayList<>();
+    public ArrayList<Types.Pool> mPoolList = new ArrayList<>();
+    public ArrayList<String> mAllDenoms = new ArrayList<>();
+    public ArrayList<Types.Asset> mPoolMyAsset = new ArrayList<>();
+    public ArrayList<String> mMyEthAssets = new ArrayList<>();
+    public ArrayList<String> mMyIbcAssets = new ArrayList<>();
 
-    public ArrayList<Types.Pool>                                mMyEthPools = new ArrayList<>();
-    public ArrayList<Types.Pool>                                mOtherEthPools = new ArrayList<>();
-    public ArrayList<Types.Pool>                                mMyIbcPools = new ArrayList<>();
-    public ArrayList<Types.Pool>                                mOtherIbcPools = new ArrayList<>();
+    public ArrayList<Types.Pool> mMyEthPools = new ArrayList<>();
+    public ArrayList<Types.Pool> mOtherEthPools = new ArrayList<>();
+    public ArrayList<Types.Pool> mMyIbcPools = new ArrayList<>();
+    public ArrayList<Types.Pool> mOtherIbcPools = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,9 +108,13 @@ public class SifDexListActivity extends BaseActivity {
 
         mLabPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
+
             @Override
             public void onPageSelected(int i) {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
@@ -122,7 +127,7 @@ public class SifDexListActivity extends BaseActivity {
     public void onStartSwap(String inCoinDenom, String outCoinDenom, Types.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -135,7 +140,7 @@ public class SifDexListActivity extends BaseActivity {
         }
 
         BigDecimal inputBalance = getBaseDao().getAvailable(inCoinDenom);
-        if (BigDecimal.ZERO.compareTo(inputBalance) >= 0 ) {
+        if (BigDecimal.ZERO.compareTo(inputBalance) >= 0) {
             Toast.makeText(this, R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -151,16 +156,15 @@ public class SifDexListActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("pool", pool);
         bundle.putSerializable("myProvider", myProvider);
-        Dialog_Pool_Sif_Dex bottomSheetDialog = Dialog_Pool_Sif_Dex.getInstance();
-        bottomSheetDialog.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
-
+        PaddedVerticalButtonAlertDialog.showDoubleButton(this, null, null,
+                getString(R.string.str_title_pool_join), view -> onCheckStartDepositPool(pool),
+                getString(R.string.str_title_pool_exit), view -> onCheckStartWithdrawPool(pool, myProvider));
     }
 
     public void onCheckStartDepositPool(Types.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -171,7 +175,7 @@ public class SifDexListActivity extends BaseActivity {
         rowanAvailable = rowanAvailable.subtract(feeAmount);
         BigDecimal externalAvailable = getBaseDao().getAvailable(externalDenom);
 
-        if (rowanAvailable.compareTo(BigDecimal.ZERO) <= 0 || externalAvailable.compareTo(BigDecimal.ZERO) <=0 ) {
+        if (rowanAvailable.compareTo(BigDecimal.ZERO) <= 0 || externalAvailable.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -184,7 +188,7 @@ public class SifDexListActivity extends BaseActivity {
     public void onCheckStartWithdrawPool(Types.Pool pool, Querier.LiquidityProviderRes myProvider) {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -236,14 +240,14 @@ public class SifDexListActivity extends BaseActivity {
                 final ArrayList<Types.Pool> tempPoolList = (ArrayList<Types.Pool>) result.resultData;
                 for (Types.Pool pool : tempPoolList) {
                     if (!pool.getExternalAsset().getSymbol().equalsIgnoreCase("ccro"))
-                    mPoolList.add(pool);
+                        mPoolList.add(pool);
                 }
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST) {
             if (result.isSuccess && result.resultData != null) {
                 mPoolMyAsset = (ArrayList<Types.Asset>) result.resultData;
-                for (Types.Asset asset: mPoolMyAsset) {
+                for (Types.Asset asset : mPoolMyAsset) {
                     if (!asset.getSymbol().startsWith("ibc/")) {
                         mMyEthAssets.add(asset.getSymbol());
                     } else {
@@ -255,7 +259,7 @@ public class SifDexListActivity extends BaseActivity {
         }
         if (mTaskCount == 0) {
             mAllDenoms.add(TOKEN_SIF);
-            for (Types.Pool pool: mPoolList ) {
+            for (Types.Pool pool : mPoolList) {
                 if (!mAllDenoms.contains(pool.getExternalAsset().getSymbol())) {
                     mAllDenoms.add(pool.getExternalAsset().getSymbol());
                 }

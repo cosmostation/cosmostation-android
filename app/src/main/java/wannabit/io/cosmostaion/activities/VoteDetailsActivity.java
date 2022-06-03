@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.common.collect.Lists;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
@@ -47,39 +51,39 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class VoteDetailsActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar             mToolbar;
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private RelativeLayout      mLoadingLayer;
-    private Button              mVoteBtn;
+    private Toolbar mToolbar;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private RelativeLayout mLoadingLayer;
+    private Button mVoteBtn;
 
-    private VoteDetailsAdapter  mVoteDetailsAdapter;
+    private VoteDetailsAdapter mVoteDetailsAdapter;
 
-    private String              mChain;
-    private String              mProposalId;
+    private String mChain;
+    private String mProposalId;
 
     // proposal api
-    private ResProposal         mApiProposal;
+    private ResProposal mApiProposal;
     //gRPC
-    private Gov.Vote            mMyVote_gRPC;
+    private Gov.Vote mMyVote_gRPC;
     //Certik
-    private ResMyProposal       mResMyProposal;
+    private ResMyProposal mResMyProposal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote_details);
-        mToolbar            = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.tool_bar);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
-        mRecyclerView       = findViewById(R.id.recycler);
-        mLoadingLayer       = findViewById(R.id.loadingLayer);
-        mVoteBtn            = findViewById(R.id.btn_action);
+        mRecyclerView = findViewById(R.id.recycler);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
+        mVoteBtn = findViewById(R.id.btn_action);
         mVoteBtn.setOnClickListener(this);
 
-        mProposalId         = getIntent().getStringExtra("proposalId");
-        mAccount            = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain          = BaseChain.getChain(mAccount.baseChain);
-        mChain              = WDp.getChainNameByBaseChain(mBaseChain);
+        mProposalId = getIntent().getStringExtra("proposalId");
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChain = WDp.getChainNameByBaseChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -121,18 +125,15 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
 
-
     @Override
     public void onClick(View v) {
         if (v.equals(mVoteBtn)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }
-            BigDecimal mainDenomAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
 
             if (mApiProposal != null && !mApiProposal.proposal_status.isEmpty() && !mApiProposal.proposal_status.contains("VOTING")) {
                 Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
@@ -143,10 +144,19 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (mainDenomAvailable.compareTo(feeAmount) < 0) {
+
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
+
             Intent intent = new Intent(VoteDetailsActivity.this, VoteActivity.class);
             intent.putExtra("proposalId", mProposalId);
             intent.putExtra("title", "# " + mApiProposal.id + ". " + mApiProposal.title);
@@ -169,7 +179,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 if (mBaseChain.equals(CERTIK_MAIN)) {
                     mResMyProposal = (ResMyProposal) result.resultData;
                 } else {
-                    mMyVote_gRPC = (Gov.Vote)result.resultData;
+                    mMyVote_gRPC = (Gov.Vote) result.resultData;
                 }
             }
 
@@ -182,7 +192,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             onUpdateView();
         }
     }
-
 
 
     private class VoteDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -223,14 +232,14 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         }
 
         private void onBindVoteInfo(RecyclerView.ViewHolder viewHolder) {
-            final VoteInfoHolder holder = (VoteInfoHolder)viewHolder;
+            final VoteInfoHolder holder = (VoteInfoHolder) viewHolder;
             if (mApiProposal != null) {
                 WDp.getProposalStatus(VoteDetailsActivity.this, mApiProposal, holder.itemStatusImg, holder.itemStatusTxt);
                 if (mApiProposal.proposer == null) {
                     holder.itemProposerLayer.setVisibility(View.GONE);
                 } else {
                     holder.itemProposerLayer.setVisibility(View.VISIBLE);
-                    if (mApiProposal.moniker.isEmpty()){
+                    if (mApiProposal.moniker.isEmpty()) {
                         holder.itemProposer.setText(mApiProposal.proposer);
                     } else {
                         holder.itemProposer.setText(mApiProposal.moniker);
@@ -290,7 +299,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         }
 
         private void onBindVoteTally(RecyclerView.ViewHolder viewHolder) {
-            final VoteTallyHolder holder = (VoteTallyHolder)viewHolder;
+            final VoteTallyHolder holder = (VoteTallyHolder) viewHolder;
             if (mApiProposal != null) {
                 holder.itemYesProgress.setProgress(WDp.getYesPer(mApiProposal).intValue());
                 holder.itemNoProgress.setProgress(WDp.getNoPer(mApiProposal).intValue());
@@ -378,14 +387,14 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         }
 
         public class VoteInfoHolder extends RecyclerView.ViewHolder {
-            private ImageView       itemStatusImg;
-            private TextView        itemStatusTxt;
-            private RelativeLayout  itemProposerLayer;
-            private ImageView       itemWebBtn;
-            private TextView        itemProposer, itemTitle, itemType, itemStartTime, itemFinishTime, itemMsg;
-            private ImageView       itemExpendBtn;
-            private RelativeLayout  itemRequestLayer;
-            private TextView        itemRequestAmount, itemRequestAmountDenom;
+            private ImageView itemStatusImg;
+            private TextView itemStatusTxt;
+            private RelativeLayout itemProposerLayer;
+            private ImageView itemWebBtn;
+            private TextView itemProposer, itemTitle, itemType, itemStartTime, itemFinishTime, itemMsg;
+            private ImageView itemExpendBtn;
+            private RelativeLayout itemRequestLayer;
+            private TextView itemRequestAmount, itemRequestAmountDenom;
 
             public VoteInfoHolder(@NonNull View itemView) {
                 super(itemView);

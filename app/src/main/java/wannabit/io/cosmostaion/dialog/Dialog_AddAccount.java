@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
@@ -22,7 +22,7 @@ import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity;
 public class Dialog_AddAccount extends DialogFragment {
 
     private LinearLayout btn_import_key, btn_import_mnemonic, btn_watch_address;
-    private Button       btn_create;
+    private Button btn_create;
 
     public static Dialog_AddAccount newInstance(Bundle bundle) {
         Dialog_AddAccount frag = new Dialog_AddAccount();
@@ -88,7 +88,6 @@ public class Dialog_AddAccount extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);

@@ -145,6 +145,11 @@
     <string name="url_api_mantle" translatable="false">https://api-asset-mantle.cosmostation.io/</string>
 
 
+    <string name="url_api_station" translatable="false">https://api-office.cosmostation.io/station-testnet/</string>
+
+    <string name="url_api_nyx" translatable="false">https://api-nym.cosmostation.io/</string>
+
+
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
     <string name="url_api_rizon" translatable="false">https://api-rizon.cosmostation.io/</string>
@@ -215,6 +220,9 @@
     <string name="str_cre_c" translatable="false">CRE</string>
     <string name="str_bcre_c" translatable="false">BCRE</string>
     <string name="str_mantle_c" translatable="false">MNTL</string>
+    <string name="str_station_c" translatable="false">ISS</string>
+    <string name="str_nym_c" translatable="false">NYM</string>
+    <string name="str_nyx_c" translatable="false">NYX</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -269,6 +277,8 @@
     <string name="str_omniflix_main_net" translatable="false">Omniflix</string>
     <string name="str_crescent_main_net" translatable="false">Crescent</string>
     <string name="str_mantle_main_net" translatable="false">AssetMantle</string>
+    <string name="str_station_test_net" translatable="false">Station</string>
+    <string name="str_nyx_main_net" translatable="false">Nyx</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -529,6 +539,8 @@
     <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
     <string name="str_crescent_net" translatable="false">(Crescent)</string>
     <string name="str_mantle_net" translatable="false">(AssetMantle)</string>
+    <string name="str_station_net" translatable="false">(Station Testnet)</string>
+    <string name="str_nyx_net" translatable="false">(Nyx)</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_crescent_chain_test" translatable="false">(Crescent Testnet)</string>
@@ -584,6 +596,8 @@
     <string name="str_omniflix_main" translatable="false">OMNIFLIX</string>
     <string name="str_crescent_main" translatable="false">CRESCENT</string>
     <string name="str_mantle_main" translatable="false">ASSETMANTLE</string>
+    <string name="str_station_test" translatable="false">STATION TEST</string>
+    <string name="str_nyx_main" translatable="false">NYX</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_crescent_test" translatable="false">CRESCENT TEST</string>
     <string name="str_mintscan">Check Explorer</string>
@@ -694,6 +708,8 @@
     <string name="str_front_guide_title_omniflix"><![CDATA[OMNIFLIX]]></string>
     <string name="str_front_guide_title_crescent"><![CDATA[CRESCENT]]></string>
     <string name="str_front_guide_title_mantle"><![CDATA[ASSETMANTLE]]></string>
+    <string name="str_front_guide_title_station"><![CDATA[STATION]]></string>
+    <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -736,6 +752,8 @@
     <string name="str_front_guide_msg_omniflix"><![CDATA[OmniFlix Network is a blockchain specifically designed for creators and communities, powered by NFTs.]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[Crescent is a Tendermint-based DeFi hub powered by $CRE tokens & Inter-Blockchain Communication protocol.]]></string>
     <string name="str_front_guide_msg_mantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
+    <string name="str_front_guide_msg_station"><![CDATA[Station Test]]></string>
+    <string name="str_front_guide_msg_nyx"><![CDATA[Nyx is a decentralized and incentivized infrastructure providing next generation privacy infrastructure.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1977,6 +1995,8 @@
     <string name="s_omniflix" translatable="false">FLIX</string>
     <string name="s_cre" translatable="false">CRE</string>
     <string name="s_mantle" translatable="false">MNTL</string>
+    <string name="s_station" translatable="false">ISS</string>
+    <string name="s_nyx" translatable="false">NYX</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
@@ -2206,41 +2226,45 @@
     <string name="str_dp_time_format4">MMM d, yyyy</string>
     <string name="str_dp_date_format">MMM d, yyyy</string>
 
-    <string name="currency_usd">USD</string>
-    <string name="currency_eur">EUR</string>
-    <string name="currency_krw">KRW</string>
-    <string name="currency_jpy">JPY</string>
-    <string name="currency_cny">CNY</string>
-    <string name="currency_rub">RUB</string>
-    <string name="currency_gbp">GBP</string>
-    <string name="currency_inr">INR</string>
-    <string name="currency_brl">BRL</string>
-    <string name="currency_idr">IDR</string>
-    <string name="currency_dkk">DKK</string>
-    <string name="currency_nok">NOK</string>
-    <string name="currency_sek">SEK</string>
-    <string name="currency_chf">CHF</string>
-    <string name="currency_aud">AUD</string>
-    <string name="currency_cad">CAD</string>
-    <string name="currency_myr">MYR</string>
+    <string-array name="currency_symbol_array">
+        <item>$</item>
+        <item>€</item>
+        <item>₩</item>
+        <item>¥</item>
+        <item>¥</item>
+        <item>₽</item>
+        <item>£</item>
+        <item>₹</item>
+        <item>R$</item>
+        <item>Rp</item>
+        <item>Kr</item>
+        <item>Kr</item>
+        <item>Kr</item>
+        <item>sFr</item>
+        <item>AU$</item>
+        <item>$</item>
+        <item>RM</item>
+    </string-array>
 
-    <string name="currency_usd_symbol">$</string>
-    <string name="currency_eur_symbol">€</string>
-    <string name="currency_krw_symbol">₩</string>
-    <string name="currency_jpy_symbol">¥</string>
-    <string name="currency_cny_symbol">¥</string>
-    <string name="currency_rub_symbol">₽</string>
-    <string name="currency_gbp_symbol">£</string>
-    <string name="currency_inr_symbol">₹</string>
-    <string name="currency_brl_symbol">R$</string>
-    <string name="currency_idr_symbol">Rp</string>
-    <string name="currency_dkk_symbol">Kr</string>
-    <string name="currency_nok_symbol">Kr</string>
-    <string name="currency_sek_symbol">Kr</string>
-    <string name="currency_chf_symbol">sFr</string>
-    <string name="currency_aud_symbol">AU$</string>
-    <string name="currency_cad_symbol">$</string>
-    <string name="currency_myr_symbol">RM</string>
+    <string-array name="currency_unit_array">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>KRW</item>
+        <item>JPY</item>
+        <item>CNY</item>
+        <item>RUB</item>
+        <item>GBP</item>
+        <item>INR</item>
+        <item>BRL</item>
+        <item>IDR</item>
+        <item>DKK</item>
+        <item>NOK</item>
+        <item>SEK</item>
+        <item>CHF</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>MYR</item>
+    </string-array>
 
     <string-array name="password_number" translatable="false">
         <item>0</item>

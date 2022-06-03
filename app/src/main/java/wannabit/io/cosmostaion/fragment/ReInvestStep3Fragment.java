@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -56,7 +55,6 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
         mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mRewardDenom);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mCurrentDenom);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mExpectedDenom);
 
@@ -71,6 +69,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), mDpDecimal, mDpDecimal));
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), mDpDecimal, mDpDecimal));
+        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeDenom);
         BigDecimal current = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
         BigDecimal expected = current.add(new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN));
         mCurrentAmount.setText(WDp.getDpAmount2(getContext(), current, mDpDecimal, mDpDecimal));
@@ -85,18 +84,8 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            if(onCheckValidateRewardAndFee()) {
-                getSActivity().onStartReInvest();
-            } else {
-                AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_fee_over_title), getString(R.string.str_fee_over_msg), getString(R.string.str_ok), null);
-            }
+            getSActivity().onStartReInvest();
         }
-    }
-
-    private boolean onCheckValidateRewardAndFee() {
-        BigDecimal reward       = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
-        BigDecimal feeAtom      = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        return feeAtom.compareTo(reward) < 0;
     }
 
     private ReInvestActivity getSActivity() {

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24"
+            android:layout_gravity="center"
+            style="@style/font_ss_17_gray8"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/dialog_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_gravity="center"
+            style="@style/font_ss_12_gray1"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/space_12"
+            android:background="@color/colorGray10"/>
+
+        <Button
+            android:id="@+id/btn_one"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/space_45"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/space_24"
+            android:paddingRight="@dimen/space_10"
+            android:background="#00ff0000"
+            android:drawableLeft="@drawable/chain_test_cosmos"
+            style="@style/font_ss_15_gray8"
+            android:text="Button Title"
+            android:textAllCaps="false"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
+
+        <Button
+            android:id="@+id/btn_two"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/space_45"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/space_24"
+            android:paddingRight="@dimen/space_10"
+            android:background="#00ff0000"
+            android:drawableLeft="@drawable/chain_test_cosmos"
+            style="@style/font_ss_15_gray8"
+            android:text="Button Title"
+            android:textAllCaps="false"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
+
+        <Button
+            android:id="@+id/btn_three"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/space_45"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/space_24"
+            android:paddingRight="@dimen/space_10"
+            android:background="#00ff0000"
+            android:drawableLeft="@drawable/chain_test_cosmos"
+            style="@style/font_ss_15_gray8"
+            android:text="Button Title"
+            android:textAllCaps="false"
+            android:visibility="gone"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
+
+        <Button
+            android:id="@+id/btn_four"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/space_45"
+            android:layout_gravity="center"
+            android:drawablePadding="@dimen/space_24"
+            android:paddingRight="@dimen/space_10"
+            android:background="#00ff0000"
+            android:drawableLeft="@drawable/chain_test_cosmos"
+            style="@style/font_ss_15_gray8"
+            android:text="Button Title"
+            android:textAllCaps="false"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

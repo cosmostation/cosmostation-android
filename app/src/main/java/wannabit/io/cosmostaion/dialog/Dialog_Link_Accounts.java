@@ -33,11 +33,12 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_Link_Accounts extends DialogFragment {
 
-    private RecyclerView        mRecyclerView;
-    private AccountListAdapter  mAccountListAdapter;
+    private RecyclerView mRecyclerView;
+    private TextView mDialogTitle;
+    private AccountListAdapter mAccountListAdapter;
 
-    private ArrayList<Account>              mAccounts = new ArrayList<>();
-    private ResAirdropClaimCheck            mCheckClaim;
+    private ArrayList<Account> mAccounts = new ArrayList<>();
+    private ResAirdropClaimCheck mCheckClaim;
 
     public static Dialog_Link_Accounts newInstance(Bundle bundle) {
         Dialog_Link_Accounts frag = new Dialog_Link_Accounts();
@@ -53,7 +54,9 @@ public class Dialog_Link_Accounts extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_link_account, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setText(R.string.str_select_link_account);
         mRecyclerView = view.findViewById(R.id.recycler);
         mAccounts = getSActivity().getBaseDao().onSelectAllAccountsByChainWithKey(BaseChain.getChain(getArguments().getString("chainName")));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -65,7 +68,6 @@ public class Dialog_Link_Accounts extends DialogFragment {
         builder.setView(view);
         return builder.create();
     }
-
 
 
     private class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountHolder> {
@@ -115,20 +117,21 @@ public class Dialog_Link_Accounts extends DialogFragment {
 
 
         public class AccountHolder extends RecyclerView.ViewHolder {
-            RelativeLayout  rootLayer;
-            TextView        accountName, accountAddress, accountAvailable, accountDenom;
+            RelativeLayout rootLayer;
+            TextView accountName, accountAddress, accountAvailable, accountDenom;
+
             public AccountHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer           = itemView.findViewById(R.id.rootLayer);
-                accountName         = itemView.findViewById(R.id.accountName);
-                accountAddress      = itemView.findViewById(R.id.accountAddress);
-                accountAvailable    = itemView.findViewById(R.id.accountAvailable);
-                accountDenom        = itemView.findViewById(R.id.accountDenom);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                accountName = itemView.findViewById(R.id.accountName);
+                accountAddress = itemView.findViewById(R.id.accountAddress);
+                accountAvailable = itemView.findViewById(R.id.accountAvailable);
+                accountDenom = itemView.findViewById(R.id.accountDenom);
             }
         }
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 }

@@ -59,6 +59,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.Html;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -70,6 +71,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.common.collect.Lists;
 import com.google.protobuf2.Any;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -111,9 +113,8 @@ import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
-import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
@@ -171,17 +172,17 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
 
-    protected BaseApplication               mApplication;
-    protected BaseData                      mData;
-    protected Dialog_Wait                   mDialogWait;
-    protected boolean                       mNeedLeaveTime = true;
+    protected BaseApplication mApplication;
+    protected BaseData mData;
+    protected Dialog_Wait mDialogWait;
+    protected boolean mNeedLeaveTime = true;
 
-    public View                             mRootview;
-    public Account                          mAccount;
-    public BaseChain                        mBaseChain;
+    public View mRootview;
+    public Account mAccount;
+    public BaseChain mBaseChain;
 
-    protected int                           mTaskCount;
-    private FetchCallBack                   mFetchCallback;
+    protected int mTaskCount;
+    private FetchCallBack mFetchCallback;
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -191,16 +192,16 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     };
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRootview  = findViewById(android.R.id.content);
+        mRootview = findViewById(android.R.id.content);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity)) {
-            if(getBaseApplication().needShowLockScreen()) {
+            if (getBaseApplication().needShowLockScreen()) {
                 Intent intent = new Intent(BaseActivity.this, AppLockActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
@@ -260,7 +261,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onHideKeyboard() {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         View v = getCurrentFocus();
         if (v == null) {
             v = new View(getBaseContext());
@@ -281,7 +282,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -294,6 +295,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
             startActivity(intent);
 
@@ -320,7 +333,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), null);
             return;
         }
@@ -348,7 +361,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(intent);
     }
 
-    public void onChoiceNet(BaseChain chain) { }
+    public void onChoiceNet(BaseChain chain) {
+    }
 
     public void onChainSelected(BaseChain baseChain) {
         if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
@@ -367,10 +381,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }, 300);
     }
 
-    public void onChoiceStarnameResourceAddress(String address) { }
+    public void onChoiceStarnameResourceAddress(String address) {
+    }
 
     public void onShare(boolean isText, String address) {
-        if(isText) {
+        if (isText) {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_TEXT, address);
@@ -423,22 +438,22 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShareType(String address) {
-        Bundle bundle = new Bundle();
-        bundle.putString("address", address);
-        Dialog_ShareType add = Dialog_ShareType.newInstance(bundle);
-        add.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+        FilledVerticalButtonAlertDialog.showDoubleButton(this, null, null,
+                getString(R.string.str_with_qr), view -> onShare(false, address), getDrawable(R.drawable.cosmos_wh_main),
+                getString(R.string.str_with_text), view -> onShare(true, address), getDrawable(R.drawable.chain_test_cosmos));
     }
 
     public void onDeleteAccount(long id) {
         new PushUpdateTask(getBaseApplication(), null, mAccount, getBaseDao().getFCMToken(), false).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         try {
-            CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount(""+id).uuid);
-        } catch (Exception e) { }
+            CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount("" + id).uuid);
+        } catch (Exception e) {
+        }
         try {
-            CryptoHelper.deleteKey(getString(R.string.key_private) + getBaseDao().onSelectAccount(""+id).uuid);
-        } catch (Exception e) { }
-        getBaseDao().onDeleteAccount(""+id);
+            CryptoHelper.deleteKey(getString(R.string.key_private) + getBaseDao().onSelectAccount("" + id).uuid);
+        } catch (Exception e) {
+        }
+        getBaseDao().onDeleteAccount("" + id);
         getBaseDao().onSelectBalance(id);
 
         if (getBaseDao().onSelectAccounts().size() > 0) {
@@ -457,7 +472,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-        for (BaseChain baseChain: getBaseDao().dpSortedChains()) {
+        for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
             int accountNum = getBaseDao().onSelectAccountsByChain(baseChain).size();
             if (accountNum > 0) {
                 getBaseDao().setLastUser(getBaseDao().onSelectAccountsByChain(baseChain).get(0).id);
@@ -479,12 +494,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         intent.putExtra("sendTokenDenom", denom);
         startActivity(intent);
     }
-
-
-
-
-
-
 
 
     private CardView mPushBody;
@@ -519,7 +528,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
     }
 
-    private void bannerClickListener(String address){
+    private void bannerClickListener(String address) {
         mPushBody.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -538,7 +547,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
         });
     }
-
 
 
     public void onFetchAccountInfo(FetchCallBack callback) {
@@ -578,7 +586,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         //binance
         getBaseDao().mBnbTokens.clear();
         getBaseDao().mBnbTickers.clear();
-
 
 
         //gRPC
@@ -713,10 +720,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     @Override
     public void onTaskResponse(TaskResult result) {
 //        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
             if (result.isSuccess) {
-                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean)result.resultData);
+                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean) result.resultData);
             }
             invalidateOptionsMenu();
             return;
@@ -726,7 +733,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mPrices.clear();
                 ArrayList<Price> tempPrice = new ArrayList<>();
                 tempPrice = (ArrayList<Price>) result.resultData;
-                for (Price price: tempPrice) {
+                for (Price price : tempPrice) {
                     getBaseDao().mPrices.add(price);
                 }
             }
@@ -740,50 +747,50 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
-            getBaseDao().mNodeInfo = (NodeInfo)result.resultData;
+            getBaseDao().mNodeInfo = (NodeInfo) result.resultData;
             mTaskCount = mTaskCount + 1;
             new StationParamInfoTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainId()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == TASK_FETCH_OKEX_ALL_VALIDATORS) {
-            ArrayList<Validator> allValis = (ArrayList<Validator>)result.resultData;
+            ArrayList<Validator> allValis = (ArrayList<Validator>) result.resultData;
             if (allValis != null) {
                 getBaseDao().mAllValidators = allValis;
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_TOKENS) {
-            ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>)result.resultData;
-            if (tempTokens!= null) {
-                for (BnbToken token:tempTokens) {
+            ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>) result.resultData;
+            if (tempTokens != null) {
+                for (BnbToken token : tempTokens) {
                     token.type = BnbToken.BNB_TOKEN_TYPE_BEP2;
                     getBaseDao().mBnbTokens.add(token);
                 }
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_MINI_TOKENS) {
-            ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>)result.resultData;
-            if (tempTokens!= null) {
-                for (BnbToken token:tempTokens) {
+            ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>) result.resultData;
+            if (tempTokens != null) {
+                for (BnbToken token : tempTokens) {
                     token.type = BnbToken.BNB_TOKEN_TYPE_MINI;
                     getBaseDao().mBnbTokens.add(token);
                 }
             }
 
         } else if (result.taskType == TASK_FETCH_BNB_TICKER) {
-            ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>)result.resultData;
-            if (tempTickers!= null) {
+            ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>) result.resultData;
+            if (tempTickers != null) {
                 getBaseDao().mBnbTickers.addAll(tempTickers);
             }
 
         } else if (result.taskType == TASK_FETCH_BNB_MINI_TICKER) {
-            ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>)result.resultData;
-            if (tempTickers!= null) {
+            ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>) result.resultData;
+            if (tempTickers != null) {
                 getBaseDao().mBnbTickers.addAll(tempTickers);
             }
 
         } else if (result.taskType == TASK_FETCH_BNB_FEES) {
             getBaseDao().mBnbFees.clear();
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mBnbFees = (ArrayList<ResBnbFee>)result.resultData;
+                getBaseDao().mBnbFees = (ArrayList<ResBnbFee>) result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_OK_ACCOUNT_BALANCE) {
@@ -794,22 +801,22 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_OK_STAKING_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mOkStaking = (ResOkStaking)result.resultData;
+                getBaseDao().mOkStaking = (ResOkStaking) result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_OK_UNBONDING_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mOkUnbonding = ((ResOkUnbonding)result.resultData);
+                getBaseDao().mOkUnbonding = ((ResOkUnbonding) result.resultData);
             }
 
         } else if (result.taskType == TASK_FETCH_OK_TOKEN_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mOkTokenList = ((ResOkTokenList)result.resultData);
+                getBaseDao().mOkTokenList = ((ResOkTokenList) result.resultData);
             }
 
         } else if (result.taskType == TASK_FETCH_OK_DEX_TICKERS) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mOkTickersList = ((ResOkTickersList)result.resultData);
+                getBaseDao().mOkTickersList = ((ResOkTickersList) result.resultData);
             }
 
         }
@@ -818,7 +825,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         //gRPC callback
         else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
             tendermint.p2p.Types.NodeInfo tempNodeInfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
-            if (tempNodeInfo != null) { getBaseDao().mGRpcNodeInfo = tempNodeInfo;
+            if (tempNodeInfo != null) {
+                getBaseDao().mGRpcNodeInfo = tempNodeInfo;
                 mTaskCount = mTaskCount + 5;
                 new StationParamInfoTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new StationIbcPathsTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -828,25 +836,33 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_AUTH) {
-            Any tempAccount = (Any)result.resultData;
-            if (tempAccount != null) { getBaseDao().mGRpcAccount = tempAccount; }
+            Any tempAccount = (Any) result.resultData;
+            if (tempAccount != null) {
+                getBaseDao().mGRpcAccount = tempAccount;
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_BONDED_VALIDATORS) {
-            ArrayList<Staking.Validator> bonded = (ArrayList<Staking.Validator>)result.resultData;
-            if (bonded != null) { getBaseDao().mGRpcTopValidators.addAll(bonded); }
+            ArrayList<Staking.Validator> bonded = (ArrayList<Staking.Validator>) result.resultData;
+            if (bonded != null) {
+                getBaseDao().mGRpcTopValidators.addAll(bonded);
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_UNBONDED_VALIDATORS) {
             ArrayList<Staking.Validator> unbonded = (ArrayList<Staking.Validator>) result.resultData;
-            if (unbonded != null) { getBaseDao().mGRpcOtherValidators.addAll(unbonded); }
+            if (unbonded != null) {
+                getBaseDao().mGRpcOtherValidators.addAll(unbonded);
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_UNBONDING_VALIDATORS) {
             ArrayList<Staking.Validator> unbonding = (ArrayList<Staking.Validator>) result.resultData;
-            if (unbonding != null) { getBaseDao().mGRpcOtherValidators.addAll(unbonding); }
+            if (unbonding != null) {
+                getBaseDao().mGRpcOtherValidators.addAll(unbonding);
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_BALANCE) {
             ArrayList<CoinOuterClass.Coin> balance = (ArrayList<CoinOuterClass.Coin>) result.resultData;
             if (balance != null && balance.size() > 0) {
-                for (CoinOuterClass.Coin coin: balance) {
+                for (CoinOuterClass.Coin coin : balance) {
                     if (!coin.getAmount().equals("0")) {
                         getBaseDao().mGrpcBalance.add(new Coin(coin.getDenom(), coin.getAmount()));
                     } else {
@@ -862,40 +878,40 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
             ArrayList<Staking.DelegationResponse> delegations = (ArrayList<Staking.DelegationResponse>) result.resultData;
-            if (delegations != null) { getBaseDao().mGrpcDelegations = delegations; }
+            if (delegations != null) {
+                getBaseDao().mGrpcDelegations = delegations;
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_UNDELEGATIONS) {
             ArrayList<Staking.UnbondingDelegation> undelegations = (ArrayList<Staking.UnbondingDelegation>) result.resultData;
-            if (undelegations != null) { getBaseDao().mGrpcUndelegations = undelegations; }
+            if (undelegations != null) {
+                getBaseDao().mGrpcUndelegations = undelegations;
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
-            if (rewards != null) { getBaseDao().mGrpcRewards = rewards; }
+            if (rewards != null) {
+                getBaseDao().mGrpcRewards = rewards;
+            }
 
-        }
-
-         else if (result.taskType == TASK_GRPC_FETCH_STARNAME_FEE) {
+        } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_FEE) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mGrpcStarNameFee = ((starnamed.x.configuration.v1beta1.Types.Fees)result.resultData);
+                getBaseDao().mGrpcStarNameFee = ((starnamed.x.configuration.v1beta1.Types.Fees) result.resultData);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_CONFIG) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config )result.resultData);
+                getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config) result.resultData);
             }
 
-        }
-
-        else if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_LIST) {
+        } else if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                List<Liquidity.Pool> pools = (List<Liquidity.Pool>)result.resultData;
+                List<Liquidity.Pool> pools = (List<Liquidity.Pool>) result.resultData;
                 getBaseDao().mGrpcGravityPools = new ArrayList<Liquidity.Pool>(pools);
             }
-        }
-
-        else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
+        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                List<BalancerPool.Pool> pools = (List<BalancerPool.Pool>)result.resultData;
+                List<BalancerPool.Pool> pools = (List<BalancerPool.Pool>) result.resultData;
                 getBaseDao().mGrpcOsmosisPool = new ArrayList<BalancerPool.Pool>(pools);
             }
         }
@@ -903,12 +919,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         //kava
         else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mIncentiveParam5 = (IncentiveParam)result.resultData;
+                getBaseDao().mIncentiveParam5 = (IncentiveParam) result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mIncentiveRewards = (IncentiveReward)result.resultData;
+                getBaseDao().mIncentiveRewards = (IncentiveReward) result.resultData;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICES) {
@@ -927,7 +943,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mCw20Assets = (ArrayList<Cw20Assets>) result.resultData;
                 if (getBaseDao().mCw20Assets != null && getBaseDao().mCw20Assets.size() > 0) {
-                    for (Cw20Assets assets: getBaseDao().mCw20Assets) {
+                    for (Cw20Assets assets : getBaseDao().mCw20Assets) {
                         if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(mBaseChain))) {
                             mTaskCount = mTaskCount + 1;
                             new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -941,16 +957,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (isGRPC(mBaseChain)) {
                 getBaseDao().mGRpcAllValidators.addAll(getBaseDao().mGRpcTopValidators);
                 getBaseDao().mGRpcAllValidators.addAll(getBaseDao().mGRpcOtherValidators);
-                for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
+                for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
                     boolean already = false;
-                    for (Staking.DelegationResponse delegation: getBaseDao().mGrpcDelegations) {
+                    for (Staking.DelegationResponse delegation : getBaseDao().mGrpcDelegations) {
                         if (delegation.getDelegation().getValidatorAddress().equals(validator.getOperatorAddress())) {
-                            already = true; break;
+                            already = true;
+                            break;
                         }
                     }
-                    for (Staking.UnbondingDelegation undelegation: getBaseDao().mGrpcUndelegations) {
+                    for (Staking.UnbondingDelegation undelegation : getBaseDao().mGrpcUndelegations) {
                         if (undelegation.getValidatorAddress().equals(validator.getOperatorAddress())) {
-                            already = true; break;
+                            already = true;
+                            break;
                         }
                     }
                     if (already) getBaseDao().mGRpcMyValidators.add(validator);
@@ -971,7 +989,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         WUtil.onParseVestingAccount(getBaseDao(), mBaseChain);
                     }
                     ArrayList<Balance> snapBalance = new ArrayList<>();
-                    for (Coin coin: getBaseDao().mGrpcBalance) {
+                    for (Coin coin : getBaseDao().mGrpcBalance) {
                         snapBalance.add(new Balance(mAccount.id, coin.denom, coin.amount, Calendar.getInstance().getTime().getTime(), "0", "0"));
                     }
                     getBaseDao().onUpdateBalances(mAccount.id, snapBalance);
@@ -986,7 +1004,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //                WLog.w("mBnbTickers " + getBaseDao().mBnbTickers.size());
 
             } else if (mBaseChain.equals(OKEX_MAIN)) {
-                for (Validator all:getBaseDao().mAllValidators) {
+                for (Validator all : getBaseDao().mAllValidators) {
                     if (all.status == Validator.BONDED) {
                         getBaseDao().mTopValidators.add(all);
                     } else {
@@ -1000,7 +1018,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
                 if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
                     for (String valAddr : getBaseDao().mOkStaking.validator_address) {
-                        for (Validator val:getBaseDao().mAllValidators) {
+                        for (Validator val : getBaseDao().mAllValidators) {
                             if (val.operator_address.equals(valAddr)) {
                                 getBaseDao().mMyValidators.add(val);
                             }
@@ -1016,15 +1034,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
                 getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
 
-                for (Validator top:getBaseDao().mAllValidators) {
+                for (Validator top : getBaseDao().mAllValidators) {
                     boolean already = false;
-                    for (BondingInfo bond: getBaseDao().mMyDelegations) {
+                    for (BondingInfo bond : getBaseDao().mMyDelegations) {
                         if (bond.validator_address.equals(top.operator_address)) {
                             already = true;
                             break;
                         }
                     }
-                    for (UnbondingInfo unbond: getBaseDao().mMyUnbondings) {
+                    for (UnbondingInfo unbond : getBaseDao().mMyUnbondings) {
                         if (unbond.validator_address.equals(top.operator_address) && !already) {
                             already = true;
                             break;
@@ -1056,7 +1074,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         mFetchCallback.fetchFinished();
                     }
                 }
-            },300);
+            }, 300);
         }
     }
 
@@ -1064,7 +1082,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public boolean isNotificationsEnabled() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager manager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
             if (!manager.areNotificationsEnabled()) {
                 return false;
             }
@@ -1082,7 +1100,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowPushEnableDialog() {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_push_permission_title), getString(R.string.str_push_permission_msg),
-                getString(R.string.str_cancel), view -> onRedirectPushSet(),
+                AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), view -> onRedirectPushSet(),
                 getString(R.string.str_continue), null, false);
     }
 
@@ -1092,7 +1110,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
             intent.putExtra(Settings.EXTRA_APP_PACKAGE, getBaseContext().getPackageName());
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
             intent.putExtra("app_package", getBaseContext().getPackageName());
             intent.putExtra("app_uid", getBaseContext().getApplicationInfo().uid);
@@ -1106,14 +1124,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyWarnNoKey() {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_cancel), null,
+                AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
                 getString(R.string.str_continue), view -> onShowBuySelectFiat());
     }
 
     public void onShowBuySelectFiat() {
-        Dialog_Buy_Select_Fiat dialog = Dialog_Buy_Select_Fiat.newInstance();
-        dialog.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+        FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
+                "USD", view -> onStartMoonpaySignature("usd"), getDrawable(R.drawable.fiat_usd),
+                "EUR", view -> onStartMoonpaySignature("eur"), getDrawable(R.drawable.fiat_eu),
+                "GBP", view -> onStartMoonpaySignature("gbp"), getDrawable(R.drawable.fiat_gbp));
     }
 
     public void onStartMoonpaySignature(String fiat) {
@@ -1135,10 +1154,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             public void onTaskResponse(TaskResult result) {
                 if (result.isSuccess) {
                     try {
-                        String en = URLEncoder.encode((String)result.resultData, "UTF-8");
-                        Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
+                        String en = URLEncoder.encode((String) result.resultData, "UTF-8");
+                        Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
                         startActivity(guideIntent);
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                     }
 

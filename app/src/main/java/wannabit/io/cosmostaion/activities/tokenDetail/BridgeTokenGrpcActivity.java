@@ -24,9 +24,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.common.collect.Lists;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
@@ -42,48 +44,48 @@ import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
 public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar                         mToolbar;
-    private ImageView                       mToolbarSymbolImg;
-    private TextView                        mToolbarSymbol;
-    private TextView                        mItemPerPrice;
-    private ImageView                       mItemUpDownImg;
-    private TextView                        mItemUpDownPrice;
+    private Toolbar mToolbar;
+    private ImageView mToolbarSymbolImg;
+    private TextView mToolbarSymbol;
+    private TextView mItemPerPrice;
+    private ImageView mItemUpDownImg;
+    private TextView mItemUpDownPrice;
 
-    private CardView                        mBtnAddressPopup;
-    private ImageView                       mKeyState;
-    private TextView                        mTotalValue;
-    private TextView                        mAddress;
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
+    private CardView mBtnAddressPopup;
+    private ImageView mKeyState;
+    private TextView mTotalValue;
+    private TextView mAddress;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
 
-    private RelativeLayout                  mBtnIbcSend;
-    private RelativeLayout                  mBtnSend;
+    private RelativeLayout mBtnIbcSend;
+    private RelativeLayout mBtnSend;
 
-    private BridgeTokenGrpcAdapter          mAdapter;
+    private BridgeTokenGrpcAdapter mAdapter;
 
-    private String                          mBridgeDenom;
-    private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
+    private String mBridgeDenom;
+    private BigDecimal mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail);
 
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
-        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
-        mItemPerPrice           = findViewById(R.id.per_price);
-        mItemUpDownImg          = findViewById(R.id.ic_price_updown);
-        mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mItemPerPrice = findViewById(R.id.per_price);
+        mItemUpDownImg = findViewById(R.id.ic_price_updown);
+        mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
-        mBtnAddressPopup        = findViewById(R.id.card_root);
-        mKeyState               = findViewById(R.id.img_account);
-        mAddress                = findViewById(R.id.account_Address);
-        mTotalValue             = findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
-        mBtnSend                = findViewById(R.id.btn_send);
+        mBtnAddressPopup = findViewById(R.id.card_root);
+        mKeyState = findViewById(R.id.img_account);
+        mAddress = findViewById(R.id.account_Address);
+        mTotalValue = findViewById(R.id.total_value);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
+        mBtnSend = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -91,7 +93,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        for (Coin coin: getBaseDao().mGrpcBalance) {
+        for (Coin coin : getBaseDao().mGrpcBalance) {
             if (coin.denom.equalsIgnoreCase(getIntent().getStringExtra("denom"))) {
                 mBridgeDenom = coin.denom;
             }
@@ -164,8 +166,11 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
-            else { bundle.putString("title", mAccount.nickName); }
+            if (TextUtils.isEmpty(mAccount.nickName)) {
+                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+            } else {
+                bundle.putString("title", mAccount.nickName);
+            }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -173,45 +178,58 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }
-            final String mainDenom = WDp.mainDenom(mBaseChain);
+
             final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
-            BigDecimal mainDenomAmount = getBaseDao().getAvailable(mainDenom);
-            BigDecimal availableAmount = mainDenomAmount.subtract(feeAmount);
-            if (availableAmount.compareTo(BigDecimal.ZERO) <= 0) {
+
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
+
             AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
-                    Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" +  getString(R.string.str_ibc_warning_msg2)),
-                    getString(R.string.str_ibc_continue_c), view -> onCheckIbcTransfer(mBridgeDenom));
+                    Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" + getString(R.string.str_ibc_warning_msg2)),
+                    Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_ibc_continue_c) + "</font>"), view -> onCheckIbcTransfer(mBridgeDenom));
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-            if (mainAvailable.compareTo(feeAmount) < 0) {
+
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
+
             intent.putExtra("sendTokenDenom", mBridgeDenom);
             startActivity(intent);
         }
     }
 
     private class BridgeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_ETH                   = 0;
+        private static final int TYPE_UNKNOWN = -1;
+        private static final int TYPE_ETH = 0;
 
-        private static final int TYPE_HISTORY               = 100;
+        private static final int TYPE_HISTORY = 100;
 
         @NonNull
         @Override

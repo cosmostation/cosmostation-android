@@ -58,7 +58,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +66,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 import org.bitcoinj.core.ECKey;
@@ -76,6 +76,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
 
 import cosmos.base.abci.v1beta1.Abci;
 import osmosis.lockup.Lock;
@@ -151,19 +152,18 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     private TextView                mGasAmount, mGasRate, mGasFee;
     private SegmentedButtonGroup    mButtonGroup;
 
-    private LinearLayout            mSpeedLayer;
     private ImageView               mSpeedImg;
     private TextView                mSpeedTxt;
 
-    private LinearLayout            mBottomControlCard;
     private RelativeLayout          mBtnGasCheck;
     private Button                  mBtnBefore, mBtnNext;
 
 
-    private int                     mSelectedGasPosition    = 1;
-    private BigDecimal              mSelectedGasRate        = BigDecimal.ZERO;
-    private BigDecimal              mEstimateGasAmount      = BigDecimal.ZERO;
-    private BigDecimal              mFee                    = BigDecimal.ZERO;
+    private int                     mSelectedGasPosition        = 1;
+    private int                     mSelectedGasDenomPosition   = 0;
+    private BigDecimal              mSelectedGasRate            = BigDecimal.ZERO;
+    private BigDecimal              mEstimateGasAmount          = BigDecimal.ZERO;
+    private BigDecimal              mFee                        = BigDecimal.ZERO;
 
     public static StepFeeSetFragment newInstance(Bundle bundle) {
         StepFeeSetFragment fragment = new StepFeeSetFragment();
@@ -190,16 +190,13 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mGasFee = rootView.findViewById(R.id.gas_fee);
         mButtonGroup = rootView.findViewById(R.id.btns_segmented);
 
-        mSpeedLayer = rootView.findViewById(R.id.speed_layer);
         mSpeedImg = rootView.findViewById(R.id.speed_img);
         mSpeedTxt = rootView.findViewById(R.id.speed_txt);
 
-        mBottomControlCard = rootView.findViewById(R.id.bottom_control_layer);
         mBtnGasCheck = rootView.findViewById(R.id.btn_gas_check);
         mBtnBefore = rootView.findViewById(R.id.btn_before);
         mBtnNext = rootView.findViewById(R.id.btn_next);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mBaseChain, mFeeDenom);
         mFeeTotalCard.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getSActivity().mBaseChain));
         mButtonGroup.setSelectedBackground(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
         mButtonGroup.setRipple(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
@@ -230,6 +227,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateView() {
+        WDp.setGasDenomTv(getContext(), getSActivity().mBaseChain, WDp.getGasDenomList(getSActivity().mBaseChain).get(mSelectedGasDenomPosition), mFeeDenom);
         onCalculateFees();
 
         if (getSActivity().mBaseChain.equals(BaseChain.SIF_MAIN)) {
@@ -238,7 +236,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             mRateControlCard.setVisibility(View.VISIBLE);
         }
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain), WDp.mainDivideDecimal(getSActivity().mBaseChain)));
-        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain)));
+        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.getGasDenomList(getSActivity().mBaseChain).get(mSelectedGasDenomPosition), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain)));
 
         mGasRate.setText(WDp.getDpGasRate(mSelectedGasRate.toPlainString()));
         mGasAmount.setText(mEstimateGasAmount.toPlainString());
@@ -262,7 +260,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnGasCheck)) {
-            onSetFee();
+            onSetFee(mSelectedGasDenomPosition);
             onSimulateTx();
 
         } else if (v.equals(mBtnBefore)) {
@@ -270,16 +268,16 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         } else if (v.equals(mBtnNext)) {
             if (onCheckValidate()) {
-                onSetFee();
+                onSetFee(mSelectedGasDenomPosition);
                 getSActivity().onNextStep();
             }
         }
     }
 
-    private void onSetFee() {
+    private void onSetFee(int gasDenomPosition) {
         Fee fee = new Fee();
         Coin gasCoin = new Coin();
-        gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
+        gasCoin.denom = WDp.getGasDenomList(getSActivity().mBaseChain).get(gasDenomPosition);
         gasCoin.amount = mFee.toPlainString();
         ArrayList<Coin> amount = new ArrayList<>();
         amount.add(gasCoin);
@@ -301,8 +299,14 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 }
 
             } else {
-                if (mFee.compareTo(mainDenomAvailable) > 0) {
-                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                List<String> availableFeeDenomList = Lists.newArrayList();
+                for (String denom : WDp.getGasDenomList(getSActivity().mBaseChain)) {
+                    if (getBaseDao().getAvailable(denom).compareTo(mFee) >= 0) {
+                        availableFeeDenomList.add(denom);
+                    }
+                }
+                if (availableFeeDenomList.isEmpty()) {
+                    Toast.makeText(getContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -312,35 +316,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             BigDecimal todelegate = new BigDecimal(getSActivity().mAmount.amount);
             if ((todelegate.add(mFee)).compareTo(delegatable) > 0) {
                 Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-        } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_REWARD) {
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
-            if (mFee.compareTo(available) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (String opAddress: getSActivity().mValAddresses) {
-                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
-            }
-
-            if (mFee.compareTo(rewardSum) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_waste_fee), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-        } else if (getSActivity().mTxType == CONST_PW_TX_REINVEST) {
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
-            if (mFee.compareTo(available) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            BigDecimal reinvest = new BigDecimal(getSActivity().mAmount.amount);
-            if (mFee.compareTo(reinvest) > 0) {
-                Toast.makeText(getContext(), getString(R.string.error_waste_fee), Toast.LENGTH_SHORT).show();
                 return false;
             }
 

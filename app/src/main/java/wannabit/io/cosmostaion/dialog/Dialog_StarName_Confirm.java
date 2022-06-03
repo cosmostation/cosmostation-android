@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
@@ -32,7 +32,7 @@ public class Dialog_StarName_Confirm extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_confirm, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_confirm, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_posi = view.findViewById(R.id.btn_posi);
 

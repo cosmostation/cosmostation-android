@@ -128,9 +128,11 @@ public class BaseData {
     public ArrayList<Cw20Assets>            mCw20Assets = new ArrayList<>();
 
     public Price getPrice(String denom) {
-        for (Price price: mPrices) {
-            if (price.denom.equals(denom.toLowerCase())) {
-                return price;
+        if (mPrices != null && mPrices.size() > 0) {
+            for (Price price: mPrices) {
+                if (price.denom.equals(denom.toLowerCase())) {
+                    return price;
+                }
             }
         }
         return null;
@@ -138,19 +140,23 @@ public class BaseData {
 
     public IbcToken getIbcToken(String denom) {
         String ibcHash = denom.replace("ibc/", "");
-        for (IbcToken ibcToken: mIbcTokens) {
-            if (ibcToken.hash.equals(ibcHash)) {
-                return ibcToken;
+        if (mIbcTokens != null && mIbcTokens.size() > 0) {
+            for (IbcToken ibcToken: mIbcTokens) {
+                if (ibcToken.hash.equals(ibcHash)) {
+                    return ibcToken;
+                }
             }
         }
         return null;
     }
 
     public IbcPath.Path getIbcPath(String channelId) {
-        for (IbcPath ibcPath: mIbcPaths) {
-            for (IbcPath.Path path: ibcPath.paths) {
-                if (path.channel_id.equals(channelId)) {
-                    return path;
+        if (mIbcPaths != null && mIbcPaths.size() > 0) {
+            for (IbcPath ibcPath: mIbcPaths) {
+                for (IbcPath.Path path: ibcPath.paths) {
+                    if (path.channel_id.equals(channelId)) {
+                        return path;
+                    }
                 }
             }
         }
@@ -158,25 +164,29 @@ public class BaseData {
     }
 
     public Assets getAsset(String denom) {
-        for (Assets assets: mAssets) {
-            if (assets.denom.equalsIgnoreCase(denom)) {
-                return assets;
+        if (mAssets != null && mAssets.size() > 0) {
+            for (Assets assets: mAssets) {
+                if (assets.denom.equalsIgnoreCase(denom)) {
+                    return assets;
+                }
             }
         }
         return null;
     }
 
     public void setCw20Balance(String contAddress, String amount) {
-        for (Cw20Assets assets: mCw20Assets) {
-            if (assets.contract_address.equalsIgnoreCase(contAddress)) {
-                assets.setAmount(amount);
+        if (mCw20Assets != null && mCw20Assets.size() > 0) {
+            for (Cw20Assets assets: mCw20Assets) {
+                if (assets.contract_address.equalsIgnoreCase(contAddress)) {
+                    assets.setAmount(amount);
+                }
             }
         }
     }
 
     public ArrayList<Cw20Assets> getCw20sGrpc(BaseChain baseChain) {
         ArrayList<Cw20Assets> result = new ArrayList<>();
-        if (mCw20Assets.size() > 0) {
+        if (mCw20Assets != null && mCw20Assets.size() > 0) {
             for (Cw20Assets assets: mCw20Assets) {
                 if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(baseChain)) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
                     result.add(assets);
@@ -247,10 +257,12 @@ public class BaseData {
     public ArrayList<IbcPath> getIbcRollbackRelayer(String denom) {
         ArrayList<IbcPath> result = new ArrayList<>();
         IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
-        for (IbcPath ibcPath: mIbcPaths) {
-            for (IbcPath.Path path: ibcPath.paths) {
-                if (path.channel_id != null && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
-                    result.add(ibcPath);
+        if (mIbcPaths != null && mIbcPaths.size() > 0) {
+            for (IbcPath ibcPath: mIbcPaths) {
+                for (IbcPath.Path path: ibcPath.paths) {
+                    if (path.channel_id != null && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
+                        result.add(ibcPath);
+                    }
                 }
             }
         }
@@ -260,9 +272,11 @@ public class BaseData {
     public ArrayList<IbcPath.Path> getIbcRollbackChannel(String denom, ArrayList<IbcPath.Path> paths) {
         ArrayList<IbcPath.Path> result = new ArrayList<>();
         IbcToken ibcToken = getIbcToken(denom);
-        for (IbcPath.Path path: paths) {
-            if (path.auth != null && path.auth && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
-                result.add(path);
+        if (paths != null && paths.size() > 0) {
+            for (IbcPath.Path path: paths) {
+                if (path.auth != null && path.auth && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
+                    result.add(path);
+                }
             }
         }
         return result;
@@ -297,7 +311,6 @@ public class BaseData {
     public SifIncentive.User        mSifLmIncentive;
 
     //GRPC for KAVA
-    public ArrayList<QueryOuterClass.CurrentPriceResponse>              mKavaPrices = new ArrayList<>();
     public HashMap<String, QueryOuterClass.CurrentPriceResponse>        mKavaTokenPrice = new HashMap<>();
     public IncentiveParam                                               mIncentiveParam5;
     public IncentiveReward                                              mIncentiveRewards;
@@ -504,7 +517,7 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
 
     //Osmosis pool list
-    public ArrayList<BalancerPool.Pool>                              mGrpcOsmosisPool = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool>                         mGrpcOsmosisPool = new ArrayList<>();
 
     //Gravity pool list
     public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
@@ -523,12 +536,13 @@ public class BaseData {
         return "";
     }
 
-
     public BigDecimal getAvailable(String denom) {
         BigDecimal result = BigDecimal.ZERO;
-        for (Coin coin: mGrpcBalance) {
-            if (coin.denom.equalsIgnoreCase(denom)) {
-                result = new BigDecimal(coin.amount);
+        if (mGrpcBalance != null && mGrpcBalance.size() > 0) {
+            for (Coin coin: mGrpcBalance) {
+                if (coin.denom.equalsIgnoreCase(denom)) {
+                    result = new BigDecimal(coin.amount);
+                }
             }
         }
         return result;
@@ -536,9 +550,11 @@ public class BaseData {
 
     public BigDecimal getVesting(String denom) {
         BigDecimal result = BigDecimal.ZERO;
-        for (Coin coin: mGrpcVesting) {
-            if (coin.denom.equalsIgnoreCase(denom)) {
-                result = new BigDecimal(coin.amount);
+        if (mGrpcVesting != null && mGrpcVesting.size() > 0) {
+            for (Coin coin: mGrpcVesting) {
+                if (coin.denom.equalsIgnoreCase(denom)) {
+                    result = new BigDecimal(coin.amount);
+                }
             }
         }
         return result;
@@ -564,18 +580,28 @@ public class BaseData {
                             }
                         }
                     }
+                
+                } else if (profile.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                    Vesting.DelayedVestingAccount vestingAccount = Vesting.DelayedVestingAccount.parseFrom(profile.getAccount().getValue());
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                    if (cTime < vestingEnd) {
+                        for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                            if (vesting.getDenom().equals(denom)) {
+                                result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                            }
+                        }
+                    }
                 }
             } catch (InvalidProtocolBufferException e) { }
 
         } else {
-            if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                try {
+            try {
+                if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
                     Vesting.PeriodicVestingAccount vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
                     return WDp.onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
-                } catch (InvalidProtocolBufferException e) { }
 
-            } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                try {
+                } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
                     Vesting.ContinuousVestingAccount vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(mGRpcAccount.getValue());
                     long cTime = Calendar.getInstance().getTime().getTime();
                     long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
@@ -586,8 +612,20 @@ public class BaseData {
                             }
                         }
                     }
-                } catch (InvalidProtocolBufferException e) { }
-            }
+
+                } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                    Vesting.DelayedVestingAccount vestingAccount = Vesting.DelayedVestingAccount.parseFrom(mGRpcAccount.getValue());
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                    if (cTime < vestingEnd) {
+                        for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                            if (vesting.getDenom().equals(denom)) {
+                                result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                            }
+                        }
+                    }
+                }
+            } catch (InvalidProtocolBufferException e) { }
         }
         return result;
     }
@@ -601,26 +639,32 @@ public class BaseData {
 
     public BigDecimal getDelegationSum() {
         BigDecimal sum = BigDecimal.ZERO;
-        for (Staking.DelegationResponse delegation: mGrpcDelegations) {
-            sum = sum.add(new BigDecimal(delegation.getBalance().getAmount()));
+        if (mGrpcDelegations != null && mGrpcDelegations.size() > 0 ) {
+            for (Staking.DelegationResponse delegation: mGrpcDelegations) {
+                sum = sum.add(new BigDecimal(delegation.getBalance().getAmount()));
+            }
         }
         return sum;
     }
 
     public BigDecimal getDelegation(String valOpAddress) {
         BigDecimal result = BigDecimal.ZERO;
-        for (Staking.DelegationResponse delegation: mGrpcDelegations) {
-            if (delegation.getDelegation().getValidatorAddress().equals(valOpAddress)) {
-                result = new BigDecimal(delegation.getBalance().getAmount());
+        if (mGrpcDelegations != null && mGrpcDelegations.size() > 0 ) {
+            for (Staking.DelegationResponse delegation: mGrpcDelegations) {
+                if (delegation.getDelegation().getValidatorAddress().equals(valOpAddress)) {
+                    result = new BigDecimal(delegation.getBalance().getAmount());
+                }
             }
         }
         return result;
     }
 
     public Staking.DelegationResponse getDelegationInfo(String valOpAddress) {
-        for (Staking.DelegationResponse delegation: mGrpcDelegations) {
-            if (delegation.getDelegation().getValidatorAddress().equals(valOpAddress)) {
-                return delegation;
+        if (mGrpcDelegations != null && mGrpcDelegations.size() > 0 ) {
+            for (Staking.DelegationResponse delegation: mGrpcDelegations) {
+                if (delegation.getDelegation().getValidatorAddress().equals(valOpAddress)) {
+                    return delegation;
+                }
             }
         }
         return null;
@@ -628,26 +672,32 @@ public class BaseData {
 
     public BigDecimal getUndelegationSum() {
         BigDecimal sum = BigDecimal.ZERO;
-        for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
-            sum = sum.add(getAllUnbondingBalance(undelegation));
+        if (mGrpcUndelegations != null && mGrpcUndelegations.size() > 0 ) {
+            for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
+                sum = sum.add(getAllUnbondingBalance(undelegation));
+            }
         }
         return sum;
     }
 
     public BigDecimal getUndelegation(String valOpAddress) {
         BigDecimal result = BigDecimal.ZERO;
-        for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
-            if (undelegation.getValidatorAddress().equals(valOpAddress)) {
-                result = getAllUnbondingBalance(undelegation);
+        if (mGrpcUndelegations != null && mGrpcUndelegations.size() > 0 ) {
+            for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
+                if (undelegation.getValidatorAddress().equals(valOpAddress)) {
+                    result = getAllUnbondingBalance(undelegation);
+                }
             }
         }
         return result;
     }
 
     public Staking.UnbondingDelegation getUndelegationInfo(String valOpAddress) {
-        for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
-            if (undelegation.getValidatorAddress().equals(valOpAddress)) {
-                return undelegation;
+        if (mGrpcUndelegations != null && mGrpcUndelegations.size() > 0 ) {
+            for (Staking.UnbondingDelegation undelegation: mGrpcUndelegations) {
+                if (undelegation.getValidatorAddress().equals(valOpAddress)) {
+                    return undelegation;
+                }
             }
         }
         return null;
@@ -665,17 +715,21 @@ public class BaseData {
 
     public BigDecimal getRewardSum(String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
-            sum = sum.add(WUtil.decCoinAmount(reward.getRewardList(), denom));
+        if (mGrpcRewards != null && mGrpcRewards.size() > 0) {
+            for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
+                sum = sum.add(WUtil.decCoinAmount(reward.getRewardList(), denom));
+            }
         }
         return sum;
     }
 
     public BigDecimal getReward(String denom, String valOpAddress) {
         BigDecimal result = BigDecimal.ZERO;
-        for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
-            if (reward.getValidatorAddress().equals(valOpAddress)) {
-                result = WUtil.decCoinAmount(reward.getRewardList(), denom);
+        if (mGrpcRewards != null && mGrpcRewards.size() > 0) {
+            for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
+                if (reward.getValidatorAddress().equals(valOpAddress)) {
+                    result = WUtil.decCoinAmount(reward.getRewardList(), denom);
+                }
             }
         }
         return result;
@@ -686,9 +740,11 @@ public class BaseData {
     }
 
     public Staking.Validator getValidatorInfo(String valOpAddress) {
-        for (Staking.Validator val: mGRpcAllValidators) {
-            if (val.getOperatorAddress().equals(valOpAddress)) {
-                return val;
+        if (mGRpcAllValidators != null && mGRpcAllValidators.size() > 0) {
+            for (Staking.Validator val: mGRpcAllValidators) {
+                if (val.getOperatorAddress().equals(valOpAddress)) {
+                    return val;
+                }
             }
         }
         return null;

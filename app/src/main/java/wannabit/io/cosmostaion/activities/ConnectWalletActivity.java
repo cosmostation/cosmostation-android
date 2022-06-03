@@ -33,6 +33,7 @@ import com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction;
 import com.trustwallet.walletconnect.models.keplr.WCKeplrWallet;
 import com.trustwallet.walletconnect.models.session.WCSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.core.ECKey;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -80,6 +82,7 @@ public class ConnectWalletActivity extends BaseActivity {
     public final static int TYPE_COSMOS_WALLET = 2;
 
     public static final String WC_URL_SCHEME_HOST_WC = "wc";
+    public static final String WC_URL_SCHEME_HOST_DAPP = "dapp";
     public static final String WC_URL_SCHEME_COSMOSTATION = "cosmostation";
     public static final String INTENT_KEY_WC_URL = "wcUrl";
     public static final String INTENT_KEY_DAPP_URL = "dappUrl";
@@ -221,7 +224,7 @@ public class ConnectWalletActivity extends BaseActivity {
     private void initWebView() {
         mWebView = findViewById(R.id.wc_webview);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + "/Cosmostation_Android_Dapp");
+        mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + " Cosmostation/APP/Android/" + BuildConfig.VERSION_NAME);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         mWebView.setWebChromeClient(new WebChromeClient());
@@ -244,7 +247,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     }
                 }
 
-                return true;
+                return false;
             }
         });
     }
@@ -348,12 +351,16 @@ public class ConnectWalletActivity extends BaseActivity {
         Credentials credentials = Credentials.create(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())));
         EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+        BigInteger value = BigInteger.ZERO;
+        if (StringUtils.isNotBlank(wcEthereumTransaction.getValue())) {
+            value = new BigInteger(wcEthereumTransaction.getValue().replace("0x", ""), 16);
+        }
         RawTransaction rawTransaction = RawTransaction.createTransaction(
                 nonce,
                 BigInteger.valueOf(2000000020L),
                 BigInteger.valueOf(500000L),
                 wcEthereumTransaction.getTo(),
-                new BigInteger(wcEthereumTransaction.getValue().replace("0x", ""), 16),
+                value,
                 wcEthereumTransaction.getData()
         );
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
@@ -623,6 +630,13 @@ public class ConnectWalletActivity extends BaseActivity {
             }
             mWcURL = intent.getData().getQuery();
             initWalletConnect();
+        } else if (fromScheme(intent) && WC_URL_SCHEME_HOST_DAPP.equals(intent.getData().getHost())) {
+            if (mWebView.getVisibility() != View.VISIBLE) {
+                Toast.makeText(ConnectWalletActivity.this, R.string.str_unknown_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mWebView.loadUrl(intent.getData().getQuery());
         }
     }
 

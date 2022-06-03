@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -17,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.zxing.BarcodeFormat;
@@ -29,12 +29,10 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_AccountShow extends DialogFragment {
 
-    private Button      btn_nega, btn_posi;
-    private TextView    mTitle, mAddress;
-    private ImageView   mQr;
-
-
-    private Bitmap          mBitmap;
+    private Button btn_nega, btn_posi;
+    private TextView mTitle, mAddress;
+    private ImageView mQr;
+    private Bitmap mBitmap;
 
     public static Dialog_AccountShow newInstance(Bundle bundle) {
         Dialog_AccountShow frag = new Dialog_AccountShow();
@@ -76,7 +74,7 @@ public class Dialog_AccountShow extends DialogFragment {
         btn_nega.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onShareType(getArguments().getString("address"));
+                ((BaseActivity) getActivity()).onShareType(getArguments().getString("address"));
                 getDialog().dismiss();
 
             }
@@ -85,7 +83,7 @@ public class Dialog_AccountShow extends DialogFragment {
         btn_posi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("address", address);
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getActivity(), R.string.str_copied, Toast.LENGTH_SHORT).show();
@@ -94,13 +92,10 @@ public class Dialog_AccountShow extends DialogFragment {
             }
         });
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
     }
-
-
 
     private static Bitmap toBitmap(BitMatrix matrix) {
         int height = matrix.getHeight();

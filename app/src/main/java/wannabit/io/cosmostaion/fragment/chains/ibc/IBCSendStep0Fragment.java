@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,28 +35,28 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int             SELECT_POPUP_IBC_CHAIN              = 1000;
-    public final static int             SELECT_POPUP_IBC_RELAYER            = 2000;
-    public final static int             SELECT_POPUP_IBC_UNKNOWN_RELAYER    = 3000;
+    public final static int SELECT_POPUP_IBC_CHAIN = 1000;
+    public final static int SELECT_POPUP_IBC_RELAYER = 2000;
+    public final static int SELECT_POPUP_IBC_UNKNOWN_RELAYER = 3000;
 
-    private Button          mBtnCancel, mBtnNext;
+    private Button mBtnCancel, mBtnNext;
 
-    private ImageView       mFromChainImg;
-    private TextView        mFromChainTv;
+    private ImageView mFromChainImg;
+    private TextView mFromChainTv;
 
-    private LinearLayout    mToChainLayer;
-    private ImageView       mToChainImg;
-    private TextView        mToChainTv;
-    private ImageView       mDialogImg;
+    private LinearLayout mToChainLayer;
+    private ImageView mToChainImg;
+    private TextView mToChainTv;
+    private ImageView mDialogImg;
 
-    private RelativeLayout  mToRelayer;
-    private TextView        mRelayerTxt;
-    private ImageView       mRelayerImg;
+    private RelativeLayout mToRelayer;
+    private TextView mRelayerTxt;
+    private ImageView mRelayerImg;
 
-    private ArrayList<IbcPath>              mIbcSendableRelayers = new ArrayList<>();
-    private IbcPath                         mIbcSelectedRelayer;
-    private ArrayList<IbcPath.Path>         mIbcSendablePaths = new ArrayList<>();
-    private IbcPath.Path                    mIbcSelectedPath;
+    private ArrayList<IbcPath> mIbcSendableRelayers = new ArrayList<>();
+    private IbcPath mIbcSelectedRelayer;
+    private ArrayList<IbcPath.Path> mIbcSendablePaths = new ArrayList<>();
+    private IbcPath.Path mIbcSelectedPath;
 
     public static IBCSendStep0Fragment newInstance(Bundle bundle) {
         IBCSendStep0Fragment fragment = new IBCSendStep0Fragment();
@@ -114,7 +115,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else {
             mIbcSendablePaths = mIbcSelectedRelayer.paths;
         }
-        if (mIbcSendablePaths.size() <= 0 ) {
+        if (mIbcSendablePaths.size() <= 0) {
             onForceBack();
             return;
         }
@@ -157,8 +158,8 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mBtnNext)) {
             if (mIbcSelectedPath.auth == null) {
                 AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_ibc_warning_c), getString(R.string.str_ibc_unknown_relayer_msg),
-                        getString(R.string.str_cancel), null,
-                        getString(R.string.str_continue), view -> {
+                        Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_cancel) + "</font>"), null,
+                        Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_continue) + "</font>"), view -> {
                             Intent resultIntent = new Intent();
                             resultIntent.putExtra("continue", 0);
                             onActivityResult(SELECT_POPUP_IBC_UNKNOWN_RELAYER, Activity.RESULT_OK, resultIntent);
@@ -191,10 +192,10 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         Collections.sort(ibcPaths, new Comparator<IbcPath>() {
             @Override
             public int compare(IbcPath o1, IbcPath o2) {
-                if(o1.chain_id.contains("cosmoshub-")) return -1;
-                if(o2.chain_id.contains("cosmoshub-")) return 1;
-                if(o1.chain_id.contains("osmosis-")) return -1;
-                if(o2.chain_id.contains("osmosis-")) return 1;
+                if (o1.chain_id.contains("cosmoshub-")) return -1;
+                if (o2.chain_id.contains("cosmoshub-")) return 1;
+                if (o1.chain_id.contains("osmosis-")) return -1;
+                if (o2.chain_id.contains("osmosis-")) return 1;
                 return o1.chain_id.compareTo(o2.chain_id);
             }
         });
@@ -210,15 +211,23 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
                     if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
                 }
                 if (getSActivity().mToIbcDenom.equalsIgnoreCase(WDp.mainDenom(getSActivity().mBaseChain))) {
-                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id)) return -1;
-                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id)) return 1;
-                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id)) return -1;
-                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id)) return 1;
+                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                        return -1;
+                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                        return 1;
+                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                        return -1;
+                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                        return 1;
                 } else {
-                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id)) return -1;
-                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id)) return 1;
-                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id)) return -1;
-                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id)) return 1;
+                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                        return -1;
+                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                        return 1;
+                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                        return -1;
+                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                        return 1;
                 }
                 return 0;
             }
@@ -232,7 +241,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
                 Toast.makeText(getSActivity(), R.string.error_no_relayer_channel, Toast.LENGTH_SHORT).show();
                 getSActivity().onBeforeStep();
             }
-        },610);
+        }, 610);
     }
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
@@ -260,5 +269,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private IBCSendActivity getSActivity() { return (IBCSendActivity)getBaseActivity(); }
+    private IBCSendActivity getSActivity() {
+        return (IBCSendActivity) getBaseActivity();
+    }
 }

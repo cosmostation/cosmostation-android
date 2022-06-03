@@ -28,8 +28,9 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_Link_Chain extends DialogFragment {
 
-    private RecyclerView         mRecyclerView;
-    private LinkChainAdapter     mLinkChainAdapter;
+    private RecyclerView mRecyclerView;
+    private TextView mDialogTitle;
+    private LinkChainAdapter mLinkChainAdapter;
     private ArrayList<BaseChain> mLinkChainList = new ArrayList<>();
 
     public static Dialog_Link_Chain newInstance(Bundle bundle) {
@@ -46,7 +47,9 @@ public class Dialog_Link_Chain extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_link_chain, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
+        mDialogTitle.setText(R.string.str_select_link_chain);
         mRecyclerView = view.findViewById(R.id.recycler);
         mLinkChainList = WUtil.getDesmosAirDropChains();
 
@@ -93,18 +96,19 @@ public class Dialog_Link_Chain extends DialogFragment {
             LinearLayout rootLayer;
             ImageView chainImg;
             TextView chainName;
+
             public RelayerListHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer   = itemView.findViewById(R.id.rootLayer);
-                chainImg    = itemView.findViewById(R.id.chainImg);
-                chainName   = itemView.findViewById(R.id.chainName);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                chainImg = itemView.findViewById(R.id.chainImg);
+                chainName = itemView.findViewById(R.id.chainName);
             }
         }
 
     }
 
     private BaseActivity getSActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 
 }

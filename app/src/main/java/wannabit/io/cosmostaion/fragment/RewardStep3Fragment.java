@@ -17,7 +17,6 @@ import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RewardStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -63,7 +62,6 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mDenomResultAmount = rootView.findViewById(R.id.expected_amount_title);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRewardAmount);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomResultAmount);
 
         mBeforeBtn.setOnClickListener(this);
@@ -82,6 +80,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         }
         mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mDenomFeeType);
         if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
             mTvGoalLayer.setVisibility(View.GONE);
             mExpectedLayer.setVisibility(View.VISIBLE);
@@ -122,24 +121,9 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            if (onCheckValidateRewardAndFee()) {
-                getSActivity().onStartReward();
-
-            } else {
-                AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_fee_over_title), getString(R.string.str_fee_over_msg), getString(R.string.str_ok), null);
-            }
+            getSActivity().onStartReward();
         }
     }
-
-    private boolean onCheckValidateRewardAndFee() {
-        BigDecimal rewardSum = BigDecimal.ZERO;
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        for (String opAddress : getSActivity().mValAddresses) {
-            rewardSum = rewardSum.add(getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
-        }
-        return feeAmount.compareTo(rewardSum) < 0;
-    }
-
 
     private ClaimRewardActivity getSActivity() {
         return (ClaimRewardActivity) getBaseActivity();
