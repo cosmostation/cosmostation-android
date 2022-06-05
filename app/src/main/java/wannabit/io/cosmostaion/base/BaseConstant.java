@@ -733,7 +733,7 @@ public class BaseConstant {
     public final static String AXELAR_GAS_RATE_LOW                      = "0.05";
     public final static String AXELAR_GAS_RATE_AVERAGE                  = "0.05";
 
-    public final static String KAVA_GAS_RATE_TINY                       = "0.0025";
+    public final static String KAVA_GAS_RATE_TINY                       = "0.001";
     public final static String KAVA_GAS_RATE_LOW                        = "0.0025";
     public final static String KAVA_GAS_RATE_AVERAGE                    = "0.025";
 
