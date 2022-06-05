@@ -3465,7 +3465,7 @@ public class WUtil {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
         } else if (chain.equals(STATION_TEST)) {
-            mBtnDex.setVisibility(View.GONE);
+            mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.infoicon_station), null, null, null);
             dexTitle.setText("Cosmostation Dapps");
         } else if (chain.equals(CRESCENT_MAIN)) {
