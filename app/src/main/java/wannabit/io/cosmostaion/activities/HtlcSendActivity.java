@@ -82,7 +82,7 @@ public class HtlcSendActivity extends BaseActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mToSwapDenom = getIntent().getStringExtra("toSwapDenom");
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcSendActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_htlc_send_step_1));
 
         mPageAdapter = new HtlcSendPageAdapter(getSupportFragmentManager());

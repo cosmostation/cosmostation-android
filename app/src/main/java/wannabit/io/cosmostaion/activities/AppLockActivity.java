@@ -82,7 +82,7 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     private void onInitView() {
         mUserInput = "";
         for (int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+            mIvCircle[i].setBackground(ContextCompat.getDrawable(AppLockActivity.this, R.drawable.ic_pass_gr));
         }
         mViewPager.setCurrentItem(0, true);
         onCheckFingerPrint();

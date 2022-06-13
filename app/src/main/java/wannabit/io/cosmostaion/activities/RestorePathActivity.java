@@ -142,7 +142,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 if (temp.hasPrivateKey) {
                     holder.newState.setText(getString(R.string.str_imported));
                     holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorGray1));
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.cardNewWallet.setCardBackgroundColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorTransBg));
                 } else {
                     holder.newState.setText(getString(R.string.str_override));
                     holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorWhite));

@@ -343,9 +343,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             if (!TextUtils.isEmpty(rewardAddress)) {
                 mRewardAddress.setText(rewardAddress.trim());
                 if (rewardAddress.equals(mAccount.address)) {
-                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
+                    mRewardAddress.setTextColor(ContextCompat.getColor(AccountDetailActivity.this, R.color.colorWhite));
                 } else {
-                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));
+                    mRewardAddress.setTextColor(ContextCompat.getColor(AccountDetailActivity.this, R.color.colorRed));
                 }
             }
 
