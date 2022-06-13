@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -80,7 +81,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         mCdpParams = getBaseDao().mCdpParams;
         mCollateralType = getIntent().getStringExtra("collateralParamType");
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(CdpDetail5Activity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

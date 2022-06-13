@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,16 +31,13 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-
 public class OKValidatorMyFragment extends BaseFragment implements View.OnClickListener {
 
-    private SwipeRefreshLayout          mSwipeRefreshLayout;
-    private RecyclerView                mRecyclerView;
-    private OKMyValidatorAdapter        mOKMyValidatorAdapter;
-    private TextView                    mValidatorSize;
-    private Button                      mVote;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private OKMyValidatorAdapter mOKMyValidatorAdapter;
+    private TextView mValidatorSize;
+    private Button mVote;
 
     public static OKValidatorMyFragment newInstance(Bundle bundle) {
         OKValidatorMyFragment fragment = new OKValidatorMyFragment();
@@ -53,12 +53,12 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_okvalidator_my, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mValidatorSize          = rootView.findViewById(R.id.validator_cnt);
-        mVote                   = rootView.findViewById(R.id.btn_vote);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mValidatorSize = rootView.findViewById(R.id.validator_cnt);
+        mVote = rootView.findViewById(R.id.btn_vote);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -81,8 +81,8 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        if(!isAdded()) return;
-        mValidatorSize.setText(""+getBaseDao().mMyValidators.size());
+        if (!isAdded()) return;
+        mValidatorSize.setText("" + getBaseDao().mMyValidators.size());
         onSortValidator();
 
         mOKMyValidatorAdapter.notifyDataSetChanged();
@@ -92,13 +92,13 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onBusyFetch() {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
     private OKValidatorListActivity getSActivity() {
-        return (OKValidatorListActivity)getBaseActivity();
+        return (OKValidatorListActivity) getBaseActivity();
     }
 
     @Override
@@ -109,8 +109,8 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
     }
 
     public class OKMyValidatorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_PROMOTION                 = 0;
-        private static final int TYPE_MY_VALIDATOR              = 1;
+        private static final int TYPE_PROMOTION = 0;
+        private static final int TYPE_MY_VALIDATOR = 1;
 
         @NonNull
         @Override
@@ -126,23 +126,24 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
-                final OKMyValidatorHolder holder = (OKMyValidatorHolder)viewHolder;
-                final Validator validator  = getBaseDao().mMyValidators.get(position);
+                final OKMyValidatorHolder holder = (OKMyValidatorHolder) viewHolder;
+                final Validator validator = getBaseDao().mMyValidators.get(position);
                 if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkex));
                     holder.itemTvMoniker.setText(validator.description.moniker);
                     holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
                     holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
                     try {
                         Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
 
-                    if(validator.jailed) {
-                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    if (validator.jailed) {
+                        holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
                         holder.itemRevoked.setVisibility(View.VISIBLE);
                     } else {
-                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                        holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
                         holder.itemRevoked.setVisibility(View.GONE);
                     }
                 }
@@ -160,7 +161,6 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         }
 
 
-
         @Override
         public int getItemViewType(int position) {
             if (getBaseDao().mMyValidators == null || getBaseDao().mMyValidators.size() < 1) {
@@ -171,23 +171,23 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
         }
 
         public class OKMyValidatorHolder extends RecyclerView.ViewHolder {
-            CardView            itemRoot;
-            CircleImageView     itemAvatar;
-            ImageView           itemRevoked;
-            ImageView           itemFree;
-            TextView            itemTvMoniker;
-            TextView            itemTvVotingPower;
-            TextView            itemTvCommission;
+            CardView itemRoot;
+            CircleImageView itemAvatar;
+            ImageView itemRevoked;
+            ImageView itemFree;
+            TextView itemTvMoniker;
+            TextView itemTvVotingPower;
+            TextView itemTvCommission;
 
             public OKMyValidatorHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot            = itemView.findViewById(R.id.card_validator);
-                itemAvatar          = itemView.findViewById(R.id.avatar_validator);
-                itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree            = itemView.findViewById(R.id.avatar_validator_free);
-                itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-                itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
-                itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
+                itemRoot = itemView.findViewById(R.id.card_validator);
+                itemAvatar = itemView.findViewById(R.id.avatar_validator);
+                itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemFree = itemView.findViewById(R.id.avatar_validator_free);
+                itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
+                itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
+                itemTvCommission = itemView.findViewById(R.id.delegate_commission_validator);
             }
         }
 

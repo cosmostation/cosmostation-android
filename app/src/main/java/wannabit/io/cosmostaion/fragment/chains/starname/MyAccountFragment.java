@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -56,7 +57,7 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
         mRegisterAccount = rootView.findViewById(R.id.btn_register);
         mRegisterAccount.setOnClickListener(this);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

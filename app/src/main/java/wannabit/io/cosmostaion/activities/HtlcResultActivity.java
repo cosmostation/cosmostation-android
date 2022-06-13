@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
 import java.math.BigDecimal;
@@ -191,10 +192,10 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             final Msg msg = mResSendBnbTxInfo.tx.value.msg.get(0);
 
             if (mResSendBnbTxInfo.ok) {
-                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
+                statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.success_ic));
                 statusTv.setText(R.string.str_success_c);
             } else {
-                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
+                statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.fail_ic));
                 statusTv.setText(R.string.str_failed_c);
                 errorTv.setText(mResSendBnbTxInfo.log);
                 errorTv.setVisibility(View.VISIBLE);
@@ -220,10 +221,10 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             final Msg msg = mResSendTxInfo.tx.value.msg.get(0);
 
             if (mResSendTxInfo.isSuccess()) {
-                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
+                statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.success_ic));
                 statusTv.setText(R.string.str_success_c);
             } else {
-                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
+                statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.fail_ic));
                 statusTv.setText(R.string.str_failed_c);
                 errorTv.setText(mResSendTxInfo.failMessage());
                 errorTv.setVisibility(View.VISIBLE);
@@ -272,10 +273,10 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         if (mRecipientChain.equals(BaseChain.BNB_MAIN) && mResReceiveBnbTxInfo != null) {
             final Msg msg = mResReceiveBnbTxInfo.tx.value.msg.get(0);
             if (mResReceiveBnbTxInfo.ok) {
-                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
+                statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.success_ic));
                 statusTv.setText(R.string.str_success_c);
             } else {
-                statusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
+                statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.fail_ic));
                 statusTv.setText(R.string.str_failed_c);
                 errorTv.setText(mResReceiveBnbTxInfo.log);
                 errorTv.setVisibility(View.VISIBLE);
@@ -299,10 +300,10 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
                 final Msg msg = mResReceiveTxInfo.tx.value.msg.get(0);
                 if (mResReceiveTxInfo.isSuccess()) {
-                    statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
+                    statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.success_ic));
                     statusTv.setText(R.string.str_success_c);
                 } else {
-                    statusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
+                    statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.fail_ic));
                     statusTv.setText(R.string.str_failed_c);
                     errorTv.setText(mResReceiveTxInfo.failMessage());
                     errorTv.setVisibility(View.VISIBLE);

@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -44,19 +45,19 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button              mBefore, mNextBtn;
-    private EditText            mAmountInput;
-    private TextView            mMinAmount, mMaxAmount;
-    private TextView            mDenomTitle;
-    private ImageView           mClearAll;
-    private Button              mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
-    private BigDecimal          mMinAvailable = BigDecimal.ZERO;
-    private BigDecimal          mMaxAvailable = BigDecimal.ZERO;
+    private Button mBefore, mNextBtn;
+    private EditText mAmountInput;
+    private TextView mMinAmount, mMaxAmount;
+    private TextView mDenomTitle;
+    private ImageView mClearAll;
+    private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private BigDecimal mMinAvailable = BigDecimal.ZERO;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    private ArrayList<Coin>     mToSendCoins = new ArrayList<>();
-    private int                 mDecimal = 8;
-    private String              mDecimalChecker, mDecimalSetter;
-    public String               mToSwapDenom;
+    private ArrayList<Coin> mToSendCoins = new ArrayList<>();
+    private int mDecimal = 8;
+    private String mDecimalChecker, mDecimalSetter;
+    public String mToSwapDenom;
 
     public static HtlcSendStep2Fragment newInstance(Bundle bundle) {
         HtlcSendStep2Fragment fragment = new HtlcSendStep2Fragment();
@@ -112,19 +113,19 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mDenomTitle.setText(getString(R.string.str_bnb_c));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBnb));
                 mMaxAvailable = getSActivity().getAvailable().subtract(new BigDecimal(FEE_BNB_SEND));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
                 mDenomTitle.setText(getString(R.string.str_btc_c));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
                 mMaxAvailable = getSActivity().getAvailable();
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
                 mDenomTitle.setText("XRP");
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
                 mMaxAvailable = getSActivity().getAvailable();
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
                 mDenomTitle.setText("BUSD");
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
                 mMaxAvailable = getSActivity().getAvailable();
             }
             // check relayer capacity
@@ -146,16 +147,16 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
                 mDenomTitle.setText(getString(R.string.str_bnb_c));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBnb));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
                 mDenomTitle.setText(getString(R.string.str_btc_c));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
                 mDenomTitle.setText("XRP");
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
                 mDenomTitle.setText("BUSD");
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             }
             mMaxAvailable = getSActivity().getAvailable();
             // check relayer capacity
@@ -172,23 +173,25 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
 
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                if (TextUtils.isEmpty(es)) {
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mAmountInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                     return;
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mAmountInput.setText("0");
                     mAmountInput.setSelection(1);
                 }
@@ -199,8 +202,8 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -215,29 +218,30 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
 
                         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                             if (mMaxAvailable.compareTo(inputAmount) < 0) {
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                             } else if (mMinAvailable.compareTo(inputAmount) >= 0) {
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                             } else {
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
 
                         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                             if (mMaxAvailable.compareTo(checkPosition) < 0) {
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                             } else if (mMinAvailable.compareTo(checkPosition) >= 0) {
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                             } else {
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
                         }
                         mAmountInput.setSelection(mAmountInput.getText().length());
 
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -264,7 +268,9 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                 mToSendCoins.add(token);
             }
 
-            if (mToSendCoins.size() <= 0) { return false; }
+            if (mToSendCoins.size() <= 0) {
+                return false;
+            }
 
         } catch (Exception e) {
             mToSendCoins.clear();
@@ -276,11 +282,11 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBefore)) {
+        if (v.equals(mBefore)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(isValidateAmount()) {
+            if (isValidateAmount()) {
                 getSActivity().mToSendCoins = mToSendCoins;
                 getSActivity().onNextStep();
             } else {
@@ -298,7 +304,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
@@ -306,7 +312,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
@@ -314,7 +320,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
@@ -344,17 +350,17 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
 
 
     private HtlcSendActivity getSActivity() {
-        return (HtlcSendActivity)getBaseActivity();
+        return (HtlcSendActivity) getBaseActivity();
     }
 
     private void setDpDecimals(int deciaml) {
         mDecimalChecker = "0.";
         mDecimalSetter = "0.";
-        for (int i = 0; i < deciaml; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < deciaml; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
         }
-        for (int i = 0; i < deciaml-1; i ++) {
-            mDecimalSetter = mDecimalSetter+"0";
+        for (int i = 0; i < deciaml - 1; i++) {
+            mDecimalSetter = mDecimalSetter + "0";
         }
     }
 

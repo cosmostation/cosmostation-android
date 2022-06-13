@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -115,12 +116,12 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
                 if (TextUtils.isEmpty(es)) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mAmountInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                     mAmountInput.setVisibility(View.VISIBLE);
                 } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mAmountInput.setText("0");
@@ -134,7 +135,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
                         if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -148,9 +149,9 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
                         }
 
                         if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
                         mAmountInput.setSelection(mAmountInput.getText().length());
                     } catch (Exception e) {

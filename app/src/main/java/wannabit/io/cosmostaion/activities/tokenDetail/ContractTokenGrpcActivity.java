@@ -136,10 +136,10 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mCw20Asset.denom);
             if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
                 mItemUpDownImg.setVisibility(View.VISIBLE);
-                mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(ContractTokenGrpcActivity.this, R.drawable.ic_price_up));
             } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
                 mItemUpDownImg.setVisibility(View.VISIBLE);
-                mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(ContractTokenGrpcActivity.this, R.drawable.ic_price_down));
             } else {
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }

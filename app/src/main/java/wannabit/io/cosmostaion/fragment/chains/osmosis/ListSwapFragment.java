@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -42,15 +43,15 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     private TextView mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
     private TextView mSwapInputCoinExRate, mSwapInputCoinExSymbol, mSwapOutputCoinExRate, mSwapOutputCoinExSymbol;
     private ImageButton mBtnToggle;
-    private Button  mBtnSwapStart;
+    private Button mBtnSwapStart;
 
     public ArrayList<BalancerPool.Pool> mPoolList = new ArrayList<>();
-    public ArrayList<String>            mAllDenoms = new ArrayList<>();
+    public ArrayList<String> mAllDenoms = new ArrayList<>();
     public ArrayList<BalancerPool.Pool> mSwapablePools = new ArrayList<>();
-    public ArrayList<String>            mSwapableDenoms = new ArrayList<>();
-    public BalancerPool.Pool            mSelectedPool;
-    public String                       mInputCoinDenom;
-    public String                       mOutputCoinDenom;
+    public ArrayList<String> mSwapableDenoms = new ArrayList<>();
+    public BalancerPool.Pool mSelectedPool;
+    public String mInputCoinDenom;
+    public String mOutputCoinDenom;
 
     public static ListSwapFragment newInstance(Bundle bundle) {
         ListSwapFragment fragment = new ListSwapFragment();
@@ -66,37 +67,37 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_swap_list, container, false);
-        mBtnInputCoinList           = rootView.findViewById(R.id.btn_to_input_coin);
-        mBtnOutputCoinList          = rootView.findViewById(R.id.btn_to_output_coin);
+        mBtnInputCoinList = rootView.findViewById(R.id.btn_to_input_coin);
+        mBtnOutputCoinList = rootView.findViewById(R.id.btn_to_output_coin);
 
-        mInputImg                   = rootView.findViewById(R.id.img_input_coin);
-        mInputCoin                  = rootView.findViewById(R.id.txt_input_coin);
-        mInputAmount                = rootView.findViewById(R.id.inpus_amount);
-        mOutputImg                  = rootView.findViewById(R.id.img_output_coin);
-        mOutputCoin                 = rootView.findViewById(R.id.txt_output_coin);
+        mInputImg = rootView.findViewById(R.id.img_input_coin);
+        mInputCoin = rootView.findViewById(R.id.txt_input_coin);
+        mInputAmount = rootView.findViewById(R.id.inpus_amount);
+        mOutputImg = rootView.findViewById(R.id.img_output_coin);
+        mOutputCoin = rootView.findViewById(R.id.txt_output_coin);
 
-        mSwapTitle                  = rootView.findViewById(R.id.swap_title);
-        mSwapInputCoinRate          = rootView.findViewById(R.id.inputs_rate);
-        mSwapInputCoinSymbol        = rootView.findViewById(R.id.inputs_rate_symbol);
-        mSwapOutputCoinRate         = rootView.findViewById(R.id.outputs_rate);
-        mSwapOutputCoinSymbol       = rootView.findViewById(R.id.outputs_rate_symbol);
+        mSwapTitle = rootView.findViewById(R.id.swap_title);
+        mSwapInputCoinRate = rootView.findViewById(R.id.inputs_rate);
+        mSwapInputCoinSymbol = rootView.findViewById(R.id.inputs_rate_symbol);
+        mSwapOutputCoinRate = rootView.findViewById(R.id.outputs_rate);
+        mSwapOutputCoinSymbol = rootView.findViewById(R.id.outputs_rate_symbol);
 
-        mSwapInputCoinExRate        = rootView.findViewById(R.id.global_inputs_rate);
-        mSwapInputCoinExSymbol      = rootView.findViewById(R.id.global_inputs_rate_symbol);
-        mSwapOutputCoinExRate       = rootView.findViewById(R.id.global_outputs_rate);
-        mSwapOutputCoinExSymbol     = rootView.findViewById(R.id.global_outputs_rate_symbol);
+        mSwapInputCoinExRate = rootView.findViewById(R.id.global_inputs_rate);
+        mSwapInputCoinExSymbol = rootView.findViewById(R.id.global_inputs_rate_symbol);
+        mSwapOutputCoinExRate = rootView.findViewById(R.id.global_outputs_rate);
+        mSwapOutputCoinExSymbol = rootView.findViewById(R.id.global_outputs_rate_symbol);
 
-        mSwapFee                    = rootView.findViewById(R.id.token_swap_fee);
-        mSwapSlippage               = rootView.findViewById(R.id.swap_slippage);
-        mBtnToggle                  = rootView.findViewById(R.id.btn_toggle);
-        mBtnSwapStart               = rootView.findViewById(R.id.btn_start_swap);
+        mSwapFee = rootView.findViewById(R.id.token_swap_fee);
+        mSwapSlippage = rootView.findViewById(R.id.swap_slippage);
+        mBtnToggle = rootView.findViewById(R.id.btn_toggle);
+        mBtnSwapStart = rootView.findViewById(R.id.btn_start_swap);
 
         mBtnInputCoinList.setOnClickListener(this);
         mBtnOutputCoinList.setOnClickListener(this);
         mBtnToggle.setOnClickListener(this);
         mBtnSwapStart.setOnClickListener(this);
 
-        mBtnToggle.setBackgroundTintList(getResources().getColorStateList(R.color.colorOsmosis));
+        mBtnToggle.setBackgroundTintList(ContextCompat.getColorStateList(getSActivity(), R.color.colorOsmosis));
         mSwapTitle.setText(getString(R.string.str_swap_osmosis));
         return rootView;
     }
@@ -136,7 +137,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         BigDecimal outputAssetAmount = BigDecimal.ZERO;
         BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
-        for (Pool.PoolAsset asset: mSelectedPool.getPoolAssetsList()) {
+        for (Pool.PoolAsset asset : mSelectedPool.getPoolAssetsList()) {
             if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                 inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                 inputAssetWeight = new BigDecimal(asset.getWeight());
@@ -182,23 +183,23 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnOutputCoinList)) {
             mSwapablePools.clear();
             mSwapableDenoms.clear();
-            for (BalancerPool.Pool pool: mPoolList) {
-                for (Pool.PoolAsset asset: pool.getPoolAssetsList()) {
+            for (BalancerPool.Pool pool : mPoolList) {
+                for (Pool.PoolAsset asset : pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSwapablePools.add(pool);
                         break;
                     }
                 }
             }
-            WLog.w("mSwapablePools " +  mSwapablePools.size());
-            for (BalancerPool.Pool sPool: mSwapablePools) {
-                for (Pool.PoolAsset  asset: sPool.getPoolAssetsList()) {
+            WLog.w("mSwapablePools " + mSwapablePools.size());
+            for (BalancerPool.Pool sPool : mSwapablePools) {
+                for (Pool.PoolAsset asset : sPool.getPoolAssetsList()) {
                     if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSwapableDenoms.add(asset.getToken().getDenom());
                     }
                 }
             }
-            WLog.w("mSwapableDenoms " +  mSwapableDenoms.size());
+            WLog.w("mSwapableDenoms " + mSwapableDenoms.size());
 
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
@@ -222,15 +223,16 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (BalancerPool.Pool pool: mPoolList) {
-                for (Pool.PoolAsset  asset: pool.getPoolAssetsList()) {
+            loop:
+            for (BalancerPool.Pool pool : mPoolList) {
+                for (Pool.PoolAsset asset : pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSelectedPool = pool;
                         break loop;
                     }
                 }
             }
-            for (Pool.PoolAsset  asset: mSelectedPool.getPoolAssetsList()) {
+            for (Pool.PoolAsset asset : mSelectedPool.getPoolAssetsList()) {
                 if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
                     mOutputCoinDenom = asset.getToken().getDenom();
                     break;
@@ -240,8 +242,9 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
         } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (BalancerPool.Pool pool: mSwapablePools) {
-                for (Pool.PoolAsset  asset: pool.getPoolAssetsList()) {
+            loop:
+            for (BalancerPool.Pool pool : mSwapablePools) {
+                for (Pool.PoolAsset asset : pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
                         mSelectedPool = pool;
                         break loop;
@@ -252,5 +255,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-    private LabsListActivity getSActivity() { return (LabsListActivity)getBaseActivity(); }
+    private LabsListActivity getSActivity() {
+        return (LabsListActivity) getBaseActivity();
+    }
 }

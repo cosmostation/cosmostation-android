@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -85,11 +86,11 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String memo = mMemo.getText().toString().trim();
                 if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
-                    mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
+                    mMemo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
+                    mMemoCnt.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGray1));
                 } else {
-                    mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
+                    mMemo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                    mMemoCnt.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
                 }
                 mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
 
@@ -103,11 +104,11 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
             public void afterTextChanged(Editable s) {
                 String memo = mMemo.getText().toString().trim();
                 if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
-                    mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
+                    mMemo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
+                    mMemoCnt.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGray1));
                 } else {
-                    mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
+                    mMemo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                    mMemoCnt.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
                 }
                 mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
             }

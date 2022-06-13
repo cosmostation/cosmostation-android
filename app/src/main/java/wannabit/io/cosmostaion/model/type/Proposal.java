@@ -3,11 +3,14 @@ package wannabit.io.cosmostaion.model.type;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import androidx.core.content.ContextCompat;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.tokenDetail.POOLTokenDetailActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 
 
@@ -60,16 +63,16 @@ public class Proposal {
 
     public Drawable getStatusImg(Context c) {
         if (proposal_status.equals(PROPOSAL_DEPOSIT)) {
-            return c.getResources().getDrawable(R.drawable.ic_deposit_img);
+            return ContextCompat.getDrawable(c, R.drawable.ic_deposit_img);
 
         } else if (proposal_status.equals(PROPOSAL_VOTING)) {
-            return c.getResources().getDrawable(R.drawable.ic_voting_img);
+            return ContextCompat.getDrawable(c, R.drawable.ic_voting_img);
 
         } else if (proposal_status.equals(PROPOSAL_REJECTED)) {
-            return c.getResources().getDrawable(R.drawable.ic_rejected_img);
+            return ContextCompat.getDrawable(c, R.drawable.ic_rejected_img);
 
         } else if (proposal_status.equals(PROPOSAL_PASSED)) {
-            return c.getResources().getDrawable(R.drawable.ic_passed_img);
+            return ContextCompat.getDrawable(c, R.drawable.ic_passed_img);
 
         }
         return null;

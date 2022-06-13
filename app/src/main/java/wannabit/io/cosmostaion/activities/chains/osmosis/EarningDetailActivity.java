@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -118,7 +119,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         if (mLockUps.size() > 0) {
             mPoolIdTv.setText("#" + mPool.getId() + " MY EARNING");
-            mPoolIdTv.setTextColor(getResources().getColor(R.color.colorOsmosis));
+            mPoolIdTv.setTextColor(ContextCompat.getColor(EarningDetailActivity.this, R.color.colorOsmosis));
         } else {
             mPoolIdTv.setText("#" + mPool.getId() + " EARNING");
         }

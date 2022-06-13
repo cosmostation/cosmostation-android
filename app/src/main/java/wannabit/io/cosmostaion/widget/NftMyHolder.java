@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -40,7 +41,7 @@ public class NftMyHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindNFT(NFTListActivity activity, String denomId, String tokenId) {
-        itemRoot.setCardBackgroundColor(activity.getResources().getColor(R.color.colorTransBgIris));
+        itemRoot.setCardBackgroundColor(ContextCompat.getColor(activity, R.color.colorTransBgIris));
         itemMyNftImg.setClipToOutline(true);
         new NFTokenInfoGrpcTask(activity.getBaseApplication(), new TaskListener() {
             @Override

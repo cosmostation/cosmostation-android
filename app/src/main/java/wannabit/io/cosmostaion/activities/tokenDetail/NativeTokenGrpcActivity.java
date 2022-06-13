@@ -152,7 +152,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mBtnIbcSend.setVisibility(View.VISIBLE);
         if (mBaseChain.equals(BaseChain.OSMOSIS_MAIN)) {
             WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mNativeGrpcDenom);
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorIon));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorIon));
             mToolbarSymbol.setText(getString(R.string.str_uion_c));
             if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_ION)) {
                 mDivideDecimal = 6;
@@ -167,14 +167,14 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD)) {
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorHard));
-                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBghard));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorHard));
+                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBghard));
             } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_USDX)) {
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
-                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgusdx));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorUsdx));
+                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBgusdx));
             } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
-                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgswp));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorSwp));
+                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBgswp));
             }
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
             Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
@@ -184,15 +184,15 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             }
 
         } else if (mBaseChain.equals(CRESCENT_MAIN)) {
-            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
+            mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.token_bcre));
             mToolbarSymbol.setText(R.string.str_bcre_c);
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorCrescent2));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorCrescent2));
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
 
         } else if (mBaseChain.equals(NYX_MAIN)) {
-            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_nym));
+            mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.token_nym));
             mToolbarSymbol.setText(R.string.str_nym_c);
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorNym));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorNym));
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
         }
 
@@ -201,10 +201,10 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mNativeGrpcDenom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.ic_price_up));
         } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.ic_price_down));
         } else {
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }

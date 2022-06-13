@@ -142,10 +142,10 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mMainDenom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(StakingTokenGrpcActivity.this, R.drawable.ic_price_up));
         } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(StakingTokenGrpcActivity.this, R.drawable.ic_price_down));
         } else {
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }

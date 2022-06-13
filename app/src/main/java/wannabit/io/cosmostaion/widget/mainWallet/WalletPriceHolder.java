@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,10 +54,10 @@ public class WalletPriceHolder extends BaseHolder {
         final BigDecimal lastUpDown = WDp.valueChange(data, denom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             itemUpDownImg.setVisibility(View.VISIBLE);
-            itemUpDownImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.ic_price_up));
+            itemUpDownImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.ic_price_up));
         } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
             itemUpDownImg.setVisibility(View.VISIBLE);
-            itemUpDownImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.ic_price_down));
+            itemUpDownImg.setImageDrawable(ContextCompat.getDrawable(mainActivity,R.drawable.ic_price_down));
         } else {
             itemUpDownImg.setVisibility(View.INVISIBLE);
         }

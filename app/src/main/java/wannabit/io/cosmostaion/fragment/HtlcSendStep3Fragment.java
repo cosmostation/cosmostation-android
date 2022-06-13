@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 
@@ -110,16 +111,16 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mSendDenomTv.setText(getString(R.string.str_bnb_c));
-                mSendDenomTv.setTextColor(getResources().getColor(R.color.colorBnb));
+                mSendDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBnb));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
                 mSendDenomTv.setText(getString(R.string.str_btc_c));
-                mSendDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mSendDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
                 mSendDenomTv.setText("XRP");
-                mSendDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mSendDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
                 mSendDenomTv.setText("BUSD");
-                mSendDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mSendDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             }
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
 
@@ -145,17 +146,17 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             mReceiveAmountDenomTv.setText(getSActivity().mToSwapDenom.toUpperCase());
             mRelayFeeAmountDenomTv.setText(getSActivity().mToSwapDenom.toUpperCase());
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
-                mReceiveAmountDenomTv.setTextColor(getResources().getColor(R.color.colorBnb));
-                mRelayFeeAmountDenomTv.setTextColor(getResources().getColor(R.color.colorBnb));
+                mReceiveAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBnb));
+                mRelayFeeAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBnb));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
-                mReceiveAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
-                mRelayFeeAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mReceiveAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
+                mRelayFeeAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
-                mReceiveAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
-                mRelayFeeAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mReceiveAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
+                mRelayFeeAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
-                mReceiveAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
-                mRelayFeeAmountDenomTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                mReceiveAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
+                mRelayFeeAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
             }
             WDp.DpMainDenom(getContext(), getSActivity().mRecipientChain.getChain(), mClaimFeeDenomTv);
 

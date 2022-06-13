@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -26,38 +30,35 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
-
 public class DepositHardActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout                  mRootView;
-    private Toolbar                         mToolbar;
-    private TextView                        mTitle;
-    private ImageView                       mIvStep;
-    private TextView                        mTvStep;
-    private ViewPager                       mViewPager;
-    private DepositHarvestPageAdapter       mPageAdapter;
+    private RelativeLayout mRootView;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private DepositHarvestPageAdapter mPageAdapter;
 
-    public String                           mHardMoneyMarketDenom;
+    public String mHardMoneyMarketDenom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView           = findViewById(R.id.root_view);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mTitle              = findViewById(R.id.toolbar_title);
-        mIvStep             = findViewById(R.id.send_step);
-        mTvStep             = findViewById(R.id.send_step_msg);
-        mViewPager          = findViewById(R.id.view_pager);
+        mRootView = findViewById(R.id.root_view);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
+        mIvStep = findViewById(R.id.send_step);
+        mTvStep = findViewById(R.id.send_step_msg);
+        mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_deposit_harvest));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositHardActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_deposit_harvest_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -71,29 +72,31 @@ public class DepositHardActivity extends BaseBroadCastActivity {
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
-                if(i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+                if (i == 0) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositHardActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_deposit_harvest_step_1));
-                } else if (i == 1 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
+                } else if (i == 1) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositHardActivity.this, R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_deposit_harvest_step_2));
-                } else if (i == 2 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
+                } else if (i == 2) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositHardActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_deposit_harvest_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 3 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
+                } else if (i == 3) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositHardActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_deposit_harvest_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         mViewPager.setCurrentItem(0);
 
@@ -119,7 +122,7 @@ public class DepositHardActivity extends BaseBroadCastActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -127,14 +130,14 @@ public class DepositHardActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {

@@ -19,8 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
-import com.squareup.picasso.Picasso;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -35,44 +34,42 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-
 public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int     CDP_CREATE_CONFIRM_DIALOG = 6017;
-    private final static int    STEP_COLLATERAL = 0;
-    private final static int    STEP_PRINCIPAL = 1;
-    private int                 mStep = STEP_COLLATERAL;
+    public final static int CDP_CREATE_CONFIRM_DIALOG = 6017;
+    private final static int STEP_COLLATERAL = 0;
+    private final static int STEP_PRINCIPAL = 1;
+    private int mStep = STEP_COLLATERAL;
 
-    private Button          mBtnCancel, mBtnNext;
+    private Button mBtnCancel, mBtnNext;
 
-    private RelativeLayout  mCollateralInputLayer;
-    private ImageView       mCollateralImg;
-    private TextView        mCollateralSymbol;
-    private EditText        mCollateralInput;
-    private ImageView       mCollateralClear;
-    private LinearLayout    mCollateralActionLayer;
-    private TextView        mCollateralMinTx, mCollateralMaxTx, mCollateralDenomTx;
-    private Button          mBtnCollateralMin, mBtnCollateral1_4, mBtnCollateralHalf, mBtnCollateral3_4, mBtnCollateralMax;
+    private RelativeLayout mCollateralInputLayer;
+    private ImageView mCollateralImg;
+    private TextView mCollateralSymbol;
+    private EditText mCollateralInput;
+    private ImageView mCollateralClear;
+    private LinearLayout mCollateralActionLayer;
+    private TextView mCollateralMinTx, mCollateralMaxTx, mCollateralDenomTx;
+    private Button mBtnCollateralMin, mBtnCollateral1_4, mBtnCollateralHalf, mBtnCollateral3_4, mBtnCollateralMax;
 
-    private RelativeLayout  mCollateralValueLayer;
-    private TextView        mCollateralValue;
+    private RelativeLayout mCollateralValueLayer;
+    private TextView mCollateralValue;
 
-    private LinearLayout    mPrincipalLayer;
-    private ImageView       mPrincipalImg;
-    private TextView        mPrincipalSymbol;
-    private EditText        mPrincipalInput;
-    private ImageView       mPrincipalClear;
-    private TextView        mPrincipalMinTx, mPrincipalMaxTx, mPrincipalDenomTx;
-    private Button          mBtnPrincipalMin, mBtnPrincipal20, mBtnPrincipal50, mBtnPrincipal70, mBtnPrincipalMax;
+    private LinearLayout mPrincipalLayer;
+    private ImageView mPrincipalImg;
+    private TextView mPrincipalSymbol;
+    private EditText mPrincipalInput;
+    private ImageView mPrincipalClear;
+    private TextView mPrincipalMinTx, mPrincipalMaxTx, mPrincipalDenomTx;
+    private Button mBtnPrincipalMin, mBtnPrincipal20, mBtnPrincipal50, mBtnPrincipal70, mBtnPrincipalMax;
 
-    private String          mCollateralDenom, mPrincipalDenom;
-    private BigDecimal      mCollateralMinAmount, mCollateralMaxAmount;
-    private BigDecimal      mPrincipalMinAmount, mPrincipalMaxAmount;
+    private String mCollateralDenom, mPrincipalDenom;
+    private BigDecimal mCollateralMinAmount, mCollateralMaxAmount;
+    private BigDecimal mPrincipalMinAmount, mPrincipalMaxAmount;
 
-    private String          mCollateralDecimalChecker, mCollateralDecimalSetter;
-    private String          mPrincipalChecker, mPrincipalSetter;
+    private String mCollateralDecimalChecker, mCollateralDecimalSetter;
+    private String mPrincipalChecker, mPrincipalSetter;
 
-    public BigDecimal       mToCollateralAmount = BigDecimal.ZERO;
+    public BigDecimal mToCollateralAmount = BigDecimal.ZERO;
 
 
     public static CreateCdpStep0Fragment newInstance(Bundle bundle) {
@@ -89,39 +86,39 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create_cdp_step0, container, false);
-        mBtnCancel              = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext                = rootView.findViewById(R.id.btn_next);
+        mBtnCancel = rootView.findViewById(R.id.btn_cancel);
+        mBtnNext = rootView.findViewById(R.id.btn_next);
 
-        mCollateralInputLayer   = rootView.findViewById(R.id.collateral_input_layer);
-        mCollateralImg          = rootView.findViewById(R.id.collateral_icon);
-        mCollateralSymbol       = rootView.findViewById(R.id.collateral_symbol);
-        mCollateralInput        = rootView.findViewById(R.id.collateral_input);
-        mCollateralClear        = rootView.findViewById(R.id.collateral_clear);
-        mCollateralActionLayer  = rootView.findViewById(R.id.collateral_action_layer);
-        mCollateralMinTx        = rootView.findViewById(R.id.collateral_min_amount);
-        mCollateralMaxTx        = rootView.findViewById(R.id.collateral_max_amount);
-        mCollateralDenomTx      = rootView.findViewById(R.id.collateral_denom);
-        mBtnCollateralMin       = rootView.findViewById(R.id.collateral_min);
-        mBtnCollateral1_4       = rootView.findViewById(R.id.collateral_1_4);
-        mBtnCollateralHalf      = rootView.findViewById(R.id.collateral_half);
-        mBtnCollateral3_4       = rootView.findViewById(R.id.collateral_3_4);
-        mBtnCollateralMax       = rootView.findViewById(R.id.collateral_max);
-        mCollateralValueLayer   = rootView.findViewById(R.id.collateral_value_layer);
-        mCollateralValue        = rootView.findViewById(R.id.collateral_value);
+        mCollateralInputLayer = rootView.findViewById(R.id.collateral_input_layer);
+        mCollateralImg = rootView.findViewById(R.id.collateral_icon);
+        mCollateralSymbol = rootView.findViewById(R.id.collateral_symbol);
+        mCollateralInput = rootView.findViewById(R.id.collateral_input);
+        mCollateralClear = rootView.findViewById(R.id.collateral_clear);
+        mCollateralActionLayer = rootView.findViewById(R.id.collateral_action_layer);
+        mCollateralMinTx = rootView.findViewById(R.id.collateral_min_amount);
+        mCollateralMaxTx = rootView.findViewById(R.id.collateral_max_amount);
+        mCollateralDenomTx = rootView.findViewById(R.id.collateral_denom);
+        mBtnCollateralMin = rootView.findViewById(R.id.collateral_min);
+        mBtnCollateral1_4 = rootView.findViewById(R.id.collateral_1_4);
+        mBtnCollateralHalf = rootView.findViewById(R.id.collateral_half);
+        mBtnCollateral3_4 = rootView.findViewById(R.id.collateral_3_4);
+        mBtnCollateralMax = rootView.findViewById(R.id.collateral_max);
+        mCollateralValueLayer = rootView.findViewById(R.id.collateral_value_layer);
+        mCollateralValue = rootView.findViewById(R.id.collateral_value);
 
-        mPrincipalLayer         = rootView.findViewById(R.id.principal_layer);
-        mPrincipalImg           = rootView.findViewById(R.id.principal_icon);
-        mPrincipalSymbol        = rootView.findViewById(R.id.principal_symbol);
-        mPrincipalInput         = rootView.findViewById(R.id.principal_input);
-        mPrincipalClear         = rootView.findViewById(R.id.principal_clear);
-        mPrincipalMinTx         = rootView.findViewById(R.id.principal_min_amount);
-        mPrincipalMaxTx         = rootView.findViewById(R.id.principal_max_amount);
-        mPrincipalDenomTx       = rootView.findViewById(R.id.principal_denom);
-        mBtnPrincipalMin        = rootView.findViewById(R.id.principal_min);
-        mBtnPrincipal20         = rootView.findViewById(R.id.principal_20);
-        mBtnPrincipal50         = rootView.findViewById(R.id.principal_50);
-        mBtnPrincipal70         = rootView.findViewById(R.id.principal_70);
-        mBtnPrincipalMax        = rootView.findViewById(R.id.principal_max);
+        mPrincipalLayer = rootView.findViewById(R.id.principal_layer);
+        mPrincipalImg = rootView.findViewById(R.id.principal_icon);
+        mPrincipalSymbol = rootView.findViewById(R.id.principal_symbol);
+        mPrincipalInput = rootView.findViewById(R.id.principal_input);
+        mPrincipalClear = rootView.findViewById(R.id.principal_clear);
+        mPrincipalMinTx = rootView.findViewById(R.id.principal_min_amount);
+        mPrincipalMaxTx = rootView.findViewById(R.id.principal_max_amount);
+        mPrincipalDenomTx = rootView.findViewById(R.id.principal_denom);
+        mBtnPrincipalMin = rootView.findViewById(R.id.principal_min);
+        mBtnPrincipal20 = rootView.findViewById(R.id.principal_20);
+        mBtnPrincipal50 = rootView.findViewById(R.id.principal_50);
+        mBtnPrincipal70 = rootView.findViewById(R.id.principal_70);
+        mBtnPrincipalMax = rootView.findViewById(R.id.principal_max);
 
 
         mCollateralInputLayer.setOnClickListener(this);
@@ -191,23 +188,25 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
             mCollateralInput.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
 
                 @Override
                 public void afterTextChanged(Editable et) {
                     String es = et.toString().trim();
-                    if(TextUtils.isEmpty(es)) {
-                        mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    if (TextUtils.isEmpty(es)) {
+                        mCollateralInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     } else if (es.startsWith(".")) {
-                        mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                        mCollateralInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         mCollateralInput.setText("");
                     } else if (es.endsWith(".")) {
-                        mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        mCollateralInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         return;
-                    } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                    } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                         mCollateralInput.setText("0");
                         mCollateralInput.setSelection(1);
                     }
@@ -218,8 +217,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                     } else {
                         try {
                             final BigDecimal inputAmount = new BigDecimal(es);
-                            if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                                mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                                mCollateralInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                                 return;
                             }
 
@@ -232,17 +231,18 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                                 return;
                             }
                             if (mCollateralMinAmount.compareTo(checkPosition) > 0) {
-                                mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mCollateralInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                             } else if (mCollateralMaxAmount.compareTo(checkPosition) < 0) {
-                                mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mCollateralInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                             } else {
-                                mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                                mCollateralInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
                             mCollateralInput.setSelection(mCollateralInput.getText().length());
 
-                        } catch (Exception e) { }
+                        } catch (Exception e) {
+                        }
                     }
                 }
             });
@@ -264,22 +264,24 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
             mPrincipalInput.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
                 @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
 
                 @Override
                 public void afterTextChanged(Editable et) {
                     String es = et.toString().trim();
-                    if(TextUtils.isEmpty(es)) {
-                        mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    if (TextUtils.isEmpty(es)) {
+                        mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     } else if (es.startsWith(".")) {
-                        mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                        mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         mPrincipalInput.setText("");
                     } else if (es.endsWith(".")) {
-                        mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                    } else if(mPrincipalInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                        mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                    } else if (mPrincipalInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                         mPrincipalInput.setText("0");
                         mPrincipalInput.setSelection(1);
                     }
@@ -290,8 +292,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                     } else {
                         try {
                             final BigDecimal inputAmount = new BigDecimal(es);
-                            if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                                mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                                mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                                 return;
                             }
 
@@ -304,17 +306,18 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                                 return;
                             }
                             if (mPrincipalMinAmount.compareTo(checkPosition) > 0) {
-                                mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                             } else if (mPrincipalMaxAmount.compareTo(checkPosition) < 0) {
-                                mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                             } else {
-                                mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                                mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
                             mPrincipalInput.setSelection(mPrincipalInput.getText().length());
 
-                        } catch (Exception e) { }
+                        } catch (Exception e) {
+                        }
                     }
                     onUpdateNextBtn();
                 }
@@ -337,9 +340,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 onUpdateStep();
             }
 
-        }
-
-        else if (v.equals(mBtnCollateralMin)) {
+        } else if (v.equals(mBtnCollateralMin)) {
             mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
 
         } else if (v.equals(mBtnCollateral1_4)) {
@@ -468,7 +469,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
             BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
             if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) return false;
+            if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0)
+                return false;
 
             final BigDecimal currentPrice = new BigDecimal(getPrice().getPrice()).movePointLeft(18);
             final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), RoundingMode.DOWN);
@@ -500,15 +502,15 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
                 if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) {
                     mBtnNext.setText(R.string.str_next);
-                    mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
-                    mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
+                    mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+                    mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
                     mBtnNext.setTypeface(null, Typeface.NORMAL);
                     return;
                 }
                 if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) {
                     mBtnNext.setText(R.string.str_next);
-                    mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
-                    mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
+                    mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+                    mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
                     mBtnNext.setTypeface(null, Typeface.NORMAL);
                     return;
 
@@ -521,15 +523,15 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
             } catch (Exception e) {
                 mBtnNext.setText(R.string.str_next);
-                mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
-                mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
+                mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+                mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
             }
 
         } else {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
-            mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
+            mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+            mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
 
         }
@@ -537,14 +539,14 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CDP_CREATE_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CDP_CREATE_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onNextStep();
         }
     }
 
 
     private CreateCdpActivity getSActivity() {
-        return (CreateCdpActivity)getBaseActivity();
+        return (CreateCdpActivity) getBaseActivity();
     }
 
     private Genesis.Params getCdpParam() {
@@ -560,24 +562,23 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     }
 
 
-
     private void setDpDecimals(int cDecimal, int pDeciaml) {
         mCollateralDecimalChecker = "0.";
         mPrincipalChecker = "0.";
         mCollateralDecimalSetter = "0.";
         mPrincipalSetter = "0.";
-        for (int i = 0; i < cDecimal; i ++) {
-            mCollateralDecimalChecker = mCollateralDecimalChecker+"0";
+        for (int i = 0; i < cDecimal; i++) {
+            mCollateralDecimalChecker = mCollateralDecimalChecker + "0";
         }
-        for (int i = 0; i < cDecimal-1; i ++) {
-            mCollateralDecimalSetter = mCollateralDecimalSetter+"0";
+        for (int i = 0; i < cDecimal - 1; i++) {
+            mCollateralDecimalSetter = mCollateralDecimalSetter + "0";
         }
 
-        for (int i = 0; i < pDeciaml; i ++) {
-            mPrincipalChecker = mPrincipalChecker+"0";
+        for (int i = 0; i < pDeciaml; i++) {
+            mPrincipalChecker = mPrincipalChecker + "0";
         }
-        for (int i = 0; i < pDeciaml-1; i ++) {
-            mPrincipalSetter = mPrincipalSetter+"0";
+        for (int i = 0; i < pDeciaml - 1; i++) {
+            mPrincipalSetter = mPrincipalSetter + "0";
         }
     }
 

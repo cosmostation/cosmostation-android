@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,17 +31,14 @@ import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-
 public class OKValidatorTopFragment extends BaseFragment {
 
-    private SwipeRefreshLayout          mSwipeRefreshLayout;
-    private RecyclerView                mRecyclerView;
-    private OKTopValidatorAdapter       mOKTopValidatorAdapter;
-    private TextView                    mValidatorSize;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private OKTopValidatorAdapter mOKTopValidatorAdapter;
+    private TextView mValidatorSize;
 
-    private ResOkStaking                mOkDeposit;
+    private ResOkStaking mOkDeposit;
 
     public static OKValidatorTopFragment newInstance(Bundle bundle) {
         OKValidatorTopFragment fragment = new OKValidatorTopFragment();
@@ -54,11 +54,11 @@ public class OKValidatorTopFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_validator_other, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mValidatorSize          = rootView.findViewById(R.id.validator_cnt);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mValidatorSize = rootView.findViewById(R.id.validator_cnt);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -81,8 +81,8 @@ public class OKValidatorTopFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        mOkDeposit      = getBaseDao().mOkStaking;
-        mValidatorSize.setText(""+getBaseDao().mTopValidators.size());
+        mOkDeposit = getBaseDao().mOkStaking;
+        mValidatorSize.setText("" + getBaseDao().mTopValidators.size());
         onSortValidator();
 
         mOKTopValidatorAdapter.notifyDataSetChanged();
@@ -91,15 +91,14 @@ public class OKValidatorTopFragment extends BaseFragment {
 
     @Override
     public void onBusyFetch() {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
     private OKValidatorListActivity getSActivity() {
-        return (OKValidatorListActivity)getBaseActivity();
+        return (OKValidatorListActivity) getBaseActivity();
     }
-
 
 
     public class OKTopValidatorAdapter extends RecyclerView.Adapter<OKTopValidatorAdapter.OKTopValidatorHolder> {
@@ -112,7 +111,7 @@ public class OKValidatorTopFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull OKTopValidatorHolder holder, int position) {
-            final Validator validator  = getBaseDao().mTopValidators.get(position);
+            final Validator validator = getBaseDao().mTopValidators.get(position);
             if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
@@ -120,18 +119,19 @@ public class OKValidatorTopFragment extends BaseFragment {
 
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
                 if (validator.jailed) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
 
                 if (checkIsMyValidator(validator.operator_address)) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkex));
                 }
 
             }
@@ -143,35 +143,35 @@ public class OKValidatorTopFragment extends BaseFragment {
         }
 
         public class OKTopValidatorHolder extends RecyclerView.ViewHolder {
-            CardView            itemRoot;
-            CircleImageView     itemAvatar;
-            ImageView           itemRevoked;
-            ImageView           itemFree;
-            TextView            itemTvMoniker;
-            TextView            itemTvVotingPower;
-            TextView            itemTvCommission;
+            CardView itemRoot;
+            CircleImageView itemAvatar;
+            ImageView itemRevoked;
+            ImageView itemFree;
+            TextView itemTvMoniker;
+            TextView itemTvVotingPower;
+            TextView itemTvCommission;
 
             public OKTopValidatorHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot            = itemView.findViewById(R.id.card_validator);
-                itemAvatar          = itemView.findViewById(R.id.avatar_validator);
-                itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree            = itemView.findViewById(R.id.avatar_validator_free);
-                itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
+                itemRoot = itemView.findViewById(R.id.card_validator);
+                itemAvatar = itemView.findViewById(R.id.avatar_validator);
+                itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemFree = itemView.findViewById(R.id.avatar_validator_free);
+                itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
-                itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
+                itemTvCommission = itemView.findViewById(R.id.delegate_commission_validator);
             }
         }
     }
 
 
-    private boolean checkIsMyValidator(String valAddress){
+    private boolean checkIsMyValidator(String valAddress) {
         boolean myVal = false;
         if (mOkDeposit == null || mOkDeposit.validator_address == null) {
             return myVal;
         }
-        for (String val:mOkDeposit.validator_address) {
-            if (val.equals(valAddress)){
+        for (String val : mOkDeposit.validator_address) {
+            if (val.equals(valAddress)) {
                 return true;
             }
         }
