@@ -72,19 +72,19 @@ public class UndelegateActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_undelegate_step_1));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_delegate_step_2));
 
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_undelegate_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
 
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_undelegate_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
