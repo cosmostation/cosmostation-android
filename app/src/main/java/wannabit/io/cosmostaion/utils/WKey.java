@@ -101,7 +101,7 @@ public class WKey {
             result = MnemonicCode.INSTANCE.toMnemonic(entropy);
 
         } catch (MnemonicException.MnemonicLengthException e) {
-            if(BuildConfig.DEBUG)
+            if (BuildConfig.DEBUG)
                 e.printStackTrace();
 
         }
@@ -111,7 +111,7 @@ public class WKey {
     public static byte[] toEntropy(ArrayList<String> words) {
         try {
             return new MnemonicCode().toEntropy(words);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -141,7 +141,7 @@ public class WKey {
         }
     }
 
-    public static boolean isValidStringPrivateKey (String input) {
+    public static boolean isValidStringPrivateKey(String input) {
         boolean result = false;
         String regex = "^(0x|0X)?[a-fA-F0-9]{64}";
         Pattern p = Pattern.compile(regex);
@@ -154,78 +154,76 @@ public class WKey {
 
     public static List<ChildNumber> getParentPath(BaseChain chain, int customPath) {
         if (chain.equals(BNB_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BAND_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(IOV_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(PERSIS_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(CRYPTO_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(MEDI_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BITSONG_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(DESMOS_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(852, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(852, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(PROVENANCE_MAIN)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(505, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(505, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        }
-
-        else if (chain.equals(KAVA_MAIN)) {
+        } else if (chain.equals(KAVA_MAIN)) {
             if (customPath == 0) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(459, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(459, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             }
 
         } else if (chain.equals(SECRET_MAIN)) {
             if (customPath == 0) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(529, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(529, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             }
 
         } else if (chain.equals(LUM_MAIN)) {
             if (customPath == 0) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(880, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(880, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             }
 
         } else if (chain.equals(FETCHAI_MAIN)) {
             if (customPath == 0) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-            } else if (customPath == 1){
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            } else if (customPath == 1) {
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             } else if (customPath == 2) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true));
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true));
             } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED);
             }
 
         } else if (chain.equals(OKEX_MAIN)) {
             if (customPath == 0 || customPath == 1) {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(996, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(996, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             } else {
-                return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+                return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             }
 
         } else {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
         }
     }
 
@@ -239,15 +237,15 @@ public class WKey {
         BaseChain chain = getChain(account.baseChain);
         if (!chain.equals(FETCHAI_MAIN)) {
             DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
-            return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true,  new ChildNumber(Integer.parseInt(account.path)));
+            return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path)));
         } else {
             DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
             if (account.customPath != 2) {
-                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true,  new ChildNumber(Integer.parseInt(account.path)));
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path)));
                 return targetKey;
             } else {
-                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true,  new ChildNumber(Integer.parseInt(account.path), true));
-                DeterministicKey targetKey2 = new DeterministicHierarchy(targetKey).deriveChild(WKey.getFetchParentPath2(), true, true,  ChildNumber.ZERO);
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path), true));
+                DeterministicKey targetKey2 = new DeterministicHierarchy(targetKey).deriveChild(WKey.getFetchParentPath2(), true, true, ChildNumber.ZERO);
                 return targetKey2;
             }
         }
@@ -257,15 +255,15 @@ public class WKey {
     public static DeterministicKey getCreateKeyWithPathfromEntropy(BaseChain chain, String entropy, int path, int customPath) {
         if (!chain.equals(FETCHAI_MAIN)) {
             DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
-            return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true,  new ChildNumber(path));
+            return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true, new ChildNumber(path));
         } else {
             DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
             if (customPath != 2) {
-                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true,  new ChildNumber(path));
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true, new ChildNumber(path));
                 return targetKey;
             } else {
-                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true,  new ChildNumber(path, true));
-                DeterministicKey targetKey2 = new DeterministicHierarchy(targetKey).deriveChild(WKey.getFetchParentPath2(), true, true,  ChildNumber.ZERO);
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true, new ChildNumber(path, true));
+                DeterministicKey targetKey2 = new DeterministicHierarchy(targetKey).deriveChild(WKey.getFetchParentPath2(), true, true, ChildNumber.ZERO);
                 return targetKey2;
             }
         }
@@ -274,8 +272,8 @@ public class WKey {
     public static boolean isMnemonicWords(ArrayList<String> words) {
         boolean result = true;
         List<String> mnemonics = MnemonicCode.INSTANCE.getWordList();
-        for(String insert:words) {
-            if(!mnemonics.contains(insert)) {
+        for (String insert : words) {
+            if (!mnemonics.contains(insert)) {
                 result = false;
                 break;
             }
@@ -289,7 +287,8 @@ public class WKey {
         try {
             bech32Decode(address);
             result = true;
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
         return result;
     }
 
@@ -299,7 +298,7 @@ public class WKey {
         try {
             byte[] data = key.getPubKey();
             result = Base64.encodeToString(data, Base64.DEFAULT).replace("\n", "");
-            WLog.w("base64 : " +  result);
+            WLog.w("base64 : " + result);
 
         } catch (Exception e) {
             WLog.w("Exception");
@@ -371,7 +370,7 @@ public class WKey {
         return "0x" + WUtil.ByteArrayToHexString(generateTenderAddressBytesFromPrivateKey(privateKey));
     }
 
-    public static String convertAddressOkexToEth(String exAddress)  throws Exception {
+    public static String convertAddressOkexToEth(String exAddress) throws Exception {
         byte[] pub = convertBits(bech32Decode(exAddress).data, 5, 8, false);
         return "0x" + WUtil.ByteArrayToHexString(pub);
     }
@@ -419,7 +418,7 @@ public class WKey {
 
 
     public static String getDpAddress(BaseChain chain, String pubHex) {
-        String result       = null;
+        String result = null;
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
 
@@ -430,92 +429,92 @@ public class WKey {
         digest2.doFinal(hash3, 0);
 
         try {
-            byte[] converted = convertBits(hash3, 8,5,true);
+            byte[] converted = convertBits(hash3, 8, 5, true);
             if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
                 result = bech32Encode("cosmos".getBytes(), converted);
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)){
+            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
                 result = bech32Encode("iaa".getBytes(), converted);
-            } else if (chain.equals(BNB_MAIN)){
+            } else if (chain.equals(BNB_MAIN)) {
                 result = bech32Encode("bnb".getBytes(), converted);
-            } else if (chain.equals(KAVA_MAIN)){
+            } else if (chain.equals(KAVA_MAIN)) {
                 result = bech32Encode("kava".getBytes(), converted);
-            } else if (chain.equals(BAND_MAIN)){
+            } else if (chain.equals(BAND_MAIN)) {
                 result = bech32Encode("band".getBytes(), converted);
-            } else if (chain.equals(IOV_MAIN)){
+            } else if (chain.equals(IOV_MAIN)) {
                 result = bech32Encode("star".getBytes(), converted);
-            } else if (chain.equals(CERTIK_MAIN)){
+            } else if (chain.equals(CERTIK_MAIN)) {
                 result = bech32Encode("certik".getBytes(), converted);
-            } else if (chain.equals(SECRET_MAIN)){
+            } else if (chain.equals(SECRET_MAIN)) {
                 result = bech32Encode("secret".getBytes(), converted);
-            } else if (chain.equals(AKASH_MAIN)){
+            } else if (chain.equals(AKASH_MAIN)) {
                 result = bech32Encode("akash".getBytes(), converted);
-            } else if (chain.equals(PERSIS_MAIN)){
+            } else if (chain.equals(PERSIS_MAIN)) {
                 result = bech32Encode("persistence".getBytes(), converted);
-            } else if (chain.equals(SENTINEL_MAIN)){
+            } else if (chain.equals(SENTINEL_MAIN)) {
                 result = bech32Encode("sent".getBytes(), converted);
-            } else if (chain.equals(FETCHAI_MAIN)){
+            } else if (chain.equals(FETCHAI_MAIN)) {
                 result = bech32Encode("fetch".getBytes(), converted);
-            } else if (chain.equals(CRYPTO_MAIN)){
+            } else if (chain.equals(CRYPTO_MAIN)) {
                 result = bech32Encode("cro".getBytes(), converted);
-            } else if (chain.equals(SIF_MAIN)){
+            } else if (chain.equals(SIF_MAIN)) {
                 result = bech32Encode("sif".getBytes(), converted);
-            } else if (chain.equals(KI_MAIN)){
+            } else if (chain.equals(KI_MAIN)) {
                 result = bech32Encode("ki".getBytes(), converted);
-            } else if (chain.equals(OSMOSIS_MAIN)){
+            } else if (chain.equals(OSMOSIS_MAIN)) {
                 result = bech32Encode("osmo".getBytes(), converted);
-            } else if (chain.equals(MEDI_MAIN)){
+            } else if (chain.equals(MEDI_MAIN)) {
                 result = bech32Encode("panacea".getBytes(), converted);
-            } else if (chain.equals(EMONEY_MAIN)){
+            } else if (chain.equals(EMONEY_MAIN)) {
                 result = bech32Encode("emoney".getBytes(), converted);
-            } else if (chain.equals(RIZON_MAIN)){
+            } else if (chain.equals(RIZON_MAIN)) {
                 result = bech32Encode("rizon".getBytes(), converted);
-            } else if (chain.equals(JUNO_MAIN)){
+            } else if (chain.equals(JUNO_MAIN)) {
                 result = bech32Encode("juno".getBytes(), converted);
-            } else if (chain.equals(REGEN_MAIN)){
+            } else if (chain.equals(REGEN_MAIN)) {
                 result = bech32Encode("regen".getBytes(), converted);
-            } else if (chain.equals(BITCANNA_MAIN)){
+            } else if (chain.equals(BITCANNA_MAIN)) {
                 result = bech32Encode("bcna".getBytes(), converted);
-            } else if (chain.equals(ALTHEA_MAIN)){
+            } else if (chain.equals(ALTHEA_MAIN)) {
                 result = bech32Encode("althea".getBytes(), converted);
-            } else if (chain.equals(STARGAZE_MAIN)){
+            } else if (chain.equals(STARGAZE_MAIN)) {
                 result = bech32Encode("stars".getBytes(), converted);
-            } else if (chain.equals(GRABRIDGE_MAIN)){
+            } else if (chain.equals(GRABRIDGE_MAIN)) {
                 result = bech32Encode("gravity".getBytes(), converted);
-            } else if (chain.equals(COMDEX_MAIN)){
+            } else if (chain.equals(COMDEX_MAIN)) {
                 result = bech32Encode("comdex".getBytes(), converted);
-            } else if (chain.equals(INJ_MAIN)){
+            } else if (chain.equals(INJ_MAIN)) {
                 result = bech32Encode("inj".getBytes(), converted);
-            } else if (chain.equals(BITSONG_MAIN)){
+            } else if (chain.equals(BITSONG_MAIN)) {
                 result = bech32Encode("bitsong".getBytes(), converted);
-            } else if (chain.equals(DESMOS_MAIN)){
+            } else if (chain.equals(DESMOS_MAIN)) {
                 result = bech32Encode("desmos".getBytes(), converted);
-            } else if (chain.equals(LUM_MAIN)){
+            } else if (chain.equals(LUM_MAIN)) {
                 result = bech32Encode("lum".getBytes(), converted);
-            } else if (chain.equals(CHIHUAHUA_MAIN)){
+            } else if (chain.equals(CHIHUAHUA_MAIN)) {
                 result = bech32Encode("chihuahua".getBytes(), converted);
-            } else if (chain.equals(UMEE_MAIN)){
+            } else if (chain.equals(UMEE_MAIN)) {
                 result = bech32Encode("umee".getBytes(), converted);
-            } else if (chain.equals(AXELAR_MAIN)){
+            } else if (chain.equals(AXELAR_MAIN)) {
                 result = bech32Encode("axelar".getBytes(), converted);
-            } else if (chain.equals(KONSTELL_MAIN)){
+            } else if (chain.equals(KONSTELL_MAIN)) {
                 result = bech32Encode("darc".getBytes(), converted);
-            } else if (chain.equals(EVMOS_MAIN)){
+            } else if (chain.equals(EVMOS_MAIN)) {
                 result = bech32Encode("evmos".getBytes(), converted);
-            } else if (chain.equals(CUDOS_MAIN)){
+            } else if (chain.equals(CUDOS_MAIN)) {
                 result = bech32Encode("cudos".getBytes(), converted);
-            } else if (chain.equals(PROVENANCE_MAIN)){
+            } else if (chain.equals(PROVENANCE_MAIN)) {
                 result = bech32Encode("pb".getBytes(), converted);
-            } else if (chain.equals(CERBERUS_MAIN)){
+            } else if (chain.equals(CERBERUS_MAIN)) {
                 result = bech32Encode("cerberus".getBytes(), converted);
-            } else if (chain.equals(OMNIFLIX_MAIN)){
+            } else if (chain.equals(OMNIFLIX_MAIN)) {
                 result = bech32Encode("omniflix".getBytes(), converted);
-            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)){
+            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
                 result = bech32Encode("cre".getBytes(), converted);
-            } else if (chain.equals(ASSETMANTLE_MAIN)){
+            } else if (chain.equals(ASSETMANTLE_MAIN)) {
                 result = bech32Encode("mantle".getBytes(), converted);
-            } else if (chain.equals(STATION_TEST)){
+            } else if (chain.equals(STATION_TEST)) {
                 result = bech32Encode("station".getBytes(), converted);
-            } else if (chain.equals(NYX_MAIN)){
+            } else if (chain.equals(NYX_MAIN)) {
                 result = bech32Encode("n".getBytes(), converted);
             }
 
@@ -670,13 +669,13 @@ public class WKey {
         System.arraycopy(chk, 0, combined, data.length, chk.length);
 
         byte[] xlat = new byte[combined.length];
-        for(int i = 0; i < combined.length; i++)   {
-            xlat[i] = (byte)CHARSET.charAt(combined[i]);
+        for (int i = 0; i < combined.length; i++) {
+            xlat[i] = (byte) CHARSET.charAt(combined[i]);
         }
 
         byte[] ret = new byte[hrp.length + xlat.length + 1];
         System.arraycopy(hrp, 0, ret, 0, hrp.length);
-        System.arraycopy(new byte[] { 0x31 }, 0, ret, hrp.length, 1);
+        System.arraycopy(new byte[]{0x31}, 0, ret, hrp.length, 1);
         System.arraycopy(xlat, 0, ret, hrp.length + 1, xlat.length);
 
         return new String(ret);
@@ -684,13 +683,14 @@ public class WKey {
 
     public static HrpAndData bech32Decode(String bech) {
 
-        if (!bech.equals(bech.toLowerCase()) && !bech.equals(bech.toUpperCase()))  {
+        if (!bech.equals(bech.toLowerCase()) && !bech.equals(bech.toUpperCase())) {
             throw new IllegalArgumentException("bech32 cannot mix upper and lower case");
         }
 
         byte[] buffer = bech.getBytes();
         for (byte b : buffer) {
-            if (b < 0x21 || b > 0x7e) throw new IllegalArgumentException("bech32 characters out of range");
+            if (b < 0x21 || b > 0x7e)
+                throw new IllegalArgumentException("bech32 characters out of range");
         }
 
         bech = bech.toLowerCase();
@@ -716,7 +716,7 @@ public class WKey {
 
         byte[] data = new byte[bech.length() - pos - 1];
         for (int j = 0, i = pos + 1; i < bech.length(); i++, j++) {
-            data[j] = (byte)CHARSET.indexOf(bech.charAt(i));
+            data[j] = (byte) CHARSET.indexOf(bech.charAt(i));
         }
 
         if (!verifyChecksum(hrp, data)) {
@@ -739,8 +739,8 @@ public class WKey {
         return (1 == polymod(values));
     }
 
-    private static byte[] createChecksum(byte[] hrp, byte[] data)  {
-        byte[] zeroes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    private static byte[] createChecksum(byte[] hrp, byte[] data) {
+        byte[] zeroes = new byte[]{0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
         byte[] expanded = hrpExpand(hrp);
         byte[] values = new byte[zeroes.length + expanded.length + data.length];
 
@@ -750,22 +750,22 @@ public class WKey {
 
         int polymod = polymod(values) ^ 1;
         byte[] ret = new byte[6];
-        for(int i = 0; i < ret.length; i++)   {
-            ret[i] = (byte)((polymod >> 5 * (5 - i)) & 0x1f);
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = (byte) ((polymod >> 5 * (5 - i)) & 0x1f);
         }
 
         return ret;
     }
 
-    private static int polymod(byte[] values)  {
-        final int[] GENERATORS = { 0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3 };
+    private static int polymod(byte[] values) {
+        final int[] GENERATORS = {0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3};
 
         int chk = 1;
 
-        for(byte b : values)   {
-            byte top = (byte)(chk >> 0x19);
+        for (byte b : values) {
+            byte top = (byte) (chk >> 0x19);
             chk = b ^ ((chk & 0x1ffffff) << 5);
-            for(int i = 0; i < 5; i++)   {
+            for (int i = 0; i < 5; i++) {
                 chk ^= ((top >> i) & 1) == 1 ? GENERATORS[i] : 0;
             }
         }
@@ -778,12 +778,12 @@ public class WKey {
         byte[] buf2 = new byte[hrp.length];
         byte[] mid = new byte[1];
 
-        for (int i = 0; i < hrp.length; i++)   {
-            buf1[i] = (byte)(hrp[i] >> 5);
+        for (int i = 0; i < hrp.length; i++) {
+            buf1[i] = (byte) (hrp[i] >> 5);
         }
         mid[0] = 0x00;
-        for (int i = 0; i < hrp.length; i++)   {
-            buf2[i] = (byte)(hrp[i] & 0x1f);
+        for (int i = 0; i < hrp.length; i++) {
+            buf2[i] = (byte) (hrp[i] & 0x1f);
         }
 
         byte[] ret = new byte[(hrp.length * 2) + 1];
@@ -800,14 +800,24 @@ public class WKey {
         public byte[] hrp;
         public byte[] data;
 
-        public HrpAndData(byte[] hrp, byte[] data) { this.hrp = hrp; this.data = data; }
-        public byte[] getHrp() { return this.hrp; }
-        public byte[] getData() { return this.data; }
+        public HrpAndData(byte[] hrp, byte[] data) {
+            this.hrp = hrp;
+            this.data = data;
+        }
+
+        public byte[] getHrp() {
+            return this.hrp;
+        }
+
+        public byte[] getData() {
+            return this.data;
+        }
 
         @Override
         public String toString() {
             return "HrpAndData [hrp=" + Arrays.toString(hrp) + ", data=" + Arrays.toString(data) + "]";
         }
+
         @Override
         public int hashCode() {
             final int prime = 31;
@@ -816,6 +826,7 @@ public class WKey {
             result = prime * result + Arrays.hashCode(hrp);
             return result;
         }
+
         @Override
         public boolean equals(Object obj) {
             if (this == obj)
@@ -833,7 +844,7 @@ public class WKey {
         }
     }
 
-    public static String getSwapId(byte[] randomNumberHash, String sender, String otherchainSender) throws Exception{
+    public static String getSwapId(byte[] randomNumberHash, String sender, String otherchainSender) throws Exception {
         byte[] s = convertBits(bech32Decode(sender).data, 5, 8, false);
         byte[] rhs = new byte[randomNumberHash.length + s.length];
         System.arraycopy(randomNumberHash, 0, rhs, 0, randomNumberHash.length);
@@ -844,7 +855,7 @@ public class WKey {
         System.arraycopy(rhs, 0, expectedSwapId, 0, rhs.length);
         System.arraycopy(o, 0, expectedSwapId, rhs.length, o.length);
 
-        WLog.w("expectedSwapId "+ WUtil.ByteArrayToHexString(expectedSwapId));
+        WLog.w("expectedSwapId " + WUtil.ByteArrayToHexString(expectedSwapId));
 
         byte[] expectedSwapIdSha = Sha256.getSha256Digest().digest(expectedSwapId);
         return WUtil.ByteArrayToHexString(expectedSwapIdSha);

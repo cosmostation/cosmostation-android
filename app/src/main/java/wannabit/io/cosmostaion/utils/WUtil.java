@@ -2849,6 +2849,8 @@ public class WUtil {
             } else if (chain.equals(NYX_MAIN)) {
                 return BLOCK_TIME_NYX;
 
+            } else if (chain.equals(CUDOS_MAIN)) {
+                return BLOCK_TIME_CUDOS;
             }
         }
         return BigDecimal.ZERO;
