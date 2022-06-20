@@ -128,7 +128,6 @@
             android:layout_marginRight="@dimen/space_12"
             app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardUseCompatPadding="true"
             android:visibility="gone">

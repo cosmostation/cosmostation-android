@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -56,7 +57,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         mRegisterDomain = rootView.findViewById(R.id.btn_register);
         mRegisterDomain.setOnClickListener(this);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -129,9 +130,9 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 holder.itemDomain.setText("*" + domain.getName());
                 holder.itemType.setText(domain.getType().toUpperCase());
                 if (domain.getType().equals("open")) {
-                    holder.itemType.setTextColor(getResources().getColor(R.color.colorIov));
+                    holder.itemType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorIov));
                 } else {
-                    holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    holder.itemType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
                 }
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.getValidUntil() * 1000));
                 holder.itemAddressCnt.setText("" + domainAccount.getResourcesCount());

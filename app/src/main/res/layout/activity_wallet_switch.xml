@@ -15,8 +15,7 @@
         android:id="@+id/top_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlack"
-        android:elevation="@dimen/top_sheet_modal_elevation">
+        android:background="@color/colorBlack">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

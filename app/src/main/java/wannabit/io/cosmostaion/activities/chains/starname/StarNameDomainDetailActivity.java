@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -81,7 +82,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -241,9 +242,9 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                     holder.itemDomain.setText("*" + mDomain_gRPC.getName());
                     holder.itemType.setText(mDomain_gRPC.getType().toUpperCase());
                     if (mDomain_gRPC.getType().equals("open")) {
-                        holder.itemType.setTextColor(getResources().getColor(R.color.colorIov));
+                        holder.itemType.setTextColor(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorIov));
                     } else {
-                        holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        holder.itemType.setTextColor(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorWhite));
                     }
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mDomain_gRPC.getValidUntil() * 1000));
                     holder.itemAddressCnt.setText("" + mDomainResolve_gRPC.getResourcesCount());

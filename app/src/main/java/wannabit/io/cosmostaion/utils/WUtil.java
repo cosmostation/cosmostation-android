@@ -2995,8 +2995,6 @@ public class WUtil {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.guide_img));
             guideTitle.setText(R.string.str_front_guide_title);
             guideMsg.setText(R.string.str_front_guide_msg);
-            guideBtn1.setText(R.string.str_guide);
-            guideBtn2.setText(R.string.str_faq);
 
         } else if (mainActivity.mBaseChain.equals(IRIS_MAIN) || mainActivity.mBaseChain.equals(IRIS_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.irisnet_img));
@@ -3007,8 +3005,6 @@ public class WUtil {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.binance_img));
             guideTitle.setText(R.string.str_front_guide_title_binance);
             guideMsg.setText(R.string.str_front_guide_msg_bnb);
-            guideBtn1.setText(R.string.str_faq_bnb);
-            guideBtn2.setText(R.string.str_guide_bnb);
 
         } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kavamain_img));
@@ -3505,141 +3501,137 @@ public class WUtil {
 
     public static Intent getGuide1Intent(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cosmostation/d7dd26fc88fd"));
-            } else {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cosmostation/5fd64aa0a56b"));
-            }
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmos.network"));
 
         } else if (chain.equals(IRIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.irisnet.org/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.irisnet.org"));
 
         } else if (chain.equals(BNB_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.binance.org"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.binance.org/en"));
 
         } else if (chain.equals(KAVA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.kava.io/registration/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.kava.io"));
 
         } else if (chain.equals(IOV_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.starname.me/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.starname.me"));
 
         } else if (chain.equals(BAND_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bandprotocol.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bandprotocol.com"));
 
         } else if (chain.equals(OKEX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.okex.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.okex.com"));
 
         } else if (chain.equals(CERTIK_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.certik.foundation/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.certik.foundation"));
 
         } else if (chain.equals(AKASH_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://akash.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://akash.network"));
 
         } else if (chain.equals(SECRET_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://scrt.network"));
 
         } else if (chain.equals(PERSIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://persistence.one/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://persistence.one"));
 
         } else if (chain.equals(SENTINEL_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://sentinel.co/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://sentinel.co"));
 
         } else if (chain.equals(FETCHAI_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fetch.ai/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fetch.ai"));
 
         } else if (chain.equals(CRYPTO_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crypto.org/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crypto.org"));
 
         } else if (chain.equals(SIF_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://sifchain.finance/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://sifchain.finance"));
 
         } else if (chain.equals(KI_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://foundation.ki/en"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://foundation.ki"));
 
         } else if (chain.equals(OSMOSIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://osmosis.zone/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://osmosis.zone"));
 
         } else if (chain.equals(MEDI_MAIN)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com"));
             } else {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com/en/ "));
+                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com/en"));
             }
 
         } else if (chain.equals(EMONEY_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.e-money.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.e-money.com"));
 
         } else if (chain.equals(RIZON_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.hdactech.com/en/index.do"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://rizon.world"));
 
         } else if (chain.equals(JUNO_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://junochain.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://junochain.com"));
 
         } else if (chain.equals(REGEN_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.regen.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.regen.network"));
 
         } else if (chain.equals(BITCANNA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bitcanna.io/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bitcanna.io"));
 
         } else if (chain.equals(ALTHEA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.althea.net/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.althea.net"));
 
         } else if (chain.equals(STARGAZE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://stargaze.zone/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://stargaze.zone"));
 
         } else if (chain.equals(GRABRIDGE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gravitybridge.net/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gravitybridge.net"));
 
         } else if (chain.equals(COMDEX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://comdex.one/home"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://comdex.one"));
 
         } else if (chain.equals(INJ_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://injectiveprotocol.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://injectiveprotocol.com"));
 
         } else if (chain.equals(BITSONG_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://explorebitsong.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bitsong.io"));
 
         } else if (chain.equals(DESMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.desmos.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.desmos.network"));
 
         } else if (chain.equals(LUM_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://lum.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://lum.network"));
 
         } else if (chain.equals(CHIHUAHUA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://chi.huahua.wtf/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://chi.huahua.wtf"));
 
         } else if (chain.equals(UMEE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://umee.cc/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.umee.cc"));
 
         } else if (chain.equals(AXELAR_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://axelar.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://axelar.network"));
 
         } else if (chain.equals(KONSTELL_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://konstellation.tech/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://konstellation.tech"));
 
         } else if (chain.equals(EVMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://evmos.org/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://evmos.org"));
 
         } else if (chain.equals(CUDOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cudos.org/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cudos.org"));
 
         } else if (chain.equals(PROVENANCE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.provenance.io/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.provenance.io"));
 
         } else if (chain.equals(CERBERUS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cerberus.zone/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cerberus.zone"));
 
         } else if (chain.equals(OMNIFLIX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://omniflix.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.omniflix.network"));
 
         } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescent.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescent.network"));
 
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://assetmantle.one/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://assetmantle.one"));
 
         } else if (chain.equals(NYX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net"));
 
         }
         return null;
@@ -3647,17 +3639,13 @@ public class WUtil {
 
     public static Intent getGuide2Intent(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
-            } else {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
-            }
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.cosmos.network"));
 
         } else if (chain.equals(IRIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/irisnet-blog"));
 
         } else if (chain.equals(BNB_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@binance"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bnbchain.org/en/blog"));
 
         } else if (chain.equals(KAVA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/kava-labs"));
@@ -3669,13 +3657,13 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/bandprotocol"));
 
         } else if (chain.equals(OKEX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.okex.com/community"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.okex.com/academy/en"));
 
         } else if (chain.equals(CERTIK_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.certik.foundation/blog"));
 
         } else if (chain.equals(AKASH_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://akash.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://akash.network/blog"));
 
         } else if (chain.equals(SECRET_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.scrt.network"));
@@ -3687,10 +3675,10 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/sentinel"));
 
         } else if (chain.equals(FETCHAI_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fetch.ai/blog/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fetch.ai/blog"));
 
         } else if (chain.equals(CRYPTO_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crypto.org/community/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.crypto.com"));
 
         } else if (chain.equals(SIF_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/sifchain-finance"));
@@ -3703,16 +3691,16 @@ public class WUtil {
 
         } else if (chain.equals(MEDI_MAIN)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.medibloc.org/"));
+                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.medibloc.org"));
             } else {
                 return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/medibloc"));
             }
 
         } else if (chain.equals(EMONEY_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://emoneytokenstandard.org/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/e-money-com"));
 
         } else if (chain.equals(RIZON_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/hdac"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@hdac-rizon"));
 
         } else if (chain.equals(JUNO_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@JunoNetwork"));
@@ -3724,10 +3712,10 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@BitCannaGlobal"));
 
         } else if (chain.equals(ALTHEA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.althea.net/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.althea.net"));
 
         } else if (chain.equals(STARGAZE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/stargaze-protocol"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://mirror.xyz/stargazezone.eth"));
 
         } else if (chain.equals(GRABRIDGE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gravitybridge.net/blog"));
@@ -3736,10 +3724,10 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.comdex.one"));
 
         } else if (chain.equals(INJ_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.injectiveprotocol.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.injectiveprotocol.com"));
 
         } else if (chain.equals(BITSONG_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bitsongofficial.medium.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bitsongofficial.medium.com"));
 
         } else if (chain.equals(DESMOS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/desmosnetwork"));
@@ -3757,31 +3745,31 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://axelar.network/blog"));
 
         } else if (chain.equals(KONSTELL_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://konstellation.medium.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://konstellation.medium.com"));
 
         } else if (chain.equals(EVMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://evmos.blog/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://evmos.blog"));
 
         } else if (chain.equals(CUDOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cudos.org/blog/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cudos.org/blog"));
 
         } else if (chain.equals(PROVENANCE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.provenance.io/blog/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.provenance.io/blog"));
 
         } else if (chain.equals(CERBERUS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cerberus_zone"));
 
         } else if (chain.equals(OMNIFLIX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.omniflix.network/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.omniflix.network"));
 
         } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescentnetwork.medium.com/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescentnetwork.medium.com"));
 
         } else if (chain.equals(ASSETMANTLE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.assetmantle.one/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.assetmantle.one"));
 
         } else if (chain.equals(NYX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net/blog/"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net/blog"));
 
         }
         return null;

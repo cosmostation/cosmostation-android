@@ -6,10 +6,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import starnamed.x.starname.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -33,7 +35,7 @@ public class TxStarnameRenewHolder extends TxHolder {
         if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgRenewAccount")) {
             try {
                 Tx.MsgRenewAccount msg = Tx.MsgRenewAccount.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-                itemMsgImg.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_msgs_renewaccount));
+                itemMsgImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.ic_msgs_renewaccount));
                 itemMsgTitle.setText(itemView.getContext().getString(R.string.tx_starname_renew_account));
                 itemStarname.setText(msg.getName() + "*" + msg.getDomain());
                 itemSigner.setText(msg.getSigner());
@@ -43,7 +45,7 @@ public class TxStarnameRenewHolder extends TxHolder {
             try {
                 Tx.MsgRenewDomain msg = Tx.MsgRenewDomain.parseFrom(response.getTx().getBody().getMessages(position).getValue());
                 WLog.w("domain ");
-                itemMsgImg.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_msgs_renewdomain));
+                itemMsgImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.ic_msgs_renewdomain));
                 itemMsgTitle.setText(itemView.getContext().getString(R.string.tx_starname_renew_domain));
                 itemStarname.setText("*" + msg.getDomain());
                 itemSigner.setText(msg.getSigner());

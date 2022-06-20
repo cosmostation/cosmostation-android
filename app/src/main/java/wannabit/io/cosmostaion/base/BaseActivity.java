@@ -69,6 +69,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.common.collect.Lists;
@@ -439,8 +440,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShareType(String address) {
         FilledVerticalButtonAlertDialog.showDoubleButton(this, null, null,
-                getString(R.string.str_with_qr), view -> onShare(false, address), getDrawable(R.drawable.cosmos_wh_main),
-                getString(R.string.str_with_text), view -> onShare(true, address), getDrawable(R.drawable.chain_test_cosmos));
+                getString(R.string.str_with_qr), view -> onShare(false, address), null,
+                getString(R.string.str_with_text), view -> onShare(true, address), null);
     }
 
     public void onDeleteAccount(long id) {
@@ -510,10 +511,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mPushMsg = Banner.getInstance().getBannerView().findViewById(R.id.push_msg);
 
             if (intent.getStringExtra("type").equals("sent")) {
-                mPushType.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_send));
+                mPushType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_notifications_send));
                 mPushTitle.setTextColor(getColor(R.color.colorNotiSend));
             } else if (intent.getStringExtra("type").equals("received")) {
-                mPushType.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_receive));
+                mPushType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_notifications_receive));
                 mPushTitle.setTextColor(getColor(R.color.colorNotiReceive));
             } else {
                 return;
@@ -1130,9 +1131,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuySelectFiat() {
         FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
-                "USD", view -> onStartMoonpaySignature("usd"), getDrawable(R.drawable.fiat_usd),
-                "EUR", view -> onStartMoonpaySignature("eur"), getDrawable(R.drawable.fiat_eu),
-                "GBP", view -> onStartMoonpaySignature("gbp"), getDrawable(R.drawable.fiat_gbp));
+                "USD", view -> onStartMoonpaySignature("usd"), ContextCompat.getDrawable(this, R.drawable.fiat_usd),
+                "EUR", view -> onStartMoonpaySignature("eur"), ContextCompat.getDrawable(this, R.drawable.fiat_eu),
+                "GBP", view -> onStartMoonpaySignature("gbp"), ContextCompat.getDrawable(this, R.drawable.fiat_gbp));
     }
 
     public void onStartMoonpaySignature(String fiat) {

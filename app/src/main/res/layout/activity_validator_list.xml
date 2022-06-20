@@ -37,8 +37,7 @@
             app:tabGravity="fill"
             app:tabIndicatorHeight="2dp"
             app:tabIndicatorColor="@color/colorAtom"
-            app:tabIconTint="@color/colorAtom"
-            android:elevation="4dp"/>
+            app:tabIconTint="@color/colorAtom" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

@@ -19,7 +19,6 @@
             android:layout_marginRight="@dimen/space_12"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -75,7 +74,6 @@
             android:layout_marginRight="@dimen/space_12"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 

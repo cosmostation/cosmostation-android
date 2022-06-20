@@ -18,8 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
-import com.squareup.picasso.Picasso;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -34,31 +33,29 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-
 public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int CDP_DRAW_DEBT_CONFIRM_DIALOG = 6019;
 
-    private Button          mBtnCancel, mBtnNext;
+    private Button mBtnCancel, mBtnNext;
 
-    private ImageView       mPrincipalImg;
-    private TextView        mPrincipalSymbol;
-    private EditText        mPrincipalInput;
-    private ImageView       mPrincipalClear;
-    private TextView        mLoanableMinTx, mLoanableMaxTx, mLoanableDenomTx;
-    private Button          mBtnMin, mBtn1_4, mBtnHalf, mBtn3_4, mBtnMax;
+    private ImageView mPrincipalImg;
+    private TextView mPrincipalSymbol;
+    private EditText mPrincipalInput;
+    private ImageView mPrincipalClear;
+    private TextView mLoanableMinTx, mLoanableMaxTx, mLoanableDenomTx;
+    private Button mBtnMin, mBtn1_4, mBtnHalf, mBtn3_4, mBtnMax;
 
-    private LinearLayout    mAfterRiskLayer;
-    private TextView        mBeforeRisk, mAfterRisk, mBeforeRiskScore, mAfterRiskScore;
-    private TextView        mBeforePrincipalAmount, mAfterPrincipalAmount;
+    private LinearLayout mAfterRiskLayer;
+    private TextView mBeforeRisk, mAfterRisk, mBeforeRiskScore, mAfterRiskScore;
+    private TextView mBeforePrincipalAmount, mAfterPrincipalAmount;
 
-    private BigDecimal      mCurrentPrice;
-    private String          mCollateralDenom, mPrincipalDenom;
-    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mToLoanAmount, mMoreAddedLoanAmount;
-    private BigDecimal      mMinLoanableAmount, mMaxLoanableAmount;
-    private BigDecimal      mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate;
+    private BigDecimal mCurrentPrice;
+    private String mCollateralDenom, mPrincipalDenom;
+    private BigDecimal mCurrentTotalDebetAmount, mCurrentCollateralAmount, mToLoanAmount, mMoreAddedLoanAmount;
+    private BigDecimal mMinLoanableAmount, mMaxLoanableAmount;
+    private BigDecimal mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate;
 
-    private String          mPrincipalChecker, mPrincipalSetter;
+    private String mPrincipalChecker, mPrincipalSetter;
 
 
     public static DrawDebtCdpStep0Fragment newInstance(Bundle bundle) {
@@ -150,22 +147,24 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
 
         mPrincipalInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
-                    mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                if (TextUtils.isEmpty(es)) {
+                    mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mPrincipalInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                } else if(mPrincipalInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                    mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                } else if (mPrincipalInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mPrincipalInput.setText("0");
                     mPrincipalInput.setSelection(1);
                 }
@@ -176,8 +175,8 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                            mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -190,17 +189,18 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                             return;
                         }
                         if (mMinLoanableAmount.compareTo(checkPosition) > 0) {
-                            mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                         } else if (mMaxLoanableAmount.compareTo(checkPosition) < 0) {
-                            mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
 
                         } else {
-                            mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mPrincipalInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
                         mPrincipalInput.setSelection(mPrincipalInput.getText().length());
 
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
                 onDisplayViewUpdate();
             }
@@ -221,8 +221,8 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             }
             if (mToLoanAmount.compareTo(mMinLoanableAmount) < 0 || mToLoanAmount.compareTo(mMaxLoanableAmount) > 0) {
                 mBtnNext.setText(R.string.str_next);
-                mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
-                mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
+                mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+                mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
                 mAfterRiskLayer.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
@@ -242,8 +242,8 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
 
         } catch (Exception e) {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
-            mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
+            mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+            mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             return false;
 
@@ -252,14 +252,13 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
     }
 
 
-
     @Override
     public void onClick(View v) {
         if (v.equals(mPrincipalClear)) {
             mPrincipalInput.setText("");
 
         } else if (v.equals(mBtnMin)) {
-            mPrincipalInput.setText( mMinLoanableAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
+            mPrincipalInput.setText(mMinLoanableAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
 
         } else if (v.equals(mBtn1_4)) {
             BigDecimal cal = mMaxLoanableAmount.multiply(new BigDecimal("0.25"));
@@ -330,14 +329,14 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CDP_DRAW_DEBT_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CDP_DRAW_DEBT_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onNextStep();
         }
     }
 
 
     private BorrowCdpActivity getSActivity() {
-        return (BorrowCdpActivity)getBaseActivity();
+        return (BorrowCdpActivity) getBaseActivity();
     }
 
     public Genesis.Params getCDPParam() {
@@ -355,11 +354,11 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
     private void setDpDecimals(int pDeciaml) {
         mPrincipalChecker = "0.";
         mPrincipalSetter = "0.";
-        for (int i = 0; i < pDeciaml; i ++) {
-            mPrincipalChecker = mPrincipalChecker+"0";
+        for (int i = 0; i < pDeciaml; i++) {
+            mPrincipalChecker = mPrincipalChecker + "0";
         }
-        for (int i = 0; i < pDeciaml-1; i ++) {
-            mPrincipalSetter = mPrincipalSetter+"0";
+        for (int i = 0; i < pDeciaml - 1; i++) {
+            mPrincipalSetter = mPrincipalSetter + "0";
         }
     }
 }

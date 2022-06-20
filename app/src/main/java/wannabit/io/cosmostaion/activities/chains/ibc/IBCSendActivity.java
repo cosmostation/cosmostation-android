@@ -1,19 +1,20 @@
 package wannabit.io.cosmostaion.activities.chains.ibc;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -29,37 +30,32 @@ import wannabit.io.cosmostaion.fragment.chains.ibc.IBCSendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.ibc.IBCSendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.ibc.IBCSendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.ibc.IBCSendStep4Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 
 public class IBCSendActivity extends BaseBroadCastActivity {
 
-    private ImageView               mChainBg;
-    private Toolbar                 mToolbar;
-    private TextView                mTitle;
-    private ImageView               mIvStep;
-    private TextView                mTvStep;
-    private ViewPager               mViewPager;
-    private IbcSendPageAdapter      mPageAdapter;
+    private ImageView mChainBg;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private IbcSendPageAdapter mPageAdapter;
 
-    public String                   mToIbcDenom;
+    public String mToIbcDenom;
 
-    public Account                  mRecipientAccount;
-    public IbcPath                  mIbcSelectedRelayer;
+    public Account mRecipientAccount;
+    public IbcPath mIbcSelectedRelayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg            = findViewById(R.id.chain_bg);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mTitle              = findViewById(R.id.toolbar_title);
-        mIvStep             = findViewById(R.id.send_step);
-        mTvStep             = findViewById(R.id.send_step_msg);
-        mViewPager          = findViewById(R.id.view_pager);
+        mChainBg = findViewById(R.id.chain_bg);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
+        mIvStep = findViewById(R.id.send_step);
+        mTvStep = findViewById(R.id.send_step_msg);
+        mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_ibc_send_c));
 
         setSupportActionBar(mToolbar);
@@ -78,34 +74,36 @@ public class IBCSendActivity extends BaseBroadCastActivity {
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
-                if(i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_1_img));
+                if (i == 0) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(IBCSendActivity.this, R.drawable.step_1_img));
                     mTvStep.setText(getString(R.string.str_ibc_transfer_step_0));
-                } else if (i == 1 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_2_img));
+                } else if (i == 1) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(IBCSendActivity.this, R.drawable.step_2_img));
                     mTvStep.setText(getString(R.string.str_ibc_transfer_step_1));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 2 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_3_img));
+                } else if (i == 2) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(IBCSendActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_ibc_transfer_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 3 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img));
+                } else if (i == 3) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(IBCSendActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_ibc_transfer_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 4 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_5_img));
+                } else if (i == 4) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(IBCSendActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_ibc_transfer_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         mViewPager.setCurrentItem(0);
     }
@@ -131,7 +129,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -140,14 +138,14 @@ public class IBCSendActivity extends BaseBroadCastActivity {
 
     public void onNextStep() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() < 4) {
+        if (mViewPager.getCurrentItem() < 4) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();

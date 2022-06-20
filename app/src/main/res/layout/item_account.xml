@@ -98,7 +98,6 @@
         <!--app:background="@drawable/box_account_add"-->
         <!--app:cardPreventCornerOverlap="true"-->
         <!--app:cardCornerRadius="@dimen/space_6"-->
-        <!--app:cardElevation="1.5dp"-->
         <!--app:cardBackgroundColor="@color/colorTransBg"-->
         <!--app:cardUseCompatPadding="true">-->
         <!--<RelativeLayout-->

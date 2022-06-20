@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -88,11 +89,11 @@ public class TokenDetailSupportHolder extends BaseHolder {
         if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
             if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-                mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
+                mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBghard));
             } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
-                mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgusdx));
+                mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgusdx));
             } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
-                mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
+                mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgswp));
             }
 
             mAvailableAmount = baseData.getAvailable(denom);
@@ -128,11 +129,11 @@ public class TokenDetailSupportHolder extends BaseHolder {
         dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
         mAvailableAmount = baseData.availableAmount(denom);
         if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-            mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
+            mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBghard));
         } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
-            mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgusdx));
+            mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgusdx));
         } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
-            mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
+            mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgswp));
         }
 
         BigDecimal vestingAmount = baseData.lockedAmount(denom);
@@ -185,13 +186,13 @@ public class TokenDetailSupportHolder extends BaseHolder {
 
     public void onBindNftInfo(Context c, BaseChain baseChain, QueryOuterClass.QueryNFTResponse irisResponse, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, String denomId, String tokenId) {
         if (baseChain.equals(IRIS_MAIN) && irisResponse != null) {
-            mNftInfo.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgIris));
+            mNftInfo.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgIris));
             mNftName.setText(irisResponse.getNft().getName());
             mNftContent.setText(WUtil.getNftDescription(irisResponse.getNft().getData()));
             mNftIssuer.setText(WUtil.getNftIssuer(irisResponse.getNft().getData()));
 
         } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
-            mNftInfo.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgCryto));
+            mNftInfo.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgCryto));
             mNftName.setText(myCryptoNftInfo.getName());
             mNftContent.setText(WUtil.getNftDescription(myCryptoNftInfo.getData()));
             mNftIssuer.setText(myCryptoNftInfo.getOwner());
@@ -202,14 +203,14 @@ public class TokenDetailSupportHolder extends BaseHolder {
 
     public void onBindNftRawData(Context c, BaseChain baseChain, QueryOuterClass.QueryNFTResponse irisResponse, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo) {
         if (baseChain.equals(IRIS_MAIN) && irisResponse != null) {
-            mNftRawRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgIris));
+            mNftRawRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgIris));
             if (irisResponse.getNft().getData().isEmpty()) {
                 mNftRawData.setText("");
             } else {
                 mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(irisResponse.getNft().getData())));
             }
         } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
-            mNftRawRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgCryto));
+            mNftRawRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgCryto));
             if (myCryptoNftInfo.getData().isEmpty()) {
                 mNftRawData.setText("");
             } else {

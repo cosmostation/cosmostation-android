@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,7 +90,7 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
             final String tosendCoin = mSwappableCoinList.get(position);
             if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BNB)) {
-                    holder.coinImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
+                    holder.coinImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.bnb_token_img));
                     holder.coinName.setText(getString(R.string.str_bnb_c));
                 } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BTCB)) {
                     holder.coinName.setText("BTC");
@@ -116,7 +117,7 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
 
             } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 if (tosendCoin.equals(TOKEN_HTLC_KAVA_BNB)) {
-                    holder.coinImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_on_kava));
+                    holder.coinImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.bnb_on_kava));
                     holder.coinName.setText(getString(R.string.str_bnb_c));
                 } else if (tosendCoin.equals(TOKEN_HTLC_KAVA_BTCB)) {
                     holder.coinName.setText("BTC");

@@ -12,7 +12,6 @@
         android:layout_marginRight="@dimen/space_8"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="1.5dp"
         app:cardBackgroundColor="#e8e8e8"
         app:cardUseCompatPadding="true" >
         <RelativeLayout

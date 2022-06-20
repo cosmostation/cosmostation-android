@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -36,38 +37,38 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class VoteListActivity extends BaseActivity implements TaskListener {
 
-    private Toolbar             mToolbar;
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private TextView            mEmptyProposal;
-    private RelativeLayout      mLoadingLayer;
+    private Toolbar mToolbar;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private TextView mEmptyProposal;
+    private RelativeLayout mLoadingLayer;
 
-    private GrpcProposalsAdapter        mGrpcProposalsAdapter;
+    private GrpcProposalsAdapter mGrpcProposalsAdapter;
 
     // proposal api
-    private ArrayList<ResProposal>      mApiProposalList = new ArrayList<>();
+    private ArrayList<ResProposal> mApiProposalList = new ArrayList<>();
 
-    private String                      mChain;
+    private String mChain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote_list);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mEmptyProposal          = findViewById(R.id.empty_proposal);
-        mLoadingLayer           = findViewById(R.id.loadingLayer);
+        mToolbar = findViewById(R.id.tool_bar);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mEmptyProposal = findViewById(R.id.empty_proposal);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
 
-        mAccount                = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain              = BaseChain.getChain(mAccount.baseChain);
-        mChain                  = WDp.getChainNameByBaseChain(mBaseChain);
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChain = WDp.getChainNameByBaseChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteListActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -109,12 +110,12 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         if (result.taskType == TASK_FETCH_MINTSCAN_PROPOSAL_LIST) {
             mLoadingLayer.setVisibility(View.GONE);
             if (result.isSuccess) {
-                ArrayList<ResProposal> temp = (ArrayList<ResProposal>)result.resultData;
-                if(temp != null && temp.size() > 0) {
+                ArrayList<ResProposal> temp = (ArrayList<ResProposal>) result.resultData;
+                if (temp != null && temp.size() > 0) {
                     mApiProposalList = temp;
                     onSortingProposal(mApiProposalList, mBaseChain);
                     mGrpcProposalsAdapter.notifyDataSetChanged();
@@ -139,16 +140,16 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             final ResProposal proposal = mApiProposalList.get(position);
             voteHolder.proposal_id.setText("# " + proposal.id);
             if (proposal.proposal_status.contains("DEPOSIT")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+                voteHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_deposit_img));
                 voteHolder.proposal_status.setText("DepositPeriod");
             } else if (proposal.proposal_status.contains("VOTING")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+                voteHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_voting_img));
                 voteHolder.proposal_status.setText("VotingPeriod");
             } else if (proposal.proposal_status.contains("REJECTED")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+                voteHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_rejected_img));
                 voteHolder.proposal_status.setText("Rejected");
             } else if (proposal.proposal_status.contains("PASSED")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+                voteHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_passed_img));
                 voteHolder.proposal_status.setText("Passed");
             } else {
                 voteHolder.proposal_status_img.setVisibility(View.GONE);
@@ -163,7 +164,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 public void onClick(View v) {
                     if (proposal.proposal_status.contains("PASSED") ||
                             proposal.proposal_status.contains("REJECTED")) {
-                        String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
+                        String url = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
                     } else {
@@ -187,12 +188,12 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
             public VoteHolder(@NonNull View itemView) {
                 super(itemView);
-                card_proposal               = itemView.findViewById(R.id.card_proposal);
-                proposal_id                 = itemView.findViewById(R.id.proposal_id);
-                proposal_status             = itemView.findViewById(R.id.proposal_status);
-                proposal_title              = itemView.findViewById(R.id.proposal_title);
-                proposal_details            = itemView.findViewById(R.id.proposal_details);
-                proposal_status_img         = itemView.findViewById(R.id.proposal_status_img);
+                card_proposal = itemView.findViewById(R.id.card_proposal);
+                proposal_id = itemView.findViewById(R.id.proposal_id);
+                proposal_status = itemView.findViewById(R.id.proposal_status);
+                proposal_title = itemView.findViewById(R.id.proposal_title);
+                proposal_details = itemView.findViewById(R.id.proposal_details);
+                proposal_status_img = itemView.findViewById(R.id.proposal_status_img);
 
             }
         }

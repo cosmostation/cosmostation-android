@@ -34,61 +34,61 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
-public class POOLTokenDetailActivity extends BaseActivity implements View.OnClickListener{
+public class POOLTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar             mToolbar;
-    private ImageView           mToolbarSymbolImg;
-    private TextView            mToolbarSymbol;
-    private TextView            mItemPerPrice;
-    private ImageView           mItemUpDownImg;
-    private TextView            mItemUpDownPrice;
+    private Toolbar mToolbar;
+    private ImageView mToolbarSymbolImg;
+    private TextView mToolbarSymbol;
+    private TextView mItemPerPrice;
+    private ImageView mItemUpDownImg;
+    private TextView mItemUpDownPrice;
 
-    private CardView            mBtnAddressPopup;
-    private ImageView           mKeyState;
-    private TextView            mAddress;
-    private TextView            mTotalValue;
+    private CardView mBtnAddressPopup;
+    private ImageView mKeyState;
+    private TextView mAddress;
+    private TextView mTotalValue;
 
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
 
-    private RelativeLayout      mBtnIbcSend;
-    private RelativeLayout      mBtnSend;
+    private RelativeLayout mBtnIbcSend;
+    private RelativeLayout mBtnSend;
 
-    private POOlTokenAdapter    mAdapter;
-    private String              mPoolDenom;
+    private POOlTokenAdapter mAdapter;
+    private String mPoolDenom;
 
-    private int                 mDivideDecimal = 18;
-    private int                 mDisplayDecimal = 18;
-    private BigDecimal          mTotalAmount = BigDecimal.ZERO;
+    private int mDivideDecimal = 18;
+    private int mDisplayDecimal = 18;
+    private BigDecimal mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail);
 
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
-        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
-        mItemPerPrice           = findViewById(R.id.per_price);
-        mItemUpDownImg          = findViewById(R.id.ic_price_updown);
-        mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mItemPerPrice = findViewById(R.id.per_price);
+        mItemUpDownImg = findViewById(R.id.ic_price_updown);
+        mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
-        mBtnAddressPopup        = findViewById(R.id.card_root);
-        mKeyState               = findViewById(R.id.img_account);
-        mAddress                = findViewById(R.id.account_Address);
-        mTotalValue             = findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
-        mBtnSend                = findViewById(R.id.btn_send);
+        mBtnAddressPopup = findViewById(R.id.card_root);
+        mKeyState = findViewById(R.id.img_account);
+        mAddress = findViewById(R.id.account_Address);
+        mTotalValue = findViewById(R.id.total_value);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
+        mBtnSend = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain  = BaseChain.getChain(mAccount.baseChain);
-        mPoolDenom  = getIntent().getStringExtra("denom");
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mPoolDenom = getIntent().getStringExtra("denom");
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -122,9 +122,9 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
     private void onUpdateView() {
         if (mBaseChain.equals(OSMOSIS_MAIN)) {
             WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mPoolDenom);
-            String [] split = mPoolDenom.split("/");
+            String[] split = mPoolDenom.split("/");
             mToolbarSymbol.setText("GAMM-" + split[split.length - 1]);
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(POOLTokenDetailActivity.this, R.color.colorWhite));
 
             mDivideDecimal = 18;
             mDisplayDecimal = 18;
@@ -138,7 +138,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             Liquidity.Pool poolInfo = getBaseDao().getGravityPoolByDenom(mPoolDenom);
             if (poolInfo != null) {
                 mToolbarSymbol.setText("GDEX-" + poolInfo.getId());
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(POOLTokenDetailActivity.this, R.color.colorWhite));
             }
 
             mDivideDecimal = 6;
@@ -151,7 +151,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         } else if (mBaseChain.equals(INJ_MAIN)) {
             mToolbarSymbolImg.setImageResource(R.drawable.token_ic);
             mToolbarSymbol.setText("SHARE" + mPoolDenom.substring(5));
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(POOLTokenDetailActivity.this, R.color.colorWhite));
 
             mDivideDecimal = 18;
             mDisplayDecimal = 18;
@@ -163,7 +163,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         } else if (mBaseChain.equals(CRESCENT_MAIN)) {
             mToolbarSymbolImg.setImageResource(R.drawable.token_crescentpool);
             mToolbarSymbol.setText(mPoolDenom.toUpperCase());
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(POOLTokenDetailActivity.this, R.color.colorWhite));
 
             mDivideDecimal = 12;
             mDisplayDecimal = 12;
@@ -178,10 +178,10 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mPoolDenom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(POOLTokenDetailActivity.this, R.drawable.ic_price_up));
         } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(POOLTokenDetailActivity.this, R.drawable.ic_price_down));
         } else {
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
@@ -200,8 +200,11 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
-            else { bundle.putString("title", mAccount.nickName); }
+            if (TextUtils.isEmpty(mAccount.nickName)) {
+                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+            } else {
+                bundle.putString("title", mAccount.nickName);
+            }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -225,10 +228,10 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
     }
 
     private class POOlTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_POOL_TOKEN             = 0;
+        private static final int TYPE_UNKNOWN = -1;
+        private static final int TYPE_POOL_TOKEN = 0;
 
-        private static final int TYPE_HISTORY               = 100;
+        private static final int TYPE_HISTORY = 100;
 
         @NonNull
         @Override

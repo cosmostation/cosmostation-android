@@ -134,9 +134,9 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     private void onUpdateView() {
         final String baseDenom = getBaseDao().getBaseDenom(mIbcDenom);
         if (mIbcToken == null) {
-            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+            mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.token_default_ibc));
             mToolbarSymbol.setText("Unknown");
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorWhite));
 
         } else {
             if (mIbcToken.auth) {
@@ -146,7 +146,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 } catch (Exception e) {
                 }
                 mToolbarSymbol.setText(mIbcToken.display_denom.toUpperCase());
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorWhite));
                 mTotalValue.setText("" + WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, getBaseDao().getAvailable(mIbcDenom), mIbcDivideDecimal));
 
                 mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
@@ -154,18 +154,18 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), baseDenom);
                 if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
                     mItemUpDownImg.setVisibility(View.VISIBLE);
-                    mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                    mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.ic_price_up));
                 } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
                     mItemUpDownImg.setVisibility(View.VISIBLE);
-                    mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                    mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.ic_price_down));
                 } else {
                     mItemUpDownImg.setVisibility(View.INVISIBLE);
                 }
 
             } else {
-                mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+                mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.token_default_ibc));
                 mToolbarSymbol.setText("Unknown");
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorWhite));
                 mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, BigDecimal.ZERO, mIbcDivideDecimal));
 
                 mItemPerPrice.setText("");

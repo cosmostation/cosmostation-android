@@ -37,7 +37,6 @@
             app:cardCornerRadius="@dimen/space_6"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
-            app:cardElevation="1.5dp"
             app:cardBackgroundColor="@color/colorTransBgStarname"
             app:cardUseCompatPadding="true">
             <LinearLayout

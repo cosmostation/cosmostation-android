@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -29,20 +32,18 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.CdpMyHolder;
 import wannabit.io.cosmostaion.widget.CdpOtherHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
-
 public class ListCdpFragment extends BaseFragment implements TaskListener {
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private RelativeLayout      mProgress;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private RelativeLayout mProgress;
 
-    private Account             mAccount;
-    private BaseChain           mBaseChain;
-    private CdpMarketAdapter    mAdapter;
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private CdpMarketAdapter mAdapter;
 
-    private Genesis.Params                                  mCdpParams;
-    private ArrayList<QueryOuterClass.CDPResponse>          mMyCdps = new ArrayList<>();
-    private ArrayList<Genesis.CollateralParam>              mOtherCdps = new ArrayList<>();
+    private Genesis.Params mCdpParams;
+    private ArrayList<QueryOuterClass.CDPResponse> mMyCdps = new ArrayList<>();
+    private ArrayList<Genesis.CollateralParam> mOtherCdps = new ArrayList<>();
 
     public static ListCdpFragment newInstance(Bundle bundle) {
         ListCdpFragment fragment = new ListCdpFragment();
@@ -58,10 +59,10 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cdp_market, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mProgress               = rootView.findViewById(R.id.reward_progress);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mProgress = rootView.findViewById(R.id.reward_progress);
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,6 +91,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     }
 
     private int mTaskCount = 0;
+
     public void onFetchCdpInfo() {
         mTaskCount = 1;
         new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -97,7 +99,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_KAVA_MY_CDPS) {
             if (result.isSuccess && result.resultData != null) {
@@ -108,9 +110,9 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
         if (mTaskCount == 0) {
             mOtherCdps.clear();
-            for (Genesis.CollateralParam cdpParam: mCdpParams.getCollateralParamsList()) {
+            for (Genesis.CollateralParam cdpParam : mCdpParams.getCollateralParamsList()) {
                 boolean has = false;
-                for (QueryOuterClass.CDPResponse cdpMy: mMyCdps) {
+                for (QueryOuterClass.CDPResponse cdpMy : mMyCdps) {
                     if (cdpMy.getType().equalsIgnoreCase(cdpParam.getType())) {
                         has = true;
                     }
@@ -127,8 +129,8 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     }
 
     private class CdpMarketAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_MY_CDP            = 1;
-        private static final int TYPE_OTHER_CDP         = 2;
+        private static final int TYPE_MY_CDP = 1;
+        private static final int TYPE_OTHER_CDP = 2;
 
         @NonNull
         @Override
@@ -170,6 +172,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     }
 
     private DAppsList5Activity getSActivity() {
-        return (DAppsList5Activity)getBaseActivity();
+        return (DAppsList5Activity) getBaseActivity();
     }
 }

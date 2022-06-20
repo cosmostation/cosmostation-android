@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,23 +29,19 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-
 public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickListener {
 
-    private Button      mCancel, mNextBtn;
-    private EditText    mAmountInput;
-    private TextView    mAvailableAmount;
-    private TextView    mAvailableDenom;
-    private ImageView   mClearAll;
-    private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
-    private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
+    private Button mCancel, mNextBtn;
+    private EditText mAmountInput;
+    private TextView mAvailableAmount;
+    private TextView mAvailableDenom;
+    private ImageView mClearAll;
+    private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    private int                 mDpDecimal = 18;
-    private String              mDecimalChecker, mDecimalSetter,
-                                mDecimalDivider2, mDecimalDivider1;
+    private int mDpDecimal = 18;
+    private String mDecimalChecker, mDecimalSetter,
+            mDecimalDivider2, mDecimalDivider1;
 
     public static OKUnbondingFragment0 newInstance(Bundle bundle) {
         OKUnbondingFragment0 fragment = new OKUnbondingFragment0();
@@ -80,23 +81,25 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
 
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                if (TextUtils.isEmpty(es)) {
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mAmountInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                     mAmountInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mAmountInput.setText("0");
                     mAmountInput.setSelection(1);
                 }
@@ -108,8 +111,8 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -123,13 +126,14 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
                         }
                         if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                             if (inputAmount.compareTo(mMaxAvailable) > 0) {
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             } else {
-                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
                         }
 
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -152,7 +156,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(isValidateWithdrawAmount()) {
+            if (isValidateWithdrawAmount()) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
@@ -161,7 +165,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());
@@ -169,7 +173,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
@@ -177,7 +181,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
@@ -185,7 +189,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
@@ -231,17 +235,17 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
         mDecimalSetter = "0.";
         mDecimalDivider2 = "2";
         mDecimalDivider1 = "1";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
             mDecimalDivider2 = mDecimalDivider2 + "0";
             mDecimalDivider1 = mDecimalDivider1 + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
-            mDecimalSetter = mDecimalSetter+"0";
+        for (int i = 0; i < decimals - 1; i++) {
+            mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
     private OKUnbondingActivity getSActivity() {
-        return (OKUnbondingActivity)getBaseActivity();
+        return (OKUnbondingActivity) getBaseActivity();
     }
 }

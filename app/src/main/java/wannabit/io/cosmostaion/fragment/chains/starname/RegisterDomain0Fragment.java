@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
@@ -30,9 +34,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class RegisterDomain0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -70,20 +71,22 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
         mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 6, 6));
         mDomainInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
                 String userInput = s.toString().trim();
                 if (TextUtils.isEmpty(userInput) || WUtil.isValidDomain(userInput)) {
-                    mDomainValid.setTextColor(getResources().getColor(R.color.colorGray1));
+                    mDomainValid.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGray1));
                 } else {
-                    mDomainValid.setTextColor(getResources().getColor(R.color.colorRed));
+                    mDomainValid.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
                 }
-                BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput,  mTypeSwitch.isChecked() ? "open" : "closed");
+                BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
                 mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
 
             }
@@ -95,16 +98,16 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 if (buttonView.isPressed()) {
                     if (isChecked) {
                         mDomainType.setText("Open".toUpperCase());
-                        mDomainType.setTextColor(getResources().getColor(R.color.colorIov));
+                        mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorIov));
                         mTypeDescription.setText(getString(R.string.str_description_open_domain));
                     } else {
                         mDomainType.setText("Closed".toUpperCase());
-                        mDomainType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
                         mTypeDescription.setText(getString(R.string.str_description_closed_domain));
                     }
 
                     String userInput = mDomainInput.getText().toString().trim();
-                    BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput,  mTypeSwitch.isChecked() ? "open" : "closed");
+                    BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
                     mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
                 }
             }
@@ -119,12 +122,12 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
 
 
     private RegisterStarNameDomainActivity getSActivity() {
-        return (RegisterStarNameDomainActivity)getBaseActivity();
+        return (RegisterStarNameDomainActivity) getBaseActivity();
     }
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mCancelBtn)) {
+        if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -134,7 +137,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 return;
             }
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
-            BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput,  mTypeSwitch.isChecked() ? "open" : "closed");
+            BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_REGISTER_DOMAIN, 0);
             if (available.compareTo(starNameFee.add(txFee)) < 0) {
                 Toast.makeText(getBaseActivity(), R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
