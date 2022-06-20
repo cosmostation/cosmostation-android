@@ -27,7 +27,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;

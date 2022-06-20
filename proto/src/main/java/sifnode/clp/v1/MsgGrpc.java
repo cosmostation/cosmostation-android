@@ -399,6 +399,68 @@ public final class MsgGrpc {
     return getUpdateStakingRewardParamsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgSetSymmetryThreshold,
+      sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse> getSetSymmetryThresholdMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetSymmetryThreshold",
+      requestType = sifnode.clp.v1.Tx.MsgSetSymmetryThreshold.class,
+      responseType = sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgSetSymmetryThreshold,
+      sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse> getSetSymmetryThresholdMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgSetSymmetryThreshold, sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse> getSetSymmetryThresholdMethod;
+    if ((getSetSymmetryThresholdMethod = MsgGrpc.getSetSymmetryThresholdMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getSetSymmetryThresholdMethod = MsgGrpc.getSetSymmetryThresholdMethod) == null) {
+          MsgGrpc.getSetSymmetryThresholdMethod = getSetSymmetryThresholdMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgSetSymmetryThreshold, sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetSymmetryThreshold"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgSetSymmetryThreshold.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("SetSymmetryThreshold"))
+              .build();
+        }
+      }
+    }
+    return getSetSymmetryThresholdMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgCancelUnlock,
+      sifnode.clp.v1.Tx.MsgCancelUnlockResponse> getCancelUnlockLiquidityMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CancelUnlockLiquidity",
+      requestType = sifnode.clp.v1.Tx.MsgCancelUnlock.class,
+      responseType = sifnode.clp.v1.Tx.MsgCancelUnlockResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgCancelUnlock,
+      sifnode.clp.v1.Tx.MsgCancelUnlockResponse> getCancelUnlockLiquidityMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Tx.MsgCancelUnlock, sifnode.clp.v1.Tx.MsgCancelUnlockResponse> getCancelUnlockLiquidityMethod;
+    if ((getCancelUnlockLiquidityMethod = MsgGrpc.getCancelUnlockLiquidityMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getCancelUnlockLiquidityMethod = MsgGrpc.getCancelUnlockLiquidityMethod) == null) {
+          MsgGrpc.getCancelUnlockLiquidityMethod = getCancelUnlockLiquidityMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Tx.MsgCancelUnlock, sifnode.clp.v1.Tx.MsgCancelUnlockResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CancelUnlockLiquidity"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgCancelUnlock.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Tx.MsgCancelUnlockResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("CancelUnlockLiquidity"))
+              .build();
+        }
+      }
+    }
+    return getCancelUnlockLiquidityMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -531,6 +593,20 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getUpdateStakingRewardParamsMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void setSymmetryThreshold(sifnode.clp.v1.Tx.MsgSetSymmetryThreshold request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSetSymmetryThresholdMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void cancelUnlockLiquidity(sifnode.clp.v1.Tx.MsgCancelUnlock request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgCancelUnlockResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getCancelUnlockLiquidityMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -617,6 +693,20 @@ public final class MsgGrpc {
                 sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams,
                 sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse>(
                   this, METHODID_UPDATE_STAKING_REWARD_PARAMS)))
+          .addMethod(
+            getSetSymmetryThresholdMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgSetSymmetryThreshold,
+                sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse>(
+                  this, METHODID_SET_SYMMETRY_THRESHOLD)))
+          .addMethod(
+            getCancelUnlockLiquidityMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Tx.MsgCancelUnlock,
+                sifnode.clp.v1.Tx.MsgCancelUnlockResponse>(
+                  this, METHODID_CANCEL_UNLOCK_LIQUIDITY)))
           .build();
     }
   }
@@ -730,6 +820,22 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getUpdateStakingRewardParamsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void setSymmetryThreshold(sifnode.clp.v1.Tx.MsgSetSymmetryThreshold request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSetSymmetryThresholdMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void cancelUnlockLiquidity(sifnode.clp.v1.Tx.MsgCancelUnlock request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgCancelUnlockResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getCancelUnlockLiquidityMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -828,6 +934,20 @@ public final class MsgGrpc {
     public sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse updateStakingRewardParams(sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams request) {
       return blockingUnaryCall(
           getChannel(), getUpdateStakingRewardParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse setSymmetryThreshold(sifnode.clp.v1.Tx.MsgSetSymmetryThreshold request) {
+      return blockingUnaryCall(
+          getChannel(), getSetSymmetryThresholdMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Tx.MsgCancelUnlockResponse cancelUnlockLiquidity(sifnode.clp.v1.Tx.MsgCancelUnlock request) {
+      return blockingUnaryCall(
+          getChannel(), getCancelUnlockLiquidityMethod(), getCallOptions(), request);
     }
   }
 
@@ -940,6 +1060,22 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getUpdateStakingRewardParamsMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse> setSymmetryThreshold(
+        sifnode.clp.v1.Tx.MsgSetSymmetryThreshold request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSetSymmetryThresholdMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Tx.MsgCancelUnlockResponse> cancelUnlockLiquidity(
+        sifnode.clp.v1.Tx.MsgCancelUnlock request) {
+      return futureUnaryCall(
+          getChannel().newCall(getCancelUnlockLiquidityMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_REMOVE_LIQUIDITY = 0;
@@ -954,6 +1090,8 @@ public final class MsgGrpc {
   private static final int METHODID_MODIFY_PMTP_RATES = 9;
   private static final int METHODID_UPDATE_PMTP_PARAMS = 10;
   private static final int METHODID_UPDATE_STAKING_REWARD_PARAMS = 11;
+  private static final int METHODID_SET_SYMMETRY_THRESHOLD = 12;
+  private static final int METHODID_CANCEL_UNLOCK_LIQUIDITY = 13;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1019,6 +1157,14 @@ public final class MsgGrpc {
         case METHODID_UPDATE_STAKING_REWARD_PARAMS:
           serviceImpl.updateStakingRewardParams((sifnode.clp.v1.Tx.MsgUpdateStakingRewardParams) request,
               (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgUpdateStakingRewardParamsResponse>) responseObserver);
+          break;
+        case METHODID_SET_SYMMETRY_THRESHOLD:
+          serviceImpl.setSymmetryThreshold((sifnode.clp.v1.Tx.MsgSetSymmetryThreshold) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgSetSymmetryThresholdResponse>) responseObserver);
+          break;
+        case METHODID_CANCEL_UNLOCK_LIQUIDITY:
+          serviceImpl.cancelUnlockLiquidity((sifnode.clp.v1.Tx.MsgCancelUnlock) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Tx.MsgCancelUnlockResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1093,6 +1239,8 @@ public final class MsgGrpc {
               .addMethod(getModifyPmtpRatesMethod())
               .addMethod(getUpdatePmtpParamsMethod())
               .addMethod(getUpdateStakingRewardParamsMethod())
+              .addMethod(getSetSymmetryThresholdMethod())
+              .addMethod(getCancelUnlockLiquidityMethod())
               .build();
         }
       }

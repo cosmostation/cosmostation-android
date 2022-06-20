@@ -6025,6 +6025,1383 @@ public final class Tx {
 
   }
 
+  public interface MsgClaimSavingsRewardOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:kava.incentive.v1beta1.MsgClaimSavingsReward)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string sender = 1;</code>
+     * @return The sender.
+     */
+    java.lang.String getSender();
+    /**
+     * <code>string sender = 1;</code>
+     * @return The bytes for sender.
+     */
+    com.google.protobuf.ByteString
+        getSenderBytes();
+
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    java.util.List<kava.incentive.v1beta1.Tx.Selection> 
+        getDenomsToClaimList();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    kava.incentive.v1beta1.Tx.Selection getDenomsToClaim(int index);
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    int getDenomsToClaimCount();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    java.util.List<? extends kava.incentive.v1beta1.Tx.SelectionOrBuilder> 
+        getDenomsToClaimOrBuilderList();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    kava.incentive.v1beta1.Tx.SelectionOrBuilder getDenomsToClaimOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * MsgClaimSavingsReward message type used to claim savings rewards
+   * </pre>
+   *
+   * Protobuf type {@code kava.incentive.v1beta1.MsgClaimSavingsReward}
+   */
+  public static final class MsgClaimSavingsReward extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:kava.incentive.v1beta1.MsgClaimSavingsReward)
+      MsgClaimSavingsRewardOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgClaimSavingsReward.newBuilder() to construct.
+    private MsgClaimSavingsReward(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgClaimSavingsReward() {
+      sender_ = "";
+      denomsToClaim_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgClaimSavingsReward();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgClaimSavingsReward(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sender_ = s;
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                denomsToClaim_ = new java.util.ArrayList<kava.incentive.v1beta1.Tx.Selection>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              denomsToClaim_.add(
+                  input.readMessage(kava.incentive.v1beta1.Tx.Selection.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          denomsToClaim_ = java.util.Collections.unmodifiableList(denomsToClaim_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.class, kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.Builder.class);
+    }
+
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object sender_;
+    /**
+     * <code>string sender = 1;</code>
+     * @return The sender.
+     */
+    @java.lang.Override
+    public java.lang.String getSender() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sender_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string sender = 1;</code>
+     * @return The bytes for sender.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSenderBytes() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sender_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DENOMS_TO_CLAIM_FIELD_NUMBER = 2;
+    private java.util.List<kava.incentive.v1beta1.Tx.Selection> denomsToClaim_;
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<kava.incentive.v1beta1.Tx.Selection> getDenomsToClaimList() {
+      return denomsToClaim_;
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends kava.incentive.v1beta1.Tx.SelectionOrBuilder> 
+        getDenomsToClaimOrBuilderList() {
+      return denomsToClaim_;
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    @java.lang.Override
+    public int getDenomsToClaimCount() {
+      return denomsToClaim_.size();
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    @java.lang.Override
+    public kava.incentive.v1beta1.Tx.Selection getDenomsToClaim(int index) {
+      return denomsToClaim_.get(index);
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+     */
+    @java.lang.Override
+    public kava.incentive.v1beta1.Tx.SelectionOrBuilder getDenomsToClaimOrBuilder(
+        int index) {
+      return denomsToClaim_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSenderBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sender_);
+      }
+      for (int i = 0; i < denomsToClaim_.size(); i++) {
+        output.writeMessage(2, denomsToClaim_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSenderBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sender_);
+      }
+      for (int i = 0; i < denomsToClaim_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, denomsToClaim_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof kava.incentive.v1beta1.Tx.MsgClaimSavingsReward)) {
+        return super.equals(obj);
+      }
+      kava.incentive.v1beta1.Tx.MsgClaimSavingsReward other = (kava.incentive.v1beta1.Tx.MsgClaimSavingsReward) obj;
+
+      if (!getSender()
+          .equals(other.getSender())) return false;
+      if (!getDenomsToClaimList()
+          .equals(other.getDenomsToClaimList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SENDER_FIELD_NUMBER;
+      hash = (53 * hash) + getSender().hashCode();
+      if (getDenomsToClaimCount() > 0) {
+        hash = (37 * hash) + DENOMS_TO_CLAIM_FIELD_NUMBER;
+        hash = (53 * hash) + getDenomsToClaimList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(kava.incentive.v1beta1.Tx.MsgClaimSavingsReward prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgClaimSavingsReward message type used to claim savings rewards
+     * </pre>
+     *
+     * Protobuf type {@code kava.incentive.v1beta1.MsgClaimSavingsReward}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:kava.incentive.v1beta1.MsgClaimSavingsReward)
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.class, kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.Builder.class);
+      }
+
+      // Construct using kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDenomsToClaimFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        sender_ = "";
+
+        if (denomsToClaimBuilder_ == null) {
+          denomsToClaim_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          denomsToClaimBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_descriptor;
+      }
+
+      @java.lang.Override
+      public kava.incentive.v1beta1.Tx.MsgClaimSavingsReward getDefaultInstanceForType() {
+        return kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public kava.incentive.v1beta1.Tx.MsgClaimSavingsReward build() {
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsReward result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public kava.incentive.v1beta1.Tx.MsgClaimSavingsReward buildPartial() {
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsReward result = new kava.incentive.v1beta1.Tx.MsgClaimSavingsReward(this);
+        int from_bitField0_ = bitField0_;
+        result.sender_ = sender_;
+        if (denomsToClaimBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            denomsToClaim_ = java.util.Collections.unmodifiableList(denomsToClaim_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.denomsToClaim_ = denomsToClaim_;
+        } else {
+          result.denomsToClaim_ = denomsToClaimBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof kava.incentive.v1beta1.Tx.MsgClaimSavingsReward) {
+          return mergeFrom((kava.incentive.v1beta1.Tx.MsgClaimSavingsReward)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(kava.incentive.v1beta1.Tx.MsgClaimSavingsReward other) {
+        if (other == kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.getDefaultInstance()) return this;
+        if (!other.getSender().isEmpty()) {
+          sender_ = other.sender_;
+          onChanged();
+        }
+        if (denomsToClaimBuilder_ == null) {
+          if (!other.denomsToClaim_.isEmpty()) {
+            if (denomsToClaim_.isEmpty()) {
+              denomsToClaim_ = other.denomsToClaim_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDenomsToClaimIsMutable();
+              denomsToClaim_.addAll(other.denomsToClaim_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.denomsToClaim_.isEmpty()) {
+            if (denomsToClaimBuilder_.isEmpty()) {
+              denomsToClaimBuilder_.dispose();
+              denomsToClaimBuilder_ = null;
+              denomsToClaim_ = other.denomsToClaim_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              denomsToClaimBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDenomsToClaimFieldBuilder() : null;
+            } else {
+              denomsToClaimBuilder_.addAllMessages(other.denomsToClaim_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsReward parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (kava.incentive.v1beta1.Tx.MsgClaimSavingsReward) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object sender_ = "";
+      /**
+       * <code>string sender = 1;</code>
+       * @return The sender.
+       */
+      public java.lang.String getSender() {
+        java.lang.Object ref = sender_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sender_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string sender = 1;</code>
+       * @return The bytes for sender.
+       */
+      public com.google.protobuf.ByteString
+          getSenderBytes() {
+        java.lang.Object ref = sender_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sender_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string sender = 1;</code>
+       * @param value The sender to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSender(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sender = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSender() {
+        
+        sender_ = getDefaultInstance().getSender();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sender = 1;</code>
+       * @param value The bytes for sender to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSenderBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<kava.incentive.v1beta1.Tx.Selection> denomsToClaim_ =
+        java.util.Collections.emptyList();
+      private void ensureDenomsToClaimIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          denomsToClaim_ = new java.util.ArrayList<kava.incentive.v1beta1.Tx.Selection>(denomsToClaim_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.incentive.v1beta1.Tx.Selection, kava.incentive.v1beta1.Tx.Selection.Builder, kava.incentive.v1beta1.Tx.SelectionOrBuilder> denomsToClaimBuilder_;
+
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public java.util.List<kava.incentive.v1beta1.Tx.Selection> getDenomsToClaimList() {
+        if (denomsToClaimBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(denomsToClaim_);
+        } else {
+          return denomsToClaimBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public int getDenomsToClaimCount() {
+        if (denomsToClaimBuilder_ == null) {
+          return denomsToClaim_.size();
+        } else {
+          return denomsToClaimBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public kava.incentive.v1beta1.Tx.Selection getDenomsToClaim(int index) {
+        if (denomsToClaimBuilder_ == null) {
+          return denomsToClaim_.get(index);
+        } else {
+          return denomsToClaimBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder setDenomsToClaim(
+          int index, kava.incentive.v1beta1.Tx.Selection value) {
+        if (denomsToClaimBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDenomsToClaimIsMutable();
+          denomsToClaim_.set(index, value);
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder setDenomsToClaim(
+          int index, kava.incentive.v1beta1.Tx.Selection.Builder builderForValue) {
+        if (denomsToClaimBuilder_ == null) {
+          ensureDenomsToClaimIsMutable();
+          denomsToClaim_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder addDenomsToClaim(kava.incentive.v1beta1.Tx.Selection value) {
+        if (denomsToClaimBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDenomsToClaimIsMutable();
+          denomsToClaim_.add(value);
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder addDenomsToClaim(
+          int index, kava.incentive.v1beta1.Tx.Selection value) {
+        if (denomsToClaimBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDenomsToClaimIsMutable();
+          denomsToClaim_.add(index, value);
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder addDenomsToClaim(
+          kava.incentive.v1beta1.Tx.Selection.Builder builderForValue) {
+        if (denomsToClaimBuilder_ == null) {
+          ensureDenomsToClaimIsMutable();
+          denomsToClaim_.add(builderForValue.build());
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder addDenomsToClaim(
+          int index, kava.incentive.v1beta1.Tx.Selection.Builder builderForValue) {
+        if (denomsToClaimBuilder_ == null) {
+          ensureDenomsToClaimIsMutable();
+          denomsToClaim_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder addAllDenomsToClaim(
+          java.lang.Iterable<? extends kava.incentive.v1beta1.Tx.Selection> values) {
+        if (denomsToClaimBuilder_ == null) {
+          ensureDenomsToClaimIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, denomsToClaim_);
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder clearDenomsToClaim() {
+        if (denomsToClaimBuilder_ == null) {
+          denomsToClaim_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public Builder removeDenomsToClaim(int index) {
+        if (denomsToClaimBuilder_ == null) {
+          ensureDenomsToClaimIsMutable();
+          denomsToClaim_.remove(index);
+          onChanged();
+        } else {
+          denomsToClaimBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public kava.incentive.v1beta1.Tx.Selection.Builder getDenomsToClaimBuilder(
+          int index) {
+        return getDenomsToClaimFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public kava.incentive.v1beta1.Tx.SelectionOrBuilder getDenomsToClaimOrBuilder(
+          int index) {
+        if (denomsToClaimBuilder_ == null) {
+          return denomsToClaim_.get(index);  } else {
+          return denomsToClaimBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public java.util.List<? extends kava.incentive.v1beta1.Tx.SelectionOrBuilder> 
+           getDenomsToClaimOrBuilderList() {
+        if (denomsToClaimBuilder_ != null) {
+          return denomsToClaimBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(denomsToClaim_);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public kava.incentive.v1beta1.Tx.Selection.Builder addDenomsToClaimBuilder() {
+        return getDenomsToClaimFieldBuilder().addBuilder(
+            kava.incentive.v1beta1.Tx.Selection.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public kava.incentive.v1beta1.Tx.Selection.Builder addDenomsToClaimBuilder(
+          int index) {
+        return getDenomsToClaimFieldBuilder().addBuilder(
+            index, kava.incentive.v1beta1.Tx.Selection.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.Selection denoms_to_claim = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Selections"];</code>
+       */
+      public java.util.List<kava.incentive.v1beta1.Tx.Selection.Builder> 
+           getDenomsToClaimBuilderList() {
+        return getDenomsToClaimFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.incentive.v1beta1.Tx.Selection, kava.incentive.v1beta1.Tx.Selection.Builder, kava.incentive.v1beta1.Tx.SelectionOrBuilder> 
+          getDenomsToClaimFieldBuilder() {
+        if (denomsToClaimBuilder_ == null) {
+          denomsToClaimBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              kava.incentive.v1beta1.Tx.Selection, kava.incentive.v1beta1.Tx.Selection.Builder, kava.incentive.v1beta1.Tx.SelectionOrBuilder>(
+                  denomsToClaim_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          denomsToClaim_ = null;
+        }
+        return denomsToClaimBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:kava.incentive.v1beta1.MsgClaimSavingsReward)
+    }
+
+    // @@protoc_insertion_point(class_scope:kava.incentive.v1beta1.MsgClaimSavingsReward)
+    private static final kava.incentive.v1beta1.Tx.MsgClaimSavingsReward DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new kava.incentive.v1beta1.Tx.MsgClaimSavingsReward();
+    }
+
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsReward getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgClaimSavingsReward>
+        PARSER = new com.google.protobuf.AbstractParser<MsgClaimSavingsReward>() {
+      @java.lang.Override
+      public MsgClaimSavingsReward parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgClaimSavingsReward(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgClaimSavingsReward> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgClaimSavingsReward> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public kava.incentive.v1beta1.Tx.MsgClaimSavingsReward getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgClaimSavingsRewardResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:kava.incentive.v1beta1.MsgClaimSavingsRewardResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * MsgClaimSavingsRewardResponse defines the Msg/ClaimSavingsReward response type.
+   * </pre>
+   *
+   * Protobuf type {@code kava.incentive.v1beta1.MsgClaimSavingsRewardResponse}
+   */
+  public static final class MsgClaimSavingsRewardResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:kava.incentive.v1beta1.MsgClaimSavingsRewardResponse)
+      MsgClaimSavingsRewardResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgClaimSavingsRewardResponse.newBuilder() to construct.
+    private MsgClaimSavingsRewardResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgClaimSavingsRewardResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgClaimSavingsRewardResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgClaimSavingsRewardResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.class, kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse)) {
+        return super.equals(obj);
+      }
+      kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse other = (kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgClaimSavingsRewardResponse defines the Msg/ClaimSavingsReward response type.
+     * </pre>
+     *
+     * Protobuf type {@code kava.incentive.v1beta1.MsgClaimSavingsRewardResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:kava.incentive.v1beta1.MsgClaimSavingsRewardResponse)
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.class, kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.Builder.class);
+      }
+
+      // Construct using kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return kava.incentive.v1beta1.Tx.internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse getDefaultInstanceForType() {
+        return kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse build() {
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse buildPartial() {
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse result = new kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse) {
+          return mergeFrom((kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse other) {
+        if (other == kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:kava.incentive.v1beta1.MsgClaimSavingsRewardResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:kava.incentive.v1beta1.MsgClaimSavingsRewardResponse)
+    private static final kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse();
+    }
+
+    public static kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgClaimSavingsRewardResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgClaimSavingsRewardResponse>() {
+      @java.lang.Override
+      public MsgClaimSavingsRewardResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgClaimSavingsRewardResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgClaimSavingsRewardResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgClaimSavingsRewardResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_kava_incentive_v1beta1_Selection_descriptor;
   private static final 
@@ -6070,6 +7447,16 @@ public final class Tx {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_kava_incentive_v1beta1_MsgClaimSwapRewardResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -6097,21 +7484,28 @@ public final class Tx {
       "apReward\022\016\n\006sender\030\001 \001(\t\022N\n\017denoms_to_cl" +
       "aim\030\002 \003(\0132!.kava.incentive.v1beta1.Selec" +
       "tionB\022\252\337\037\nSelections\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\034\n\032Ms" +
-      "gClaimSwapRewardResponse2\367\003\n\003Msg\022\206\001\n\026Cla" +
-      "imUSDXMintingReward\0221.kava.incentive.v1b" +
-      "eta1.MsgClaimUSDXMintingReward\0329.kava.in" +
-      "centive.v1beta1.MsgClaimUSDXMintingRewar" +
-      "dResponse\022q\n\017ClaimHardReward\022*.kava.ince" +
-      "ntive.v1beta1.MsgClaimHardReward\0322.kava." +
-      "incentive.v1beta1.MsgClaimHardRewardResp" +
-      "onse\022\200\001\n\024ClaimDelegatorReward\022/.kava.inc" +
-      "entive.v1beta1.MsgClaimDelegatorReward\0327" +
-      ".kava.incentive.v1beta1.MsgClaimDelegato" +
-      "rRewardResponse\022q\n\017ClaimSwapReward\022*.kav" +
-      "a.incentive.v1beta1.MsgClaimSwapReward\0322" +
-      ".kava.incentive.v1beta1.MsgClaimSwapRewa" +
-      "rdResponseB-Z+github.com/kava-labs/kava/" +
-      "x/incentive/typesb\006proto3"
+      "gClaimSwapRewardResponse\"\201\001\n\025MsgClaimSav" +
+      "ingsReward\022\016\n\006sender\030\001 \001(\t\022N\n\017denoms_to_" +
+      "claim\030\002 \003(\0132!.kava.incentive.v1beta1.Sel" +
+      "ectionB\022\252\337\037\nSelections\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\037\n\035" +
+      "MsgClaimSavingsRewardResponse2\363\004\n\003Msg\022\206\001" +
+      "\n\026ClaimUSDXMintingReward\0221.kava.incentiv" +
+      "e.v1beta1.MsgClaimUSDXMintingReward\0329.ka" +
+      "va.incentive.v1beta1.MsgClaimUSDXMinting" +
+      "RewardResponse\022q\n\017ClaimHardReward\022*.kava" +
+      ".incentive.v1beta1.MsgClaimHardReward\0322." +
+      "kava.incentive.v1beta1.MsgClaimHardRewar" +
+      "dResponse\022\200\001\n\024ClaimDelegatorReward\022/.kav" +
+      "a.incentive.v1beta1.MsgClaimDelegatorRew" +
+      "ard\0327.kava.incentive.v1beta1.MsgClaimDel" +
+      "egatorRewardResponse\022q\n\017ClaimSwapReward\022" +
+      "*.kava.incentive.v1beta1.MsgClaimSwapRew" +
+      "ard\0322.kava.incentive.v1beta1.MsgClaimSwa" +
+      "pRewardResponse\022z\n\022ClaimSavingsReward\022-." +
+      "kava.incentive.v1beta1.MsgClaimSavingsRe" +
+      "ward\0325.kava.incentive.v1beta1.MsgClaimSa" +
+      "vingsRewardResponseB-Z+github.com/kava-l" +
+      "abs/kava/x/incentive/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6171,6 +7565,18 @@ public final class Tx {
     internal_static_kava_incentive_v1beta1_MsgClaimSwapRewardResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_kava_incentive_v1beta1_MsgClaimSwapRewardResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_kava_incentive_v1beta1_MsgClaimSavingsReward_descriptor,
+        new java.lang.String[] { "Sender", "DenomsToClaim", });
+    internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_kava_incentive_v1beta1_MsgClaimSavingsRewardResponse_descriptor,
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();

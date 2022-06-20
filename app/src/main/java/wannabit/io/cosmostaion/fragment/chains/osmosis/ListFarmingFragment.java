@@ -13,7 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;

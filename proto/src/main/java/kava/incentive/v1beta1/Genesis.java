@@ -2155,6 +2155,45 @@ public final class Genesis {
      */
     kava.incentive.v1beta1.Claims.SwapClaimOrBuilder getSwapClaimsOrBuilder(
         int index);
+
+    /**
+     * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the savingsRewardState field is set.
+     */
+    boolean hasSavingsRewardState();
+    /**
+     * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+     * @return The savingsRewardState.
+     */
+    kava.incentive.v1beta1.Genesis.GenesisRewardState getSavingsRewardState();
+    /**
+     * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+     */
+    kava.incentive.v1beta1.Genesis.GenesisRewardStateOrBuilder getSavingsRewardStateOrBuilder();
+
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    java.util.List<kava.incentive.v1beta1.Claims.SavingsClaim> 
+        getSavingsClaimsList();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    kava.incentive.v1beta1.Claims.SavingsClaim getSavingsClaims(int index);
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    int getSavingsClaimsCount();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    java.util.List<? extends kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder> 
+        getSavingsClaimsOrBuilderList();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder getSavingsClaimsOrBuilder(
+        int index);
   }
   /**
    * <pre>
@@ -2177,6 +2216,7 @@ public final class Genesis {
       hardLiquidityProviderClaims_ = java.util.Collections.emptyList();
       delegatorClaims_ = java.util.Collections.emptyList();
       swapClaims_ = java.util.Collections.emptyList();
+      savingsClaims_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -2324,6 +2364,28 @@ public final class Genesis {
                   input.readMessage(kava.incentive.v1beta1.Claims.SwapClaim.parser(), extensionRegistry));
               break;
             }
+            case 90: {
+              kava.incentive.v1beta1.Genesis.GenesisRewardState.Builder subBuilder = null;
+              if (savingsRewardState_ != null) {
+                subBuilder = savingsRewardState_.toBuilder();
+              }
+              savingsRewardState_ = input.readMessage(kava.incentive.v1beta1.Genesis.GenesisRewardState.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(savingsRewardState_);
+                savingsRewardState_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 98: {
+              if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+                savingsClaims_ = new java.util.ArrayList<kava.incentive.v1beta1.Claims.SavingsClaim>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              savingsClaims_.add(
+                  input.readMessage(kava.incentive.v1beta1.Claims.SavingsClaim.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -2350,6 +2412,9 @@ public final class Genesis {
         }
         if (((mutable_bitField0_ & 0x00000008) != 0)) {
           swapClaims_ = java.util.Collections.unmodifiableList(swapClaims_);
+        }
+        if (((mutable_bitField0_ & 0x00000010) != 0)) {
+          savingsClaims_ = java.util.Collections.unmodifiableList(savingsClaims_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2684,6 +2749,72 @@ public final class Genesis {
       return swapClaims_.get(index);
     }
 
+    public static final int SAVINGS_REWARD_STATE_FIELD_NUMBER = 11;
+    private kava.incentive.v1beta1.Genesis.GenesisRewardState savingsRewardState_;
+    /**
+     * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the savingsRewardState field is set.
+     */
+    @java.lang.Override
+    public boolean hasSavingsRewardState() {
+      return savingsRewardState_ != null;
+    }
+    /**
+     * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+     * @return The savingsRewardState.
+     */
+    @java.lang.Override
+    public kava.incentive.v1beta1.Genesis.GenesisRewardState getSavingsRewardState() {
+      return savingsRewardState_ == null ? kava.incentive.v1beta1.Genesis.GenesisRewardState.getDefaultInstance() : savingsRewardState_;
+    }
+    /**
+     * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public kava.incentive.v1beta1.Genesis.GenesisRewardStateOrBuilder getSavingsRewardStateOrBuilder() {
+      return getSavingsRewardState();
+    }
+
+    public static final int SAVINGS_CLAIMS_FIELD_NUMBER = 12;
+    private java.util.List<kava.incentive.v1beta1.Claims.SavingsClaim> savingsClaims_;
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<kava.incentive.v1beta1.Claims.SavingsClaim> getSavingsClaimsList() {
+      return savingsClaims_;
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder> 
+        getSavingsClaimsOrBuilderList() {
+      return savingsClaims_;
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    @java.lang.Override
+    public int getSavingsClaimsCount() {
+      return savingsClaims_.size();
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    @java.lang.Override
+    public kava.incentive.v1beta1.Claims.SavingsClaim getSavingsClaims(int index) {
+      return savingsClaims_.get(index);
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+     */
+    @java.lang.Override
+    public kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder getSavingsClaimsOrBuilder(
+        int index) {
+      return savingsClaims_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2727,6 +2858,12 @@ public final class Genesis {
       }
       for (int i = 0; i < swapClaims_.size(); i++) {
         output.writeMessage(10, swapClaims_.get(i));
+      }
+      if (savingsRewardState_ != null) {
+        output.writeMessage(11, getSavingsRewardState());
+      }
+      for (int i = 0; i < savingsClaims_.size(); i++) {
+        output.writeMessage(12, savingsClaims_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -2776,6 +2913,14 @@ public final class Genesis {
       for (int i = 0; i < swapClaims_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(10, swapClaims_.get(i));
+      }
+      if (savingsRewardState_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(11, getSavingsRewardState());
+      }
+      for (int i = 0; i < savingsClaims_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(12, savingsClaims_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2830,6 +2975,13 @@ public final class Genesis {
           .equals(other.getDelegatorClaimsList())) return false;
       if (!getSwapClaimsList()
           .equals(other.getSwapClaimsList())) return false;
+      if (hasSavingsRewardState() != other.hasSavingsRewardState()) return false;
+      if (hasSavingsRewardState()) {
+        if (!getSavingsRewardState()
+            .equals(other.getSavingsRewardState())) return false;
+      }
+      if (!getSavingsClaimsList()
+          .equals(other.getSavingsClaimsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2880,6 +3032,14 @@ public final class Genesis {
       if (getSwapClaimsCount() > 0) {
         hash = (37 * hash) + SWAP_CLAIMS_FIELD_NUMBER;
         hash = (53 * hash) + getSwapClaimsList().hashCode();
+      }
+      if (hasSavingsRewardState()) {
+        hash = (37 * hash) + SAVINGS_REWARD_STATE_FIELD_NUMBER;
+        hash = (53 * hash) + getSavingsRewardState().hashCode();
+      }
+      if (getSavingsClaimsCount() > 0) {
+        hash = (37 * hash) + SAVINGS_CLAIMS_FIELD_NUMBER;
+        hash = (53 * hash) + getSavingsClaimsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -3017,6 +3177,7 @@ public final class Genesis {
           getHardLiquidityProviderClaimsFieldBuilder();
           getDelegatorClaimsFieldBuilder();
           getSwapClaimsFieldBuilder();
+          getSavingsClaimsFieldBuilder();
         }
       }
       @java.lang.Override
@@ -3081,6 +3242,18 @@ public final class Genesis {
           bitField0_ = (bitField0_ & ~0x00000008);
         } else {
           swapClaimsBuilder_.clear();
+        }
+        if (savingsRewardStateBuilder_ == null) {
+          savingsRewardState_ = null;
+        } else {
+          savingsRewardState_ = null;
+          savingsRewardStateBuilder_ = null;
+        }
+        if (savingsClaimsBuilder_ == null) {
+          savingsClaims_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          savingsClaimsBuilder_.clear();
         }
         return this;
       }
@@ -3174,6 +3347,20 @@ public final class Genesis {
           result.swapClaims_ = swapClaims_;
         } else {
           result.swapClaims_ = swapClaimsBuilder_.build();
+        }
+        if (savingsRewardStateBuilder_ == null) {
+          result.savingsRewardState_ = savingsRewardState_;
+        } else {
+          result.savingsRewardState_ = savingsRewardStateBuilder_.build();
+        }
+        if (savingsClaimsBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0)) {
+            savingsClaims_ = java.util.Collections.unmodifiableList(savingsClaims_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.savingsClaims_ = savingsClaims_;
+        } else {
+          result.savingsClaims_ = savingsClaimsBuilder_.build();
         }
         onBuilt();
         return result;
@@ -3342,6 +3529,35 @@ public final class Genesis {
                    getSwapClaimsFieldBuilder() : null;
             } else {
               swapClaimsBuilder_.addAllMessages(other.swapClaims_);
+            }
+          }
+        }
+        if (other.hasSavingsRewardState()) {
+          mergeSavingsRewardState(other.getSavingsRewardState());
+        }
+        if (savingsClaimsBuilder_ == null) {
+          if (!other.savingsClaims_.isEmpty()) {
+            if (savingsClaims_.isEmpty()) {
+              savingsClaims_ = other.savingsClaims_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureSavingsClaimsIsMutable();
+              savingsClaims_.addAll(other.savingsClaims_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.savingsClaims_.isEmpty()) {
+            if (savingsClaimsBuilder_.isEmpty()) {
+              savingsClaimsBuilder_.dispose();
+              savingsClaimsBuilder_ = null;
+              savingsClaims_ = other.savingsClaims_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              savingsClaimsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSavingsClaimsFieldBuilder() : null;
+            } else {
+              savingsClaimsBuilder_.addAllMessages(other.savingsClaims_);
             }
           }
         }
@@ -5048,6 +5264,365 @@ public final class Genesis {
         }
         return swapClaimsBuilder_;
       }
+
+      private kava.incentive.v1beta1.Genesis.GenesisRewardState savingsRewardState_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          kava.incentive.v1beta1.Genesis.GenesisRewardState, kava.incentive.v1beta1.Genesis.GenesisRewardState.Builder, kava.incentive.v1beta1.Genesis.GenesisRewardStateOrBuilder> savingsRewardStateBuilder_;
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the savingsRewardState field is set.
+       */
+      public boolean hasSavingsRewardState() {
+        return savingsRewardStateBuilder_ != null || savingsRewardState_ != null;
+      }
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       * @return The savingsRewardState.
+       */
+      public kava.incentive.v1beta1.Genesis.GenesisRewardState getSavingsRewardState() {
+        if (savingsRewardStateBuilder_ == null) {
+          return savingsRewardState_ == null ? kava.incentive.v1beta1.Genesis.GenesisRewardState.getDefaultInstance() : savingsRewardState_;
+        } else {
+          return savingsRewardStateBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setSavingsRewardState(kava.incentive.v1beta1.Genesis.GenesisRewardState value) {
+        if (savingsRewardStateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          savingsRewardState_ = value;
+          onChanged();
+        } else {
+          savingsRewardStateBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setSavingsRewardState(
+          kava.incentive.v1beta1.Genesis.GenesisRewardState.Builder builderForValue) {
+        if (savingsRewardStateBuilder_ == null) {
+          savingsRewardState_ = builderForValue.build();
+          onChanged();
+        } else {
+          savingsRewardStateBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeSavingsRewardState(kava.incentive.v1beta1.Genesis.GenesisRewardState value) {
+        if (savingsRewardStateBuilder_ == null) {
+          if (savingsRewardState_ != null) {
+            savingsRewardState_ =
+              kava.incentive.v1beta1.Genesis.GenesisRewardState.newBuilder(savingsRewardState_).mergeFrom(value).buildPartial();
+          } else {
+            savingsRewardState_ = value;
+          }
+          onChanged();
+        } else {
+          savingsRewardStateBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearSavingsRewardState() {
+        if (savingsRewardStateBuilder_ == null) {
+          savingsRewardState_ = null;
+          onChanged();
+        } else {
+          savingsRewardState_ = null;
+          savingsRewardStateBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       */
+      public kava.incentive.v1beta1.Genesis.GenesisRewardState.Builder getSavingsRewardStateBuilder() {
+        
+        onChanged();
+        return getSavingsRewardStateFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       */
+      public kava.incentive.v1beta1.Genesis.GenesisRewardStateOrBuilder getSavingsRewardStateOrBuilder() {
+        if (savingsRewardStateBuilder_ != null) {
+          return savingsRewardStateBuilder_.getMessageOrBuilder();
+        } else {
+          return savingsRewardState_ == null ?
+              kava.incentive.v1beta1.Genesis.GenesisRewardState.getDefaultInstance() : savingsRewardState_;
+        }
+      }
+      /**
+       * <code>.kava.incentive.v1beta1.GenesisRewardState savings_reward_state = 11 [(.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          kava.incentive.v1beta1.Genesis.GenesisRewardState, kava.incentive.v1beta1.Genesis.GenesisRewardState.Builder, kava.incentive.v1beta1.Genesis.GenesisRewardStateOrBuilder> 
+          getSavingsRewardStateFieldBuilder() {
+        if (savingsRewardStateBuilder_ == null) {
+          savingsRewardStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              kava.incentive.v1beta1.Genesis.GenesisRewardState, kava.incentive.v1beta1.Genesis.GenesisRewardState.Builder, kava.incentive.v1beta1.Genesis.GenesisRewardStateOrBuilder>(
+                  getSavingsRewardState(),
+                  getParentForChildren(),
+                  isClean());
+          savingsRewardState_ = null;
+        }
+        return savingsRewardStateBuilder_;
+      }
+
+      private java.util.List<kava.incentive.v1beta1.Claims.SavingsClaim> savingsClaims_ =
+        java.util.Collections.emptyList();
+      private void ensureSavingsClaimsIsMutable() {
+        if (!((bitField0_ & 0x00000010) != 0)) {
+          savingsClaims_ = new java.util.ArrayList<kava.incentive.v1beta1.Claims.SavingsClaim>(savingsClaims_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.incentive.v1beta1.Claims.SavingsClaim, kava.incentive.v1beta1.Claims.SavingsClaim.Builder, kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder> savingsClaimsBuilder_;
+
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public java.util.List<kava.incentive.v1beta1.Claims.SavingsClaim> getSavingsClaimsList() {
+        if (savingsClaimsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(savingsClaims_);
+        } else {
+          return savingsClaimsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public int getSavingsClaimsCount() {
+        if (savingsClaimsBuilder_ == null) {
+          return savingsClaims_.size();
+        } else {
+          return savingsClaimsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public kava.incentive.v1beta1.Claims.SavingsClaim getSavingsClaims(int index) {
+        if (savingsClaimsBuilder_ == null) {
+          return savingsClaims_.get(index);
+        } else {
+          return savingsClaimsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder setSavingsClaims(
+          int index, kava.incentive.v1beta1.Claims.SavingsClaim value) {
+        if (savingsClaimsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSavingsClaimsIsMutable();
+          savingsClaims_.set(index, value);
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder setSavingsClaims(
+          int index, kava.incentive.v1beta1.Claims.SavingsClaim.Builder builderForValue) {
+        if (savingsClaimsBuilder_ == null) {
+          ensureSavingsClaimsIsMutable();
+          savingsClaims_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder addSavingsClaims(kava.incentive.v1beta1.Claims.SavingsClaim value) {
+        if (savingsClaimsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSavingsClaimsIsMutable();
+          savingsClaims_.add(value);
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder addSavingsClaims(
+          int index, kava.incentive.v1beta1.Claims.SavingsClaim value) {
+        if (savingsClaimsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSavingsClaimsIsMutable();
+          savingsClaims_.add(index, value);
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder addSavingsClaims(
+          kava.incentive.v1beta1.Claims.SavingsClaim.Builder builderForValue) {
+        if (savingsClaimsBuilder_ == null) {
+          ensureSavingsClaimsIsMutable();
+          savingsClaims_.add(builderForValue.build());
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder addSavingsClaims(
+          int index, kava.incentive.v1beta1.Claims.SavingsClaim.Builder builderForValue) {
+        if (savingsClaimsBuilder_ == null) {
+          ensureSavingsClaimsIsMutable();
+          savingsClaims_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder addAllSavingsClaims(
+          java.lang.Iterable<? extends kava.incentive.v1beta1.Claims.SavingsClaim> values) {
+        if (savingsClaimsBuilder_ == null) {
+          ensureSavingsClaimsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, savingsClaims_);
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder clearSavingsClaims() {
+        if (savingsClaimsBuilder_ == null) {
+          savingsClaims_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public Builder removeSavingsClaims(int index) {
+        if (savingsClaimsBuilder_ == null) {
+          ensureSavingsClaimsIsMutable();
+          savingsClaims_.remove(index);
+          onChanged();
+        } else {
+          savingsClaimsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public kava.incentive.v1beta1.Claims.SavingsClaim.Builder getSavingsClaimsBuilder(
+          int index) {
+        return getSavingsClaimsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder getSavingsClaimsOrBuilder(
+          int index) {
+        if (savingsClaimsBuilder_ == null) {
+          return savingsClaims_.get(index);  } else {
+          return savingsClaimsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public java.util.List<? extends kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder> 
+           getSavingsClaimsOrBuilderList() {
+        if (savingsClaimsBuilder_ != null) {
+          return savingsClaimsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(savingsClaims_);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public kava.incentive.v1beta1.Claims.SavingsClaim.Builder addSavingsClaimsBuilder() {
+        return getSavingsClaimsFieldBuilder().addBuilder(
+            kava.incentive.v1beta1.Claims.SavingsClaim.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public kava.incentive.v1beta1.Claims.SavingsClaim.Builder addSavingsClaimsBuilder(
+          int index) {
+        return getSavingsClaimsFieldBuilder().addBuilder(
+            index, kava.incentive.v1beta1.Claims.SavingsClaim.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.SavingsClaim savings_claims = 12 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "SavingsClaims"];</code>
+       */
+      public java.util.List<kava.incentive.v1beta1.Claims.SavingsClaim.Builder> 
+           getSavingsClaimsBuilderList() {
+        return getSavingsClaimsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.incentive.v1beta1.Claims.SavingsClaim, kava.incentive.v1beta1.Claims.SavingsClaim.Builder, kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder> 
+          getSavingsClaimsFieldBuilder() {
+        if (savingsClaimsBuilder_ == null) {
+          savingsClaimsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              kava.incentive.v1beta1.Claims.SavingsClaim, kava.incentive.v1beta1.Claims.SavingsClaim.Builder, kava.incentive.v1beta1.Claims.SavingsClaimOrBuilder>(
+                  savingsClaims_,
+                  ((bitField0_ & 0x00000010) != 0),
+                  getParentForChildren(),
+                  isClean());
+          savingsClaims_ = null;
+        }
+        return savingsClaimsBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -5138,7 +5713,7 @@ public final class Genesis {
       "imeB\031\252\337\037\021AccumulationTimes\310\336\037\000\022b\n\024multi_" +
       "reward_indexes\030\002 \003(\0132(.kava.incentive.v1" +
       "beta1.MultiRewardIndexB\032\252\337\037\022MultiRewardI" +
-      "ndexes\310\336\037\000\"\212\007\n\014GenesisState\0224\n\006params\030\001 " +
+      "ndexes\310\336\037\000\"\257\010\n\014GenesisState\0224\n\006params\030\001 " +
       "\001(\0132\036.kava.incentive.v1beta1.ParamsB\004\310\336\037" +
       "\000\022^\n\021usdx_reward_state\030\002 \001(\0132*.kava.ince" +
       "ntive.v1beta1.GenesisRewardStateB\027\342\336\037\017US" +
@@ -5160,9 +5735,13 @@ public final class Genesis {
       "gator_claims\030\t \003(\0132&.kava.incentive.v1be" +
       "ta1.DelegatorClaimB\027\252\337\037\017DelegatorClaims\310" +
       "\336\037\000\022J\n\013swap_claims\030\n \003(\0132!.kava.incentiv" +
-      "e.v1beta1.SwapClaimB\022\252\337\037\nSwapClaims\310\336\037\000B" +
-      "1Z+github.com/kava-labs/kava/x/incentive" +
-      "/types\310\341\036\000b\006proto3"
+      "e.v1beta1.SwapClaimB\022\252\337\037\nSwapClaims\310\336\037\000\022" +
+      "N\n\024savings_reward_state\030\013 \001(\0132*.kava.inc" +
+      "entive.v1beta1.GenesisRewardStateB\004\310\336\037\000\022" +
+      "S\n\016savings_claims\030\014 \003(\0132$.kava.incentive" +
+      ".v1beta1.SavingsClaimB\025\252\337\037\rSavingsClaims" +
+      "\310\336\037\000B1Z+github.com/kava-labs/kava/x/ince" +
+      "ntive/types\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5189,7 +5768,7 @@ public final class Genesis {
     internal_static_kava_incentive_v1beta1_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_kava_incentive_v1beta1_GenesisState_descriptor,
-        new java.lang.String[] { "Params", "UsdxRewardState", "HardSupplyRewardState", "HardBorrowRewardState", "DelegatorRewardState", "SwapRewardState", "UsdxMintingClaims", "HardLiquidityProviderClaims", "DelegatorClaims", "SwapClaims", });
+        new java.lang.String[] { "Params", "UsdxRewardState", "HardSupplyRewardState", "HardBorrowRewardState", "DelegatorRewardState", "SwapRewardState", "UsdxMintingClaims", "HardLiquidityProviderClaims", "DelegatorClaims", "SwapClaims", "SavingsRewardState", "SavingsClaims", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.castrepeated);

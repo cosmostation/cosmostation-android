@@ -12,7 +12,7 @@ import java.math.RoundingMode;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import kava.swap.v1beta1.QueryOuterClass;
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;

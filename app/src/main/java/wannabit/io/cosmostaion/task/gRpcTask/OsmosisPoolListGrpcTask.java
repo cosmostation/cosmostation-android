@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import cosmos.base.query.v1beta1.Pagination;
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.gamm.v1beta1.QueryGrpc;
 import osmosis.gamm.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;

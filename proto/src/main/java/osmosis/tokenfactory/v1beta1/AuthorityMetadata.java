@@ -23,7 +23,7 @@ public final class AuthorityMetadata {
      * Can be empty for no admin, or a valid osmosis address
      * </pre>
      *
-     * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+     * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
      * @return The admin.
      */
     java.lang.String getAdmin();
@@ -32,7 +32,7 @@ public final class AuthorityMetadata {
      * Can be empty for no admin, or a valid osmosis address
      * </pre>
      *
-     * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+     * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
      * @return The bytes for admin.
      */
     com.google.protobuf.ByteString
@@ -135,7 +135,7 @@ public final class AuthorityMetadata {
      * Can be empty for no admin, or a valid osmosis address
      * </pre>
      *
-     * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+     * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
      * @return The admin.
      */
     @java.lang.Override
@@ -156,7 +156,7 @@ public final class AuthorityMetadata {
      * Can be empty for no admin, or a valid osmosis address
      * </pre>
      *
-     * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+     * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
      * @return The bytes for admin.
      */
     @java.lang.Override
@@ -488,7 +488,7 @@ public final class AuthorityMetadata {
        * Can be empty for no admin, or a valid osmosis address
        * </pre>
        *
-       * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+       * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
        * @return The admin.
        */
       public java.lang.String getAdmin() {
@@ -508,7 +508,7 @@ public final class AuthorityMetadata {
        * Can be empty for no admin, or a valid osmosis address
        * </pre>
        *
-       * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+       * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
        * @return The bytes for admin.
        */
       public com.google.protobuf.ByteString
@@ -529,7 +529,7 @@ public final class AuthorityMetadata {
        * Can be empty for no admin, or a valid osmosis address
        * </pre>
        *
-       * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+       * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
        * @param value The admin to set.
        * @return This builder for chaining.
        */
@@ -548,7 +548,7 @@ public final class AuthorityMetadata {
        * Can be empty for no admin, or a valid osmosis address
        * </pre>
        *
-       * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+       * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearAdmin() {
@@ -562,7 +562,7 @@ public final class AuthorityMetadata {
        * Can be empty for no admin, or a valid osmosis address
        * </pre>
        *
-       * <code>string Admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
+       * <code>string admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"admin&#92;""];</code>
        * @param value The bytes for admin to set.
        * @return This builder for chaining.
        */
@@ -648,7 +648,7 @@ public final class AuthorityMetadata {
       "Metadata.proto\022\034osmosis.tokenfactory.v1b" +
       "eta1\032\024gogoproto/gogo.proto\032\036cosmos/base/" +
       "v1beta1/coin.proto\"?\n\026DenomAuthorityMeta" +
-      "data\022\037\n\005Admin\030\001 \001(\tB\020\362\336\037\014yaml:\"admin\":\004\350" +
+      "data\022\037\n\005admin\030\001 \001(\tB\020\362\336\037\014yaml:\"admin\":\004\350" +
       "\240\037\001B9Z7github.com/osmosis-labs/osmosis/v" +
       "7/x/tokenfactory/typesb\006proto3"
     };

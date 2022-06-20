@@ -31,22 +31,34 @@ public final class Tx {
         getSenderBytes();
 
     /**
-     * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
-     * @return The nonce.
+     * <pre>
+     * subdenom can be up to 44 "alphanumeric" characters long.
+     * </pre>
+     *
+     * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
+     * @return The subdenom.
      */
-    java.lang.String getNonce();
+    java.lang.String getSubdenom();
     /**
-     * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
-     * @return The bytes for nonce.
+     * <pre>
+     * subdenom can be up to 44 "alphanumeric" characters long.
+     * </pre>
+     *
+     * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
+     * @return The bytes for subdenom.
      */
     com.google.protobuf.ByteString
-        getNonceBytes();
+        getSubdenomBytes();
   }
   /**
    * <pre>
    * MsgCreateDenom is the sdk.Msg type for allowing an account to create
-   * a new denom.  It requires a sender address and a unique nonce
-   * (to allow accounts to create multiple denoms)
+   * a new denom. It requires a sender address and a subdenomination.
+   * The (sender_address, sub_denomination) pair must be unique and cannot be
+   * re-used. The resulting denom created is `factory/{creator
+   * address}/{subdenom}`. The resultant denom's admin is originally set to be the
+   * creator, but this can be changed later. The token denom does not indicate the
+   * current admin.
    * </pre>
    *
    * Protobuf type {@code osmosis.tokenfactory.v1beta1.MsgCreateDenom}
@@ -62,7 +74,7 @@ public final class Tx {
     }
     private MsgCreateDenom() {
       sender_ = "";
-      nonce_ = "";
+      subdenom_ = "";
     }
 
     @java.lang.Override
@@ -104,7 +116,7 @@ public final class Tx {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              nonce_ = s;
+              subdenom_ = s;
               break;
             }
             default: {
@@ -177,38 +189,46 @@ public final class Tx {
       }
     }
 
-    public static final int NONCE_FIELD_NUMBER = 2;
-    private volatile java.lang.Object nonce_;
+    public static final int SUBDENOM_FIELD_NUMBER = 2;
+    private volatile java.lang.Object subdenom_;
     /**
-     * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
-     * @return The nonce.
+     * <pre>
+     * subdenom can be up to 44 "alphanumeric" characters long.
+     * </pre>
+     *
+     * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
+     * @return The subdenom.
      */
     @java.lang.Override
-    public java.lang.String getNonce() {
-      java.lang.Object ref = nonce_;
+    public java.lang.String getSubdenom() {
+      java.lang.Object ref = subdenom_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        nonce_ = s;
+        subdenom_ = s;
         return s;
       }
     }
     /**
-     * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
-     * @return The bytes for nonce.
+     * <pre>
+     * subdenom can be up to 44 "alphanumeric" characters long.
+     * </pre>
+     *
+     * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
+     * @return The bytes for subdenom.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getNonceBytes() {
-      java.lang.Object ref = nonce_;
+        getSubdenomBytes() {
+      java.lang.Object ref = subdenom_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        nonce_ = b;
+        subdenom_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -232,8 +252,8 @@ public final class Tx {
       if (!getSenderBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sender_);
       }
-      if (!getNonceBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, nonce_);
+      if (!getSubdenomBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, subdenom_);
       }
       unknownFields.writeTo(output);
     }
@@ -247,8 +267,8 @@ public final class Tx {
       if (!getSenderBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sender_);
       }
-      if (!getNonceBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, nonce_);
+      if (!getSubdenomBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, subdenom_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -267,8 +287,8 @@ public final class Tx {
 
       if (!getSender()
           .equals(other.getSender())) return false;
-      if (!getNonce()
-          .equals(other.getNonce())) return false;
+      if (!getSubdenom()
+          .equals(other.getSubdenom())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -282,8 +302,8 @@ public final class Tx {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + SENDER_FIELD_NUMBER;
       hash = (53 * hash) + getSender().hashCode();
-      hash = (37 * hash) + NONCE_FIELD_NUMBER;
-      hash = (53 * hash) + getNonce().hashCode();
+      hash = (37 * hash) + SUBDENOM_FIELD_NUMBER;
+      hash = (53 * hash) + getSubdenom().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -382,8 +402,12 @@ public final class Tx {
     /**
      * <pre>
      * MsgCreateDenom is the sdk.Msg type for allowing an account to create
-     * a new denom.  It requires a sender address and a unique nonce
-     * (to allow accounts to create multiple denoms)
+     * a new denom. It requires a sender address and a subdenomination.
+     * The (sender_address, sub_denomination) pair must be unique and cannot be
+     * re-used. The resulting denom created is `factory/{creator
+     * address}/{subdenom}`. The resultant denom's admin is originally set to be the
+     * creator, but this can be changed later. The token denom does not indicate the
+     * current admin.
      * </pre>
      *
      * Protobuf type {@code osmosis.tokenfactory.v1beta1.MsgCreateDenom}
@@ -425,7 +449,7 @@ public final class Tx {
         super.clear();
         sender_ = "";
 
-        nonce_ = "";
+        subdenom_ = "";
 
         return this;
       }
@@ -454,7 +478,7 @@ public final class Tx {
       public osmosis.tokenfactory.v1beta1.Tx.MsgCreateDenom buildPartial() {
         osmosis.tokenfactory.v1beta1.Tx.MsgCreateDenom result = new osmosis.tokenfactory.v1beta1.Tx.MsgCreateDenom(this);
         result.sender_ = sender_;
-        result.nonce_ = nonce_;
+        result.subdenom_ = subdenom_;
         onBuilt();
         return result;
       }
@@ -507,8 +531,8 @@ public final class Tx {
           sender_ = other.sender_;
           onChanged();
         }
-        if (!other.getNonce().isEmpty()) {
-          nonce_ = other.nonce_;
+        if (!other.getSubdenom().isEmpty()) {
+          subdenom_ = other.subdenom_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -616,78 +640,98 @@ public final class Tx {
         return this;
       }
 
-      private java.lang.Object nonce_ = "";
+      private java.lang.Object subdenom_ = "";
       /**
-       * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
-       * @return The nonce.
+       * <pre>
+       * subdenom can be up to 44 "alphanumeric" characters long.
+       * </pre>
+       *
+       * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
+       * @return The subdenom.
        */
-      public java.lang.String getNonce() {
-        java.lang.Object ref = nonce_;
+      public java.lang.String getSubdenom() {
+        java.lang.Object ref = subdenom_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          nonce_ = s;
+          subdenom_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
-       * @return The bytes for nonce.
+       * <pre>
+       * subdenom can be up to 44 "alphanumeric" characters long.
+       * </pre>
+       *
+       * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
+       * @return The bytes for subdenom.
        */
       public com.google.protobuf.ByteString
-          getNonceBytes() {
-        java.lang.Object ref = nonce_;
+          getSubdenomBytes() {
+        java.lang.Object ref = subdenom_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          nonce_ = b;
+          subdenom_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
-       * @param value The nonce to set.
+       * <pre>
+       * subdenom can be up to 44 "alphanumeric" characters long.
+       * </pre>
+       *
+       * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
+       * @param value The subdenom to set.
        * @return This builder for chaining.
        */
-      public Builder setNonce(
+      public Builder setSubdenom(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        nonce_ = value;
+        subdenom_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
+       * <pre>
+       * subdenom can be up to 44 "alphanumeric" characters long.
+       * </pre>
+       *
+       * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
        * @return This builder for chaining.
        */
-      public Builder clearNonce() {
+      public Builder clearSubdenom() {
         
-        nonce_ = getDefaultInstance().getNonce();
+        subdenom_ = getDefaultInstance().getSubdenom();
         onChanged();
         return this;
       }
       /**
-       * <code>string nonce = 2 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
-       * @param value The bytes for nonce to set.
+       * <pre>
+       * subdenom can be up to 44 "alphanumeric" characters long.
+       * </pre>
+       *
+       * <code>string subdenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"subdenom&#92;""];</code>
+       * @param value The bytes for subdenom to set.
        * @return This builder for chaining.
        */
-      public Builder setNonceBytes(
+      public Builder setSubdenomBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        nonce_ = value;
+        subdenom_ = value;
         onChanged();
         return this;
       }
@@ -3749,12 +3793,12 @@ public final class Tx {
         getDenomBytes();
 
     /**
-     * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+     * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
      * @return The newAdmin.
      */
     java.lang.String getNewAdmin();
     /**
-     * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+     * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
      * @return The bytes for newAdmin.
      */
     com.google.protobuf.ByteString
@@ -3939,10 +3983,10 @@ public final class Tx {
       }
     }
 
-    public static final int NEWADMIN_FIELD_NUMBER = 3;
+    public static final int NEW_ADMIN_FIELD_NUMBER = 3;
     private volatile java.lang.Object newAdmin_;
     /**
-     * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+     * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
      * @return The newAdmin.
      */
     @java.lang.Override
@@ -3959,7 +4003,7 @@ public final class Tx {
       }
     }
     /**
-     * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+     * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
      * @return The bytes for newAdmin.
      */
     @java.lang.Override
@@ -4054,7 +4098,7 @@ public final class Tx {
       hash = (53 * hash) + getSender().hashCode();
       hash = (37 * hash) + DENOM_FIELD_NUMBER;
       hash = (53 * hash) + getDenom().hashCode();
-      hash = (37 * hash) + NEWADMIN_FIELD_NUMBER;
+      hash = (37 * hash) + NEW_ADMIN_FIELD_NUMBER;
       hash = (53 * hash) + getNewAdmin().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -4472,7 +4516,7 @@ public final class Tx {
 
       private java.lang.Object newAdmin_ = "";
       /**
-       * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+       * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
        * @return The newAdmin.
        */
       public java.lang.String getNewAdmin() {
@@ -4488,7 +4532,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+       * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
        * @return The bytes for newAdmin.
        */
       public com.google.protobuf.ByteString
@@ -4505,7 +4549,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+       * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
        * @param value The newAdmin to set.
        * @return This builder for chaining.
        */
@@ -4520,7 +4564,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+       * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearNewAdmin() {
@@ -4530,7 +4574,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string newAdmin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
+       * <code>string new_admin = 3 [(.gogoproto.moretags) = "yaml:&#92;"new_admin&#92;""];</code>
        * @param value The bytes for newAdmin to set.
        * @return This builder for chaining.
        */
@@ -5068,33 +5112,34 @@ public final class Tx {
       "\n%osmosis/tokenfactory/v1beta1/tx.proto\022" +
       "\034osmosis.tokenfactory.v1beta1\032\024gogoproto" +
       "/gogo.proto\032\036cosmos/base/v1beta1/coin.pr" +
-      "oto\"T\n\016MsgCreateDenom\022!\n\006sender\030\001 \001(\tB\021\362" +
-      "\336\037\ryaml:\"sender\"\022\037\n\005nonce\030\002 \001(\tB\020\362\336\037\014yam" +
-      "l:\"nonce\"\"M\n\026MsgCreateDenomResponse\0223\n\017n" +
-      "ew_token_denom\030\001 \001(\tB\032\362\336\037\026yaml:\"new_toke" +
-      "n_denom\"\"n\n\007MsgMint\022!\n\006sender\030\001 \001(\tB\021\362\336\037" +
-      "\ryaml:\"sender\"\022@\n\006amount\030\002 \001(\0132\031.cosmos." +
-      "base.v1beta1.CoinB\025\362\336\037\ryaml:\"amount\"\310\336\037\000" +
-      "\"\021\n\017MsgMintResponse\"n\n\007MsgBurn\022!\n\006sender" +
-      "\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022@\n\006amount\030\002 \001(" +
-      "\0132\031.cosmos.base.v1beta1.CoinB\025\362\336\037\ryaml:\"" +
-      "amount\"\310\336\037\000\"\021\n\017MsgBurnResponse\"|\n\016MsgCha" +
-      "ngeAdmin\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"send" +
-      "er\"\022\037\n\005denom\030\002 \001(\tB\020\362\336\037\014yaml:\"denom\"\022&\n\010" +
-      "newAdmin\030\003 \001(\tB\024\362\336\037\020yaml:\"new_admin\"\"\030\n\026" +
-      "MsgChangeAdminResponse2\247\003\n\003Msg\022q\n\013Create" +
-      "Denom\022,.osmosis.tokenfactory.v1beta1.Msg" +
-      "CreateDenom\0324.osmosis.tokenfactory.v1bet" +
-      "a1.MsgCreateDenomResponse\022\\\n\004Mint\022%.osmo" +
-      "sis.tokenfactory.v1beta1.MsgMint\032-.osmos" +
-      "is.tokenfactory.v1beta1.MsgMintResponse\022" +
-      "\\\n\004Burn\022%.osmosis.tokenfactory.v1beta1.M" +
-      "sgBurn\032-.osmosis.tokenfactory.v1beta1.Ms" +
-      "gBurnResponse\022q\n\013ChangeAdmin\022,.osmosis.t" +
-      "okenfactory.v1beta1.MsgChangeAdmin\0324.osm" +
-      "osis.tokenfactory.v1beta1.MsgChangeAdmin" +
-      "ResponseB9Z7github.com/osmosis-labs/osmo" +
-      "sis/v7/x/tokenfactory/typesb\006proto3"
+      "oto\"Z\n\016MsgCreateDenom\022!\n\006sender\030\001 \001(\tB\021\362" +
+      "\336\037\ryaml:\"sender\"\022%\n\010subdenom\030\002 \001(\tB\023\362\336\037\017" +
+      "yaml:\"subdenom\"\"M\n\026MsgCreateDenomRespons" +
+      "e\0223\n\017new_token_denom\030\001 \001(\tB\032\362\336\037\026yaml:\"ne" +
+      "w_token_denom\"\"n\n\007MsgMint\022!\n\006sender\030\001 \001(" +
+      "\tB\021\362\336\037\ryaml:\"sender\"\022@\n\006amount\030\002 \001(\0132\031.c" +
+      "osmos.base.v1beta1.CoinB\025\362\336\037\ryaml:\"amoun" +
+      "t\"\310\336\037\000\"\021\n\017MsgMintResponse\"n\n\007MsgBurn\022!\n\006" +
+      "sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022@\n\006amoun" +
+      "t\030\002 \001(\0132\031.cosmos.base.v1beta1.CoinB\025\362\336\037\r" +
+      "yaml:\"amount\"\310\336\037\000\"\021\n\017MsgBurnResponse\"}\n\016" +
+      "MsgChangeAdmin\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml" +
+      ":\"sender\"\022\037\n\005denom\030\002 \001(\tB\020\362\336\037\014yaml:\"deno" +
+      "m\"\022\'\n\tnew_admin\030\003 \001(\tB\024\362\336\037\020yaml:\"new_adm" +
+      "in\"\"\030\n\026MsgChangeAdminResponse2\247\003\n\003Msg\022q\n" +
+      "\013CreateDenom\022,.osmosis.tokenfactory.v1be" +
+      "ta1.MsgCreateDenom\0324.osmosis.tokenfactor" +
+      "y.v1beta1.MsgCreateDenomResponse\022\\\n\004Mint" +
+      "\022%.osmosis.tokenfactory.v1beta1.MsgMint\032" +
+      "-.osmosis.tokenfactory.v1beta1.MsgMintRe" +
+      "sponse\022\\\n\004Burn\022%.osmosis.tokenfactory.v1" +
+      "beta1.MsgBurn\032-.osmosis.tokenfactory.v1b" +
+      "eta1.MsgBurnResponse\022q\n\013ChangeAdmin\022,.os" +
+      "mosis.tokenfactory.v1beta1.MsgChangeAdmi" +
+      "n\0324.osmosis.tokenfactory.v1beta1.MsgChan" +
+      "geAdminResponseB9Z7github.com/osmosis-la" +
+      "bs/osmosis/v7/x/tokenfactory/typesb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5107,7 +5152,7 @@ public final class Tx {
     internal_static_osmosis_tokenfactory_v1beta1_MsgCreateDenom_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_tokenfactory_v1beta1_MsgCreateDenom_descriptor,
-        new java.lang.String[] { "Sender", "Nonce", });
+        new java.lang.String[] { "Sender", "Subdenom", });
     internal_static_osmosis_tokenfactory_v1beta1_MsgCreateDenomResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_osmosis_tokenfactory_v1beta1_MsgCreateDenomResponse_fieldAccessorTable = new
