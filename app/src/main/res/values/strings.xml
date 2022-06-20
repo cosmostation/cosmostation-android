@@ -758,7 +758,7 @@
     <string name="str_gas_amount">Gas Amount</string>
     <string name="str_gas_rate">Gas Rate</string>
     <string name="str_fee_amount">Tx Fee Amount</string>
-    <string name="str_fee_speed_title_0">Only a handful of validators including \"Cosmostation\" \nwill process this Tx.</string>
+    <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx.</string>
     <string name="str_fee_speed_title_1">A few validators will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
     <string name="str_fee_speed_title_iris">Support fixed transfer fee for IRIS Mainnet..</string>
