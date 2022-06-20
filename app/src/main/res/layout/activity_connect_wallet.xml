@@ -115,7 +115,6 @@
             android:layout_marginRight="@dimen/space_16"
             app:cardBackgroundColor="@color/colorTransBgKava"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 

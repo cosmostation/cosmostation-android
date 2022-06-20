@@ -21,7 +21,6 @@
                 android:layout_marginTop="@dimen/space_2"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardElevation="1.5dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardUseCompatPadding="true">
                 <LinearLayout
@@ -73,7 +72,6 @@
                 android:layout_marginRight="@dimen/space_12"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardElevation="1.5dp"
                 app:cardBackgroundColor="@color/colorTransBg"
                 app:cardUseCompatPadding="true">
                 <LinearLayout
@@ -173,7 +171,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/space_16"
-                        android:elevation="2dp"
                         android:background="@color/colorTransBg"
                         app:borderColor ="@color/colorGray1"
                         app:borderWidth="1dp"
