@@ -440,8 +440,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShareType(String address) {
         FilledVerticalButtonAlertDialog.showDoubleButton(this, null, null,
-                getString(R.string.str_with_qr), view -> onShare(false, address), ContextCompat.getDrawable(this, R.drawable.cosmos_wh_main),
-                getString(R.string.str_with_text), view -> onShare(true, address), ContextCompat.getDrawable(this, R.drawable.chain_test_cosmos));
+                getString(R.string.str_with_qr), view -> onShare(false, address), null,
+                getString(R.string.str_with_text), view -> onShare(true, address), null);
     }
 
     public void onDeleteAccount(long id) {
