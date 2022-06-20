@@ -128,7 +128,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
         if (mCw20Asset != null) {
             Picasso.get().load(mCw20Asset.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             mToolbarSymbol.setText(mCw20Asset.denom.toUpperCase());
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, R.color.colorWhite));
             mTotalAmount = mCw20Asset.getAmount();
 
             mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mCw20Asset.denom));
@@ -136,10 +136,10 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mCw20Asset.denom);
             if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
                 mItemUpDownImg.setVisibility(View.VISIBLE);
-                mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(ContractTokenGrpcActivity.this, R.drawable.ic_price_up));
             } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
                 mItemUpDownImg.setVisibility(View.VISIBLE);
-                mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(ContractTokenGrpcActivity.this, R.drawable.ic_price_down));
             } else {
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }

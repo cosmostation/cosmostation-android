@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,11 +28,11 @@ import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
 public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
 
-    private RecyclerView                  mRecyclerView;
-    private TextView                      mtextView;
+    private RecyclerView mRecyclerView;
+    private TextView mtextView;
     private ChainForResourceHolderAdapter mAdapter;
-    private ArrayList<Types.Resource>     mAlreadyChains;
-    private ArrayList<StarnameAssets>     mAllChains;
+    private ArrayList<Types.Resource> mAlreadyChains;
+    private ArrayList<StarnameAssets> mAllChains;
 
     public static Dialog_StarName_Resource newInstance(Bundle bundle) {
         Dialog_StarName_Resource frag = new Dialog_StarName_Resource();
@@ -41,11 +42,11 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
-        mtextView           = view.findViewById(R.id.dialog_title);
+        final View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mtextView = view.findViewById(R.id.dialog_title);
         mtextView.setText(R.string.str_select_chain_for_address);
         mRecyclerView = view.findViewById(R.id.recycler);
-        StarnameResourceWrapper wrapper = (StarnameResourceWrapper)getArguments().getSerializable("resources");
+        StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getArguments().getSerializable("resources");
         mAlreadyChains = wrapper.array;
         mAllChains = StarnameAssets.getStarnameAssets();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -56,7 +57,7 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
     }
 
     private boolean alreadyHave(StarnameAssets toInsert) {
-        for (Types.Resource already: mAlreadyChains) {
+        for (Types.Resource already : mAlreadyChains) {
             if (already.getUri().equals(toInsert.url)) {
                 return true;
             }
@@ -75,9 +76,9 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
         public void onBindViewHolder(@NonNull ChainForResourceHolder holder, int position) {
             final StarnameAssets resource = mAllChains.get(position);
             if (alreadyHave(resource)) {
-                holder.rootLayer.setBackground(getResources().getDrawable(R.drawable.box_et_gary));
+                holder.rootLayer.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_et_gary));
             } else {
-                holder.rootLayer.setBackground(getResources().getDrawable(R.drawable.box_et_white));
+                holder.rootLayer.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_et_white));
             }
 
             Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.url)).fit().into(holder.chainImg);
@@ -105,11 +106,12 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
             LinearLayout rootLayer;
             ImageView chainImg;
             TextView chainName;
+
             public ChainForResourceHolder(@NonNull View itemView) {
                 super(itemView);
-                rootLayer   = itemView.findViewById(R.id.rootLayer);
-                chainImg    = itemView.findViewById(R.id.chainImg);
-                chainName   = itemView.findViewById(R.id.chainName);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                chainImg = itemView.findViewById(R.id.chainImg);
+                chainName = itemView.findViewById(R.id.chainName);
             }
         }
     }

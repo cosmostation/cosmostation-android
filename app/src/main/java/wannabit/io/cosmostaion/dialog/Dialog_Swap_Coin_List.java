@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -112,19 +113,19 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
             } else if (inputCoin.equals(TOKEN_ATOM)) {
                 holder.chainName.setText(getString(R.string.str_atom_c));
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
+                holder.chainImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.atom_ic));
             } else if (inputCoin.equals(TOKEN_OSMOSIS)) {
                 holder.chainName.setText(getString(R.string.str_osmosis_c));
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+                holder.chainImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.token_osmosis));
             } else if (inputCoin.equals(TOKEN_SIF)) {
                 holder.chainName.setText(getString(R.string.str_sif_c));
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
+                holder.chainImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.tokensifchain));
             } else if (inputCoin.equals(TOKEN_ION)) {
                 holder.chainName.setText(getString(R.string.str_uion_c));
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
+                holder.chainImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.token_ion));
             } else if (inputCoin.startsWith("c")) {
                 final Assets assets = getSActivity().getBaseDao().getAsset(inputCoin);
                 if (assets != null) {
@@ -134,7 +135,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
             } else {
                 holder.chainName.setText("UNKNOWN");
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+                holder.chainImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.token_ic));
             }
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {

@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -199,7 +200,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onShowWaitDialog();
             onFetchAllData();
 
-            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
+            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorWhite));
             WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
             WDp.getChainTitle(MainActivity.this, mBaseChain, mToolbarChainName);
             mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));

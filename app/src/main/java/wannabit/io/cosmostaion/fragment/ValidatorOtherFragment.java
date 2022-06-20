@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -30,15 +34,12 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-
 public class ValidatorOtherFragment extends BaseFragment {
 
-    private SwipeRefreshLayout          mSwipeRefreshLayout;
-    private RecyclerView                mRecyclerView;
-    private OtherValidatorAdapter       mOtherValidatorAdapter;
-    private TextView                    mValidatorSize;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private OtherValidatorAdapter mOtherValidatorAdapter;
+    private TextView mValidatorSize;
 
     public static ValidatorOtherFragment newInstance(Bundle bundle) {
         ValidatorOtherFragment fragment = new ValidatorOtherFragment();
@@ -54,11 +55,11 @@ public class ValidatorOtherFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_validator_other, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mValidatorSize          = rootView.findViewById(R.id.validator_cnt);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mValidatorSize = rootView.findViewById(R.id.validator_cnt);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -80,10 +81,10 @@ public class ValidatorOtherFragment extends BaseFragment {
     public void onRefreshTab() {
         if (!isAdded()) return;
         if (isGRPC(getMainActivity().mBaseChain)) {
-            mValidatorSize.setText(""+getBaseDao().mGRpcOtherValidators.size());
+            mValidatorSize.setText("" + getBaseDao().mGRpcOtherValidators.size());
             WUtil.onSortByValidatorPowerV1(getBaseDao().mGRpcOtherValidators);
         } else {
-            mValidatorSize.setText(""+getBaseDao().mOtherValidators.size());
+            mValidatorSize.setText("" + getBaseDao().mOtherValidators.size());
             WUtil.onSortByValidatorPower(getBaseDao().mOtherValidators);
         }
 
@@ -93,12 +94,12 @@ public class ValidatorOtherFragment extends BaseFragment {
 
     @Override
     public void onBusyFetch() {
-        if(!isAdded()) return;
+        if (!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
     public ValidatorListActivity getMainActivity() {
-        return (ValidatorListActivity)getBaseActivity();
+        return (ValidatorListActivity) getBaseActivity();
     }
 
     private class OtherValidatorAdapter extends RecyclerView.Adapter<OtherValidatorAdapter.OtherValidatorHolder> {
@@ -114,25 +115,26 @@ public class ValidatorOtherFragment extends BaseFragment {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
             final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
             if (isGRPC(getMainActivity().mBaseChain)) {
-                final Staking.Validator validator  = getBaseDao().mGRpcOtherValidators.get(position);
+                final Staking.Validator validator = getBaseDao().mGRpcOtherValidators.get(position);
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
-                if(validator.getJailed()) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                if (validator.getJailed()) {
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
                 if (getBaseDao().mGRpcMyValidators.contains(validator)) {
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -146,7 +148,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                 }
 
             } else {
-                final Validator validator  = getBaseDao().mOtherValidators.get(position);
+                final Validator validator = getBaseDao().mOtherValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 holder.itemTvMoniker.setText(validator.description.moniker);
@@ -159,20 +161,21 @@ public class ValidatorOtherFragment extends BaseFragment {
                 });
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
-                if(validator.jailed) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                if (validator.jailed) {
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
 
                 if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }
             }
         }
@@ -197,26 +200,26 @@ public class ValidatorOtherFragment extends BaseFragment {
         }
 
         public class OtherValidatorHolder extends RecyclerView.ViewHolder {
-            CardView        itemRoot;
+            CardView itemRoot;
             CircleImageView itemAvatar;
-            ImageView       itemRevoked, itemBandOracleOff;
-            ImageView       itemFree;
-            TextView        itemTvMoniker;
-            TextView        itemTvVotingPower;
-            TextView        itemTvSubtitle;
-            TextView        itemTvCommission;
+            ImageView itemRevoked, itemBandOracleOff;
+            ImageView itemFree;
+            TextView itemTvMoniker;
+            TextView itemTvVotingPower;
+            TextView itemTvSubtitle;
+            TextView itemTvCommission;
 
             public OtherValidatorHolder(@NonNull View itemView) {
                 super(itemView);
-                itemRoot            = itemView.findViewById(R.id.card_validator);
-                itemAvatar          = itemView.findViewById(R.id.avatar_validator);
-                itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree            = itemView.findViewById(R.id.avatar_validator_free);
-                itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-                itemBandOracleOff   = itemView.findViewById(R.id.band_oracle_off);
-                itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
-                itemTvSubtitle      = itemView.findViewById(R.id.subTitle2);
-                itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
+                itemRoot = itemView.findViewById(R.id.card_validator);
+                itemAvatar = itemView.findViewById(R.id.avatar_validator);
+                itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemFree = itemView.findViewById(R.id.avatar_validator_free);
+                itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
+                itemBandOracleOff = itemView.findViewById(R.id.band_oracle_off);
+                itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
+                itemTvSubtitle = itemView.findViewById(R.id.subTitle2);
+                itemTvCommission = itemView.findViewById(R.id.delegate_commission_validator);
             }
         }
     }

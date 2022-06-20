@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -28,19 +29,19 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RepayHardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button      mBtnCancel, mBtnNext;
-    private ImageView   mRepayImg;
-    private TextView    mRepaySymbol;
-    private EditText    mRepayInput;
-    private ImageView   mRepayClear;
-    private TextView    mRepayMaxTx, mRepayDenomTx;
-    private Button      mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
+    private Button mBtnCancel, mBtnNext;
+    private ImageView mRepayImg;
+    private TextView mRepaySymbol;
+    private EditText mRepayInput;
+    private ImageView mRepayClear;
+    private TextView mRepayMaxTx, mRepayDenomTx;
+    private Button mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
 
-    private int         mDpDecimal = 6;
-    public String       mHardMoneyMarketDenom;
-    private String      mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
-    private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
-    private BigDecimal  mBorrowedAmount = BigDecimal.ZERO;
+    private int mDpDecimal = 6;
+    public String mHardMoneyMarketDenom;
+    private String mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
+    private BigDecimal mBorrowedAmount = BigDecimal.ZERO;
 
     public static RepayHardStep0Fragment newInstance(Bundle bundle) {
         RepayHardStep0Fragment fragment = new RepayHardStep0Fragment();
@@ -93,23 +94,25 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
 
         mRepayInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
-                    mRepayInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                if (TextUtils.isEmpty(es)) {
+                    mRepayInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mRepayInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mRepayInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mRepayInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mRepayInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mRepayInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                     mRepayInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mRepayInput.setText("0");
                     mRepayInput.setSelection(1);
                 }
@@ -120,8 +123,8 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mRepayInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                            mRepayInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -133,13 +136,14 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
                             mRepayInput.setSelection(recover.length());
                             return;
                         }
-                        if(inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
-                            mRepayInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
+                            mRepayInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
-                            mRepayInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mRepayInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
                         mRepayInput.setSelection(mRepayInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -155,7 +159,8 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
             BigDecimal inputedAmount = BigDecimal.ZERO;
             try {
                 inputedAmount = new BigDecimal(mRepayInput.getText().toString().trim());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             inputedAmount = inputedAmount.add(new BigDecimal("1"));
             mRepayInput.setText(inputedAmount.toPlainString());
 
@@ -199,20 +204,21 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
     private boolean isValidateDepositAmount() {
         try {
             BigDecimal amountTemp = new BigDecimal(mRepayInput.getText().toString().trim());
-            if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if(amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+            if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+                return false;
 
             //check dusty borrow amount!
             final BigDecimal denomPrice = WUtil.getKavaPrice(getBaseDao(), mHardMoneyMarketDenom);
-            BigDecimal remainAmount     = mBorrowedAmount.subtract(amountTemp.movePointRight(mDpDecimal).setScale(0));
-            BigDecimal remainValue      = remainAmount.movePointLeft(mDpDecimal).multiply(denomPrice);
+            BigDecimal remainAmount = mBorrowedAmount.subtract(amountTemp.movePointRight(mDpDecimal).setScale(0));
+            BigDecimal remainValue = remainAmount.movePointLeft(mDpDecimal).multiply(denomPrice);
             if (remainValue.compareTo(BigDecimal.ZERO) > 0 && remainValue.compareTo(BigDecimal.TEN) < 0) {
                 Toast.makeText(getContext(), R.string.error_remain_borrow_small, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
             Coin coin = new Coin(mHardMoneyMarketDenom, amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
-            ArrayList<Coin> temp= new ArrayList<>();
+            ArrayList<Coin> temp = new ArrayList<>();
             temp.add(coin);
             getSActivity().mHardPoolCoins = temp;
             return true;
@@ -230,17 +236,17 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
         mDecimalSetter = "0.";
         mDecimalDivider2 = "2";
         mDecimalDivider1 = "1";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
             mDecimalDivider2 = mDecimalDivider2 + "0";
             mDecimalDivider1 = mDecimalDivider1 + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
-            mDecimalSetter = mDecimalSetter+"0";
+        for (int i = 0; i < decimals - 1; i++) {
+            mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
     private RepayHardActivity getSActivity() {
-        return (RepayHardActivity)getBaseActivity();
+        return (RepayHardActivity) getBaseActivity();
     }
 }

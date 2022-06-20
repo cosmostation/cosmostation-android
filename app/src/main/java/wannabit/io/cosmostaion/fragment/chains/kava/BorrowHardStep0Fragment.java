@@ -14,8 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
-import com.squareup.picasso.Picasso;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -28,24 +27,20 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button      mBtnCancel, mBtnNext;
-    private ImageView   mBorrowImg;
-    private TextView    mBorrowSymbol;
-    private EditText    mBorrowInput;
-    private ImageView   mBorrowClear;
-    private TextView    mBorrowMaxTx, mBorrowDenomTx;
-    private Button      mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
+    private Button mBtnCancel, mBtnNext;
+    private ImageView mBorrowImg;
+    private TextView mBorrowSymbol;
+    private EditText mBorrowInput;
+    private ImageView mBorrowClear;
+    private TextView mBorrowMaxTx, mBorrowDenomTx;
+    private Button mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
 
-    private int         mDpDecimal = 6;
-    public String       mHardMoneyMarketDenom;
-    private String      mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
-    private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
+    private int mDpDecimal = 6;
+    public String mHardMoneyMarketDenom;
+    private String mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
     public static BorrowHardStep0Fragment newInstance(Bundle bundle) {
         BorrowHardStep0Fragment fragment = new BorrowHardStep0Fragment();
@@ -90,7 +85,7 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
 
         // display borrowable amount with padding 5%
         mMaxAvailable = WUtil.getHardBorrowableAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom,
-                getBaseDao().mMyHardDeposits , getBaseDao().mMyHardBorrows, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
+                getBaseDao().mMyHardDeposits, getBaseDao().mMyHardBorrows, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
 
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
         WUtil.DpKavaTokenImg(getBaseDao(), mBorrowImg, mHardMoneyMarketDenom);
@@ -98,23 +93,25 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
 
         mBorrowInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
-                    mBorrowInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                if (TextUtils.isEmpty(es)) {
+                    mBorrowInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mBorrowInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mBorrowInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mBorrowInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mBorrowInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mBorrowInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                     mBorrowInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mBorrowInput.setText("0");
                     mBorrowInput.setSelection(1);
                 }
@@ -125,8 +122,8 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mBorrowInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                            mBorrowInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -144,7 +141,8 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
                             mBorrowInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                         }
                         mBorrowInput.setSelection(mBorrowInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -161,7 +159,8 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
             BigDecimal inputedAmount = BigDecimal.ZERO;
             try {
                 inputedAmount = new BigDecimal(mBorrowInput.getText().toString().trim());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             inputedAmount = inputedAmount.add(new BigDecimal("1"));
             mBorrowInput.setText(inputedAmount.toPlainString());
 
@@ -205,14 +204,14 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
     }
 
 
-
     private boolean isValidateBorrowAmount() {
         try {
             BigDecimal amountTemp = new BigDecimal(mBorrowInput.getText().toString().trim());
-            if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if(amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+            if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+                return false;
             Coin coin = new Coin(mHardMoneyMarketDenom, amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
-            ArrayList<Coin> temp= new ArrayList<>();
+            ArrayList<Coin> temp = new ArrayList<>();
             temp.add(coin);
             getSActivity().mHardPoolCoins = temp;
             return true;
@@ -230,18 +229,18 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
         mDecimalSetter = "0.";
         mDecimalDivider2 = "2";
         mDecimalDivider1 = "1";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
             mDecimalDivider2 = mDecimalDivider2 + "0";
             mDecimalDivider1 = mDecimalDivider1 + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
-            mDecimalSetter = mDecimalSetter+"0";
+        for (int i = 0; i < decimals - 1; i++) {
+            mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
     private BorrowHardActivity getSActivity() {
-        return (BorrowHardActivity)getBaseActivity();
+        return (BorrowHardActivity) getBaseActivity();
     }
 
 
