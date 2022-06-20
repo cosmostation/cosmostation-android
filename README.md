@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <p align="center">
   <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="https://user-images.githubusercontent.com/20435620/55696624-d7df2e00-59f8-11e9-9126-edf9a40b11a8.png" alt="Cosmostation logo"></a>
@@ -61,6 +61,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://www.linkedin.com/in/orkunkulce"><img src="https://avatars0.githubusercontent.com/u/11277600?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Orkun Külçe</b></sub></a><br /><a href="https://github.com/cosmostation/cosmostation-android/commits?author=orkunkl" title="Code">💻</a></td>
     <td align="center"><a href="http://www.twitter.com/forwardsecrecy"><img src="https://avatars1.githubusercontent.com/u/6909088?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ron Stoner</b></sub></a><br /><a href="https://github.com/cosmostation/cosmostation-android/issues?q=author%3Aronaldstoner" title="Bug reports">🐛</a> <a href="https://github.com/cosmostation/cosmostation-android/commits?author=ronaldstoner" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/Kwonhyukjoon"><img src="https://avatars.githubusercontent.com/u/28729506?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kwonhyukjoon</b></sub></a><br /><a href="https://github.com/cosmostation/cosmostation-android/commits?author=Kwonhyukjoon" title="Code">💻</a> <a href="https://github.com/cosmostation/cosmostation-android/issues?q=author%3AKwonhyukjoon" title="Bug reports">🐛</a> <a href="#maintenance-Kwonhyukjoon" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/soaryong-c"><img src="https://avatars.githubusercontent.com/u/91711862?v=4?s=100" width="100px;" alt=""/><br /><sub><b>soaryong-c</b></sub></a><br /><a href="https://github.com/cosmostation/cosmostation-android/commits?author=soaryong-c" title="Code">💻</a> <a href="https://github.com/cosmostation/cosmostation-android/issues?q=author%3Asoaryong-c" title="Bug reports">🐛</a> <a href="#maintenance-soaryong-c" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
