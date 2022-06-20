@@ -66,6 +66,17 @@
         "bug",
         "maintenance"
       ]
+    },
+    {
+      "login": "kimheeje12",
+      "name": "TOM",
+      "avatar_url": "https://avatars.githubusercontent.com/u/85468864?v=4",
+      "profile": "https://github.com/kimheeje12",
+      "contributions": [
+        "code",
+        "bug",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
