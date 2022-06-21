@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -203,7 +204,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 WKey.isMnemonicWords(mWords)) {
             mWordCnt.setTextColor(WDp.getChainColor(getBaseContext(), mChain));
         } else {
-            mWordCnt.setTextColor(getResources().getColor(R.color.colorRed));
+            mWordCnt.setTextColor(ContextCompat.getColor(RestoreActivity.this, R.color.colorRed));
         }
 
 

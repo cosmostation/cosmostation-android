@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.nft;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -25,16 +28,14 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.nft.NFTCreateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.nft.NFTCreateStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
-
 public class NFTCreateActivity extends BaseBroadCastActivity {
 
-    private Toolbar                 mToolbar;
-    private TextView                mTitle;
-    private ImageView               mIvStep;
-    private TextView                mTvStep;
-    private ViewPager               mViewPager;
-    private NFTCreateAdapter        mPageAdapter;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private NFTCreateAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(NFTCreateActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_issue_nft_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -70,17 +71,17 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(NFTCreateActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_issue_nft_step_0));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(NFTCreateActivity.this, R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_issue_nft_step_1));
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(NFTCreateActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_issue_nft_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(NFTCreateActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_issue_nft_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
@@ -107,7 +108,7 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -122,7 +123,7 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {

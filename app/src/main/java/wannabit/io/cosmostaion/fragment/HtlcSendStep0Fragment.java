@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
 
@@ -49,28 +50,28 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     public final static int SELECT_DESTINATION_CHAIN = 9100;
     public final static int SELECT_TO_SEND_COIN = 9101;
 
-    private Button          mBtnCancel, mBtnNext;
+    private Button mBtnCancel, mBtnNext;
 
-    private ImageView       mFromChainImg;
-    private TextView        mFromChainTv;
+    private ImageView mFromChainImg;
+    private TextView mFromChainTv;
 
-    private RelativeLayout  mBtnToChain;
-    private ImageView       mToChainImg;
-    private TextView        mToChainTv;
+    private RelativeLayout mBtnToChain;
+    private ImageView mToChainImg;
+    private TextView mToChainTv;
 
-    private RelativeLayout  mBtnToSendCoin;
-    private ImageView       mToSendCoinImg;
-    private TextView        mToSendCoinTv, mToSendCoindenom, mToSendCoinAvailable;
+    private RelativeLayout mBtnToSendCoin;
+    private ImageView mToSendCoinImg;
+    private TextView mToSendCoinTv, mToSendCoindenom, mToSendCoinAvailable;
 
-    private LinearLayout    mCapLayer;
-    private TextView        mOnceMaxAmount, mOnceMaxDenom;
-    private TextView        mSystemMaxAmount, mSystemMaxDenom;
-    private TextView        mRemainAmount, mRemainDenom;
+    private LinearLayout mCapLayer;
+    private TextView mOnceMaxAmount, mOnceMaxDenom;
+    private TextView mSystemMaxAmount, mSystemMaxDenom;
+    private TextView mRemainAmount, mRemainDenom;
 
-    private ArrayList<BaseChain>                            mToChainList;
-    private BaseChain                                       mToChain;
-    private ArrayList<String>                               mSwappableCoinList;
-    private String                                          mToSwapDenom;
+    private ArrayList<BaseChain> mToChainList;
+    private BaseChain mToChain;
+    private ArrayList<String> mSwappableCoinList;
+    private String mToSwapDenom;
 
     private ResKavaBep3Param mKavaBep3Param2;
     private ResKavaSwapSupply mKavaSuppies2;
@@ -120,11 +121,15 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         mBtnToSendCoin.setOnClickListener(this);
 
         mToChainList = BaseChain.getHtlcSendable(getSActivity().mBaseChain);
-        if (mToChainList.size() <= 0) { getSActivity().onBeforeStep(); }
+        if (mToChainList.size() <= 0) {
+            getSActivity().onBeforeStep();
+        }
         mToChain = mToChainList.get(0);
 
         mSwappableCoinList = BaseChain.getHtlcSwappableCoin(getSActivity().mBaseChain);
-        if (mSwappableCoinList.size() <= 0) { getSActivity().onBeforeStep(); }
+        if (mSwappableCoinList.size() <= 0) {
+            getSActivity().onBeforeStep();
+        }
         mToSwapDenom = getSActivity().mToSwapDenom;
 
         onCheckSwapParam();
@@ -133,7 +138,9 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onUpdateView() {
-        if (mToChain == null) { getSActivity().onBeforeStep(); }
+        if (mToChain == null) {
+            getSActivity().onBeforeStep();
+        }
         WDp.onDpSwapChain(getContext(), getSActivity().mBaseChain, mFromChainImg, mFromChainTv);
         WDp.onDpSwapChain(getContext(), mToChain, mToChainImg, mToChainTv);
         mToSendCoindenom.setText("(" + mToSwapDenom + ")");
@@ -141,61 +148,67 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.VISIBLE);
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB)) {
-                mToSendCoinImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
+                mToSendCoinImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.bnb_token_img));
                 onSetDpDenom(getString(R.string.str_bnb_c));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB)) {
                 onSetDpDenom("BTC");
                 try {
                     Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BTCB.png").into(mToSendCoinImg);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
                 onSetDpDenom("XRP");
                 try {
                     Picasso.get().load(BINANCE_TOKEN_IMG_URL + "XRP.png").into(mToSendCoinImg);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
                 onSetDpDenom("BUSD");
                 try {
                     Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BUSD.png").into(mToSendCoinImg);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
             }
             available_amount = getSActivity().mAccount.getTokenBalance(mToSwapDenom);
             supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
             supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
-            onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
+            onetime_max = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 0, 8));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.GONE);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB)) {
-                mToSendCoinImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_on_kava));
+                mToSendCoinImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.bnb_on_kava));
                 onSetDpDenom(getString(R.string.str_bnb_c));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB)) {
                 onSetDpDenom("BTC");
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL + "btcb.png").into(mToSendCoinImg);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
                 onSetDpDenom("XRP");
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL + "xrpb.png").into(mToSendCoinImg);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
                 onSetDpDenom("BUSD");
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL + "busd.png").into(mToSendCoinImg);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
 
             }
             available_amount = getBaseDao().getAvailable(mToSwapDenom);
             supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
             supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
-            onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
+            onetime_max = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 8, 8));
 
         }
@@ -257,11 +270,11 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_DESTINATION_CHAIN && resultCode == Activity.RESULT_OK) {
-            mToChain = mToChainList.get(data.getIntExtra("position" , 0));
+            mToChain = mToChainList.get(data.getIntExtra("position", 0));
             onUpdateView();
 
         } else if (requestCode == SELECT_TO_SEND_COIN && resultCode == Activity.RESULT_OK) {
-            mToSwapDenom = mSwappableCoinList.get(data.getIntExtra("position" , 0));
+            mToSwapDenom = mSwappableCoinList.get(data.getIntExtra("position", 0));
             onUpdateView();
         }
     }
@@ -279,6 +292,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                         onCheckSwapSupply();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResKavaBep3Param> call, Throwable t) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
@@ -301,6 +315,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                         onUpdateView();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResKavaSwapSupply> call, Throwable t) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
@@ -324,7 +339,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private HtlcSendActivity getSActivity() {
-        return (HtlcSendActivity)getBaseActivity();
+        return (HtlcSendActivity) getBaseActivity();
     }
 
 }

@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -89,7 +90,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -286,11 +287,11 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 public void onClick(View v) {
                     if (holder.itemMsg.getMaxLines() == 500) {
                         holder.itemMsg.setMaxLines(3);
-                        holder.itemExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_down_gr));
+                        holder.itemExpendBtn.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_down_gr));
 
                     } else {
                         holder.itemMsg.setMaxLines(500);
-                        holder.itemExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_up_gr));
+                        holder.itemExpendBtn.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_up_gr));
                     }
                     mVoteDetailsAdapter.notifyDataSetChanged();
                 }
@@ -327,37 +328,37 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     String voteOption = mResMyProposal.vote.options.get(0).option;
                     if (voteOption.equalsIgnoreCase("VOTE_OPTION_YES")) {
                         holder.itemYesDone.setVisibility(View.VISIBLE);
-                        holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                        holder.itemYesCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                     } else if (voteOption.equals("VOTE_OPTION_NO")) {
                         holder.itemNoDone.setVisibility(View.VISIBLE);
-                        holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                        holder.itemNoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals("VOTE_OPTION_NO_WITH_VETO")) {
                         holder.itemVetoDone.setVisibility(View.VISIBLE);
-                        holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                        holder.itemVetoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals("VOTE_OPTION_ABSTAIN")) {
                         holder.itemAbstainDone.setVisibility(View.VISIBLE);
-                        holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                        holder.itemAbstainCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                     }
 
                 } else if (mMyVote_gRPC != null) {
                     Gov.VoteOption voteOption = mMyVote_gRPC.getOption();
                     if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_YES)) {
                         holder.itemYesDone.setVisibility(View.VISIBLE);
-                        holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                        holder.itemYesCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_NO)) {
                         holder.itemNoDone.setVisibility(View.VISIBLE);
-                        holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                        holder.itemNoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO)) {
                         holder.itemVetoDone.setVisibility(View.VISIBLE);
-                        holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                        holder.itemVetoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_ABSTAIN)) {
                         holder.itemAbstainDone.setVisibility(View.VISIBLE);
-                        holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                        holder.itemAbstainCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                     }
                 }
             }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -65,7 +66,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         mSortType = rootView.findViewById(R.id.token_sort_type);
         mBtnSort = rootView.findViewById(R.id.btn_validator_sort);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -189,10 +190,10 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemTvReward.setText(WDp.getDpAmount2(getContext(), rewardAmount, dpDecimal, 6));
 
                     if (validator.getJailed()) {
-                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                        holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
                         holder.itemRevoked.setVisibility(View.VISIBLE);
                     } else {
-                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                        holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorGray3));
                         holder.itemRevoked.setVisibility(View.GONE);
                     }
                     holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -227,10 +228,10 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemTvReward.setText(WDp.getDpAmount2(getContext(), rewardAmount, dpDecimal, 6));
 
                     if (validator.jailed) {
-                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                        holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
                         holder.itemRevoked.setVisibility(View.VISIBLE);
                     } else {
-                        holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                        holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorGray3));
                         holder.itemRevoked.setVisibility(View.GONE);
                     }
                     holder.itemRoot.setOnClickListener(new View.OnClickListener() {

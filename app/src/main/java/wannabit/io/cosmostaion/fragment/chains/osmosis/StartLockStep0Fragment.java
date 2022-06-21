@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,20 +26,20 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class StartLockStep0Fragment extends BaseFragment implements View.OnClickListener{
+public class StartLockStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button                  mCancelBtn, mNextBtn;
+    private Button mCancelBtn, mNextBtn;
 
-    private EditText                mLpCoinInput;
-    private ImageView               mLpCoinClearBtn;
-    private TextView                mLpCoinAmount, mLpCoinDenom;
-    private Button                  mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
+    private EditText mLpCoinInput;
+    private ImageView mLpCoinClearBtn;
+    private TextView mLpCoinAmount, mLpCoinDenom;
+    private Button mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
 
-    private BigDecimal              mAvailableMaxAmount = BigDecimal.ZERO;
-    private int                     mCoinDecimal = 18;
-    private String                  mDecimalChecker, mDecimalSetter;
+    private BigDecimal mAvailableMaxAmount = BigDecimal.ZERO;
+    private int mCoinDecimal = 18;
+    private String mDecimalChecker, mDecimalSetter;
 
-    private String                  mLpDenom;
+    private String mLpDenom;
 
     public static StartLockStep0Fragment newInstance(Bundle bundle) {
         StartLockStep0Fragment fragment = new StartLockStep0Fragment();
@@ -54,17 +55,17 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_start_lock_step0, container, false);
-        mCancelBtn          = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn            = rootView.findViewById(R.id.btn_next);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
 
-        mLpCoinInput        = rootView.findViewById(R.id.start_lock_input);
-        mLpCoinClearBtn     = rootView.findViewById(R.id.start_lock_input_clear);
-        mLpCoinAmount       = rootView.findViewById(R.id.start_lock_input_amount);
-        mLpCoinDenom        = rootView.findViewById(R.id.start_lock_input_amount_denom);
-        mLpCoin1_4Btn       = rootView.findViewById(R.id.start_lock_input_1_4);
-        mLpCoinHalfBtn      = rootView.findViewById(R.id.start_lock_input_half);
-        mLpCoin3_4Btn       = rootView.findViewById(R.id.start_lock_input_3_4);
-        mLpCoinMaxBtn       = rootView.findViewById(R.id.start_lock_input_max);
+        mLpCoinInput = rootView.findViewById(R.id.start_lock_input);
+        mLpCoinClearBtn = rootView.findViewById(R.id.start_lock_input_clear);
+        mLpCoinAmount = rootView.findViewById(R.id.start_lock_input_amount);
+        mLpCoinDenom = rootView.findViewById(R.id.start_lock_input_amount_denom);
+        mLpCoin1_4Btn = rootView.findViewById(R.id.start_lock_input_1_4);
+        mLpCoinHalfBtn = rootView.findViewById(R.id.start_lock_input_half);
+        mLpCoin3_4Btn = rootView.findViewById(R.id.start_lock_input_3_4);
+        mLpCoinMaxBtn = rootView.findViewById(R.id.start_lock_input_max);
 
         mLpCoinClearBtn.setOnClickListener(this);
         mLpCoin1_4Btn.setOnClickListener(this);
@@ -93,23 +94,25 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
     private void onAddAmountWatcher() {
         mLpCoinInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
-                    mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                if (TextUtils.isEmpty(es)) {
+                    mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mLpCoinInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                     mLpCoinInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mLpCoinInput.setText("0");
                     mLpCoinInput.setSelection(1);
                 }
@@ -120,8 +123,8 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                            mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -135,12 +138,13 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
                         }
 
                         if (inputAmount.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) {
-                            mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
-                            mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
                         mLpCoinInput.setSelection(mLpCoinInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -165,9 +169,7 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
 
         } else if (v.equals(mLpCoinMaxBtn)) {
             mLpCoinInput.setText(mAvailableMaxAmount.movePointLeft(mCoinDecimal).toPlainString());
-        }
-
-        else if (v.equals(mCancelBtn)) {
+        } else if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
@@ -183,7 +185,8 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
         try {
             BigDecimal amountTemp = new BigDecimal(mLpCoinInput.getText().toString().trim());
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
+            if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0)
+                return false;
 
             getSActivity().mLpToken = new Coin(mLpDenom, amountTemp.movePointRight(mCoinDecimal).toPlainString());
             return true;
@@ -195,13 +198,15 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
     private void setDpDecimals(int decimals) {
         mDecimalChecker = "0.";
         mDecimalSetter = "0.";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
+        for (int i = 0; i < decimals - 1; i++) {
             mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
-    private StartEarningActivity getSActivity() { return (StartEarningActivity)getBaseActivity(); }
+    private StartEarningActivity getSActivity() {
+        return (StartEarningActivity) getBaseActivity();
+    }
 }

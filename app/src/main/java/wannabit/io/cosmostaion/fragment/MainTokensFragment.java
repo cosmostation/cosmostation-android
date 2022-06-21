@@ -169,55 +169,55 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainTokensFragment extends BaseFragment {
 
-    public final static int     SECTION_NATIVE_GRPC             = 0;
-    public final static int     SECTION_IBC_AUTHED_GRPC         = 1;
-    public final static int     SECTION_OSMOSIS_POOL_GRPC       = 2;
-    public final static int     SECTION_ETHER_GRPC              = 3;
-    public final static int     SECTION_IBC_UNKNOWN_GRPC        = 4;
-    public final static int     SECTION_GRAVICTY_DEX_GRPC       = 5;
-    public final static int     SECTION_INJECTIVE_POOL_GRPC     = 6;
-    public final static int     SECTION_KAVA_BEP2_GRPC          = 7;
-    public final static int     SECTION_ETC_GRPC                = 8;
-    public final static int     SECTION_CW20_GRPC               = 9;
-    public final static int     SECTION_UNKNOWN_GRPC            = 10;
+    public final static int SECTION_NATIVE_GRPC = 0;
+    public final static int SECTION_IBC_AUTHED_GRPC = 1;
+    public final static int SECTION_OSMOSIS_POOL_GRPC = 2;
+    public final static int SECTION_ETHER_GRPC = 3;
+    public final static int SECTION_IBC_UNKNOWN_GRPC = 4;
+    public final static int SECTION_GRAVICTY_DEX_GRPC = 5;
+    public final static int SECTION_INJECTIVE_POOL_GRPC = 6;
+    public final static int SECTION_KAVA_BEP2_GRPC = 7;
+    public final static int SECTION_ETC_GRPC = 8;
+    public final static int SECTION_CW20_GRPC = 9;
+    public final static int SECTION_UNKNOWN_GRPC = 10;
 
-    public final static int     SECTION_NATIVE                  = 20;
-    public final static int     SECTION_ETC                     = 21;
-    public final static int     SECTION_UNKNOWN                 = 22;
+    public final static int SECTION_NATIVE = 20;
+    public final static int SECTION_ETC = 21;
+    public final static int SECTION_UNKNOWN = 22;
 
-    private int                 mSection;                       // section 구분
+    private int mSection;                       // section 구분
 
-    private CardView            mCardView;
-    private ImageView           itemKeyStatus;
-    private TextView            mWalletAddress;
-    private TextView            mTotalValue;
+    private CardView mCardView;
+    private ImageView itemKeyStatus;
+    private TextView mWalletAddress;
+    private TextView mTotalValue;
 
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private LinearLayout        mEmptyToken;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private LinearLayout mEmptyToken;
 
-    private TokensAdapter       mTokensAdapter;
+    private TokensAdapter mTokensAdapter;
 
-    private RecyclerViewHeader  mRecyclerViewHeader;
+    private RecyclerViewHeader mRecyclerViewHeader;
 
-    private ArrayList<Coin>             mNativeGrpc = new ArrayList<>();
-    private ArrayList<Coin>             mIbcAuthedGrpc = new ArrayList<>();
-    private ArrayList<Coin>             mPoolGrpc = new ArrayList<>();
-    private ArrayList<Coin>             mEtherGrpc = new ArrayList<>();
-    private ArrayList<Coin>             mIbcUnknownGrpc = new ArrayList<>();
-    private ArrayList<Coin>             mGravityDexGrpc = new ArrayList<>();
-    private ArrayList<Coin>             mInjectivePoolGrpc = new ArrayList<>();
-    private ArrayList<Coin>             mKavaBep2Grpc = new ArrayList<>();
-    private ArrayList<Coin>             mEtcGrpc = new ArrayList<>();
-    private ArrayList<Cw20Assets>       mCW20Grpc = new ArrayList<>();
-    private ArrayList<Coin>             mUnknownGrpc = new ArrayList<>();
+    private ArrayList<Coin> mNativeGrpc = new ArrayList<>();
+    private ArrayList<Coin> mIbcAuthedGrpc = new ArrayList<>();
+    private ArrayList<Coin> mPoolGrpc = new ArrayList<>();
+    private ArrayList<Coin> mEtherGrpc = new ArrayList<>();
+    private ArrayList<Coin> mIbcUnknownGrpc = new ArrayList<>();
+    private ArrayList<Coin> mGravityDexGrpc = new ArrayList<>();
+    private ArrayList<Coin> mInjectivePoolGrpc = new ArrayList<>();
+    private ArrayList<Coin> mKavaBep2Grpc = new ArrayList<>();
+    private ArrayList<Coin> mEtcGrpc = new ArrayList<>();
+    private ArrayList<Cw20Assets> mCW20Grpc = new ArrayList<>();
+    private ArrayList<Coin> mUnknownGrpc = new ArrayList<>();
 
-    private ArrayList<Balance>          mNative = new ArrayList<>();
-    private ArrayList<Balance>          mEtc = new ArrayList<>();
-    private ArrayList<Balance>          mUnKnown = new ArrayList<>();
+    private ArrayList<Balance> mNative = new ArrayList<>();
+    private ArrayList<Balance> mEtc = new ArrayList<>();
+    private ArrayList<Balance> mUnKnown = new ArrayList<>();
 
-    private Account                     mAccount;
-    private BaseChain                   mBaseChain;
+    private Account mAccount;
+    private BaseChain mBaseChain;
 
     public static MainTokensFragment newInstance(Bundle bundle) {
         MainTokensFragment fragment = new MainTokensFragment();
@@ -234,13 +234,13 @@ public class MainTokensFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_tokens, container, false);
-        mCardView               = rootView.findViewById(R.id.card_root);
-        itemKeyStatus           = rootView.findViewById(R.id.img_account);
-        mWalletAddress          = rootView.findViewById(R.id.wallet_address);
-        mTotalValue             = rootView.findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mEmptyToken             = rootView.findViewById(R.id.empty_token);
+        mCardView = rootView.findViewById(R.id.card_root);
+        itemKeyStatus = rootView.findViewById(R.id.img_account);
+        mWalletAddress = rootView.findViewById(R.id.wallet_address);
+        mTotalValue = rootView.findViewById(R.id.total_value);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mEmptyToken = rootView.findViewById(R.id.empty_token);
 
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,7 +249,7 @@ public class MainTokensFragment extends BaseFragment {
             }
         });
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -328,18 +328,16 @@ public class MainTokensFragment extends BaseFragment {
                             || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size() + mEtcGrpc.size()
                             || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size() + mEtcGrpc.size() + mIbcUnknownGrpc.size();
 
-                } else if (baseChain.equals(JUNO_MAIN)){
+                } else if (baseChain.equals(JUNO_MAIN)) {
                     return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
                             || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mCW20Grpc.size()
                             || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mCW20Grpc.size() + mIbcUnknownGrpc.size();
 
-                } else if (isGRPC(baseChain)){
+                } else if (isGRPC(baseChain)) {
                     return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
                             || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size();
 
-                }
-
-                else {
+                } else {
                     return position == 0 || position == mNative.size() || position == mNative.size() + mEtc.size();
                 }
             }
@@ -355,25 +353,15 @@ public class MainTokensFragment extends BaseFragment {
                     return getMainActivity().getString(R.string.str_unknown_ibc_token_title);
                 } else if (section == SECTION_UNKNOWN_GRPC) {
                     return getMainActivity().getString(R.string.str_unknown_token_title);
-                }
-
-                else if (section == SECTION_OSMOSIS_POOL_GRPC || section == SECTION_INJECTIVE_POOL_GRPC) {
+                } else if (section == SECTION_OSMOSIS_POOL_GRPC || section == SECTION_INJECTIVE_POOL_GRPC) {
                     return getMainActivity().getString(R.string.str_pool_coin_title);
-                }
-
-                else if (section == SECTION_ETHER_GRPC) {
+                } else if (section == SECTION_ETHER_GRPC) {
                     return getMainActivity().getString(R.string.str_sif_ether_token_title);
-                }
-
-                else if (section == SECTION_GRAVICTY_DEX_GRPC) {
+                } else if (section == SECTION_GRAVICTY_DEX_GRPC) {
                     return getMainActivity().getString(R.string.str_gravity_dex_token_title);
-                }
-
-                else if (section == SECTION_KAVA_BEP2_GRPC) {
+                } else if (section == SECTION_KAVA_BEP2_GRPC) {
                     return getMainActivity().getString(R.string.str_kava_bep2_token_title);
-                }
-
-                else if (section == SECTION_ETC_GRPC) {
+                } else if (section == SECTION_ETC_GRPC) {
                     return getMainActivity().getString(R.string.str_etc_token_title);
                 }
 
@@ -479,13 +467,13 @@ public class MainTokensFragment extends BaseFragment {
             } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.osmosisAmm() || getMainActivity().mBaseChain.equals(CRESCENT_MAIN) && coin.crescnetPool()) {
                 mPoolGrpc.add(coin);
             } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_ION) ||
-                        getMainActivity().mBaseChain.equals(EMONEY_MAIN) && coin.denom.startsWith("e") ||
-                        getMainActivity().mBaseChain.equals(CRESCENT_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_BCRE) ||
-                        getMainActivity().mBaseChain.equals(NYX_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_NYM)) {
+                    getMainActivity().mBaseChain.equals(EMONEY_MAIN) && coin.denom.startsWith("e") ||
+                    getMainActivity().mBaseChain.equals(CRESCENT_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_BCRE) ||
+                    getMainActivity().mBaseChain.equals(NYX_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_NYM)) {
                 mNativeGrpc.add(coin);
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN) && coin.denom.startsWith("c") ||
-                        getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN) && coin.denom.startsWith("gravity") ||
-                        getMainActivity().mBaseChain.equals(INJ_MAIN) && coin.denom.startsWith("peggy")) {
+                    getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN) && coin.denom.startsWith("gravity") ||
+                    getMainActivity().mBaseChain.equals(INJ_MAIN) && coin.denom.startsWith("peggy")) {
                 mEtherGrpc.add(coin);
             } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) && coin.denom.startsWith("pool")) {
                 mGravityDexGrpc.add(coin);
@@ -512,7 +500,7 @@ public class MainTokensFragment extends BaseFragment {
                 mNative.add(balance);
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 mEtc.add(balance);
-            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)){
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                 mEtc.add(balance);
             } else {
                 mUnKnown.add(balance);
@@ -576,7 +564,7 @@ public class MainTokensFragment extends BaseFragment {
                     onBindPoolToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mPoolGrpc.size());
-                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC) {
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mPoolGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
@@ -589,7 +577,7 @@ public class MainTokensFragment extends BaseFragment {
                     onBindErcToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mEtherGrpc.size());
-                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC) {
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mEtherGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
@@ -598,11 +586,11 @@ public class MainTokensFragment extends BaseFragment {
                     onNativeGrpcItem(viewHolder, position);
                 } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
-                } else if (getItemViewType(position) == SECTION_GRAVICTY_DEX_GRPC){
+                } else if (getItemViewType(position) == SECTION_GRAVICTY_DEX_GRPC) {
                     onBindGravityDexToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mGravityDexGrpc.size());
-                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC) {
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mGravityDexGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
@@ -611,13 +599,13 @@ public class MainTokensFragment extends BaseFragment {
                     onNativeGrpcItem(viewHolder, position);
                 } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
-                } else if (getItemViewType(position) == SECTION_ETHER_GRPC){
+                } else if (getItemViewType(position) == SECTION_ETHER_GRPC) {
                     onBindErcToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_INJECTIVE_POOL_GRPC) {
                     onBindInjectivePoolToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mEtherGrpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mEtherGrpc.size() - mInjectivePoolGrpc.size());
-                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC) {
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mEtherGrpc.size() - mInjectivePoolGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
@@ -630,9 +618,9 @@ public class MainTokensFragment extends BaseFragment {
                     onBindKavaBep2Token(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_ETC_GRPC) {
                     onBindEtcGrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size());
-                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC){
+                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size() - mEtcGrpc.size());
-                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC) {
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size() - mEtcGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
@@ -641,11 +629,11 @@ public class MainTokensFragment extends BaseFragment {
                     onNativeGrpcItem(viewHolder, position);
                 } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
-                } else if (getItemViewType(position) == SECTION_CW20_GRPC){
+                } else if (getItemViewType(position) == SECTION_CW20_GRPC) {
                     onBindCw20GrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mCW20Grpc.size());
-                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC) {
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mCW20Grpc.size() - mIbcUnknownGrpc.size());
                 }
 
@@ -656,13 +644,11 @@ public class MainTokensFragment extends BaseFragment {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
-                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC) {
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
-            }
-
-            else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                 if (getItemViewType(position) == SECTION_NATIVE) {
                     onBindNativeItem(viewHolder, position);
                 } else if (getItemViewType(position) == SECTION_ETC) {
@@ -792,9 +778,7 @@ public class MainTokensFragment extends BaseFragment {
                 } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
                     return SECTION_UNKNOWN_GRPC;
                 }
-            }
-
-            else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                 if (mNative != null) {
                     if (position < mNative.size()) {
                         return SECTION_NATIVE;
@@ -834,19 +818,19 @@ public class MainTokensFragment extends BaseFragment {
         }
 
         public class AssetHolder extends RecyclerView.ViewHolder {
-            private CardView    itemRoot;
-            private ImageView   itemImg;
-            private TextView    itemSymbol, itemInnerSymbol, itemFullName, itemBalance, itemValue;
+            private CardView itemRoot;
+            private ImageView itemImg;
+            private TextView itemSymbol, itemInnerSymbol, itemFullName, itemBalance, itemValue;
 
             public AssetHolder(View v) {
                 super(v);
-                itemRoot        = itemView.findViewById(R.id.token_card);
-                itemImg         = itemView.findViewById(R.id.token_img);
-                itemSymbol      = itemView.findViewById(R.id.token_symbol);
+                itemRoot = itemView.findViewById(R.id.token_card);
+                itemImg = itemView.findViewById(R.id.token_img);
+                itemSymbol = itemView.findViewById(R.id.token_symbol);
                 itemInnerSymbol = itemView.findViewById(R.id.token_inner_symbol);
-                itemFullName    = itemView.findViewById(R.id.token_fullname);
-                itemBalance     = itemView.findViewById(R.id.token_balance);
-                itemValue       = itemView.findViewById(R.id.token_value);
+                itemFullName = itemView.findViewById(R.id.token_fullname);
+                itemBalance = itemView.findViewById(R.id.token_balance);
+                itemValue = itemView.findViewById(R.id.token_value);
             }
         }
     }
@@ -860,7 +844,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Cosmos Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.atom_ic));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ATOM);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -872,7 +856,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Iris Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.iris_toket_img));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -884,7 +868,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Akash Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_token_img));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.akash_token_img));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_AKASH);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -896,7 +880,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Sentinel Native Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensentinel));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokensentinel));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_DVPN);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -908,7 +892,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Persistence Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenpersistence));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokenpersistence));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_XPRT);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -920,7 +904,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Cronos");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokencrypto));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokencrypto));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRO);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 8, 6));
@@ -932,7 +916,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Osmosis Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_osmosis));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_OSMOSIS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -940,10 +924,10 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_ION)) {
             holder.itemSymbol.setText(getString(R.string.str_uion_c));
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorIon));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorIon));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Ion Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_ion));
 
             BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_ION);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -955,7 +939,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Starname Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_starname));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_starname));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IOV);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -967,7 +951,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Sif Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokensifchain));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_SIF);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
@@ -979,7 +963,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Medibloc Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenmedibloc));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokenmedibloc));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_MEDI);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -991,7 +975,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Certik Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.certik_token_img));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CERTIK);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1003,7 +987,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Rizon Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_rizon));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_rizon));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_RIZON);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1015,7 +999,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Althea Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_althea));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_althea));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ALTHEA);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1027,7 +1011,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Umee Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_umee));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_umee));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_UMEE);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1039,7 +1023,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("E-Money Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_emoney));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_emoney));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_NGM);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1047,7 +1031,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.startsWith("e")) {
             holder.itemSymbol.setText(coin.denom.toUpperCase());
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on E-Money Network");
             Picasso.get().load(EMONEY_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
@@ -1062,7 +1046,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Fetch,ai Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenfetchai));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokenfetchai));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_FET);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
@@ -1074,7 +1058,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Band Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_band));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_band));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_BAND);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1086,7 +1070,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Axelar Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_axelar));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_axelar));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_AXELAR);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1098,7 +1082,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Juno Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_juno));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_juno));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_JUNO);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1110,7 +1094,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Regen Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_regen));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_regen));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_REGEN);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1122,7 +1106,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Bitcanna Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bitcanna));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_bitcanna));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_BITCANNA);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1134,7 +1118,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Stargaze Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_stargaze));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_stargaze));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_STARGAZE);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1146,7 +1130,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("G-Bridge Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_gravitybridge));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_gravitybridge));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_GRABRIDGE);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1157,7 +1141,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KI_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("KiChain Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_kifoundation));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_kifoundation));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_KI);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1168,7 +1152,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COMDEX_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Comdex Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_comdex));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_comdex));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_COMDEX);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1179,7 +1163,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
             holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText("Secret Native Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensecret));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokensecret));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_SECRET);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1190,7 +1174,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), INJ_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Injective Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_injective));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_injective));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_INJ);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
@@ -1201,7 +1185,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), DESMOS_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Desmos Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_desmos));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_desmos));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_DESMOS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1212,7 +1196,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BITSONG_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Bitsong Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bitsong));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_bitsong));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_BITSONG);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1223,7 +1207,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), LUM_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Lum Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_lum));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_lum));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_LUM);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1234,7 +1218,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CHIHUAHUA_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Chihuahua Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_huahua));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_huahua));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CHIHUAHUA);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1245,15 +1229,15 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Kava Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.kava_token_img));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_KAVA);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_HARD)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorHard));
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorHard));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("HardPool Gov. Coin");
@@ -1263,8 +1247,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_USDX)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorUsdx));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("USD Stable Asset");
@@ -1274,8 +1258,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_SWP)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorSwp));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Kava Swap Coin");
@@ -1289,7 +1273,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KONSTELL_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Konstellation Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_konstellation));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_konstellation));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_DARC);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1300,7 +1284,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), EVMOS_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Evmos Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_evmos));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_evmos));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_EVMOS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
@@ -1311,7 +1295,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CUDOS_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Cudos Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_cudos));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_cudos));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CUDOS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
@@ -1322,7 +1306,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), PROVENANCE_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Provenance Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_hash));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_hash));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_HASH);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 9, 6));
@@ -1333,7 +1317,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERBERUS_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Cerberus Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_cerberus));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_cerberus));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRBRUS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1344,7 +1328,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), OMNIFLIX_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Omniflix Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_omniflix));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_omniflix));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_FLIX);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1355,7 +1339,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRESCENT_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Crescent Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_crescent));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_crescent));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRE);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1363,11 +1347,11 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_BCRE)) {
             holder.itemSymbol.setText(getString(R.string.str_bcre_c));
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorCrescent2));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorCrescent2));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Liquidated CRE");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_bcre));
 
             BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_BCRE);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1378,7 +1362,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), ASSETMANTLE_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Asset-Mantle Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_assetmantle));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_assetmantle));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_MANTLE);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1389,7 +1373,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), NYX_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Nyx Staking Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_nyx));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_nyx));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_NYX);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1397,24 +1381,22 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_NYM)) {
             holder.itemSymbol.setText(getString(R.string.str_nym_c));
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorNym));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorNym));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Mixnet Coin");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_nym));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_nym));
 
             BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_NYM);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
-        }
-
-        else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
+        } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Stargate Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.atom_ic));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_COSMOS_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1426,7 +1408,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Bifrost Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.iris_toket_img));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1438,7 +1420,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Crescent Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_crescent));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_crescent));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRESCENT_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1446,11 +1428,11 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_BCRESCENT_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_bcre_c));
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorCrescent2));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorCrescent2));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Liquidated CRE");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bcre));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_bcre));
 
             BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_BCRESCENT_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1462,7 +1444,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Station Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_iss));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_iss));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_STATION);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1490,13 +1472,13 @@ public class MainTokensFragment extends BaseFragment {
     private void onBindIbcAuthToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mIbcAuthedGrpc.get(position);
         final IbcToken ibcToken = getBaseDao().getIbcToken(coin.denom);
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
         holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
         if (ibcToken == null) {
             holder.itemSymbol.setText("Unknown");
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_default_ibc));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
         } else {
@@ -1507,7 +1489,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), getBaseDao().getBaseDenom(coin.denom), new BigDecimal(coin.amount), ibcToken.decimal));
             try {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.itemImg);
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -1528,14 +1511,14 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText("Unknown");
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_default_ibc));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
         } else {
             holder.itemSymbol.setText("Unknown");
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(ibcToken.channel_id);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_default_ibc));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
         }
@@ -1556,17 +1539,17 @@ public class MainTokensFragment extends BaseFragment {
         if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
             holder.itemSymbol.setText(coin.osmosisAmmDpDenom());
             holder.itemFullName.setText(coin.denom);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_pool));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_pool));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 18));
         } else if (getMainActivity().mBaseChain.equals(CRESCENT_MAIN)) {
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemFullName.setText("Pool Asset");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_crescentpool));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_crescentpool));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 12, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 12));
         }
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -1582,14 +1565,14 @@ public class MainTokensFragment extends BaseFragment {
     //with Cosmos Gravity Dex gRPC
     private void onBindGravityDexToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mGravityDexGrpc.get(position);
-        Picasso.get().load(COSMOS_COIN_IMG_URL+"gravitydex.png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+        Picasso.get().load(COSMOS_COIN_IMG_URL + "gravitydex.png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
         holder.itemInnerSymbol.setText("");
         Liquidity.Pool poolInfo = getBaseDao().getGravityPoolByDenom(coin.denom);
         if (poolInfo != null) {
             holder.itemSymbol.setText("GDEX-" + poolInfo.getId());
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
             holder.itemFullName.setText("pool/" + poolInfo.getId());
         }
 
@@ -1607,10 +1590,10 @@ public class MainTokensFragment extends BaseFragment {
     private void onBindInjectivePoolToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mInjectivePoolGrpc.get(position);
         holder.itemSymbol.setText("SHARE" + coin.denom.substring(5));
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("Pool Asset");
-        holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_ic));
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
 
@@ -1630,7 +1613,7 @@ public class MainTokensFragment extends BaseFragment {
         final Assets assets = getBaseDao().getAsset(coin.denom);
         if (assets != null) {
             holder.itemSymbol.setText(assets.origin_symbol);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(assets.display_symbol);
             Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
@@ -1653,9 +1636,9 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava bep2 tokens with gRPC
     private void onBindKavaBep2Token(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mKavaBep2Grpc.get(position);
-        Picasso.get().load(KAVA_COIN_IMG_URL+coin.denom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+        Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
         holder.itemSymbol.setText(coin.denom.toUpperCase());
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
 
@@ -1678,8 +1661,8 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava etc tokens with gRPC
     private void onBindEtcGrpcToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mEtcGrpc.get(position);
-        Picasso.get().load(KAVA_COIN_IMG_URL + "hbtc.png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        Picasso.get().load(KAVA_COIN_IMG_URL + "hbtc.png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+        holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
         holder.itemSymbol.setText(coin.denom.toUpperCase());
         holder.itemInnerSymbol.setText("(" + coin.denom + ")");
         holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
@@ -1693,8 +1676,8 @@ public class MainTokensFragment extends BaseFragment {
     //bind cw20 tokens with gRPC
     private void onBindCw20GrpcToken(TokensAdapter.AssetHolder holder, int position) {
         final Cw20Assets cw20Asset = mCW20Grpc.get(position);
-        Picasso.get().load(cw20Asset.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        Picasso.get().load(cw20Asset.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+        holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
         holder.itemSymbol.setText(cw20Asset.denom.toUpperCase());
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText(cw20Asset.contract_address);
@@ -1717,10 +1700,10 @@ public class MainTokensFragment extends BaseFragment {
     private void onBindUnKnownToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mUnknownGrpc.get(position);
         holder.itemSymbol.setText("UNKNOWN");
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");
-        holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_ic));
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
     }
@@ -1737,7 +1720,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
                 holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
                 holder.itemFullName.setText("Binance Chain Native Coin");
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
+                holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.bnb_token_img));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, amount, 0));
@@ -1757,7 +1740,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemFullName.setText("OKC Staking Coin");
             if (balance.symbol.equals(TOKEN_OK)) {
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_okx));
+                holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_okx));
 
                 BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
@@ -1782,7 +1765,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
                 holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
                 holder.itemFullName.setText(okToken.description);
-                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
                 Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
             }
 
@@ -1800,15 +1783,15 @@ public class MainTokensFragment extends BaseFragment {
             });
 
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
-            final String denom      = mEtc.get(position).symbol;
+            final String denom = mEtc.get(position).symbol;
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(denom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(denom);
 
             holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
             holder.itemFullName.setText(bnbToken.name);
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL +bnbToken.original_symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
 
             final BigDecimal convertAmount = WUtil.getBnbConvertAmount(getBaseDao(), denom, amount);
@@ -1828,10 +1811,10 @@ public class MainTokensFragment extends BaseFragment {
     private void onBindUnKnownCoin(TokensAdapter.AssetHolder holder, int position) {
         final Balance balance = mUnKnown.get(position);
         holder.itemSymbol.setText("UNKNOWN");
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");
-        holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_ic));
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, BigDecimal.ZERO, 6));
     }
@@ -2005,8 +1988,11 @@ public class MainTokensFragment extends BaseFragment {
 
     public interface SectionCallback {
         boolean isSection(BaseChain baseChain, int position);
+
         String getSectionGrpcHeader(BaseChain baseChain, ArrayList<Coin> coins, int section);
+
         String getSectionCw20Header(BaseChain baseChain, ArrayList<Cw20Assets> cw20Assets, int section);
+
         String getSecitonHeader(BaseChain baseChain, ArrayList<Balance> balances, int section);
     }
 }

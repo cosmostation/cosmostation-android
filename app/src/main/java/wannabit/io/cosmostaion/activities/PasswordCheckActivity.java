@@ -1,5 +1,74 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_PRIVATE_KEY;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_LINK_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PROFILE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,6 +83,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -35,7 +105,6 @@ import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -115,200 +184,129 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_PRIVATE_KEY;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_LINK_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PROFILE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_BROAD_BURN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
-
 public class PasswordCheckActivity extends BaseActivity implements KeyboardListener, TaskListener {
 
-    private LinearLayout                mLayerContents;
-    private TextView                    mPassowrdTitle, mPassowrdMsg1, mPassowrdMsg2;
-    private ImageView[]                 mIvCircle = new ImageView[5];
+    private LinearLayout mLayerContents;
+    private TextView mPassowrdTitle, mPassowrdMsg1, mPassowrdMsg2;
+    private ImageView[] mIvCircle = new ImageView[5];
 
-    private StopViewPager               mViewPager;
-    private KeyboardPagerAdapter        mAdapter;
+    private StopViewPager mViewPager;
+    private KeyboardPagerAdapter mAdapter;
 
-    private String                      mUserInput = "";
-    private int                         mPurpose;
-    private boolean                     mAskQuite;
+    private String mUserInput = "";
+    private int mPurpose;
+    private boolean mAskQuite;
 
-    private String                      mTargetAddress;
-    private ArrayList<Coin>             mTargetCoins;
-    private String                      mTargetMemo;
-    private Fee                         mTargetFee;
-    private Coin                        mDAmount;
-    private Coin                        mUAmount;
-    private String                      mFromReDelegateAddr;
-    private String                      mToReDelegateAddr;
-    private Coin                        mRAmount;
-    private String                      mNewRewardAddress;
+    private String mTargetAddress;
+    private ArrayList<Coin> mTargetCoins;
+    private String mTargetMemo;
+    private Fee mTargetFee;
+    private Coin mDAmount;
+    private Coin mUAmount;
+    private String mFromReDelegateAddr;
+    private String mToReDelegateAddr;
+    private Coin mRAmount;
+    private String mNewRewardAddress;
 
-    private String                      mReInvestValAddr;
-    private Coin                        mReInvestAmount;
+    private String mReInvestValAddr;
+    private Coin mReInvestAmount;
 
-    private String                      mProposalId;
-    private String                      mOpinion;
+    private String mProposalId;
+    private String mOpinion;
 
-    private String                      mSwapId;
+    private String mSwapId;
 
-    private Coin                        mOkStakeCoin;
-    private ArrayList<String>           mOKVoteValidator = new ArrayList<>();
-
-
-    private String                      mDomain;
-    private String                      mDomainType;
-    private String                      mName;
-    private ArrayList<Types.Resource>   mResources = new ArrayList();
+    private Coin mOkStakeCoin;
+    private ArrayList<String> mOKVoteValidator = new ArrayList<>();
 
 
-    private String                      mPoolId;
-    private Coin                        mPoolCoin0;
-    private Coin                        mPoolCoin1;
-    private Coin                        mLpToken;
-    private Tx.SwapAmountInRoute        mSwapAmountInRoute;
-    private Coin                        mSwapInCoin;
-    private Coin                        mSwapOutCoin;
-    private long                        mOsmosisLockupDuration;
-    private ArrayList<Lock.PeriodLock>  mOsmosisLockups = new ArrayList<>();
+    private String mDomain;
+    private String mDomainType;
+    private String mName;
+    private ArrayList<Types.Resource> mResources = new ArrayList();
 
-    private Liquidity.Pool              mGDexPool;
-    public String                       mGDexSwapOrderPrice;
 
-    private Coin                            mSifSwapInCoin;
-    private Coin                            mSifSwapOutCoin;
-    private Coin                            mSifDepositCoin0;
-    private Coin                            mSifDepositCoin1;
-    private Coin                            mSifWithdrawCoin;
-    private Querier.LiquidityProviderRes    mMyprovider;
+    private String mPoolId;
+    private Coin mPoolCoin0;
+    private Coin mPoolCoin1;
+    private Coin mLpToken;
+    private Tx.SwapAmountInRoute mSwapAmountInRoute;
+    private Coin mSwapInCoin;
+    private Coin mSwapOutCoin;
+    private long mOsmosisLockupDuration;
+    private ArrayList<Lock.PeriodLock> mOsmosisLockups = new ArrayList<>();
+
+    private Liquidity.Pool mGDexPool;
+    public String mGDexSwapOrderPrice;
+
+    private Coin mSifSwapInCoin;
+    private Coin mSifSwapOutCoin;
+    private Coin mSifDepositCoin0;
+    private Coin mSifDepositCoin1;
+    private Coin mSifWithdrawCoin;
+    private Querier.LiquidityProviderRes mMyprovider;
 
     // NFT
-    private String                              mNftDenomId;
-    private String                              mNftDenomName;
-    private String                              mNftName;
-    private String                              mNftDescription;
-    private String                              mNftHash;
-    private String                              mNftTokenId;
-    private QueryOuterClass.QueryNFTResponse    mIrisResponse;
+    private String mNftDenomId;
+    private String mNftDenomName;
+    private String mNftName;
+    private String mNftDescription;
+    private String mNftHash;
+    private String mNftTokenId;
+    private QueryOuterClass.QueryNFTResponse mIrisResponse;
 
     // airdrop
-    private String                          mDtag;
-    private String                          mNickname;
-    private String                          mBio;
-    private String                          mProfileUri;
-    private String                          mCoverUri;
-    private String                          mDesmosToLinkChain;
-    private Long                            mDesmosToLinkAccountId;
+    private String mDtag;
+    private String mNickname;
+    private String mBio;
+    private String mProfileUri;
+    private String mCoverUri;
+    private String mDesmosToLinkChain;
+    private Long mDesmosToLinkAccountId;
 
-    private Coin                            mKavaSwapin;
-    private Coin                            mKavaSwapOut;
-    private Coin                            mKavaPoolTokenA;
-    private Coin                            mKavaPoolTokenB;
-    private String                          mKavaShareAmount;
-    private Coin                            mKavaMinTokenA;
-    private Coin                            mKavaMinTokenB;
-    private Coin                            mCollateral;
-    private Coin                            mPrincipal;
-    private String                          mCollateralType;
-    private Coin                            mPayment;
-    private ArrayList<Coin>                 mHardPoolCoins;
-    private String                          mMultiplierName;
+    private Coin mKavaSwapin;
+    private Coin mKavaSwapOut;
+    private Coin mKavaPoolTokenA;
+    private Coin mKavaPoolTokenB;
+    private String mKavaShareAmount;
+    private Coin mKavaMinTokenA;
+    private Coin mKavaMinTokenB;
+    private Coin mCollateral;
+    private Coin mPrincipal;
+    private String mCollateralType;
+    private Coin mPayment;
+    private ArrayList<Coin> mHardPoolCoins;
+    private String mMultiplierName;
 
-    private String                          mContractAddress;
+    private String mContractAddress;
 
-    private String                      mPortId;
-    private String                      mChannelId;
-
-
-    private String                      mHdacBurnRawTx;                 //for hdac burn & swap
-
-    private long                        mIdToDelete;
-    private long                        mIdToCheck;
+    private String mPortId;
+    private String mChannelId;
 
 
-    public ArrayList<String>            mValOpAddresses_V1;
+    private String mHdacBurnRawTx;                 //for hdac burn & swap
+
+    private long mIdToDelete;
+    private long mIdToCheck;
+
+
+    public ArrayList<String> mValOpAddresses_V1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_set);
-        mLayerContents  = findViewById(R.id.layer_contents);
-        mPassowrdTitle  = findViewById(R.id.tv_password_title);
-        mPassowrdMsg1   = findViewById(R.id.tv_password_msg1);
-        mPassowrdMsg2   = findViewById(R.id.tv_password_msg2);
-        mViewPager      = findViewById(R.id.pager_keyboard);
+        mLayerContents = findViewById(R.id.layer_contents);
+        mPassowrdTitle = findViewById(R.id.tv_password_title);
+        mPassowrdMsg1 = findViewById(R.id.tv_password_msg1);
+        mPassowrdMsg2 = findViewById(R.id.tv_password_msg2);
+        mViewPager = findViewById(R.id.pager_keyboard);
         mPassowrdMsg2.setVisibility(View.INVISIBLE);
         mNeedLeaveTime = false;
 
-        for(int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i , "id", getPackageName()));
+        for (int i = 0; i < mIvCircle.length; i++) {
+            mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i, "id", getPackageName()));
         }
 
         mViewPager.setOffscreenPageLimit(2);
@@ -409,14 +407,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         if (getIntent().getByteArrayExtra("osmosisSwapRoute") != null) {
             try {
                 mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
-            } catch (Exception e) { WLog.w("Passing bundle Error"); }
+            } catch (Exception e) {
+                WLog.w("Passing bundle Error");
+            }
         }
 
         mHdacBurnRawTx = getIntent().getStringExtra("hdacBurnRawTx");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
-        mIdToCheck  = getIntent().getLongExtra("checkid", -1);
+        mIdToCheck = getIntent().getLongExtra("checkid", -1);
 
         mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
 
@@ -425,7 +425,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     @Override
     public void onBackPressed() {
-        if(mUserInput != null && mUserInput.length() > 0) {
+        if (mUserInput != null && mUserInput.length() > 0) {
             userDeleteKey();
         } else {
             if (mAskQuite) {
@@ -443,15 +443,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPassowrdMsg1.setText(getString(R.string.str_init_password));
         mUserInput = "";
 
-        for(int i = 0; i < mIvCircle.length; i++) {
-            mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+        for (int i = 0; i < mIvCircle.length; i++) {
+            mIvCircle[i].setBackground(ContextCompat.getDrawable(PasswordCheckActivity.this, R.drawable.ic_pass_gr));
         }
         mViewPager.setCurrentItem(0, true);
     }
 
     @Override
     public void userInsertKey(char input) {
-        if(mUserInput == null || mUserInput.length() == 0) {
+        if (mUserInput == null || mUserInput.length() == 0) {
             mUserInput = String.valueOf(input);
 
         } else if (mUserInput.length() < 5) {
@@ -476,13 +476,13 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     @Override
     public void userDeleteKey() {
-        if(mUserInput == null || mUserInput.length() <= 0) {
+        if (mUserInput == null || mUserInput.length() <= 0) {
             onBackPressed();
         } else if (mUserInput.length() == 4) {
-            mUserInput = mUserInput.substring(0, mUserInput.length()-1);
+            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
             mViewPager.setCurrentItem(0, true);
         } else {
-            mUserInput = mUserInput.substring(0, mUserInput.length()-1);
+            mUserInput = mUserInput.substring(0, mUserInput.length() - 1);
         }
         onUpdateCnt();
     }
@@ -496,11 +496,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_TX_SIMPLE_SEND) {
             onShowWaitDialog();
             if (isGRPC(mBaseChain)) {
-                new SendGrpcTask(getBaseApplication(), this, mBaseChain, mAccount,  mTargetAddress,  mTargetCoins,  mTargetMemo, mTargetFee,
+                new SendGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee,
                         getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else if (mBaseChain.equals(BNB_MAIN)) {
-                new SimpleBnbSendTask(getBaseApplication(), this, mAccount,  mTargetAddress,  mTargetCoins,  mTargetMemo, mTargetFee)
+                new SimpleBnbSendTask(getBaseApplication(), this, mAccount, mTargetAddress, mTargetCoins, mTargetMemo, mTargetFee)
                         .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else {
@@ -520,7 +520,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REWARD) {
             onShowWaitDialog();
-            new ClaimRewardsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddresses_V1,  mTargetMemo, mTargetFee,
+            new ClaimRewardsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddresses_V1, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_DELETE_ACCOUNT) {
@@ -529,11 +529,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
             onShowWaitDialog();
-            new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount(""+mIdToCheck)).execute(mUserInput);
+            new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(mUserInput);
 
         } else if (mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
             onShowWaitDialog();
-            new CheckPrivateKeyTask(getBaseApplication(), this, getBaseDao().onSelectAccount(""+mIdToCheck)).execute(mUserInput);
+            new CheckPrivateKeyTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REDELEGATE) {
             onShowWaitDialog();
@@ -581,7 +581,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_ACCOUNT) {
             new RegisterAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
-                    mName, mResources,  mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mName, mResources, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_DOMAIN) {
             new DeleteDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
@@ -593,18 +593,18 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_RENEW_DOMAIN) {
             new RenewDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain,  mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mDomain, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_RENEW_ACCOUNT) {
             new RenewAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
                     mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REPLACE_STARNAME) {
-            new ReplaceStarNameGrpcTask(getBaseApplication(),this, mAccount, mBaseChain,  mDomain,
+            new ReplaceStarNameGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
                     mName, mResources, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_HARVEST_REWARD) {
-            new SimpleClaimHarvestRewardTask(getBaseApplication(), this,  mAccount, mMultiplierName,
+            new SimpleClaimHarvestRewardTask(getBaseApplication(), this, mAccount, mMultiplierName,
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_SWAP) {
@@ -631,9 +631,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        }
-
-        else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
+        } else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
             BigDecimal offerFee = new BigDecimal(mSwapInCoin.amount).multiply(new BigDecimal("0.0015")).setScale(0, RoundingMode.CEILING);
             Coin coinFee = new Coin(mSwapInCoin.denom, offerFee.toPlainString());
             new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
@@ -677,7 +675,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             Gson gson = new Gson();
             String jsonData = gson.toJson(nftData);
             new MintNFTGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
-                    mNftDenomId,mNftDenomName, mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, jsonData,
+                    mNftDenomId, mNftDenomName, mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, jsonData,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SEND_NFT) {
@@ -765,9 +763,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_TX_EXECUTE_CONTRACT) {
             new Cw20SendGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mContractAddress, mTargetCoins,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-        }
-
-        else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {
+        } else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {
             new HdacBurnTask(getBaseApplication(), this, mBaseChain, mHdacBurnRawTx).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
@@ -779,7 +775,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         animation.reset();
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) { }
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -787,31 +784,32 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) { }
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
         mLayerContents.startAnimation(animation);
     }
 
 
     private void onUpdateCnt() {
-        if(mUserInput == null)
+        if (mUserInput == null)
             mUserInput = "";
 
         final int inputLength = mUserInput.length();
-        for(int i = 0; i < mIvCircle.length; i++) {
-            if(i < inputLength)
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_pu));
+        for (int i = 0; i < mIvCircle.length; i++) {
+            if (i < inputLength)
+                mIvCircle[i].setBackground(ContextCompat.getDrawable(PasswordCheckActivity.this, R.drawable.ic_pass_pu));
             else
-                mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
+                mIvCircle[i].setBackground(ContextCompat.getDrawable(PasswordCheckActivity.this, R.drawable.ic_pass_gr));
         }
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         onHideWaitDialog();
         if (result.taskType == TASK_PASSWORD_CHECK) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 setResult(Activity.RESULT_OK, getIntent());
                 finish();
                 overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
@@ -822,7 +820,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
         } else if (result.taskType == TASK_DELETE_USER) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 onDeleteAccount(mIdToDelete);
             } else {
                 onShakeView();
@@ -832,7 +830,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
         } else if (result.taskType == TASK_CHECK_MNEMONIC) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
                 checkintent.putExtra("checkid", mIdToCheck);
                 checkintent.putExtra("entropy", String.valueOf(result.resultData));
@@ -845,7 +843,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
         } else if (result.taskType == TASK_CHECK_PRIVATE_KEY) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, PrivateKeyCheckActivity.class);
                 checkintent.putExtra("checkid", mIdToCheck);
                 checkintent.putExtra("entropy", String.valueOf(result.resultData));
@@ -870,7 +868,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 txIntent.putExtra("errorCode", result.errorCode);
                 txIntent.putExtra("errorMsg", result.errorMsg);
                 String hash = String.valueOf(result.resultData);
-                if(!TextUtils.isEmpty(hash))
+                if (!TextUtils.isEmpty(hash))
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
 
@@ -881,7 +879,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 txIntent.putExtra("errorCode", result.errorCode);
                 txIntent.putExtra("errorMsg", result.errorMsg);
                 String hash = String.valueOf(result.resultData);
-                if(!TextUtils.isEmpty(hash))
+                if (!TextUtils.isEmpty(hash))
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
 
@@ -892,7 +890,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 txIntent.putExtra("errorCode", result.errorCode);
                 txIntent.putExtra("errorMsg", result.errorMsg);
                 String hash = String.valueOf(result.resultData);
-                if(!TextUtils.isEmpty(hash))
+                if (!TextUtils.isEmpty(hash))
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
             }

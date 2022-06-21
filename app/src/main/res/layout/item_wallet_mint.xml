@@ -15,7 +15,6 @@
         android:layout_marginRight="@dimen/space_2"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
         <LinearLayout
@@ -49,7 +48,6 @@
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
         <LinearLayout

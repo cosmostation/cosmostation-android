@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
             app:cardPreventCornerOverlap="true"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
@@ -65,7 +64,6 @@
             android:layout_marginTop="@dimen/space_4"
             app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardUseCompatPadding="true" >
             <LinearLayout

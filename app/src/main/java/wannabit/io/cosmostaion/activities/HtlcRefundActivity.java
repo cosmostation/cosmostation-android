@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -33,34 +36,32 @@ import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
-
 public class HtlcRefundActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout              mRootView;
-    private ImageView                   mChainBg;
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ImageView                   mIvStep;
-    private TextView                    mTvStep;
-    private ViewPager                   mViewPager;
-    private HtlcRefundPageAdapter       mPageAdapter;
+    private RelativeLayout mRootView;
+    private ImageView mChainBg;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ImageView mIvStep;
+    private TextView mTvStep;
+    private ViewPager mViewPager;
+    private HtlcRefundPageAdapter mPageAdapter;
 
-    public ResKavaSwapInfo              mResKavaSwapInfo;
-    public ResBnbSwapInfo               mResBnbSwapInfo;
-    public String                       mSwapId;
+    public ResKavaSwapInfo mResKavaSwapInfo;
+    public ResBnbSwapInfo mResBnbSwapInfo;
+    public String mSwapId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView           = findViewById(R.id.root_view);
-        mChainBg            = findViewById(R.id.chain_bg);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mTitle              = findViewById(R.id.toolbar_title);
-        mIvStep             = findViewById(R.id.send_step);
-        mTvStep             = findViewById(R.id.send_step_msg);
-        mViewPager          = findViewById(R.id.view_pager);
+        mRootView = findViewById(R.id.root_view);
+        mChainBg = findViewById(R.id.chain_bg);
+        mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
+        mIvStep = findViewById(R.id.send_step);
+        mTvStep = findViewById(R.id.send_step_msg);
+        mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_htlc_refund_c));
 
         mSwapId = getIntent().getStringExtra("swapId");
@@ -69,7 +70,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcRefundActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_htlc_refund_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -82,29 +83,31 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
-                if(i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+                if (i == 0) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcRefundActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_htlc_refund_step_0));
-                } else if (i == 1 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
+                } else if (i == 1) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcRefundActivity.this, R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_htlc_refund_step_1));
-                } else if (i == 2 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
+                } else if (i == 2) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcRefundActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_htlc_refund_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 3 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
+                } else if (i == 3) {
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcRefundActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_htlc_refund_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         mViewPager.setCurrentItem(0);
 
@@ -132,7 +135,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -140,14 +143,14 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -166,7 +169,6 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
-
 
 
     private class HtlcRefundPageAdapter extends FragmentPagerAdapter {
@@ -212,7 +214,6 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
     }
 
 
-
     private void onFetchHtlcStatus(String swapId) {
         if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             ApiClient.getKavaChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
@@ -226,6 +227,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
                         onBackPressed();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
                     WLog.w("onFetchHtlcStatus " + t.getMessage());

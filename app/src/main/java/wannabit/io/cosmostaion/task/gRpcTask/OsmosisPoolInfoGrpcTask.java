@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.task.gRpcTask;
 
 import java.util.concurrent.TimeUnit;
 
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.gamm.v1beta1.QueryGrpc;
 import osmosis.gamm.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;

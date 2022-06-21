@@ -35,6 +35,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -108,7 +109,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(ValidatorActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -340,7 +341,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(BigDecimal.ZERO) <= 0 ) {
+        if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -486,7 +487,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
                 holder.history_amount_symbol.setVisibility(View.VISIBLE);
                 holder.history_amount_symbol.setText(history.getVoteOption());
-                holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.history_amount_symbol.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorWhite));
                 holder.history_amount.setVisibility(View.GONE);
             } else {
                 holder.history_amount_symbol.setVisibility(View.GONE);
@@ -547,19 +548,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mGrpcValidator.getJailed()) {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                 holder.itemImgRevoked.setVisibility(View.VISIBLE);
             } else {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorGray3));
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
             if (mBaseChain.equals(BAND_MAIN)) {
                 if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                    holder.itemBandOracleOff.setImageDrawable(ContextCompat.getDrawable(ValidatorActivity.this, R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                 } else {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                    holder.itemBandOracleOff.setImageDrawable(ContextCompat.getDrawable(ValidatorActivity.this, R.drawable.band_oracleon_l));
                 }
                 holder.itemBandOracleOff.setVisibility(View.VISIBLE);
             }
@@ -570,7 +571,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             } else {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, BigDecimal.ONE));
-                holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
             }
             try {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
@@ -613,19 +614,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
             }
             if (mGrpcValidator.getJailed()) {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                 holder.itemImgRevoked.setVisibility(View.VISIBLE);
             } else {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorGray3));
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
             if (mBaseChain.equals(BAND_MAIN)) {
                 if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                    holder.itemBandOracleOff.setImageDrawable(ContextCompat.getDrawable(ValidatorActivity.this, R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                 } else {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                    holder.itemBandOracleOff.setImageDrawable(ContextCompat.getDrawable(ValidatorActivity.this, R.drawable.band_oracleon_l));
                 }
                 holder.itemBandOracleOff.setVisibility(View.VISIBLE);
             }
@@ -636,7 +637,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             } else {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, BigDecimal.ONE));
-                holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
             }
             try {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
@@ -660,8 +661,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));
                 holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));
                 if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
-                    holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
-                    holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
+                    holder.itemDailyReturn.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
+                    holder.itemMonthlyReturn.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                 }
             } else {
                 holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));

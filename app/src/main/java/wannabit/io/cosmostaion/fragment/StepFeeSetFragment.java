@@ -64,6 +64,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
 import com.google.common.collect.Lists;
@@ -145,25 +146,25 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
-    private CardView                mFeeTotalCard;
-    private TextView                mFeeDenom, mFeeAmount, mFeeValue;
+    private CardView mFeeTotalCard;
+    private TextView mFeeDenom, mFeeAmount, mFeeValue;
 
-    private CardView                mRateControlCard;
-    private TextView                mGasAmount, mGasRate, mGasFee;
-    private SegmentedButtonGroup    mButtonGroup;
+    private CardView mRateControlCard;
+    private TextView mGasAmount, mGasRate, mGasFee;
+    private SegmentedButtonGroup mButtonGroup;
 
-    private ImageView               mSpeedImg;
-    private TextView                mSpeedTxt;
+    private ImageView mSpeedImg;
+    private TextView mSpeedTxt;
 
-    private RelativeLayout          mBtnGasCheck;
-    private Button                  mBtnBefore, mBtnNext;
+    private RelativeLayout mBtnGasCheck;
+    private Button mBtnBefore, mBtnNext;
 
 
-    private int                     mSelectedGasPosition        = 1;
-    private int                     mSelectedGasDenomPosition   = 0;
-    private BigDecimal              mSelectedGasRate            = BigDecimal.ZERO;
-    private BigDecimal              mEstimateGasAmount          = BigDecimal.ZERO;
-    private BigDecimal              mFee                        = BigDecimal.ZERO;
+    private int mSelectedGasPosition = 1;
+    private int mSelectedGasDenomPosition = 0;
+    private BigDecimal mSelectedGasRate = BigDecimal.ZERO;
+    private BigDecimal mEstimateGasAmount = BigDecimal.ZERO;
+    private BigDecimal mFee = BigDecimal.ZERO;
 
     public static StepFeeSetFragment newInstance(Bundle bundle) {
         StepFeeSetFragment fragment = new StepFeeSetFragment();
@@ -246,13 +247,13 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mGasFee.setText(mFee.toPlainString());
 
         if (mSelectedGasPosition == 0) {
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
+            mSpeedImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.bycicle_img));
             mSpeedTxt.setText(getString(R.string.str_fee_speed_title_0));
         } else if (mSelectedGasPosition == 1) {
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.car_img));
+            mSpeedImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.car_img));
             mSpeedTxt.setText(getString(R.string.str_fee_speed_title_1));
         } else {
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.rocket_img));
+            mSpeedImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.rocket_img));
             mSpeedTxt.setText(getString(R.string.str_fee_speed_title_2));
         }
     }
@@ -324,7 +325,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     private BaseBroadCastActivity getSActivity() {
-        return (BaseBroadCastActivity)getBaseActivity();
+        return (BaseBroadCastActivity) getBaseActivity();
     }
 
     private void onSimulateTx() {
@@ -340,7 +341,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         if (resultCode == Activity.RESULT_OK) {
             getSActivity().onShowWaitDialog();
             if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
-                new SimulSendGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount,  getSActivity().mToAddress,  getSActivity().mAmounts,
+                new SimulSendGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mToAddress, getSActivity().mAmounts,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -370,9 +371,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             } else if (getSActivity().mTxType == CONST_PW_TX_VOTE) {
                 new SimulVoteGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mProposalId, getSActivity().mOpinion,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-
-            else if (getSActivity().mTxType == CONST_PW_TX_REGISTER_DOMAIN) {
+            } else if (getSActivity().mTxType == CONST_PW_TX_REGISTER_DOMAIN) {
                 new SimulRegisterDomainGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mStarNameDomain, getSActivity().mStarNameDomainType,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -405,17 +404,15 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
             } else if (getSActivity().mTxType == CONST_PW_TX_REPLACE_STARNAME) {
                 if (getSActivity().mIsDomain) {
-                    new SimulReplaceStarNameGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
+                    new SimulReplaceStarNameGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                             getSActivity().mStarNameDomain, "", getSActivity().mStarNameResources,
                             getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 } else {
-                    new SimulReplaceStarNameGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
+                    new SimulReplaceStarNameGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                             getSActivity().mStarNameDomain, getSActivity().mStarNameAccount, getSActivity().mStarNameResources,
                             getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
-            }
-
-            else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_SWAP) {
+            } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_SWAP) {
                 new SimulOsmosisSwaplnGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mOsmosisSwapAmountInRoute, getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -427,7 +424,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
-                new SimulOsmosisExitPoolGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
+                new SimulOsmosisExitPoolGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mOsmosisPoolId, getSActivity().mPoolCoin0, getSActivity().mPoolCoin1, getSActivity().mLpToken.amount,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -443,9 +440,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 }
                 new SimulOsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         tempList, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-
-            else if (getSActivity().mTxType == CONST_PW_TX_GDEX_SWAP) {
+            } else if (getSActivity().mTxType == CONST_PW_TX_GDEX_SWAP) {
                 BigDecimal offerFee = new BigDecimal(getSActivity().mSwapInCoin.amount).multiply(new BigDecimal("0.0015")).setScale(0, RoundingMode.CEILING);
                 Coin coinFee = new Coin(getSActivity().mSwapInCoin.denom, offerFee.toPlainString());
                 new SimulGravitySwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
@@ -484,9 +479,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 String basisPoint = myShareWithdrawAmount.movePointRight(4).divide(myShareAllAmount, 0, RoundingMode.DOWN).toPlainString();
                 new SimulSifWithdrawGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
                         getSActivity().mSifWithdrawCoin.denom, basisPoint, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-
-            else if (getSActivity().mTxType == CONST_PW_TX_MINT_NFT) {
+            } else if (getSActivity().mTxType == CONST_PW_TX_MINT_NFT) {
                 StationNFTData nftData = new StationNFTData(getSActivity().mAccount.address, getSActivity().mNftName, getSActivity().mNftDescription, getSActivity().mNftDenomId, NFT_INFURA + getSActivity().mNftHash);
                 Gson gson = new Gson();
                 String jsonData = gson.toJson(nftData);
@@ -497,9 +490,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             } else if (getSActivity().mTxType == CONST_PW_TX_SEND_NFT) {
                 new SimulTransferNFTGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
                         getSActivity().mToAddress, getSActivity().mNftDenomId, getSActivity().mNftTokenId, getSActivity().mIrisResponse, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-
-            else if (getSActivity().mTxType == CONST_PW_TX_PROFILE) {
+            } else if (getSActivity().mTxType == CONST_PW_TX_PROFILE) {
                 String profileUri = "";
                 String coverUri = "";
                 if (getSActivity().mProfileImg != null) {
@@ -591,9 +582,9 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onTaskResponse(TaskResult result) {
         if (result.isSuccess && result.resultData != null) {
-            Abci.GasInfo gasInfo = ((Abci.GasInfo)result.resultData);
+            Abci.GasInfo gasInfo = ((Abci.GasInfo) result.resultData);
             long gasused = gasInfo.getGasUsed();
-            gasused = (long)((double)gasused * 1.1d);
+            gasused = (long) ((double) gasused * 1.1d);
             mEstimateGasAmount = new BigDecimal(gasused);
             onUpdateView();
             Toast.makeText(getContext(), getString(R.string.str_apply_estimate_gas_amount), Toast.LENGTH_SHORT).show();

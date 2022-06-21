@@ -1,4 +1,4 @@
-package osmosis.gamm.stableswap.v1beta1;
+package osmosis.gamm.poolmodels.stableswap.v1beta1;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
@@ -24,38 +24,69 @@ public final class MsgGrpc {
 
   private MsgGrpc() {}
 
-  public static final String SERVICE_NAME = "osmosis.gamm.stableswap.v1beta1.Msg";
+  public static final String SERVICE_NAME = "osmosis.gamm.poolmodels.stableswap.v1beta1.Msg";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool,
-      osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> getCreateStableswapPoolMethod;
+  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool,
+      osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> getCreateStableswapPoolMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "CreateStableswapPool",
-      requestType = osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool.class,
-      responseType = osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse.class,
+      requestType = osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool.class,
+      responseType = osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool,
-      osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> getCreateStableswapPoolMethod() {
-    io.grpc.MethodDescriptor<osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool, osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> getCreateStableswapPoolMethod;
+  public static io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool,
+      osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> getCreateStableswapPoolMethod() {
+    io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool, osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> getCreateStableswapPoolMethod;
     if ((getCreateStableswapPoolMethod = MsgGrpc.getCreateStableswapPoolMethod) == null) {
       synchronized (MsgGrpc.class) {
         if ((getCreateStableswapPoolMethod = MsgGrpc.getCreateStableswapPoolMethod) == null) {
           MsgGrpc.getCreateStableswapPoolMethod = getCreateStableswapPoolMethod =
-              io.grpc.MethodDescriptor.<osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool, osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse>newBuilder()
+              io.grpc.MethodDescriptor.<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool, osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateStableswapPool"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool.getDefaultInstance()))
+                  osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse.getDefaultInstance()))
+                  osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse.getDefaultInstance()))
               .setSchemaDescriptor(new MsgMethodDescriptorSupplier("CreateStableswapPool"))
               .build();
         }
       }
     }
     return getCreateStableswapPoolMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors,
+      osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse> getStableSwapAdjustScalingFactorsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "StableSwapAdjustScalingFactors",
+      requestType = osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors.class,
+      responseType = osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors,
+      osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse> getStableSwapAdjustScalingFactorsMethod() {
+    io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors, osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse> getStableSwapAdjustScalingFactorsMethod;
+    if ((getStableSwapAdjustScalingFactorsMethod = MsgGrpc.getStableSwapAdjustScalingFactorsMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getStableSwapAdjustScalingFactorsMethod = MsgGrpc.getStableSwapAdjustScalingFactorsMethod) == null) {
+          MsgGrpc.getStableSwapAdjustScalingFactorsMethod = getStableSwapAdjustScalingFactorsMethod =
+              io.grpc.MethodDescriptor.<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors, osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "StableSwapAdjustScalingFactors"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("StableSwapAdjustScalingFactors"))
+              .build();
+        }
+      }
+    }
+    return getStableSwapAdjustScalingFactorsMethod;
   }
 
   /**
@@ -108,9 +139,16 @@ public final class MsgGrpc {
 
     /**
      */
-    public void createStableswapPool(osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> responseObserver) {
+    public void createStableswapPool(osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getCreateStableswapPoolMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void stableSwapAdjustScalingFactors(osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getStableSwapAdjustScalingFactorsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -119,9 +157,16 @@ public final class MsgGrpc {
             getCreateStableswapPoolMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool,
-                osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse>(
+                osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool,
+                osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse>(
                   this, METHODID_CREATE_STABLESWAP_POOL)))
+          .addMethod(
+            getStableSwapAdjustScalingFactorsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors,
+                osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse>(
+                  this, METHODID_STABLE_SWAP_ADJUST_SCALING_FACTORS)))
           .build();
     }
   }
@@ -142,10 +187,18 @@ public final class MsgGrpc {
 
     /**
      */
-    public void createStableswapPool(osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> responseObserver) {
+    public void createStableswapPool(osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getCreateStableswapPoolMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void stableSwapAdjustScalingFactors(osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getStableSwapAdjustScalingFactorsMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -165,9 +218,16 @@ public final class MsgGrpc {
 
     /**
      */
-    public osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse createStableswapPool(osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool request) {
+    public osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse createStableswapPool(osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool request) {
       return blockingUnaryCall(
           getChannel(), getCreateStableswapPoolMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse stableSwapAdjustScalingFactors(osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors request) {
+      return blockingUnaryCall(
+          getChannel(), getStableSwapAdjustScalingFactorsMethod(), getCallOptions(), request);
     }
   }
 
@@ -187,14 +247,23 @@ public final class MsgGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> createStableswapPool(
-        osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool request) {
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse> createStableswapPool(
+        osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool request) {
       return futureUnaryCall(
           getChannel().newCall(getCreateStableswapPoolMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse> stableSwapAdjustScalingFactors(
+        osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors request) {
+      return futureUnaryCall(
+          getChannel().newCall(getStableSwapAdjustScalingFactorsMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_CREATE_STABLESWAP_POOL = 0;
+  private static final int METHODID_STABLE_SWAP_ADJUST_SCALING_FACTORS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -214,8 +283,12 @@ public final class MsgGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_CREATE_STABLESWAP_POOL:
-          serviceImpl.createStableswapPool((osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPool) request,
-              (io.grpc.stub.StreamObserver<osmosis.gamm.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse>) responseObserver);
+          serviceImpl.createStableswapPool((osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPool) request,
+              (io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgCreateStableswapPoolResponse>) responseObserver);
+          break;
+        case METHODID_STABLE_SWAP_ADJUST_SCALING_FACTORS:
+          serviceImpl.stableSwapAdjustScalingFactors((osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactors) request,
+              (io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.MsgStableSwapAdjustScalingFactorsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -239,7 +312,7 @@ public final class MsgGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return osmosis.gamm.stableswap.v1beta1.Tx.getDescriptor();
+      return osmosis.gamm.poolmodels.stableswap.v1beta1.Tx.getDescriptor();
     }
 
     @java.lang.Override
@@ -279,6 +352,7 @@ public final class MsgGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getCreateStableswapPoolMethod())
+              .addMethod(getStableSwapAdjustScalingFactorsMethod())
               .build();
         }
       }

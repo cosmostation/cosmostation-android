@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.sif;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_MY_PROVIDER;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,17 +31,15 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.SifPoolMyHolder;
 import wannabit.io.cosmostaion.widget.SifPoolOtherHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_MY_PROVIDER;
-
 public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener {
 
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
-    private IbcPoolListAdapter              mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private IbcPoolListAdapter mAdapter;
 
-    public ArrayList<Querier.LiquidityProviderRes>      mMyIbcProviders = new ArrayList<>();
-    public ArrayList<Types.Pool>                        mMyIbcPools = new ArrayList<>();
-    public ArrayList<Types.Pool>                        mOtherIbcPools = new ArrayList<>();
+    public ArrayList<Querier.LiquidityProviderRes> mMyIbcProviders = new ArrayList<>();
+    public ArrayList<Types.Pool> mMyIbcPools = new ArrayList<>();
+    public ArrayList<Types.Pool> mOtherIbcPools = new ArrayList<>();
 
     public static SifDexIbcPoolFragment newInstance(Bundle bundle) {
         SifDexIbcPoolFragment fragment = new SifDexIbcPoolFragment();
@@ -54,13 +55,15 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_pool_list, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
 
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() { getSActivity().onFetchPoolListInfo(); }
+            public void onRefresh() {
+                getSActivity().onFetchPoolListInfo();
+            }
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -75,16 +78,19 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
     public void onRefreshTab() {
         if (getSActivity().mMyIbcAssets != null && getSActivity().mMyIbcAssets.size() > 0) {
             onFetchIbcListInfo();
-        } else { mAdapter.notifyDataSetChanged(); }
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
         mMyIbcPools = getSActivity().mMyIbcPools;
         mOtherIbcPools = getSActivity().mOtherIbcPools;
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
     int mTaskCount;
+
     public void onFetchIbcListInfo() {
         mTaskCount = 1;
-        for (String symbol: getSActivity().mMyIbcAssets) {
+        for (String symbol : getSActivity().mMyIbcAssets) {
             new SifDexMyProviderGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, symbol).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
@@ -109,8 +115,8 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
     }
 
     private class IbcPoolListAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_MY_POOL            = 1;
-        private static final int TYPE_OTHER_POOL         = 2;
+        private static final int TYPE_MY_POOL = 1;
+        private static final int TYPE_OTHER_POOL = 2;
 
         @NonNull
         @Override
@@ -128,14 +134,13 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
             if (getItemViewType(position) == TYPE_MY_POOL) {
                 final Types.Pool myPool = mMyIbcPools.get(position);
                 sifnode.clp.v1.Querier.LiquidityProviderRes myProvider = null;
-                for (Querier.LiquidityProviderRes provider: mMyIbcProviders) {
+                for (Querier.LiquidityProviderRes provider : mMyIbcProviders) {
                     if (provider.getLiquidityProvider().getAsset().getSymbol().equalsIgnoreCase(myPool.getExternalAsset().getSymbol())) {
                         myProvider = provider;
                     }
                 }
                 viewHolder.onBindSifMyEthPool(getContext(), getSActivity(), getBaseDao(), myPool, myProvider);
-            }
-            else if (getItemViewType(position) == TYPE_OTHER_POOL) {
+            } else if (getItemViewType(position) == TYPE_OTHER_POOL) {
                 final Types.Pool otherPool = mOtherIbcPools.get(position - mMyIbcPools.size());
                 viewHolder.onBindSifOtherEthPool(getContext(), getSActivity(), getBaseDao(), otherPool);
             }
@@ -156,5 +161,7 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
         }
     }
 
-    private SifDexListActivity getSActivity() { return (SifDexListActivity)getBaseActivity(); }
+    private SifDexListActivity getSActivity() {
+        return (SifDexListActivity) getBaseActivity();
+    }
 }

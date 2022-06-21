@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +28,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
@@ -118,7 +119,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         if (mLockUps.size() > 0) {
             mPoolIdTv.setText("#" + mPool.getId() + " MY EARNING");
-            mPoolIdTv.setTextColor(getResources().getColor(R.color.colorOsmosis));
+            mPoolIdTv.setTextColor(ContextCompat.getColor(EarningDetailActivity.this, R.color.colorOsmosis));
         } else {
             mPoolIdTv.setText("#" + mPool.getId() + " EARNING");
         }
@@ -212,7 +213,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         }
 
         PaddedVerticalButtonAlertDialog.showTripleButton(this, "Unbonding Duration", null,
-                "1 Day", view -> onStartNewEarning(864001),
+                "1 Day", view -> onStartNewEarning(86400),
                 "7 Day", view -> onStartNewEarning(604800),
                 "14Day", view -> onStartNewEarning(1209600));
     }

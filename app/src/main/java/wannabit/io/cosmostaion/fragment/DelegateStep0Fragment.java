@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -34,15 +35,15 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class DelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button      mCancel, mNextBtn;
-    private EditText    mAmountInput;
-    private TextView    mAvailableAmount;
-    private TextView    mDenomTitle;
-    private ImageView   mClearAll;
-    private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
-    private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
-    private int         mDpDecimal = 6;
-    private String      mDecimalChecker, mDecimalSetter;
+    private Button mCancel, mNextBtn;
+    private EditText mAmountInput;
+    private TextView mAvailableAmount;
+    private TextView mDenomTitle;
+    private ImageView mClearAll;
+    private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
+    private int mDpDecimal = 6;
+    private String mDecimalChecker, mDecimalSetter;
 
     public static DelegateStep0Fragment newInstance(Bundle bundle) {
         DelegateStep0Fragment fragment = new DelegateStep0Fragment();
@@ -85,7 +86,8 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onResume() {
         super.onResume();
-        if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
+        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null)
+            getSActivity().onBackPressed();
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         setDpDecimals(mDpDecimal);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
@@ -98,23 +100,25 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     private void onAddAmountWatcher() {
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                if (TextUtils.isEmpty(es)) {
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mAmountInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                     mAmountInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mAmountInput.setText("0");
                     mAmountInput.setSelection(1);
                 }
@@ -125,8 +129,8 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -140,12 +144,13 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                         }
 
                         if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
                         mAmountInput.setSelection(mAmountInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -166,7 +171,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());
@@ -174,7 +179,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
@@ -182,18 +187,18 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            WLog.w("es "  + es);
-            if(es.length() > 0) {
+            WLog.w("es " + es);
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            WLog.w("existed "  + existed);
-            WLog.w("add "  + existed.add(new BigDecimal("10")).toPlainString());
+            WLog.w("existed " + existed);
+            WLog.w("add " + existed.add(new BigDecimal("10")).toPlainString());
             mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
 
         } else if (v.equals(mAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
@@ -203,7 +208,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAmountInput.setText(half.toPlainString());
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(FETCHAI_MAIN) ) {
+            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(FETCHAI_MAIN)) {
                 BigDecimal max = mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
                 mAmountInput.setText(max.toPlainString());
 
@@ -224,7 +229,8 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         try {
             BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+            if (amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+                return false;
             Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
             getSActivity().mAmount = coin;
             return true;
@@ -242,15 +248,15 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     private void setDpDecimals(int decimals) {
         mDecimalChecker = "0.";
         mDecimalSetter = "0.";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
+        for (int i = 0; i < decimals - 1; i++) {
             mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
     private DelegateActivity getSActivity() {
-        return (DelegateActivity)getBaseActivity();
+        return (DelegateActivity) getBaseActivity();
     }
 }

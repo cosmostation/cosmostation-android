@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +48,7 @@ public class HistoryNewHolder extends BaseHolder {
         } else if (history.getMsgType(mainActivity, mainActivity.mAccount.address).equals(mainActivity.getString(R.string.tx_vote))) {
             history_amount_symbol.setVisibility(View.VISIBLE);
             history_amount_symbol.setText(history.getVoteOption());
-            history_amount_symbol.setTextColor(mainActivity.getResources().getColor(R.color.colorWhite));
+            history_amount_symbol.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorWhite));
             history_amount.setVisibility(View.GONE);
         } else {
             history_amount_symbol.setVisibility(View.GONE);

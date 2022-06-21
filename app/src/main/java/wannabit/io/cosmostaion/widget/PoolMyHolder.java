@@ -6,13 +6,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import kava.swap.v1beta1.QueryOuterClass;
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
@@ -59,7 +60,7 @@ public class PoolMyHolder extends BaseHolder {
 
     @Override
     public void onBindOsmoMyPool(Context context, BaseActivity activity, BaseData baseData, BalancerPool.Pool myPool) {
-        itemRoot.setCardBackgroundColor(context.getResources().getColor(R.color.colorTransBgOsmosis));
+        itemRoot.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorTransBgOsmosis));
         itemMyPoolType.setTextColor(WDp.getChainColor(context, BaseChain.OSMOSIS_MAIN));
         Coin coin0 = new Coin(myPool.getPoolAssets(0).getToken().getDenom(), myPool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(myPool.getPoolAssets(1).getToken().getDenom(), myPool.getPoolAssets(1).getToken().getAmount());
@@ -107,7 +108,7 @@ public class PoolMyHolder extends BaseHolder {
 
     @Override
     public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
-        itemRoot.setCardBackgroundColor(context.getResources().getColor(R.color.colorTransBgKava));
+        itemRoot.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorTransBgKava));
         itemMyPoolType.setTextColor(WDp.getChainColor(context, BaseChain.KAVA_MAIN));
 
         CoinOuterClass.Coin coin0 = myPool.getCoins(0);
@@ -161,7 +162,7 @@ public class PoolMyHolder extends BaseHolder {
 
     @Override
     public void onBindGDexMyPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool mypool) {
-        itemRoot.setCardBackgroundColor(context.getResources().getColor(R.color.colorTransBgCosmos));
+        itemRoot.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorTransBgCosmos));
         itemMyPoolType.setTextColor(WDp.getChainColor(context, BaseChain.COSMOS_MAIN));
 
         String coin0Denom = mypool.getReserveCoinDenoms(0);

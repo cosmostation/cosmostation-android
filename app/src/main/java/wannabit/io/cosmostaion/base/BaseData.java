@@ -54,7 +54,7 @@ import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;

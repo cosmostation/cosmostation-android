@@ -18,11 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.ExitPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -36,19 +37,19 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
-    private RelativeLayout  mProgress;
-    private Button          mCancelBtn, mNextBtn;
+    private RelativeLayout mProgress;
+    private Button mCancelBtn, mNextBtn;
 
-    private ImageView       mLpCoinImg;
-    private TextView        mLpCoinSymbol;
-    private EditText        mLpCoinInput;
-    private ImageView       mLpCoinClearBtn;
-    private TextView        mLpCoinAmount, mLpCoinDenom;
-    private Button          mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
+    private ImageView mLpCoinImg;
+    private TextView mLpCoinSymbol;
+    private EditText mLpCoinInput;
+    private ImageView mLpCoinClearBtn;
+    private TextView mLpCoinAmount, mLpCoinDenom;
+    private Button mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
 
-    private BigDecimal      mAvailableMaxAmount;
-    private int             mCoinDecimal = 18;
-    private String          mDecimalChecker, mDecimalSetter;
+    private BigDecimal mAvailableMaxAmount;
+    private int mCoinDecimal = 18;
+    private String mDecimalChecker, mDecimalSetter;
 
     public static ExitPoolStep0Fragment newInstance(Bundle bundle) {
         ExitPoolStep0Fragment fragment = new ExitPoolStep0Fragment();
@@ -64,20 +65,20 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_exit_pool_step0, container, false);
-        mCancelBtn          = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn            = rootView.findViewById(R.id.btn_next);
-        mProgress           = rootView.findViewById(R.id.progress);
+        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
+        mNextBtn = rootView.findViewById(R.id.btn_next);
+        mProgress = rootView.findViewById(R.id.progress);
 
-        mLpCoinImg          = rootView.findViewById(R.id.exit_pool_input_icon);
-        mLpCoinSymbol       = rootView.findViewById(R.id.exit_pool_input_symbol);
-        mLpCoinInput        = rootView.findViewById(R.id.exit_pool_input);
-        mLpCoinClearBtn     = rootView.findViewById(R.id.exit_pool_input_clear);
-        mLpCoinAmount       = rootView.findViewById(R.id.exit_pool_input_amount);
-        mLpCoinDenom        = rootView.findViewById(R.id.exit_pool_input_amount_denom);
-        mLpCoin1_4Btn       = rootView.findViewById(R.id.exit_pool_input_1_4);
-        mLpCoinHalfBtn      = rootView.findViewById(R.id.exit_pool_input_half);
-        mLpCoin3_4Btn       = rootView.findViewById(R.id.exit_pool_input_3_4);
-        mLpCoinMaxBtn       = rootView.findViewById(R.id.exit_pool_input_max);
+        mLpCoinImg = rootView.findViewById(R.id.exit_pool_input_icon);
+        mLpCoinSymbol = rootView.findViewById(R.id.exit_pool_input_symbol);
+        mLpCoinInput = rootView.findViewById(R.id.exit_pool_input);
+        mLpCoinClearBtn = rootView.findViewById(R.id.exit_pool_input_clear);
+        mLpCoinAmount = rootView.findViewById(R.id.exit_pool_input_amount);
+        mLpCoinDenom = rootView.findViewById(R.id.exit_pool_input_amount_denom);
+        mLpCoin1_4Btn = rootView.findViewById(R.id.exit_pool_input_1_4);
+        mLpCoinHalfBtn = rootView.findViewById(R.id.exit_pool_input_half);
+        mLpCoin3_4Btn = rootView.findViewById(R.id.exit_pool_input_3_4);
+        mLpCoinMaxBtn = rootView.findViewById(R.id.exit_pool_input_max);
 
         mLpCoinClearBtn.setOnClickListener(this);
         mLpCoin1_4Btn.setOnClickListener(this);
@@ -107,23 +108,25 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private void onAddAmountWatcher() {
         mLpCoinInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
-                if(TextUtils.isEmpty(es)) {
-                    mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                if (TextUtils.isEmpty(es)) {
+                    mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mLpCoinInput.setText("");
                 } else if (es.endsWith(".")) {
-                    mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                     mLpCoinInput.setVisibility(View.VISIBLE);
-                } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mLpCoinInput.setText("0");
                     mLpCoinInput.setSelection(1);
                 }
@@ -134,8 +137,8 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
+                            mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -149,12 +152,13 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
                         }
 
                         if (inputAmount.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) {
-                            mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
-                            mLpCoinInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mLpCoinInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
                         mLpCoinInput.setSelection(mLpCoinInput.getText().length());
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -179,9 +183,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mLpCoinMaxBtn)) {
             mLpCoinInput.setText(mAvailableMaxAmount.movePointLeft(mCoinDecimal).toPlainString());
-        }
-
-        else if (v.equals(mCancelBtn)) {
+        } else if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
@@ -197,7 +199,8 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
         try {
             BigDecimal amountTemp = new BigDecimal(mLpCoinInput.getText().toString().trim());
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
+            if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0)
+                return false;
 
             getSActivity().mLpToken = new Coin(getSActivity().mOsmosisPool.getTotalShares().getDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
 
@@ -221,8 +224,8 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
 
-
     private int mTaskCount;
+
     public void onFetchPoolInfo() {
         mTaskCount = 1;
         new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -233,7 +236,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mOsmosisPool = (BalancerPool.Pool)result.resultData;
+                getSActivity().mOsmosisPool = (BalancerPool.Pool) result.resultData;
             }
         }
         if (mTaskCount == 0) {
@@ -244,13 +247,15 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private void setDpDecimals(int decimals) {
         mDecimalChecker = "0.";
         mDecimalSetter = "0.";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+        for (int i = 0; i < decimals; i++) {
+            mDecimalChecker = mDecimalChecker + "0";
         }
-        for (int i = 0; i < decimals-1; i ++) {
+        for (int i = 0; i < decimals - 1; i++) {
             mDecimalSetter = mDecimalSetter + "0";
         }
     }
 
-    private ExitPoolActivity getSActivity() { return (ExitPoolActivity)getBaseActivity(); }
+    private ExitPoolActivity getSActivity() {
+        return (ExitPoolActivity) getBaseActivity();
+    }
 }

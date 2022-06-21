@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -67,7 +68,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         mValidatorSize = rootView.findViewById(R.id.validator_cnt);
         mSortType = rootView.findViewById(R.id.token_sort_type);
         mBtnSort = rootView.findViewById(R.id.btn_validator_sort);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -141,23 +142,23 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                 if (validator.getJailed()) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
                 if (getBaseDao().mGRpcMyValidators.contains(validator)) {
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }
 
                 if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
+                    holder.itemTvCommission.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorGray1));
                     if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(validator.getOperatorAddress())) {
                         holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-                        holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
+                        holder.itemTvCommission.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
                     } else {
                         holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                     }
@@ -192,17 +193,17 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 }
 
                 if (validator.jailed) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
 
                 if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }
             }
         }

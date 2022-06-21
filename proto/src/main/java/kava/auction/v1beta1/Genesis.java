@@ -1221,19 +1221,34 @@ public final class Genesis {
     com.google.protobuf.DurationOrBuilder getMaxAuctionDurationOrBuilder();
 
     /**
-     * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
-     * @return Whether the bidDuration field is set.
+     * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * @return Whether the forwardBidDuration field is set.
      */
-    boolean hasBidDuration();
+    boolean hasForwardBidDuration();
     /**
-     * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
-     * @return The bidDuration.
+     * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * @return The forwardBidDuration.
      */
-    com.google.protobuf.Duration getBidDuration();
+    com.google.protobuf.Duration getForwardBidDuration();
     /**
-     * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
      */
-    com.google.protobuf.DurationOrBuilder getBidDurationOrBuilder();
+    com.google.protobuf.DurationOrBuilder getForwardBidDurationOrBuilder();
+
+    /**
+     * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * @return Whether the reverseBidDuration field is set.
+     */
+    boolean hasReverseBidDuration();
+    /**
+     * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * @return The reverseBidDuration.
+     */
+    com.google.protobuf.Duration getReverseBidDuration();
+    /**
+     * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     */
+    com.google.protobuf.DurationOrBuilder getReverseBidDurationOrBuilder();
 
     /**
      * <code>bytes increment_surplus = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
@@ -1318,19 +1333,6 @@ public final class Genesis {
 
               break;
             }
-            case 18: {
-              com.google.protobuf.Duration.Builder subBuilder = null;
-              if (bidDuration_ != null) {
-                subBuilder = bidDuration_.toBuilder();
-              }
-              bidDuration_ = input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(bidDuration_);
-                bidDuration_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
             case 26: {
 
               incrementSurplus_ = input.readBytes();
@@ -1344,6 +1346,32 @@ public final class Genesis {
             case 42: {
 
               incrementCollateral_ = input.readBytes();
+              break;
+            }
+            case 50: {
+              com.google.protobuf.Duration.Builder subBuilder = null;
+              if (forwardBidDuration_ != null) {
+                subBuilder = forwardBidDuration_.toBuilder();
+              }
+              forwardBidDuration_ = input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(forwardBidDuration_);
+                forwardBidDuration_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 58: {
+              com.google.protobuf.Duration.Builder subBuilder = null;
+              if (reverseBidDuration_ != null) {
+                subBuilder = reverseBidDuration_.toBuilder();
+              }
+              reverseBidDuration_ = input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(reverseBidDuration_);
+                reverseBidDuration_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -1404,30 +1432,56 @@ public final class Genesis {
       return getMaxAuctionDuration();
     }
 
-    public static final int BID_DURATION_FIELD_NUMBER = 2;
-    private com.google.protobuf.Duration bidDuration_;
+    public static final int FORWARD_BID_DURATION_FIELD_NUMBER = 6;
+    private com.google.protobuf.Duration forwardBidDuration_;
     /**
-     * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
-     * @return Whether the bidDuration field is set.
+     * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * @return Whether the forwardBidDuration field is set.
      */
     @java.lang.Override
-    public boolean hasBidDuration() {
-      return bidDuration_ != null;
+    public boolean hasForwardBidDuration() {
+      return forwardBidDuration_ != null;
     }
     /**
-     * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
-     * @return The bidDuration.
+     * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * @return The forwardBidDuration.
      */
     @java.lang.Override
-    public com.google.protobuf.Duration getBidDuration() {
-      return bidDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : bidDuration_;
+    public com.google.protobuf.Duration getForwardBidDuration() {
+      return forwardBidDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : forwardBidDuration_;
     }
     /**
-     * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.DurationOrBuilder getBidDurationOrBuilder() {
-      return getBidDuration();
+    public com.google.protobuf.DurationOrBuilder getForwardBidDurationOrBuilder() {
+      return getForwardBidDuration();
+    }
+
+    public static final int REVERSE_BID_DURATION_FIELD_NUMBER = 7;
+    private com.google.protobuf.Duration reverseBidDuration_;
+    /**
+     * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * @return Whether the reverseBidDuration field is set.
+     */
+    @java.lang.Override
+    public boolean hasReverseBidDuration() {
+      return reverseBidDuration_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     * @return The reverseBidDuration.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Duration getReverseBidDuration() {
+      return reverseBidDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : reverseBidDuration_;
+    }
+    /**
+     * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.DurationOrBuilder getReverseBidDurationOrBuilder() {
+      return getReverseBidDuration();
     }
 
     public static final int INCREMENT_SURPLUS_FIELD_NUMBER = 3;
@@ -1480,9 +1534,6 @@ public final class Genesis {
       if (maxAuctionDuration_ != null) {
         output.writeMessage(1, getMaxAuctionDuration());
       }
-      if (bidDuration_ != null) {
-        output.writeMessage(2, getBidDuration());
-      }
       if (!incrementSurplus_.isEmpty()) {
         output.writeBytes(3, incrementSurplus_);
       }
@@ -1491,6 +1542,12 @@ public final class Genesis {
       }
       if (!incrementCollateral_.isEmpty()) {
         output.writeBytes(5, incrementCollateral_);
+      }
+      if (forwardBidDuration_ != null) {
+        output.writeMessage(6, getForwardBidDuration());
+      }
+      if (reverseBidDuration_ != null) {
+        output.writeMessage(7, getReverseBidDuration());
       }
       unknownFields.writeTo(output);
     }
@@ -1505,10 +1562,6 @@ public final class Genesis {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getMaxAuctionDuration());
       }
-      if (bidDuration_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getBidDuration());
-      }
       if (!incrementSurplus_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(3, incrementSurplus_);
@@ -1520,6 +1573,14 @@ public final class Genesis {
       if (!incrementCollateral_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(5, incrementCollateral_);
+      }
+      if (forwardBidDuration_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, getForwardBidDuration());
+      }
+      if (reverseBidDuration_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, getReverseBidDuration());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1541,10 +1602,15 @@ public final class Genesis {
         if (!getMaxAuctionDuration()
             .equals(other.getMaxAuctionDuration())) return false;
       }
-      if (hasBidDuration() != other.hasBidDuration()) return false;
-      if (hasBidDuration()) {
-        if (!getBidDuration()
-            .equals(other.getBidDuration())) return false;
+      if (hasForwardBidDuration() != other.hasForwardBidDuration()) return false;
+      if (hasForwardBidDuration()) {
+        if (!getForwardBidDuration()
+            .equals(other.getForwardBidDuration())) return false;
+      }
+      if (hasReverseBidDuration() != other.hasReverseBidDuration()) return false;
+      if (hasReverseBidDuration()) {
+        if (!getReverseBidDuration()
+            .equals(other.getReverseBidDuration())) return false;
       }
       if (!getIncrementSurplus()
           .equals(other.getIncrementSurplus())) return false;
@@ -1567,9 +1633,13 @@ public final class Genesis {
         hash = (37 * hash) + MAX_AUCTION_DURATION_FIELD_NUMBER;
         hash = (53 * hash) + getMaxAuctionDuration().hashCode();
       }
-      if (hasBidDuration()) {
-        hash = (37 * hash) + BID_DURATION_FIELD_NUMBER;
-        hash = (53 * hash) + getBidDuration().hashCode();
+      if (hasForwardBidDuration()) {
+        hash = (37 * hash) + FORWARD_BID_DURATION_FIELD_NUMBER;
+        hash = (53 * hash) + getForwardBidDuration().hashCode();
+      }
+      if (hasReverseBidDuration()) {
+        hash = (37 * hash) + REVERSE_BID_DURATION_FIELD_NUMBER;
+        hash = (53 * hash) + getReverseBidDuration().hashCode();
       }
       hash = (37 * hash) + INCREMENT_SURPLUS_FIELD_NUMBER;
       hash = (53 * hash) + getIncrementSurplus().hashCode();
@@ -1720,11 +1790,17 @@ public final class Genesis {
           maxAuctionDuration_ = null;
           maxAuctionDurationBuilder_ = null;
         }
-        if (bidDurationBuilder_ == null) {
-          bidDuration_ = null;
+        if (forwardBidDurationBuilder_ == null) {
+          forwardBidDuration_ = null;
         } else {
-          bidDuration_ = null;
-          bidDurationBuilder_ = null;
+          forwardBidDuration_ = null;
+          forwardBidDurationBuilder_ = null;
+        }
+        if (reverseBidDurationBuilder_ == null) {
+          reverseBidDuration_ = null;
+        } else {
+          reverseBidDuration_ = null;
+          reverseBidDurationBuilder_ = null;
         }
         incrementSurplus_ = com.google.protobuf.ByteString.EMPTY;
 
@@ -1763,10 +1839,15 @@ public final class Genesis {
         } else {
           result.maxAuctionDuration_ = maxAuctionDurationBuilder_.build();
         }
-        if (bidDurationBuilder_ == null) {
-          result.bidDuration_ = bidDuration_;
+        if (forwardBidDurationBuilder_ == null) {
+          result.forwardBidDuration_ = forwardBidDuration_;
         } else {
-          result.bidDuration_ = bidDurationBuilder_.build();
+          result.forwardBidDuration_ = forwardBidDurationBuilder_.build();
+        }
+        if (reverseBidDurationBuilder_ == null) {
+          result.reverseBidDuration_ = reverseBidDuration_;
+        } else {
+          result.reverseBidDuration_ = reverseBidDurationBuilder_.build();
         }
         result.incrementSurplus_ = incrementSurplus_;
         result.incrementDebt_ = incrementDebt_;
@@ -1822,8 +1903,11 @@ public final class Genesis {
         if (other.hasMaxAuctionDuration()) {
           mergeMaxAuctionDuration(other.getMaxAuctionDuration());
         }
-        if (other.hasBidDuration()) {
-          mergeBidDuration(other.getBidDuration());
+        if (other.hasForwardBidDuration()) {
+          mergeForwardBidDuration(other.getForwardBidDuration());
+        }
+        if (other.hasReverseBidDuration()) {
+          mergeReverseBidDuration(other.getReverseBidDuration());
         }
         if (other.getIncrementSurplus() != com.google.protobuf.ByteString.EMPTY) {
           setIncrementSurplus(other.getIncrementSurplus());
@@ -1982,123 +2066,242 @@ public final class Genesis {
         return maxAuctionDurationBuilder_;
       }
 
-      private com.google.protobuf.Duration bidDuration_;
+      private com.google.protobuf.Duration forwardBidDuration_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> bidDurationBuilder_;
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> forwardBidDurationBuilder_;
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
-       * @return Whether the bidDuration field is set.
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * @return Whether the forwardBidDuration field is set.
        */
-      public boolean hasBidDuration() {
-        return bidDurationBuilder_ != null || bidDuration_ != null;
+      public boolean hasForwardBidDuration() {
+        return forwardBidDurationBuilder_ != null || forwardBidDuration_ != null;
       }
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
-       * @return The bidDuration.
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * @return The forwardBidDuration.
        */
-      public com.google.protobuf.Duration getBidDuration() {
-        if (bidDurationBuilder_ == null) {
-          return bidDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : bidDuration_;
+      public com.google.protobuf.Duration getForwardBidDuration() {
+        if (forwardBidDurationBuilder_ == null) {
+          return forwardBidDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : forwardBidDuration_;
         } else {
-          return bidDurationBuilder_.getMessage();
+          return forwardBidDurationBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        */
-      public Builder setBidDuration(com.google.protobuf.Duration value) {
-        if (bidDurationBuilder_ == null) {
+      public Builder setForwardBidDuration(com.google.protobuf.Duration value) {
+        if (forwardBidDurationBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          bidDuration_ = value;
+          forwardBidDuration_ = value;
           onChanged();
         } else {
-          bidDurationBuilder_.setMessage(value);
+          forwardBidDurationBuilder_.setMessage(value);
         }
 
         return this;
       }
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        */
-      public Builder setBidDuration(
+      public Builder setForwardBidDuration(
           com.google.protobuf.Duration.Builder builderForValue) {
-        if (bidDurationBuilder_ == null) {
-          bidDuration_ = builderForValue.build();
+        if (forwardBidDurationBuilder_ == null) {
+          forwardBidDuration_ = builderForValue.build();
           onChanged();
         } else {
-          bidDurationBuilder_.setMessage(builderForValue.build());
+          forwardBidDurationBuilder_.setMessage(builderForValue.build());
         }
 
         return this;
       }
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        */
-      public Builder mergeBidDuration(com.google.protobuf.Duration value) {
-        if (bidDurationBuilder_ == null) {
-          if (bidDuration_ != null) {
-            bidDuration_ =
-              com.google.protobuf.Duration.newBuilder(bidDuration_).mergeFrom(value).buildPartial();
+      public Builder mergeForwardBidDuration(com.google.protobuf.Duration value) {
+        if (forwardBidDurationBuilder_ == null) {
+          if (forwardBidDuration_ != null) {
+            forwardBidDuration_ =
+              com.google.protobuf.Duration.newBuilder(forwardBidDuration_).mergeFrom(value).buildPartial();
           } else {
-            bidDuration_ = value;
+            forwardBidDuration_ = value;
           }
           onChanged();
         } else {
-          bidDurationBuilder_.mergeFrom(value);
+          forwardBidDurationBuilder_.mergeFrom(value);
         }
 
         return this;
       }
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        */
-      public Builder clearBidDuration() {
-        if (bidDurationBuilder_ == null) {
-          bidDuration_ = null;
+      public Builder clearForwardBidDuration() {
+        if (forwardBidDurationBuilder_ == null) {
+          forwardBidDuration_ = null;
           onChanged();
         } else {
-          bidDuration_ = null;
-          bidDurationBuilder_ = null;
+          forwardBidDuration_ = null;
+          forwardBidDurationBuilder_ = null;
         }
 
         return this;
       }
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        */
-      public com.google.protobuf.Duration.Builder getBidDurationBuilder() {
+      public com.google.protobuf.Duration.Builder getForwardBidDurationBuilder() {
         
         onChanged();
-        return getBidDurationFieldBuilder().getBuilder();
+        return getForwardBidDurationFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        */
-      public com.google.protobuf.DurationOrBuilder getBidDurationOrBuilder() {
-        if (bidDurationBuilder_ != null) {
-          return bidDurationBuilder_.getMessageOrBuilder();
+      public com.google.protobuf.DurationOrBuilder getForwardBidDurationOrBuilder() {
+        if (forwardBidDurationBuilder_ != null) {
+          return forwardBidDurationBuilder_.getMessageOrBuilder();
         } else {
-          return bidDuration_ == null ?
-              com.google.protobuf.Duration.getDefaultInstance() : bidDuration_;
+          return forwardBidDuration_ == null ?
+              com.google.protobuf.Duration.getDefaultInstance() : forwardBidDuration_;
         }
       }
       /**
-       * <code>.google.protobuf.Duration bid_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * <code>.google.protobuf.Duration forward_bid_duration = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
-          getBidDurationFieldBuilder() {
-        if (bidDurationBuilder_ == null) {
-          bidDurationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+          getForwardBidDurationFieldBuilder() {
+        if (forwardBidDurationBuilder_ == null) {
+          forwardBidDurationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
-                  getBidDuration(),
+                  getForwardBidDuration(),
                   getParentForChildren(),
                   isClean());
-          bidDuration_ = null;
+          forwardBidDuration_ = null;
         }
-        return bidDurationBuilder_;
+        return forwardBidDurationBuilder_;
+      }
+
+      private com.google.protobuf.Duration reverseBidDuration_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> reverseBidDurationBuilder_;
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * @return Whether the reverseBidDuration field is set.
+       */
+      public boolean hasReverseBidDuration() {
+        return reverseBidDurationBuilder_ != null || reverseBidDuration_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       * @return The reverseBidDuration.
+       */
+      public com.google.protobuf.Duration getReverseBidDuration() {
+        if (reverseBidDurationBuilder_ == null) {
+          return reverseBidDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : reverseBidDuration_;
+        } else {
+          return reverseBidDurationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder setReverseBidDuration(com.google.protobuf.Duration value) {
+        if (reverseBidDurationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          reverseBidDuration_ = value;
+          onChanged();
+        } else {
+          reverseBidDurationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder setReverseBidDuration(
+          com.google.protobuf.Duration.Builder builderForValue) {
+        if (reverseBidDurationBuilder_ == null) {
+          reverseBidDuration_ = builderForValue.build();
+          onChanged();
+        } else {
+          reverseBidDurationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder mergeReverseBidDuration(com.google.protobuf.Duration value) {
+        if (reverseBidDurationBuilder_ == null) {
+          if (reverseBidDuration_ != null) {
+            reverseBidDuration_ =
+              com.google.protobuf.Duration.newBuilder(reverseBidDuration_).mergeFrom(value).buildPartial();
+          } else {
+            reverseBidDuration_ = value;
+          }
+          onChanged();
+        } else {
+          reverseBidDurationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder clearReverseBidDuration() {
+        if (reverseBidDurationBuilder_ == null) {
+          reverseBidDuration_ = null;
+          onChanged();
+        } else {
+          reverseBidDuration_ = null;
+          reverseBidDurationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       */
+      public com.google.protobuf.Duration.Builder getReverseBidDurationBuilder() {
+        
+        onChanged();
+        return getReverseBidDurationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       */
+      public com.google.protobuf.DurationOrBuilder getReverseBidDurationOrBuilder() {
+        if (reverseBidDurationBuilder_ != null) {
+          return reverseBidDurationBuilder_.getMessageOrBuilder();
+        } else {
+          return reverseBidDuration_ == null ?
+              com.google.protobuf.Duration.getDefaultInstance() : reverseBidDuration_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Duration reverse_bid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
+          getReverseBidDurationFieldBuilder() {
+        if (reverseBidDurationBuilder_ == null) {
+          reverseBidDurationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
+                  getReverseBidDuration(),
+                  getParentForChildren(),
+                  isClean());
+          reverseBidDuration_ = null;
+        }
+        return reverseBidDurationBuilder_;
       }
 
       private com.google.protobuf.ByteString incrementSurplus_ = com.google.protobuf.ByteString.EMPTY;
@@ -2282,17 +2485,19 @@ public final class Genesis {
       "_id\030\001 \001(\004\0222\n\006params\030\002 \001(\0132\034.kava.auction" +
       ".v1beta1.ParamsB\004\310\336\037\000\022;\n\010auctions\030\003 \003(\0132" +
       "\025.google.protobuf2.AnyB\022\312\264-\016GenesisAucti" +
-      "on\"\347\002\n\006Params\022A\n\024max_auction_duration\030\001 " +
+      "on\"\306\003\n\006Params\022A\n\024max_auction_duration\030\001 " +
       "\001(\0132\031.google.protobuf.DurationB\010\310\336\037\000\230\337\037\001" +
-      "\0229\n\014bid_duration\030\002 \001(\0132\031.google.protobuf" +
-      ".DurationB\010\310\336\037\000\230\337\037\001\022I\n\021increment_surplus" +
-      "\030\003 \001(\014B.\332\336\037&github.com/cosmos/cosmos-sdk" +
-      "/types.Dec\310\336\037\000\022F\n\016increment_debt\030\004 \001(\014B." +
-      "\332\336\037&github.com/cosmos/cosmos-sdk/types.D" +
-      "ec\310\336\037\000\022L\n\024increment_collateral\030\005 \001(\014B.\332\336" +
-      "\037&github.com/cosmos/cosmos-sdk/types.Dec" +
-      "\310\336\037\000B/Z)github.com/kava-labs/kava/x/auct" +
-      "ion/types\310\341\036\000b\006proto3"
+      "\022A\n\024forward_bid_duration\030\006 \001(\0132\031.google." +
+      "protobuf.DurationB\010\310\336\037\000\230\337\037\001\022A\n\024reverse_b" +
+      "id_duration\030\007 \001(\0132\031.google.protobuf.Dura" +
+      "tionB\010\310\336\037\000\230\337\037\001\022I\n\021increment_surplus\030\003 \001(" +
+      "\014B.\332\336\037&github.com/cosmos/cosmos-sdk/type" +
+      "s.Dec\310\336\037\000\022F\n\016increment_debt\030\004 \001(\014B.\332\336\037&g" +
+      "ithub.com/cosmos/cosmos-sdk/types.Dec\310\336\037" +
+      "\000\022L\n\024increment_collateral\030\005 \001(\014B.\332\336\037&git" +
+      "hub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000J" +
+      "\004\010\002\020\003R\014bid_durationB/Z)github.com/kava-l" +
+      "abs/kava/x/auction/types\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2313,7 +2518,7 @@ public final class Genesis {
     internal_static_kava_auction_v1beta1_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_kava_auction_v1beta1_Params_descriptor,
-        new java.lang.String[] { "MaxAuctionDuration", "BidDuration", "IncrementSurplus", "IncrementDebt", "IncrementCollateral", });
+        new java.lang.String[] { "MaxAuctionDuration", "ForwardBidDuration", "ReverseBidDuration", "IncrementSurplus", "IncrementDebt", "IncrementCollateral", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);

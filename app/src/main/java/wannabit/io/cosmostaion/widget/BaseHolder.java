@@ -13,7 +13,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import kava.swap.v1beta1.QueryOuterClass;
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;

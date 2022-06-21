@@ -154,6 +154,37 @@ public final class MsgGrpc {
     return getClaimSwapRewardMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<kava.incentive.v1beta1.Tx.MsgClaimSavingsReward,
+      kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse> getClaimSavingsRewardMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ClaimSavingsReward",
+      requestType = kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.class,
+      responseType = kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<kava.incentive.v1beta1.Tx.MsgClaimSavingsReward,
+      kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse> getClaimSavingsRewardMethod() {
+    io.grpc.MethodDescriptor<kava.incentive.v1beta1.Tx.MsgClaimSavingsReward, kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse> getClaimSavingsRewardMethod;
+    if ((getClaimSavingsRewardMethod = MsgGrpc.getClaimSavingsRewardMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getClaimSavingsRewardMethod = MsgGrpc.getClaimSavingsRewardMethod) == null) {
+          MsgGrpc.getClaimSavingsRewardMethod = getClaimSavingsRewardMethod =
+              io.grpc.MethodDescriptor.<kava.incentive.v1beta1.Tx.MsgClaimSavingsReward, kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ClaimSavingsReward"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  kava.incentive.v1beta1.Tx.MsgClaimSavingsReward.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("ClaimSavingsReward"))
+              .build();
+        }
+      }
+    }
+    return getClaimSavingsRewardMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -245,6 +276,16 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getClaimSwapRewardMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * ClaimSavingsReward is a message type used to claim savings rewards
+     * </pre>
+     */
+    public void claimSavingsReward(kava.incentive.v1beta1.Tx.MsgClaimSavingsReward request,
+        io.grpc.stub.StreamObserver<kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getClaimSavingsRewardMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -275,6 +316,13 @@ public final class MsgGrpc {
                 kava.incentive.v1beta1.Tx.MsgClaimSwapReward,
                 kava.incentive.v1beta1.Tx.MsgClaimSwapRewardResponse>(
                   this, METHODID_CLAIM_SWAP_REWARD)))
+          .addMethod(
+            getClaimSavingsRewardMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                kava.incentive.v1beta1.Tx.MsgClaimSavingsReward,
+                kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse>(
+                  this, METHODID_CLAIM_SAVINGS_REWARD)))
           .build();
     }
   }
@@ -339,6 +387,17 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getClaimSwapRewardMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * ClaimSavingsReward is a message type used to claim savings rewards
+     * </pre>
+     */
+    public void claimSavingsReward(kava.incentive.v1beta1.Tx.MsgClaimSavingsReward request,
+        io.grpc.stub.StreamObserver<kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getClaimSavingsRewardMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -396,6 +455,16 @@ public final class MsgGrpc {
     public kava.incentive.v1beta1.Tx.MsgClaimSwapRewardResponse claimSwapReward(kava.incentive.v1beta1.Tx.MsgClaimSwapReward request) {
       return blockingUnaryCall(
           getChannel(), getClaimSwapRewardMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * ClaimSavingsReward is a message type used to claim savings rewards
+     * </pre>
+     */
+    public kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse claimSavingsReward(kava.incentive.v1beta1.Tx.MsgClaimSavingsReward request) {
+      return blockingUnaryCall(
+          getChannel(), getClaimSavingsRewardMethod(), getCallOptions(), request);
     }
   }
 
@@ -459,12 +528,24 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getClaimSwapRewardMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * ClaimSavingsReward is a message type used to claim savings rewards
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse> claimSavingsReward(
+        kava.incentive.v1beta1.Tx.MsgClaimSavingsReward request) {
+      return futureUnaryCall(
+          getChannel().newCall(getClaimSavingsRewardMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CLAIM_USDXMINTING_REWARD = 0;
   private static final int METHODID_CLAIM_HARD_REWARD = 1;
   private static final int METHODID_CLAIM_DELEGATOR_REWARD = 2;
   private static final int METHODID_CLAIM_SWAP_REWARD = 3;
+  private static final int METHODID_CLAIM_SAVINGS_REWARD = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -498,6 +579,10 @@ public final class MsgGrpc {
         case METHODID_CLAIM_SWAP_REWARD:
           serviceImpl.claimSwapReward((kava.incentive.v1beta1.Tx.MsgClaimSwapReward) request,
               (io.grpc.stub.StreamObserver<kava.incentive.v1beta1.Tx.MsgClaimSwapRewardResponse>) responseObserver);
+          break;
+        case METHODID_CLAIM_SAVINGS_REWARD:
+          serviceImpl.claimSavingsReward((kava.incentive.v1beta1.Tx.MsgClaimSavingsReward) request,
+              (io.grpc.stub.StreamObserver<kava.incentive.v1beta1.Tx.MsgClaimSavingsRewardResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -564,6 +649,7 @@ public final class MsgGrpc {
               .addMethod(getClaimHardRewardMethod())
               .addMethod(getClaimDelegatorRewardMethod())
               .addMethod(getClaimSwapRewardMethod())
+              .addMethod(getClaimSavingsRewardMethod())
               .build();
         }
       }
