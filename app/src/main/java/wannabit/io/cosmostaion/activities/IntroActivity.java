@@ -21,6 +21,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
@@ -67,7 +68,11 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        onCheckAppVersion();
+        if (getBaseDao().getDBVersion() < BaseConstant.DB_VERSION) {
+            onShowDBUpdate();
+        } else {
+            onCheckAppVersion();
+        }
     }
 
     private void onInitJob() {
@@ -123,14 +128,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             }
         });
         bottomLayer1.startAnimation(mFadeOutAni);
-
-
-//        logoTitle.setVisibility(View.VISIBLE);
-//        Shimmer shimmer = new Shimmer();
-//        shimmer.setDuration(1500)
-//                .setStartDelay(600)
-//                .setDirection(Shimmer.ANIMATION_DIRECTION_LTR);
-//        shimmer.start(logoTitle);
     }
 
     @Override
@@ -143,6 +140,21 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    private void onShowDBUpdate() {
+        Thread update = new Thread() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getBaseDao().upgradeMnemonicDB();
+                    }
+                });
+            }
+        };
+        update.start();
+        getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
+    }
 
     private void onCheckAppVersion() {
         ApiClient.getCosmostationOld(this).getVersion().enqueue(new Callback<ResVersionCheck>() {

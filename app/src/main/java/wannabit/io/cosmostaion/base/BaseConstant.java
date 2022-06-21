@@ -8,13 +8,14 @@ public class BaseConstant {
     public final static String LOG_TAG                  = "Cosmostation";
 
     public final static String DB_NAME                  = "WannaBit";
-    public final static int DB_VERSION                  = 6;
+    public final static int DB_VERSION                  = 7;
     public final static String DB_TABLE_PASSWORD        = "paswd";
     public final static String DB_TABLE_ACCOUNT         = "accnt";
     public final static String DB_TABLE_BALANCE         = "balan";
     public final static String DB_TABLE_BONDING         = "bondi";
     public final static String DB_TABLE_UNBONDING       = "unbond";
     public final static String DB_TABLE_PRICE           = "price";
+    public final static String DB_TABLE_MNEMONIC        = "mnemonic";
 
     public final static String PRE_USER_ID                  = "PRE_USER_ID";
     public final static String PRE_SELECTED_CHAINS          = "PRE_SELECTED_CHAINS";
@@ -30,6 +31,7 @@ public class BaseConstant {
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
     public final static String PRE_USER_EXPENDED_CHAINS     = "PRE_USER_EXPENDED_CHAINS";
+    public final static String PRE_DB_VERSION               = "PRE_DB_VERSION";
 
 
     public final static int TASK_INIT_PW                                = 2000;
