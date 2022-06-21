@@ -1171,7 +1171,6 @@
     <string name="str_gravity_withdraw_pool_id">Pool ID</string>
     <string name="str_osmosis_defi_lab"><![CDATA[오스모시스 DeFi]]> </string>
     <string name="str_crescent_app"><![CDATA[Crescent App]]> </string>
-    <string name="str_osmosis_lab"><![CDATA[오스모시스 Lab]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>
     <string name="str_osmosis_earning">Earning</string>
