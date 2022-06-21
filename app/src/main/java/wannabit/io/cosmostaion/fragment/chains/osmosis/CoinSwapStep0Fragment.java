@@ -25,8 +25,7 @@ import androidx.core.content.ContextCompat;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
-import osmosis.gamm.v1beta1.Pool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
@@ -133,7 +132,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         BigDecimal outputAssetAmount = BigDecimal.ZERO;
         BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
-        for (Pool.PoolAsset asset : getSActivity().mOsmosisPool.getPoolAssetsList()) {
+        for (BalancerPool.PoolAsset asset: getSActivity().mOsmosisPool.getPoolAssetsList()) {
             if (asset.getToken().getDenom().equals(getSActivity().mInputDenom)) {
                 inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                 inputAssetWeight = new BigDecimal(asset.getWeight());

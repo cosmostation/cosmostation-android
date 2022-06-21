@@ -1,4 +1,4 @@
-package osmosis.gamm.balancer.v1beta1;
+package kava.savings.v1beta1;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
@@ -16,46 +16,80 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
+ * <pre>
+ * Msg defines the savings Msg service.
+ * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.33.1)",
-    comments = "Source: osmosis/gamm/pool-models/balancer/tx.proto")
+    comments = "Source: kava/savings/v1beta1/tx.proto")
 public final class MsgGrpc {
 
   private MsgGrpc() {}
 
-  public static final String SERVICE_NAME = "osmosis.gamm.balancer.v1beta1.Msg";
+  public static final String SERVICE_NAME = "kava.savings.v1beta1.Msg";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool,
-      osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod;
+  private static volatile io.grpc.MethodDescriptor<kava.savings.v1beta1.Tx.MsgDeposit,
+      kava.savings.v1beta1.Tx.MsgDepositResponse> getDepositMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "CreateBalancerPool",
-      requestType = osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool.class,
-      responseType = osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "Deposit",
+      requestType = kava.savings.v1beta1.Tx.MsgDeposit.class,
+      responseType = kava.savings.v1beta1.Tx.MsgDepositResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool,
-      osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod() {
-    io.grpc.MethodDescriptor<osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool, osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod;
-    if ((getCreateBalancerPoolMethod = MsgGrpc.getCreateBalancerPoolMethod) == null) {
+  public static io.grpc.MethodDescriptor<kava.savings.v1beta1.Tx.MsgDeposit,
+      kava.savings.v1beta1.Tx.MsgDepositResponse> getDepositMethod() {
+    io.grpc.MethodDescriptor<kava.savings.v1beta1.Tx.MsgDeposit, kava.savings.v1beta1.Tx.MsgDepositResponse> getDepositMethod;
+    if ((getDepositMethod = MsgGrpc.getDepositMethod) == null) {
       synchronized (MsgGrpc.class) {
-        if ((getCreateBalancerPoolMethod = MsgGrpc.getCreateBalancerPoolMethod) == null) {
-          MsgGrpc.getCreateBalancerPoolMethod = getCreateBalancerPoolMethod =
-              io.grpc.MethodDescriptor.<osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool, osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse>newBuilder()
+        if ((getDepositMethod = MsgGrpc.getDepositMethod) == null) {
+          MsgGrpc.getDepositMethod = getDepositMethod =
+              io.grpc.MethodDescriptor.<kava.savings.v1beta1.Tx.MsgDeposit, kava.savings.v1beta1.Tx.MsgDepositResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateBalancerPool"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Deposit"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool.getDefaultInstance()))
+                  kava.savings.v1beta1.Tx.MsgDeposit.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("CreateBalancerPool"))
+                  kava.savings.v1beta1.Tx.MsgDepositResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("Deposit"))
               .build();
         }
       }
     }
-    return getCreateBalancerPoolMethod;
+    return getDepositMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<kava.savings.v1beta1.Tx.MsgWithdraw,
+      kava.savings.v1beta1.Tx.MsgWithdrawResponse> getWithdrawMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Withdraw",
+      requestType = kava.savings.v1beta1.Tx.MsgWithdraw.class,
+      responseType = kava.savings.v1beta1.Tx.MsgWithdrawResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<kava.savings.v1beta1.Tx.MsgWithdraw,
+      kava.savings.v1beta1.Tx.MsgWithdrawResponse> getWithdrawMethod() {
+    io.grpc.MethodDescriptor<kava.savings.v1beta1.Tx.MsgWithdraw, kava.savings.v1beta1.Tx.MsgWithdrawResponse> getWithdrawMethod;
+    if ((getWithdrawMethod = MsgGrpc.getWithdrawMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getWithdrawMethod = MsgGrpc.getWithdrawMethod) == null) {
+          MsgGrpc.getWithdrawMethod = getWithdrawMethod =
+              io.grpc.MethodDescriptor.<kava.savings.v1beta1.Tx.MsgWithdraw, kava.savings.v1beta1.Tx.MsgWithdrawResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Withdraw"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  kava.savings.v1beta1.Tx.MsgWithdraw.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  kava.savings.v1beta1.Tx.MsgWithdrawResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("Withdraw"))
+              .build();
+        }
+      }
+    }
+    return getWithdrawMethod;
   }
 
   /**
@@ -103,30 +137,56 @@ public final class MsgGrpc {
   }
 
   /**
+   * <pre>
+   * Msg defines the savings Msg service.
+   * </pre>
    */
   public static abstract class MsgImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     * Deposit defines a method for depositing funds to the savings module account
+     * </pre>
      */
-    public void createBalancerPool(osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getCreateBalancerPoolMethod(), responseObserver);
+    public void deposit(kava.savings.v1beta1.Tx.MsgDeposit request,
+        io.grpc.stub.StreamObserver<kava.savings.v1beta1.Tx.MsgDepositResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDepositMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Withdraw defines a method for withdrawing funds to the savings module account
+     * </pre>
+     */
+    public void withdraw(kava.savings.v1beta1.Tx.MsgWithdraw request,
+        io.grpc.stub.StreamObserver<kava.savings.v1beta1.Tx.MsgWithdrawResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getWithdrawMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getCreateBalancerPoolMethod(),
+            getDepositMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool,
-                osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse>(
-                  this, METHODID_CREATE_BALANCER_POOL)))
+                kava.savings.v1beta1.Tx.MsgDeposit,
+                kava.savings.v1beta1.Tx.MsgDepositResponse>(
+                  this, METHODID_DEPOSIT)))
+          .addMethod(
+            getWithdrawMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                kava.savings.v1beta1.Tx.MsgWithdraw,
+                kava.savings.v1beta1.Tx.MsgWithdrawResponse>(
+                  this, METHODID_WITHDRAW)))
           .build();
     }
   }
 
   /**
+   * <pre>
+   * Msg defines the savings Msg service.
+   * </pre>
    */
   public static final class MsgStub extends io.grpc.stub.AbstractAsyncStub<MsgStub> {
     private MsgStub(
@@ -141,15 +201,32 @@ public final class MsgGrpc {
     }
 
     /**
+     * <pre>
+     * Deposit defines a method for depositing funds to the savings module account
+     * </pre>
      */
-    public void createBalancerPool(osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> responseObserver) {
+    public void deposit(kava.savings.v1beta1.Tx.MsgDeposit request,
+        io.grpc.stub.StreamObserver<kava.savings.v1beta1.Tx.MsgDepositResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getCreateBalancerPoolMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getDepositMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Withdraw defines a method for withdrawing funds to the savings module account
+     * </pre>
+     */
+    public void withdraw(kava.savings.v1beta1.Tx.MsgWithdraw request,
+        io.grpc.stub.StreamObserver<kava.savings.v1beta1.Tx.MsgWithdrawResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getWithdrawMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
   /**
+   * <pre>
+   * Msg defines the savings Msg service.
+   * </pre>
    */
   public static final class MsgBlockingStub extends io.grpc.stub.AbstractBlockingStub<MsgBlockingStub> {
     private MsgBlockingStub(
@@ -164,14 +241,30 @@ public final class MsgGrpc {
     }
 
     /**
+     * <pre>
+     * Deposit defines a method for depositing funds to the savings module account
+     * </pre>
      */
-    public osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse createBalancerPool(osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool request) {
+    public kava.savings.v1beta1.Tx.MsgDepositResponse deposit(kava.savings.v1beta1.Tx.MsgDeposit request) {
       return blockingUnaryCall(
-          getChannel(), getCreateBalancerPoolMethod(), getCallOptions(), request);
+          getChannel(), getDepositMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Withdraw defines a method for withdrawing funds to the savings module account
+     * </pre>
+     */
+    public kava.savings.v1beta1.Tx.MsgWithdrawResponse withdraw(kava.savings.v1beta1.Tx.MsgWithdraw request) {
+      return blockingUnaryCall(
+          getChannel(), getWithdrawMethod(), getCallOptions(), request);
     }
   }
 
   /**
+   * <pre>
+   * Msg defines the savings Msg service.
+   * </pre>
    */
   public static final class MsgFutureStub extends io.grpc.stub.AbstractFutureStub<MsgFutureStub> {
     private MsgFutureStub(
@@ -186,15 +279,30 @@ public final class MsgGrpc {
     }
 
     /**
+     * <pre>
+     * Deposit defines a method for depositing funds to the savings module account
+     * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> createBalancerPool(
-        osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool request) {
+    public com.google.common.util.concurrent.ListenableFuture<kava.savings.v1beta1.Tx.MsgDepositResponse> deposit(
+        kava.savings.v1beta1.Tx.MsgDeposit request) {
       return futureUnaryCall(
-          getChannel().newCall(getCreateBalancerPoolMethod(), getCallOptions()), request);
+          getChannel().newCall(getDepositMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Withdraw defines a method for withdrawing funds to the savings module account
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<kava.savings.v1beta1.Tx.MsgWithdrawResponse> withdraw(
+        kava.savings.v1beta1.Tx.MsgWithdraw request) {
+      return futureUnaryCall(
+          getChannel().newCall(getWithdrawMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_CREATE_BALANCER_POOL = 0;
+  private static final int METHODID_DEPOSIT = 0;
+  private static final int METHODID_WITHDRAW = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -213,9 +321,13 @@ public final class MsgGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_CREATE_BALANCER_POOL:
-          serviceImpl.createBalancerPool((osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPool) request,
-              (io.grpc.stub.StreamObserver<osmosis.gamm.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse>) responseObserver);
+        case METHODID_DEPOSIT:
+          serviceImpl.deposit((kava.savings.v1beta1.Tx.MsgDeposit) request,
+              (io.grpc.stub.StreamObserver<kava.savings.v1beta1.Tx.MsgDepositResponse>) responseObserver);
+          break;
+        case METHODID_WITHDRAW:
+          serviceImpl.withdraw((kava.savings.v1beta1.Tx.MsgWithdraw) request,
+              (io.grpc.stub.StreamObserver<kava.savings.v1beta1.Tx.MsgWithdrawResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -239,7 +351,7 @@ public final class MsgGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return osmosis.gamm.balancer.v1beta1.Tx.getDescriptor();
+      return kava.savings.v1beta1.Tx.getDescriptor();
     }
 
     @java.lang.Override
@@ -278,7 +390,8 @@ public final class MsgGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
-              .addMethod(getCreateBalancerPoolMethod())
+              .addMethod(getDepositMethod())
+              .addMethod(getWithdrawMethod())
               .build();
         }
       }

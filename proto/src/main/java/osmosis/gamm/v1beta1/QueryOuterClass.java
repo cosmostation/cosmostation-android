@@ -19,7 +19,7 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -110,10 +110,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolRequest.class, osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolRequest.Builder.class);
     }
 
-    public static final int POOLID_FIELD_NUMBER = 1;
+    public static final int POOL_ID_FIELD_NUMBER = 1;
     private long poolId_;
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -179,7 +179,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + POOLID_FIELD_NUMBER;
+      hash = (37 * hash) + POOL_ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getPoolId());
       hash = (29 * hash) + unknownFields.hashCode();
@@ -430,7 +430,7 @@ public final class QueryOuterClass {
 
       private long poolId_ ;
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -438,7 +438,7 @@ public final class QueryOuterClass {
         return poolId_;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -449,7 +449,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -3308,7 +3308,7 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 numPools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
+     * <code>uint64 num_pools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
      * @return The numPools.
      */
     long getNumPools();
@@ -3395,10 +3395,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QueryNumPoolsResponse.class, osmosis.gamm.v1beta1.QueryOuterClass.QueryNumPoolsResponse.Builder.class);
     }
 
-    public static final int NUMPOOLS_FIELD_NUMBER = 1;
+    public static final int NUM_POOLS_FIELD_NUMBER = 1;
     private long numPools_;
     /**
-     * <code>uint64 numPools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
+     * <code>uint64 num_pools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
      * @return The numPools.
      */
     @java.lang.Override
@@ -3464,7 +3464,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + NUMPOOLS_FIELD_NUMBER;
+      hash = (37 * hash) + NUM_POOLS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getNumPools());
       hash = (29 * hash) + unknownFields.hashCode();
@@ -3711,7 +3711,7 @@ public final class QueryOuterClass {
 
       private long numPools_ ;
       /**
-       * <code>uint64 numPools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
+       * <code>uint64 num_pools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
        * @return The numPools.
        */
       @java.lang.Override
@@ -3719,7 +3719,7 @@ public final class QueryOuterClass {
         return numPools_;
       }
       /**
-       * <code>uint64 numPools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
+       * <code>uint64 num_pools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
        * @param value The numPools to set.
        * @return This builder for chaining.
        */
@@ -3730,7 +3730,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>uint64 numPools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
+       * <code>uint64 num_pools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearNumPools() {
@@ -3797,7 +3797,7 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -3888,10 +3888,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsRequest.class, osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsRequest.Builder.class);
     }
 
-    public static final int POOLID_FIELD_NUMBER = 1;
+    public static final int POOL_ID_FIELD_NUMBER = 1;
     private long poolId_;
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -3957,7 +3957,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + POOLID_FIELD_NUMBER;
+      hash = (37 * hash) + POOL_ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getPoolId());
       hash = (29 * hash) + unknownFields.hashCode();
@@ -4208,7 +4208,7 @@ public final class QueryOuterClass {
 
       private long poolId_ ;
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -4216,7 +4216,7 @@ public final class QueryOuterClass {
         return poolId_;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -4227,7 +4227,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -4915,7 +4915,7 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -5006,10 +5006,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest.class, osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalPoolLiquidityRequest.Builder.class);
     }
 
-    public static final int POOLID_FIELD_NUMBER = 1;
+    public static final int POOL_ID_FIELD_NUMBER = 1;
     private long poolId_;
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -5075,7 +5075,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + POOLID_FIELD_NUMBER;
+      hash = (37 * hash) + POOL_ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getPoolId());
       hash = (29 * hash) + unknownFields.hashCode();
@@ -5326,7 +5326,7 @@ public final class QueryOuterClass {
 
       private long poolId_ ;
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -5334,7 +5334,7 @@ public final class QueryOuterClass {
         return poolId_;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -5345,7 +5345,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -6205,7 +6205,7 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -6296,10 +6296,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest.class, osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesRequest.Builder.class);
     }
 
-    public static final int POOLID_FIELD_NUMBER = 1;
+    public static final int POOL_ID_FIELD_NUMBER = 1;
     private long poolId_;
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -6365,7 +6365,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + POOLID_FIELD_NUMBER;
+      hash = (37 * hash) + POOL_ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getPoolId());
       hash = (29 * hash) + unknownFields.hashCode();
@@ -6616,7 +6616,7 @@ public final class QueryOuterClass {
 
       private long poolId_ ;
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -6624,7 +6624,7 @@ public final class QueryOuterClass {
         return poolId_;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -6635,7 +6635,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -6702,17 +6702,17 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      * @return Whether the totalShares field is set.
      */
     boolean hasTotalShares();
     /**
-     * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      * @return The totalShares.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getTotalShares();
     /**
-     * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalSharesOrBuilder();
   }
@@ -6806,10 +6806,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse.class, osmosis.gamm.v1beta1.QueryOuterClass.QueryTotalSharesResponse.Builder.class);
     }
 
-    public static final int TOTALSHARES_FIELD_NUMBER = 1;
+    public static final int TOTAL_SHARES_FIELD_NUMBER = 1;
     private cosmos.base.v1beta1.CoinOuterClass.Coin totalShares_;
     /**
-     * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      * @return Whether the totalShares field is set.
      */
     @java.lang.Override
@@ -6817,7 +6817,7 @@ public final class QueryOuterClass {
       return totalShares_ != null;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      * @return The totalShares.
      */
     @java.lang.Override
@@ -6825,7 +6825,7 @@ public final class QueryOuterClass {
       return totalShares_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalShares_;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalSharesOrBuilder() {
@@ -6894,7 +6894,7 @@ public final class QueryOuterClass {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       if (hasTotalShares()) {
-        hash = (37 * hash) + TOTALSHARES_FIELD_NUMBER;
+        hash = (37 * hash) + TOTAL_SHARES_FIELD_NUMBER;
         hash = (53 * hash) + getTotalShares().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
@@ -7151,14 +7151,14 @@ public final class QueryOuterClass {
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> totalSharesBuilder_;
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        * @return Whether the totalShares field is set.
        */
       public boolean hasTotalShares() {
         return totalSharesBuilder_ != null || totalShares_ != null;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        * @return The totalShares.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalShares() {
@@ -7169,7 +7169,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        */
       public Builder setTotalShares(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (totalSharesBuilder_ == null) {
@@ -7185,7 +7185,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        */
       public Builder setTotalShares(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -7199,7 +7199,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        */
       public Builder mergeTotalShares(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (totalSharesBuilder_ == null) {
@@ -7217,7 +7217,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        */
       public Builder clearTotalShares() {
         if (totalSharesBuilder_ == null) {
@@ -7231,7 +7231,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getTotalSharesBuilder() {
         
@@ -7239,7 +7239,7 @@ public final class QueryOuterClass {
         return getTotalSharesFieldBuilder().getBuilder();
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalSharesOrBuilder() {
         if (totalSharesBuilder_ != null) {
@@ -7250,7 +7250,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin total_shares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -7323,7 +7323,7 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -7453,10 +7453,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceRequest.class, osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceRequest.Builder.class);
     }
 
-    public static final int POOLID_FIELD_NUMBER = 1;
+    public static final int POOL_ID_FIELD_NUMBER = 1;
     private long poolId_;
     /**
-     * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -7614,7 +7614,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + POOLID_FIELD_NUMBER;
+      hash = (37 * hash) + POOL_ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getPoolId());
       hash = (37 * hash) + BASE_ASSET_DENOM_FIELD_NUMBER;
@@ -7884,7 +7884,7 @@ public final class QueryOuterClass {
 
       private long poolId_ ;
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -7892,7 +7892,7 @@ public final class QueryOuterClass {
         return poolId_;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -7903,7 +7903,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -8126,7 +8126,7 @@ public final class QueryOuterClass {
      * String of the Dec. Ex) 10.203uatom
      * </pre>
      *
-     * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+     * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
      * @return The spotPrice.
      */
     java.lang.String getSpotPrice();
@@ -8135,7 +8135,7 @@ public final class QueryOuterClass {
      * String of the Dec. Ex) 10.203uatom
      * </pre>
      *
-     * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+     * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
      * @return The bytes for spotPrice.
      */
     com.google.protobuf.ByteString
@@ -8230,14 +8230,14 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceResponse.class, osmosis.gamm.v1beta1.QueryOuterClass.QuerySpotPriceResponse.Builder.class);
     }
 
-    public static final int SPOTPRICE_FIELD_NUMBER = 1;
+    public static final int SPOT_PRICE_FIELD_NUMBER = 1;
     private volatile java.lang.Object spotPrice_;
     /**
      * <pre>
      * String of the Dec. Ex) 10.203uatom
      * </pre>
      *
-     * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+     * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
      * @return The spotPrice.
      */
     @java.lang.Override
@@ -8258,7 +8258,7 @@ public final class QueryOuterClass {
      * String of the Dec. Ex) 10.203uatom
      * </pre>
      *
-     * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+     * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
      * @return The bytes for spotPrice.
      */
     @java.lang.Override
@@ -8333,7 +8333,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + SPOTPRICE_FIELD_NUMBER;
+      hash = (37 * hash) + SPOT_PRICE_FIELD_NUMBER;
       hash = (53 * hash) + getSpotPrice().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -8589,7 +8589,7 @@ public final class QueryOuterClass {
        * String of the Dec. Ex) 10.203uatom
        * </pre>
        *
-       * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
        * @return The spotPrice.
        */
       public java.lang.String getSpotPrice() {
@@ -8609,7 +8609,7 @@ public final class QueryOuterClass {
        * String of the Dec. Ex) 10.203uatom
        * </pre>
        *
-       * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
        * @return The bytes for spotPrice.
        */
       public com.google.protobuf.ByteString
@@ -8630,7 +8630,7 @@ public final class QueryOuterClass {
        * String of the Dec. Ex) 10.203uatom
        * </pre>
        *
-       * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
        * @param value The spotPrice to set.
        * @return This builder for chaining.
        */
@@ -8649,7 +8649,7 @@ public final class QueryOuterClass {
        * String of the Dec. Ex) 10.203uatom
        * </pre>
        *
-       * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearSpotPrice() {
@@ -8663,7 +8663,7 @@ public final class QueryOuterClass {
        * String of the Dec. Ex) 10.203uatom
        * </pre>
        *
-       * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
+       * <code>string spot_price = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
        * @param value The bytes for spotPrice to set.
        * @return This builder for chaining.
        */
@@ -8748,18 +8748,18 @@ public final class QueryOuterClass {
         getSenderBytes();
 
     /**
-     * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
 
     /**
-     * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+     * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return The tokenIn.
      */
     java.lang.String getTokenIn();
     /**
-     * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+     * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return The bytes for tokenIn.
      */
     com.google.protobuf.ByteString
@@ -8941,10 +8941,10 @@ public final class QueryOuterClass {
       }
     }
 
-    public static final int POOLID_FIELD_NUMBER = 2;
+    public static final int POOL_ID_FIELD_NUMBER = 2;
     private long poolId_;
     /**
-     * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -8952,10 +8952,10 @@ public final class QueryOuterClass {
       return poolId_;
     }
 
-    public static final int TOKENIN_FIELD_NUMBER = 3;
+    public static final int TOKEN_IN_FIELD_NUMBER = 3;
     private volatile java.lang.Object tokenIn_;
     /**
-     * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+     * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return The tokenIn.
      */
     @java.lang.Override
@@ -8972,7 +8972,7 @@ public final class QueryOuterClass {
       }
     }
     /**
-     * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+     * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return The bytes for tokenIn.
      */
     @java.lang.Override
@@ -9115,10 +9115,10 @@ public final class QueryOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + SENDER_FIELD_NUMBER;
       hash = (53 * hash) + getSender().hashCode();
-      hash = (37 * hash) + POOLID_FIELD_NUMBER;
+      hash = (37 * hash) + POOL_ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getPoolId());
-      hash = (37 * hash) + TOKENIN_FIELD_NUMBER;
+      hash = (37 * hash) + TOKEN_IN_FIELD_NUMBER;
       hash = (53 * hash) + getTokenIn().hashCode();
       if (getRoutesCount() > 0) {
         hash = (37 * hash) + ROUTES_FIELD_NUMBER;
@@ -9506,7 +9506,7 @@ public final class QueryOuterClass {
 
       private long poolId_ ;
       /**
-       * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -9514,7 +9514,7 @@ public final class QueryOuterClass {
         return poolId_;
       }
       /**
-       * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -9525,7 +9525,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -9537,7 +9537,7 @@ public final class QueryOuterClass {
 
       private java.lang.Object tokenIn_ = "";
       /**
-       * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+       * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
        * @return The tokenIn.
        */
       public java.lang.String getTokenIn() {
@@ -9553,7 +9553,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+       * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
        * @return The bytes for tokenIn.
        */
       public com.google.protobuf.ByteString
@@ -9570,7 +9570,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+       * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
        * @param value The tokenIn to set.
        * @return This builder for chaining.
        */
@@ -9585,7 +9585,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+       * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearTokenIn() {
@@ -9595,7 +9595,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
+       * <code>string token_in = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
        * @param value The bytes for tokenIn to set.
        * @return This builder for chaining.
        */
@@ -9908,12 +9908,12 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+     * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
      * @return The tokenOutAmount.
      */
     java.lang.String getTokenOutAmount();
     /**
-     * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+     * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
      * @return The bytes for tokenOutAmount.
      */
     com.google.protobuf.ByteString
@@ -10003,10 +10003,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QuerySwapExactAmountInResponse.class, osmosis.gamm.v1beta1.QueryOuterClass.QuerySwapExactAmountInResponse.Builder.class);
     }
 
-    public static final int TOKENOUTAMOUNT_FIELD_NUMBER = 1;
+    public static final int TOKEN_OUT_AMOUNT_FIELD_NUMBER = 1;
     private volatile java.lang.Object tokenOutAmount_;
     /**
-     * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+     * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
      * @return The tokenOutAmount.
      */
     @java.lang.Override
@@ -10023,7 +10023,7 @@ public final class QueryOuterClass {
       }
     }
     /**
-     * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+     * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
      * @return The bytes for tokenOutAmount.
      */
     @java.lang.Override
@@ -10098,7 +10098,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + TOKENOUTAMOUNT_FIELD_NUMBER;
+      hash = (37 * hash) + TOKEN_OUT_AMOUNT_FIELD_NUMBER;
       hash = (53 * hash) + getTokenOutAmount().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -10345,7 +10345,7 @@ public final class QueryOuterClass {
 
       private java.lang.Object tokenOutAmount_ = "";
       /**
-       * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+       * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
        * @return The tokenOutAmount.
        */
       public java.lang.String getTokenOutAmount() {
@@ -10361,7 +10361,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+       * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
        * @return The bytes for tokenOutAmount.
        */
       public com.google.protobuf.ByteString
@@ -10378,7 +10378,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+       * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
        * @param value The tokenOutAmount to set.
        * @return This builder for chaining.
        */
@@ -10393,7 +10393,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+       * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearTokenOutAmount() {
@@ -10403,7 +10403,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
+       * <code>string token_out_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
        * @param value The bytes for tokenOutAmount to set.
        * @return This builder for chaining.
        */
@@ -10488,7 +10488,7 @@ public final class QueryOuterClass {
         getSenderBytes();
 
     /**
-     * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -10518,12 +10518,12 @@ public final class QueryOuterClass {
         int index);
 
     /**
-     * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+     * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return The tokenOut.
      */
     java.lang.String getTokenOut();
     /**
-     * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+     * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return The bytes for tokenOut.
      */
     com.google.protobuf.ByteString
@@ -10681,10 +10681,10 @@ public final class QueryOuterClass {
       }
     }
 
-    public static final int POOLID_FIELD_NUMBER = 2;
+    public static final int POOL_ID_FIELD_NUMBER = 2;
     private long poolId_;
     /**
-     * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -10732,10 +10732,10 @@ public final class QueryOuterClass {
       return routes_.get(index);
     }
 
-    public static final int TOKENOUT_FIELD_NUMBER = 4;
+    public static final int TOKEN_OUT_FIELD_NUMBER = 4;
     private volatile java.lang.Object tokenOut_;
     /**
-     * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+     * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return The tokenOut.
      */
     @java.lang.Override
@@ -10752,7 +10752,7 @@ public final class QueryOuterClass {
       }
     }
     /**
-     * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+     * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return The bytes for tokenOut.
      */
     @java.lang.Override
@@ -10855,14 +10855,14 @@ public final class QueryOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + SENDER_FIELD_NUMBER;
       hash = (53 * hash) + getSender().hashCode();
-      hash = (37 * hash) + POOLID_FIELD_NUMBER;
+      hash = (37 * hash) + POOL_ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getPoolId());
       if (getRoutesCount() > 0) {
         hash = (37 * hash) + ROUTES_FIELD_NUMBER;
         hash = (53 * hash) + getRoutesList().hashCode();
       }
-      hash = (37 * hash) + TOKENOUT_FIELD_NUMBER;
+      hash = (37 * hash) + TOKEN_OUT_FIELD_NUMBER;
       hash = (53 * hash) + getTokenOut().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -11246,7 +11246,7 @@ public final class QueryOuterClass {
 
       private long poolId_ ;
       /**
-       * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -11254,7 +11254,7 @@ public final class QueryOuterClass {
         return poolId_;
       }
       /**
-       * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -11265,7 +11265,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -11517,7 +11517,7 @@ public final class QueryOuterClass {
 
       private java.lang.Object tokenOut_ = "";
       /**
-       * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+       * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
        * @return The tokenOut.
        */
       public java.lang.String getTokenOut() {
@@ -11533,7 +11533,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+       * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
        * @return The bytes for tokenOut.
        */
       public com.google.protobuf.ByteString
@@ -11550,7 +11550,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+       * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
        * @param value The tokenOut to set.
        * @return This builder for chaining.
        */
@@ -11565,7 +11565,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+       * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearTokenOut() {
@@ -11575,7 +11575,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
+       * <code>string token_out = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
        * @param value The bytes for tokenOut to set.
        * @return This builder for chaining.
        */
@@ -11648,12 +11648,12 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+     * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
      * @return The tokenInAmount.
      */
     java.lang.String getTokenInAmount();
     /**
-     * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+     * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
      * @return The bytes for tokenInAmount.
      */
     com.google.protobuf.ByteString
@@ -11743,10 +11743,10 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QuerySwapExactAmountOutResponse.class, osmosis.gamm.v1beta1.QueryOuterClass.QuerySwapExactAmountOutResponse.Builder.class);
     }
 
-    public static final int TOKENINAMOUNT_FIELD_NUMBER = 1;
+    public static final int TOKEN_IN_AMOUNT_FIELD_NUMBER = 1;
     private volatile java.lang.Object tokenInAmount_;
     /**
-     * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+     * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
      * @return The tokenInAmount.
      */
     @java.lang.Override
@@ -11763,7 +11763,7 @@ public final class QueryOuterClass {
       }
     }
     /**
-     * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+     * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
      * @return The bytes for tokenInAmount.
      */
     @java.lang.Override
@@ -11838,7 +11838,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + TOKENINAMOUNT_FIELD_NUMBER;
+      hash = (37 * hash) + TOKEN_IN_AMOUNT_FIELD_NUMBER;
       hash = (53 * hash) + getTokenInAmount().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -12085,7 +12085,7 @@ public final class QueryOuterClass {
 
       private java.lang.Object tokenInAmount_ = "";
       /**
-       * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+       * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
        * @return The tokenInAmount.
        */
       public java.lang.String getTokenInAmount() {
@@ -12101,7 +12101,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+       * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
        * @return The bytes for tokenInAmount.
        */
       public com.google.protobuf.ByteString
@@ -12118,7 +12118,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+       * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
        * @param value The tokenInAmount to set.
        * @return This builder for chaining.
        */
@@ -12133,7 +12133,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+       * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearTokenInAmount() {
@@ -12143,7 +12143,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
+       * <code>string token_in_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
        * @param value The bytes for tokenInAmount to set.
        * @return This builder for chaining.
        */
@@ -13537,104 +13537,104 @@ public final class QueryOuterClass {
       "se/v1beta1/coin.proto\032*cosmos/base/query" +
       "/v1beta1/pagination.proto\032\034google/api/an" +
       "notations.proto\032\032google/protobuf2/any.pr" +
-      "oto\032\031cosmos_proto/cosmos.proto\"6\n\020QueryP" +
-      "oolRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"po" +
-      "ol_id\"\"C\n\021QueryPoolResponse\022.\n\004pool\030\001 \001(" +
-      "\0132\025.google.protobuf2.AnyB\t\312\264-\005PoolI\"O\n\021Q" +
-      "ueryPoolsRequest\022:\n\npagination\030\002 \001(\0132&.c" +
-      "osmos.base.query.v1beta1.PageRequest\"\202\001\n" +
-      "\022QueryPoolsResponse\022/\n\005pools\030\001 \003(\0132\025.goo" +
-      "gle.protobuf2.AnyB\t\312\264-\005PoolI\022;\n\npaginati" +
-      "on\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pag" +
-      "eResponse\"\026\n\024QueryNumPoolsRequest\"?\n\025Que" +
-      "ryNumPoolsResponse\022&\n\010numPools\030\001 \001(\004B\024\362\336" +
-      "\037\020yaml:\"num_pools\"\"<\n\026QueryPoolParamsReq" +
-      "uest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"" +
-      "\"@\n\027QueryPoolParamsResponse\022%\n\006params\030\001 " +
-      "\001(\0132\025.google.protobuf2.Any\"D\n\036QueryTotal" +
-      "PoolLiquidityRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336" +
-      "\037\016yaml:\"pool_id\"\"\225\001\n\037QueryTotalPoolLiqui" +
-      "dityResponse\022r\n\tliquidity\030\001 \003(\0132\031.cosmos" +
-      ".base.v1beta1.CoinBD\252\337\037(github.com/cosmo" +
-      "s/cosmos-sdk/types.Coins\362\336\037\020yaml:\"liquid" +
-      "ity\"\310\336\037\000\"=\n\027QueryTotalSharesRequest\022\"\n\006p" +
-      "oolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"g\n\030Query" +
-      "TotalSharesResponse\022K\n\013totalShares\030\001 \001(\013" +
-      "2\031.cosmos.base.v1beta1.CoinB\033\362\336\037\023yaml:\"t" +
-      "otal_shares\"\310\336\037\000\"\276\001\n\025QuerySpotPriceReque" +
-      "st\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\0225" +
-      "\n\020base_asset_denom\030\002 \001(\tB\033\362\336\037\027yaml:\"base" +
-      "_asset_denom\"\0227\n\021quote_asset_denom\030\003 \001(\t" +
-      "B\034\362\336\037\030yaml:\"quote_asset_denom\"J\004\010\004\020\005R\013wi" +
-      "thSwapFee\"B\n\026QuerySpotPriceResponse\022(\n\ts" +
-      "potPrice\030\001 \001(\tB\025\362\336\037\021yaml:\"spot_price\"\"\334\001" +
-      "\n\035QuerySwapExactAmountInRequest\022!\n\006sende" +
-      "r\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022\"\n\006poolId\030\002 \001" +
-      "(\004B\022\362\336\037\016yaml:\"pool_id\"\022$\n\007tokenIn\030\003 \001(\tB" +
-      "\023\362\336\037\017yaml:\"token_in\"\022N\n\006routes\030\004 \003(\0132\'.o" +
-      "smosis.gamm.v1beta1.SwapAmountInRouteB\025\362" +
-      "\336\037\ryaml:\"routes\"\310\336\037\000\"\203\001\n\036QuerySwapExactA" +
-      "mountInResponse\022a\n\016tokenOutAmount\030\001 \001(\tB" +
-      "I\332\336\037&github.com/cosmos/cosmos-sdk/types." +
-      "Int\362\336\037\027yaml:\"token_out_amount\"\310\336\037\000\"\340\001\n\036Q" +
-      "uerySwapExactAmountOutRequest\022!\n\006sender\030" +
-      "\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022\"\n\006poolId\030\002 \001(\004" +
-      "B\022\362\336\037\016yaml:\"pool_id\"\022O\n\006routes\030\003 \003(\0132(.o" +
-      "smosis.gamm.v1beta1.SwapAmountOutRouteB\025" +
-      "\362\336\037\ryaml:\"routes\"\310\336\037\000\022&\n\010tokenOut\030\004 \001(\tB" +
-      "\024\362\336\037\020yaml:\"token_out\"\"\202\001\n\037QuerySwapExact" +
-      "AmountOutResponse\022_\n\rtokenInAmount\030\001 \001(\t" +
-      "BH\332\336\037&github.com/cosmos/cosmos-sdk/types" +
-      ".Int\362\336\037\026yaml:\"token_in_amount\"\310\336\037\000\"\034\n\032Qu" +
-      "eryTotalLiquidityRequest\"\221\001\n\033QueryTotalL" +
+      "oto\032\031cosmos_proto/cosmos.proto\"7\n\020QueryP" +
+      "oolRequest\022#\n\007pool_id\030\001 \001(\004B\022\362\336\037\016yaml:\"p" +
+      "ool_id\"\"C\n\021QueryPoolResponse\022.\n\004pool\030\001 \001" +
+      "(\0132\025.google.protobuf2.AnyB\t\312\264-\005PoolI\"O\n\021" +
+      "QueryPoolsRequest\022:\n\npagination\030\002 \001(\0132&." +
+      "cosmos.base.query.v1beta1.PageRequest\"\202\001" +
+      "\n\022QueryPoolsResponse\022/\n\005pools\030\001 \003(\0132\025.go" +
+      "ogle.protobuf2.AnyB\t\312\264-\005PoolI\022;\n\npaginat" +
+      "ion\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pa" +
+      "geResponse\"\026\n\024QueryNumPoolsRequest\"@\n\025Qu" +
+      "eryNumPoolsResponse\022\'\n\tnum_pools\030\001 \001(\004B\024" +
+      "\362\336\037\020yaml:\"num_pools\"\"=\n\026QueryPoolParamsR" +
+      "equest\022#\n\007pool_id\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_" +
+      "id\"\"@\n\027QueryPoolParamsResponse\022%\n\006params" +
+      "\030\001 \001(\0132\025.google.protobuf2.Any\"E\n\036QueryTo" +
+      "talPoolLiquidityRequest\022#\n\007pool_id\030\001 \001(\004" +
+      "B\022\362\336\037\016yaml:\"pool_id\"\"\225\001\n\037QueryTotalPoolL" +
       "iquidityResponse\022r\n\tliquidity\030\001 \003(\0132\031.co" +
       "smos.base.v1beta1.CoinBD\252\337\037(github.com/c" +
       "osmos/cosmos-sdk/types.Coins\362\336\037\020yaml:\"li" +
-      "quidity\"\310\336\037\0002\230\r\n\005Query\022\177\n\005Pools\022\'.osmosi" +
-      "s.gamm.v1beta1.QueryPoolsRequest\032(.osmos" +
-      "is.gamm.v1beta1.QueryPoolsResponse\"#\202\323\344\223" +
-      "\002\035\022\033/osmosis/gamm/v1beta1/pools\022\214\001\n\010NumP" +
-      "ools\022*.osmosis.gamm.v1beta1.QueryNumPool" +
-      "sRequest\032+.osmosis.gamm.v1beta1.QueryNum" +
-      "PoolsResponse\"\'\202\323\344\223\002!\022\037/osmosis/gamm/v1b" +
-      "eta1/num_pools\022\244\001\n\016TotalLiquidity\0220.osmo" +
-      "sis.gamm.v1beta1.QueryTotalLiquidityRequ" +
-      "est\0321.osmosis.gamm.v1beta1.QueryTotalLiq" +
-      "uidityResponse\"-\202\323\344\223\002\'\022%/osmosis/gamm/v1" +
-      "beta1/total_liquidity\022\205\001\n\004Pool\022&.osmosis" +
-      ".gamm.v1beta1.QueryPoolRequest\032\'.osmosis" +
-      ".gamm.v1beta1.QueryPoolResponse\",\202\323\344\223\002&\022" +
-      "$/osmosis/gamm/v1beta1/pools/{poolId}\022\236\001" +
-      "\n\nPoolParams\022,.osmosis.gamm.v1beta1.Quer" +
-      "yPoolParamsRequest\032-.osmosis.gamm.v1beta" +
-      "1.QueryPoolParamsResponse\"3\202\323\344\223\002-\022+/osmo" +
-      "sis/gamm/v1beta1/pools/{poolId}/params\022\304" +
-      "\001\n\022TotalPoolLiquidity\0224.osmosis.gamm.v1b" +
-      "eta1.QueryTotalPoolLiquidityRequest\0325.os" +
-      "mosis.gamm.v1beta1.QueryTotalPoolLiquidi" +
-      "tyResponse\"A\202\323\344\223\002;\0229/osmosis/gamm/v1beta" +
-      "1/pools/{poolId}/total_pool_liquidity\022\247\001" +
-      "\n\013TotalShares\022-.osmosis.gamm.v1beta1.Que" +
-      "ryTotalSharesRequest\032..osmosis.gamm.v1be" +
-      "ta1.QueryTotalSharesResponse\"9\202\323\344\223\0023\0221/o" +
-      "smosis/gamm/v1beta1/pools/{poolId}/total" +
-      "_shares\022\233\001\n\tSpotPrice\022+.osmosis.gamm.v1b" +
-      "eta1.QuerySpotPriceRequest\032,.osmosis.gam" +
-      "m.v1beta1.QuerySpotPriceResponse\"3\202\323\344\223\002-" +
-      "\022+/osmosis/gamm/v1beta1/pools/{poolId}/p" +
-      "rices\022\314\001\n\031EstimateSwapExactAmountIn\0223.os" +
-      "mosis.gamm.v1beta1.QuerySwapExactAmountI" +
-      "nRequest\0324.osmosis.gamm.v1beta1.QuerySwa" +
-      "pExactAmountInResponse\"D\202\323\344\223\002>\022</osmosis" +
-      "/gamm/v1beta1/{poolId}/estimate/swap_exa" +
-      "ct_amount_in\022\320\001\n\032EstimateSwapExactAmount" +
-      "Out\0224.osmosis.gamm.v1beta1.QuerySwapExac" +
-      "tAmountOutRequest\0325.osmosis.gamm.v1beta1" +
-      ".QuerySwapExactAmountOutResponse\"E\202\323\344\223\002?" +
-      "\022=/osmosis/gamm/v1beta1/{poolId}/estimat" +
-      "e/swap_exact_amount_outB1Z/github.com/os" +
-      "mosis-labs/osmosis/v7/x/gamm/typesb\006prot" +
-      "o3"
+      "quidity\"\310\336\037\000\">\n\027QueryTotalSharesRequest\022" +
+      "#\n\007pool_id\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"h\n\030" +
+      "QueryTotalSharesResponse\022L\n\014total_shares" +
+      "\030\001 \001(\0132\031.cosmos.base.v1beta1.CoinB\033\362\336\037\023y" +
+      "aml:\"total_shares\"\310\336\037\000\"\277\001\n\025QuerySpotPric" +
+      "eRequest\022#\n\007pool_id\030\001 \001(\004B\022\362\336\037\016yaml:\"poo" +
+      "l_id\"\0225\n\020base_asset_denom\030\002 \001(\tB\033\362\336\037\027yam" +
+      "l:\"base_asset_denom\"\0227\n\021quote_asset_deno" +
+      "m\030\003 \001(\tB\034\362\336\037\030yaml:\"quote_asset_denom\"J\004\010" +
+      "\004\020\005R\013withSwapFee\"C\n\026QuerySpotPriceRespon" +
+      "se\022)\n\nspot_price\030\001 \001(\tB\025\362\336\037\021yaml:\"spot_p" +
+      "rice\"\"\336\001\n\035QuerySwapExactAmountInRequest\022" +
+      "!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022#\n\007po" +
+      "ol_id\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022%\n\010token" +
+      "_in\030\003 \001(\tB\023\362\336\037\017yaml:\"token_in\"\022N\n\006routes" +
+      "\030\004 \003(\0132\'.osmosis.gamm.v1beta1.SwapAmount" +
+      "InRouteB\025\362\336\037\ryaml:\"routes\"\310\336\037\000\"\205\001\n\036Query" +
+      "SwapExactAmountInResponse\022c\n\020token_out_a" +
+      "mount\030\001 \001(\tBI\332\336\037&github.com/cosmos/cosmo" +
+      "s-sdk/types.Int\362\336\037\027yaml:\"token_out_amoun" +
+      "t\"\310\336\037\000\"\342\001\n\036QuerySwapExactAmountOutReques" +
+      "t\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022#\n\007" +
+      "pool_id\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022O\n\006rou" +
+      "tes\030\003 \003(\0132(.osmosis.gamm.v1beta1.SwapAmo" +
+      "untOutRouteB\025\362\336\037\ryaml:\"routes\"\310\336\037\000\022\'\n\tto" +
+      "ken_out\030\004 \001(\tB\024\362\336\037\020yaml:\"token_out\"\"\204\001\n\037" +
+      "QuerySwapExactAmountOutResponse\022a\n\017token" +
+      "_in_amount\030\001 \001(\tBH\332\336\037&github.com/cosmos/" +
+      "cosmos-sdk/types.Int\362\336\037\026yaml:\"token_in_a" +
+      "mount\"\310\336\037\000\"\034\n\032QueryTotalLiquidityRequest" +
+      "\"\221\001\n\033QueryTotalLiquidityResponse\022r\n\tliqu" +
+      "idity\030\001 \003(\0132\031.cosmos.base.v1beta1.CoinBD" +
+      "\252\337\037(github.com/cosmos/cosmos-sdk/types.C" +
+      "oins\362\336\037\020yaml:\"liquidity\"\310\336\037\0002\237\r\n\005Query\022\177" +
+      "\n\005Pools\022\'.osmosis.gamm.v1beta1.QueryPool" +
+      "sRequest\032(.osmosis.gamm.v1beta1.QueryPoo" +
+      "lsResponse\"#\202\323\344\223\002\035\022\033/osmosis/gamm/v1beta" +
+      "1/pools\022\214\001\n\010NumPools\022*.osmosis.gamm.v1be" +
+      "ta1.QueryNumPoolsRequest\032+.osmosis.gamm." +
+      "v1beta1.QueryNumPoolsResponse\"\'\202\323\344\223\002!\022\037/" +
+      "osmosis/gamm/v1beta1/num_pools\022\244\001\n\016Total" +
+      "Liquidity\0220.osmosis.gamm.v1beta1.QueryTo" +
+      "talLiquidityRequest\0321.osmosis.gamm.v1bet" +
+      "a1.QueryTotalLiquidityResponse\"-\202\323\344\223\002\'\022%" +
+      "/osmosis/gamm/v1beta1/total_liquidity\022\206\001" +
+      "\n\004Pool\022&.osmosis.gamm.v1beta1.QueryPoolR" +
+      "equest\032\'.osmosis.gamm.v1beta1.QueryPoolR" +
+      "esponse\"-\202\323\344\223\002\'\022%/osmosis/gamm/v1beta1/p" +
+      "ools/{pool_id}\022\237\001\n\nPoolParams\022,.osmosis." +
+      "gamm.v1beta1.QueryPoolParamsRequest\032-.os" +
+      "mosis.gamm.v1beta1.QueryPoolParamsRespon" +
+      "se\"4\202\323\344\223\002.\022,/osmosis/gamm/v1beta1/pools/" +
+      "{pool_id}/params\022\305\001\n\022TotalPoolLiquidity\022" +
+      "4.osmosis.gamm.v1beta1.QueryTotalPoolLiq" +
+      "uidityRequest\0325.osmosis.gamm.v1beta1.Que" +
+      "ryTotalPoolLiquidityResponse\"B\202\323\344\223\002<\022:/o" +
+      "smosis/gamm/v1beta1/pools/{pool_id}/tota" +
+      "l_pool_liquidity\022\250\001\n\013TotalShares\022-.osmos" +
+      "is.gamm.v1beta1.QueryTotalSharesRequest\032" +
+      "..osmosis.gamm.v1beta1.QueryTotalSharesR" +
+      "esponse\":\202\323\344\223\0024\0222/osmosis/gamm/v1beta1/p" +
+      "ools/{pool_id}/total_shares\022\234\001\n\tSpotPric" +
+      "e\022+.osmosis.gamm.v1beta1.QuerySpotPriceR" +
+      "equest\032,.osmosis.gamm.v1beta1.QuerySpotP" +
+      "riceResponse\"4\202\323\344\223\002.\022,/osmosis/gamm/v1be" +
+      "ta1/pools/{pool_id}/prices\022\315\001\n\031EstimateS" +
+      "wapExactAmountIn\0223.osmosis.gamm.v1beta1." +
+      "QuerySwapExactAmountInRequest\0324.osmosis." +
+      "gamm.v1beta1.QuerySwapExactAmountInRespo" +
+      "nse\"E\202\323\344\223\002?\022=/osmosis/gamm/v1beta1/{pool" +
+      "_id}/estimate/swap_exact_amount_in\022\321\001\n\032E" +
+      "stimateSwapExactAmountOut\0224.osmosis.gamm" +
+      ".v1beta1.QuerySwapExactAmountOutRequest\032" +
+      "5.osmosis.gamm.v1beta1.QuerySwapExactAmo" +
+      "untOutResponse\"F\202\323\344\223\002@\022>/osmosis/gamm/v1" +
+      "beta1/{pool_id}/estimate/swap_exact_amou" +
+      "nt_outB1Z/github.com/osmosis-labs/osmosi" +
+      "s/v7/x/gamm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -12730,6 +12730,18 @@ public final class Querier {
      * <code>.sifnode.clp.v1.Params params = 1;</code>
      */
     sifnode.clp.v1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder();
+
+    /**
+     * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The symmetryThreshold.
+     */
+    java.lang.String getSymmetryThreshold();
+    /**
+     * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for symmetryThreshold.
+     */
+    com.google.protobuf.ByteString
+        getSymmetryThresholdBytes();
   }
   /**
    * Protobuf type {@code sifnode.clp.v1.ParamsRes}
@@ -12744,6 +12756,7 @@ public final class Querier {
       super(builder);
     }
     private ParamsRes() {
+      symmetryThreshold_ = "";
     }
 
     @java.lang.Override
@@ -12787,6 +12800,12 @@ public final class Querier {
                 params_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              symmetryThreshold_ = s;
               break;
             }
             default: {
@@ -12847,6 +12866,44 @@ public final class Querier {
       return getParams();
     }
 
+    public static final int SYMMETRY_THRESHOLD_FIELD_NUMBER = 2;
+    private volatile java.lang.Object symmetryThreshold_;
+    /**
+     * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The symmetryThreshold.
+     */
+    @java.lang.Override
+    public java.lang.String getSymmetryThreshold() {
+      java.lang.Object ref = symmetryThreshold_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        symmetryThreshold_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for symmetryThreshold.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSymmetryThresholdBytes() {
+      java.lang.Object ref = symmetryThreshold_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        symmetryThreshold_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -12864,6 +12921,9 @@ public final class Querier {
       if (params_ != null) {
         output.writeMessage(1, getParams());
       }
+      if (!getSymmetryThresholdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, symmetryThreshold_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -12876,6 +12936,9 @@ public final class Querier {
       if (params_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getParams());
+      }
+      if (!getSymmetryThresholdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, symmetryThreshold_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -12897,6 +12960,8 @@ public final class Querier {
         if (!getParams()
             .equals(other.getParams())) return false;
       }
+      if (!getSymmetryThreshold()
+          .equals(other.getSymmetryThreshold())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -12912,6 +12977,8 @@ public final class Querier {
         hash = (37 * hash) + PARAMS_FIELD_NUMBER;
         hash = (53 * hash) + getParams().hashCode();
       }
+      hash = (37 * hash) + SYMMETRY_THRESHOLD_FIELD_NUMBER;
+      hash = (53 * hash) + getSymmetryThreshold().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -13051,6 +13118,8 @@ public final class Querier {
           params_ = null;
           paramsBuilder_ = null;
         }
+        symmetryThreshold_ = "";
+
         return this;
       }
 
@@ -13082,6 +13151,7 @@ public final class Querier {
         } else {
           result.params_ = paramsBuilder_.build();
         }
+        result.symmetryThreshold_ = symmetryThreshold_;
         onBuilt();
         return result;
       }
@@ -13132,6 +13202,10 @@ public final class Querier {
         if (other == sifnode.clp.v1.Querier.ParamsRes.getDefaultInstance()) return this;
         if (other.hasParams()) {
           mergeParams(other.getParams());
+        }
+        if (!other.getSymmetryThreshold().isEmpty()) {
+          symmetryThreshold_ = other.symmetryThreshold_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -13279,6 +13353,82 @@ public final class Querier {
           params_ = null;
         }
         return paramsBuilder_;
+      }
+
+      private java.lang.Object symmetryThreshold_ = "";
+      /**
+       * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The symmetryThreshold.
+       */
+      public java.lang.String getSymmetryThreshold() {
+        java.lang.Object ref = symmetryThreshold_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          symmetryThreshold_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for symmetryThreshold.
+       */
+      public com.google.protobuf.ByteString
+          getSymmetryThresholdBytes() {
+        java.lang.Object ref = symmetryThreshold_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          symmetryThreshold_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The symmetryThreshold to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSymmetryThreshold(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        symmetryThreshold_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSymmetryThreshold() {
+        
+        symmetryThreshold_ = getDefaultInstance().getSymmetryThreshold();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string symmetry_threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for symmetryThreshold to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSymmetryThresholdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        symmetryThreshold_ = value;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -16044,50 +16194,52 @@ public final class Querier {
       ".sifnode.clp.v1.LiquidityProvider\022\016\n\006hei" +
       "ght\030\002 \001(\003\022;\n\npagination\030\003 \001(\0132\'.cosmos.b" +
       "ase.query.v1beta1.PageResponse\"\013\n\tParams" +
-      "Req\"3\n\tParamsRes\022&\n\006params\030\001 \001(\0132\026.sifno" +
-      "de.clp.v1.Params\"\021\n\017RewardParamsReq\"?\n\017R" +
-      "ewardParamsRes\022,\n\006params\030\001 \001(\0132\034.sifnode" +
-      ".clp.v1.RewardParams\"\017\n\rPmtpParamsReq\"\264\001" +
-      "\n\rPmtpParamsRes\022*\n\006params\030\001 \001(\0132\032.sifnod" +
-      "e.clp.v1.PmtpParams\0228\n\020pmtp_rate_params\030" +
-      "\002 \001(\0132\036.sifnode.clp.v1.PmtpRateParams\022-\n" +
-      "\npmtp_epoch\030\003 \001(\0132\031.sifnode.clp.v1.PmtpE" +
-      "poch\022\016\n\006height\030\004 \001(\0032\272\n\n\005Query\022c\n\007GetPoo" +
-      "l\022\027.sifnode.clp.v1.PoolReq\032\027.sifnode.clp" +
-      ".v1.PoolRes\"&\202\323\344\223\002 \022\036/sifchain/clp/v1/po" +
-      "ol/{symbol}\022^\n\010GetPools\022\030.sifnode.clp.v1" +
-      ".PoolsReq\032\030.sifnode.clp.v1.PoolsRes\"\036\202\323\344" +
-      "\223\002\030\022\026/sifchain/clp/v1/pools\022\245\001\n\024GetLiqui" +
-      "dityProvider\022$.sifnode.clp.v1.LiquidityP" +
-      "roviderReq\032$.sifnode.clp.v1.LiquidityPro" +
-      "viderRes\"A\202\323\344\223\002;\0229/sifchain/clp/v1/liqui" +
-      "dity_provider/{symbol}/{lp_address}\022\255\001\n\030" +
-      "GetLiquidityProviderData\022(.sifnode.clp.v" +
-      "1.LiquidityProviderDataReq\032(.sifnode.clp" +
-      ".v1.LiquidityProviderDataRes\"=\202\323\344\223\0027\0225/s" +
-      "ifchain/clp/v1/liquidity_provider_data/{" +
-      "lp_address}\022|\n\014GetAssetList\022\034.sifnode.cl" +
-      "p.v1.AssetListReq\032\034.sifnode.clp.v1.Asset" +
-      "ListRes\"0\202\323\344\223\002*\022(/sifchain/clp/v1/asset_" +
-      "list/{lp_address}\022\223\001\n\025GetLiquidityProvid" +
-      "ers\022%.sifnode.clp.v1.LiquidityProvidersR" +
-      "eq\032%.sifnode.clp.v1.LiquidityProvidersRe" +
-      "s\",\202\323\344\223\002&\022$/sifchain/clp/v1/liquidity_pr" +
-      "oviders\022\251\001\n\030GetLiquidityProviderList\022(.s" +
-      "ifnode.clp.v1.LiquidityProviderListReq\032(" +
-      ".sifnode.clp.v1.LiquidityProviderListRes" +
-      "\"9\202\323\344\223\0023\0221/sifchain/clp/v1/liquidity_pro" +
-      "vider_list/{symbol}\022b\n\tGetParams\022\031.sifno" +
-      "de.clp.v1.ParamsReq\032\031.sifnode.clp.v1.Par" +
-      "amsRes\"\037\202\323\344\223\002\031\022\027/sifchain/clp/v1/params\022" +
-      "{\n\017GetRewardParams\022\037.sifnode.clp.v1.Rewa" +
-      "rdParamsReq\032\037.sifnode.clp.v1.RewardParam" +
-      "sRes\"&\202\323\344\223\002 \022\036/sifchain/clp/v1/reward_pa" +
-      "rams\022s\n\rGetPmtpParams\022\035.sifnode.clp.v1.P" +
-      "mtpParamsReq\032\035.sifnode.clp.v1.PmtpParams" +
-      "Res\"$\202\323\344\223\002\036\022\034/sifchain/clp/v1/pmtp_param" +
-      "sB)Z\'github.com/Sifchain/sifnode/x/clp/t" +
-      "ypesb\006proto3"
+      "Req\"\177\n\tParamsRes\022&\n\006params\030\001 \001(\0132\026.sifno" +
+      "de.clp.v1.Params\022J\n\022symmetry_threshold\030\002" +
+      " \001(\tB.\332\336\037&github.com/cosmos/cosmos-sdk/t" +
+      "ypes.Dec\310\336\037\000\"\021\n\017RewardParamsReq\"?\n\017Rewar" +
+      "dParamsRes\022,\n\006params\030\001 \001(\0132\034.sifnode.clp" +
+      ".v1.RewardParams\"\017\n\rPmtpParamsReq\"\264\001\n\rPm" +
+      "tpParamsRes\022*\n\006params\030\001 \001(\0132\032.sifnode.cl" +
+      "p.v1.PmtpParams\0228\n\020pmtp_rate_params\030\002 \001(" +
+      "\0132\036.sifnode.clp.v1.PmtpRateParams\022-\n\npmt" +
+      "p_epoch\030\003 \001(\0132\031.sifnode.clp.v1.PmtpEpoch" +
+      "\022\016\n\006height\030\004 \001(\0032\272\n\n\005Query\022c\n\007GetPool\022\027." +
+      "sifnode.clp.v1.PoolReq\032\027.sifnode.clp.v1." +
+      "PoolRes\"&\202\323\344\223\002 \022\036/sifchain/clp/v1/pool/{" +
+      "symbol}\022^\n\010GetPools\022\030.sifnode.clp.v1.Poo" +
+      "lsReq\032\030.sifnode.clp.v1.PoolsRes\"\036\202\323\344\223\002\030\022" +
+      "\026/sifchain/clp/v1/pools\022\245\001\n\024GetLiquidity" +
+      "Provider\022$.sifnode.clp.v1.LiquidityProvi" +
+      "derReq\032$.sifnode.clp.v1.LiquidityProvide" +
+      "rRes\"A\202\323\344\223\002;\0229/sifchain/clp/v1/liquidity" +
+      "_provider/{symbol}/{lp_address}\022\255\001\n\030GetL" +
+      "iquidityProviderData\022(.sifnode.clp.v1.Li" +
+      "quidityProviderDataReq\032(.sifnode.clp.v1." +
+      "LiquidityProviderDataRes\"=\202\323\344\223\0027\0225/sifch" +
+      "ain/clp/v1/liquidity_provider_data/{lp_a" +
+      "ddress}\022|\n\014GetAssetList\022\034.sifnode.clp.v1" +
+      ".AssetListReq\032\034.sifnode.clp.v1.AssetList" +
+      "Res\"0\202\323\344\223\002*\022(/sifchain/clp/v1/asset_list" +
+      "/{lp_address}\022\223\001\n\025GetLiquidityProviders\022" +
+      "%.sifnode.clp.v1.LiquidityProvidersReq\032%" +
+      ".sifnode.clp.v1.LiquidityProvidersRes\",\202" +
+      "\323\344\223\002&\022$/sifchain/clp/v1/liquidity_provid" +
+      "ers\022\251\001\n\030GetLiquidityProviderList\022(.sifno" +
+      "de.clp.v1.LiquidityProviderListReq\032(.sif" +
+      "node.clp.v1.LiquidityProviderListRes\"9\202\323" +
+      "\344\223\0023\0221/sifchain/clp/v1/liquidity_provide" +
+      "r_list/{symbol}\022b\n\tGetParams\022\031.sifnode.c" +
+      "lp.v1.ParamsReq\032\031.sifnode.clp.v1.ParamsR" +
+      "es\"\037\202\323\344\223\002\031\022\027/sifchain/clp/v1/params\022{\n\017G" +
+      "etRewardParams\022\037.sifnode.clp.v1.RewardPa" +
+      "ramsReq\032\037.sifnode.clp.v1.RewardParamsRes" +
+      "\"&\202\323\344\223\002 \022\036/sifchain/clp/v1/reward_params" +
+      "\022s\n\rGetPmtpParams\022\035.sifnode.clp.v1.PmtpP" +
+      "aramsReq\032\035.sifnode.clp.v1.PmtpParamsRes\"" +
+      "$\202\323\344\223\002\036\022\034/sifchain/clp/v1/pmtp_paramsB)Z" +
+      "\'github.com/Sifchain/sifnode/x/clp/types" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -16193,7 +16345,7 @@ public final class Querier {
     internal_static_sifnode_clp_v1_ParamsRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_ParamsRes_descriptor,
-        new java.lang.String[] { "Params", });
+        new java.lang.String[] { "Params", "SymmetryThreshold", });
     internal_static_sifnode_clp_v1_RewardParamsReq_descriptor =
       getDescriptor().getMessageTypes().get(16);
     internal_static_sifnode_clp_v1_RewardParamsReq_fieldAccessorTable = new
@@ -16220,8 +16372,10 @@ public final class Querier {
         new java.lang.String[] { "Params", "PmtpRateParams", "PmtpEpoch", "Height", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.equal);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);

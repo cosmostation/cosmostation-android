@@ -32,8 +32,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
-import osmosis.gamm.v1beta1.Pool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
@@ -259,7 +258,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                     if (getBaseDao().mChainParam != null && getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
                         mPoolList.add(pool);
                         for (BalancerPool.Pool swap : mPoolList) {
-                            for (Pool.PoolAsset poolAsset : swap.getPoolAssetsList()) {
+                            for (BalancerPool.PoolAsset poolAsset : swap.getPoolAssetsList()) {
                                 if (!mAllDenoms.contains(poolAsset.getToken().getDenom())) {
                                     mAllDenoms.add(poolAsset.getToken().getDenom());
                                 }

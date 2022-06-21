@@ -4929,6 +4929,1282 @@ public final class Tx {
 
   }
 
+  public interface MsgUnPoolWhitelistedPoolOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.superfluid.MsgUnPoolWhitelistedPool)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+     * @return The sender.
+     */
+    java.lang.String getSender();
+    /**
+     * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+     * @return The bytes for sender.
+     */
+    com.google.protobuf.ByteString
+        getSenderBytes();
+
+    /**
+     * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * @return The poolId.
+     */
+    long getPoolId();
+  }
+  /**
+   * <pre>
+   * MsgUnPoolWhitelistedPool Unpools every lock the sender has, that is
+   * associated with pool pool_id. If pool_id is not approved for unpooling by
+   * governance, this is a no-op. Unpooling takes the locked gamm shares, and runs
+   * "ExitPool" on it, to get the constituent tokens. e.g. z gamm/pool/1 tokens
+   * ExitPools into constituent tokens x uatom, y uosmo. Then it creates a new
+   * lock for every constituent token, with the duration associated with the lock.
+   * If the lock was unbonding, the new lockup durations should be the time left
+   * until unbond completion.
+   * </pre>
+   *
+   * Protobuf type {@code osmosis.superfluid.MsgUnPoolWhitelistedPool}
+   */
+  public static final class MsgUnPoolWhitelistedPool extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.superfluid.MsgUnPoolWhitelistedPool)
+      MsgUnPoolWhitelistedPoolOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUnPoolWhitelistedPool.newBuilder() to construct.
+    private MsgUnPoolWhitelistedPool(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUnPoolWhitelistedPool() {
+      sender_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUnPoolWhitelistedPool();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUnPoolWhitelistedPool(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sender_ = s;
+              break;
+            }
+            case 16: {
+
+              poolId_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.class, osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.Builder.class);
+    }
+
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object sender_;
+    /**
+     * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+     * @return The sender.
+     */
+    @java.lang.Override
+    public java.lang.String getSender() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sender_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+     * @return The bytes for sender.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSenderBytes() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sender_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int POOL_ID_FIELD_NUMBER = 2;
+    private long poolId_;
+    /**
+     * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * @return The poolId.
+     */
+    @java.lang.Override
+    public long getPoolId() {
+      return poolId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSenderBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sender_);
+      }
+      if (poolId_ != 0L) {
+        output.writeUInt64(2, poolId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSenderBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sender_);
+      }
+      if (poolId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, poolId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool)) {
+        return super.equals(obj);
+      }
+      osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool other = (osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool) obj;
+
+      if (!getSender()
+          .equals(other.getSender())) return false;
+      if (getPoolId()
+          != other.getPoolId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SENDER_FIELD_NUMBER;
+      hash = (53 * hash) + getSender().hashCode();
+      hash = (37 * hash) + POOL_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPoolId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgUnPoolWhitelistedPool Unpools every lock the sender has, that is
+     * associated with pool pool_id. If pool_id is not approved for unpooling by
+     * governance, this is a no-op. Unpooling takes the locked gamm shares, and runs
+     * "ExitPool" on it, to get the constituent tokens. e.g. z gamm/pool/1 tokens
+     * ExitPools into constituent tokens x uatom, y uosmo. Then it creates a new
+     * lock for every constituent token, with the duration associated with the lock.
+     * If the lock was unbonding, the new lockup durations should be the time left
+     * until unbond completion.
+     * </pre>
+     *
+     * Protobuf type {@code osmosis.superfluid.MsgUnPoolWhitelistedPool}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.superfluid.MsgUnPoolWhitelistedPool)
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.class, osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.Builder.class);
+      }
+
+      // Construct using osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        sender_ = "";
+
+        poolId_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool getDefaultInstanceForType() {
+        return osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool build() {
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool buildPartial() {
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool result = new osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool(this);
+        result.sender_ = sender_;
+        result.poolId_ = poolId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool) {
+          return mergeFrom((osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool other) {
+        if (other == osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.getDefaultInstance()) return this;
+        if (!other.getSender().isEmpty()) {
+          sender_ = other.sender_;
+          onChanged();
+        }
+        if (other.getPoolId() != 0L) {
+          setPoolId(other.getPoolId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object sender_ = "";
+      /**
+       * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+       * @return The sender.
+       */
+      public java.lang.String getSender() {
+        java.lang.Object ref = sender_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sender_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+       * @return The bytes for sender.
+       */
+      public com.google.protobuf.ByteString
+          getSenderBytes() {
+        java.lang.Object ref = sender_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sender_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+       * @param value The sender to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSender(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSender() {
+        
+        sender_ = getDefaultInstance().getSender();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
+       * @param value The bytes for sender to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSenderBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long poolId_ ;
+      /**
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * @return The poolId.
+       */
+      @java.lang.Override
+      public long getPoolId() {
+        return poolId_;
+      }
+      /**
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * @param value The poolId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPoolId(long value) {
+        
+        poolId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPoolId() {
+        
+        poolId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.superfluid.MsgUnPoolWhitelistedPool)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.superfluid.MsgUnPoolWhitelistedPool)
+    private static final osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool();
+    }
+
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUnPoolWhitelistedPool>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUnPoolWhitelistedPool>() {
+      @java.lang.Override
+      public MsgUnPoolWhitelistedPool parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUnPoolWhitelistedPool(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUnPoolWhitelistedPool> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUnPoolWhitelistedPool> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUnPoolWhitelistedPoolResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.superfluid.MsgUnPoolWhitelistedPoolResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated uint64 exited_lock_ids = 1;</code>
+     * @return A list containing the exitedLockIds.
+     */
+    java.util.List<java.lang.Long> getExitedLockIdsList();
+    /**
+     * <code>repeated uint64 exited_lock_ids = 1;</code>
+     * @return The count of exitedLockIds.
+     */
+    int getExitedLockIdsCount();
+    /**
+     * <code>repeated uint64 exited_lock_ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The exitedLockIds at the given index.
+     */
+    long getExitedLockIds(int index);
+  }
+  /**
+   * Protobuf type {@code osmosis.superfluid.MsgUnPoolWhitelistedPoolResponse}
+   */
+  public static final class MsgUnPoolWhitelistedPoolResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.superfluid.MsgUnPoolWhitelistedPoolResponse)
+      MsgUnPoolWhitelistedPoolResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUnPoolWhitelistedPoolResponse.newBuilder() to construct.
+    private MsgUnPoolWhitelistedPoolResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUnPoolWhitelistedPoolResponse() {
+      exitedLockIds_ = emptyLongList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUnPoolWhitelistedPoolResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgUnPoolWhitelistedPoolResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                exitedLockIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              exitedLockIds_.addLong(input.readUInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                exitedLockIds_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                exitedLockIds_.addLong(input.readUInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          exitedLockIds_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.class, osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.Builder.class);
+    }
+
+    public static final int EXITED_LOCK_IDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Internal.LongList exitedLockIds_;
+    /**
+     * <code>repeated uint64 exited_lock_ids = 1;</code>
+     * @return A list containing the exitedLockIds.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Long>
+        getExitedLockIdsList() {
+      return exitedLockIds_;
+    }
+    /**
+     * <code>repeated uint64 exited_lock_ids = 1;</code>
+     * @return The count of exitedLockIds.
+     */
+    public int getExitedLockIdsCount() {
+      return exitedLockIds_.size();
+    }
+    /**
+     * <code>repeated uint64 exited_lock_ids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The exitedLockIds at the given index.
+     */
+    public long getExitedLockIds(int index) {
+      return exitedLockIds_.getLong(index);
+    }
+    private int exitedLockIdsMemoizedSerializedSize = -1;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (getExitedLockIdsList().size() > 0) {
+        output.writeUInt32NoTag(10);
+        output.writeUInt32NoTag(exitedLockIdsMemoizedSerializedSize);
+      }
+      for (int i = 0; i < exitedLockIds_.size(); i++) {
+        output.writeUInt64NoTag(exitedLockIds_.getLong(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < exitedLockIds_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeUInt64SizeNoTag(exitedLockIds_.getLong(i));
+        }
+        size += dataSize;
+        if (!getExitedLockIdsList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        exitedLockIdsMemoizedSerializedSize = dataSize;
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse)) {
+        return super.equals(obj);
+      }
+      osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse other = (osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse) obj;
+
+      if (!getExitedLockIdsList()
+          .equals(other.getExitedLockIdsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getExitedLockIdsCount() > 0) {
+        hash = (37 * hash) + EXITED_LOCK_IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getExitedLockIdsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.superfluid.MsgUnPoolWhitelistedPoolResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.superfluid.MsgUnPoolWhitelistedPoolResponse)
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.class, osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.Builder.class);
+      }
+
+      // Construct using osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        exitedLockIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.superfluid.Tx.internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse getDefaultInstanceForType() {
+        return osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse build() {
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse buildPartial() {
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse result = new osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          exitedLockIds_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.exitedLockIds_ = exitedLockIds_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse) {
+          return mergeFrom((osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse other) {
+        if (other == osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.getDefaultInstance()) return this;
+        if (!other.exitedLockIds_.isEmpty()) {
+          if (exitedLockIds_.isEmpty()) {
+            exitedLockIds_ = other.exitedLockIds_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureExitedLockIdsIsMutable();
+            exitedLockIds_.addAll(other.exitedLockIds_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.LongList exitedLockIds_ = emptyLongList();
+      private void ensureExitedLockIdsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          exitedLockIds_ = mutableCopy(exitedLockIds_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated uint64 exited_lock_ids = 1;</code>
+       * @return A list containing the exitedLockIds.
+       */
+      public java.util.List<java.lang.Long>
+          getExitedLockIdsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(exitedLockIds_) : exitedLockIds_;
+      }
+      /**
+       * <code>repeated uint64 exited_lock_ids = 1;</code>
+       * @return The count of exitedLockIds.
+       */
+      public int getExitedLockIdsCount() {
+        return exitedLockIds_.size();
+      }
+      /**
+       * <code>repeated uint64 exited_lock_ids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The exitedLockIds at the given index.
+       */
+      public long getExitedLockIds(int index) {
+        return exitedLockIds_.getLong(index);
+      }
+      /**
+       * <code>repeated uint64 exited_lock_ids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The exitedLockIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExitedLockIds(
+          int index, long value) {
+        ensureExitedLockIdsIsMutable();
+        exitedLockIds_.setLong(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint64 exited_lock_ids = 1;</code>
+       * @param value The exitedLockIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addExitedLockIds(long value) {
+        ensureExitedLockIdsIsMutable();
+        exitedLockIds_.addLong(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint64 exited_lock_ids = 1;</code>
+       * @param values The exitedLockIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllExitedLockIds(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureExitedLockIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, exitedLockIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint64 exited_lock_ids = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExitedLockIds() {
+        exitedLockIds_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.superfluid.MsgUnPoolWhitelistedPoolResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.superfluid.MsgUnPoolWhitelistedPoolResponse)
+    private static final osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse();
+    }
+
+    public static osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUnPoolWhitelistedPoolResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUnPoolWhitelistedPoolResponse>() {
+      @java.lang.Override
+      public MsgUnPoolWhitelistedPoolResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgUnPoolWhitelistedPoolResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUnPoolWhitelistedPoolResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUnPoolWhitelistedPoolResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_osmosis_superfluid_MsgSuperfluidDelegate_descriptor;
   private static final 
@@ -4969,6 +6245,16 @@ public final class Tx {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_osmosis_superfluid_MsgLockAndSuperfluidDelegateResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4996,22 +6282,29 @@ public final class Tx {
       "coins\030\002 \003(\0132\031.cosmos.base.v1beta1.CoinB0" +
       "\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/typ" +
       "es.Coins\022\020\n\010val_addr\030\003 \001(\t\"2\n$MsgLockAnd" +
-      "SuperfluidDelegateResponse\022\n\n\002ID\030\001 \001(\0042\367" +
-      "\003\n\003Msg\022r\n\022SuperfluidDelegate\022).osmosis.s" +
-      "uperfluid.MsgSuperfluidDelegate\0321.osmosi" +
-      "s.superfluid.MsgSuperfluidDelegateRespon" +
-      "se\022x\n\024SuperfluidUndelegate\022+.osmosis.sup" +
-      "erfluid.MsgSuperfluidUndelegate\0323.osmosi" +
-      "s.superfluid.MsgSuperfluidUndelegateResp" +
-      "onse\022x\n\024SuperfluidUnbondLock\022+.osmosis.s" +
-      "uperfluid.MsgSuperfluidUnbondLock\0323.osmo" +
-      "sis.superfluid.MsgSuperfluidUnbondLockRe" +
-      "sponse\022\207\001\n\031LockAndSuperfluidDelegate\0220.o" +
-      "smosis.superfluid.MsgLockAndSuperfluidDe" +
-      "legate\0328.osmosis.superfluid.MsgLockAndSu" +
-      "perfluidDelegateResponseB7Z5github.com/o" +
-      "smosis-labs/osmosis/v7/x/superfluid/type" +
-      "sb\006proto3"
+      "SuperfluidDelegateResponse\022\n\n\002ID\030\001 \001(\004\"b" +
+      "\n\030MsgUnPoolWhitelistedPool\022!\n\006sender\030\001 \001" +
+      "(\tB\021\362\336\037\ryaml:\"sender\"\022#\n\007pool_id\030\002 \001(\004B\022" +
+      "\362\336\037\016yaml:\"pool_id\"\";\n MsgUnPoolWhitelist" +
+      "edPoolResponse\022\027\n\017exited_lock_ids\030\001 \003(\0042" +
+      "\364\004\n\003Msg\022r\n\022SuperfluidDelegate\022).osmosis." +
+      "superfluid.MsgSuperfluidDelegate\0321.osmos" +
+      "is.superfluid.MsgSuperfluidDelegateRespo" +
+      "nse\022x\n\024SuperfluidUndelegate\022+.osmosis.su" +
+      "perfluid.MsgSuperfluidUndelegate\0323.osmos" +
+      "is.superfluid.MsgSuperfluidUndelegateRes" +
+      "ponse\022x\n\024SuperfluidUnbondLock\022+.osmosis." +
+      "superfluid.MsgSuperfluidUnbondLock\0323.osm" +
+      "osis.superfluid.MsgSuperfluidUnbondLockR" +
+      "esponse\022\207\001\n\031LockAndSuperfluidDelegate\0220." +
+      "osmosis.superfluid.MsgLockAndSuperfluidD" +
+      "elegate\0328.osmosis.superfluid.MsgLockAndS" +
+      "uperfluidDelegateResponse\022{\n\025UnPoolWhite" +
+      "listedPool\022,.osmosis.superfluid.MsgUnPoo" +
+      "lWhitelistedPool\0324.osmosis.superfluid.Ms" +
+      "gUnPoolWhitelistedPoolResponseB7Z5github" +
+      ".com/osmosis-labs/osmosis/v7/x/superflui" +
+      "d/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5069,6 +6362,18 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_superfluid_MsgLockAndSuperfluidDelegateResponse_descriptor,
         new java.lang.String[] { "ID", });
+    internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPool_descriptor,
+        new java.lang.String[] { "Sender", "PoolId", });
+    internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_superfluid_MsgUnPoolWhitelistedPoolResponse_descriptor,
+        new java.lang.String[] { "ExitedLockIds", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.castrepeated);

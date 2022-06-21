@@ -154,6 +154,37 @@ public final class MsgGrpc {
     return getLockAndSuperfluidDelegateMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool,
+      osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse> getUnPoolWhitelistedPoolMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UnPoolWhitelistedPool",
+      requestType = osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.class,
+      responseType = osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool,
+      osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse> getUnPoolWhitelistedPoolMethod() {
+    io.grpc.MethodDescriptor<osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool, osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse> getUnPoolWhitelistedPoolMethod;
+    if ((getUnPoolWhitelistedPoolMethod = MsgGrpc.getUnPoolWhitelistedPoolMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getUnPoolWhitelistedPoolMethod = MsgGrpc.getUnPoolWhitelistedPoolMethod) == null) {
+          MsgGrpc.getUnPoolWhitelistedPoolMethod = getUnPoolWhitelistedPoolMethod =
+              io.grpc.MethodDescriptor.<osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool, osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UnPoolWhitelistedPool"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UnPoolWhitelistedPool"))
+              .build();
+        }
+      }
+    }
+    return getUnPoolWhitelistedPoolMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -246,6 +277,13 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getLockAndSuperfluidDelegateMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void unPoolWhitelistedPool(osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool request,
+        io.grpc.stub.StreamObserver<osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUnPoolWhitelistedPoolMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -276,6 +314,13 @@ public final class MsgGrpc {
                 osmosis.superfluid.Tx.MsgLockAndSuperfluidDelegate,
                 osmosis.superfluid.Tx.MsgLockAndSuperfluidDelegateResponse>(
                   this, METHODID_LOCK_AND_SUPERFLUID_DELEGATE)))
+          .addMethod(
+            getUnPoolWhitelistedPoolMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool,
+                osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse>(
+                  this, METHODID_UN_POOL_WHITELISTED_POOL)))
           .build();
     }
   }
@@ -341,6 +386,14 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getLockAndSuperfluidDelegateMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void unPoolWhitelistedPool(osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool request,
+        io.grpc.stub.StreamObserver<osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUnPoolWhitelistedPoolMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -399,6 +452,13 @@ public final class MsgGrpc {
     public osmosis.superfluid.Tx.MsgLockAndSuperfluidDelegateResponse lockAndSuperfluidDelegate(osmosis.superfluid.Tx.MsgLockAndSuperfluidDelegate request) {
       return blockingUnaryCall(
           getChannel(), getLockAndSuperfluidDelegateMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse unPoolWhitelistedPool(osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool request) {
+      return blockingUnaryCall(
+          getChannel(), getUnPoolWhitelistedPoolMethod(), getCallOptions(), request);
     }
   }
 
@@ -463,12 +523,21 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getLockAndSuperfluidDelegateMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse> unPoolWhitelistedPool(
+        osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUnPoolWhitelistedPoolMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_SUPERFLUID_DELEGATE = 0;
   private static final int METHODID_SUPERFLUID_UNDELEGATE = 1;
   private static final int METHODID_SUPERFLUID_UNBOND_LOCK = 2;
   private static final int METHODID_LOCK_AND_SUPERFLUID_DELEGATE = 3;
+  private static final int METHODID_UN_POOL_WHITELISTED_POOL = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -502,6 +571,10 @@ public final class MsgGrpc {
         case METHODID_LOCK_AND_SUPERFLUID_DELEGATE:
           serviceImpl.lockAndSuperfluidDelegate((osmosis.superfluid.Tx.MsgLockAndSuperfluidDelegate) request,
               (io.grpc.stub.StreamObserver<osmosis.superfluid.Tx.MsgLockAndSuperfluidDelegateResponse>) responseObserver);
+          break;
+        case METHODID_UN_POOL_WHITELISTED_POOL:
+          serviceImpl.unPoolWhitelistedPool((osmosis.superfluid.Tx.MsgUnPoolWhitelistedPool) request,
+              (io.grpc.stub.StreamObserver<osmosis.superfluid.Tx.MsgUnPoolWhitelistedPoolResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -568,6 +641,7 @@ public final class MsgGrpc {
               .addMethod(getSuperfluidUndelegateMethod())
               .addMethod(getSuperfluidUnbondLockMethod())
               .addMethod(getLockAndSuperfluidDelegateMethod())
+              .addMethod(getUnPoolWhitelistedPoolMethod())
               .build();
         }
       }

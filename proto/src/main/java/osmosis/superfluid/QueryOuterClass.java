@@ -8695,12 +8695,12 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+     * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
      * @return The totalDelegations.
      */
     java.lang.String getTotalDelegations();
     /**
-     * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+     * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
      * @return The bytes for totalDelegations.
      */
     com.google.protobuf.ByteString
@@ -8790,10 +8790,10 @@ public final class QueryOuterClass {
               osmosis.superfluid.QueryOuterClass.TotalSuperfluidDelegationsResponse.class, osmosis.superfluid.QueryOuterClass.TotalSuperfluidDelegationsResponse.Builder.class);
     }
 
-    public static final int TOTALDELEGATIONS_FIELD_NUMBER = 1;
+    public static final int TOTAL_DELEGATIONS_FIELD_NUMBER = 1;
     private volatile java.lang.Object totalDelegations_;
     /**
-     * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+     * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
      * @return The totalDelegations.
      */
     @java.lang.Override
@@ -8810,7 +8810,7 @@ public final class QueryOuterClass {
       }
     }
     /**
-     * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+     * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
      * @return The bytes for totalDelegations.
      */
     @java.lang.Override
@@ -8885,7 +8885,7 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + TOTALDELEGATIONS_FIELD_NUMBER;
+      hash = (37 * hash) + TOTAL_DELEGATIONS_FIELD_NUMBER;
       hash = (53 * hash) + getTotalDelegations().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -9132,7 +9132,7 @@ public final class QueryOuterClass {
 
       private java.lang.Object totalDelegations_ = "";
       /**
-       * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+       * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
        * @return The totalDelegations.
        */
       public java.lang.String getTotalDelegations() {
@@ -9148,7 +9148,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+       * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
        * @return The bytes for totalDelegations.
        */
       public com.google.protobuf.ByteString
@@ -9165,7 +9165,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+       * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
        * @param value The totalDelegations to set.
        * @return This builder for chaining.
        */
@@ -9180,7 +9180,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+       * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearTotalDelegations() {
@@ -9190,7 +9190,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string totalDelegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
+       * <code>string total_delegations = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_superfluid_delegations&#92;""];</code>
        * @param value The bytes for totalDelegations to set.
        * @return This builder for chaining.
        */
@@ -11538,6 +11538,21 @@ public final class QueryOuterClass {
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalDelegatedCoinsOrBuilder(
         int index);
+
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+     * @return Whether the totalEquivalentStakedAmount field is set.
+     */
+    boolean hasTotalEquivalentStakedAmount();
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+     * @return The totalEquivalentStakedAmount.
+     */
+    cosmos.base.v1beta1.CoinOuterClass.Coin getTotalEquivalentStakedAmount();
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+     */
+    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalEquivalentStakedAmountOrBuilder();
   }
   /**
    * Protobuf type {@code osmosis.superfluid.SuperfluidDelegationsByDelegatorResponse}
@@ -11603,6 +11618,19 @@ public final class QueryOuterClass {
               }
               totalDelegatedCoins_.add(
                   input.readMessage(cosmos.base.v1beta1.CoinOuterClass.Coin.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              cosmos.base.v1beta1.CoinOuterClass.Coin.Builder subBuilder = null;
+              if (totalEquivalentStakedAmount_ != null) {
+                subBuilder = totalEquivalentStakedAmount_.toBuilder();
+              }
+              totalEquivalentStakedAmount_ = input.readMessage(cosmos.base.v1beta1.CoinOuterClass.Coin.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(totalEquivalentStakedAmount_);
+                totalEquivalentStakedAmount_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -11723,6 +11751,32 @@ public final class QueryOuterClass {
       return totalDelegatedCoins_.get(index);
     }
 
+    public static final int TOTAL_EQUIVALENT_STAKED_AMOUNT_FIELD_NUMBER = 3;
+    private cosmos.base.v1beta1.CoinOuterClass.Coin totalEquivalentStakedAmount_;
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+     * @return Whether the totalEquivalentStakedAmount field is set.
+     */
+    @java.lang.Override
+    public boolean hasTotalEquivalentStakedAmount() {
+      return totalEquivalentStakedAmount_ != null;
+    }
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+     * @return The totalEquivalentStakedAmount.
+     */
+    @java.lang.Override
+    public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalEquivalentStakedAmount() {
+      return totalEquivalentStakedAmount_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalEquivalentStakedAmount_;
+    }
+    /**
+     * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+     */
+    @java.lang.Override
+    public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalEquivalentStakedAmountOrBuilder() {
+      return getTotalEquivalentStakedAmount();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -11743,6 +11797,9 @@ public final class QueryOuterClass {
       for (int i = 0; i < totalDelegatedCoins_.size(); i++) {
         output.writeMessage(2, totalDelegatedCoins_.get(i));
       }
+      if (totalEquivalentStakedAmount_ != null) {
+        output.writeMessage(3, getTotalEquivalentStakedAmount());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -11759,6 +11816,10 @@ public final class QueryOuterClass {
       for (int i = 0; i < totalDelegatedCoins_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, totalDelegatedCoins_.get(i));
+      }
+      if (totalEquivalentStakedAmount_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getTotalEquivalentStakedAmount());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -11779,6 +11840,11 @@ public final class QueryOuterClass {
           .equals(other.getSuperfluidDelegationRecordsList())) return false;
       if (!getTotalDelegatedCoinsList()
           .equals(other.getTotalDelegatedCoinsList())) return false;
+      if (hasTotalEquivalentStakedAmount() != other.hasTotalEquivalentStakedAmount()) return false;
+      if (hasTotalEquivalentStakedAmount()) {
+        if (!getTotalEquivalentStakedAmount()
+            .equals(other.getTotalEquivalentStakedAmount())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -11797,6 +11863,10 @@ public final class QueryOuterClass {
       if (getTotalDelegatedCoinsCount() > 0) {
         hash = (37 * hash) + TOTAL_DELEGATED_COINS_FIELD_NUMBER;
         hash = (53 * hash) + getTotalDelegatedCoinsList().hashCode();
+      }
+      if (hasTotalEquivalentStakedAmount()) {
+        hash = (37 * hash) + TOTAL_EQUIVALENT_STAKED_AMOUNT_FIELD_NUMBER;
+        hash = (53 * hash) + getTotalEquivalentStakedAmount().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -11945,6 +12015,12 @@ public final class QueryOuterClass {
         } else {
           totalDelegatedCoinsBuilder_.clear();
         }
+        if (totalEquivalentStakedAmountBuilder_ == null) {
+          totalEquivalentStakedAmount_ = null;
+        } else {
+          totalEquivalentStakedAmount_ = null;
+          totalEquivalentStakedAmountBuilder_ = null;
+        }
         return this;
       }
 
@@ -11989,6 +12065,11 @@ public final class QueryOuterClass {
           result.totalDelegatedCoins_ = totalDelegatedCoins_;
         } else {
           result.totalDelegatedCoins_ = totalDelegatedCoinsBuilder_.build();
+        }
+        if (totalEquivalentStakedAmountBuilder_ == null) {
+          result.totalEquivalentStakedAmount_ = totalEquivalentStakedAmount_;
+        } else {
+          result.totalEquivalentStakedAmount_ = totalEquivalentStakedAmountBuilder_.build();
         }
         onBuilt();
         return result;
@@ -12089,6 +12170,9 @@ public final class QueryOuterClass {
               totalDelegatedCoinsBuilder_.addAllMessages(other.totalDelegatedCoins_);
             }
           }
+        }
+        if (other.hasTotalEquivalentStakedAmount()) {
+          mergeTotalEquivalentStakedAmount(other.getTotalEquivalentStakedAmount());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -12598,6 +12682,125 @@ public final class QueryOuterClass {
           totalDelegatedCoins_ = null;
         }
         return totalDelegatedCoinsBuilder_;
+      }
+
+      private cosmos.base.v1beta1.CoinOuterClass.Coin totalEquivalentStakedAmount_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> totalEquivalentStakedAmountBuilder_;
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       * @return Whether the totalEquivalentStakedAmount field is set.
+       */
+      public boolean hasTotalEquivalentStakedAmount() {
+        return totalEquivalentStakedAmountBuilder_ != null || totalEquivalentStakedAmount_ != null;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       * @return The totalEquivalentStakedAmount.
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalEquivalentStakedAmount() {
+        if (totalEquivalentStakedAmountBuilder_ == null) {
+          return totalEquivalentStakedAmount_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalEquivalentStakedAmount_;
+        } else {
+          return totalEquivalentStakedAmountBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       */
+      public Builder setTotalEquivalentStakedAmount(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (totalEquivalentStakedAmountBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          totalEquivalentStakedAmount_ = value;
+          onChanged();
+        } else {
+          totalEquivalentStakedAmountBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       */
+      public Builder setTotalEquivalentStakedAmount(
+          cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
+        if (totalEquivalentStakedAmountBuilder_ == null) {
+          totalEquivalentStakedAmount_ = builderForValue.build();
+          onChanged();
+        } else {
+          totalEquivalentStakedAmountBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       */
+      public Builder mergeTotalEquivalentStakedAmount(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (totalEquivalentStakedAmountBuilder_ == null) {
+          if (totalEquivalentStakedAmount_ != null) {
+            totalEquivalentStakedAmount_ =
+              cosmos.base.v1beta1.CoinOuterClass.Coin.newBuilder(totalEquivalentStakedAmount_).mergeFrom(value).buildPartial();
+          } else {
+            totalEquivalentStakedAmount_ = value;
+          }
+          onChanged();
+        } else {
+          totalEquivalentStakedAmountBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       */
+      public Builder clearTotalEquivalentStakedAmount() {
+        if (totalEquivalentStakedAmountBuilder_ == null) {
+          totalEquivalentStakedAmount_ = null;
+          onChanged();
+        } else {
+          totalEquivalentStakedAmount_ = null;
+          totalEquivalentStakedAmountBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getTotalEquivalentStakedAmountBuilder() {
+        
+        onChanged();
+        return getTotalEquivalentStakedAmountFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalEquivalentStakedAmountOrBuilder() {
+        if (totalEquivalentStakedAmountBuilder_ != null) {
+          return totalEquivalentStakedAmountBuilder_.getMessageOrBuilder();
+        } else {
+          return totalEquivalentStakedAmount_ == null ?
+              cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalEquivalentStakedAmount_;
+        }
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin total_equivalent_staked_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
+          getTotalEquivalentStakedAmountFieldBuilder() {
+        if (totalEquivalentStakedAmountBuilder_ == null) {
+          totalEquivalentStakedAmountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder>(
+                  getTotalEquivalentStakedAmount(),
+                  getParentForChildren(),
+                  isClean());
+          totalEquivalentStakedAmount_ = null;
+        }
+        return totalEquivalentStakedAmountBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -18097,111 +18300,114 @@ public final class QueryOuterClass {
       "\004\"n\n$ConnectedIntermediaryAccountRespons" +
       "e\022F\n\007account\030\001 \001(\01325.osmosis.superfluid." +
       "SuperfluidIntermediaryAccountInfo\"#\n!Tot" +
-      "alSuperfluidDelegationsRequest\"\225\001\n\"Total" +
-      "SuperfluidDelegationsResponse\022o\n\020totalDe" +
-      "legations\030\001 \001(\tBU\332\336\037&github.com/cosmos/c" +
-      "osmos-sdk/types.Int\362\336\037#yaml:\"total_super" +
-      "fluid_delegations\"\310\336\037\000\"h\n!SuperfluidDele" +
-      "gationAmountRequest\022\031\n\021delegator_address" +
-      "\030\001 \001(\t\022\031\n\021validator_address\030\002 \001(\t\022\r\n\005den" +
-      "om\030\003 \001(\t\"\201\001\n\"SuperfluidDelegationAmountR" +
-      "esponse\022[\n\006amount\030\001 \003(\0132\031.cosmos.base.v1" +
-      "beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/co" +
-      "smos-sdk/types.Coins\"D\n\'SuperfluidDelega" +
-      "tionsByDelegatorRequest\022\031\n\021delegator_add" +
-      "ress\030\001 \001(\t\"\363\001\n(SuperfluidDelegationsByDe" +
-      "legatorResponse\022[\n\035superfluid_delegation" +
-      "_records\030\001 \003(\0132..osmosis.superfluid.Supe" +
-      "rfluidDelegationRecordB\004\310\336\037\000\022j\n\025total_de" +
-      "legated_coins\030\002 \003(\0132\031.cosmos.base.v1beta" +
-      "1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos" +
-      "-sdk/types.Coins\"U\n)SuperfluidUndelegati" +
-      "onsByDelegatorRequest\022\031\n\021delegator_addre" +
-      "ss\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\265\002\n*SuperfluidUn" +
-      "delegationsByDelegatorResponse\022[\n\035superf" +
-      "luid_delegation_records\030\001 \003(\0132..osmosis." +
-      "superfluid.SuperfluidDelegationRecordB\004\310" +
-      "\336\037\000\022l\n\027total_undelegated_coins\030\002 \003(\0132\031.c" +
-      "osmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github." +
-      "com/cosmos/cosmos-sdk/types.Coins\022<\n\017syn" +
-      "thetic_locks\030\003 \003(\0132\035.osmosis.lockup.Synt" +
-      "heticLockB\004\310\336\037\000\"X\n,SuperfluidDelegations" +
-      "ByValidatorDenomRequest\022\031\n\021validator_add" +
-      "ress\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\214\001\n-Superfluid" +
-      "DelegationsByValidatorDenomResponse\022[\n\035s" +
-      "uperfluid_delegation_records\030\001 \003(\0132..osm" +
-      "osis.superfluid.SuperfluidDelegationReco" +
-      "rdB\004\310\336\037\000\"d\n8EstimateSuperfluidDelegatedA" +
-      "mountByValidatorDenomRequest\022\031\n\021validato" +
-      "r_address\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\247\001\n9Estim" +
-      "ateSuperfluidDelegatedAmountByValidatorD" +
-      "enomResponse\022j\n\025total_delegated_coins\030\001 " +
-      "\003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(" +
-      "github.com/cosmos/cosmos-sdk/types.Coins" +
-      "2\260\023\n\005Query\022\205\001\n\006Params\022&.osmosis.superflu" +
-      "id.QueryParamsRequest\032\'.osmosis.superflu" +
-      "id.QueryParamsResponse\"*\202\323\344\223\002$\022\"/osmosis" +
-      "/superfluid/v1beta1/params\022\210\001\n\tAssetType" +
-      "\022$.osmosis.superfluid.AssetTypeRequest\032%" +
-      ".osmosis.superfluid.AssetTypeResponse\".\202" +
-      "\323\344\223\002(\022&/osmosis/superfluid/v1beta1/asset" +
-      "_type\022\210\001\n\tAllAssets\022$.osmosis.superfluid" +
-      ".AllAssetsRequest\032%.osmosis.superfluid.A" +
-      "llAssetsResponse\".\202\323\344\223\002(\022&/osmosis/super" +
-      "fluid/v1beta1/all_assets\022\240\001\n\017AssetMultip" +
-      "lier\022*.osmosis.superfluid.AssetMultiplie" +
-      "rRequest\032+.osmosis.superfluid.AssetMulti" +
-      "plierResponse\"4\202\323\344\223\002.\022,/osmosis/superflu" +
-      "id/v1beta1/asset_multiplier\022\301\001\n\027AllInter" +
-      "mediaryAccounts\0222.osmosis.superfluid.All" +
-      "IntermediaryAccountsRequest\0323.osmosis.su" +
-      "perfluid.AllIntermediaryAccountsResponse" +
-      "\"=\202\323\344\223\0027\0225/osmosis/superfluid/v1beta1/al" +
-      "l_intermediary_accounts\022\337\001\n\034ConnectedInt" +
-      "ermediaryAccount\0227.osmosis.superfluid.Co" +
-      "nnectedIntermediaryAccountRequest\0328.osmo" +
-      "sis.superfluid.ConnectedIntermediaryAcco" +
-      "untResponse\"L\202\323\344\223\002F\022D/osmosis/superfluid" +
-      "/v1beta1/connected_intermediary_account/" +
-      "{lock_id}\022\313\001\n\032TotalSuperfluidDelegations" +
-      "\0225.osmosis.superfluid.TotalSuperfluidDel" +
-      "egationsRequest\0326.osmosis.superfluid.Tot" +
-      "alSuperfluidDelegationsResponse\">\202\323\344\223\0028\022" +
-      "6/osmosis/superfluid/v1beta1/all_superfl" +
-      "uid_delegations\022\315\001\n\032SuperfluidDelegation" +
-      "Amount\0225.osmosis.superfluid.SuperfluidDe" +
-      "legationAmountRequest\0326.osmosis.superflu" +
-      "id.SuperfluidDelegationAmountResponse\"@\202" +
-      "\323\344\223\002:\0228/osmosis/superfluid/v1beta1/super" +
-      "fluid_delegation_amount\022\355\001\n SuperfluidDe" +
-      "legationsByDelegator\022;.osmosis.superflui" +
-      "d.SuperfluidDelegationsByDelegatorReques" +
-      "t\032<.osmosis.superfluid.SuperfluidDelegat" +
-      "ionsByDelegatorResponse\"N\202\323\344\223\002H\022F/osmosi" +
-      "s/superfluid/v1beta1/superfluid_delegati" +
-      "ons/{delegator_address}\022\202\002\n\"SuperfluidUn" +
-      "delegationsByDelegator\022=.osmosis.superfl" +
-      "uid.SuperfluidUndelegationsByDelegatorRe" +
-      "quest\032>.osmosis.superfluid.SuperfluidUnd" +
-      "elegationsByDelegatorResponse\"]\202\323\344\223\002W\022U/" +
-      "osmosis/superfluid/v1beta1/superfluid_un" +
-      "delegations_by_delegator/{delegator_addr" +
-      "ess}\022\373\001\n%SuperfluidDelegationsByValidato" +
-      "rDenom\022@.osmosis.superfluid.SuperfluidDe" +
-      "legationsByValidatorDenomRequest\032A.osmos" +
-      "is.superfluid.SuperfluidDelegationsByVal" +
-      "idatorDenomResponse\"M\202\323\344\223\002G\022E/osmosis/su" +
-      "perfluid/v1beta1/superfluid_delegations_" +
-      "by_validator_denom\022\256\002\n1EstimateSuperflui" +
-      "dDelegatedAmountByValidatorDenom\022L.osmos" +
-      "is.superfluid.EstimateSuperfluidDelegate" +
-      "dAmountByValidatorDenomRequest\032M.osmosis" +
-      ".superfluid.EstimateSuperfluidDelegatedA" +
-      "mountByValidatorDenomResponse\"\\\202\323\344\223\002V\022T/" +
-      "osmosis/superfluid/v1beta1/estimate_supe" +
-      "rfluid_delegation_amount_by_validator_de" +
-      "nomB7Z5github.com/osmosis-labs/osmosis/v" +
-      "7/x/superfluid/typesb\006proto3"
+      "alSuperfluidDelegationsRequest\"\226\001\n\"Total" +
+      "SuperfluidDelegationsResponse\022p\n\021total_d" +
+      "elegations\030\001 \001(\tBU\332\336\037&github.com/cosmos/" +
+      "cosmos-sdk/types.Int\362\336\037#yaml:\"total_supe" +
+      "rfluid_delegations\"\310\336\037\000\"h\n!SuperfluidDel" +
+      "egationAmountRequest\022\031\n\021delegator_addres" +
+      "s\030\001 \001(\t\022\031\n\021validator_address\030\002 \001(\t\022\r\n\005de" +
+      "nom\030\003 \001(\t\"\201\001\n\"SuperfluidDelegationAmount" +
+      "Response\022[\n\006amount\030\001 \003(\0132\031.cosmos.base.v" +
+      "1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/c" +
+      "osmos-sdk/types.Coins\"D\n\'SuperfluidDeleg" +
+      "ationsByDelegatorRequest\022\031\n\021delegator_ad" +
+      "dress\030\001 \001(\t\"\347\002\n(SuperfluidDelegationsByD" +
+      "elegatorResponse\022[\n\035superfluid_delegatio" +
+      "n_records\030\001 \003(\0132..osmosis.superfluid.Sup" +
+      "erfluidDelegationRecordB\004\310\336\037\000\022j\n\025total_d" +
+      "elegated_coins\030\002 \003(\0132\031.cosmos.base.v1bet" +
+      "a1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmo" +
+      "s-sdk/types.Coins\022r\n\036total_equivalent_st" +
+      "aked_amount\030\003 \001(\0132\031.cosmos.base.v1beta1." +
+      "CoinB/\310\336\037\000\252\337\037\'github.com/cosmos/cosmos-s" +
+      "dk/types.Coin\"U\n)SuperfluidUndelegations" +
+      "ByDelegatorRequest\022\031\n\021delegator_address\030" +
+      "\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\265\002\n*SuperfluidUndel" +
+      "egationsByDelegatorResponse\022[\n\035superflui" +
+      "d_delegation_records\030\001 \003(\0132..osmosis.sup" +
+      "erfluid.SuperfluidDelegationRecordB\004\310\336\037\000" +
+      "\022l\n\027total_undelegated_coins\030\002 \003(\0132\031.cosm" +
+      "os.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com" +
+      "/cosmos/cosmos-sdk/types.Coins\022<\n\017synthe" +
+      "tic_locks\030\003 \003(\0132\035.osmosis.lockup.Synthet" +
+      "icLockB\004\310\336\037\000\"X\n,SuperfluidDelegationsByV" +
+      "alidatorDenomRequest\022\031\n\021validator_addres" +
+      "s\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\214\001\n-SuperfluidDel" +
+      "egationsByValidatorDenomResponse\022[\n\035supe" +
+      "rfluid_delegation_records\030\001 \003(\0132..osmosi" +
+      "s.superfluid.SuperfluidDelegationRecordB" +
+      "\004\310\336\037\000\"d\n8EstimateSuperfluidDelegatedAmou" +
+      "ntByValidatorDenomRequest\022\031\n\021validator_a" +
+      "ddress\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\247\001\n9Estimate" +
+      "SuperfluidDelegatedAmountByValidatorDeno" +
+      "mResponse\022j\n\025total_delegated_coins\030\001 \003(\013" +
+      "2\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(git" +
+      "hub.com/cosmos/cosmos-sdk/types.Coins2\260\023" +
+      "\n\005Query\022\205\001\n\006Params\022&.osmosis.superfluid." +
+      "QueryParamsRequest\032\'.osmosis.superfluid." +
+      "QueryParamsResponse\"*\202\323\344\223\002$\022\"/osmosis/su" +
+      "perfluid/v1beta1/params\022\210\001\n\tAssetType\022$." +
+      "osmosis.superfluid.AssetTypeRequest\032%.os" +
+      "mosis.superfluid.AssetTypeResponse\".\202\323\344\223" +
+      "\002(\022&/osmosis/superfluid/v1beta1/asset_ty" +
+      "pe\022\210\001\n\tAllAssets\022$.osmosis.superfluid.Al" +
+      "lAssetsRequest\032%.osmosis.superfluid.AllA" +
+      "ssetsResponse\".\202\323\344\223\002(\022&/osmosis/superflu" +
+      "id/v1beta1/all_assets\022\240\001\n\017AssetMultiplie" +
+      "r\022*.osmosis.superfluid.AssetMultiplierRe" +
+      "quest\032+.osmosis.superfluid.AssetMultipli" +
+      "erResponse\"4\202\323\344\223\002.\022,/osmosis/superfluid/" +
+      "v1beta1/asset_multiplier\022\301\001\n\027AllIntermed" +
+      "iaryAccounts\0222.osmosis.superfluid.AllInt" +
+      "ermediaryAccountsRequest\0323.osmosis.super" +
+      "fluid.AllIntermediaryAccountsResponse\"=\202" +
+      "\323\344\223\0027\0225/osmosis/superfluid/v1beta1/all_i" +
+      "ntermediary_accounts\022\337\001\n\034ConnectedInterm" +
+      "ediaryAccount\0227.osmosis.superfluid.Conne" +
+      "ctedIntermediaryAccountRequest\0328.osmosis" +
+      ".superfluid.ConnectedIntermediaryAccount" +
+      "Response\"L\202\323\344\223\002F\022D/osmosis/superfluid/v1" +
+      "beta1/connected_intermediary_account/{lo" +
+      "ck_id}\022\313\001\n\032TotalSuperfluidDelegations\0225." +
+      "osmosis.superfluid.TotalSuperfluidDelega" +
+      "tionsRequest\0326.osmosis.superfluid.TotalS" +
+      "uperfluidDelegationsResponse\">\202\323\344\223\0028\0226/o" +
+      "smosis/superfluid/v1beta1/all_superfluid" +
+      "_delegations\022\315\001\n\032SuperfluidDelegationAmo" +
+      "unt\0225.osmosis.superfluid.SuperfluidDeleg" +
+      "ationAmountRequest\0326.osmosis.superfluid." +
+      "SuperfluidDelegationAmountResponse\"@\202\323\344\223" +
+      "\002:\0228/osmosis/superfluid/v1beta1/superflu" +
+      "id_delegation_amount\022\355\001\n SuperfluidDeleg" +
+      "ationsByDelegator\022;.osmosis.superfluid.S" +
+      "uperfluidDelegationsByDelegatorRequest\032<" +
+      ".osmosis.superfluid.SuperfluidDelegation" +
+      "sByDelegatorResponse\"N\202\323\344\223\002H\022F/osmosis/s" +
+      "uperfluid/v1beta1/superfluid_delegations" +
+      "/{delegator_address}\022\202\002\n\"SuperfluidUndel" +
+      "egationsByDelegator\022=.osmosis.superfluid" +
+      ".SuperfluidUndelegationsByDelegatorReque" +
+      "st\032>.osmosis.superfluid.SuperfluidUndele" +
+      "gationsByDelegatorResponse\"]\202\323\344\223\002W\022U/osm" +
+      "osis/superfluid/v1beta1/superfluid_undel" +
+      "egations_by_delegator/{delegator_address" +
+      "}\022\373\001\n%SuperfluidDelegationsByValidatorDe" +
+      "nom\022@.osmosis.superfluid.SuperfluidDeleg" +
+      "ationsByValidatorDenomRequest\032A.osmosis." +
+      "superfluid.SuperfluidDelegationsByValida" +
+      "torDenomResponse\"M\202\323\344\223\002G\022E/osmosis/super" +
+      "fluid/v1beta1/superfluid_delegations_by_" +
+      "validator_denom\022\256\002\n1EstimateSuperfluidDe" +
+      "legatedAmountByValidatorDenom\022L.osmosis." +
+      "superfluid.EstimateSuperfluidDelegatedAm" +
+      "ountByValidatorDenomRequest\032M.osmosis.su" +
+      "perfluid.EstimateSuperfluidDelegatedAmou" +
+      "ntByValidatorDenomResponse\"\\\202\323\344\223\002V\022T/osm" +
+      "osis/superfluid/v1beta1/estimate_superfl" +
+      "uid_delegation_amount_by_validator_denom" +
+      "B7Z5github.com/osmosis-labs/osmosis/v7/x" +
+      "/superfluid/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -18329,7 +18535,7 @@ public final class QueryOuterClass {
     internal_static_osmosis_superfluid_SuperfluidDelegationsByDelegatorResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_superfluid_SuperfluidDelegationsByDelegatorResponse_descriptor,
-        new java.lang.String[] { "SuperfluidDelegationRecords", "TotalDelegatedCoins", });
+        new java.lang.String[] { "SuperfluidDelegationRecords", "TotalDelegatedCoins", "TotalEquivalentStakedAmount", });
     internal_static_osmosis_superfluid_SuperfluidUndelegationsByDelegatorRequest_descriptor =
       getDescriptor().getMessageTypes().get(19);
     internal_static_osmosis_superfluid_SuperfluidUndelegationsByDelegatorRequest_fieldAccessorTable = new

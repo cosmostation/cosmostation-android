@@ -1,4 +1,4 @@
-package osmosis.gamm.poolmodels.balancer;
+package osmosis.gamm.poolmodels.balancer.v1beta1;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
@@ -19,37 +19,37 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.33.1)",
-    comments = "Source: osmosis/gamm/pool-models/balancer/tx.proto")
+    comments = "Source: osmosis/gamm/pool-models/balancer/tx/tx.proto")
 public final class MsgGrpc {
 
   private MsgGrpc() {}
 
-  public static final String SERVICE_NAME = "osmosis.gamm.poolmodels.balancer.Msg";
+  public static final String SERVICE_NAME = "osmosis.gamm.poolmodels.balancer.v1beta1.Msg";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool,
-      osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod;
+  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool,
+      osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "CreateBalancerPool",
-      requestType = osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool.class,
-      responseType = osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse.class,
+      requestType = osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool.class,
+      responseType = osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool,
-      osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod() {
-    io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool, osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod;
+  public static io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool,
+      osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod() {
+    io.grpc.MethodDescriptor<osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool, osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod;
     if ((getCreateBalancerPoolMethod = MsgGrpc.getCreateBalancerPoolMethod) == null) {
       synchronized (MsgGrpc.class) {
         if ((getCreateBalancerPoolMethod = MsgGrpc.getCreateBalancerPoolMethod) == null) {
           MsgGrpc.getCreateBalancerPoolMethod = getCreateBalancerPoolMethod =
-              io.grpc.MethodDescriptor.<osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool, osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse>newBuilder()
+              io.grpc.MethodDescriptor.<osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool, osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateBalancerPool"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool.getDefaultInstance()))
+                  osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse.getDefaultInstance()))
+                  osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse.getDefaultInstance()))
               .setSchemaDescriptor(new MsgMethodDescriptorSupplier("CreateBalancerPool"))
               .build();
         }
@@ -108,8 +108,8 @@ public final class MsgGrpc {
 
     /**
      */
-    public void createBalancerPool(osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse> responseObserver) {
+    public void createBalancerPool(osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getCreateBalancerPoolMethod(), responseObserver);
     }
 
@@ -119,8 +119,8 @@ public final class MsgGrpc {
             getCreateBalancerPoolMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool,
-                osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse>(
+                osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool,
+                osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse>(
                   this, METHODID_CREATE_BALANCER_POOL)))
           .build();
     }
@@ -142,8 +142,8 @@ public final class MsgGrpc {
 
     /**
      */
-    public void createBalancerPool(osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse> responseObserver) {
+    public void createBalancerPool(osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getCreateBalancerPoolMethod(), getCallOptions()), request, responseObserver);
     }
@@ -165,7 +165,7 @@ public final class MsgGrpc {
 
     /**
      */
-    public osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse createBalancerPool(osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool request) {
+    public osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse createBalancerPool(osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool request) {
       return blockingUnaryCall(
           getChannel(), getCreateBalancerPoolMethod(), getCallOptions(), request);
     }
@@ -187,8 +187,8 @@ public final class MsgGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse> createBalancerPool(
-        osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool request) {
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse> createBalancerPool(
+        osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool request) {
       return futureUnaryCall(
           getChannel().newCall(getCreateBalancerPoolMethod(), getCallOptions()), request);
     }
@@ -214,8 +214,8 @@ public final class MsgGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_CREATE_BALANCER_POOL:
-          serviceImpl.createBalancerPool((osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool) request,
-              (io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPoolResponse>) responseObserver);
+          serviceImpl.createBalancerPool((osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPool) request,
+              (io.grpc.stub.StreamObserver<osmosis.gamm.poolmodels.balancer.v1beta1.Tx.MsgCreateBalancerPoolResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -239,7 +239,7 @@ public final class MsgGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return osmosis.gamm.poolmodels.balancer.Tx.getDescriptor();
+      return osmosis.gamm.poolmodels.balancer.v1beta1.Tx.getDescriptor();
     }
 
     @java.lang.Override

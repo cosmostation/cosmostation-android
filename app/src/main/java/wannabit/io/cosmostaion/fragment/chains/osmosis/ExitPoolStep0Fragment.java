@@ -23,7 +23,7 @@ import androidx.core.content.ContextCompat;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.ExitPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;

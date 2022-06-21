@@ -4532,6 +4532,30 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Timestamp claim_end = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
     com.google.protobuf.TimestampOrBuilder getClaimEndOrBuilder();
+
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    java.util.List<kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod> 
+        getSavingsRewardPeriodsList();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod getSavingsRewardPeriods(int index);
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    int getSavingsRewardPeriodsCount();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    java.util.List<? extends kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder> 
+        getSavingsRewardPeriodsOrBuilderList();
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder getSavingsRewardPeriodsOrBuilder(
+        int index);
   }
   /**
    * <pre>
@@ -4556,6 +4580,7 @@ public final class ParamsOuterClass {
       delegatorRewardPeriods_ = java.util.Collections.emptyList();
       swapRewardPeriods_ = java.util.Collections.emptyList();
       claimMultipliers_ = java.util.Collections.emptyList();
+      savingsRewardPeriods_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -4656,6 +4681,15 @@ public final class ParamsOuterClass {
 
               break;
             }
+            case 66: {
+              if (!((mutable_bitField0_ & 0x00000040) != 0)) {
+                savingsRewardPeriods_ = new java.util.ArrayList<kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod>();
+                mutable_bitField0_ |= 0x00000040;
+              }
+              savingsRewardPeriods_.add(
+                  input.readMessage(kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -4688,6 +4722,9 @@ public final class ParamsOuterClass {
         }
         if (((mutable_bitField0_ & 0x00000020) != 0)) {
           claimMultipliers_ = java.util.Collections.unmodifiableList(claimMultipliers_);
+        }
+        if (((mutable_bitField0_ & 0x00000040) != 0)) {
+          savingsRewardPeriods_ = java.util.Collections.unmodifiableList(savingsRewardPeriods_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -4972,6 +5009,46 @@ public final class ParamsOuterClass {
       return getClaimEnd();
     }
 
+    public static final int SAVINGS_REWARD_PERIODS_FIELD_NUMBER = 8;
+    private java.util.List<kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod> savingsRewardPeriods_;
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod> getSavingsRewardPeriodsList() {
+      return savingsRewardPeriods_;
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder> 
+        getSavingsRewardPeriodsOrBuilderList() {
+      return savingsRewardPeriods_;
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    @java.lang.Override
+    public int getSavingsRewardPeriodsCount() {
+      return savingsRewardPeriods_.size();
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    @java.lang.Override
+    public kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod getSavingsRewardPeriods(int index) {
+      return savingsRewardPeriods_.get(index);
+    }
+    /**
+     * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+     */
+    @java.lang.Override
+    public kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder getSavingsRewardPeriodsOrBuilder(
+        int index) {
+      return savingsRewardPeriods_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -5006,6 +5083,9 @@ public final class ParamsOuterClass {
       }
       if (claimEnd_ != null) {
         output.writeMessage(7, getClaimEnd());
+      }
+      for (int i = 0; i < savingsRewardPeriods_.size(); i++) {
+        output.writeMessage(8, savingsRewardPeriods_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -5044,6 +5124,10 @@ public final class ParamsOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(7, getClaimEnd());
       }
+      for (int i = 0; i < savingsRewardPeriods_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, savingsRewardPeriods_.get(i));
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -5076,6 +5160,8 @@ public final class ParamsOuterClass {
         if (!getClaimEnd()
             .equals(other.getClaimEnd())) return false;
       }
+      if (!getSavingsRewardPeriodsList()
+          .equals(other.getSavingsRewardPeriodsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5114,6 +5200,10 @@ public final class ParamsOuterClass {
       if (hasClaimEnd()) {
         hash = (37 * hash) + CLAIM_END_FIELD_NUMBER;
         hash = (53 * hash) + getClaimEnd().hashCode();
+      }
+      if (getSavingsRewardPeriodsCount() > 0) {
+        hash = (37 * hash) + SAVINGS_REWARD_PERIODS_FIELD_NUMBER;
+        hash = (53 * hash) + getSavingsRewardPeriodsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -5253,6 +5343,7 @@ public final class ParamsOuterClass {
           getDelegatorRewardPeriodsFieldBuilder();
           getSwapRewardPeriodsFieldBuilder();
           getClaimMultipliersFieldBuilder();
+          getSavingsRewardPeriodsFieldBuilder();
         }
       }
       @java.lang.Override
@@ -5299,6 +5390,12 @@ public final class ParamsOuterClass {
         } else {
           claimEnd_ = null;
           claimEndBuilder_ = null;
+        }
+        if (savingsRewardPeriodsBuilder_ == null) {
+          savingsRewardPeriods_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);
+        } else {
+          savingsRewardPeriodsBuilder_.clear();
         }
         return this;
       }
@@ -5385,6 +5482,15 @@ public final class ParamsOuterClass {
           result.claimEnd_ = claimEnd_;
         } else {
           result.claimEnd_ = claimEndBuilder_.build();
+        }
+        if (savingsRewardPeriodsBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) != 0)) {
+            savingsRewardPeriods_ = java.util.Collections.unmodifiableList(savingsRewardPeriods_);
+            bitField0_ = (bitField0_ & ~0x00000040);
+          }
+          result.savingsRewardPeriods_ = savingsRewardPeriods_;
+        } else {
+          result.savingsRewardPeriods_ = savingsRewardPeriodsBuilder_.build();
         }
         onBuilt();
         return result;
@@ -5592,6 +5698,32 @@ public final class ParamsOuterClass {
         }
         if (other.hasClaimEnd()) {
           mergeClaimEnd(other.getClaimEnd());
+        }
+        if (savingsRewardPeriodsBuilder_ == null) {
+          if (!other.savingsRewardPeriods_.isEmpty()) {
+            if (savingsRewardPeriods_.isEmpty()) {
+              savingsRewardPeriods_ = other.savingsRewardPeriods_;
+              bitField0_ = (bitField0_ & ~0x00000040);
+            } else {
+              ensureSavingsRewardPeriodsIsMutable();
+              savingsRewardPeriods_.addAll(other.savingsRewardPeriods_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.savingsRewardPeriods_.isEmpty()) {
+            if (savingsRewardPeriodsBuilder_.isEmpty()) {
+              savingsRewardPeriodsBuilder_.dispose();
+              savingsRewardPeriodsBuilder_ = null;
+              savingsRewardPeriods_ = other.savingsRewardPeriods_;
+              bitField0_ = (bitField0_ & ~0x00000040);
+              savingsRewardPeriodsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSavingsRewardPeriodsFieldBuilder() : null;
+            } else {
+              savingsRewardPeriodsBuilder_.addAllMessages(other.savingsRewardPeriods_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -7181,6 +7313,246 @@ public final class ParamsOuterClass {
         }
         return claimEndBuilder_;
       }
+
+      private java.util.List<kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod> savingsRewardPeriods_ =
+        java.util.Collections.emptyList();
+      private void ensureSavingsRewardPeriodsIsMutable() {
+        if (!((bitField0_ & 0x00000040) != 0)) {
+          savingsRewardPeriods_ = new java.util.ArrayList<kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod>(savingsRewardPeriods_);
+          bitField0_ |= 0x00000040;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder> savingsRewardPeriodsBuilder_;
+
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public java.util.List<kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod> getSavingsRewardPeriodsList() {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(savingsRewardPeriods_);
+        } else {
+          return savingsRewardPeriodsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public int getSavingsRewardPeriodsCount() {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          return savingsRewardPeriods_.size();
+        } else {
+          return savingsRewardPeriodsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod getSavingsRewardPeriods(int index) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          return savingsRewardPeriods_.get(index);
+        } else {
+          return savingsRewardPeriodsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder setSavingsRewardPeriods(
+          int index, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod value) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSavingsRewardPeriodsIsMutable();
+          savingsRewardPeriods_.set(index, value);
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder setSavingsRewardPeriods(
+          int index, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder builderForValue) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          ensureSavingsRewardPeriodsIsMutable();
+          savingsRewardPeriods_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder addSavingsRewardPeriods(kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod value) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSavingsRewardPeriodsIsMutable();
+          savingsRewardPeriods_.add(value);
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder addSavingsRewardPeriods(
+          int index, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod value) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSavingsRewardPeriodsIsMutable();
+          savingsRewardPeriods_.add(index, value);
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder addSavingsRewardPeriods(
+          kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder builderForValue) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          ensureSavingsRewardPeriodsIsMutable();
+          savingsRewardPeriods_.add(builderForValue.build());
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder addSavingsRewardPeriods(
+          int index, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder builderForValue) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          ensureSavingsRewardPeriodsIsMutable();
+          savingsRewardPeriods_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder addAllSavingsRewardPeriods(
+          java.lang.Iterable<? extends kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod> values) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          ensureSavingsRewardPeriodsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, savingsRewardPeriods_);
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder clearSavingsRewardPeriods() {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          savingsRewardPeriods_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public Builder removeSavingsRewardPeriods(int index) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          ensureSavingsRewardPeriodsIsMutable();
+          savingsRewardPeriods_.remove(index);
+          onChanged();
+        } else {
+          savingsRewardPeriodsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder getSavingsRewardPeriodsBuilder(
+          int index) {
+        return getSavingsRewardPeriodsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder getSavingsRewardPeriodsOrBuilder(
+          int index) {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          return savingsRewardPeriods_.get(index);  } else {
+          return savingsRewardPeriodsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public java.util.List<? extends kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder> 
+           getSavingsRewardPeriodsOrBuilderList() {
+        if (savingsRewardPeriodsBuilder_ != null) {
+          return savingsRewardPeriodsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(savingsRewardPeriods_);
+        }
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder addSavingsRewardPeriodsBuilder() {
+        return getSavingsRewardPeriodsFieldBuilder().addBuilder(
+            kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder addSavingsRewardPeriodsBuilder(
+          int index) {
+        return getSavingsRewardPeriodsFieldBuilder().addBuilder(
+            index, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.incentive.v1beta1.MultiRewardPeriod savings_reward_periods = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "MultiRewardPeriods"];</code>
+       */
+      public java.util.List<kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder> 
+           getSavingsRewardPeriodsBuilderList() {
+        return getSavingsRewardPeriodsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder> 
+          getSavingsRewardPeriodsFieldBuilder() {
+        if (savingsRewardPeriodsBuilder_ == null) {
+          savingsRewardPeriodsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriod.Builder, kava.incentive.v1beta1.ParamsOuterClass.MultiRewardPeriodOrBuilder>(
+                  savingsRewardPeriods_,
+                  ((bitField0_ & 0x00000040) != 0),
+                  getParentForChildren(),
+                  isClean());
+          savingsRewardPeriods_ = null;
+        }
+        return savingsRewardPeriodsBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -7289,7 +7661,7 @@ public final class ParamsOuterClass {
       "ub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"r" +
       "\n\023MultipliersPerDenom\022\r\n\005denom\030\001 \001(\t\022L\n\013" +
       "multipliers\030\002 \003(\0132\".kava.incentive.v1bet" +
-      "a1.MultiplierB\023\252\337\037\013Multipliers\310\336\037\000\"\310\005\n\006P" +
+      "a1.MultiplierB\023\252\337\037\013Multipliers\310\336\037\000\"\257\006\n\006P" +
       "arams\022|\n\033usdx_minting_reward_periods\030\001 \003" +
       "(\0132$.kava.incentive.v1beta1.RewardPeriod" +
       "B1\342\336\037\030USDXMintingRewardPeriods\252\337\037\rReward" +
@@ -7307,9 +7679,11 @@ public final class ParamsOuterClass {
       "multipliers\030\006 \003(\0132+.kava.incentive.v1bet" +
       "a1.MultipliersPerDenomB\034\252\337\037\024MultipliersP" +
       "erDenoms\310\336\037\000\0227\n\tclaim_end\030\007 \001(\0132\032.google" +
-      ".protobuf.TimestampB\010\310\336\037\000\220\337\037\001B1Z+github." +
-      "com/kava-labs/kava/x/incentive/types\310\341\036\000" +
-      "b\006proto3"
+      ".protobuf.TimestampB\010\310\336\037\000\220\337\037\001\022e\n\026savings" +
+      "_reward_periods\030\010 \003(\0132).kava.incentive.v" +
+      "1beta1.MultiRewardPeriodB\032\252\337\037\022MultiRewar" +
+      "dPeriods\310\336\037\000B1Z+github.com/kava-labs/kav" +
+      "a/x/incentive/types\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7347,7 +7721,7 @@ public final class ParamsOuterClass {
     internal_static_kava_incentive_v1beta1_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_kava_incentive_v1beta1_Params_descriptor,
-        new java.lang.String[] { "UsdxMintingRewardPeriods", "HardSupplyRewardPeriods", "HardBorrowRewardPeriods", "DelegatorRewardPeriods", "SwapRewardPeriods", "ClaimMultipliers", "ClaimEnd", });
+        new java.lang.String[] { "UsdxMintingRewardPeriods", "HardSupplyRewardPeriods", "HardBorrowRewardPeriods", "DelegatorRewardPeriods", "SwapRewardPeriods", "ClaimMultipliers", "ClaimEnd", "SavingsRewardPeriods", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
