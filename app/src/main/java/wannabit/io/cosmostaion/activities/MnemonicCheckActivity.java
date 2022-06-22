@@ -1,50 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 import android.content.ClipData;
@@ -75,42 +30,42 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCheckActivity extends BaseActivity {
 
-    private Toolbar             mToolbar;
-    private CardView            mMnemonicLayer;
-    private LinearLayout[]      mWordsLayer = new LinearLayout[24];
-    private TextView[]          mTvWords = new TextView[24];
-    private Button              mCopy, mOk;
+    private Toolbar mToolbar;
+    private CardView mMnemonicLayer;
+    private LinearLayout[] mWordsLayer = new LinearLayout[24];
+    private TextView[] mTvWords = new TextView[24];
+    private Button mCopy, mOk;
 
-    private String              mEntropy;
-    private ArrayList<String>   mWords = new ArrayList<>();
+    private String mEntropy;
+    private ArrayList<String> mWords = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_check);
-        mToolbar        = findViewById(R.id.tool_bar);
-        mMnemonicLayer  = findViewById(R.id.card_mnemonic_layer);
-        mCopy           = findViewById(R.id.btn_copy);
-        mOk             = findViewById(R.id.btn_ok);
+        mToolbar = findViewById(R.id.tool_bar);
+        mMnemonicLayer = findViewById(R.id.card_mnemonic_layer);
+        mCopy = findViewById(R.id.btn_copy);
+        mOk = findViewById(R.id.btn_ok);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        for(int i = 0; i < mWordsLayer.length; i++) {
-            mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i , "id", this.getPackageName()));
-            mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i , "id", this.getPackageName()));
+        for (int i = 0; i < mWordsLayer.length; i++) {
+            mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));
+            mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", this.getPackageName()));
         }
 
         mEntropy = getIntent().getStringExtra("entropy");
-        Account toCheck = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
+        Account toCheck = getBaseDao().onSelectAccount("" + getIntent().getLongExtra("checkid", -1));
         mMnemonicLayer.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), getChain(toCheck.baseChain)));
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
         WDp.setLayoutColor(MnemonicCheckActivity.this, getChain(toCheck.baseChain), mWords, mWordsLayer);
 
-        for(int i = 0; i < mWords.size(); i++) {
+        for (int i = 0; i < mWords.size(); i++) {
             mTvWords[i].setText(mWords.get(i));
         }
 
@@ -134,8 +89,8 @@ public class MnemonicCheckActivity extends BaseActivity {
     public void onRawCopy() {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         StringBuilder builder = new StringBuilder();
-        for(String s : mWords) {
-            if(builder.length() != 0)
+        for (String s : mWords) {
+            if (builder.length() != 0)
                 builder.append(" ");
             builder.append(s);
         }
@@ -148,8 +103,8 @@ public class MnemonicCheckActivity extends BaseActivity {
 
     public void onSafeCopy() {
         StringBuilder builder = new StringBuilder();
-        for(String s : mWords) {
-            if(builder.length() != 0)
+        for (String s : mWords) {
+            if (builder.length() != 0)
                 builder.append(" ");
             builder.append(s);
         }
