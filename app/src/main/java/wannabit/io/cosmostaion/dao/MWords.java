@@ -42,8 +42,11 @@ public class MWords {
         this.importTime = importTime;
     }
 
-    public ArrayList<String> getWords(Context c) {
+    public String getWords(Context c) {
         String entropy = CryptoHelper.doDecryptData(c.getString(R.string.key_mnemonic) + uuid, resource, spec);
-        return new ArrayList<>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)));
+        if (entropy != null) {
+            return String.join(" ", new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)))).trim();
+        }
+        return "";
     }
 }

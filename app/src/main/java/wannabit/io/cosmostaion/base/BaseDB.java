@@ -63,6 +63,8 @@ public class BaseDB extends SQLiteOpenHelper {
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "mnemonicId" + "  INTEGER DEFAULT 0");
+                    db.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_MNEMONIC +
+                            "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [resource] TEXT, [spec] TEXT, [nickName] TEXT, [wordsCnt] INTEGER DEFAULT 0, [isFavo] INTEGER DEFAULT 0, [importTime] INTEGER)");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -80,6 +82,8 @@ public class BaseDB extends SQLiteOpenHelper {
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "mnemonicId" + "  INTEGER DEFAULT 0");
+                    db.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_MNEMONIC +
+                            "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [resource] TEXT, [spec] TEXT, [nickName] TEXT, [wordsCnt] INTEGER DEFAULT 0, [isFavo] INTEGER DEFAULT 0, [importTime] INTEGER)");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -95,6 +99,8 @@ public class BaseDB extends SQLiteOpenHelper {
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "mnemonicId" + "  INTEGER DEFAULT 0");
+                    db.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_MNEMONIC +
+                            "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [resource] TEXT, [spec] TEXT, [nickName] TEXT, [wordsCnt] INTEGER DEFAULT 0, [isFavo] INTEGER DEFAULT 0, [importTime] INTEGER)");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -108,6 +114,8 @@ public class BaseDB extends SQLiteOpenHelper {
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "mnemonicId" + "  INTEGER DEFAULT 0");
+                    db.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_MNEMONIC +
+                            "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [resource] TEXT, [spec] TEXT, [nickName] TEXT, [wordsCnt] INTEGER DEFAULT 0, [isFavo] INTEGER DEFAULT 0, [importTime] INTEGER)");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -120,6 +128,8 @@ public class BaseDB extends SQLiteOpenHelper {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "mnemonicId" + "  INTEGER DEFAULT 0");
+                    db.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_MNEMONIC +
+                            "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [resource] TEXT, [spec] TEXT, [nickName] TEXT, [wordsCnt] INTEGER DEFAULT 0, [isFavo] INTEGER DEFAULT 0, [importTime] INTEGER)");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -131,6 +141,8 @@ public class BaseDB extends SQLiteOpenHelper {
                 try {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "mnemonicId" + "  INTEGER DEFAULT 0");
+                    db.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_MNEMONIC +
+                            "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [resource] TEXT, [spec] TEXT, [nickName] TEXT, [wordsCnt] INTEGER DEFAULT 0, [isFavo] INTEGER DEFAULT 0, [importTime] INTEGER)");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());

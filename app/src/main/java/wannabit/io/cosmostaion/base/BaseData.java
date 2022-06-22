@@ -19,6 +19,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -37,7 +38,6 @@ import org.json.JSONException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -1703,21 +1703,33 @@ public class BaseData {
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
+    @SuppressLint("NewApi")
     public void upgradeMnemonicDB() {
         //select old mnemonics for accounts
         ArrayList<String> alreadyWords = new ArrayList<>();
         for (Account account : onSelectAccounts()) {
             if (account.fromMnemonic) {
                 String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
-                alreadyWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)));
+                String words = String.join(" ", WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy))).trim();
+                if (!alreadyWords.contains(words)) {
+                    alreadyWords.add(words);
+                }
             }
         }
 
         //insert keychain and db for mnemonic
-        for (MWords mWords : onSelectAllMnemonics()) {
-            if (Arrays.equals(mWords.getWords(mApp).toArray(), alreadyWords.toArray())) {
+        for (String alreadyWord : alreadyWords) {
+            if (!onSelectAllMnemonics().stream().filter(w -> w.getWords(mApp).equalsIgnoreCase(alreadyWord)).findFirst().isPresent()) {
+                ArrayList<String> mnWords = new ArrayList<>();
+                for (int i = 0; i < alreadyWord.split(" ").length; i++) {
+                    mnWords.add(alreadyWord.split(" ")[i]);
+                }
                 MWords tempMWords = MWords.getNewInstance();
-                tempMWords.wordsCnt = alreadyWords.size();
+                String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mnWords));
+                EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
+                tempMWords.resource = encR.getEncDataString();
+                tempMWords.spec = encR.getIvDataString();
+                tempMWords.wordsCnt = mnWords.size();
                 onInsertMnemonics(tempMWords);
             }
         }
@@ -1726,9 +1738,9 @@ public class BaseData {
         for (Account account : onSelectAccounts()) {
             if (account.fromMnemonic) {
                 String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
-                ArrayList<String> words = new ArrayList<>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)));
+                String words = String.join(" ", WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)));
                 for (MWords mWords : onSelectAllMnemonics()) {
-                    if (Arrays.equals(mWords.getWords(mApp).toArray(), words.toArray())) {
+                    if (mWords.getWords(mApp).equalsIgnoreCase(words)) {
                         account.mnemonicId = mWords.id;
                         onUpdateMnemonicId(account);
                     }

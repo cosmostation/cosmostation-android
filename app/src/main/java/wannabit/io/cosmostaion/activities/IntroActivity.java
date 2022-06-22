@@ -150,10 +150,11 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                         getBaseDao().upgradeMnemonicDB();
                     }
                 });
+                getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
             }
         };
         update.start();
-        getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
+        onCheckAppVersion();
     }
 
     private void onCheckAppVersion() {
