@@ -284,7 +284,7 @@ public enum BaseChain {
         result.add(COMDEX_MAIN);
         result.add(CRESCENT_MAIN);
         result.add(CRYPTO_MAIN);
-//        result.add(CUDOS_MAIN);
+        result.add(CUDOS_MAIN);
         result.add(DESMOS_MAIN);
         result.add(EMONEY_MAIN);
         result.add(EVMOS_MAIN);
@@ -324,7 +324,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(ALTHEA_TEST) || chain.equals(CUDOS_MAIN) || chain.equals(CRESCENT_TEST)) {
+        if (chain.equals(ALTHEA_TEST) || chain.equals(CRESCENT_TEST)) {
             return true;
         }
         return false;
@@ -342,7 +342,7 @@ public enum BaseChain {
         return result;
     }
 
-    public static ArrayList<String>  getHtlcSwappableCoin(BaseChain fromChain) {
+    public static ArrayList<String> getHtlcSwappableCoin(BaseChain fromChain) {
         ArrayList<String> result = new ArrayList<>();
         if (fromChain.equals(BNB_MAIN)) {
             result.add(TOKEN_HTLC_BINANCE_BNB);

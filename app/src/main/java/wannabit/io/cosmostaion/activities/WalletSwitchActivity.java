@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,21 +18,21 @@ import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.widget.mainWallet.ManageChainSwitchHolder;
 
 public class WalletSwitchActivity extends BaseActivity {
-    private RecyclerView                mAccountRecyclerView;
-    private AccountListAdapter          mAccountListAdapter;
+    private RecyclerView mAccountRecyclerView;
+    private AccountListAdapter mAccountListAdapter;
 
-    private BaseChain                   mSelectedChain;
-    private ArrayList<BaseChain>        mExpendedChains = new ArrayList<>();
-    private ArrayList<ChainAccounts>    mChainAccounts = new ArrayList<>();
+    private BaseChain mSelectedChain;
+    private ArrayList<BaseChain> mExpendedChains = new ArrayList<>();
+    private ArrayList<ChainAccounts> mChainAccounts = new ArrayList<>();
 
-    private ImageView                   mBtnClose;
+    private ImageView mBtnClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_switch);
-        mBtnClose               = findViewById(R.id.btn_close);
-        mAccountRecyclerView    = findViewById(R.id.account_recycler);
+        mBtnClose = findViewById(R.id.btn_close);
+        mAccountRecyclerView = findViewById(R.id.account_recycler);
 
         mBtnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +74,7 @@ public class WalletSwitchActivity extends BaseActivity {
 
     public void setExpendChains() {
         mExpendedChains.clear();
-        for (ChainAccounts chainAccounts: mChainAccounts) {
+        for (ChainAccounts chainAccounts : mChainAccounts) {
             if (chainAccounts.opened) {
                 mExpendedChains.add(chainAccounts.baseChain);
             }
