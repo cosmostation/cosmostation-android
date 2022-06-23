@@ -1245,8 +1245,8 @@
     <string name="str_no_history_with_this_validator">No history.</string>
     <string name="str_let_start_cosmos">Explore the Cosmos Hub</string>
     <string name="str_let_start_cosmos2">Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
-    <string name="str_change_nickname">Change wallet Name</string>
-    <string name="str_wallet_nickname">Wallet Name</string>
+    <string name="str_change_account_nickname">Change Wallet Name</string>
+    <string name="str_change_mnemonic_nickname">Change Mnemonic Name</string>
     <string name="str_start_delegate">Delegate your tokens with Cosmostation.\nStart earning staking rewards and contribute to the network ecosystem.</string>
     <string name="str_create_warn0">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
     <string name="str_create_warn1">Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.</string>

@@ -16,65 +16,56 @@
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
-
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_mnemonic_detail" />
+            style="@style/font_ssm_17_white"
+            android:text="@string/str_mnemonic_detail"/>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_name"
+        android:id="@+id/card_mnemonic_nickname_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_12"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/space_6">
-
+            android:layout_height="@dimen/space_44">
             <ImageView
-                android:id="@+id/mnemonic_name_edit"
+                android:id="@+id/btn_nickname_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
                 android:padding="@dimen/space_8"
                 android:src="@drawable/edit_btn" />
             <TextView
-                android:id="@+id/mnemonic_name"
-                style="@style/font_ss_14_white"
+                android:id="@+id/mnemonic_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/space_8"
-                android:singleLine="true"
-                android:ellipsize="middle"
-                android:layout_toLeftOf="@+id/mnemonic_name_edit"
-                android:text="Mnemonic 1" />
+                android:layout_toLeftOf="@+id/btn_nickname_edit"
+                android:layout_marginLeft="@dimen/space_12"
+                style="@style/font_ss_14_white" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_mnemonic_layer"
-        android:layout_below="@+id/card_name"
+        android:layout_below="@+id/card_mnemonic_nickname_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true" >
         <LinearLayout
@@ -663,50 +654,52 @@
         android:id="@+id/bottom_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_24"
-        android:orientation="vertical">
-
+        android:layout_marginBottom="@dimen/space_36"
+        android:gravity="center_horizontal">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16">
             <Button
                 android:id="@+id/btn_copy"
-                style="@style/font_ss_14_photon"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
-                android:layout_marginRight="@dimen/space_4"
-                android:layout_weight="1"
-                android:background="@drawable/btn_trans_with_border"
                 android:minHeight="@dimen/space_45"
-                android:text="@string/str_copy"
-                android:textAllCaps="false" />
-
+                android:background="@drawable/btn_trans_with_border"
+                android:layout_weight="1"
+                style="@style/font_ss_14_photon"
+                android:text="@string/str_copy"/>
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/space_8" />
             <Button
                 android:id="@+id/btn_derive"
-                style="@style/font_ss_14_photon"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
-                android:layout_marginLeft="@dimen/space_4"
-                android:layout_weight="1"
-                android:background="@drawable/btn_trans_with_border"
                 android:minHeight="@dimen/space_45"
-                android:text="@string/str_derive_wallet"
-                android:textAllCaps="false" />
+                android:background="@drawable/btn_trans_with_border"
+                android:layout_weight="1"
+                style="@style/font_ss_14_photon"
+                android:text="@string/str_derive_wallet"/>
         </LinearLayout>
         <Button
             android:id="@+id/btn_delete"
-            style="@style/font_ss_14_red"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_6"
-            android:layout_weight="1"
+            android:layout_marginTop="@dimen/space_12"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_border"
-            android:text="@string/str_delete_mnemonic"
-            android:textAllCaps="false" />
+            style="@style/font_ss_14_red"
+            android:text="@string/str_delete_mnemonic"/>
     </LinearLayout>
 </RelativeLayout>

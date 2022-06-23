@@ -13,12 +13,12 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
             style="@style/font_ss_17_gray8"
-            android:gravity="center"
-            android:text="@string/str_change_nickname"/>
+            android:gravity="center"/>
 
 
         <EditText
@@ -29,7 +29,6 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:minHeight="@dimen/space_40"
-            android:hint="@string/str_wallet_nickname"
             android:textCursorDrawable="@drawable/black_cursor"
             android:maxLength="15"
             android:singleLine="true"

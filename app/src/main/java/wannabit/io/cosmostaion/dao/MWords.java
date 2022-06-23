@@ -7,8 +7,11 @@ import java.util.Calendar;
 import java.util.UUID;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MWords {
@@ -45,8 +48,31 @@ public class MWords {
     public String getWords(Context c) {
         String entropy = CryptoHelper.doDecryptData(c.getString(R.string.key_mnemonic) + uuid, resource, spec);
         if (entropy != null) {
-            return String.join(" ", new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)))).trim();
+            return String.join(" ", new ArrayList<>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)))).trim();
         }
         return "";
+    }
+
+    public ArrayList<String> getMnemonicWords(Context c) {
+        String entropy = CryptoHelper.doDecryptData(c.getString(R.string.key_mnemonic) + uuid, resource, spec);
+        if (entropy != null) {
+            return new ArrayList<>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)));
+        }
+        return null;
+    }
+
+    public String getName() {
+        if (nickName == null) {
+            return "Mnemonic " + id;
+        }
+        return nickName;
+    }
+
+    public int getLinkedWalletCnt(BaseData baseData) {
+        return baseData.onSelectAccountsByMnemonic(id).size();
+    }
+
+    public String getImportDate(Context c) {
+        return WDp.getDpTime(c, importTime);
     }
 }

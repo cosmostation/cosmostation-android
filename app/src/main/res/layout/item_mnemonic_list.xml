@@ -35,7 +35,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/space_8">
+                android:layout_marginTop="@dimen/space_10">
 
                 <ImageView
                     android:id="@+id/mnemonicArrowSort"

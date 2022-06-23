@@ -529,7 +529,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
             onShowWaitDialog();
-            new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(mUserInput);
+            new CheckMnemonicTask(getBaseApplication(), this).execute(mUserInput);
 
         } else if (mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
             onShowWaitDialog();
@@ -831,9 +831,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (result.taskType == TASK_CHECK_MNEMONIC) {
             if (result.isSuccess) {
-                Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
-                checkintent.putExtra("checkid", mIdToCheck);
-                checkintent.putExtra("entropy", String.valueOf(result.resultData));
+                Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicDetailActivity.class);
+                checkintent.putExtra("mnemonicId", getIntent().getLongExtra("checkid", -1));
                 startActivity(checkintent);
 
             } else {

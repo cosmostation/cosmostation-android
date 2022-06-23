@@ -4,7 +4,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -12,12 +11,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 public class CheckMnemonicTask extends CommonTask {
 
-    private Account mAccount;
-
-    public CheckMnemonicTask(BaseApplication app, TaskListener listener, Account account) {
+    public CheckMnemonicTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
         this.mResult.taskType = BaseConstant.TASK_CHECK_MNEMONIC;
-        this.mAccount = account;
     }
 
     /**
@@ -35,8 +31,6 @@ public class CheckMnemonicTask extends CommonTask {
             mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
             return mResult;
         } else {
-            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            mResult.resultData = entropy;
             mResult.isSuccess = true;
         }
         return mResult;

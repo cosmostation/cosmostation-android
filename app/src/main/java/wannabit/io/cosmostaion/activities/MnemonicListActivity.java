@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,23 +14,30 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.MWords;
 
 public class MnemonicListActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
-    private Button mBtnCreateMnemonic;
+    private Button mBtnImportMnemonic, mBtnCreateMnemonic;
 
     private MnemonicListAdapter mAdapter;
+
+    private ArrayList<MWords> mMyMnemonics = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mnemonic_manage);
+        setContentView(R.layout.activity_mnemonic_list);
         mToolbar = findViewById(R.id.tool_bar);
         mRecyclerView = findViewById(R.id.recycler);
+        mBtnImportMnemonic = findViewById(R.id.btn_import_mnemonic);
         mBtnCreateMnemonic = findViewById(R.id.btn_create_mnemonic);
 
         setSupportActionBar(mToolbar);
@@ -43,8 +49,17 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
         mAdapter = new MnemonicListAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
+        mBtnImportMnemonic.setOnClickListener(this);
         mBtnCreateMnemonic.setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMyMnemonics = getBaseDao().onSelectAllMnemonics();
+
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -60,7 +75,10 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnCreateMnemonic)) {
+        if (v.equals(mBtnImportMnemonic)) {
+            startActivity(new Intent(MnemonicListActivity.this, RestoreActivity.class));
+
+        } else if (v.equals(mBtnCreateMnemonic)) {
             startActivity(new Intent(MnemonicListActivity.this, MnemonicCreateActivity.class));
         }
     }
@@ -70,23 +88,32 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
         @NonNull
         @Override
         public ListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View rootView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_mnemonic_list, viewGroup, false);
-            return new ListHolder(rootView);
+            return new ListHolder(getLayoutInflater().inflate(R.layout.item_mnemonic_list, viewGroup, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ListHolder viewHolder, int position) {
-            viewHolder.itemRoot.setOnClickListener(new View.OnClickListener() {
+        public void onBindViewHolder(@NonNull ListHolder holder, int position) {
+            MWords mWord = mMyMnemonics.get(position);
+            holder.itemMnemonicName.setText(mWord.getName());
+            holder.itemDerivedCnt.setText("" + mWord.getLinkedWalletCnt(getBaseDao()));
+            holder.itemWordsCnt.setText("" + mWord.wordsCnt);
+            holder.itemImportedDate.setText(mWord.getImportDate(MnemonicListActivity.this));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class));
+                    Intent intent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
+                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
+                    intent.putExtra("checkid", mWord.id);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             });
         }
 
         @Override
         public int getItemCount() {
-            return 1;
+            return mMyMnemonics.size();
         }
 
         public class ListHolder extends RecyclerView.ViewHolder {

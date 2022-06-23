@@ -1314,6 +1314,17 @@ public class BaseData {
         return result;
     }
 
+    public ArrayList<Account> onSelectAccountsByMnemonic(long id) {
+        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> AllAccount = onSelectAccounts();
+        for (Account account : AllAccount) {
+            if (account.mnemonicId.equals(id)) {
+                result.add(account);
+            }
+        }
+        return result;
+    }
+
     public ArrayList<Account> onSelectAccountsByChain(BaseChain chain) {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> AllAccount = onSelectAccounts();
@@ -1604,6 +1615,15 @@ public class BaseData {
         return result;
     }
 
+    public MWords onSelectMnemonicById(long id) {
+        for (MWords mWord : onSelectAllMnemonics()) {
+            if (mWord.id.equals(id)) {
+                return mWord;
+            }
+        }
+        return null;
+    }
+
     public long onInsertMnemonics(MWords mWords) {
         ContentValues values = new ContentValues();
         values.put("uuid",              mWords.uuid);
@@ -1614,6 +1634,15 @@ public class BaseData {
         values.put("isFavo",            mWords.isFavo);
         values.put("importTime",        mWords.importTime);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_MNEMONIC, null, values);
+    }
+
+    public long onUpdateMenmonic(MWords mWords) {
+        ContentValues values = new ContentValues();
+        if(!TextUtils.isEmpty(mWords.nickName))
+            values.put("nickName",          mWords.nickName);
+        if(mWords.isFavo != null)
+            values.put("isFavo",            mWords.isFavo);
+        return getBaseDB().update(BaseConstant.DB_TABLE_MNEMONIC, values, "id = ?", new String[]{""+mWords.id} );
     }
 
     //set custompath 118 - > 0,

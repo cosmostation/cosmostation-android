@@ -261,7 +261,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             if (mAccount.hasPrivateKey) {
                 Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                intent.putExtra("checkid", mAccount.id);
+                intent.putExtra("checkid", mAccount.mnemonicId);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -300,6 +300,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mNameEditImg)) {
             Bundle bundle = new Bundle();
+            bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);
             bundle.putString("name", mAccount.nickName);
             Dialog_ChangeNickName delete = Dialog_ChangeNickName.newInstance(bundle);
