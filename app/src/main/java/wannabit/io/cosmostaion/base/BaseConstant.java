@@ -752,8 +752,8 @@ public class BaseConstant {
     public final static String EVMOS_GAS_RATE_TINY                      = "0.000";
     public final static String EVMOS_GAS_RATE_LOW                       = "0.000";
     public final static String EVMOS_GAS_RATE_AVERAGE                   = "0.000";
-
-    public final static String CUDOS_GAS_RATE_TINY                      = "5000000000000.000";
+    
+    public final static String CUDOS_GAS_RATE_TINY                      = "5000000000000.00";
     public final static String CUDOS_GAS_RATE_LOW                       = "5000000000000.00";
     public final static String CUDOS_GAS_RATE_AVERAGE                   = "5000000000000.00";
 
