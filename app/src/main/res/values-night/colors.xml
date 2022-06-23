@@ -76,10 +76,10 @@
     <color name="colorGray11">#242627</color>
     <color name="colorGray12">#f5f5f5</color>
 
-    <color name="colorbase1">#000000</color>
-    <color name="colorbase2">#232428</color>
-    <color name="colorbase3">#565b60</color>
-    <color name="colorbase4">#ffffff</color>
+    <color name="colorWhite_UseOnlyLightMode">#000000</color>
+    <color name="colorWhite2_UseOnlyLightMode">#232428</color>
+    <color name="colorWhiteGray_UseOnlyLightMode">#565b60</color>
+    <color name="colorBlack_UseOnlyLightMode">#ffffff</color>
 
 
     <color name="colorAtom">#9C6CFF</color>

@@ -11,4 +11,12 @@
         <item name="android:windowAnimationStyle">@style/Animation.Design.TopSheetDialog</item>
         <item name="bottomSheetStyle">@style/Widget.Design.TopSheet.Modal</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/colorWhite_UseOnlyLightMode</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
 </resources>

@@ -10,19 +10,10 @@
         <item name="colorControlHighlight">@color/colorGray9</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowContentTransitions">true</item>
-    </style>
-
     <style name="AppTheme.Intro">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimaryDark">@color/colorBlack</item>
-        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
 
