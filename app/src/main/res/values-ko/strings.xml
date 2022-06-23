@@ -1167,7 +1167,7 @@
     <string name="str_gravity_swap_offer_coin_fee">Coin Fee</string>
     <string name="str_gravity_swap_demand_coin_denom">Demand Coin</string>
     <string name="str_gravity_swap_order_price">Order Price</string>
-    <string name="str_gravity_withdraw_address">Withdraw Address</string>F
+    <string name="str_gravity_withdraw_address">Withdraw Address</string>
     <string name="str_gravity_withdraw_pool_id">Pool ID</string>
     <string name="str_osmosis_defi_lab"><![CDATA[오스모시스 DeFi]]> </string>
     <string name="str_crescent_app"><![CDATA[Crescent App]]> </string>
