@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_base"
             android:text="@string/str_wallet_connect"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

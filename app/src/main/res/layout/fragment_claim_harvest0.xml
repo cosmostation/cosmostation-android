@@ -57,7 +57,7 @@
                                 android:layout_toLeftOf="@+id/kava_reward_denom"
                                 android:layout_marginRight="@dimen/space_2"
                                 android:text="-"
-                                style="@style/font_ss_12_white"/>
+                                style="@style/font_ss_12_base"/>
                         </RelativeLayout>
                     </RelativeLayout>
                     <RelativeLayout
@@ -79,7 +79,7 @@
                             android:layout_toLeftOf="@+id/harvest_reward_denom"
                             android:layout_marginRight="@dimen/space_2"
                             android:text="-"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_base"/>
                     </RelativeLayout>
 
                     <View
@@ -106,7 +106,7 @@
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
                             android:text=""
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_base"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -138,7 +138,7 @@
                                 android:layout_toLeftOf="@+id/kava_receivable_denom"
                                 android:layout_marginRight="@dimen/space_2"
                                 android:text=""
-                                style="@style/font_ss_12_white"/>
+                                style="@style/font_ss_12_base"/>
                         </RelativeLayout>
                     </RelativeLayout>
                     <RelativeLayout
@@ -160,7 +160,7 @@
                             android:layout_toLeftOf="@+id/hard_receivable_denom"
                             android:layout_marginRight="@dimen/space_2"
                             android:text=""
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_base"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -191,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ssm_14_white"
+                style="@style/font_ssm_14_base"
                 android:text="Large"/>
         </RelativeLayout>
         <RelativeLayout
@@ -207,7 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ssm_14_white"
+                style="@style/font_ssm_14_base"
                 android:text="Large"/>
         </RelativeLayout>
         <RelativeLayout
@@ -223,7 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ssm_14_white"
+                style="@style/font_ssm_14_base"
                 android:text="Large"/>
         </RelativeLayout>
     </LinearLayout>

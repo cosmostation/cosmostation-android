@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/deposited_amount"
@@ -96,7 +96,7 @@
                         android:layout_alignBaseline="@+id/deposited_symbol"
                         android:layout_toLeftOf="@+id/deposited_symbol"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/borrowed_amount"
@@ -138,7 +138,7 @@
                         android:layout_alignBaseline="@+id/borrowed_symbol"
                         android:layout_toLeftOf="@+id/borrowed_symbol"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -171,7 +171,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/borrowable_amount"
@@ -181,7 +181,7 @@
                         android:layout_alignBaseline="@+id/borrowable_symbol"
                         android:layout_toLeftOf="@+id/borrowable_symbol"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView

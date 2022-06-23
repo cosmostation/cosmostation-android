@@ -54,7 +54,7 @@
                         android:textColorHint="@color/colorGray4"
                         android:background="@drawable/edittext_box"
                         android:paddingRight="@dimen/space_60"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:inputType="numberDecimal"
                         android:imeOptions="actionDone"
                         android:gravity="center_vertical|left"/>
@@ -111,7 +111,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="COIN"
-                            style="@style/font_ss_12_white" />
+                            style="@style/font_ss_12_base" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/paritical_disable"
@@ -145,7 +145,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="COIN"
-                            style="@style/font_ss_12_white" />
+                            style="@style/font_ss_12_base" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/all_disable"
@@ -169,7 +169,7 @@
                         android:layout_height="@dimen/space_36"
                         android:layout_weight="1"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:textAllCaps="false"
                         android:text="@string/str_add_one_three"/>
                     <Button
@@ -179,7 +179,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:textAllCaps="false"
                         android:text="@string/str_add_two_three"/>
                     <Button
@@ -189,7 +189,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:textAllCaps="false"
                         android:text="@string/str_add_three_three"/>
                     <Button
@@ -199,7 +199,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:textAllCaps="false"
                         android:text="@string/str_add_p_all"/>
                 </LinearLayout>

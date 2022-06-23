@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_white"/>
+                        style="@style/font_ssm_17_base"/>
                     <TextView
                         android:id="@+id/ok_total_value"
                         android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -100,7 +100,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -119,7 +119,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -138,7 +138,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -162,7 +162,7 @@
                         android:drawableLeft="@drawable/deposit_s_ic"
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_to_staking" />
                 </RelativeLayout>
 
@@ -183,7 +183,7 @@
                         android:drawableLeft="@drawable/withdraw_s_ic"
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_to_unbonding" />
                 </RelativeLayout>
             </LinearLayout>
@@ -203,7 +203,7 @@
                     android:drawableLeft="@drawable/ic_votevalidator_20"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_vote_for_validator" />
             </RelativeLayout>
 
@@ -222,7 +222,7 @@
                     android:drawableLeft="@drawable/vote_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_governance" />
             </RelativeLayout>
 

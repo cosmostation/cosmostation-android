@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="this is wallet"/>
                     <TextView
                         android:id="@+id/tv_chain"

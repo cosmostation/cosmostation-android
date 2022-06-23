@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#234794</color>
-    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#7A7f88</color>
 
     <!--<color name="colorPrimary">#5b72c5</color>-->
@@ -9,18 +9,18 @@
     <!--<color name="colorAccent">#dcb86b</color>-->
 
     <color name="colorTrans">#00000000</color>
-    <color name="colorTransBg">#662E2E2E</color>
+    <color name="colorTransBg">#f5f5f5</color>
     <color name="colorTransBg0">#222E2E2E</color>
-    <color name="colorTransBgCosmos">#249c6cff</color>
+    <color name="colorTransBgCosmos">#f1ebff</color>
     <color name="colorTransBg3">#CC000000</color>
-    <color name="colorTransBgIris">#240080ff</color>
+    <color name="colorTransBgIris">#e9f5fc</color>
     <color name="colorTransBgBinance">#24f0b90b</color>
     <color name="colorTransBgStarname">#246E7CDE</color>
     <color name="colorTransBgKava">#24ff554f</color>
     <color name="colorTransBgBand">#245286FF</color>
     <color name="colorTransBgOkex">#244d87ee</color>
     <color name="colorTransBgCertik">#24E1AA4C</color>
-    <color name="colorTransBgAkash">#24C71E10</color>
+    <color name="colorTransBgAkash">#fceceb</color>
     <color name="colorTransBgSecret">#32C4C4C4</color>
     <color name="colorTransBghard">#328626E1</color>
     <color name="colorTransBgusdx">#3206D6A0</color>
@@ -56,7 +56,7 @@
     <color name="colorTransBgCerberus">#24d7ad17</color>
     <color name="colorTransBgOmniflix">#246c63ff</color>
     <color name="colorTransBgCrescent">#24ffc780</color>
-    <color name="colorTransBgMantle">#24f3b519</color>
+    <color name="colorTransBgMantle">#fef8e8</color>
     <color name="colorTransBgStation">#2405c3cd</color>
     <color name="colorTransBgNyx">#24ff6c5a</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -76,6 +76,10 @@
     <color name="colorGray11">#242627</color>
     <color name="colorGray12">#f5f5f5</color>
 
+    <color name="colorbase1">#ffffff</color>
+    <color name="colorbase2">#f5f5f5</color>
+    <color name="colorbase3">#bec6d1</color>
+    <color name="colorbase4">#222222</color>
 
     <color name="colorAtom">#9C6CFF</color>
     <color name="colorAtom2">#372758</color>

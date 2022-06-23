@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/vesting_gap0"
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/vesting_gap1"
                     android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/vesting_gap2"
                     android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -148,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/vesting_gap3"
                     android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/vesting_gap4"
                     android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
         </LinearLayout>

@@ -54,7 +54,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="end"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                     <TextView
                         android:id="@+id/tx_swap_send_asset_amount"
                         android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                         android:layout_toLeftOf="@+id/tx_swap_send_asset_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -109,7 +109,7 @@
                         android:layout_alignParentRight="true"
                         android:gravity="end"
                         android:text=""
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                     <TextView
                         android:id="@+id/tx_swap_received_asset_amount"
                         android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                         android:layout_toLeftOf="@+id/tx_swap_received_asset_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

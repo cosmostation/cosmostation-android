@@ -35,7 +35,7 @@
                     android:id="@+id/history_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="Send"/>
                 <TextView
                     android:id="@+id/history_success"
@@ -94,14 +94,14 @@
 
                     <TextView
                         android:id="@+id/history_amount_symobl"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="ATOM" />
                     <TextView
                         android:id="@+id/history_amount"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/history_amount_symobl"

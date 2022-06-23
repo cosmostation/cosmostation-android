@@ -38,7 +38,7 @@
                     android:layout_toRightOf="@+id/img_account"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:singleLine="true"
                     android:text=""/>
             </RelativeLayout>

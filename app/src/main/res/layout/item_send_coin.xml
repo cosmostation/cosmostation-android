@@ -39,7 +39,7 @@
                 android:background="@drawable/edittext_box"
                 android:paddingLeft="@dimen/space_60"
                 android:paddingRight="@dimen/space_12"
-                style="@style/font_ss_12_white"
+                style="@style/font_ss_12_base"
                 android:inputType="numberDecimal"
                 android:imeOptions="actionDone"
                 android:gravity="center_vertical|right"/>

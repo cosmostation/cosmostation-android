@@ -38,7 +38,7 @@
                         android:singleLine="true"
                         android:ellipsize="end"
                         android:letterSpacing="0.05"
-                        style="@style/font_ssm_17_white"
+                        style="@style/font_ssm_17_base"
                         android:text="-"/>
                     <ImageView
                         android:id="@+id/web_detail"
@@ -69,7 +69,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_6"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="-"/>
                 </RelativeLayout>
 
@@ -90,7 +90,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_6"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="-"/>
                 </RelativeLayout>
 

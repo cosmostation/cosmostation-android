@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_base"
             android:text="@string/str_app_applock"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_using_applock"/>
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_using_fingerprints"/>
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_applock_time"/>
                 <ImageView
                     android:id="@+id/arrow_currency"

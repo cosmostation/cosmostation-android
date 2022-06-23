@@ -55,7 +55,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
             <LinearLayout
@@ -75,7 +75,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

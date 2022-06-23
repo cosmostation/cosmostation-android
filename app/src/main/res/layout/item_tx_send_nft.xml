@@ -54,7 +54,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

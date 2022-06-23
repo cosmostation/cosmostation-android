@@ -41,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        style="@style/font_ssl_12_white"/>
+                        style="@style/font_ssl_12_base"/>
                     <TextView
                         android:id="@+id/reward_denom_title"
                         android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
 

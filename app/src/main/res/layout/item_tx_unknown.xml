@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/str_unknown_tx"
                 android:layout_marginTop="@dimen/space_4"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_base"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

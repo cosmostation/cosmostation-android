@@ -14,6 +14,7 @@
         android:layout_marginTop="2dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
         <LinearLayout
@@ -36,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ss_14_base"
                     android:text="-"/>
                 <LinearLayout
                     android:id="@+id/per_change"
@@ -61,15 +62,16 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        style="@style/font_ssl_12_white"
+                        style="@style/font_ssl_12_base"
                         android:text="-"/>
                 </LinearLayout>
+
                 <TextView
+                    style="@style/font_ss_9_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_24"
-                    android:text="(CoinGecko)"
-                    style="@style/font_ss_9_gray1"/>
+                    android:text="(CoinGecko)" />
             </RelativeLayout>
             <LinearLayout
                 android:id="@+id/buy_layer"
@@ -98,7 +100,7 @@
                         android:drawableLeft="@drawable/card_ic"
                         android:drawablePadding="@dimen/space_8"
                         android:gravity="center"
-                        style="@style/font_ss_14_photon"
+                        style="@style/font_ss_14_base"
                         android:text="@string/str_buy_atom" />
                 </RelativeLayout>
             </LinearLayout>

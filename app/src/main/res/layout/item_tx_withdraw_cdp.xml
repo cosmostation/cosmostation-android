@@ -55,7 +55,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
             <LinearLayout
@@ -75,7 +75,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="ATOM"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                     <TextView
                         android:id="@+id/tx_collateral_amount"
                         android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
                         android:layout_toLeftOf="@+id/tx_collateral_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_white"/>
+                        style="@style/font_ssl_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
 

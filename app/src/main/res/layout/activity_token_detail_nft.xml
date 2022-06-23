@@ -25,7 +25,7 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
-                app:contentScrim="?attr/colorPrimaryDark"
+                app:contentScrim="?attr/colorPrimaryVariant"
                 android:minHeight="@dimen/space_1"
                 android:background="@color/colorWhite"
                 app:expandedTitleTextAppearance="@android:color/transparent"
@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ssm_17_white"
+                        style="@style/font_ssm_17_base"
                         android:text="NFT Detail"/>
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>

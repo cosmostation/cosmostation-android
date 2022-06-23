@@ -2994,7 +2994,7 @@ public class WUtil {
         guideBtn1.setText(R.string.str_home);
         guideBtn2.setText(R.string.str_blog);
         if (mainActivity.mBaseChain.equals(COSMOS_MAIN) || mainActivity.mBaseChain.equals(COSMOS_TEST)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.guide_img));
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.cosmos_infoicon));
             guideTitle.setText(R.string.str_front_guide_title);
             guideMsg.setText(R.string.str_front_guide_msg);
 

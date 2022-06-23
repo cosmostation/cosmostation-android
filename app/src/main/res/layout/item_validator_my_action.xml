@@ -24,11 +24,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_tx_delegated_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_tx_delegated_amount" />
                 <TextView
                     android:id="@+id/validator_delegated"
                     android:layout_width="wrap_content"
@@ -71,7 +72,7 @@
                     android:layout_height="@dimen/space_40"
                     android:minHeight="@dimen/space_40"
                     android:background="@drawable/btn_trans_with_border"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_delegate"/>
                 <Button
                     android:id="@+id/validator_btn_undelegate"
@@ -82,7 +83,7 @@
                     android:layout_height="@dimen/space_40"
                     android:minHeight="@dimen/space_40"
                     android:background="@drawable/btn_trans_with_border"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_undelegate"/>
                 <Button
                     android:id="@+id/validator_btn_redelegate"
@@ -92,7 +93,7 @@
                     android:layout_height="@dimen/space_40"
                     android:minHeight="@dimen/space_40"
                     android:background="@drawable/btn_trans_with_border"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_redelegate"/>
             </LinearLayout>
 
@@ -139,7 +140,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -157,7 +158,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -221,7 +222,7 @@
                     android:layout_marginRight="@dimen/space_4"
                     android:minHeight="@dimen/space_40"
                     android:background="@drawable/btn_trans_with_border"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_claim_reward"/>
                 <Button
                     android:id="@+id/validator_btn_reinvest"
@@ -232,7 +233,7 @@
                     android:layout_marginLeft="@dimen/space_4"
                     android:minHeight="@dimen/space_40"
                     android:background="@drawable/btn_trans_with_border"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:text="@string/str_reinvest"/>
             </LinearLayout>
 

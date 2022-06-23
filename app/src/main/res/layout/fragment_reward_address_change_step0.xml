@@ -26,7 +26,7 @@
                 android:background="@drawable/edittext_box"
                 android:paddingLeft="@dimen/space_16"
                 android:paddingRight="@dimen/space_16"
-                style="@style/font_ss_12_white"
+                style="@style/font_ss_12_base"
                 android:imeOptions="actionNext"/>
         </RelativeLayout>
 
@@ -48,7 +48,7 @@
                 android:id="@+id/current_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ss_12_white"
+                style="@style/font_ss_12_base"
                 android:singleLine="true"
                 android:text="-"/>
         </LinearLayout>

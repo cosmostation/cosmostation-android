@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -54,7 +55,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,7 +75,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,7 +95,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -114,7 +115,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,7 +135,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:id="@+id/tx_bridge_moniker"
                     android:layout_width="wrap_content"
@@ -164,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="end"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                     <TextView
                         android:id="@+id/tx_bridge_asset_amount"
                         android:layout_width="wrap_content"
@@ -173,7 +174,7 @@
                         android:layout_toLeftOf="@+id/tx_bridge_asset_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

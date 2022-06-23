@@ -54,7 +54,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                         android:gravity="end"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

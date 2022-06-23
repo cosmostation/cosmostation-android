@@ -55,7 +55,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker"
                     android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                         android:layout_toLeftOf="@+id/tx_reward_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

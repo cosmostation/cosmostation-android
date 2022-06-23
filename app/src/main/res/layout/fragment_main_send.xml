@@ -17,6 +17,7 @@
             android:layout_height="@dimen/space_40"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
             app:cardPreventCornerOverlap="true"
@@ -51,7 +52,7 @@
 
                     <TextView
                         android:id="@+id/info_notice"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -72,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
             app:cardPreventCornerOverlap="true"
@@ -99,7 +101,7 @@
 
                     <TextView
                         android:id="@+id/wallet_address"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -111,7 +113,7 @@
 
                 <TextView
                     android:id="@+id/total_value"
-                    style="@style/font_ss_21_white"
+                    style="@style/font_ss_21_base"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_2"

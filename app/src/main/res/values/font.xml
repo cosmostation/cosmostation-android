@@ -332,6 +332,18 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ss_12_base" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorbase4</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="font_ssl_12_base" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorbase4</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
 
 
     <style name="font_ss_14_white" parent="@android:style/TextAppearance">
@@ -757,7 +769,23 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_ssl_14_base" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorbase4</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
 
+    <style name="font_ss_14_base" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorbase4</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_ssm_14_base" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorbase4</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
 
 
 
@@ -879,6 +907,18 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
+    <style name="font_ssm_17_base" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorbase4</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="font_ssl_17_base" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorbase4</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
 
 
     <style name="font_ss_21_white" parent="@android:style/TextAppearance">
@@ -890,6 +930,12 @@
     <style name="font_ss_21_gray1" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_21</item>
+    </style>
+
+    <style name="font_ss_21_base" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorbase4</item>
         <item name="android:textSize">@dimen/text_size_21</item>
     </style>
 

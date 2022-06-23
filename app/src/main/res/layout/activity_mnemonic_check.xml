@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_base"
             android:text="@string/str_check_mnemonic_c"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -33,6 +33,7 @@
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_12"
         app:cardPreventCornerOverlap="true"
+        app:cardElevation="0dp"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgCosmos"
         app:cardUseCompatPadding="true" >
@@ -637,7 +638,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"
             android:gravity="center"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_base"
             android:text="@string/str_warning"/>
         <TextView
             android:id="@+id/create_msg2"

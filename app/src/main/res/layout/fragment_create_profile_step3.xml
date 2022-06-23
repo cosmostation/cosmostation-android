@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_margin="@dimen/space_12"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -45,7 +46,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_base"/>
                         <TextView
                             android:id="@+id/tx_fee_symbol"
                             android:layout_width="wrap_content"
@@ -88,7 +89,7 @@
                         android:layout_marginTop="@dimen/space_2"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
@@ -103,7 +104,7 @@
                     android:layout_marginTop="@dimen/space_2"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,7 +120,7 @@
                     android:layout_marginTop="@dimen/space_2"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,7 +132,7 @@
 
                 <TextView
                     android:id="@+id/profile_uri"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_2"
@@ -152,7 +153,7 @@
                     android:layout_marginTop="@dimen/space_2"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -166,7 +167,7 @@
                     android:layout_marginTop="@dimen/space_8"
                     android:lines="2"
                     android:ellipsize="end"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -88,7 +89,7 @@
                     android:text="-"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -114,7 +115,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -138,7 +139,7 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -162,7 +163,7 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </RelativeLayout>
 
 
@@ -199,7 +200,7 @@
                         android:layout_toLeftOf="@+id/request_amount_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
 

@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="Coin"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/deposited_amount"
@@ -94,7 +94,7 @@
                     android:layout_alignBaseline="@+id/deposited_symbol"
                     android:layout_toLeftOf="@+id/deposited_symbol"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </RelativeLayout>
         </RelativeLayout>
 
@@ -189,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="Coin"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/harvest_reward_amount"
@@ -199,7 +199,7 @@
                     android:layout_alignBaseline="@+id/harvest_reward_symbol"
                     android:layout_toLeftOf="@+id/harvest_reward_symbol"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="Coin"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/daily_reward_amount"
@@ -234,7 +234,7 @@
                     android:layout_alignBaseline="@+id/daily_reward_denom"
                     android:layout_toLeftOf="@+id/daily_reward_denom"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </RelativeLayout>
         </RelativeLayout>
 

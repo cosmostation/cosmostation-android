@@ -118,7 +118,7 @@
                             android:lines="2"
                             android:ellipsize="end"
                             android:text=""
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_base"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

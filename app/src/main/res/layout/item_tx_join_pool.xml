@@ -55,7 +55,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,13 +93,13 @@
                             android:layout_gravity="right">
                             <TextView
                                 android:id="@+id/tx_token_in_amount1"
-                                style="@style/font_ssl_12_white"
+                                style="@style/font_ssl_12_base"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
                             <TextView
                                 android:id="@+id/tx_token_in_symbol1"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_base"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -113,13 +113,13 @@
                             android:layout_gravity="right">
                             <TextView
                                 android:id="@+id/tx_token_in_amount2"
-                                style="@style/font_ssl_12_white"
+                                style="@style/font_ssl_12_base"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
                             <TextView
                                 android:id="@+id/tx_token_in_symbol2"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_base"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                     <TextView
                         android:id="@+id/tx_join_token_out_amount"
                         android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
                         android:layout_toLeftOf="@+id/tx_join_token_out_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

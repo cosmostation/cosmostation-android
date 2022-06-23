@@ -28,7 +28,7 @@
                     android:textColorHint="@color/colorGray4"
                     android:background="@drawable/edittext_box"
                     android:paddingRight="@dimen/space_60"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionDone"
                     android:gravity="center_vertical|left"/>
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
                         android:text="@string/s_atom"
-                        style="@style/font_ss_12_white" />
+                        style="@style/font_ss_12_base" />
                 </LinearLayout>
             </RelativeLayout>
 

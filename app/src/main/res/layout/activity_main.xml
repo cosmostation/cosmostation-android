@@ -6,54 +6,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:background="@color/colorPrimaryDark"
+        app:layout_anchor="@+id/relativeLayout"
+        app:layout_anchorGravity="center" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_bar_height"
-            android:background="@color/colorBlack"
+            android:background="@color/colorPrimaryDark"
             android:paddingRight="@dimen/space_18"
             app:popupTheme="@style/AppTheme.PopupOverlay">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/toolbar_net_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/cosmos_wh_main"/>
+                    android:src="@drawable/cosmos_wh_main" />
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/toolbar_net_image"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:layout_centerVertical="true">
+                    android:layout_toRightOf="@+id/toolbar_net_image">
+
                     <TextView
                         android:id="@+id/toolbar_title"
+                        style="@style/font_ssm_17_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ssm_17_white"
-                        android:text="Wannabit"/>
+                        android:text="Wannabit" />
+
                     <TextView
                         android:id="@+id/toolbar_net_name"
+                        style="@style/font_ss_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_alignBaseline="@+id/toolbar_title"
+                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_toRightOf="@+id/toolbar_title"
-                        style="@style/font_ss_11_gray1"
-                        android:text="(testnet gaia-12k)"/>
+                        android:text="(testnet gaia-12k)" />
                 </RelativeLayout>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -70,22 +80,22 @@
             android:id="@+id/btn_floating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_72"
             app:backgroundTint="#9C6CFF"
-            app:srcCompat="@drawable/send_btn"/>
+            app:srcCompat="@drawable/send_btn" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/bottom_tab"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorGray2"
-            app:tabMode="fixed"
+            android:background="@color/colorbase1"
             app:tabGravity="fill"
+            app:tabIconTint="@color/colorbase3"
             app:tabIndicatorHeight="0dp"
-            app:tabIconTint="@color/colorGray9" />
+            app:tabMode="fixed" />
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

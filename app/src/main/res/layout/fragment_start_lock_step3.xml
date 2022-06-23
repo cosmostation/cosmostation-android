@@ -46,7 +46,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_base"/>
                         <TextView
                             android:id="@+id/lock_fee_amount_symbol"
                             android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_base"/>
                         <TextView
                             android:id="@+id/lock_amount_symbol"
                             android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_base"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <TextView
@@ -138,7 +138,7 @@
                     android:lines="2"
                     android:ellipsize="end"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
         </LinearLayout>

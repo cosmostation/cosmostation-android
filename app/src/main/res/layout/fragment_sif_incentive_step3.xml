@@ -46,7 +46,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_base"/>
                         <TextView
                             android:id="@+id/tx_fees_type"
                             android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                     android:lines="2"
                     android:ellipsize="end"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
         </LinearLayout>

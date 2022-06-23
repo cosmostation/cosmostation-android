@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_white"/>
+                        style="@style/font_ssm_17_base"/>
                     <TextView
                         android:id="@+id/bnb_value"
                         android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -100,7 +100,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -119,7 +119,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
             </RelativeLayout>
 
             <LinearLayout

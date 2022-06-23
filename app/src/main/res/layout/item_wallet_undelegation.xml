@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_undelegate_status"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:id="@+id/undelegate_count"
                     android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/undelegate_detail_time0_remain"
                     android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/undelegate_detail_time1_remain"
                     android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/undelegate_detail_time2_remain"
                     android:layout_width="wrap_content"
@@ -162,7 +162,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/undelegate_detail_time3_remain"
                     android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_base"/>
                 <TextView
                     android:id="@+id/undelegate_detail_time4_remain"
                     android:layout_width="wrap_content"

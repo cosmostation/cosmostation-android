@@ -22,6 +22,7 @@
                     android:id="@+id/profile_root"
                     android:layout_width="match_parent"
                     android:layout_height="260dp"
+                    app:cardElevation="0dp"
                     app:cardBackgroundColor="@color/colorTrans"
                     app:cardCornerRadius="@dimen/space_10">
                     <ImageView

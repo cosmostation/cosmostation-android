@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/menu_notification_on"
-        android:icon="@drawable/ic_notifications"
+        android:icon="@drawable/icon_notifications_on"
         app:showAsAction="always"
         android:title="@string/str_notification" />
 
@@ -16,7 +16,7 @@
 
     <item
         android:id="@+id/menu_accounts"
-        android:icon="@drawable/btn_switch_24"
+        android:icon="@drawable/icon_walletswitch"
         app:showAsAction="always"
         android:title="@string/str_accounts" />
 

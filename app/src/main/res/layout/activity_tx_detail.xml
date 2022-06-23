@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_base"
             android:text="@string/str_tx_detail"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -149,7 +149,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="center"
                     android:text="@string/str_tx_error_description"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
                 <TextView
                     android:id="@+id/error_details"
                     android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="center"
                     android:text="@string/str_success_loading"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_base"
                     android:visibility="gone"/>
             </LinearLayout>
         </RelativeLayout>

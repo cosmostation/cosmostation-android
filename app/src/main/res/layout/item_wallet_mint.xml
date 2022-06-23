@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="@dimen/space_2"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -34,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                style="@style/font_ssl_14_white"
+                style="@style/font_ssl_14_base"
                 android:text="-"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -46,6 +47,7 @@
         android:layout_marginLeft="@dimen/space_2"
         app:cardPreventCornerOverlap="true"
         android:clickable="true"
+        app:cardElevation="0dp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -78,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                style="@style/font_ssl_14_white"
+                style="@style/font_ssl_14_base"
                 android:text="-"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

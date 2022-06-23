@@ -60,14 +60,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        style="@style/font_ssl_12_white"/>
+                        style="@style/font_ssl_12_base"/>
                     <TextView
                         android:id="@+id/refund_amount_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
                         android:text=""
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -89,7 +89,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
             <LinearLayout
@@ -110,7 +110,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_base"/>
             </LinearLayout>
 
         </LinearLayout>

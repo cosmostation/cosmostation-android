@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_base"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_base"/>
 
             <View
                 android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="-"
-                        style="@style/font_ssl_12_white"/>
+                        style="@style/font_ssl_12_base"/>
                     <TextView
                         android:id="@+id/starname_fee_denom"
                         android:layout_width="wrap_content"

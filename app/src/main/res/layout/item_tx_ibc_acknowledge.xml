@@ -58,7 +58,7 @@
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -83,7 +83,7 @@
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_base"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_add_new"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_wallet_manage"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -93,13 +93,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="@string/str_alarm"/>
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_alarm" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -123,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_app_applock"/>
                     <ImageView
                         android:id="@+id/arrow_applock"
@@ -153,13 +154,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="@string/str_currency"/>
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_currency" />
                     <ImageView
                         android:id="@+id/arrow_currency"
                         android:layout_width="wrap_content"
@@ -188,13 +190,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="@string/str_base_price"/>
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_base_price" />
                     <ImageView
                         android:id="@+id/arrow_base_price"
                         android:layout_width="wrap_content"
@@ -235,7 +238,7 @@
 
                     <TextView
                         android:id="@+id/title_explore"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -262,7 +265,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -287,13 +290,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="@string/str_faq"/>
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_faq" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -312,13 +316,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="@string/str_telegram"/>
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_telegram" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -337,13 +342,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
+                        style="@style/font_ss_12_base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="@string/str_homepage"/>
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_homepage" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -367,7 +373,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_starname_wallet_connect"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -401,7 +407,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_term"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -426,7 +432,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_github"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -451,7 +457,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_base"
                         android:text="@string/str_version"/>
                     <ImageView
                         android:id="@+id/arrow_version"
