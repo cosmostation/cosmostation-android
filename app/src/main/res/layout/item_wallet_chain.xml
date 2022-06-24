@@ -5,22 +5,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        app:cardBackgroundColor="@color/colorTransBgCosmos"
+        app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBgCosmos"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -39,26 +42,29 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:layout_toRightOf="@+id/chain_icon"
                     android:text="ATOM" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:orientation="vertical"
-                    android:gravity="right">
+                    android:gravity="right"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/chain_amount"
+                        style="@style/font_ssm_17_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="-"
-                        style="@style/font_ssm_17_black_dayonly"/>
+                        android:text="-" />
+
                     <TextView
                         android:id="@+id/chain_value"
+                        style="@style/font_ss_14_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        style="@style/font_ss_14_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -66,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -78,14 +84,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available" />
+
                 <TextView
                     android:id="@+id/chain_available"
+                    style="@style/font_ssl_12_black_dayonly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ssl_12_black_dayonly"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -94,92 +101,101 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_vesting_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_vesting_amount" />
+
                 <TextView
                     android:id="@+id/chain_vesting"
+                    style="@style/font_ssl_12_black_dayonly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ssl_12_black_dayonly"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_delegated"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_delegated" />
+
                 <TextView
                     android:id="@+id/chain_delegate"
+                    style="@style/font_ssl_12_black_dayonly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ssl_12_black_dayonly"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_unbonding"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_unbonding" />
+
                 <TextView
                     android:id="@+id/chain_unbonding"
+                    style="@style/font_ssl_12_black_dayonly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ssl_12_black_dayonly"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_reward"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_reward" />
+
                 <TextView
                     android:id="@+id/chain_reward"
+                    style="@style/font_ssl_12_black_dayonly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ssl_12_black_dayonly"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:id="@+id/btn_delegate"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="@dimen/space_40"
-                    android:minHeight="@dimen/space_40"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="@dimen/space_5"
+                    android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:minHeight="@dimen/space_40">
 
                     <TextView
                         style="@style/font_ss_12_black_dayonly"
@@ -195,13 +211,13 @@
                 <RelativeLayout
                     android:id="@+id/btn_vote"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="@dimen/space_40"
-                    android:minHeight="@dimen/space_40"
-                    android:layout_marginTop="16dp"
                     android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:minHeight="@dimen/space_40">
 
                     <TextView
                         style="@style/font_ss_12_black_dayonly"
@@ -219,20 +235,21 @@
                 android:id="@+id/btn_dex"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
-                android:minHeight="@dimen/space_40"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true"
+                android:minHeight="@dimen/space_40"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/dex_title"
+                    style="@style/font_ss_12_black_dayonly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:drawableLeft="@drawable/icon_gravitydex"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_dayonly"
                     android:text="Gravity Dex" />
             </RelativeLayout>
 
@@ -240,19 +257,20 @@
                 android:id="@+id/btn_wallet_connect"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
-                android:minHeight="@dimen/space_40"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true"
+                android:minHeight="@dimen/space_40"
                 android:visibility="gone">
+
                 <TextView
+                    style="@style/font_ss_12_black_dayonly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:drawableLeft="@drawable/icon_walletconnect"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_dayonly"
                     android:text="Wallet Connect" />
             </RelativeLayout>
 

@@ -184,9 +184,9 @@ public class ManageChainSwitchHolder extends BaseHolder {
                                   ImageView keyImg, TextView walletName, TextView address, TextView amount, TextView denom) {
 
         if (dpAccount.id.equals(currentAccount.id)) {
-            layout.setBackground(switchActivity.getResources().getDrawable(R.drawable.box_round_seleted_white));
+            layout.setBackground(ContextCompat.getDrawable(switchActivity, R.drawable.box_round_seleted_white));
         } else {
-            layout.setBackground(switchActivity.getResources().getDrawable(R.drawable.box_round_darkgray));
+            layout.setBackground(ContextCompat.getDrawable(switchActivity, R.drawable.box_round_darkgray));
         }
         WDp.DpMainDenom(switchActivity, dpAccount.baseChain, denom);
         address.setText(dpAccount.address);

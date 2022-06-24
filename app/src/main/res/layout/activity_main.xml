@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorWhiteDayOnly"
+            android:background="@color/colorGray2DayOnly"
             app:tabGravity="fill"
             app:tabIconTint="@color/colorGrayDayOnly"
             app:tabIndicatorHeight="0dp"

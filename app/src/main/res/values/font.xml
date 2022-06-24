@@ -192,6 +192,12 @@
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
+    <style name="font_ss_11_black_dayonly" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
 
 
     <style name="font_ss_12_white" parent="@android:style/TextAppearance">

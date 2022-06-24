@@ -1001,7 +1001,7 @@ public class WDp {
         } else if (baseChain.equals(FETCHAI_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorFetch));
         } else if (baseChain.equals(CRYPTO_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorCryto2));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorCryto));
         } else if (baseChain.equals(SIF_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorSif));
         } else if (baseChain.equals(KI_MAIN)) {
@@ -1010,10 +1010,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorOsmosis));
         } else if (baseChain.equals(MEDI_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorMedi));
         } else if (baseChain.equals(EMONEY_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorEmoney));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(RIZON_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorRizon));
         } else if (baseChain.equals(JUNO_MAIN)) {
@@ -1029,11 +1027,9 @@ public class WDp {
         } else if (baseChain.equals(GRABRIDGE_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorGraBridge));
         } else if (baseChain.equals(COMDEX_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorTransBgComdex));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorComdex));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorComdex));
         } else if (baseChain.equals(INJ_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorInj));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
         } else if (baseChain.equals(BITSONG_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBitsong));
         } else if (baseChain.equals(DESMOS_MAIN)) {
@@ -1044,16 +1040,12 @@ public class WDp {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorChihuahua));
         } else if (baseChain.equals(AXELAR_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorAxelar));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
         } else if (baseChain.equals(KONSTELL_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorKonstellation3));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorKonstellation));
         } else if (baseChain.equals(UMEE_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorUmee));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(EVMOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorEvmos));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorEvmos));
         } else if (baseChain.equals(CUDOS_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorCudos));
         } else if (baseChain.equals(PROVENANCE_MAIN)) {
