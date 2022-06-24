@@ -1,9 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +9,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,34 +22,41 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.MWords;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class WalletDeriveActivity extends BaseActivity implements View.OnClickListener {
 
-    private String mHdSeed;
     private String mEntropy;
-    private int mWordSize;
 
     private Toolbar mToolbar;
-    private TextView mAccountCnt, mChainCnt;
-    private LinearLayout mPathLayer;
+    private TextView mToolbarTitle, mAccountCnt, mChainCnt;
+    private LinearLayout mCntLayer, mPathLayer;
     private TextView mPathText;
     private RecyclerView mAccountRecyclerView;
     private Button mBtnAdd;
 
     private AccountListAdapter mAccountListAdapter;
 
+    private boolean mPrivateKeyMode = false;
+    private MWords mWords;
+
     private int mPath = 0;
-    private ArrayList<BaseChain> selectedChain = new ArrayList<>();
+    private ArrayList<Derive> mDerives = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_derive);
         mToolbar = findViewById(R.id.tool_bar);
+        mToolbarTitle = findViewById(R.id.tool_title);
         mAccountCnt = findViewById(R.id.account_cnt);
         mChainCnt = findViewById(R.id.chain_cnt);
+        mCntLayer = findViewById(R.id.cnt_layer);
         mPathLayer = findViewById(R.id.path_layer);
         mPathText = findViewById(R.id.path);
         mAccountRecyclerView = findViewById(R.id.recycler);
@@ -69,12 +74,57 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         mAccountListAdapter = new AccountListAdapter();
         mAccountRecyclerView.setAdapter(mAccountListAdapter);
 
-        mHdSeed = getIntent().getStringExtra("HDseed");
-        mEntropy = getIntent().getStringExtra("entropy");
-        mWordSize = getIntent().getIntExtra("size", 24);
+        mWords = getBaseDao().onSelectMnemonicById(getIntent().getLongExtra("id", -1));
+        mEntropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mWords.uuid, mWords.resource, mWords.spec);
 
-        onUpdateView();
+        if (mPrivateKeyMode) {
+            mToolbarTitle.setText(getString(R.string.str_restore_key));
+            mPathLayer.setVisibility(View.GONE);
+        } else {
+            mToolbarTitle.setText(mWords.getName());
+            mPathLayer.setVisibility(View.VISIBLE);
+            mPathText.setText("" + mPath);
+        }
+        loadData();
 
+    }
+
+    private void loadData() {
+        onShowWaitDialog();
+        Thread load = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                onGetAllKeyTypes();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onUpdateView();
+                        mAccountListAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        load.start();
+    }
+
+    private void onGetAllKeyTypes() {
+        for (BaseChain chain : BaseChain.SUPPORT_CHAINS()) {
+            for (int i = 0; i < hdPathCount(chain); i++) {
+                String dpAddress = WKey.getCreateDpAddressFromEntropy(chain, mEntropy, mPath, i);
+                int status = -1;
+                Account checkAccount = getBaseDao().onSelectExistAccount(dpAddress, chain);
+                if (checkAccount != null) {
+                    if (checkAccount.hasPrivateKey) { status = 2; }
+                    else { status = 1;}
+                } else {
+                    status = 0;
+                }
+                Derive derive = new Derive(chain, i, mPath, WDp.getAllPath(chain, mPath, i), dpAddress, status);
+                mDerives.add(derive);
+            }
+        }
+
+        onUpdateCnt();
     }
 
     @Override
@@ -89,45 +139,41 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void onUpdateView() {
-        mChainCnt.setText("" + BaseChain.SUPPORT_CHAINS().size());
+        onHideWaitDialog();
+        if (mPrivateKeyMode) {
+            mCntLayer.setVisibility(View.GONE);
+        } else {
+            mCntLayer.setVisibility(View.VISIBLE);
+        }
+        onUpdateCnt();
     }
 
-    private void onUpdatePath() {
-        mPathText.setText("" + mPath);
+    @SuppressLint("NewApi")
+    private void onUpdateCnt() {
+        int allKeyCnt = mDerives.size();
+        long alreadyCnt = mDerives.stream().filter(derive -> derive.status == 2).count();
+        long selectedCnt = mDerives.stream().filter(derive -> derive.selected).count();
+
+        if (selectedCnt == 0) {
+            mAccountCnt.setText("" + alreadyCnt);
+            mAccountCnt.setTextColor(getResources().getColor(R.color.colorGray1));
+        } else {
+            mAccountCnt.setText("" + (alreadyCnt + selectedCnt));
+            mAccountCnt.setTextColor(getResources().getColor(R.color.colorPhoton));
+        }
+        mChainCnt.setText("" + allKeyCnt);
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mPathLayer)) {
-            onSelectedPathMenu(v);
 
         } else if (v.equals(mBtnAdd)) {
 
         }
     }
 
-    private void onSelectedPathMenu(View v) {
-        Context wrapper = new ContextThemeWrapper(this, R.style.PopupMenu);
-        PopupMenu popupMenu = new PopupMenu(wrapper, v, Gravity.END, 0, R.style.PopupMenu);
-        getMenuInflater().inflate(R.menu.path_popup, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem path) {
-                switch (path.getItemId()) {
-                    case R.id.action_path0:
-                        mPath = 0;
-                        break;
-
-                    case R.id.action_path1:
-                        mPath = 1;
-                        break;
-                }
-                mAccountListAdapter.notifyDataSetChanged();
-                onUpdatePath();
-                return false;
-            }
-        });
-        popupMenu.show();
+    private void onSelectedPathMenu() {
     }
 
     private class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountHolder> {
@@ -140,21 +186,36 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
-            final BaseChain baseChain = BaseChain.SUPPORT_CHAINS().get(position);
+            final Derive derive = mDerives.get(position);
+            final BaseChain baseChain = derive.baseChain;
             WDp.getChainImg(WalletDeriveActivity.this, baseChain, holder.accountChainImg);
-            holder.accountKeyPath.setText(WDp.getPath(baseChain, mPath, 0));
-//            holder.accountAddress.setText(WKey.getCreateDpAddressFromEntropy(baseChain, mEntropy, mPath, 0));
+            holder.accountAddress.setText(derive.dpAddress);
+
+            if (mPrivateKeyMode) {
+                holder.accountKeyPath.setVisibility(View.GONE);
+            } else {
+                holder.accountKeyPath.setVisibility(View.VISIBLE);
+                holder.accountKeyPath.setText(derive.fullPath);
+            }
+
+            if (derive.status == 2) {
+                holder.accountState.setText("Imported");
+                holder.accountDimLayer.setVisibility(View.VISIBLE);
+            } else {
+                holder.accountState.setText("");
+            }
 
             holder.accountCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (selectedChain.contains(baseChain)) {
-                        selectedChain.remove(baseChain);
-                        holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_account_unselected));
+                    if (derive.status == 2) { return; }
+                    derive.selected = !derive.selected;
+                    if (derive.selected) {
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_round_seleted_white));
                     } else {
-                        selectedChain.add(baseChain);
-                        holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_round_seleted_white));
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_unselected));
                     }
+                    onUpdateCnt();
                 }
             });
         }
@@ -166,11 +227,11 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public int getItemCount() {
-            return BaseChain.SUPPORT_CHAINS().size();
+            return mDerives.size();
         }
 
         public class AccountHolder extends RecyclerView.ViewHolder {
-            FrameLayout accountCard;
+            FrameLayout accountCard, accountDimLayer;
             LinearLayout accountContent;
             ImageView accountChainImg;
             TextView accountAddress, accountState, accountKeyPath, accountAvailable, accountDenom;
@@ -178,6 +239,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             public AccountHolder(@NonNull View itemView) {
                 super(itemView);
                 accountCard = itemView.findViewById(R.id.accountCard);
+                accountDimLayer = itemView.findViewById(R.id.dim_layer);
                 accountContent = itemView.findViewById(R.id.accountContent);
                 accountChainImg = itemView.findViewById(R.id.chain_img);
                 accountAddress = itemView.findViewById(R.id.account_address);
@@ -185,8 +247,41 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 accountKeyPath = itemView.findViewById(R.id.key_path);
                 accountAvailable = itemView.findViewById(R.id.accountAvailable);
                 accountDenom = itemView.findViewById(R.id.accountDenom);
-
             }
+        }
+    }
+
+    public static int hdPathCount(BaseChain baseChain) {
+        switch (baseChain) {
+            case KAVA_MAIN:
+            case LUM_MAIN:
+            case OKEX_MAIN:
+            case SECRET_MAIN:
+                return 2;
+            case FETCHAI_MAIN:
+                return 4;
+            default:
+                return 1;
+        }
+    }
+
+    public class Derive {
+        public BaseChain baseChain;
+        public int hdpathtype;
+        public int path;
+        public String fullPath;
+        public String dpAddress;
+        public int status = -1; // 0 == ready, 1 == overide, 2 == already imported
+        public Coin coin;
+        public boolean selected = false;
+
+        public Derive(BaseChain baseChain, int hdpathtype, int path, String fullPath, String dpAddress, int status) {
+            this.baseChain = baseChain;
+            this.hdpathtype = hdpathtype;
+            this.path = path;
+            this.fullPath = fullPath;
+            this.dpAddress = dpAddress;
+            this.status = status;
         }
     }
 }

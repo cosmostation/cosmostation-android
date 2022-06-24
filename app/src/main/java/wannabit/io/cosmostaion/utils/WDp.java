@@ -2535,6 +2535,85 @@ public class WDp {
         }
     }
 
+    public static String getAllPath(BaseChain chain, int position, int customPath) {
+        if (chain.equals(BNB_MAIN)) {
+            return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            if (customPath == 0) {
+                return BaseConstant.KEY_PATH + String.valueOf(position);
+            } else {
+                return BaseConstant.KEY_NEW_KAVA_PATH + String.valueOf(position);
+            }
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return BaseConstant.KEY_BAND_PATH + String.valueOf(position);
+
+        } else if (chain.equals(IOV_MAIN)) {
+            return BaseConstant.KEY_IOV_PATH + String.valueOf(position);
+
+        } else if (chain.equals(OKEX_MAIN)) {
+            if (customPath == 0) {
+                return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
+            } else if (customPath == 1) {
+                return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
+            } else {
+                return BaseConstant.KEY_ETH_PATH + String.valueOf(position);
+            }
+
+        } else if (chain.equals(SECRET_MAIN)) {
+            if (customPath == 0) {
+                return BaseConstant.KEY_PATH + String.valueOf(position);
+            } else {
+                return BaseConstant.KEY_NEW_SECRET_PATH + String.valueOf(position);
+            }
+
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return BaseConstant.KEY_PERSIS_PATH + String.valueOf(position);
+
+        } else if (chain.equals(CRYPTO_MAIN)) {
+            return BaseConstant.KEY_CRYPTO_PATH + String.valueOf(position);
+
+        } else if (chain.equals(MEDI_MAIN)) {
+            return KEY_MEDI_PATH + String.valueOf(position);
+
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return KEY_ALTHEA_PATH + String.valueOf(position);
+
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            if (customPath == 1) {
+                return KEY_ETH_NON_LEDGER_PATH + String.valueOf(position);
+            } else if (customPath == 2) {
+                return KEY_ETH_LEDGER_LIVE_PATH_1 + String.valueOf(position) + KEY_ETH_LEDGER_LIVE_PATH_2;
+            } else if (customPath == 3) {
+                return KEY_ETH_LEDGER_LEGACY_PATH + String.valueOf(position);
+            }
+            return BaseConstant.KEY_FETCH_BASE_PATH + String.valueOf(position);
+
+        } else if (chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
+            return KEY_ETH_PATH + String.valueOf(position);
+
+        } else if (chain.equals(BITSONG_MAIN)) {
+            return KEY_BITSONG_PATH + String.valueOf(position);
+
+        } else if (chain.equals(DESMOS_MAIN)) {
+            return KEY_DESMOS_PATH + String.valueOf(position);
+
+        } else if (chain.equals(LUM_MAIN)) {
+            if (customPath == 0) {
+                return KEY_PATH + String.valueOf(position);
+            } else {
+                return KEY_LUM_PATH + String.valueOf(position);
+            }
+
+        } else if (chain.equals(PROVENANCE_MAIN)) {
+            return KEY_PROVENANCE_PATH + String.valueOf(position);
+
+        } else {
+            return BaseConstant.KEY_PATH + String.valueOf(position);
+
+        }
+    }
 
     public static DecimalFormat getDecimalFormat(int cnt) {
         NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);

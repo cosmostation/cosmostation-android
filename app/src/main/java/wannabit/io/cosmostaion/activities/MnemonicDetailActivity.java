@@ -134,7 +134,9 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
                     getString(R.string.str_safe_copy), view -> onSafeCopy());
 
         } else if (v.equals(mDerive)) {
-            startActivity(new Intent(MnemonicDetailActivity.this, WalletDeriveActivity.class));
+            Intent intent = new Intent(MnemonicDetailActivity.this, WalletDeriveActivity.class);
+            intent.putExtra("id", mWords.id);
+            startActivity(intent);
 
         } else if (v.equals(mDelete)) {
             WLog.w("mnemonic 삭제");
