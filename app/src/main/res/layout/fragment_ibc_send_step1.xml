@@ -50,7 +50,7 @@
                 android:paddingLeft="@dimen/space_16"
                 android:paddingRight="@dimen/space_16"
                 android:inputType="textMultiLine|textNoSuggestions"
-                style="@style/font_ss_12_base"
+                style="@style/font_ss_12_black_dayonly"
                 android:imeOptions="actionNext"/>
         </RelativeLayout>
 
@@ -161,7 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_10"
             android:gravity="center"
-            style="@style/font_ss_12_base"
+            style="@style/font_ss_12_black_dayonly"
             android:text="@string/str_support_starname_msg"/>
 
     </LinearLayout>

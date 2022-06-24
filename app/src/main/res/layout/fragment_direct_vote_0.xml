@@ -30,7 +30,7 @@
                 android:layout_toLeftOf="@+id/validator_cnt_title"
                 android:layout_marginRight="@dimen/space_4"
                 android:text="0"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

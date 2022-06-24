@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_base"
+            style="@style/font_ssm_17_black_dayonly"
             android:text="Earning Detail"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/pool_id"
-                        style="@style/font_ssm_17_base"
+                        style="@style/font_ssm_17_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="MY EARNING #0"/>
@@ -80,14 +80,14 @@
                         style="@style/font_ss_12_gray1"/>
                     <TextView
                         android:id="@+id/aprs14"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="140%" />
                     <TextView
                         android:id="@+id/aprs7"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/aprs14"
@@ -95,7 +95,7 @@
                         android:text="700%" />
                     <TextView
                         android:id="@+id/aprs1"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/aprs7"
@@ -120,7 +120,7 @@
                         style="@style/font_ss_12_gray1"/>
                     <TextView
                         android:id="@+id/available_denom"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -131,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/available_denom"
                         android:layout_marginRight="@dimen/space_2"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:gravity="right"
                         android:text="-"/>
                     <TextView

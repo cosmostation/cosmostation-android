@@ -47,7 +47,7 @@
                         android:layout_toLeftOf="@+id/swap_available_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -77,7 +77,7 @@
 
                 <EditText
                     android:id="@+id/swap_input_amount"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
                     android:layout_centerVertical="true"
@@ -118,7 +118,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:textAllCaps="false"
                         android:text="@string/str_add_one_fourths"/>
                     <Button
@@ -128,7 +128,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:textAllCaps="false"
                         android:text="@string/str_add_half"/>
                     <Button
@@ -138,7 +138,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:textAllCaps="false"
                         android:text="@string/str_add_three_fourths"/>
                     <Button
@@ -148,7 +148,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:textAllCaps="false"
                         android:text="@string/str_add_max"/>
                 </LinearLayout>
@@ -210,7 +210,7 @@
                     android:textColorHint="@color/colorGray4"
                     android:background="@drawable/edittext_box"
                     android:paddingRight="@dimen/space_60"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:gravity="center_vertical|left"/>
             </RelativeLayout>
         </LinearLayout>

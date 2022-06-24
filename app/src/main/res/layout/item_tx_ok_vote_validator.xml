@@ -56,7 +56,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:maxLines="30"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

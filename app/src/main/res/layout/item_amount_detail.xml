@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_amount"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                         android:layout_marginRight="@dimen/space_2"
                         android:text=""
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -104,7 +104,7 @@
                         android:layout_marginRight="@dimen/space_2"
                         android:text="12313123"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -132,7 +132,7 @@
                         android:layout_marginRight="@dimen/space_2"
                         android:text="12313123"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -160,7 +160,7 @@
                         android:layout_marginRight="@dimen/space_2"
                         android:text="12313123"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

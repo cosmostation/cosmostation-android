@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    style="@style/font_ss_14_base"
+                    style="@style/font_ss_14_black_dayonly"
                     android:text="-"/>
                 <LinearLayout
                     android:id="@+id/per_change"
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        style="@style/font_ssl_12_base"
+                        style="@style/font_ssl_12_black_dayonly"
                         android:text="-"/>
                 </LinearLayout>
 
@@ -100,7 +100,7 @@
                         android:drawableLeft="@drawable/card_ic"
                         android:drawablePadding="@dimen/space_8"
                         android:gravity="center"
-                        style="@style/font_ss_14_base"
+                        style="@style/font_ss_14_black_dayonly"
                         android:text="@string/str_buy_atom" />
                 </RelativeLayout>
             </LinearLayout>

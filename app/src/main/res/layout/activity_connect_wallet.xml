@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_base"
+            style="@style/font_ssm_17_black_dayonly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_wallet_connect"
@@ -45,7 +45,7 @@
 
                     <TextView
                         android:id="@+id/dapp_title"
-                        style="@style/font_ssm_17_base"
+                        style="@style/font_ssm_17_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_wc_dapp_title" />
@@ -156,7 +156,7 @@
 
                 <TextView
                     android:id="@+id/wc_url"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -171,7 +171,7 @@
 
                 <TextView
                     android:id="@+id/wc_address"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"

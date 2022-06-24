@@ -54,7 +54,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </LinearLayout>
 
             <LinearLayout
@@ -75,7 +75,7 @@
                         android:id="@+id/validator_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
                 </LinearLayout>
                 <TextView
                     android:id="@+id/tx_reward_validator0"
@@ -85,7 +85,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker0"
                     android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker1"
@@ -121,7 +121,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker2"
@@ -140,7 +140,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker3"
@@ -159,7 +159,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker4"
@@ -178,7 +178,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker5"
@@ -197,7 +197,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker6"
@@ -216,7 +216,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"
+                    style="@style/font_ss_12_black_dayonly"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/tx_reward_moniker7"
@@ -259,7 +259,7 @@
                         android:layout_toLeftOf="@+id/tx_reward_all_sum_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

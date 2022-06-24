@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_base"/>
+                        style="@style/font_ssm_17_black_dayonly"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -61,7 +61,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -81,7 +81,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -101,7 +101,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -121,7 +121,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -141,7 +141,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -161,7 +161,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -181,7 +181,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -201,7 +201,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -221,7 +221,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
             </RelativeLayout>
 
         </LinearLayout>

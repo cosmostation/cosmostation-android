@@ -94,7 +94,7 @@
                                 android:id="@+id/gas_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/font_ss_12_base"
+                                style="@style/font_ss_12_black_dayonly"
                                 android:text="-"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
                                 android:id="@+id/gas_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/font_ss_12_base"
+                                style="@style/font_ss_12_black_dayonly"
                                 android:text="-"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="@dimen/space_2"
-            style="@style/font_ssm_14_base"
+            style="@style/font_ssm_14_black_dayonly"
             android:text="Cosmostation Wallet is a free service."/>
         <TextView
             android:id="@+id/speed_txt"

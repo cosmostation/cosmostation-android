@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                style="@style/font_ss_12_base"
+                style="@style/font_ss_12_black_dayonly"
                 android:gravity="right"
                 android:text="-"/>
         </RelativeLayout>
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text=""
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
                 <TextView
                     android:id="@+id/total_deposited_amount"
                     android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                     android:layout_toLeftOf="@+id/total_deposited_symbol"
                     android:layout_marginRight="@dimen/space_2"
                     android:text=""
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </RelativeLayout>
         </RelativeLayout>
         <TextView

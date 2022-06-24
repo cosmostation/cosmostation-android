@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="-"
-                        style="@style/font_ssl_12_base"/>
+                        style="@style/font_ssl_12_black_dayonly"/>
                     <TextView
                         android:id="@+id/tx_fee_denom"
                         android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                 android:lines="2"
                 android:ellipsize="end"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

@@ -97,7 +97,7 @@
                         android:layout_centerVertical="true"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:text="moniker"/>
                     <ImageView
                         android:id="@+id/band_oracle_off"

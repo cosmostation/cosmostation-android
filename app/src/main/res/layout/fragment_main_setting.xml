@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:text="@string/str_add_new"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:text="@string/str_wallet_manage"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:text="@string/str_app_applock"/>
                     <ImageView
                         android:id="@+id/arrow_applock"
@@ -156,7 +156,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -192,7 +192,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -238,7 +238,7 @@
 
                     <TextView
                         android:id="@+id/title_explore"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -265,7 +265,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -292,7 +292,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -318,7 +318,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -344,7 +344,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -373,7 +373,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:text="@string/str_starname_wallet_connect"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -407,7 +407,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:text="@string/str_term"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -432,7 +432,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:text="@string/str_github"/>
                     <ImageView
                         android:layout_width="wrap_content"
@@ -457,7 +457,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:text="@string/str_version"/>
                     <ImageView
                         android:id="@+id/arrow_version"

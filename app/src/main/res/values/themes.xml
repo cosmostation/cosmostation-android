@@ -15,7 +15,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/colorWhite_UseOnlyLightMode</item>
+        <item name="android:statusBarColor">@color/colorWhiteDayOnly</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowContentTransitions">true</item>
     </style>

@@ -76,10 +76,10 @@
     <color name="colorGray11">#242627</color>
     <color name="colorGray12">#f5f5f5</color>
 
-    <color name="colorWhite_UseOnlyLightMode">#000000</color>
-    <color name="colorWhite2_UseOnlyLightMode">#232428</color>
-    <color name="colorWhiteGray_UseOnlyLightMode">#565b60</color>
-    <color name="colorBlack_UseOnlyLightMode">#ffffff</color>
+    <color name="colorWhiteDayOnly">#000000</color>
+    <color name="colorWhite2DayOnly">#232428</color>
+    <color name="colorGrayDayOnly">#565b60</color>
+    <color name="colorBlackDayOnly">#ffffff</color>
 
 
     <color name="colorAtom">#9C6CFF</color>

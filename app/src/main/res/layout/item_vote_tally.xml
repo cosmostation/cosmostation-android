@@ -42,7 +42,7 @@
                         android:layout_marginRight="@dimen/space_6"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_base"/>
+                        style="@style/font_ssm_17_black_dayonly"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                         android:layout_marginRight="@dimen/space_6"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_base"/>
+                        style="@style/font_ssm_17_black_dayonly"/>
                 </RelativeLayout>
 
             </LinearLayout>

@@ -46,7 +46,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:letterSpacing="0.05"
-                    style="@style/font_ssm_17_base"
+                    style="@style/font_ssm_17_black_dayonly"
                     android:text="-"/>
 
                 <RelativeLayout

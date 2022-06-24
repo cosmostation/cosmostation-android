@@ -101,13 +101,13 @@
                         android:layout_gravity="right">
                         <TextView
                             android:id="@+id/pool_total_liquidity_amount1"
-                            style="@style/font_ssl_12_base"
+                            style="@style/font_ssl_12_black_dayonly"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
                         <TextView
                             android:id="@+id/pool_total_liquidity_symbol1"
-                            style="@style/font_ss_12_base"
+                            style="@style/font_ss_12_black_dayonly"
                             android:layout_width="@dimen/space_50"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -122,13 +122,13 @@
                         android:layout_gravity="right">
                         <TextView
                             android:id="@+id/pool_total_liquidity_amount2"
-                            style="@style/font_ssl_12_base"
+                            style="@style/font_ssl_12_black_dayonly"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
                         <TextView
                             android:id="@+id/pool_total_liquidity_symbol2"
-                            style="@style/font_ss_12_base"
+                            style="@style/font_ss_12_black_dayonly"
                             android:layout_width="@dimen/space_50"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -173,14 +173,14 @@
                                 android:layout_gravity="right">
                                 <TextView
                                     android:id="@+id/mypool_amount1"
-                                    style="@style/font_ssl_12_base"
+                                    style="@style/font_ssl_12_black_dayonly"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
 
                                 <TextView
                                     android:id="@+id/mypool_symbol1"
-                                    style="@style/font_ss_12_base"
+                                    style="@style/font_ss_12_black_dayonly"
                                     android:layout_width="@dimen/space_50"
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="@dimen/space_2"
@@ -195,13 +195,13 @@
                                 android:layout_gravity="right">
                                 <TextView
                                     android:id="@+id/mypool_amount2"
-                                    style="@style/font_ssl_12_base"
+                                    style="@style/font_ssl_12_black_dayonly"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
                                 <TextView
                                     android:id="@+id/mypool_symbol2"
-                                    style="@style/font_ss_12_base"
+                                    style="@style/font_ss_12_black_dayonly"
                                     android:layout_width="@dimen/space_50"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"

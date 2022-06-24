@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_base"
+            style="@style/font_ssm_17_black_dayonly"
             android:text="@string/str_wallet_detail"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -123,7 +123,7 @@
                             android:id="@+id/account_alarm_msg"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_12_base"
+                            style="@style/font_ss_12_black_dayonly"
                             android:lines="2"
                             android:text="Enabled push alarm for each send and received tx with this address"/>
                     </LinearLayout>
@@ -176,7 +176,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_toLeftOf="@+id/account_qr"
-                                style="@style/font_ss_12_base"
+                                style="@style/font_ss_12_black_dayonly"
                                 android:singleLine="true"
                                 android:ellipsize="middle"
                                 android:text="cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q"/>
@@ -211,7 +211,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text=""
-                                style="@style/font_ss_12_base"/>
+                                style="@style/font_ss_12_black_dayonly"/>
                         </RelativeLayout>
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -230,7 +230,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="2010.213.123"
-                                style="@style/font_ss_12_base"/>
+                                style="@style/font_ss_12_black_dayonly"/>
                         </RelativeLayout>
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -249,7 +249,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="Mnemonic"
-                                style="@style/font_ss_12_base"/>
+                                style="@style/font_ss_12_black_dayonly"/>
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/account_path_layer"
@@ -270,7 +270,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="m/44'/34343'"
-                                style="@style/font_ss_12_base"/>
+                                style="@style/font_ss_12_black_dayonly"/>
                         </RelativeLayout>
                         <TextView
                             android:id="@+id/import_msg"
@@ -328,7 +328,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_toLeftOf="@+id/reward_change_btn"
-                            style="@style/font_ss_12_base"
+                            style="@style/font_ss_12_black_dayonly"
                             android:singleLine="true"
                             android:ellipsize="middle"
                             android:text="-"/>

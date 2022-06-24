@@ -48,7 +48,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_base"/>
+                                style="@style/font_ssl_12_black_dayonly"/>
                             <TextView
                                 android:id="@+id/fee_denom"
                                 android:layout_width="wrap_content"
@@ -85,12 +85,12 @@
                                 android:layout_gravity="right">
                                 <TextView
                                     android:id="@+id/tx_incentive_kava_amount"
-                                    style="@style/font_ssl_12_base"
+                                    style="@style/font_ssl_12_black_dayonly"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
                                 <TextView
-                                    style="@style/font_ss_12_base"
+                                    style="@style/font_ss_12_black_dayonly"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
@@ -104,12 +104,12 @@
                                 android:layout_gravity="right">
                                 <TextView
                                     android:id="@+id/tx_incentive_hard_amount"
-                                    style="@style/font_ssl_12_base"
+                                    style="@style/font_ssl_12_black_dayonly"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
                                 <TextView
-                                    style="@style/font_ss_12_base"
+                                    style="@style/font_ss_12_black_dayonly"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
@@ -123,12 +123,12 @@
                                 android:layout_gravity="right">
                                 <TextView
                                     android:id="@+id/tx_incentive_swp_amount"
-                                    style="@style/font_ssl_12_base"
+                                    style="@style/font_ssl_12_black_dayonly"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
                                 <TextView
-                                    style="@style/font_ss_12_base"
+                                    style="@style/font_ss_12_black_dayonly"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
@@ -155,7 +155,7 @@
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
                             android:text=""
-                            style="@style/font_ss_12_base"/>
+                            style="@style/font_ss_12_black_dayonly"/>
                     </RelativeLayout>
 
                     <TextView
@@ -172,7 +172,7 @@
                         android:lines="2"
                         android:ellipsize="end"
                         android:text="-"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_base"
+            style="@style/font_ssm_17_black_dayonly"
             android:text="@string/str_kava_harvest_details"/>
     </androidx.appcompat.widget.Toolbar>
 

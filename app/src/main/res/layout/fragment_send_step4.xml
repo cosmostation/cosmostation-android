@@ -53,14 +53,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_base"/>
+                                    style="@style/font_ssl_12_black_dayonly"/>
                                 <TextView
                                     android:id="@+id/send_amount_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="@string/str_atom_c"
-                                    style="@style/font_ss_12_base"/>
+                                    style="@style/font_ss_12_black_dayonly"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -85,14 +85,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:text="-"
-                                    style="@style/font_ssl_12_base"/>
+                                    style="@style/font_ssl_12_black_dayonly"/>
                                 <TextView
                                     android:id="@+id/send_fees_type"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="@string/str_atom_c"
-                                    style="@style/font_ss_12_base"/>
+                                    style="@style/font_ss_12_black_dayonly"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -123,14 +123,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_base"/>
+                                    style="@style/font_ssl_12_black_dayonly"/>
                                 <TextView
                                     android:id="@+id/current_available_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="@string/str_atom_c"
-                                    style="@style/font_ss_12_base"/>
+                                    style="@style/font_ss_12_black_dayonly"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -155,14 +155,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_base"/>
+                                    style="@style/font_ssl_12_black_dayonly"/>
                                 <TextView
                                     android:id="@+id/remaining_available_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="@string/str_atom_c"
-                                    style="@style/font_ss_12_base"/>
+                                    style="@style/font_ss_12_black_dayonly"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -199,12 +199,12 @@
                             android:text="Cosmostation"
                             android:singleLine="true"
                             android:ellipsize="middle"
-                            style="@style/font_ss_12_base"/>
+                            style="@style/font_ss_12_black_dayonly"/>
                         <TextView
                             android:id="@+id/recipient_starname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_12_base"/>
+                            style="@style/font_ss_12_black_dayonly"/>
 
                         <TextView
                             android:layout_width="wrap_content"

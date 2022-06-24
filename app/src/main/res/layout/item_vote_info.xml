@@ -89,7 +89,7 @@
                     android:text="-"
                     android:singleLine="true"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -115,7 +115,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -139,7 +139,7 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -163,7 +163,7 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </RelativeLayout>
 
 
@@ -200,7 +200,7 @@
                         android:layout_toLeftOf="@+id/request_amount_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_base"/>
+                        style="@style/font_ss_12_black_dayonly"/>
                 </RelativeLayout>
             </RelativeLayout>
 

@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Success"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -112,7 +112,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </LinearLayout>
 
         <LinearLayout
@@ -132,7 +132,7 @@
                 android:layout_marginTop="@dimen/space_4"
                 android:maxLines="3"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </LinearLayout>
 
         <View
@@ -162,14 +162,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
                 <TextView
                     android:id="@+id/send_amount_denom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
                     android:text="@string/str_atom_c"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -194,14 +194,14 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="-"
-                    style="@style/font_ssl_12_base"/>
+                    style="@style/font_ssl_12_black_dayonly"/>
                 <TextView
                     android:id="@+id/send_fee_denom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
                     android:text="@string/str_atom_c"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -223,7 +223,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </LinearLayout>
 
         <LinearLayout
@@ -244,7 +244,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </LinearLayout>
 
         <LinearLayout
@@ -265,7 +265,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </LinearLayout>
 
         <LinearLayout
@@ -286,7 +286,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </LinearLayout>
 
         <LinearLayout
@@ -307,7 +307,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_base"/>
+                style="@style/font_ss_12_black_dayonly"/>
         </LinearLayout>
 
     </LinearLayout>

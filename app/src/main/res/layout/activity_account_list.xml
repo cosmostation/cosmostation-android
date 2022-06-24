@@ -25,7 +25,7 @@
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssm_17_base"
+                style="@style/font_ssm_17_black_dayonly"
                 android:text="@string/str_wallet_manage"/>
             <TextView
                 android:id="@+id/btn_edit"
@@ -35,7 +35,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_marginRight="@dimen/space_16"
-                style="@style/font_ssm_17_base"
+                style="@style/font_ssm_17_black_dayonly"
                 android:text="@string/str_edit"/>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>

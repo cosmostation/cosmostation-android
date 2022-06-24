@@ -46,7 +46,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_base"/>
+                            style="@style/font_ssl_12_black_dayonly"/>
                         <TextView
                             android:id="@+id/reward_amount_title"
                             android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_base"/>
+                            style="@style/font_ssl_12_black_dayonly"/>
                         <TextView
                             android:id="@+id/reward_fees_type"
                             android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                     android:lines="2"
                     android:ellipsize="end"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
             </LinearLayout>
 
 
@@ -166,7 +166,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_base"/>
+                            style="@style/font_ssl_12_black_dayonly"/>
                         <TextView
                             android:id="@+id/current_delegation_title"
                             android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_base"/>
+                            style="@style/font_ssl_12_black_dayonly"/>
                         <TextView
                             android:id="@+id/expected_delegation_title"
                             android:layout_width="wrap_content"

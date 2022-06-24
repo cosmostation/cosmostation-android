@@ -332,15 +332,15 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_base" parent="@android:style/TextAppearance">
+    <style name="font_ss_12_black_dayonly" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBlack_UseOnlyLightMode</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ssl_12_base" parent="@android:style/TextAppearance">
+    <style name="font_ssl_12_black_dayonly" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorBlack_UseOnlyLightMode</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -769,21 +769,21 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ssl_14_base" parent="@android:style/TextAppearance">
+    <style name="font_ssl_14_black_dayonly" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorBlack_UseOnlyLightMode</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_base" parent="@android:style/TextAppearance">
+    <style name="font_ss_14_black_dayonly" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBlack_UseOnlyLightMode</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ssm_14_base" parent="@android:style/TextAppearance">
+    <style name="font_ssm_14_black_dayonly" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">@color/colorBlack_UseOnlyLightMode</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -907,15 +907,15 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
-    <style name="font_ssm_17_base" parent="@android:style/TextAppearance">
+    <style name="font_ssm_17_black_dayonly" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">@color/colorBlack_UseOnlyLightMode</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
-    <style name="font_ssl_17_base" parent="@android:style/TextAppearance">
+    <style name="font_ssl_17_black_dayonly" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorBlack_UseOnlyLightMode</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
@@ -933,9 +933,9 @@
         <item name="android:textSize">@dimen/text_size_21</item>
     </style>
 
-    <style name="font_ss_21_base" parent="@android:style/TextAppearance">
+    <style name="font_ss_21_black_dayonly" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBlack_UseOnlyLightMode</item>
+        <item name="android:textColor">@color/colorBlackDayOnly</item>
         <item name="android:textSize">@dimen/text_size_21</item>
     </style>
 

@@ -55,7 +55,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_base"/>
+                    style="@style/font_ss_12_black_dayonly"/>
                 <TextView
                     android:id="@+id/tx_unjail_moniker"
                     android:layout_width="match_parent"

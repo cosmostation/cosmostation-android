@@ -1752,40 +1752,44 @@
     <string name="str_dp_time_format4">yyyy-MM-dd</string>
     <string name="str_dp_date_format" >yyyy-MM-dd</string>
 
-    <string name="currency_usd">USD</string>
-    <string name="currency_eur">EUR</string>
-    <string name="currency_krw">KRW</string>
-    <string name="currency_jpy">JPY</string>
-    <string name="currency_cny">CNY</string>
-    <string name="currency_rub">RUB</string>
-    <string name="currency_gbp">GBP</string>
-    <string name="currency_inr">INR</string>
-    <string name="currency_brl">BRL</string>
-    <string name="currency_idr">IDR</string>
-    <string name="currency_dkk">DKK</string>
-    <string name="currency_nok">NOK</string>
-    <string name="currency_sek">SEK</string>
-    <string name="currency_chf">CHF</string>
-    <string name="currency_aud">AUD</string>
-    <string name="currency_cad">CAD</string>
-    <string name="currency_myr">MYR</string>
+    <string-array name="currency_symbol_array">
+        <item>$</item>
+        <item>€</item>
+        <item>₩</item>
+        <item>¥</item>
+        <item>¥</item>
+        <item>₽</item>
+        <item>£</item>
+        <item>₹</item>
+        <item>R$</item>
+        <item>Rp</item>
+        <item>Kr</item>
+        <item>Kr</item>
+        <item>Kr</item>
+        <item>sFr</item>
+        <item>AU$</item>
+        <item>$</item>
+        <item>RM</item>
+    </string-array>
 
-    <string name="currency_usd_symbol">$</string>
-    <string name="currency_eur_symbol">€</string>
-    <string name="currency_krw_symbol">₩</string>
-    <string name="currency_jpy_symbol">¥</string>
-    <string name="currency_cny_symbol">¥</string>
-    <string name="currency_rub_symbol">₽</string>
-    <string name="currency_gbp_symbol">£</string>
-    <string name="currency_inr_symbol">₹</string>
-    <string name="currency_brl_symbol">R$</string>
-    <string name="currency_idr_symbol">Rp</string>
-    <string name="currency_dkk_symbol">Kr</string>
-    <string name="currency_nok_symbol">Kr</string>
-    <string name="currency_sek_symbol">Kr</string>
-    <string name="currency_chf_symbol">sFr</string>
-    <string name="currency_aud_symbol">AU$</string>
-    <string name="currency_cad_symbol">$</string>
-    <string name="currency_myr_symbol">RM</string>
+    <string-array name="currency_unit_array">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>KRW</item>
+        <item>JPY</item>
+        <item>CNY</item>
+        <item>RUB</item>
+        <item>GBP</item>
+        <item>INR</item>
+        <item>BRL</item>
+        <item>IDR</item>
+        <item>DKK</item>
+        <item>NOK</item>
+        <item>SEK</item>
+        <item>CHF</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>MYR</item>
+    </string-array>
 
 </resources>

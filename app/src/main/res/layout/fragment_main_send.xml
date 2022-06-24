@@ -52,7 +52,7 @@
 
                     <TextView
                         android:id="@+id/info_notice"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -101,7 +101,7 @@
 
                     <TextView
                         android:id="@+id/wallet_address"
-                        style="@style/font_ss_12_base"
+                        style="@style/font_ss_12_black_dayonly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -113,7 +113,7 @@
 
                 <TextView
                     android:id="@+id/total_value"
-                    style="@style/font_ss_21_base"
+                    style="@style/font_ss_21_black_dayonly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_2"
