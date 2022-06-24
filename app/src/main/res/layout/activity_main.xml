@@ -84,6 +84,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_72"
+            android:elevation="@dimen/space_6"
             app:backgroundTint="#9C6CFF"
             app:srcCompat="@drawable/send_btn" />
 
@@ -92,7 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorGray2DayOnly"
+            android:background="@color/colorGray2NightOnly"
+            android:elevation="@dimen/space_8"
             app:tabGravity="fill"
             app:tabIconTint="@color/colorGrayDayOnly"
             app:tabIndicatorHeight="0dp"

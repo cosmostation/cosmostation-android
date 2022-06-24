@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_2"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgKava"
@@ -24,11 +25,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    style="@style/font_ss_14_black_dayonly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_kava_incentive_info_title"
-                    style="@style/font_ss_14_white"/>
+                    android:text="@string/str_kava_incentive_info_title" />
             </RelativeLayout>
 
             <View
