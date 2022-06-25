@@ -159,13 +159,13 @@ public class WDp {
                 denomTv.setText("Unknown");
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             }
-            denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+            denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else if (chain.equals(COSMOS_MAIN)) {
             if (symbol.equals(TOKEN_ATOM)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
@@ -174,7 +174,7 @@ public class WDp {
             if (symbol.equals(TOKEN_IRIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
@@ -203,7 +203,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
             } else {
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
@@ -214,7 +214,7 @@ public class WDp {
 
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
 
@@ -227,7 +227,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 18));
 
@@ -236,7 +236,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -245,7 +245,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -254,7 +254,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -263,7 +263,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -272,7 +272,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -281,7 +281,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
@@ -290,7 +290,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
 
@@ -300,10 +300,10 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else if (symbol.startsWith("c")) {
                 denomTv.setText(symbol.substring(1).toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
 
@@ -312,7 +312,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -329,12 +329,12 @@ public class WDp {
             } else if (symbol.startsWith("gamm/pool/")) {
                 String[] value = symbol.split("/");
                 denomTv.setText("GAMM-" + value[value.length - 1]);
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             }
 
@@ -343,7 +343,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -352,7 +352,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -361,7 +361,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -370,7 +370,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -379,7 +379,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -388,7 +388,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -397,7 +397,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -406,7 +406,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -418,11 +418,11 @@ public class WDp {
                 final Assets assets = baseData.getAsset(symbol);
                 if (assets != null) {
                     denomTv.setText(assets.origin_symbol);
-                    denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                    denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 }
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
 
@@ -431,7 +431,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -443,12 +443,12 @@ public class WDp {
                 final Assets assets = baseData.getAsset(symbol);
                 if (assets != null) {
                     denomTv.setText(assets.origin_symbol);
-                    denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                    denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                     amountTv.setText(getDpAmount2(c, new BigDecimal(amount), assets.decimal, assets.decimal));
                 }
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
             }
 
@@ -457,7 +457,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -466,7 +466,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -475,7 +475,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -484,7 +484,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -493,7 +493,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -502,7 +502,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -511,7 +511,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -520,7 +520,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
@@ -529,7 +529,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
@@ -538,7 +538,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 9, 9));
 
@@ -547,7 +547,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -556,7 +556,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -568,7 +568,7 @@ public class WDp {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorCrescent2));
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -577,7 +577,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -589,7 +589,7 @@ public class WDp {
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorNym));
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -603,7 +603,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -612,7 +612,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -621,7 +621,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }

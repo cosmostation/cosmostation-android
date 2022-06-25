@@ -81,6 +81,7 @@
     <color name="colorGrayDayNight">#565b60</color>
     <color name="colorGray2DayNight">#28ffffff</color>
     <color name="colorGray3DayNight">#3D3D3D</color>
+    <color name="colorGray4DayNight">#242627</color>
     <color name="colorBlackDayNight">#ffffff</color>
 
 
