@@ -46,12 +46,12 @@
                                 android:layout_gravity="right">
                                 <TextView
                                     android:id="@+id/tx_incentive_kava_amount"
-                                    style="@style/font_ssl_12_black_dayonly"
+                                    style="@style/font_ssl_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
                                 <TextView
-                                    style="@style/font_ss_12_black_dayonly"
+                                    style="@style/font_ss_12_black_daynight"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
@@ -65,12 +65,12 @@
                                 android:layout_gravity="right">
                                 <TextView
                                     android:id="@+id/tx_incentive_hard_amount"
-                                    style="@style/font_ssl_12_black_dayonly"
+                                    style="@style/font_ssl_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
                                 <TextView
-                                    style="@style/font_ss_12_black_dayonly"
+                                    style="@style/font_ss_12_black_daynight"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
@@ -84,12 +84,12 @@
                                 android:layout_gravity="right">
                                 <TextView
                                     android:id="@+id/tx_incentive_swp_amount"
-                                    style="@style/font_ssl_12_black_dayonly"
+                                    style="@style/font_ssl_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
                                 <TextView
-                                    style="@style/font_ss_12_black_dayonly"
+                                    style="@style/font_ss_12_black_daynight"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
@@ -122,7 +122,7 @@
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
                             android:text=""
-                            style="@style/font_ss_12_black_dayonly"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -152,7 +152,7 @@
 
             <TextView
                 android:id="@+id/btn_option1_text"
-                style="@style/font_ssm_14_black_dayonly"
+                style="@style/font_ssm_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -170,7 +170,7 @@
 
             <TextView
                 android:id="@+id/btn_option2_text"
-                style="@style/font_ssm_14_black_dayonly"
+                style="@style/font_ssm_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

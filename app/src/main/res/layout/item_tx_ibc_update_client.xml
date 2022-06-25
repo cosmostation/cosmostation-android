@@ -59,7 +59,7 @@
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -84,7 +84,7 @@
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

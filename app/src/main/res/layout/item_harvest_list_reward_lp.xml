@@ -65,7 +65,7 @@
                         android:layout_toLeftOf="@+id/lp_reward_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 

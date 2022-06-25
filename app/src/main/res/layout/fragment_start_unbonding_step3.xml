@@ -46,7 +46,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_dayonly"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/unbonding_fee_symbol"
                             android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_dayonly"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
@@ -104,7 +104,7 @@
                         style="@style/font_ss_12_gray1"/>
                     <TextView
                         android:id="@+id/line"
-                        style="@style/font_ss_12_black_dayonly"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true" />
@@ -149,7 +149,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_dayonly"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <TextView
@@ -166,7 +166,7 @@
                     android:lines="2"
                     android:ellipsize="end"
                     android:text=""
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
         </LinearLayout>

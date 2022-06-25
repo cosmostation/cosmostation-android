@@ -52,7 +52,7 @@
 
                     <TextView
                         android:id="@+id/chain_amount"
-                        style="@style/font_ssm_17_black_dayonly"
+                        style="@style/font_ssm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -87,7 +87,7 @@
 
                 <TextView
                     android:id="@+id/chain_available"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -110,7 +110,7 @@
 
                 <TextView
                     android:id="@+id/chain_vesting"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -131,7 +131,7 @@
 
                 <TextView
                     android:id="@+id/chain_delegate"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -152,7 +152,7 @@
 
                 <TextView
                     android:id="@+id/chain_unbonding"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -173,7 +173,7 @@
 
                 <TextView
                     android:id="@+id/chain_reward"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -198,7 +198,7 @@
                     android:minHeight="@dimen/space_40">
 
                     <TextView
-                        style="@style/font_ss_12_black_dayonly"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -220,7 +220,7 @@
                     android:minHeight="@dimen/space_40">
 
                     <TextView
-                        style="@style/font_ss_12_black_dayonly"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -243,7 +243,7 @@
 
                 <TextView
                     android:id="@+id/dex_title"
-                    style="@style/font_ss_12_black_dayonly"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -264,7 +264,7 @@
                 android:visibility="gone">
 
                 <TextView
-                    style="@style/font_ss_12_black_dayonly"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

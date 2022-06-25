@@ -55,7 +55,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
                 <TextView
                     android:id="@+id/tx_redelegate_from_moniker"
                     android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
                 <TextView
                     android:id="@+id/tx_redelegate_to_moniker"
                     android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -143,7 +143,7 @@
                         android:layout_toLeftOf="@+id/tx_redelegate_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -177,7 +177,7 @@
                             android:layout_alignParentRight="true" />
                         <TextView
                             android:id="@+id/tx_commission_amount0"
-                            style="@style/font_ss_12_black_dayonly"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol0"
@@ -198,7 +198,7 @@
 
                         <TextView
                             android:id="@+id/tx_commission_amount1"
-                            style="@style/font_ss_12_black_dayonly"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol1"
@@ -219,7 +219,7 @@
 
                         <TextView
                             android:id="@+id/tx_commission_amount2"
-                            style="@style/font_ss_12_black_dayonly"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol2"
@@ -240,7 +240,7 @@
 
                         <TextView
                             android:id="@+id/tx_commission_amount3"
-                            style="@style/font_ss_12_black_dayonly"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol3"

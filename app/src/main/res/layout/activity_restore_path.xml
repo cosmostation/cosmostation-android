@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_dayonly"
+            style="@style/font_ssm_17_black_daynight"
             android:text="@string/str_select_wallet_path_c"/>
     </androidx.appcompat.widget.Toolbar>
 

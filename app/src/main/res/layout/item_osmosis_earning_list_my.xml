@@ -84,7 +84,7 @@
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/bonded_denom"
-                    style="@style/font_ss_12_black_dayonly"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/bonded_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -120,7 +120,7 @@
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/unbonding_denom"
-                    style="@style/font_ss_12_black_dayonly"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/unbonding_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -156,7 +156,7 @@
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/unbonded_denom"
-                    style="@style/font_ss_12_black_dayonly"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/unbonded_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/next_reward_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -226,7 +226,7 @@
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/available_denom"
-                    style="@style/font_ss_12_black_dayonly"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -237,7 +237,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/available_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_dayonly"
+                    style="@style/font_ssl_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView

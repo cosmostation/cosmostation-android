@@ -91,7 +91,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_12_black_dayonly"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="Yes"/>
                     </RelativeLayout>
 
@@ -116,7 +116,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_dayonly"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/vote_fees_type"
                                 android:layout_width="wrap_content"
@@ -153,7 +153,7 @@
                         android:lines="2"
                         android:ellipsize="end"
                         android:text=""
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

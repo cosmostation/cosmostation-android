@@ -156,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                     <TextView
                         android:id="@+id/total_deposited_amount"
                         android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                         android:layout_toLeftOf="@+id/total_deposited_symbol"
                         android:layout_marginRight="@dimen/space_4"
                         android:text=""
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -196,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                     <TextView
                         android:id="@+id/total_borrow_amount"
                         android:layout_width="wrap_content"
@@ -205,7 +205,7 @@
                         android:layout_toLeftOf="@+id/total_borrow_symbol"
                         android:layout_marginRight="@dimen/space_4"
                         android:text=""
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -236,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                     <TextView
                         android:id="@+id/remain_borrowable_amount"
                         android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
                         android:layout_toLeftOf="@+id/remain_borrowable_symbol"
                         android:layout_marginRight="@dimen/space_4"
                         android:text=""
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView

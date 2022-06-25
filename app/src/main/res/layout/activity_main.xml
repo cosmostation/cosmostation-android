@@ -49,7 +49,7 @@
 
                     <TextView
                         android:id="@+id/toolbar_title"
-                        style="@style/font_ssm_17_black_dayonly"
+                        style="@style/font_ssm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -93,10 +93,10 @@
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorGray2NightOnly"
+            android:background="@color/colorGray2DayNight"
             android:elevation="@dimen/space_8"
             app:tabGravity="fill"
-            app:tabIconTint="@color/colorGrayDayOnly"
+            app:tabIconTint="@color/colorGrayDayNight"
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed" />
     </RelativeLayout>
