@@ -82,6 +82,7 @@
     <color name="colorGrayDayNight">#bec6d1</color>
     <color name="colorGray2DayNight">#ffffff</color>
     <color name="colorGray3DayNight">#ffffff</color>
+    <color name="colorGray4DayNight">#ebecee</color>
     <color name="colorBlackDayNight">#222222</color>
 
     <color name="colorAtom">#9C6CFF</color>

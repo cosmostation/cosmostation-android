@@ -7,7 +7,8 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorGray2"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/colorGray4DayNight"
         app:contentPadding="@dimen/space_4">
         <TextView
             android:id="@+id/header_title"

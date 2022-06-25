@@ -14,6 +14,7 @@
         android:layout_marginTop="@dimen/space_2"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -43,93 +44,101 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/token_img"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/token_arrow"
+                android:layout_toRightOf="@+id/token_img"
                 android:paddingLeft="@dimen/space_10"
-                android:paddingRight="@dimen/space_8"
-                android:layout_centerVertical="true">
+                android:paddingRight="@dimen/space_8">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/token_symbol"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxWidth="@dimen/space_140"
-                            style="@style/font_ss_14_white"
-                            android:singleLine="true"
                             android:ellipsize="middle"
-                            android:text="-"/>
+                            android:maxWidth="@dimen/space_140"
+                            android:singleLine="true"
+                            android:text="-" />
+
                         <TextView
                             android:id="@+id/token_inner_symbol"
+                            style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
-                            style="@style/font_ss_12_gray1"
-                            android:text="-"/>
+                            android:text="-" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/token_fullname"
+                        style="@style/font_ss_10_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
                         android:ellipsize="middle"
                         android:maxWidth="@dimen/space_140"
                         android:singleLine="true"
-                        style="@style/font_ss_10_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:gravity="right">
+                    android:gravity="right"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/token_balance"
+                        style="@style/font_ssl_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        android:text="-" />
+
                     <TextView
                         android:id="@+id/token_value"
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        style="@style/font_ss_12_gray1"
-                        android:text="-"/>
+                        android:text="-" />
 
                 </LinearLayout>
                 <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:layout_marginTop="@dimen/space_2"-->
-                    <!--android:layout_gravity="right">-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginTop="@dimen/space_2"-->
+                <!--android:layout_gravity="right">-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/asset_denom"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="@dimen/space_2"-->
-                        <!--android:text="IRIS"-->
-                        <!--style="@style/font_ss_12_atom"/>-->
+                <!--<TextView-->
+                <!--android:id="@+id/asset_denom"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/space_2"-->
+                <!--android:text="IRIS"-->
+                <!--style="@style/font_ss_12_atom"/>-->
                 <!--</LinearLayout>-->
                 <!--<TextView-->
-                    <!--android:id="@+id/dash_atom_value"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/space_2"-->
-                    <!--android:layout_gravity="right"-->
-                    <!--style="@style/font_ss_14_gray1"-->
-                    <!--android:text="$33.34"/>-->
+                <!--android:id="@+id/dash_atom_value"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/space_2"-->
+                <!--android:layout_gravity="right"-->
+                <!--style="@style/font_ss_14_gray1"-->
+                <!--android:text="$33.34"/>-->
 
             </RelativeLayout>
         </RelativeLayout>
