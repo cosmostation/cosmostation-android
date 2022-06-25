@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/box_round_darkgray"
+                android:background="@drawable/box_round_darkgray_daynight"
                 android:padding="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16">
                 <LinearLayout
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/box_round_darkgray"
+                android:background="@drawable/box_round_darkgray_daynight"
                 android:padding="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16">
                 <LinearLayout

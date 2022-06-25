@@ -119,7 +119,6 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onBindViewHolder(@NonNull DisplayListAdapter.DisplayHolder holder, final int position) {
             final BaseChain chain = mDisplayChains.get(position);
-            holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
             WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
             WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
 
@@ -212,7 +211,6 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onBindViewHolder(@NonNull HideListAdapter.HideHolder holder, int position) {
             final BaseChain chain = mHideChains.get(position);
-            holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
             WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
             WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
 

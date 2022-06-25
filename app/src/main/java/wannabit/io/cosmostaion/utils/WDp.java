@@ -1162,7 +1162,7 @@ public class WDp {
             } else if (baseChain.equals(NYX_MAIN)) {
                 wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_nym));
             } else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_darkgray));
+                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_darkgray_daynight));
             }
         }
     }

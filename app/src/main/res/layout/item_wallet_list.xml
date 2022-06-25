@@ -18,7 +18,7 @@
             android:id="@+id/wallet_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/box_round_darkgray"
+            android:background="@drawable/box_round_darkgray_daynight"
             android:padding="@dimen/space_8">
             <LinearLayout
                 android:layout_width="match_parent"
