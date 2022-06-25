@@ -15,7 +15,7 @@
         android:id="@+id/top_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlack">
+        android:background="@color/colorWhiteDayNight">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,12 +33,13 @@
                     android:layout_marginRight="@dimen/space_10"
                     android:padding="6dp"
                     android:src="@drawable/close_btn" />
+
                 <TextView
+                    style="@style/font_ssm_17_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    style="@style/font_ssm_17_black_dayonly"
-                    android:text="@string/str_switch_wallet"/>
+                    android:text="@string/str_switch_wallet" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

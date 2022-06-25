@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ssm_17_black_dayonly"
+                        style="@style/font_ssm_17_black_daynight"
                         android:text="NFT Detail"/>
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>

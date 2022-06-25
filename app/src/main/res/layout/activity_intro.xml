@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_intro"/>
+        android:src="@drawable/splash"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,38 +22,34 @@
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:paddingBottom="@dimen/space_240">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/cosmostation"
-                android:scaleType="fitXY"/>
+
             <com.romainpiel.shimmer.ShimmerTextView
                 android:id="@+id/logo_title"
+                style="@style/font_ss_12_gray6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="by Cosmostation"
-                android:layout_marginTop="@dimen/space_100"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_100"
                 android:letterSpacing="0.31"
                 android:lineSpacingExtra="6sp"
-                style="@style/font_ss_12_gray6"
-                android:visibility="invisible"/>
+                android:text="by Cosmostation"
+                android:visibility="invisible" />
         </RelativeLayout>
 
         <TextView
+            style="@style/font_ss_12_gray1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_40"
-            android:layout_marginRight="@dimen/space_40"
-            android:lineSpacingExtra="4sp"
             android:layout_marginTop="@dimen/space_16"
-            style="@style/font_ss_12_gray1"
+            android:layout_marginRight="@dimen/space_40"
             android:gravity="center"
-            android:text="@string/str_intro"/>
+            android:lineSpacingExtra="4sp"
+            android:text="@string/str_intro" />
     </LinearLayout>
 
 
@@ -65,12 +61,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/space_12"
-        android:gravity="center_horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/cosmostation_logo"/>
-    </LinearLayout>
+        android:gravity="center_horizontal"/>
 
 
     <LinearLayout

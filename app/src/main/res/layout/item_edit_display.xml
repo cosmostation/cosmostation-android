@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/space_8"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBg">
+        app:cardBackgroundColor="@color/colorWhite2DayNight">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -55,16 +55,17 @@
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/chain_remove_img"
                         android:src="@drawable/cosmos_wh_main"/>
+
                     <TextView
                         android:id="@+id/chain_name"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxWidth="@dimen/space_120"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/chain_img"
-                        android:layout_centerVertical="true"
-                        style="@style/font_ss_14_white"
-                        android:text="Wallet Name"/>
+                        android:maxWidth="@dimen/space_120"
+                        android:text="Wallet Name" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>

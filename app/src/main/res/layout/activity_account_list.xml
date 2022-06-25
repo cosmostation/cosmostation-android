@@ -4,39 +4,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:background="@color/colorWhiteDayNight"
+        android:scaleType="fitXY" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_4"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_4">
+
             <TextView
                 android:id="@+id/toolbar_title"
+                style="@style/font_ssm_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssm_17_black_dayonly"
-                android:text="@string/str_wallet_manage"/>
+                android:text="@string/str_wallet_manage" />
+
             <TextView
                 android:id="@+id/btn_edit"
+                style="@style/font_ssm_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/space_16"
                 android:clickable="true"
                 android:focusable="true"
-                android:layout_marginRight="@dimen/space_16"
-                style="@style/font_ssm_17_black_dayonly"
-                android:text="@string/str_edit"/>
+                android:text="@string/str_edit" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 

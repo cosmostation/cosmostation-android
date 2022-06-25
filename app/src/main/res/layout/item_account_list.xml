@@ -29,16 +29,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/cosmos_wh_main"/>
+
                 <TextView
                     android:id="@+id/chain_name"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="COSMOS"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_toRightOf="@+id/chain_img"
-                    style="@style/font_ss_14_white"/>
+                    android:singleLine="true"
+                    android:text="COSMOS" />
                 <TextView
                     android:id="@+id/wallet_cnt"
                     android:layout_width="wrap_content"
@@ -47,7 +48,7 @@
                     android:layout_centerVertical="true"
                     android:text="2 / 5"
                     android:layout_marginRight="@dimen/space_6"
-                    style="@style/font_ss_14_white"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </RelativeLayout>
             <LinearLayout
                 android:id="@+id/hidden_view"
@@ -69,7 +70,7 @@
                         android:id="@+id/wallet_layout0"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/box_round_darkgray"
+                        android:background="@drawable/box_round_darkgray_daynight"
                         android:padding="@dimen/space_8">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -97,7 +98,7 @@
                                     android:layout_toRightOf="@+id/walletKeyState0"
                                     android:layout_toLeftOf="@+id/walletAddress0"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="Wallet Name"/>
                                 <TextView
                                     android:id="@+id/walletAddress0"
@@ -106,7 +107,7 @@
                                     android:maxWidth="@dimen/space_120"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:ellipsize="middle"
                                     android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                                     android:singleLine="true"
@@ -123,7 +124,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="-"/>
                                 <TextView
                                     android:id="@+id/walletDenom0"
@@ -151,7 +152,7 @@
                         android:id="@+id/wallet_layout1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/box_round_darkgray"
+                        android:background="@drawable/box_round_darkgray_daynight"
                         android:padding="@dimen/space_8">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -179,7 +180,7 @@
                                     android:layout_toRightOf="@+id/walletKeyState1"
                                     android:layout_toLeftOf="@+id/walletAddress1"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="Wallet Name"/>
                                 <TextView
                                     android:id="@+id/walletAddress1"
@@ -188,7 +189,7 @@
                                     android:maxWidth="@dimen/space_120"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:ellipsize="middle"
                                     android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                                     android:singleLine="true"
@@ -205,7 +206,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="-"/>
                                 <TextView
                                     android:id="@+id/walletDenom1"
@@ -233,7 +234,7 @@
                         android:id="@+id/wallet_layout2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/box_round_darkgray"
+                        android:background="@drawable/box_round_darkgray_daynight"
                         android:padding="@dimen/space_8">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -261,7 +262,7 @@
                                     android:layout_toRightOf="@+id/walletKeyState2"
                                     android:layout_toLeftOf="@+id/walletAddress2"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="Wallet Name"/>
                                 <TextView
                                     android:id="@+id/walletAddress2"
@@ -270,7 +271,7 @@
                                     android:maxWidth="@dimen/space_120"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:ellipsize="middle"
                                     android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                                     android:singleLine="true"
@@ -287,7 +288,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="-"/>
                                 <TextView
                                     android:id="@+id/walletDenom2"
@@ -315,7 +316,7 @@
                         android:id="@+id/wallet_layout3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/box_round_darkgray"
+                        android:background="@drawable/box_round_darkgray_daynight"
                         android:padding="@dimen/space_8">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -343,7 +344,7 @@
                                     android:layout_toRightOf="@+id/walletKeyState3"
                                     android:layout_toLeftOf="@+id/walletAddress3"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="Wallet Name"/>
                                 <TextView
                                     android:id="@+id/walletAddress3"
@@ -352,7 +353,7 @@
                                     android:maxWidth="@dimen/space_120"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:ellipsize="middle"
                                     android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                                     android:singleLine="true"
@@ -369,7 +370,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="-"/>
                                 <TextView
                                     android:id="@+id/walletDenom3"
@@ -397,7 +398,7 @@
                         android:id="@+id/wallet_layout4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/box_round_darkgray"
+                        android:background="@drawable/box_round_darkgray_daynight"
                         android:padding="@dimen/space_8">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -425,7 +426,7 @@
                                     android:layout_toRightOf="@+id/walletKeyState4"
                                     android:layout_toLeftOf="@+id/walletAddress4"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="Wallet Name"/>
                                 <TextView
                                     android:id="@+id/walletAddress4"
@@ -434,7 +435,7 @@
                                     android:maxWidth="@dimen/space_120"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:ellipsize="middle"
                                     android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                                     android:singleLine="true"
@@ -451,7 +452,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    style="@style/font_ss_14_white"
+                                    style="@style/font_ss_14_black_daynight"
                                     android:text="-"/>
                                 <TextView
                                     android:id="@+id/walletDenom4"

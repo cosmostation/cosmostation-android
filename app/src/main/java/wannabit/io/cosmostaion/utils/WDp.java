@@ -988,7 +988,7 @@ public class WDp {
         } else if (baseChain.equals(CERTIK_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorCertik));
         } else if (baseChain.equals(SECRET_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorSecret2));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorSecret));
         } else if (baseChain.equals(AKASH_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorAkash));
         } else if (baseChain.equals(OKEX_MAIN)) {
@@ -997,7 +997,7 @@ public class WDp {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorPersis));
         } else if (baseChain.equals(SENTINEL_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorSentinel3));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorSentinel));
         } else if (baseChain.equals(FETCHAI_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorFetch));
         } else if (baseChain.equals(CRYPTO_MAIN)) {
@@ -1010,6 +1010,7 @@ public class WDp {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorOsmosis));
         } else if (baseChain.equals(MEDI_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorMedi));
         } else if (baseChain.equals(EMONEY_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorEmoney));
         } else if (baseChain.equals(RIZON_MAIN)) {
@@ -1041,7 +1042,7 @@ public class WDp {
         } else if (baseChain.equals(AXELAR_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorAxelar));
         } else if (baseChain.equals(KONSTELL_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorKonstellation3));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorKonstellation));
         } else if (baseChain.equals(UMEE_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorUmee));
         } else if (baseChain.equals(EVMOS_MAIN)) {
@@ -1161,7 +1162,7 @@ public class WDp {
             } else if (baseChain.equals(NYX_MAIN)) {
                 wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_nym));
             } else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_darkgray));
+                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_darkgray_daynight));
             }
         }
     }

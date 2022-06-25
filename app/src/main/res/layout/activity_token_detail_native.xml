@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    style="@style/font_ssm_17_black_dayonly"
+                    style="@style/font_ssm_17_black_daynight"
                     android:layout_marginLeft="@dimen/space_6"
                     android:text="-"/>
                 <TextView
@@ -117,7 +117,7 @@
                     android:layout_toRightOf="@+id/img_account"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_black_dayonly"
+                    style="@style/font_ss_12_black_daynight"
                     android:singleLine="true"
                     android:text=""/>
             </RelativeLayout>

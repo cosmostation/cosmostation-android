@@ -27,7 +27,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="end"
                 android:text="00"
-                style="@style/font_ss_12_black_dayonly"
+                style="@style/font_ss_12_black_daynight"
                 android:layout_marginRight="@dimen/space_6"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -46,7 +46,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_dayonly"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/join_fee_amount_symbol"
                             android:layout_width="wrap_content"
@@ -89,11 +89,11 @@
                             android:orientation="horizontal"
                             android:layout_gravity="right">
                             <TextView
-                                style="@style/font_ssl_12_black_dayonly"
+                                style="@style/font_ssl_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
-                                style="@style/font_ss_12_black_dayonly"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="@dimen/space_40"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -106,13 +106,13 @@
                             android:layout_gravity="right">
                             <TextView
                                 android:id="@+id/join_input0_amount"
-                                style="@style/font_ssl_12_black_dayonly"
+                                style="@style/font_ssl_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
                             <TextView
                                 android:id="@+id/join_input0_amount_symbol"
-                                style="@style/font_ss_12_black_dayonly"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -126,13 +126,13 @@
                             android:layout_gravity="right">
                             <TextView
                                 android:id="@+id/join_input1_amount"
-                                style="@style/font_ssl_12_black_dayonly"
+                                style="@style/font_ssl_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
                             <TextView
                                 android:id="@+id/join_input1_amount_symbol"
-                                style="@style/font_ss_12_black_dayonly"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -165,14 +165,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_dayonly"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                             android:id="@+id/join_out_amount_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_black_dayonly"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         </LinearLayout>
                     </LinearLayout>
                 <TextView
@@ -189,7 +189,7 @@
                     android:lines="2"
                     android:ellipsize="end"
                     android:text=""
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
         </LinearLayout>

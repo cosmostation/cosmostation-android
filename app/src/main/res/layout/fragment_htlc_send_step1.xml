@@ -55,7 +55,7 @@
                 android:layout_marginRight="@dimen/space_8"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                style="@style/font_ss_12_black_dayonly"
+                style="@style/font_ss_12_black_daynight"
                 android:text="@string/str_press_select_recipient_account"/>
         </RelativeLayout>
 

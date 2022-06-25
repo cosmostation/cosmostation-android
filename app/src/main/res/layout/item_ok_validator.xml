@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        style="@style/font_ss_12_black_dayonly"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="moniker"/>
                 </RelativeLayout>
 

@@ -216,14 +216,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        style="@style/font_ssl_12_black_dayonly"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                     <TextView
                         android:id="@+id/once_max_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
                         android:text="Coin"
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -256,14 +256,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_dayonly"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/system_max_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="Coin"
-                            style="@style/font_ss_12_black_dayonly"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -289,14 +289,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_dayonly"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/remain_cap_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="Coin"
-                            style="@style/font_ss_12_black_dayonly"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>

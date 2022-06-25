@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_dayonly"
+            style="@style/font_ssm_17_black_daynight"
             android:text="@string/str_htlc_send_c"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -86,7 +86,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="center"
                     android:text="@string/str_tx_error_description"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
                 <TextView
                     android:id="@+id/error_details"
                     android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="center"
                     android:text="@string/str_wait_htlc_loading"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
                 <TextView
                     android:id="@+id/loadingProgress"
                     android:layout_width="wrap_content"

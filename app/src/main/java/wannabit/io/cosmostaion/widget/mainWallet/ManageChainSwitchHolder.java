@@ -21,10 +21,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 
 public class ManageChainSwitchHolder extends BaseHolder {
     private CardView                    accountCard;
@@ -184,9 +181,9 @@ public class ManageChainSwitchHolder extends BaseHolder {
                                   ImageView keyImg, TextView walletName, TextView address, TextView amount, TextView denom) {
 
         if (dpAccount.id.equals(currentAccount.id)) {
-            layout.setBackground(ContextCompat.getDrawable(switchActivity, R.drawable.box_round_seleted_white));
+            layout.setBackground(ContextCompat.getDrawable(switchActivity, R.drawable.box_round_seleted_white_daynight));
         } else {
-            layout.setBackground(ContextCompat.getDrawable(switchActivity, R.drawable.box_round_darkgray));
+            layout.setBackground(ContextCompat.getDrawable(switchActivity, R.drawable.box_round_darkgray_daynight));
         }
         WDp.DpMainDenom(switchActivity, dpAccount.baseChain, denom);
         address.setText(dpAccount.address);

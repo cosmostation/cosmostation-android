@@ -11,53 +11,53 @@
     <color name="colorTrans">#00000000</color>
     <color name="colorTransBg">#232428</color>
     <color name="colorTransBg0">#222E2E2E</color>
-    <color name="colorTransBgCosmos">#249c6cff</color>
+    <color name="colorTransBgCosmos">#2a1c45</color>
     <color name="colorTransBg3">#CC000000</color>
     <color name="colorTransBgIris">#0b2b3c</color>
     <color name="colorTransBgBinance">#312908</color>
-    <color name="colorTransBgStarname">#246E7CDE</color>
-    <color name="colorTransBgKava">#24ff554f</color>
-    <color name="colorTransBgBand">#245286FF</color>
-    <color name="colorTransBgOkex">#244d87ee</color>
+    <color name="colorTransBgStarname">#212543</color>
+    <color name="colorTransBgKava">#401514</color>
+    <color name="colorTransBgBand">#071246</color>
+    <color name="colorTransBgOkex">#13223b</color>
     <color name="colorTransBgCertik">#38280b</color>
-    <color name="colorTransBgAkash">#24C71E10</color>
-    <color name="colorTransBgSecret">#32C4C4C4</color>
+    <color name="colorTransBgAkash">#3a0c08</color>
+    <color name="colorTransBgSecret">#37373a</color>
     <color name="colorTransBghard">#328626E1</color>
     <color name="colorTransBgusdx">#3206D6A0</color>
     <color name="colorTransBgswp">#325A42FF</color>
-    <color name="colorTransBgPersis">#24EDEDED</color>
-    <color name="colorTransBgSentinel">#245b8ed7</color>
+    <color name="colorTransBgPersis">#393737</color>
+    <color name="colorTransBgSentinel">#122746</color>
     <color name="colorTransBgFetch">#0c2d28</color>
     <color name="colorTransBgCryto">#0b304a</color>
-    <color name="colorTransBgSif">#24c19f33</color>
-    <color name="colorTransBgKi">#243756fc</color>
-    <color name="colorTransBgRizon">#268c8af2</color>
-    <color name="colorTransBgMedi">#2479aaf2</color>
-    <color name="colorTransBgAlthea">#24f8d9c0</color>
-    <color name="colorTransBgOsmosis">#249248db</color>
-    <color name="colorTransBgUmee">#24bb90f8</color>
+    <color name="colorTransBgSif">#3a2f0c</color>
+    <color name="colorTransBgKi">#0e1954</color>
+    <color name="colorTransBgRizon">#24243f</color>
+    <color name="colorTransBgMedi">#172d4e</color>
+    <color name="colorTransBgAlthea">#33312f</color>
+    <color name="colorTransBgOsmosis">#280a46</color>
+    <color name="colorTransBgUmee">#312540</color>
     <color name="colorTransBgEmoney">#1b2b26</color>
-    <color name="colorTransBgAxelar">#24C4C4C4</color>
+    <color name="colorTransBgAxelar">#353535</color>
     <color name="colorTransBgJuno">#44211f</color>
-    <color name="colorTransBgRegen">#2443ad6b</color>
+    <color name="colorTransBgRegen">#0c2b18</color>
     <color name="colorTransBgBitcanna">#002e21</color>
-    <color name="colorTransBgStargaze">#24e38cd4</color>
+    <color name="colorTransBgStargaze">#2d1c2a</color>
     <color name="colorTransBgGraBridge">#002e44</color>
     <color name="colorTransBgComdex">#001b3b</color>
     <color name="colorTransBgInj">#062b32</color>
     <color name="colorTransBgBitsong">#380014</color>
     <color name="colorTransBgDesmos">#3d130b</color>
-    <color name="colorTransBgLum">#243e68f9</color>
+    <color name="colorTransBgLum">#111c43</color>
     <color name="colorTransBgChihuahua">#303030</color>
-    <color name="colorTransBgKonstellation">#249bbffe</color>
+    <color name="colorTransBgKonstellation">#1f2d46</color>
     <color name="colorTransBgEvmos">#3a3942</color>
     <color name="colorTransBgCudos">#0a363f</color>
-    <color name="colorTransBgProvenance">#24628ee4</color>
+    <color name="colorTransBgProvenance">#182339</color>
     <color name="colorTransBgCerberus">#362b06</color>
-    <color name="colorTransBgOmniflix">#246c63ff</color>
+    <color name="colorTransBgOmniflix">#1b1940</color>
     <color name="colorTransBgCrescent">#3a2a16</color>
-    <color name="colorTransBgMantle">#24f3b519</color>
-    <color name="colorTransBgStation">#2405c3cd</color>
+    <color name="colorTransBgMantle">#382c0f</color>
+    <color name="colorTransBgStation">#012f31</color>
     <color name="colorTransBgNyx">#24ff6c5a</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
     <color name="colorBlack">#000000</color>
@@ -76,11 +76,12 @@
     <color name="colorGray11">#242627</color>
     <color name="colorGray12">#f5f5f5</color>
 
-    <color name="colorWhiteDayOnly">#000000</color>
-    <color name="colorWhite2DayOnly">#232428</color>
-    <color name="colorGrayDayOnly">#565b60</color>
-    <color name="colorGray2DayOnly">#28ffffff</color>
-    <color name="colorBlackDayOnly">#ffffff</color>
+    <color name="colorWhiteDayNight">#000000</color>
+    <color name="colorWhite2DayNight">#232428</color>
+    <color name="colorGrayDayNight">#565b60</color>
+    <color name="colorGray2DayNight">#28ffffff</color>
+    <color name="colorGray3DayNight">#3D3D3D</color>
+    <color name="colorBlackDayNight">#ffffff</color>
 
 
     <color name="colorAtom">#9C6CFF</color>
@@ -112,7 +113,7 @@
     <color name="colorCertik">#E1AA4C</color>
     <color name="colorCertik2">#59441E</color>
 
-    <color name="colorSecret">#C4C4C4</color>
+    <color name="colorSecret">#9496a0</color>
     <color name="colorSecret2">#585858</color>
 
     <color name="colorAkash">#c71e10</color>
@@ -156,10 +157,10 @@
     <color name="colorUmee">#bb90f8</color>
     <color name="colorUmee2">#7e63a6</color>
 
-    <color name="colorEmoney">#86ccba</color>
+    <color name="colorEmoney">#78c6b2</color>
     <color name="colorEmoney2">#43655c</color>
 
-    <color name="colorAxelar">#C4C4C4</color>
+    <color name="colorAxelar">#a1a1a1</color>
     <color name="colorAxelar2">#6c7076</color>
 
     <color name="colorJuno">#f0827d</color>
@@ -196,11 +197,11 @@
     <color name="colorChihuahua">#f4b330</color>
     <color name="colorChihuahua2">#8e6d2c</color>
 
-    <color name="colorKonstellation">#9bbffe</color>
+    <color name="colorKonstellation">#6299ea</color>
     <color name="colorKonstellation2">#6279a0</color>
     <color name="colorKonstellation3">#122951</color>
 
-    <color name="colorEvmos">#b8b2db</color>
+    <color name="colorEvmos">#a79ed8</color>
     <color name="colorEvmos2">#6f6c80</color>
 
     <color name="colorCudos">#10aecc</color>
@@ -215,7 +216,7 @@
     <color name="colorOmniflix">#6c63ff</color>
     <color name="colorOmniflix2">#3228ab</color>
 
-    <color name="colorCrescent">#ffc780</color>
+    <color name="colorCrescent">#f4bc76</color>
     <color name="colorCrescent2">#ac8a5e</color>
     <color name="colorCrescent3">#452318</color>
 

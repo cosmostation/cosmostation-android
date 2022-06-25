@@ -56,7 +56,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -76,7 +76,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -110,7 +110,7 @@
                         android:layout_toLeftOf="@+id/tx_starname_feet_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_black_dayonly"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 

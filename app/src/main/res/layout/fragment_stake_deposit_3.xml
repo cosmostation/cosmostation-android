@@ -130,7 +130,7 @@
                             android:lines="2"
                             android:ellipsize="end"
                             android:text=""
-                            style="@style/font_ss_12_black_dayonly"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

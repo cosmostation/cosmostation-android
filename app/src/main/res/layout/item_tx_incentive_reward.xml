@@ -56,7 +56,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -78,7 +78,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +98,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
         </LinearLayout>

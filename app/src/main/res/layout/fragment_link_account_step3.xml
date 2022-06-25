@@ -43,7 +43,7 @@
 
                         <TextView
                             android:id="@+id/tx_fee_amount"
-                            style="@style/font_ssl_12_black_dayonly"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_black_dayonly"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_dayonly"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                     android:layout_marginTop="@dimen/space_8"
                     android:lines="2"
                     android:ellipsize="end"
-                    style="@style/font_ss_12_black_dayonly"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
         </LinearLayout>

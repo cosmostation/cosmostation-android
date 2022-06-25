@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:layout_marginTop="@dimen/space_2"
-                        style="@style/font_ss_12_black_dayonly"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="BTC : USDX"/>
                 </LinearLayout>
                 <LinearLayout
@@ -82,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_12_black_dayonly"
+                    style="@style/font_ss_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -117,7 +117,7 @@
                         android:layout_toLeftOf="@+id/total_delegated_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_black_dayonly"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -152,7 +152,7 @@
                         android:layout_toLeftOf="@+id/harvest_reward_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_black_dayonly"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 
