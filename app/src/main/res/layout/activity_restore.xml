@@ -8,31 +8,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:background="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/toolbar_title"
+                style="@style/font_ssm_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssm_17_black_daynight"
-                android:text="@string/str_import"/>
+                android:text="@string/str_import" />
+
             <TextView
                 android:id="@+id/toolbar_clear"
+                style="@style/font_ssm_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/space_16"
-                style="@style/font_ssm_17_black_daynight"
-                android:text="@string/str_clear_all"/>
+                android:text="@string/str_clear_all" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -65,13 +68,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     android:layout_marginRight="@dimen/space_16">
+
                     <TextView
                         android:id="@+id/words_title"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_14_white"
                         android:singleLine="true"
-                        android:text="@string/str_mnemonic_title"/>
+                        android:text="@string/str_mnemonic_title" />
                     <TextView
                         android:id="@+id/words_cnt"
                         android:layout_width="wrap_content"
@@ -114,18 +118,19 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:layout_margin="@dimen/space_2">
+
                             <EditText
                                 android:id="@+id/tv_mnemonic_0"
+                                style="@style/font_ss_11_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext"/>
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
                             <TextView
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
@@ -147,7 +152,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -174,7 +179,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -201,7 +206,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -228,18 +233,19 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:layout_margin="@dimen/space_2">
+
                             <EditText
                                 android:id="@+id/tv_mnemonic_4"
+                                style="@style/font_ss_11_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext"/>
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
                             <TextView
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
@@ -261,7 +267,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -288,7 +294,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -315,7 +321,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -348,7 +354,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -369,18 +375,19 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:layout_margin="@dimen/space_2">
+
                             <EditText
                                 android:id="@+id/tv_mnemonic_9"
+                                style="@style/font_ss_11_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext"/>
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
                             <TextView
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
@@ -402,7 +409,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -429,7 +436,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -462,7 +469,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -489,7 +496,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -516,7 +523,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -543,7 +550,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -570,18 +577,19 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:layout_margin="@dimen/space_2">
+
                             <EditText
                                 android:id="@+id/tv_mnemonic_16"
+                                style="@style/font_ss_11_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
-                                android:paddingLeft="@dimen/space_28"
+                                android:imeOptions="actionNext"
                                 android:inputType="none"
-                                android:singleLine="true"
                                 android:maxLength="15"
-                                android:imeOptions="actionNext"/>
+                                android:paddingLeft="@dimen/space_28"
+                                android:singleLine="true" />
                             <TextView
                                 android:layout_width="@dimen/space_18"
                                 android:layout_height="wrap_content"
@@ -603,7 +611,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -630,7 +638,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -657,7 +665,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -691,7 +699,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -718,7 +726,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -745,7 +753,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -772,7 +780,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_white"
+                                style="@style/font_ss_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -809,7 +817,7 @@
             android:layout_height="0dp"
             android:layout_weight="5"
             android:orientation="vertical"
-            android:background="@color/colorGray8">
+            android:background="@color/colorWhite2DayNight">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -820,7 +828,7 @@
                     android:layout_weight="1"
                     android:minHeight="@dimen/space_45"
                     android:background="@drawable/btn_black_boarder"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:textAllCaps="false"
                     android:text="@string/str_paste"/>
                 <Button
@@ -1134,7 +1142,6 @@
                 android:layout_weight="0.8"
                 android:layout_marginLeft="@dimen/space_40"
                 android:layout_marginRight="@dimen/space_40"
-                android:paddingBottom="@dimen/space_4"
                 android:gravity="center">
                 <Button
                     android:id="@+id/btn_next"

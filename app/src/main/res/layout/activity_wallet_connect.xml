@@ -34,6 +34,7 @@
             android:id="@+id/wc_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/space_6"
             android:layout_marginLeft="@dimen/space_16"

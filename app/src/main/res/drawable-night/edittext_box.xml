@@ -21,7 +21,7 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/colorTrans"/>
             <stroke
-                android:color="@color/colorWhite"
+                android:color="@color/colorBlackDayNight"
                 android:width="@dimen/space_1"/>
             <padding
                 android:left="@dimen/space_8"

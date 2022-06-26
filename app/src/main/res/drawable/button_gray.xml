@@ -7,7 +7,7 @@
                 android:state_pressed="false">
                 <shape
                     android:shape="rectangle">
-                    <solid android:color="@color/colorGray11"/>
+                    <solid android:color="@color/colorGray5DayNight"/>
                     <corners
                         android:bottomLeftRadius="@dimen/space_4"
                         android:bottomRightRadius="@dimen/space_4"/>
@@ -23,7 +23,7 @@
                 android:state_pressed="true">
                 <shape
                     android:shape="rectangle">
-                    <solid android:color="@color/colorGray8"/>
+                    <solid android:color="@color/colorGray2DayNight"/>
                     <corners
                         android:bottomLeftRadius="@dimen/space_4"
                         android:bottomRightRadius="@dimen/space_4"/>
