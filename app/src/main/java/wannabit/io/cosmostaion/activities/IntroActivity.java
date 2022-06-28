@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.romainpiel.shimmer.ShimmerTextView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +23,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -32,8 +31,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView bgImg, bgImgGr;
-    private ShimmerTextView logoTitle;
+    private ImageView bgImg, bgImgGr;;
     private LinearLayout bottomLayer1, bottomLayer2;
     private Button mStart;
 
@@ -43,7 +41,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         setContentView(R.layout.activity_intro);
         bgImg = findViewById(R.id.intro_bg);
         bgImgGr = findViewById(R.id.intro_bg_gr);
-        logoTitle = findViewById(R.id.logo_title);
         bottomLayer1 = findViewById(R.id.bottom_layer1);
         bottomLayer2 = findViewById(R.id.bottom_layer2);
         mStart = findViewById(R.id.btn_start);
@@ -103,7 +100,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-
     private void onInitView() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5);
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out5);
@@ -133,10 +129,9 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v.equals(mStart)) {
-            Bundle bundle = new Bundle();
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
-            dialog.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            Dialog_AddAccount add = Dialog_AddAccount.newInstance(null);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
         }
     }
 

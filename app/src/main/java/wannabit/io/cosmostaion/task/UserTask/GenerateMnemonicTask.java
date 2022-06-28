@@ -8,7 +8,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -27,32 +26,25 @@ public class GenerateMnemonicTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
+        long id = mApp.getBaseDao().onInsertMnemonics(onGenMWords());
+        if (id > 0) {
+            mResult.isSuccess = true;
+            mResult.resultData = id;
         } else {
-            long id = mApp.getBaseDao().onInsertMnemonics(onGenMWords(mWords));
-            if (id > 0) {
-                mResult.isSuccess = true;
-                mResult.resultData = id;
-            } else {
-                mResult.errorMsg = "Already existed Mnemonic";
-                mResult.errorCode = 7001;
-            }
+            mResult.errorMsg = "Already existed Mnemonic";
+            mResult.errorCode = 7001;
         }
         return mResult;
     }
 
-    private MWords onGenMWords(ArrayList<String> words) {
+    private MWords onGenMWords() {
         MWords tempMWords = MWords.getNewInstance();
-        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(words));
+        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWords));
         EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
 
         tempMWords.resource = encR.getEncDataString();
         tempMWords.spec = encR.getIvDataString();
-        tempMWords.wordsCnt = words.size();
+        tempMWords.wordsCnt = mWords.size();
         return tempMWords;
     }
 }

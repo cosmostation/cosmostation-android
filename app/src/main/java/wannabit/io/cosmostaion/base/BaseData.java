@@ -1588,10 +1588,10 @@ public class BaseData {
         return existed;
     }
 
-    public boolean onDeleteAccount(String id) {
+    public boolean onDeleteAccount(Account account) {
         //TODO delete Tx or else data with this account
-        onDeleteBalance(id);
-        return getBaseDB().delete(BaseConstant.DB_TABLE_ACCOUNT, "id = ?", new String[]{id}) > 0;
+        onDeleteBalance("" + account.id);
+        return getBaseDB().delete(BaseConstant.DB_TABLE_ACCOUNT, "id = ?", new String[]{"" + account.id}) > 0;
     }
 
     public ArrayList<MWords> onSelectAllMnemonics() {
@@ -1637,13 +1637,17 @@ public class BaseData {
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_MNEMONIC, null, values);
     }
 
-    public long onUpdateMenmonic(MWords mWords) {
+    public long onUpdateMnemonic(MWords mWords) {
         ContentValues values = new ContentValues();
         if(!TextUtils.isEmpty(mWords.nickName))
             values.put("nickName",          mWords.nickName);
         if(mWords.isFavo != null)
             values.put("isFavo",            mWords.isFavo);
         return getBaseDB().update(BaseConstant.DB_TABLE_MNEMONIC, values, "id = ?", new String[]{""+mWords.id} );
+    }
+
+    public boolean onDeleteMnemonic(MWords mWords) {
+        return getBaseDB().delete(BaseConstant.DB_TABLE_MNEMONIC, "id = ?", new String[]{""+mWords.id}) > 0;
     }
 
     //set custompath 118 - > 0,

@@ -1,6 +1,10 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_INIT_MNEMONIC;
+
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +20,8 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.UserTask.GenerateMnemonicTask;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class MnemonicCreateActivity extends BaseActivity {
@@ -50,19 +56,38 @@ public class MnemonicCreateActivity extends BaseActivity {
             public void onClick(View view) {
                 if (!getBaseDao().onHasPassword()) {
                     Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
-                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_INIT);
-                    startActivity(intent);
+                    startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
                 } else {
                     Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
-                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_INSERT_MNEMONIC);
-                    intent.putExtra("mWords", mWords);
-                    startActivity(intent);
+                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                    startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == BaseConstant.CONST_PW_INIT || requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+                new GenerateMnemonicTask(getBaseApplication(), this, mWords).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+        }
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (result.taskType == TASK_INIT_MNEMONIC) {
+            if (result.isSuccess) {
+                Intent checkintent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
+                checkintent.putExtra("id", String.valueOf(result.resultData));
+                startActivity(checkintent);
+            }
+        }
     }
 
     private void onUpdateView() {

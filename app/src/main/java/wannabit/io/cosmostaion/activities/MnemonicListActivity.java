@@ -76,7 +76,7 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnImportMnemonic)) {
-            startActivity(new Intent(MnemonicListActivity.this, RestoreActivity.class));
+            startActivity(new Intent(MnemonicListActivity.this, MnemonicRestoreActivity.class));
 
         } else if (v.equals(mBtnCreateMnemonic)) {
             startActivity(new Intent(MnemonicListActivity.this, MnemonicCreateActivity.class));

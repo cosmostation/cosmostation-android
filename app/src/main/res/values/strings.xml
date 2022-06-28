@@ -311,11 +311,14 @@
     <string name="str_restore_key">Restore With PrivateKey</string>
     <string name="str_qr">QrCode</string>
     <string name="str_import">Restore With Mnemonic</string>
+    <string name="str_mnemonic_delete">Delete Mnemonic</string>
+    <string name="str_mnemonic_delete_msg">If you do not backup your mnemonics, you can not find it again!\n\nAnd %1$s derived wallets will also be deleted</string>
     <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
     <string name="str_check_private_key_c">CHECK PRIVATE KEY</string>
     <string name="str_manage_mnemonic">Manage Mnemonic</string>
+    <string name="str_import_watch_address">Import Watching Address</string>
     <string name="str_start">START</string>
     <string name="str_check">Check</string>
     <string name="str_confirm">Confirm</string>
@@ -1948,6 +1951,7 @@
     <string name="error_profile_dtag_count">Please insert 6 to 30 characters without a blank and special characters</string>
     <string name="error_no_account_this_chain">No linkable account with this chain</string>
     <string name="error_select_account_link">Please select account to link</string>
+    <string name="error_alreay_imported_mnemonic">Alreay imported menonic</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>

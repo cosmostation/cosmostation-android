@@ -24,7 +24,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_INSERT_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
@@ -68,7 +67,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_INIT_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 
 import android.app.Activity;
@@ -132,7 +130,6 @@ import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPrivateKeyTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
-import wannabit.io.cosmostaion.task.UserTask.GenerateMnemonicTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.CreateProfileGrpcTask;
@@ -289,9 +286,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private String mHdacBurnRawTx;                 //for hdac burn & swap
 
-    private long mIdToDelete;
-    private long mIdToCheck;
-    private ArrayList<String> mWords = new ArrayList<>();
+    private long    mIdToDelete;
+    private long    mIdMWordDelete;
+    private long    mIdToCheck;
 
 
     public ArrayList<String> mValOpAddresses_V1;
@@ -418,10 +415,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mHdacBurnRawTx = getIntent().getStringExtra("hdacBurnRawTx");
 
-
         mIdToDelete = getIntent().getLongExtra("id", -1);
+        mIdMWordDelete = getIntent().getLongExtra("mWordId", -1);
         mIdToCheck = getIntent().getLongExtra("checkid", -1);
-        mWords = getIntent().getStringArrayListExtra("mWords");
 
         mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
 
@@ -497,10 +493,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         if (mPurpose == CONST_PW_SIMPLE_CHECK) {
             onShowWaitDialog();
             new CheckPasswordTask(getBaseApplication(), this).execute(mUserInput);
-
-        } else if (mPurpose == CONST_PW_TX_INSERT_MNEMONIC) {
-            onShowWaitDialog();
-            new GenerateMnemonicTask(getBaseApplication(), this, mWords).execute(mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_SEND) {
             onShowWaitDialog();
@@ -830,7 +822,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (result.taskType == TASK_DELETE_USER) {
             if (result.isSuccess) {
-                onDeleteAccount(mIdToDelete);
+                if (mIdToDelete != -1) {
+                    onDeleteAccount(getBaseDao().onSelectAccount("" + mIdToDelete));
+                } else {
+                    onDeleteMnemonic(getBaseDao().onSelectMnemonicById(mIdMWordDelete));
+                }
             } else {
                 onShakeView();
                 onInitView();
@@ -855,18 +851,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 Intent checkintent = new Intent(PasswordCheckActivity.this, PrivateKeyCheckActivity.class);
                 checkintent.putExtra("checkid", mIdToCheck);
                 checkintent.putExtra("entropy", String.valueOf(result.resultData));
-                startActivity(checkintent);
-
-            } else {
-                onShakeView();
-                onInitView();
-                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (result.taskType == TASK_INIT_MNEMONIC) {
-            if (result.isSuccess) {
-                Intent checkintent = new Intent(PasswordCheckActivity.this, WalletDeriveActivity.class);
-                checkintent.putExtra("id", String.valueOf(result.resultData));
                 startActivity(checkintent);
 
             } else {

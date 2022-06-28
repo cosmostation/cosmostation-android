@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
+import android.annotation.SuppressLint;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -29,6 +31,7 @@ public class GenerateAccountTask extends CommonTask {
         this.mResult.taskType = BaseConstant.TASK_INIT_ACCOUNT;
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
@@ -37,14 +40,12 @@ public class GenerateAccountTask extends CommonTask {
                 mResult.isSuccess = true;
                 mHideChains = mApp.getBaseDao().userHideChains();
                 if (mHideChains.contains(derive.baseChain)) {
-                    int position = mHideChains.indexOf(derive.baseChain);
+                    int position = mHideChains.indexOf(mHideChains.stream().filter(item -> item.equals(derive.baseChain)).findFirst().get());
                     if (position >= 0) {
                         mHideChains.remove(position);
                     }
                     mApp.getBaseDao().setUserHidenChains(mHideChains);
                 }
-                mApp.getBaseDao().setLastUser(id);
-                mApp.getBaseDao().setLastChain(derive.baseChain.getChain());
 
             } else {
                 mResult.errorMsg = "Already existed account";

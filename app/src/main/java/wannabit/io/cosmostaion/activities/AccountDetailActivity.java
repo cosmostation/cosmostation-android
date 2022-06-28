@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
@@ -60,8 +61,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private CardView mCardBody;
     private ImageView mBtnQr;
     private TextView mAccountAddress, mAccountGenTime;
-    private TextView mAccountChain, mAccountState, mAccountPathTitle, mAccountPath, mImportMsg;
-    private RelativeLayout mPathLayer;
+    private TextView mAccountChain, mAccountState, mMnemonicName, mAccountPathTitle, mAccountPath, mImportMsg;
+    private RelativeLayout mMnemonicLayer, mPathLayer;
 
 
     private CardView mCardRewardAddress;
@@ -90,6 +91,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mAccountChain = findViewById(R.id.account_chain);
         mAccountGenTime = findViewById(R.id.account_import_time);
         mAccountState = findViewById(R.id.account_import_state);
+        mMnemonicLayer = findViewById(R.id.mnemonic_name_layer);
+        mMnemonicName = findViewById(R.id.mnemonic_name);
         mAccountPathTitle = findViewById(R.id.path_title);
         mAccountPath = findViewById(R.id.account_path);
         mImportMsg = findViewById(R.id.import_msg);
@@ -136,7 +139,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
-            onDeleteAccount(mAccount.id);
+            onDeleteAccount(mAccount);
         }
     }
 
@@ -159,6 +162,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             onBackPressed();
         }
         mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
+        MWords mWords = getBaseDao().onSelectMnemonicById(mAccount.mnemonicId);
         if (mAccount == null) onBackPressed();
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
@@ -185,6 +189,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountState.setText(getString(R.string.str_with_mnemonic));
             mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path), mAccount.customPath));
             mPathLayer.setVisibility(View.VISIBLE);
+            mMnemonicLayer.setVisibility(View.VISIBLE);
+            mMnemonicName.setText(mWords.getName());
             mImportMsg.setVisibility(View.GONE);
             mBtnCheck.setVisibility(View.VISIBLE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
@@ -194,6 +200,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (mAccount.hasPrivateKey && !mAccount.fromMnemonic) {
             mAccountState.setText(getString(R.string.str_with_privatekey));
             mPathLayer.setVisibility(View.GONE);
+            mMnemonicLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.GONE);
             mBtnCheck.setVisibility(View.GONE);
             mView.setVisibility(View.GONE);
@@ -213,12 +220,12 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             mAccountState.setText(getString(R.string.str_only_address));
             mPathLayer.setVisibility(View.GONE);
+            mMnemonicLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.VISIBLE);
-            mImportMsg.setTextColor(WDp.getChainColor(getBaseContext(), mBaseChain));
             mBtnCheck.setVisibility(View.VISIBLE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
             mBtnCheck.setText(getString(R.string.str_import_mnemonic));
-            mBtnCheckKey.setText(getString(R.string.str_import_key));
+            mBtnCheckKey.setText(getString(R.string.str_insert_private_key));
         }
 
     }
@@ -266,7 +273,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
             } else {
-                Intent restoreIntent = new Intent(AccountDetailActivity.this, RestoreActivity.class);
+                Intent restoreIntent = new Intent(AccountDetailActivity.this, MnemonicRestoreActivity.class);
                 restoreIntent.putExtra("chain", mBaseChain.getChain());
                 startActivity(restoreIntent);
             }
@@ -286,14 +293,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (v.equals(mBtnDelete)) {
-            int accountSum = 0;
-            for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
-                accountSum = accountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
-            }
-            if (accountSum <= 1) {
-                Toast.makeText(AccountDetailActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
-                return;
-            }
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
                     AlertDialogUtils.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(),
                     getString(R.string.str_close), null);

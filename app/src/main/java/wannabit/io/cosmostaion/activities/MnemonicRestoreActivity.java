@@ -1,18 +1,14 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_INIT_MNEMONIC;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +20,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,19 +37,17 @@ import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
-import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.dao.MWords;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.UserTask.GenerateMnemonicTask;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WUtil;
 
-public class RestoreActivity extends BaseActivity implements View.OnClickListener {
+public class MnemonicRestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar mToolbar;
-    private LinearLayout mContentsLayer;
     private Button mPaste, mBtnConfirm;
     private Button[] mAlphabetBtns = new Button[26];
     private ImageButton mBtnDelete;
@@ -66,20 +59,16 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private EditText[] mEtMnemonics = new EditText[24];
     private int mMnemonicPosition = 0;
 
-    private BaseChain mChain;
     private ArrayList<String> mAllMnemonic;
     private MnemonicAdapter mMnemonicAdapter;
     private ArrayList<String> mWords = new ArrayList<>();
-
-    private int mIsCustomPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-        setContentView(R.layout.activity_restore);
+        setContentView(R.layout.activity_mnemonic_restore);
         mToolbar = findViewById(R.id.tool_bar);
-        mContentsLayer = findViewById(R.id.contentsLayer);
         mPaste = findViewById(R.id.btn_paste);
         mBtnConfirm = findViewById(R.id.btn_confirm);
         mBtnDelete = findViewById(R.id.password_back);
@@ -94,11 +83,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         mBtnDelete.setOnClickListener(this);
         mBtnSpace.setOnClickListener(this);
         mClearAll.setOnClickListener(this);
-
-
-        if (getIntent().getStringExtra("chain") != null) {
-            mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
-        }
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -125,25 +109,15 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             });
         }
 
+        mEtMnemonics[0].requestFocus();
+        mChainImg.setColorFilter(getColor(R.color.colorGray1), android.graphics.PorterDuff.Mode.SRC_IN);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
         mRecyclerView.setHasFixedSize(true);
         mMnemonicAdapter = new MnemonicAdapter();
         mRecyclerView.setAdapter(mMnemonicAdapter);
 
         onCheckMnemonicCnt();
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        if (mChain == null) {
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
-            dialog.setCancelable(false);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
-        } else {
-            onUpdateView();
-        }
     }
 
     @Override
@@ -155,12 +129,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void onUpdateView() {
-        mChainImg.setColorFilter(WDp.getChainColor(getBaseContext(), mChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        mContentsLayer.setVisibility(View.VISIBLE);
-        mEtMnemonics[0].requestFocus();
     }
 
     private void onClearAll() {
@@ -200,14 +168,11 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         }
 
         mWordCnt.setText("" + mWords.size() + " words");
-        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
-                WKey.isMnemonicWords(mWords)) {
-            mWordCnt.setTextColor(WDp.getChainColor(getBaseContext(), mChain));
+        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) && WKey.isMnemonicWords(mWords)) {
+            mWordCnt.setTextColor(ContextCompat.getColor(MnemonicRestoreActivity.this, R.color.colorAuth));
         } else {
-            mWordCnt.setTextColor(ContextCompat.getColor(RestoreActivity.this, R.color.colorRed));
+            mWordCnt.setTextColor(ContextCompat.getColor(MnemonicRestoreActivity.this, R.color.colorRed));
         }
-
-
     }
 
     private boolean isValidWords() {
@@ -289,49 +254,16 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 }
             }
 
-            if (isValidWords()) {
-                if (mChain.equals(KAVA_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showDoubleButton(this, getString(R.string.str_kava_newpath_title), getString(R.string.str_kava_newpath_msg),
-                            getString(R.string.str_kava_old_path), view -> onUsingCustomPath(0), null,
-                            getString(R.string.str_kava_new_path), view -> onUsingCustomPath(1), null,
-                            false);
+            String word = String.join(" ", mWords).trim();
+            for (MWords words : getBaseDao().onSelectAllMnemonics()) {
+                if (words.getWords(MnemonicRestoreActivity.this).equalsIgnoreCase(word)) {
+                    Toast.makeText(this, R.string.error_alreay_imported_mnemonic, Toast.LENGTH_SHORT).show();
                     return;
-
-                } else if (mChain.equals(SECRET_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showDoubleButton(this, getString(R.string.str_secret_newpath_title), getString(R.string.str_secret_newpath_msg),
-                            getString(R.string.str_secret_old_path), view -> onUsingCustomPath(0), null,
-                            getString(R.string.str_secret_new_path), view -> onUsingCustomPath(1), null,
-                            false);
-                    return;
-
-                } else if (mChain.equals(OKEX_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_okex_newpath_title), getString(R.string.str_okex_newpath_msg),
-                            getString(R.string.str_okex_old_type), view -> onUsingCustomPath(0), null,
-                            getString(R.string.str_okex_new_type), view -> onUsingCustomPath(1), null,
-                            Html.fromHtml("<b>" + getString(R.string.str_okex_eth_type) + "</b>"), view -> onUsingCustomPath(2), null,
-                            false);
-                    return;
-
-                } else if (mChain.equals(FETCHAI_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showQuadrupleButton(this, getString(R.string.str_secret_newpath_title), getString(R.string.str_fetch_eth_path_msg),
-                            getString(R.string.str_fetch_cosmos_path), view -> onUsingCustomPath(0), null,
-                            getString(R.string.str_fetch_eth_path), view -> onUsingCustomPath(1), null,
-                            getString(R.string.str_fetch_eth_ledger_path), view -> onUsingCustomPath(2), null,
-                            getString(R.string.str_fetch_eth_ledger_live), view -> onUsingCustomPath(3), null,
-                            false);
-                    return;
-
-                } else if (mChain.equals(LUM_MAIN)) {
-                    FilledVerticalButtonAlertDialog.showDoubleButton(this, getString(R.string.str_lum_newpath_title), getString(R.string.str_lum_newpath_msg),
-                            getString(R.string.str_lum_basic_type), view -> onUsingCustomPath(0), null,
-                            getString(R.string.str_lum_airdrop_type), view -> onUsingCustomPath(1), null,
-                            false);
-                    return;
-
-                } else {
-                    onConfirmedWords();
                 }
+            }
 
+            if (isValidWords()) {
+                onConfirmedWords();
             } else {
                 Toast.makeText(this, R.string.error_invalid_mnemonic_count, Toast.LENGTH_SHORT).show();
             }
@@ -359,52 +291,46 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             mEtMnemonics[mMnemonicPosition].setText(mEtMnemonics[mMnemonicPosition].getText().toString() + input);
             mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
             mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
-
-            return;
-
         }
     }
 
     private void onConfirmedWords() {
         if (!getBaseDao().onHasPassword()) {
-            Intent intent = new Intent(RestoreActivity.this, PasswordSetActivity.class);
+            Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordSetActivity.class);
             startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
         } else {
-            Intent intent = new Intent(RestoreActivity.this, PasswordCheckActivity.class);
+            Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
             startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
-    public void onUsingCustomPath(int using) {
-        mIsCustomPath = using;
-        onConfirmedWords();
-    }
-
-    @SuppressLint("MissingSuperCall")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
-            intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
-            intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
-            intent.putExtra("size", mWords.size());
-            intent.putExtra("chain", mChain.getChain());
-            intent.putExtra("customPath", mIsCustomPath);
-            startActivity(intent);
+            if (requestCode == BaseConstant.CONST_PW_INIT || requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+                onShowWaitDialog();
+                new GenerateMnemonicTask(getBaseApplication(), this, mWords).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
         }
     }
 
     @Override
-    public void onChoiceNet(BaseChain chain) {
-        super.onChoiceNet(chain);
-        mChain = chain;
-        onUpdateView();
+    public void onTaskResponse(TaskResult result) {
+        if (isFinishing()) { return; }
+        onHideWaitDialog();
+        if (result.taskType == TASK_INIT_MNEMONIC) {
+            if (result.isSuccess) {
+                Intent checkintent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
+                checkintent.putExtra("id", String.valueOf(result.resultData));
+                startActivity(checkintent);
+            }
+        }
     }
-
 
     public class MnemonicAdapter extends RecyclerView.Adapter<MnemonicAdapter.MnemonicHolder> implements Filterable {
 

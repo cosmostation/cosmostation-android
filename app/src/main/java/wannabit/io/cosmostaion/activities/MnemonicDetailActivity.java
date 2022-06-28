@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -102,7 +103,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
 
     public void onChangeNickName(String name) {
         mWords.nickName = name;
-        getBaseDao().onUpdateMenmonic(mWords);
+        getBaseDao().onUpdateMnemonic(mWords);
         mMnemonicNick.setText(name);
     }
 
@@ -115,6 +116,14 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onStartDeleteMnemonic() {
+        Intent intent = new Intent(MnemonicDetailActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_DELETE_ACCOUNT);
+        intent.putExtra("mWordId", mWords.id);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     @Override
@@ -139,7 +148,10 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             startActivity(intent);
 
         } else if (v.equals(mDelete)) {
-            WLog.w("mnemonic 삭제");
+            AlertDialogUtils.showDoubleButtonDialog(MnemonicDetailActivity.this, getString(R.string.str_mnemonic_delete),
+                    String.format(getString(R.string.str_mnemonic_delete_msg), String.valueOf(mWords.getLinkedWalletCnt(getBaseDao()))),
+                    AlertDialogUtils.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteMnemonic(),
+                    getString(R.string.str_close), null);
         }
     }
 }

@@ -1,8 +1,11 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,14 +22,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.common.collect.Maps;
-
 import java.util.ArrayList;
-import java.util.Map;
 
-import cosmos.bank.v1beta1.QueryGrpc;
-import cosmos.bank.v1beta1.QueryOuterClass;
 import cosmos.base.v1beta1.CoinOuterClass;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -38,14 +39,16 @@ import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.NumberPickerDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
+import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class WalletDeriveActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -65,7 +68,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     private int mPath = 0;
     private final ArrayList<Derive> mDerives = new ArrayList<>();
-    private final Map<String, Coin> balanceCache = Maps.newHashMap();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,7 +212,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     public void onSelectedHdPath(int path) {
         mPath = path;
         mPathText.setText("" + path);
-        balanceCache.clear();
         loadData();
     }
 
@@ -274,26 +275,87 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
             if (isGRPC(derive.baseChain)) {
                 new Thread(() -> {
-                    QueryGrpc.QueryBlockingStub mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(derive.baseChain));
-                    QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setAddress(derive.dpAddress).build();
-                    QueryOuterClass.QueryAllBalancesResponse response = mStub.allBalances(request);
-                    if (response != null) {
-                        for (CoinOuterClass.Coin coin : response.getBalancesList()) {
-                            if (coin.getDenom().equalsIgnoreCase(WDp.mainDenom(derive.baseChain))) {
-                                derive.coin = new Coin(coin.getDenom(), coin.getAmount());
+                    new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
+                        @Override
+                        public void onTaskResponse(TaskResult result) {
+                            ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
+                            if (balances != null && balances.size() > 0) {
+                                for (CoinOuterClass.Coin coin : balances) {
+                                    if (coin.getDenom().equalsIgnoreCase(WDp.mainDenom(derive.baseChain))) {
+                                        derive.coin = new Coin(coin.getDenom(), coin.getAmount());
+                                        runOnUiThread(() -> {
+                                            WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
+                                        });
+                                        return;
+                                    }
+                                }
+                            }
+
+                            derive.coin = new Coin(WDp.mainDenom(derive.baseChain), "0");
+                            runOnUiThread(() -> {
+                                WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
+                            });
+                        }
+                    }, derive.baseChain, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }).start();
+
+            } else {
+                if (derive.baseChain.equals(BNB_MAIN)) {
+                    new Thread(() -> {
+                        ApiClient.getBnbChain(getBaseContext()).getAccountInfo(derive.dpAddress).enqueue(new Callback<ResBnbAccountInfo>() {
+                            @Override
+                            public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
+                                if (response.isSuccessful() && response.body() != null && response.body().balances != null) {
+                                    for (ResBnbAccountInfo.BnbBalance balance : response.body().balances) {
+                                        if (balance.symbol.equalsIgnoreCase(WDp.mainDenom(derive.baseChain))) {
+                                            derive.coin = new Coin(balance.symbol, balance.free);
+                                            runOnUiThread(() -> {
+                                                WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
+                                            });
+                                            return;
+                                        }
+                                    }
+                                }
+
+                                derive.coin = new Coin(WDp.mainDenom(derive.baseChain), "0");
                                 runOnUiThread(() -> {
                                     WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
                                 });
-                                return;
                             }
-                        }
-                    }
+                            @Override
+                            public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) {
+                            }
+                        });
+                    }).start();
 
-                    derive.coin = new Coin(WDp.mainDenom(derive.baseChain), "0");
-                    runOnUiThread(() -> {
-                        WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
-                    });
-                }).start();
+                } else if (derive.baseChain.equals(OKEX_MAIN)) {
+                    new Thread(() -> {
+                        ApiClient.getOkexChain(getBaseContext()).getAccountBalance(derive.dpAddress).enqueue(new Callback<ResOkAccountToken>() {
+                            @Override
+                            public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
+                                if (response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
+                                    for (ResOkAccountToken.OkCurrency balance : response.body().data.currencies) {
+                                        if (balance.symbol.equals(WDp.mainDenom(derive.baseChain))) {
+                                            derive.coin = new Coin(balance.symbol, balance.available);
+                                            runOnUiThread(() -> {
+                                                WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
+                                            });
+                                            return;
+                                        }
+                                    }
+                                }
+
+                                derive.coin = new Coin(WDp.mainDenom(derive.baseChain), "0");
+                                runOnUiThread(() -> {
+                                    WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
+                                });
+                            }
+                            @Override
+                            public void onFailure(Call<ResOkAccountToken> call, Throwable t) {
+                            }
+                        });
+                    }).start();
+                }
             }
         }
 
@@ -357,11 +419,16 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if (result.isSuccess) {
+                Derive initDerive = mDerives.stream().filter(derive -> derive.selected).findFirst().get();
+                Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, initDerive.baseChain);
+                getBaseDao().setLastUser(initAccount.id);
+                getBaseDao().setLastChain(initDerive.baseChain.getChain());
                 onStartMainActivity(0);
             }
 

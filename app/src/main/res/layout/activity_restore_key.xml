@@ -48,7 +48,7 @@
             android:textCursorDrawable="@drawable/white_cursor"
             android:maxLength="256"
             android:textColorHint="@color/colorGray4"
-            android:background="@drawable/edittext_box"
+            android:background="@drawable/btn_trans_with_border"
             android:paddingEnd="@dimen/space_12"
             style="@style/font_ss_12_white"
             android:imeOptions="actionNext"

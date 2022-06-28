@@ -13,12 +13,15 @@
     <string name="str_hide_chains">Hidden Chains</string>
     <string name="str_restore_key">개인키로 지갑복원</string>
     <string name="str_qr">QR 코드</string>
-    <string name="str_import">복구단어로 지갑복원</string>
+    <string name="str_import">니모닉으로 지갑복원</string>
+    <string name="str_mnemonic_delete">니모닉 삭제</string>
+    <string name="str_mnemonic_delete_msg">해당 니모닉을 백업하지 않았을 경우 영구히 다시 복원할 수 없습니다!\n\n또한 연결된 %1$s개의 지갑도 삭제됩니다.</string>
     <string name="str_clear_all">전체 삭제</string>
     <string name="str_create">지갑 생성</string>
     <string name="str_check_mnemonic_c">복구 단어 확인</string>
     <string name="str_check_private_key_c">개인키 확인</string>
     <string name="str_manage_mnemonic">니모닉 관리</string>
+    <string name="str_import_watch_address">관찰 주소 등록</string>
     <string name="str_start">시작하기</string>
     <string name="str_check">확인</string>
     <string name="str_confirm">확인</string>
@@ -158,10 +161,10 @@
     <string name="str_version">버전</string>
     <string name="str_will_support_with_mainnet">준비 중입니다.</string>
     <string name="str_will_support_after_mainnet">준비 중입니다.</string>
-    <string name="str_with_mnemonic">전송가능 지갑(복구단어)</string>
+    <string name="str_with_mnemonic">전송가능 지갑(니모닉)</string>
     <string name="str_with_privatekey">전송가능 지갑(개인키)</string>
     <string name="str_only_address">관찰용 지갑</string>
-    <string name="str_check_mnemonic">복구 단어 확인</string>
+    <string name="str_check_mnemonic">니모닉 확인</string>
     <string name="str_check_private_key">개인키 확인</string>
     <string name="str_delete_wallet">지갑 삭제</string>
     <string name="str_wallet_address">지갑 주소</string>
@@ -172,8 +175,8 @@
     <string name="str_import_path">경로</string>
     <string name="str_import_address_type">주소 타입</string>
     <string name="str_import_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
-    <string name="str_import_mnemonic">복구 단어 입력</string>
-    <string name="str_import_key">개인키 입력</string>
+    <string name="str_import_mnemonic">니모닉 입력</string>
+    <string name="str_import_key">개인키 등록</string>
     <string name="str_share">공유</string>
     <string name="str_copy">Copy</string>
     <string name="str_copy_to">클립보드에 복사</string>
@@ -1529,6 +1532,7 @@
     <string name="error_no_profile_dtag">Dtag값을 입력하세요.</string>
     <string name="error_already_registered_dtag">이미 등록된 Dtag입니다. 다른값을 입력하세요.</string>
     <string name="error_profile_dtag_count">Dtag를 공백과 특수문자를 제외한 6~30자를 입력해주세요.</string>
+    <string name="error_alreay_imported_mnemonic">이미 등록된 니모닉 입니다.</string>
 
 
     <string name="tx_send">보내기</string>
