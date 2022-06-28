@@ -19,11 +19,6 @@ We will add more tendermint-based blockchain projects in the coming updates, suc
        
 
 
-## Notice iOS
- can build with pod init, install, update
-
-
-
 ## Downloads
 
 * [Android](https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion)
