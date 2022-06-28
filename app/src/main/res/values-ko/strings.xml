@@ -581,6 +581,7 @@
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">지갑 추가</string>
+    <string name="str_add_wallet">%1$s개의 지갑을 추가하시겠습니까?</string>
     <string name="str_error_not_support_chain_title">오류</string>
     <string name="str_error_not_support_chain_msg">해당 체인에 대한 지갑이 없습니다.</string>
     <string name="str_error_not_support_msg">%1$s는 지원하지 않는 체인입니다.</string>
@@ -1327,6 +1328,7 @@
     <string name="str_select_ibc_address">받는 주소</string>
     <string name="str_ibc_recipient_chain">받는 체인</string>
     <string name="str_select_starname_domain">도메인 선택</string>
+    <string name="str_picker_dialog_title">지정 경로를 선택 하세요</string>
 
     <string name="str_sif_claim_incentive">인센티브 받기</string>
     <string name="str_sif_incentive_claim">인센티브 받기</string>

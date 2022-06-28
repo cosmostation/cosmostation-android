@@ -993,6 +993,7 @@
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">Add Wallet</string>
+    <string name="str_add_wallet">Would you like to add %1$s wallet(s)?</string>
     <string name="str_error_not_support_chain_title">Error</string>
     <string name="str_error_not_support_chain_msg">No wallet for that chain</string>
     <string name="str_error_not_support_msg">%1$s are not currently supported chain</string>
@@ -1730,6 +1731,7 @@
     <string name="str_create_user_claim_address">User Claim Address</string>
     <string name="str_create_user_claim_type">User Claim Type</string>
     <string name="str_select_starname_domain">Select domain for starname</string>
+    <string name="str_picker_dialog_title">Select Custom Path</string>
 
     <string name="str_ibc_send_c">IBC SEND</string>
     <string name="str_ibc_warning_c">Notice</string>

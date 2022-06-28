@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.dao;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,7 +63,7 @@ public class MWords {
     }
 
     public String getName() {
-        if (nickName == null) {
+        if (TextUtils.isEmpty(nickName)) {
             return "Mnemonic " + id;
         }
         return nickName;

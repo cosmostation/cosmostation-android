@@ -9,12 +9,13 @@
         android:id="@+id/accountCard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
-        android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_accout_unselected"
+        android:background="@drawable/box_account_unselected"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_8">
+        android:layout_marginBottom="@dimen/space_8"
+        android:paddingLeft="@dimen/space_4"
+        android:paddingRight="@dimen/space_4">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -90,7 +91,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             style="@style/font_ssl_12_white"
-                            android:text=""/>
+                            android:text="loading..."/>
                         <TextView
                             android:id="@+id/accountDenom"
                             android:layout_width="wrap_content"
@@ -110,9 +111,9 @@
         android:layout_height="@dimen/space_68"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_accout_unselected"
+        android:background="@drawable/box_account_unselected"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_8"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 </RelativeLayout>

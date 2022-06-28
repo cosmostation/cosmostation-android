@@ -171,13 +171,13 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-                if (mChain.equals(KAVA_MAIN)|| mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
-                    new GenerateAccountTask(getBaseApplication(), mChain, this, 1).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
-                } else if (mChain.equals(OKEX_MAIN)) {
-                    new GenerateAccountTask(getBaseApplication(), mChain, this, 2).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
-                } else {
-                    new GenerateAccountTask(getBaseApplication(), mChain, this, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
-                }
+//                if (mChain.equals(KAVA_MAIN)|| mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
+//                    new GenerateAccountTask(getBaseApplication(), mChain, this, 1).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+//                } else if (mChain.equals(OKEX_MAIN)) {
+//                    new GenerateAccountTask(getBaseApplication(), mChain, this, 2).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+//                } else {
+//                    new GenerateAccountTask(getBaseApplication(), this, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+//                }
             }
         }
 

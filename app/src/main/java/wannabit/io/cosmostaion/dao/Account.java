@@ -162,7 +162,7 @@ public class Account {
 
     public SpannableString getLastTotal(Context c, BaseChain chain) {
         if (TextUtils.isEmpty(lastTotal)) {
-            return SpannableString.valueOf("--");
+            return SpannableString.valueOf(WDp.getDpAmount2(c, BigDecimal.ZERO, 6, 6));
         }
         try {
             if (chain.equals(BaseChain.BNB_MAIN)) {

@@ -43,7 +43,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ssm_17_white"
+                        style="@style/font_ssm_15_white"
                         android:text="Wannabit"/>
                     <TextView
                         android:id="@+id/toolbar_net_name"
@@ -52,7 +52,7 @@
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_alignBaseline="@+id/toolbar_title"
                         android:layout_toRightOf="@+id/toolbar_title"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ss_10_gray1"
                         android:text="(testnet gaia-12k)"/>
                 </RelativeLayout>
             </RelativeLayout>

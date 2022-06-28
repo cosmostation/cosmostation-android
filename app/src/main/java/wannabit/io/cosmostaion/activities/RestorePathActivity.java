@@ -97,11 +97,11 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), mChain, this, mCustomPath).execute("" + path, mEntropy, "" + mWordSize);
+//        new GenerateAccountTask(getBaseApplication(), mChain, this, mCustomPath).execute("" + path, mEntropy, "" + mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
-        new OverrideAccountTask(getBaseApplication(), account, this, mCustomPath).execute("" + path, mEntropy, "" + mWordSize);
+//        new OverrideAccountTask(getBaseApplication(), account, this, mCustomPath).execute("" + path, mEntropy, "" + mWordSize);
     }
 
     @Override

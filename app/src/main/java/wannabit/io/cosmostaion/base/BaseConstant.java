@@ -35,6 +35,7 @@ public class BaseConstant {
 
 
     public final static int TASK_INIT_PW                                = 2000;
+    public final static int TASK_INIT_MNEMONIC                          = 2001;
     public final static int TASK_INIT_ACCOUNT                           = 2002;
     public final static int TASK_INIT_EMPTY_ACCOUNT                     = 2003;
     public final static int TASK_FETCH_ACCOUNT                          = 2004;
@@ -412,6 +413,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_PROFILE                             = 5057;
     public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
     public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5059;
+    public final static int CONST_PW_TX_INSERT_MNEMONIC                     = 5060;
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
     public final static int ERROR_CODE_NETWORK              = 8001;

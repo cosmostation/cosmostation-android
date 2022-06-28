@@ -10,22 +10,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCreateActivity extends BaseActivity {
 
     private Toolbar mToolbar;
-    private CardView mMnemonicLayer;
     private LinearLayout[] mWordsLayer = new LinearLayout[24];
     private TextView[] mTvWords = new TextView[24];
-    private Button mDerive;
+    private Button mBtnDerive;
 
     private ArrayList<String> mWords = new ArrayList<>();
 
@@ -35,8 +33,7 @@ public class MnemonicCreateActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_create);
         mToolbar = findViewById(R.id.tool_bar);
-        mMnemonicLayer = findViewById(R.id.card_mnemonic_layer);
-        mDerive = findViewById(R.id.btn_derive);
+        mBtnDerive = findViewById(R.id.btn_derive);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -48,14 +45,22 @@ public class MnemonicCreateActivity extends BaseActivity {
         }
         onUpdateView();
 
-        mDerive.setOnClickListener(new View.OnClickListener() {
+        mBtnDerive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
-                intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
-                intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
-                intent.putExtra("size", mWords.size());
-                startActivity(intent);
+                if (!getBaseDao().onHasPassword()) {
+                    Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
+                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_INIT);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+                } else {
+                    Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
+                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_INSERT_MNEMONIC);
+                    intent.putExtra("mWords", mWords);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                }
             }
         });
     }

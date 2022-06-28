@@ -1407,7 +1407,7 @@ public class BaseData {
         return result;
     }
 
-    public Account  onSelectExistAccount(String address, BaseChain chain) {
+    public Account onSelectExistAccount(String address, BaseChain chain) {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
@@ -1515,6 +1515,7 @@ public class BaseData {
         values.put("newBip",            account.newBip44);
         values.put("customPath",        account.customPath);
         values.put("mnemonicId",        account.mnemonicId);
+        values.put("nickname",          account.nickName);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_ACCOUNT, null, values);
     }
 

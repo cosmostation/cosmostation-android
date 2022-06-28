@@ -667,6 +667,20 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16">
             <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_45"
+                android:minHeight="@dimen/space_45"
+                android:background="@drawable/btn_trans_with_border"
+                android:layout_weight="1"
+                style="@style/font_ss_14_red"
+                android:text="@string/str_delete_mnemonic"/>
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/space_8" />
+            <Button
                 android:id="@+id/btn_copy"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
@@ -675,23 +689,9 @@
                 android:layout_weight="1"
                 style="@style/font_ss_14_photon"
                 android:text="@string/str_copy"/>
-            <View
-                android:id="@+id/view"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/space_8" />
-            <Button
-                android:id="@+id/btn_derive"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_45"
-                android:minHeight="@dimen/space_45"
-                android:background="@drawable/btn_trans_with_border"
-                android:layout_weight="1"
-                style="@style/font_ss_14_photon"
-                android:text="@string/str_derive_wallet"/>
         </LinearLayout>
         <Button
-            android:id="@+id/btn_delete"
+            android:id="@+id/btn_derive"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_marginTop="@dimen/space_12"
@@ -699,7 +699,7 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_red"
-            android:text="@string/str_delete_mnemonic"/>
+            style="@style/font_ss_14_photon"
+            android:text="@string/str_derive_wallet"/>
     </LinearLayout>
 </RelativeLayout>

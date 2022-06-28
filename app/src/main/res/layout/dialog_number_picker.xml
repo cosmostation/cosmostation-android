@@ -17,18 +17,19 @@
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_17_gray8"
             android:gravity="center"
-            android:text="@string/str_confirm"/>
+            android:text="@string/str_picker_dialog_title"/>
 
         <NumberPicker
             android:id="@+id/numberPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_10"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="@dimen/space_24"
             android:background="@color/colorGray10"/>
 
         <LinearLayout
