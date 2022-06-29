@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Html;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.romainpiel.shimmer.ShimmerTextView;
 
+import androidx.annotation.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,13 +25,12 @@ import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
+import wannabit.io.cosmostaion.utils.StringUtilsKt;
 import wannabit.io.cosmostaion.utils.WLog;
-
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView bgImg, bgImgGr;
-    private ShimmerTextView logoTitle;
     private LinearLayout bottomLayer1, bottomLayer2;
     private Button mStart;
 
@@ -42,7 +40,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         setContentView(R.layout.activity_intro);
         bgImg = findViewById(R.id.intro_bg);
         bgImgGr = findViewById(R.id.intro_bg_gr);
-        logoTitle = findViewById(R.id.logo_title);
         bottomLayer1 = findViewById(R.id.bottom_layer1);
         bottomLayer2 = findViewById(R.id.bottom_layer2);
         mStart = findViewById(R.id.btn_start);
@@ -62,7 +59,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
         getBaseDao().upgradeAaccountAddressforPath();
     }
-
 
     @Override
     protected void onPostResume() {
@@ -95,9 +91,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 2500);
-
     }
-
 
     private void onInitView() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5);
@@ -123,14 +117,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             }
         });
         bottomLayer1.startAnimation(mFadeOutAni);
-
-
-//        logoTitle.setVisibility(View.VISIBLE);
-//        Shimmer shimmer = new Shimmer();
-//        shimmer.setDuration(1500)
-//                .setStartDelay(600)
-//                .setDirection(Shimmer.ANIMATION_DIRECTION_LTR);
-//        shimmer.start(logoTitle);
     }
 
     @Override
@@ -143,11 +129,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-
     private void onCheckAppVersion() {
         ApiClient.getCosmostationOld(this).getVersion().enqueue(new Callback<ResVersionCheck>() {
             @Override
-            public void onResponse(Call<ResVersionCheck> call, Response<ResVersionCheck> response) {
+            public void onResponse(@NonNull Call<ResVersionCheck> call, @NonNull Response<ResVersionCheck> response) {
                 if (response.isSuccessful()) {
                     if (!response.body().enable) {
                         onDisableDialog();
@@ -164,41 +149,56 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             }
 
             @Override
-            public void onFailure(Call<ResVersionCheck> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResVersionCheck> call, @NonNull Throwable t) {
                 if (BuildConfig.DEBUG) {
                     WLog.w("onCheckAppVersion onFailure " + t.getMessage());
                 }
                 onNetworkDialog();
-
             }
         });
-
     }
 
     private void onNetworkDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_network_error_title), getString(R.string.str_network_error_msg),
-                getString(R.string.str_retry), view -> onRetryVersionCheck(), false);
+        AlertDialogUtils.showSingleButtonDialog(
+                this,
+                getString(R.string.str_network_error_title),
+                getString(R.string.str_network_error_msg),
+                getString(R.string.str_retry),
+                view -> onRetryVersionCheck(),
+                false
+        );
     }
 
     private void onDisableDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_disabled_app_title), getString(R.string.str_disabled_app_msg),
-                getString(R.string.str_confirm), view -> finish(), false);
+        AlertDialogUtils.showSingleButtonDialog(
+                this,
+                getString(R.string.str_disabled_app_title),
+                getString(R.string.str_disabled_app_msg),
+                getString(R.string.str_confirm),
+                view -> finish(),
+                false
+        );
     }
 
     private void onUpdateDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
-                Html.fromHtml("<font color=\"#05D2DD\">" + getString(R.string.str_go_store) + "</font>"), view -> onStartPlaystore(), false);
+        AlertDialogUtils.showSingleButtonDialog(
+                this,
+                getString(R.string.str_update_title),
+                getString(R.string.str_update_msg),
+                StringUtilsKt.colorIn(getString(R.string.str_go_store), "#05D2DD"),
+                view -> onStartPlayStore(),
+                false
+        );
     }
 
     public void onRetryVersionCheck() {
         onCheckAppVersion();
     }
 
-    public void onStartPlaystore() {
+    public void onStartPlayStore() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse("market://details?id=" + this.getPackageName()));
         startActivity(intent);
     }
-
 }
 

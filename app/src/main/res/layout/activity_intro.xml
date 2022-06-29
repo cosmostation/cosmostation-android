@@ -3,121 +3,71 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/intro_bg_gr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:importantForAccessibility="no"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_intro_gr"/>
+        android:src="@drawable/bg_intro_gr" />
+
     <ImageView
         android:id="@+id/intro_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:importantForAccessibility="no"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_intro"/>
+        android:src="@drawable/bg_intro" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/space_240">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/cosmostation"
-                android:scaleType="fitXY"/>
-            <com.romainpiel.shimmer.ShimmerTextView
-                android:id="@+id/logo_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="by Cosmostation"
-                android:layout_marginTop="@dimen/space_100"
-                android:layout_centerHorizontal="true"
-                android:letterSpacing="0.31"
-                android:lineSpacingExtra="6sp"
-                style="@style/font_ss_12_gray6"
-                android:visibility="invisible"/>
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_40"
-            android:layout_marginRight="@dimen/space_40"
-            android:lineSpacingExtra="4sp"
-            android:layout_marginTop="@dimen/space_16"
-            style="@style/font_ss_12_gray1"
-            android:gravity="center"
-            android:text="@string/str_intro"/>
-    </LinearLayout>
-
+        android:importantForAccessibility="no"
+        android:paddingBottom="@dimen/space_270"
+        android:scaleType="fitXY"
+        android:src="@drawable/cosmostation" />
 
     <LinearLayout
         android:id="@+id/bottom_layer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/space_12"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/cosmostation_logo"/>
+            android:importantForAccessibility="no"
+            android:src="@drawable/cosmostation_logo" />
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/bottom_layer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/space_36"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <Button
             android:id="@+id/btn_start"
+            style="@style/font_ss_14_white"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_12"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_12"
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
-            android:text="@string/str_start"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_12"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone">
-            <ImageView
-                android:id="@+id/check_terms"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/space_4"
-                android:src="@drawable/ic_checkbox_checked"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/font_ss_12_gray1"
-                android:gravity="center"
-                android:text="Accept User Service Agreement and Privacy Policy"/>
-        </LinearLayout>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_start" />
     </LinearLayout>
+
 </RelativeLayout>

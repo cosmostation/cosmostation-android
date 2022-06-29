@@ -43,6 +43,7 @@
     <dimen name="space_140">140dp</dimen>
     <dimen name="space_180">180dp</dimen>
     <dimen name="space_240">240dp</dimen>
+    <dimen name="space_270">270dp</dimen>
     <dimen name="space_280">280dp</dimen>
     <dimen name="space_300">300dp</dimen>
 

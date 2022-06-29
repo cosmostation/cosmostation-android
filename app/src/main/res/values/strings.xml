@@ -1235,7 +1235,6 @@
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
     <string name="str_delete">Delete</string>
     <string name="str_close">Close</string>
-    <string name="str_intro"></string>
     <string name="str_no_history_with_this_validator">No history.</string>
     <string name="str_let_start_cosmos">Explore the Cosmos Hub</string>
     <string name="str_let_start_cosmos2">Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
