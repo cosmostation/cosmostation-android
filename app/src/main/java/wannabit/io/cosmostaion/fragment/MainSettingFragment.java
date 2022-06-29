@@ -48,7 +48,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9036;
 
-    private FrameLayout mBtnMnemonic, mBtnWallet, mBtnImportKey,mBtnWatchAddress, mBtnAlaram, mBtnAppLock, mBtnCurrency,
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey,mBtnWatchAddress, mBtnAlaram, mBtnAppLock, mBtnCurrency,
                         mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
@@ -103,8 +103,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_setting, container, false);
-        mBtnMnemonic = rootView.findViewById(R.id.card_mnemonic);
         mBtnWallet = rootView.findViewById(R.id.card_wallet);
+        mBtnMnemonic = rootView.findViewById(R.id.card_mnemonic);
         mBtnImportKey = rootView.findViewById(R.id.card_key);
         mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
         mBtnAlaram = rootView.findViewById(R.id.card_alaram);
@@ -160,11 +160,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnMnemonic)) {
-            startActivity(new Intent(getBaseActivity(), MnemonicListActivity.class));
-
-        } else if (v.equals(mBtnWallet)) {
+        if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
+
+        } else if (v.equals(mBtnMnemonic)) {
+            startActivity(new Intent(getBaseActivity(), MnemonicListActivity.class));
 
         } else if (v.equals(mBtnImportKey)) {
             startActivity(new Intent(getBaseActivity(), RestoreKeyActivity.class));
@@ -172,7 +172,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnWatchAddress)) {
             startActivity(new Intent(getBaseActivity(), WatchingAccountAddActivity.class));
 
-        }  else if (v.equals(mBtnAlaram)) {
+        } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnAppLock)) {

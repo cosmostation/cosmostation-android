@@ -145,6 +145,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
         } else if (v.equals(mDerive)) {
             Intent intent = new Intent(MnemonicDetailActivity.this, WalletDeriveActivity.class);
             intent.putExtra("id", mWords.id);
+            intent.putExtra("isDetailMode", true);
             startActivity(intent);
 
         } else if (v.equals(mDelete)) {

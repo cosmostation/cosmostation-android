@@ -179,7 +179,7 @@
     <string name="str_import_key">개인키 등록</string>
     <string name="str_share">공유</string>
     <string name="str_copy">Copy</string>
-    <string name="str_copy_to">클립보드에 복사</string>
+    <string name="str_copy_to">Copy to Clipboard</string>
     <string name="str_copied">클립보드에 복사하였습니다.</string>
     <string name="str_safe_copied">안전 모드로 복사되었습니다.</string>
     <string name="str_add_mnemonics">복구 단어 입력</string>
@@ -1409,6 +1409,10 @@
     <string name="str_select_link_account">링크하실 계정을 고르세요.</string>
     <string name="error_select_account_link">연결할 계정을 선택해 주세요.</string>
 
+    <string name="str_mnemonic_confirm_msg">복구 단어 분실은 자산 피해로 이어질 수 있습니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.</string>
+    <string name="str_key_confirm_msg">Private Key는 현재 선택된 지갑을 복원할 때만 사용됩니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.\n\n
+                                       Private Key는 Mnemonics이 아닙니다\nMnemonics이 있는 경우 반드시 Mnemonics을 백업하세요.\nMnemonics으로 지갑을 만든 경우 파생된 지갑을 복원하려면 Mnemonics이 필요합니다.</string>
+
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
     <string name="error_invalid_address_pubkey">부정확한 주소 입니다. 정확한 문자를 입력해 주세요.</string>
@@ -1533,6 +1537,7 @@
     <string name="error_already_registered_dtag">이미 등록된 Dtag입니다. 다른값을 입력하세요.</string>
     <string name="error_profile_dtag_count">Dtag를 공백과 특수문자를 제외한 6~30자를 입력해주세요.</string>
     <string name="error_alreay_imported_mnemonic">이미 등록된 니모닉 입니다.</string>
+    <string name="error_not_selected_to_import">등록할 지갑을 골라주세요.</string>
 
 
     <string name="tx_send">보내기</string>

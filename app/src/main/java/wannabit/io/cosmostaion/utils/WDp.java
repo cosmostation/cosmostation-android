@@ -597,6 +597,7 @@ public class WDp {
             if (symbol.equals(TOKEN_STATION)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {

@@ -1,7 +1,12 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
+import android.annotation.SuppressLint;
+
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -13,52 +18,70 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
 public class OverrideAccountTask extends CommonTask {
+
     private MWords mWords;
-    private Derive derive;
+    private Derive mDerive;
+    private String mPKey;
+    private boolean mIsPrivateKey;
 
-    private Account     mAccount;
+    private ArrayList<BaseChain> mHideChains = new ArrayList<>();
 
-    public OverrideAccountTask(BaseApplication app, Account account, TaskListener listener, MWords mWords, Derive derive) {
+    public OverrideAccountTask(BaseApplication app, TaskListener listener, MWords mWords, Derive derive, String pKey, boolean isPrivateKey) {
         super(app, listener);
-        this.mAccount = account;
         this.mWords = mWords;
-        this.derive = derive;
+        this.mDerive = derive;
+        this.mPKey = pKey;
+        this.mIsPrivateKey = isPrivateKey;
         this.mResult.taskType = BaseConstant.TASK_OVERRIDE_ACCOUNT;
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Account oAccount = onModAccount(mAccount, strings[0]);
-            long id = mApp.getBaseDao().onOverrideAccount(oAccount);
+            long id = mApp.getBaseDao().onOverrideAccount(onModAccount());
             if (id > 0) {
                 mResult.isSuccess = true;
-                mApp.getBaseDao().setLastUser(oAccount.id);
-
+                mHideChains = mApp.getBaseDao().userHideChains();
+                if (mHideChains.contains(mDerive.baseChain)) {
+                    int position = mHideChains.indexOf(mHideChains.stream().filter(item -> item.equals(mDerive.baseChain)).findFirst().get());
+                    if (position >= 0) {
+                        mHideChains.remove(position);
+                    }
+                    mApp.getBaseDao().setUserHidenChains(mHideChains);
+                }
             } else {
                 mResult.errorMsg = "Override error";
                 mResult.errorCode = 7002;
             }
 
-        } catch (Exception e){
-
-        }
+        } catch (Exception e){ }
         return mResult;
     }
 
-    private Account onModAccount(Account account, String entropy) {
-        EncResult encR          = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
+    private Account onModAccount() {
+        EncResult encR;
+        Account existAccount = mApp.getBaseDao().onSelectExistAccount(mDerive.dpAddress, mDerive.baseChain);
+        if (mIsPrivateKey) {
+            if (mPKey.toLowerCase().startsWith("0x")) {
+                mPKey = mPKey.substring(2);
+            }
+            encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + existAccount.uuid, mPKey, false);
+            existAccount.fromMnemonic = false;
 
-        account.address         = derive.dpAddress;
-        account.hasPrivateKey   = true;
-        account.resource        = encR.getEncDataString();
-        account.spec            = encR.getIvDataString();
-        account.fromMnemonic    = true;
-        account.path            = String.valueOf(derive.path);
-        account.msize           = mWords.wordsCnt;
-        account.customPath      = derive.hdpathtype;
-        account.mnemonicId      = mWords.id;
-        return account;
+        } else {
+            encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ existAccount.uuid, mPKey, false);
+            existAccount.fromMnemonic = true;
+            existAccount.msize        = mWords.wordsCnt;
+            existAccount.mnemonicId   = mWords.id;
+        }
+
+        existAccount.hasPrivateKey   = true;
+        existAccount.resource        = encR.getEncDataString();
+        existAccount.spec            = encR.getIvDataString();
+        existAccount.path            = String.valueOf(mDerive.path);
+        existAccount.customPath      = mDerive.hdpathtype;
+        return existAccount;
     }
 }
 

@@ -1,13 +1,10 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_INIT_MNEMONIC;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -39,11 +36,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.UserTask.GenerateMnemonicTask;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicRestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -312,24 +309,27 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == BaseConstant.CONST_PW_INIT || requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-                onShowWaitDialog();
-                new GenerateMnemonicTask(getBaseApplication(), this, mWords).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            if (resultCode == Activity.RESULT_OK) {
+                long id = getBaseDao().onInsertMnemonics(onGenMWords());
+                if (id > 0) {
+                    Intent checkintent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
+                    checkintent.putExtra("id", id);
+                    startActivity(checkintent);
+                    finish();
+                }
             }
         }
     }
 
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        if (isFinishing()) { return; }
-        onHideWaitDialog();
-        if (result.taskType == TASK_INIT_MNEMONIC) {
-            if (result.isSuccess) {
-                Intent checkintent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
-                checkintent.putExtra("id", String.valueOf(result.resultData));
-                startActivity(checkintent);
-            }
-        }
+    private MWords onGenMWords() {
+        MWords tempMWords = MWords.getNewInstance();
+        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWords));
+        EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
+
+        tempMWords.resource = encR.getEncDataString();
+        tempMWords.spec = encR.getIvDataString();
+        tempMWords.wordsCnt = mWords.size();
+        return tempMWords;
     }
 
     public class MnemonicAdapter extends RecyclerView.Adapter<MnemonicAdapter.MnemonicHolder> implements Filterable {

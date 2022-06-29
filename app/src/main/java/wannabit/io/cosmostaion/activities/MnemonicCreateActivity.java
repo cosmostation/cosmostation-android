@@ -1,10 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_INIT_MNEMONIC;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +17,11 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.UserTask.GenerateMnemonicTask;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.crypto.EncResult;
+import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCreateActivity extends BaseActivity {
 
@@ -73,19 +72,12 @@ public class MnemonicCreateActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == BaseConstant.CONST_PW_INIT || requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-                new GenerateMnemonicTask(getBaseApplication(), this, mWords).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-        }
-    }
-
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        if (result.taskType == TASK_INIT_MNEMONIC) {
-            if (result.isSuccess) {
+            long id = getBaseDao().onInsertMnemonics(onGenMWords());
+            if (id > 0) {
                 Intent checkintent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
-                checkintent.putExtra("id", String.valueOf(result.resultData));
+                checkintent.putExtra("id", id);
                 startActivity(checkintent);
+                finish();
             }
         }
     }
@@ -107,5 +99,16 @@ public class MnemonicCreateActivity extends BaseActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private MWords onGenMWords() {
+        MWords tempMWords = MWords.getNewInstance();
+        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWords));
+        EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
+
+        tempMWords.resource = encR.getEncDataString();
+        tempMWords.spec = encR.getIvDataString();
+        tempMWords.wordsCnt = mWords.size();
+        return tempMWords;
     }
 }

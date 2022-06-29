@@ -35,7 +35,6 @@ public class BaseConstant {
 
 
     public final static int TASK_INIT_PW                                = 2000;
-    public final static int TASK_INIT_MNEMONIC                          = 2001;
     public final static int TASK_INIT_ACCOUNT                           = 2002;
     public final static int TASK_INIT_EMPTY_ACCOUNT                     = 2003;
     public final static int TASK_FETCH_ACCOUNT                          = 2004;
@@ -75,8 +74,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_NODE_INFO                        = 2126;
     public final static int TASK_FETCH_OKEX_ALL_VALIDATORS              = 2127;
     public final static int TASK_CHECK_PRIVATE_KEY                      = 2135;
-    public final static int TASK_INIT_PKEY_ACCOUNT                      = 2136;
-    public final static int TASK_OVERRIDE_PKEY_ACCOUNT                  = 2137;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
