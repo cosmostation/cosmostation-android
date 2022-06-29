@@ -47,8 +47,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar mToolbar;
-    private View mView;
-    private Button mBtnCheck, mBtnCheckKey, mBtnDelete;
 
     private CardView mCardName;
     private ImageView mChainImg, mNameEditImg;
@@ -64,20 +62,18 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private TextView mAccountChain, mAccountState, mMnemonicName, mAccountPathTitle, mAccountPath, mImportMsg;
     private RelativeLayout mMnemonicLayer, mPathLayer;
 
-
     private CardView mCardRewardAddress;
     private ImageView mBtnRewardAddressChange;
     private TextView mRewardAddress;
+
+    private View mView;
+    private Button mBtnDelete, mBtnCheckKey, mBtnCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_detail);
         mToolbar = findViewById(R.id.tool_bar);
-        mBtnCheck = findViewById(R.id.btn_check);
-        mView = findViewById(R.id.view);
-        mBtnCheckKey = findViewById(R.id.btn_check_key);
-        mBtnDelete = findViewById(R.id.btn_delete);
         mCardName = findViewById(R.id.card_name);
         mChainImg = findViewById(R.id.chain_img);
         mNameEditImg = findViewById(R.id.account_edit);
@@ -100,17 +96,23 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mCardRewardAddress = findViewById(R.id.card_reward_address);
         mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
         mRewardAddress = findViewById(R.id.reward_address);
+        mBtnDelete = findViewById(R.id.btn_delete);
+        mView = findViewById(R.id.view);
+        mBtnCheckKey = findViewById(R.id.btn_check_key);
+        mBtnCheck = findViewById(R.id.btn_check);
+
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mBtnCheck.setOnClickListener(this);
-        mBtnCheckKey.setOnClickListener(this);
-        mBtnDelete.setOnClickListener(this);
         mNameEditImg.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
         mBtnRewardAddressChange.setOnClickListener(this);
+        mBtnDelete.setOnClickListener(this);
+        mBtnCheckKey.setOnClickListener(this);
+        mBtnCheck.setOnClickListener(this);
+
     }
 
 
@@ -202,8 +204,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mPathLayer.setVisibility(View.GONE);
             mMnemonicLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.GONE);
-            mBtnCheck.setVisibility(View.GONE);
-            mView.setVisibility(View.GONE);
+            mBtnCheck.setVisibility(View.VISIBLE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
             mBtnCheckKey.setText(getString(R.string.str_check_private_key));
             if (mBaseChain.equals(OKEX_MAIN)) {
@@ -266,6 +267,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         if (v.equals(mBtnCheck)) {
             if (mAccount.hasPrivateKey) {
+                if (!mAccount.fromMnemonic) {
+                    Toast.makeText(this, R.string.error_no_mnemonic, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
                 intent.putExtra("checkid", mAccount.mnemonicId);

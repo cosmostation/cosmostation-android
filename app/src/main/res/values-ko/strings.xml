@@ -1538,6 +1538,7 @@
     <string name="error_profile_dtag_count">Dtag를 공백과 특수문자를 제외한 6~30자를 입력해주세요.</string>
     <string name="error_alreay_imported_mnemonic">이미 등록된 니모닉 입니다.</string>
     <string name="error_not_selected_to_import">등록할 지갑을 골라주세요.</string>
+    <string name="error_no_mnemonic">개인키만 존재합니다.</string>
 
 
     <string name="tx_send">보내기</string>

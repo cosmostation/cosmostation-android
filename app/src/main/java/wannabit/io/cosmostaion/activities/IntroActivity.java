@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -135,21 +137,30 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    @SuppressLint("NewApi")
     private void onShowDBUpdate() {
+        ProgressDialog dialog = new ProgressDialog(IntroActivity.this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setTitle("DB Upgrading..");
+        dialog.setMessage("Please wait for upgrade");
+        dialog.setCancelable(false);
+        dialog.show();
         Thread update = new Thread() {
             @Override
             public void run() {
+                getBaseDao().upgradeMnemonicDB();
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        getBaseDao().upgradeMnemonicDB();
+                        dialog.dismiss();
+                        getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
+                        onCheckAppVersion();
                     }
                 });
-                getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
             }
         };
         update.start();
-        onCheckAppVersion();
     }
 
     private void onCheckAppVersion() {

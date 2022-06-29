@@ -120,7 +120,7 @@
             android:layout_height="@dimen/space_45"
             android:minHeight="@dimen/space_45"
             android:layout_marginTop="@dimen/space_8"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
             android:text="Derive Wallets"/>

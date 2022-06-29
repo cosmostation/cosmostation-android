@@ -31,22 +31,13 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"/>
 
-            <ImageView
-                android:id="@+id/token_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_next_gr"
-                android:layout_marginRight="@dimen/space_8"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/token_img"
-                android:layout_toLeftOf="@+id/token_arrow"
                 android:paddingLeft="@dimen/space_10"
                 android:paddingRight="@dimen/space_8"
+                android:layout_marginRight="@dimen/space_4"
                 android:layout_centerVertical="true">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -107,29 +98,6 @@
                         android:text="-"/>
 
                 </LinearLayout>
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:layout_marginTop="@dimen/space_2"-->
-                    <!--android:layout_gravity="right">-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/asset_denom"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="@dimen/space_2"-->
-                        <!--android:text="IRIS"-->
-                        <!--style="@style/font_ss_12_atom"/>-->
-                <!--</LinearLayout>-->
-                <!--<TextView-->
-                    <!--android:id="@+id/dash_atom_value"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/space_2"-->
-                    <!--android:layout_gravity="right"-->
-                    <!--style="@style/font_ss_14_gray1"-->
-                    <!--android:text="$33.34"/>-->
 
             </RelativeLayout>
         </RelativeLayout>

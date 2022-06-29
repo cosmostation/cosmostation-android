@@ -1957,6 +1957,7 @@
     <string name="error_select_account_link">Please select account to link</string>
     <string name="error_alreay_imported_mnemonic">Already imported mnemonic</string>
     <string name="error_not_selected_to_import">Select address to import</string>
+    <string name="error_no_mnemonic">Only private key imported</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>
