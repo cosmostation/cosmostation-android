@@ -1858,6 +1858,8 @@ public class WUtil {
         } else {
             for (CoinOuterClass.Coin coin : gauges.get(0).getCoinsList()) {
                 if (coin.getDenom().equalsIgnoreCase(gauges.get(0).getDistributedCoins(0).getDenom())) {
+                    WLog.w("test0 : " + coin.getAmount());
+                    WLog.w("test1 : " + gauges.get(0).getDistributedCoins(0).getAmount());
                     incentive1Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
                 }
             }

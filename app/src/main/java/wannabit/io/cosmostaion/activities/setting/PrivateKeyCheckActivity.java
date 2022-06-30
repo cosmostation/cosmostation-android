@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities;
+package wannabit.io.cosmostaion.activities.setting;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

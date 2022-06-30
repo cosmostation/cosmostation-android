@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities;
+package wannabit.io.cosmostaion.activities.setting;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;

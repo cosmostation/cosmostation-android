@@ -32,9 +32,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.MnemonicListActivity;
-import wannabit.io.cosmostaion.activities.RestoreKeyActivity;
-import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicListActivity;
+import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
+import wannabit.io.cosmostaion.activities.setting.WatchingAccountAddActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -146,16 +146,20 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         return rootView;
     }
 
-
     @Override
-    public void onRefreshTab() {
-        if (!isAdded()) return;
-        mTvCurrency.setText(getBaseDao().getCurrencyString());
+    public void onResume() {
+        super.onResume();
         if (getBaseDao().getUsingAppLock()) {
             mTvAppLock.setText(R.string.str_app_applock_enabled);
         } else {
             mTvAppLock.setText(R.string.str_app_applock_diabeld);
         }
+    }
+
+    @Override
+    public void onRefreshTab() {
+        if (!isAdded()) return;
+        mTvCurrency.setText(getBaseDao().getCurrencyString());
     }
 
     @Override

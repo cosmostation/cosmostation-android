@@ -15,10 +15,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.MnemonicCreateActivity;
-import wannabit.io.cosmostaion.activities.MnemonicRestoreActivity;
-import wannabit.io.cosmostaion.activities.RestoreKeyActivity;
-import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicCreateActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
+import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
+import wannabit.io.cosmostaion.activities.setting.WatchingAccountAddActivity;
 
 public class Dialog_AddAccount extends DialogFragment {
 

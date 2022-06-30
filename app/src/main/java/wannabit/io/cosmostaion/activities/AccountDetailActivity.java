@@ -28,6 +28,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
+import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;

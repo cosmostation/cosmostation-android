@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities;
+package wannabit.io.cosmostaion.activities.setting;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -19,13 +19,13 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class MnemonicDetailActivity extends BaseActivity implements View.OnClickListener {
 

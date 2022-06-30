@@ -18,7 +18,7 @@ import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountDetailActivity;
-import wannabit.io.cosmostaion.activities.MnemonicDetailActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 
 public class Dialog_ChangeNickName extends DialogFragment {
 
