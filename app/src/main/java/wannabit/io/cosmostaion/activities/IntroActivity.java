@@ -142,7 +142,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         ProgressDialog dialog = new ProgressDialog(IntroActivity.this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setTitle("DB Upgrading..");
-        dialog.setMessage("Please wait for upgrade");
+        dialog.setMessage("Please wait for upgrade\n(Do not close the application)");
         dialog.setCancelable(false);
         dialog.show();
         Thread update = new Thread() {

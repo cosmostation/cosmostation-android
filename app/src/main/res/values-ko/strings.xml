@@ -831,7 +831,6 @@
     <string name="str_delete_msg">지갑의 모든 정보가 삭제됩니다.\n복구 단어를 백업하지 않았을 경우 해당 지갑을 영구히 다시 복원할 수 없습니다.</string>
     <string name="str_delete">삭제</string>
     <string name="str_close">닫기</string>
-    <string name="str_intro"></string>
     <string name="str_no_history_with_this_validator">거래 내역이 없습니다.</string>
     <string name="str_let_start_cosmos">코스모스 네트워크를 탐험하세요</string>
     <string name="str_let_start_cosmos2">코스모스테이션과 스테이킹하고 이자를 지급받으세요.\n로컬사이닝을 통한 빠르고 안전한 거래를 제공합니다.</string>
@@ -1769,41 +1768,5 @@
     <string name="str_dp_time_format3" >HH:mm:ss</string>
     <string name="str_dp_time_format4">yyyy-MM-dd</string>
     <string name="str_dp_date_format" >yyyy-MM-dd</string>
-
-    <string name="currency_usd">USD</string>
-    <string name="currency_eur">EUR</string>
-    <string name="currency_krw">KRW</string>
-    <string name="currency_jpy">JPY</string>
-    <string name="currency_cny">CNY</string>
-    <string name="currency_rub">RUB</string>
-    <string name="currency_gbp">GBP</string>
-    <string name="currency_inr">INR</string>
-    <string name="currency_brl">BRL</string>
-    <string name="currency_idr">IDR</string>
-    <string name="currency_dkk">DKK</string>
-    <string name="currency_nok">NOK</string>
-    <string name="currency_sek">SEK</string>
-    <string name="currency_chf">CHF</string>
-    <string name="currency_aud">AUD</string>
-    <string name="currency_cad">CAD</string>
-    <string name="currency_myr">MYR</string>
-
-    <string name="currency_usd_symbol">$</string>
-    <string name="currency_eur_symbol">€</string>
-    <string name="currency_krw_symbol">₩</string>
-    <string name="currency_jpy_symbol">¥</string>
-    <string name="currency_cny_symbol">¥</string>
-    <string name="currency_rub_symbol">₽</string>
-    <string name="currency_gbp_symbol">£</string>
-    <string name="currency_inr_symbol">₹</string>
-    <string name="currency_brl_symbol">R$</string>
-    <string name="currency_idr_symbol">Rp</string>
-    <string name="currency_dkk_symbol">Kr</string>
-    <string name="currency_nok_symbol">Kr</string>
-    <string name="currency_sek_symbol">Kr</string>
-    <string name="currency_chf_symbol">sFr</string>
-    <string name="currency_aud_symbol">AU$</string>
-    <string name="currency_cad_symbol">$</string>
-    <string name="currency_myr_symbol">RM</string>
 
 </resources>
