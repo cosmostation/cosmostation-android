@@ -10,20 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
+            style="@style/font_ssm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_daynight"
-            android:text="@string/str_validator_detail"/>
+            android:text="@string/str_validator_detail" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -31,13 +32,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:visibility="invisible"/>
+            android:paddingTop="@dimen/space_4"
+            android:visibility="invisible" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

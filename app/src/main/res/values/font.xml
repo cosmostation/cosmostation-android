@@ -837,6 +837,12 @@
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
 
+    <style name="font_ss_15_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+    </style>
+
 
 
 

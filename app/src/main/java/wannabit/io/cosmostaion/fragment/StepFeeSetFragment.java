@@ -153,7 +153,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     private TextView mGasAmount, mGasRate, mGasFee;
     private SegmentedButtonGroup mButtonGroup;
 
-    private ImageView mSpeedImg;
     private TextView mSpeedTxt;
 
     private RelativeLayout mBtnGasCheck;
@@ -191,7 +190,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mGasFee = rootView.findViewById(R.id.gas_fee);
         mButtonGroup = rootView.findViewById(R.id.btns_segmented);
 
-        mSpeedImg = rootView.findViewById(R.id.speed_img);
         mSpeedTxt = rootView.findViewById(R.id.speed_txt);
 
         mBtnGasCheck = rootView.findViewById(R.id.btn_gas_check);
@@ -250,13 +248,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mGasFee.setText(mFee.toPlainString());
 
         if (mSelectedGasPosition == 0) {
-            mSpeedImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.bycicle_img));
             mSpeedTxt.setText(getString(R.string.str_fee_speed_title_0));
         } else if (mSelectedGasPosition == 1) {
-            mSpeedImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.car_img));
             mSpeedTxt.setText(getString(R.string.str_fee_speed_title_1));
         } else {
-            mSpeedImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.rocket_img));
             mSpeedTxt.setText(getString(R.string.str_fee_speed_title_2));
         }
     }

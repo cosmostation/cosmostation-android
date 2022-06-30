@@ -55,19 +55,10 @@
                 android:layout_toRightOf="@+id/history_header"
                 android:background="@color/colorGray3"/>
 
-            <ImageView
-                android:id="@+id/arrow_history"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_next_gr"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/history_line"
-                android:layout_toLeftOf="@+id/arrow_history"
                 android:paddingLeft="@dimen/space_12"
                 android:paddingRight="@dimen/space_8"
                 android:orientation="vertical"

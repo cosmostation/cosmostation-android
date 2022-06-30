@@ -32,20 +32,10 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"/>
 
-            <ImageView
-                android:id="@+id/token_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_next_gr"
-                android:layout_marginRight="@dimen/space_8"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/token_arrow"
                 android:layout_toRightOf="@+id/token_img"
                 android:paddingLeft="@dimen/space_10"
                 android:paddingRight="@dimen/space_8">

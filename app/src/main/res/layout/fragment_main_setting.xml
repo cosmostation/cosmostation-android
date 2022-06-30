@@ -33,13 +33,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_black_daynight"
-                        android:text="@string/str_add_new"/>
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_add_new" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -133,15 +134,16 @@
                         android:src="@drawable/arrow_next_gr"
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"/>
+
                     <TextView
                         android:id="@+id/applock_text"
+                        style="@style/font_ss_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/arrow_applock"
-                        android:layout_marginRight="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_11_gray1"
-                        android:text="@string/str_app_applock_enabled"/>
+                        android:layout_marginRight="@dimen/space_4"
+                        android:layout_toLeftOf="@+id/arrow_applock"
+                        android:text="@string/str_app_applock_enabled" />
                 </RelativeLayout>
             </FrameLayout>
             <FrameLayout
