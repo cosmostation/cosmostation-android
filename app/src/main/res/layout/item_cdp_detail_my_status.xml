@@ -263,7 +263,7 @@
                         android:layout_toRightOf="@+id/principal_icon"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="USDX"
-                        style="@style/font_ss_14_white"/>
+                        style="@style/font_ss_14_black_daynight"/>
                 </RelativeLayout>
 
                 <RelativeLayout

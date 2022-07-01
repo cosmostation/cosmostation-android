@@ -108,7 +108,7 @@
                             android:layout_toLeftOf="@+id/rizon_swap_status"
                             android:src="@drawable/icon_pending"
                             android:visibility="gone"
-                            app:tint="@color/colorHdac" />
+                            app:tint="@color/color_hdac" />
                         <TextView
                             android:id="@+id/hdac_status"
                             style="@style/font_ss_12_hdac"

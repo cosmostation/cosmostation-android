@@ -174,7 +174,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_iov"
-            android:textColor="@color/colorIov"
+            android:textColor="@color/color_iov"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>
     </LinearLayout>

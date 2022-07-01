@@ -48,11 +48,11 @@
     </style>
 
     <style name="ColorSwitchStyles">
-        <item name="colorControlActivated">@color/colorAtom</item>
+        <item name="colorControlActivated">@color/color_atom</item>
     </style>
 
     <style name="ColorSwitchStylesIov">
-        <item name="colorControlActivated">@color/colorIov</item>
+        <item name="colorControlActivated">@color/color_iov</item>
     </style>
 
     <style name="Theme.AppCompat.Translucent">

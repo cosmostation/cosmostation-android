@@ -119,7 +119,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         if (mLockUps.size() > 0) {
             mPoolIdTv.setText("#" + mPool.getId() + " MY EARNING");
-            mPoolIdTv.setTextColor(ContextCompat.getColor(EarningDetailActivity.this, R.color.colorOsmosis));
+            mPoolIdTv.setTextColor(ContextCompat.getColor(EarningDetailActivity.this, R.color.color_osmosis));
         } else {
             mPoolIdTv.setText("#" + mPool.getId() + " EARNING");
         }

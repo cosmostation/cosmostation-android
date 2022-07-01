@@ -1355,11 +1355,11 @@ public class WUtil {
 
     public static String dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equals(TOKEN_ATOM)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorAtom));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.color_atom));
             textView.setText("ATOM");
 
         } else if (denom.startsWith("pool")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
             if (poolInfo != null) {
                 textView.setText("GDEX-" + poolInfo.getId());
@@ -1368,7 +1368,7 @@ public class WUtil {
             }
 
         } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
                 if (ibcToken.base_denom.startsWith("cw20:")) {
@@ -1386,7 +1386,7 @@ public class WUtil {
             }
 
         } else {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             textView.setText("UnKnown");
         }
         return denom;
@@ -1394,7 +1394,7 @@ public class WUtil {
 
     public static String dpKavaTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorKava));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.color_kava));
             textView.setText(R.string.str_kava_c);
         } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorHard));
@@ -1406,19 +1406,19 @@ public class WUtil {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorSwp));
             textView.setText("SWP");
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             textView.setText("BNB");
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || denom.equalsIgnoreCase("xrbp")) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             textView.setText("XRPB");
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             textView.setText("BUSD");
         } else if (denom.contains("btc")) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             textView.setText("BTCB");
         } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorWhite));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
                 if (ibcToken.base_denom.startsWith("cw20:")) {
@@ -1554,20 +1554,20 @@ public class WUtil {
     public static String dpOsmosisTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom != null) {
             if (denom.equals(TOKEN_OSMOSIS)) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_osmosis));
                 textView.setText("OSMO");
 
             } else if (denom.equals(TOKEN_ION)) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorIon));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorIon));
                 textView.setText("ION");
 
             } else if (denom.startsWith("gamm/pool/")) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 String[] split = denom.split("/");
                 textView.setText("GAMM-" + split[split.length - 1]);
 
             } else if (denom.startsWith("ibc/")) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null && ibcToken.auth) {
                     if (ibcToken.base_denom.startsWith("cw20:")) {
@@ -1619,15 +1619,15 @@ public class WUtil {
     public static String dpSifTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom != null) {
             if (denom.equals(TOKEN_SIF)) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorSif));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_sif));
                 textView.setText("ROWAN");
 
             } else if (denom.startsWith("c")) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 textView.setText(denom.substring(1).toUpperCase());
 
             } else if (denom.startsWith("ibc/")) {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null && ibcToken.auth) {
                     if (ibcToken.base_denom.startsWith("cw20:")) {
@@ -1645,7 +1645,7 @@ public class WUtil {
                 }
 
             } else {
-                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
                 textView.setText("UnKnown");
             }
         }

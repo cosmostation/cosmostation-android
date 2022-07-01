@@ -1347,7 +1347,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_BCRE)) {
             holder.itemSymbol.setText(getString(R.string.str_bcre_c));
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorCrescent2));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_crescent2));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Liquidated CRE");
             Picasso.get().cancelRequest(holder.itemImg);
@@ -1381,7 +1381,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_NYM)) {
             holder.itemSymbol.setText(getString(R.string.str_nym_c));
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorNym));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_nym));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Mixnet Coin");
             holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_nym));
@@ -1428,7 +1428,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_BCRESCENT_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_bcre_c));
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorCrescent2));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_crescent2));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Liquidated CRE");
             Picasso.get().cancelRequest(holder.itemImg);

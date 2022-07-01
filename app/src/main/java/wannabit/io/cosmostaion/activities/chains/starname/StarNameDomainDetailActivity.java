@@ -242,9 +242,9 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                     holder.itemDomain.setText("*" + mDomain_gRPC.getName());
                     holder.itemType.setText(mDomain_gRPC.getType().toUpperCase());
                     if (mDomain_gRPC.getType().equals("open")) {
-                        holder.itemType.setTextColor(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorIov));
+                        holder.itemType.setTextColor(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.color_iov));
                     } else {
-                        holder.itemType.setTextColor(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorWhite));
+                        holder.itemType.setTextColor(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorBlackDayNight));
                     }
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mDomain_gRPC.getValidUntil() * 1000));
                     holder.itemAddressCnt.setText("" + mDomainResolve_gRPC.getResourcesCount());

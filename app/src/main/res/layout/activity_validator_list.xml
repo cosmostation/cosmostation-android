@@ -35,8 +35,8 @@
             android:layout_height="@dimen/space_40"
             android:background="@android:color/transparent"
             app:tabGravity="fill"
-            app:tabIconTint="@color/colorAtom"
-            app:tabIndicatorColor="@color/colorAtom"
+            app:tabIconTint="@color/color_atom"
+            app:tabIndicatorColor="@color/color_atom"
             app:tabIndicatorHeight="2dp"
             app:tabMode="fixed" />
         <View

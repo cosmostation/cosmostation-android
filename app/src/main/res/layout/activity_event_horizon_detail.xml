@@ -248,7 +248,7 @@
         android:visibility="gone">
         <Button
             android:id="@+id/btn_explorer"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"

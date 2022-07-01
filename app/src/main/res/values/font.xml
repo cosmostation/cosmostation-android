@@ -15,7 +15,7 @@
     </style>
     <style name="font_ss_7_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAtom</item>
+        <item name="android:textColor">@color/color_atom</item>
         <item name="android:textSize">@dimen/text_size_7</item>
     </style>
 
@@ -53,61 +53,61 @@
 
     <style name="font_ss_9_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAtom</item>
+        <item name="android:textColor">@color/color_atom</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_iris" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorIris</item>
+        <item name="android:textColor">@color/color_iris</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_bnb" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBnb</item>
+        <item name="android:textColor">@color/color_bnb</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_iov" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorIov</item>
+        <item name="android:textColor">@color/color_iov</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_kava" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_band" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBand</item>
+        <item name="android:textColor">@color/color_band</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_ok" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorOK</item>
+        <item name="android:textColor">@color/color_ok</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_certik" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorCertik</item>
+        <item name="android:textColor">@color/color_certik</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_akash" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAkash</item>
+        <item name="android:textColor">@color/color_akash</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
     <style name="font_ss_9_secret" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorSecret</item>
+        <item name="android:textColor">@color/color_secret</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
@@ -132,7 +132,7 @@
 
     <style name="font_ss_10_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAtom</item>
+        <item name="android:textColor">@color/color_atom</item>
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
@@ -193,7 +193,7 @@
 
     <style name="font_ss_11_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAtom</item>
+        <item name="android:textColor">@color/color_atom</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
@@ -261,19 +261,19 @@
 
     <style name="font_ssl_12_kava" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
     <style name="font_ssl_12_iov" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorIov</item>
+        <item name="android:textColor">@color/color_iov</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
     <style name="font_ss_12_iov" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorIov</item>
+        <item name="android:textColor">@color/color_iov</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -285,13 +285,13 @@
 
     <style name="font_ss_12_hdac" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorHdac</item>
+        <item name="android:textColor">@color/color_hdac</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
     <style name="font_ss_12_osmo" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorOsmosis</item>
+        <item name="android:textColor">@color/color_osmosis</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -309,7 +309,7 @@
 
     <style name="font_ss_12_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAtom</item>
+        <item name="android:textColor">@color/color_atom</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -327,25 +327,25 @@
 
     <style name="font_ss_12_iris" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorIris</item>
+        <item name="android:textColor">@color/color_iris</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
     <style name="font_ss_12_kava" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
     <style name="font_ss_12_rizon" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorRizon</item>
+        <item name="android:textColor">@color/color_rizon</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
     <style name="font_ss_12_ok" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorOK</item>
+        <item name="android:textColor">@color/color_ok</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -370,6 +370,12 @@
     <style name="font_ssl_12_black_daynight" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="font_rmr_12_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_mono_regular</item>
+        <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -420,7 +426,7 @@
 
     <style name="font_ss_14_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAtom</item>
+        <item name="android:textColor">@color/color_atom</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -432,31 +438,31 @@
 
     <style name="font_ss_14_iris" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorIris</item>
+        <item name="android:textColor">@color/color_iris</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_bnb" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBnb</item>
+        <item name="android:textColor">@color/color_bnb</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_iov" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorIov</item>
+        <item name="android:textColor">@color/color_iov</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_kava" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ssl_14_kava" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -468,241 +474,241 @@
 
     <style name="font_ss_14_band" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBand</item>
+        <item name="android:textColor">@color/color_band</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_ok" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorOK</item>
+        <item name="android:textColor">@color/color_ok</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_certik" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorCertik</item>
+        <item name="android:textColor">@color/color_certik</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_secret" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorSecret</item>
+        <item name="android:textColor">@color/color_secret</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_akash" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAkash</item>
+        <item name="android:textColor">@color/color_akash</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_persis" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorPersis</item>
+        <item name="android:textColor">@color/color_persis</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_cryto" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorCryto</item>
+        <item name="android:textColor">@color/color_cryto</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_sif" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorSif</item>
+        <item name="android:textColor">@color/color_sif</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_sentinel" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorSentinel</item>
+        <item name="android:textColor">@color/color_sentinel</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_fetch" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorFetch</item>
+        <item name="android:textColor">@color/color_fetch</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_ki" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorKi</item>
+        <item name="android:textColor">@color/color_ki</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_rizon" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorRizon</item>
+        <item name="android:textColor">@color/color_rizon</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_medi" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorMedi</item>
+        <item name="android:textColor">@color/color_medi</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_althea" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAlthea</item>
+        <item name="android:textColor">@color/color_althea</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_osmosis" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorOsmosis</item>
+        <item name="android:textColor">@color/color_osmosis</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_umee" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorUmee</item>
+        <item name="android:textColor">@color/color_umee</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_emoney" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorEmoney</item>
+        <item name="android:textColor">@color/color_emoney</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_axelar" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAxelar</item>
+        <item name="android:textColor">@color/color_axelar</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_juno" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorJuno</item>
+        <item name="android:textColor">@color/color_juno</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_regen" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorRegen</item>
+        <item name="android:textColor">@color/color_regen</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_bitcanna" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBitcanna</item>
+        <item name="android:textColor">@color/color_bitcanna</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_stargaze" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorStargaze</item>
+        <item name="android:textColor">@color/color_stargaze</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_grabridge" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorGraBridge</item>
+        <item name="android:textColor">@color/color_grabridge</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_comdex" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorComdex</item>
+        <item name="android:textColor">@color/color_comdex</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_inj" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorInj</item>
+        <item name="android:textColor">@color/color_inj</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_bitsong" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBitsong</item>
+        <item name="android:textColor">@color/color_bitsong</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_desmos" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorDesmos</item>
+        <item name="android:textColor">@color/color_desmos</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_lum" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorLum</item>
+        <item name="android:textColor">@color/color_lum</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_chihuahua" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorChihuahua</item>
+        <item name="android:textColor">@color/color_chihuahua</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_konstellation" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorKonstellation</item>
+        <item name="android:textColor">@color/color_konstellation</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_evmos" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorEvmos</item>
+        <item name="android:textColor">@color/color_evmos</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_cudos" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorCudos</item>
+        <item name="android:textColor">@color/color_cudos</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_provenance" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorProvenance</item>
+        <item name="android:textColor">@color/color_provenance</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_cerberus" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorCerberus</item>
+        <item name="android:textColor">@color/color_cerberus</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_omniflix" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorOmniflix</item>
+        <item name="android:textColor">@color/color_omniflix</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_crescent" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorCrescent</item>
+        <item name="android:textColor">@color/color_crescent</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_mantle" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorMantle</item>
+        <item name="android:textColor">@color/color_Mantle</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_station" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorStation</item>
+        <item name="android:textColor">@color/color_station</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_nyx" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorNyx</item>
+        <item name="android:textColor">@color/color_nyx</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_hdac" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorHdac</item>
+        <item name="android:textColor">@color/color_hdac</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -757,13 +763,13 @@
 
     <style name="font_ss_14_buy" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBnbBuy</item>
+        <item name="android:textColor">@color/color_bnbBuy</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
     <style name="font_ss_14_sell" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBnbSell</item>
+        <item name="android:textColor">@color/color_bnbSell</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -794,7 +800,7 @@
 
     <style name="font_ssl_14_iov" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorIov</item>
+        <item name="android:textColor">@color/color_iov</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -812,6 +818,12 @@
 
     <style name="font_ssm_14_black_daynight" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_rmr_14_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_mono_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -838,7 +850,7 @@
 
     <style name="font_ss_15_hdac" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorHdac</item>
+        <item name="android:textColor">@color/color_hdac</item>
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
 
@@ -894,13 +906,13 @@
 
     <style name="font_ss_17_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorAtom</item>
+        <item name="android:textColor">@color/color_atom</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
     <style name="font_ss_17_band" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorBand</item>
+        <item name="android:textColor">@color/color_band</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
@@ -930,7 +942,7 @@
 
     <style name="font_ssm_17_kava" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
@@ -942,7 +954,7 @@
 
     <style name="font_ssm_17_osmosis" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">@color/colorOsmosis</item>
+        <item name="android:textColor">@color/color_osmosis</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 

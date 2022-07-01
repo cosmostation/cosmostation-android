@@ -35,7 +35,7 @@
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:background="@drawable/btn_bottom_select_dialog"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:text="Button Title"
             android:textColor="@color/color_bottom_dialog_btn_text"
             android:textAllCaps="false"/>
@@ -49,7 +49,7 @@
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:background="@drawable/btn_bottom_select_dialog"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:text="Button Title"
             android:textColor="@color/color_bottom_dialog_btn_text"
             android:textAllCaps="false"/>
@@ -63,7 +63,7 @@
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:background="@drawable/btn_bottom_select_dialog"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:text="Button Title"
             android:textColor="@color/color_bottom_dialog_btn_text"
             android:textAllCaps="false"

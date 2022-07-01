@@ -168,13 +168,14 @@
                     android:layout_marginRight="@dimen/space_12"
                     android:background="@drawable/box_trans_round"
                     android:orientation="horizontal">
+
                     <TextView
+                        style="@style/font_ss_14_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_14_gray1"
-                        android:text="Risk Score"/>
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:text="Risk Score" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -277,7 +278,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button

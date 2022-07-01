@@ -186,13 +186,13 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         } else if (mBaseChain.equals(CRESCENT_MAIN)) {
             mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.token_bcre));
             mToolbarSymbol.setText(R.string.str_bcre_c);
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorCrescent2));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.color_crescent2));
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
 
         } else if (mBaseChain.equals(NYX_MAIN)) {
             mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.token_nym));
             mToolbarSymbol.setText(R.string.str_nym_c);
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorNym));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.color_nym));
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
         }
 

@@ -57,20 +57,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6">
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_gray1"
-                        android:text="@string/str_domain_type"/>
+                        android:text="@string/str_domain_type" />
+
                     <TextView
                         android:id="@+id/domain_type"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_6"
-                        style="@style/font_ss_12_black_daynight"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <RelativeLayout

@@ -13,7 +13,7 @@
         <clip>
             <shape android:shape="rectangle">
                 <corners android:radius="8dp"/>
-                <solid android:color="@color/colorKava"/>
+                <solid android:color="@color/color_kava"/>
             </shape>
         </clip>
     </item>
