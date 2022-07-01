@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -32,14 +33,16 @@
                     android:background="@drawable/box_round_vote"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/vote_status_img"
                         android:layout_width="@dimen/space_6"
                         android:layout_height="@dimen/space_6"
                         android:src="@drawable/ic_rejected_img" />
+
                     <TextView
                         android:id="@+id/vote_status"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
@@ -58,7 +61,7 @@
 
             <TextView
                 android:id="@+id/vote_title"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_16"
@@ -232,7 +235,7 @@
                 android:autoLink="web"
                 android:clickable="true"
                 android:textColorLink="@color/colorPhoton"
-                style="@style/font_ss_11_white"/>
+                style="@style/font_ss_11_black_daynight"/>
 
             <ImageView
                 android:id="@+id/vote_btn_expend"

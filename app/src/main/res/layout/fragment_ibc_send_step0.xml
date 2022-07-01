@@ -40,16 +40,17 @@
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/chain_cosmos"/>
+
                     <TextView
                         android:id="@+id/txt_from_chain"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/img_from_chain"
                         android:layout_marginLeft="@dimen/space_4"
-                        style="@style/font_ss_14_white"
-                        android:text="Cosmos"/>
+                        android:layout_toRightOf="@+id/img_from_chain"
+                        android:text="Cosmos" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -88,16 +89,17 @@
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/iris_wh"/>
+                        android:src="@drawable/chain_iris"/>
+
                     <TextView
                         android:id="@+id/txt_to_chain"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/img_to_chain"
                         android:layout_marginLeft="@dimen/space_4"
-                        style="@style/font_ss_14_white"
-                        android:text="Iris"/>
+                        android:layout_toRightOf="@+id/img_to_chain"
+                        android:text="Iris" />
                     <ImageView
                         android:id="@+id/dialog_img"
                         android:layout_width="wrap_content"
@@ -129,14 +131,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
                 android:background="@drawable/btn_trans_with_border"/>
+
             <TextView
                 android:id="@+id/txt_to_relayer_channel"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_16"
-                style="@style/font_ss_14_white"
-                android:text="Channel-14"/>
+                android:text="Channel-14" />
             <ImageView
                 android:id="@+id/relayer_img"
                 android:layout_width="wrap_content"
@@ -178,7 +181,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button

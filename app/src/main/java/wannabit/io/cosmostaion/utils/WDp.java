@@ -667,9 +667,9 @@ public class WDp {
     public static void getChainImg(Context c, BaseChain baseChain, ImageView chainImg) {
         if (baseChain != null) {
             if (baseChain.equals(COSMOS_MAIN)) {
-                chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.cosmos_wh_main));
+                chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_cosmos));
             } else if (baseChain.equals(IRIS_MAIN)) {
-                chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.iris_wh));
+                chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_iris));
             } else if (baseChain.equals(BNB_MAIN)) {
                 chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
             } else if (baseChain.equals(KAVA_MAIN)) {
@@ -683,7 +683,7 @@ public class WDp {
             } else if (baseChain.equals(SECRET_MAIN)) {
                 chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chainsecret));
             } else if (baseChain.equals(AKASH_MAIN)) {
-                chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.akash_chain_img));
+                chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_akash));
             } else if (baseChain.equals(OKEX_MAIN)) {
                 chainImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_okx));
             } else if (baseChain.equals(PERSIS_MAIN)) {
@@ -3960,12 +3960,12 @@ public class WDp {
             txtView) {
         if (chain.equals(COSMOS_MAIN)) {
             if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.cosmos_wh_main));
+                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_cosmos));
             txtView.setText(c.getString(R.string.str_cosmos_hub_2));
 
         } else if (chain.equals(IRIS_MAIN)) {
             if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.iris_wh));
+                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_iris));
             txtView.setText(c.getString(R.string.str_iris_net_2));
 
         } else if (chain.equals(BNB_MAIN)) {

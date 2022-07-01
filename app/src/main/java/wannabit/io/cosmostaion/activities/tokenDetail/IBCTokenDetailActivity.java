@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class IBCTokenDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -136,7 +137,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         if (mIbcToken == null) {
             mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.token_default_ibc));
             mToolbarSymbol.setText("Unknown");
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorBlackDayNight));
 
         } else {
             if (mIbcToken.auth) {
@@ -146,7 +147,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 } catch (Exception e) {
                 }
                 mToolbarSymbol.setText(mIbcToken.display_denom.toUpperCase());
-                mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorWhite));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorBlackDayNight));
                 mTotalValue.setText("" + WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, getBaseDao().getAvailable(mIbcDenom), mIbcDivideDecimal));
 
                 mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
@@ -165,7 +166,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             } else {
                 mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.token_default_ibc));
                 mToolbarSymbol.setText("Unknown");
-                mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorWhite));
+                mToolbarSymbol.setTextColor(ContextCompat.getColor(IBCTokenDetailActivity.this, R.color.colorBlackDayNight));
                 mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, BigDecimal.ZERO, mIbcDivideDecimal));
 
                 mItemPerPrice.setText("");

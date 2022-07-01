@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:paddingRight="@dimen/space_24"
         android:theme="@style/AppTheme.AppBarOverlay">
         <RelativeLayout
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:text="-"/>
                 <LinearLayout
                     android:id="@+id/per_change"
@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_10_black_daynight"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -111,16 +111,17 @@
                     android:layout_height="@dimen/space_24"
                     android:layout_centerVertical="true"
                     android:src="@drawable/key_off"/>
+
                 <TextView
                     android:id="@+id/account_Address"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/img_account"
-                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_black_daynight"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_toRightOf="@+id/img_account"
                     android:singleLine="true"
-                    android:text=""/>
+                    android:text="" />
             </RelativeLayout>
             <TextView
                 android:id="@+id/total_value"
@@ -128,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_2"
-                style="@style/font_ss_21_white"
+                style="@style/font_ss_21_black_daynight"
                 android:singleLine="true"
                 android:text="0.000"
                 android:gravity="center_horizontal"/>
@@ -182,7 +183,7 @@
                 android:drawableLeft="@drawable/ic_ibcsend_20"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_ibc_send" />
         </RelativeLayout>
         <RelativeLayout
@@ -203,7 +204,7 @@
                 android:drawableLeft="@drawable/ic_bepsend_20"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_bep3_send" />
         </RelativeLayout>
         <RelativeLayout
@@ -216,14 +217,15 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true">
+
             <TextView
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:drawableLeft="@drawable/ic_send_20"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_white"
                 android:text="@string/str_send" />
         </RelativeLayout>
 

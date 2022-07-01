@@ -40,7 +40,7 @@
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/chain_cosmos"/>
                     <TextView
                         android:id="@+id/txt_from_chain"
                         android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/iris_wh"/>
+                        android:src="@drawable/chain_iris"/>
                     <TextView
                         android:id="@+id/txt_to_chain"
                         android:layout_width="wrap_content"

@@ -28,7 +28,7 @@
                     android:id="@+id/chain_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/cosmos_wh_main"/>
+                    android:src="@drawable/chain_cosmos"/>
 
                 <TextView
                     android:id="@+id/chain_name"

@@ -46,7 +46,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/chain_add_img"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/chain_cosmos"/>
 
                     <TextView
                         android:id="@+id/chain_name"

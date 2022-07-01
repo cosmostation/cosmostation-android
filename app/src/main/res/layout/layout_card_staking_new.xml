@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_amount" />

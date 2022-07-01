@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_9_white"
+                style="@style/font_ss_9_black_daynight"
                 android:text="@string/str_qr_code"/>
         </LinearLayout>
         <LinearLayout
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_9_white"
+                style="@style/font_ss_9_black_daynight"
                 android:text="@string/str_recent"/>
         </LinearLayout>
         <LinearLayout
@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_9_white"
+                style="@style/font_ss_9_black_daynight"
                 android:text="@string/str_paste"/>
         </LinearLayout>
     </LinearLayout>
