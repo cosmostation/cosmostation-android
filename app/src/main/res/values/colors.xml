@@ -256,11 +256,11 @@
     <color name="colorVoteBg">#424548</color>
 
 
-    <color name="colorCdpDanger">#FF2745</color>
+    <color name="colorCdpDanger">#f31963</color>
     <color name="colorCdpDanger2">#E8233D</color>
-    <color name="colorCdpStable">#FFE62B</color>
+    <color name="colorCdpStable">#f99831</color>
     <color name="colorCdpStable2">#E7CF27</color>
-    <color name="colorCdpSafe">#40F683</color>
+    <color name="colorCdpSafe">#08d152</color>
     <color name="colorCdpSafe2">#31E072</color>
 
     <color name="color_bnbBuy">#37CC6E</color>

@@ -102,30 +102,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <ProgressBar
                     android:layout_width="@dimen/space_60"
                     android:layout_height="@dimen/space_60"
-                    android:indeterminateDrawable="@drawable/loading"/>
+                    android:indeterminateDrawable="@drawable/loading" />
+
                 <TextView
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="center"
-                    android:text="@string/str_wait_htlc_loading"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="@string/str_wait_htlc_loading" />
+
                 <TextView
                     android:id="@+id/loadingProgress"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
-                    android:gravity="center"
-                    style="@style/font_ss_10_black_daynight"/>
+                    android:gravity="center" />
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
