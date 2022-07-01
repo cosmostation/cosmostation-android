@@ -25,7 +25,7 @@
             android:layout_height="@dimen/space_20"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_12"
-            android:src="@drawable/cosmos_wh_main"/>
+            android:src="@drawable/chain_cosmos"/>
         <TextView
             android:id="@+id/chainName"
             android:layout_width="wrap_content"

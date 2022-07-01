@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_unjail"
-                    style="@style/font_ss_15_white"/>
+                    style="@style/font_ss_15_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:text="-"
-                    style="@style/font_ss_11_white"/>
+                    style="@style/font_ss_11_black_daynight"/>
             </LinearLayout>
 
         </LinearLayout>

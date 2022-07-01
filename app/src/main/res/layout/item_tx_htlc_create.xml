@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_kava_bep3_create2"
-                    style="@style/font_ss_17_white"/>
+                    style="@style/font_ss_17_black_daynight"/>
             </LinearLayout>
 
             <RelativeLayout

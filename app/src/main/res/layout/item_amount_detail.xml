@@ -25,24 +25,27 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/space_14">
+
                 <TextView
                     android:id="@+id/total_amount_title"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_total_amount"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="@string/str_total_amount" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/total_amount_title">
+
                     <TextView
                         android:id="@+id/total_amount"
+                        style="@style/font_ss_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text=""
-                        style="@style/font_ss_17_white"/>
+                        android:text="" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -59,12 +62,13 @@
                 android:layout_marginLeft="@dimen/space_14"
                 android:layout_marginRight="@dimen/space_14"
                 android:layout_marginTop="@dimen/space_14">
+
                 <TextView
                     android:id="@+id/available_title"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_available"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_available" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

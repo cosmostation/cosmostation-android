@@ -181,7 +181,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
     private void onShowCosmosSelect(String input) {
         FilledVerticalButtonAlertDialog.showDoubleButton(this,null,null,
-                getString(R.string.str_cosmos_main_net), view -> onChoiceNet(BaseChain.COSMOS_MAIN), getDrawable(R.drawable.cosmos_wh_main),
+                getString(R.string.str_cosmos_main_net), view -> onChoiceNet(BaseChain.COSMOS_MAIN), getDrawable(R.drawable.chain_cosmos),
                 getString(R.string.str_cosmos_test_net), view -> onChoiceNet(BaseChain.COSMOS_TEST), getDrawable(R.drawable.chain_test_cosmos),
                 false);
     }
