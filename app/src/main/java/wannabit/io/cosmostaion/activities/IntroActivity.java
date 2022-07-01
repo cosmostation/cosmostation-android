@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -33,7 +32,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView bgImg, bgImgGr;;
+    private ImageView bgImg, bgImgGr;
     private LinearLayout bottomLayer1, bottomLayer2;
     private Button mStart;
 
@@ -137,7 +136,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    @SuppressLint("NewApi")
+
     private void onShowDBUpdate() {
         ProgressDialog dialog = new ProgressDialog(IntroActivity.this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

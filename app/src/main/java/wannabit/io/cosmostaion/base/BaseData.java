@@ -581,7 +581,7 @@ public class BaseData {
                             }
                         }
                     }
-                
+
                 } else if (profile.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
                     Vesting.DelayedVestingAccount vestingAccount = Vesting.DelayedVestingAccount.parseFrom(profile.getAccount().getValue());
                     long cTime = Calendar.getInstance().getTime().getTime();
@@ -1737,7 +1737,6 @@ public class BaseData {
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
-    @SuppressLint("NewApi")
     public void upgradeMnemonicDB() {
         //select old mnemonics for accounts
         ArrayList<String> alreadyWords = new ArrayList<>();

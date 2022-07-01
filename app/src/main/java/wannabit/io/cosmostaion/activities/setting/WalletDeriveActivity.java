@@ -144,7 +144,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         }).start();
     }
 
-    @SuppressLint("NewApi")
+
     private void onGetAllKeyTypes() {
         runOnUiThread(() -> {
             mAccountListAdapter.notifyDataSetChanged();
@@ -162,9 +162,14 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 int status = -1;
                 Account checkAccount = getBaseDao().onSelectExistAccount(dpAddress, chain);
                 if (checkAccount != null) {
-                    if (checkAccount.hasPrivateKey) { status = 2; }
-                    else { status = 1; }
-                } else { status = 0; }
+                    if (checkAccount.hasPrivateKey) {
+                        status = 2;
+                    } else {
+                        status = 1;
+                    }
+                } else {
+                    status = 0;
+                }
                 Derive derive = new Derive(chain, i, mPath, WDp.getAllPath(chain, mPath, i), dpAddress, status);
                 if (!mDerives.stream().filter(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress)).findAny().isPresent()) {
                     mDerives.add(derive);
@@ -179,7 +184,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    @SuppressLint("NewApi")
+
     private void onUpdateCnt() {
         int allKeyCnt = mDerives.size();
         long alreadyCnt = mDerives.stream().filter(derive -> derive.status == 2).count();
@@ -195,7 +200,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         mChainCnt.setText("" + allKeyCnt);
     }
 
-    @SuppressLint("NewApi")
+
     @Override
     public void onClick(View v) {
         if (v.equals(mPathLayer)) {
@@ -327,6 +332,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                     WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
                                 });
                             }
+
                             @Override
                             public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) {
                             }
@@ -355,6 +361,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                     WDp.showCoinDp(WalletDeriveActivity.this, getBaseDao(), derive.coin, holder.accountDenom, holder.accountAvailable, derive.baseChain);
                                 });
                             }
+
                             @Override
                             public void onFailure(Call<ResOkAccountToken> call, Throwable t) {
                             }
@@ -423,7 +430,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    @SuppressLint("NewApi")
+
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;

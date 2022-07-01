@@ -36,7 +36,7 @@ public class GenerateAccountTask extends CommonTask {
         this.mResult.taskType = BaseConstant.TASK_INIT_ACCOUNT;
     }
 
-    @SuppressLint("NewApi")
+    
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {

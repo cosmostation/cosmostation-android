@@ -35,7 +35,7 @@ public class OverrideAccountTask extends CommonTask {
         this.mResult.taskType = BaseConstant.TASK_OVERRIDE_ACCOUNT;
     }
 
-    @SuppressLint("NewApi")
+    
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
