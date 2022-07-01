@@ -135,7 +135,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         final Assets assets = getBaseDao().getAsset(mBridgeDenom);
         Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
         mToolbarSymbol.setText(assets.origin_symbol);
-        mToolbarSymbol.setTextColor(ContextCompat.getColor(BridgeTokenGrpcActivity.this, R.color.colorWhite));
+        mToolbarSymbol.setTextColor(ContextCompat.getColor(BridgeTokenGrpcActivity.this, R.color.colorBlackDayNight));
         mTotalAmount = getBaseDao().getAvailable(mBridgeDenom);
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), assets.origin_symbol));

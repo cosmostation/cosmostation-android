@@ -97,9 +97,9 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
             } else {
                 // not staking denom send
-                mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
-                mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
-                mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
+                mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
+                mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
+                mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
                 mRemainingPrice.setVisibility(View.GONE);
 
                 BigDecimal currentAvai = getBaseDao().getAvailable(toSendDenom);
@@ -127,9 +127,9 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDivideDecimal, mDisplayDecimal));
 
                 if (getSActivity().mBnbToken.symbol.equals(TOKEN_BNB)) {
-                    mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBnb));
-                    mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBnb));
-                    mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBnb));
+                    mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_bnb));
+                    mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_bnb));
+                    mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_bnb));
 
                     BigDecimal currentAvai = getSActivity().mAccount.getBnbBalance();
                     mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDivideDecimal, mDisplayDecimal));
@@ -137,9 +137,9 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                     mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, currentAvai.subtract(toSendAmount).subtract(feeAmount), 0));
 
                 } else {
-                    mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
-                    mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
-                    mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
+                    mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
+                    mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
+                    mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
                     mRemainingPrice.setVisibility(View.GONE);
 
                     BigDecimal currentAvai = getSActivity().mAccount.getBnbTokenBalance(getSActivity().mBnbToken.symbol);
@@ -160,9 +160,9 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mDenomRemainAmount.setText(toSendDenom.toUpperCase());
 
                 if (toSendDenom.equals(mainDenom)) {
-                    mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorOK));
-                    mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorOK));
-                    mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorOK));
+                    mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_ok));
+                    mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_ok));
+                    mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_ok));
 
                     BigDecimal currentAvai = getBaseDao().availableAmount(toSendDenom);
                     mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDivideDecimal, mDisplayDecimal));
@@ -170,9 +170,9 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                     mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_OK, currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal));
 
                 } else {
-                    mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
-                    mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
-                    mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
+                    mDenomSendAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
+                    mDenomCurrentAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
+                    mDenomRemainAmount.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
                     mRemainingPrice.setVisibility(View.GONE);
 
                     BigDecimal currentAvai = getBaseDao().availableAmount(toSendDenom);

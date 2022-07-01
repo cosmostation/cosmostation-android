@@ -121,7 +121,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
 
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
                 if (getSActivity().mValAddesses.contains(validator.operator_address)) {
-                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorOK), android.graphics.PorterDuff.Mode.SRC_IN);
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.color_ok), android.graphics.PorterDuff.Mode.SRC_IN);
                     holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                     holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTrans));
                 } else {

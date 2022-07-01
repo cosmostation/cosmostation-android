@@ -251,14 +251,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/space_16"
-                        style="@style/font_ssl_14_white"
+                        style="@style/font_ssl_14_black_daynight"
                         android:text="1232131231"/>
                     <TextView
                         android:id="@+id/loaned_amount_after"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
-                        style="@style/font_ssl_14_white"
+                        style="@style/font_ssl_14_black_daynight"
                         android:text="1232131231"/>
                 </LinearLayout>
             </LinearLayout>
@@ -282,7 +282,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button

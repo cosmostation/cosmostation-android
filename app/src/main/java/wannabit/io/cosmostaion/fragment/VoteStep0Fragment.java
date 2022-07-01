@@ -82,19 +82,19 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
         if (mMyVote.equals(Vote.OPTION_YES)) {
             mBtnYes.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
-            mImgYes.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
+            mImgYes.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight), android.graphics.PorterDuff.Mode.SRC_IN);
 
         } else if (mMyVote.equals(Vote.OPTION_NO)) {
             mBtnNo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
-            mImgNo.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
+            mImgNo.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight), android.graphics.PorterDuff.Mode.SRC_IN);
 
         } else if (mMyVote.equals(Vote.OPTION_VETO)) {
             mBtnVeto.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
-            mImgVeto.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
+            mImgVeto.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight), android.graphics.PorterDuff.Mode.SRC_IN);
 
         } else if (mMyVote.equals(Vote.OPTION_ABSTAIN)) {
             mBtnAbstain.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
-            mImgAbstain.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
+            mImgAbstain.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight), android.graphics.PorterDuff.Mode.SRC_IN);
 
         }
 

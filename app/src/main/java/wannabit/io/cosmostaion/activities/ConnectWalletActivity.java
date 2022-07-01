@@ -158,7 +158,7 @@ public class ConnectWalletActivity extends BaseActivity {
         if (connected) {
             mConnectImage.setImageResource(R.drawable.ic_passed_img);
             mConnectText.setText(R.string.str_wc_dapp_connected);
-            mConnectText.setTextColor(getColor(R.color.colorWhite));
+            mConnectText.setTextColor(getColor(R.color.colorBlackDayNight));
         } else {
             mConnectImage.setImageResource(R.drawable.ic_pass_gr);
             mConnectText.setText(R.string.str_wc_dapp_not_connected);

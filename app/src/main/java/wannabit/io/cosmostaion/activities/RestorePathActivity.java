@@ -136,7 +136,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
             if (temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
-                holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorWhite));
+                holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorBlackDayNight));
                 holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
             } else {
                 if (temp.hasPrivateKey) {
@@ -145,7 +145,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorTransBg));
                 } else {
                     holder.newState.setText(getString(R.string.str_override));
-                    holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorWhite));
+                    holder.newState.setTextColor(ContextCompat.getColor(RestorePathActivity.this, R.color.colorBlackDayNight));
                     holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
                 }
             }

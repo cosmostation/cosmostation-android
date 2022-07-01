@@ -200,7 +200,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onShowWaitDialog();
             onFetchAllData();
 
-            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorWhite));
+            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorBlackDayNight));
             WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
             WDp.getChainTitle(MainActivity.this, mBaseChain, mToolbarChainName);
             mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));
