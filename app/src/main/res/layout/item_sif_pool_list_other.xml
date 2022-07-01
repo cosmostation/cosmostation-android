@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_15_white"
+                    style="@style/font_ss_15_black_daynight"
                     android:textStyle="bold"
                     android:gravity="right"
                     android:text="-"/>

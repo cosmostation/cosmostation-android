@@ -73,7 +73,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="COIN"
-                            style="@style/font_ss_10_white" />
+                            style="@style/font_ss_10_black_daynight" />
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout

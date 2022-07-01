@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="COIN"
-                        style="@style/font_ss_10_white"/>
+                        style="@style/font_ss_10_black_daynight"/>
                 </LinearLayout>
 
                 <EditText
@@ -197,7 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="COIN"
-                        style="@style/font_ss_10_white"/>
+                        style="@style/font_ss_10_black_daynight"/>
                 </LinearLayout>
                 <TextView
                     android:id="@+id/swap_pool_output"

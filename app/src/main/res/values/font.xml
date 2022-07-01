@@ -123,6 +123,11 @@
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
+    <style name="font_ssl_9_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_9</item>
+    </style>
 
 
     <style name="font_ss_10_atom" parent="@android:style/TextAppearance">
@@ -849,6 +854,11 @@
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
 
+    <style name="font_ssm_15_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+    </style>
 
 
 
@@ -985,6 +995,12 @@
         <item name="android:textSize">@dimen/text_size_24</item>
     </style>
 
+    <style name="font_ssm_24_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_24</item>
+    </style>
+
     <style name="font_ss_26_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -994,6 +1010,12 @@
     <style name="font_ss_26_black" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_size_26</item>
+    </style>
+
+    <style name="font_ss_26_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_26</item>
     </style>
 

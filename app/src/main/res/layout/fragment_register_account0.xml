@@ -37,7 +37,7 @@
                 android:textColorHint="@color/colorGray4"
                 android:background="@null"
                 android:inputType="textNoSuggestions|textVisiblePassword"
-                style="@style/font_ss_26_white"
+                style="@style/font_ss_26_black_daynight"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
                 android:layout_centerVertical="true"
@@ -50,7 +50,7 @@
                 android:layout_marginLeft="@dimen/space_6"
                 android:layout_marginRight="@dimen/space_2"
                 android:layout_toRightOf="@+id/et_user_input"
-                style="@style/font_ss_26_white"
+                style="@style/font_ss_26_black_daynight"
                 android:text="*"/>
             <RelativeLayout
                 android:id="@+id/domain_layer"
@@ -69,7 +69,7 @@
                         android:layout_width="@dimen/space_120"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        style="@style/font_ss_26_white"
+                        style="@style/font_ss_26_black_daynight"
                         android:singleLine="true"
                         android:text="-"/>
                     <ImageView
@@ -108,7 +108,7 @@
                 android:layout_toLeftOf="@+id/starname_fee_denom"
                 android:layout_marginRight="@dimen/space_2"
                 android:text="-"
-                style="@style/font_ssl_14_white"/>
+                style="@style/font_ssl_14_black_daynight"/>
         </RelativeLayout>
 
     </LinearLayout>
@@ -133,7 +133,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button

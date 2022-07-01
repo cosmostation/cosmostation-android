@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10"
-                style="@style/font_ssm_15_white"
+                style="@style/font_ssm_15_black_daynight"
                 android:text="@string/str_starname_domain_promotion_title"/>
             <TextView
                 android:layout_width="wrap_content"

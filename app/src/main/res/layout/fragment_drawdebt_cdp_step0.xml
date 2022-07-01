@@ -41,7 +41,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="COIN"
-                            style="@style/font_ss_10_white"/>
+                            style="@style/font_ss_10_black_daynight"/>
                     </LinearLayout>
                     <EditText
                         android:id="@+id/principal_input"
@@ -193,13 +193,13 @@
                         android:id="@+id/risk_rate_before"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_10_black_daynight"
                         android:text="SAFE"/>
                     <TextView
                         android:id="@+id/risk_score_before"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_26_white"
+                        style="@style/font_ss_26_black_daynight"
                         android:text="44"/>
                 </LinearLayout>
                 <ImageView
@@ -223,13 +223,13 @@
                         android:id="@+id/risk_rate_after"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_10_black_daynight"
                         android:text="SAFE"/>
                     <TextView
                         android:id="@+id/risk_score_after"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_26_white"
+                        style="@style/font_ss_26_black_daynight"
                         android:text="44"/>
                 </LinearLayout>
             </RelativeLayout>

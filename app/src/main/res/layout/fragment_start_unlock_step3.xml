@@ -124,7 +124,7 @@
                         android:layout_toLeftOf="@+id/unlock_amount_symbol"
                         android:layout_below="@+id/line"
                         android:layout_marginRight="@dimen/space_2"
-                        style="@style/font_ss_11_white"
+                        style="@style/font_ss_11_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>

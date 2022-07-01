@@ -53,7 +53,7 @@
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:textStyle="bold"
-                        style="@style/font_ss_14_white"/>
+                        style="@style/font_ss_14_black_daynight"/>
                     <TextView
                         android:id="@+id/nft_content"
                         android:layout_width="match_parent"

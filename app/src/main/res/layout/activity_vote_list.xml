@@ -38,7 +38,7 @@
 
                 <TextView
                     android:id="@+id/empty_proposal"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

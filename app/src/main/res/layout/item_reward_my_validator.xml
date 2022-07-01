@@ -214,7 +214,7 @@
                     <!--android:singleLine="true"-->
                     <!--android:gravity="center"-->
                     <!--android:ellipsize="end"-->
-                    <!--style="@style/font_ss_9_white"-->
+                    <!--style="@style/font_ss_9_black_daynight"-->
                     <!--android:text="moniker"/>-->
             <!--</LinearLayout>-->
             <!--<View-->
@@ -250,14 +250,14 @@
                     <!--<TextView-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
-                        <!--style="@style/font_ss_11_white"-->
+                        <!--style="@style/font_ss_11_black_daynight"-->
                         <!--android:text="Delegated"/>-->
                     <!--<TextView-->
                         <!--android:id="@+id/delegate_amount_validator"-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_11_white"-->
+                        <!--style="@style/font_ss_11_black_daynight"-->
                         <!--android:text="52,432,123.848390"/>-->
                 <!--</RelativeLayout>-->
 
@@ -349,7 +349,7 @@
                     <!--android:singleLine="true"-->
                     <!--android:gravity="center"-->
                     <!--android:ellipsize="end"-->
-                    <!--style="@style/font_ss_11_white"-->
+                    <!--style="@style/font_ss_11_black_daynight"-->
                     <!--android:text="moniker"/>-->
             <!--</LinearLayout>-->
 
@@ -386,14 +386,14 @@
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:layout_centerVertical="true"-->
-                        <!--style="@style/font_ss_9_white"-->
+                        <!--style="@style/font_ss_9_black_daynight"-->
                         <!--android:text="Delegated"/>-->
                     <!--<TextView-->
                         <!--android:id="@+id/delegate_amount_validator"-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_11_white"-->
+                        <!--style="@style/font_ss_11_black_daynight"-->
                         <!--android:text="52,432,123.848390"/>-->
                 <!--</RelativeLayout>-->
 

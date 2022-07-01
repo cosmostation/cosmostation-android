@@ -278,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                style="@style/font_ss_15_white"
+                style="@style/font_ss_15_black_daynight"
                 android:text="@string/str_back" />
         </RelativeLayout>
         <RelativeLayout

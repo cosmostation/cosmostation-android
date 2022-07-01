@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="COIN"
-                        style="@style/font_ss_10_white"/>
+                        style="@style/font_ss_10_black_daynight"/>
                 </LinearLayout>
                 <EditText
                     android:id="@+id/exit_pool_input"
@@ -93,7 +93,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="Share"
-                            style="@style/font_ss_10_white" />
+                            style="@style/font_ss_10_black_daynight" />
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout
@@ -165,7 +165,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button

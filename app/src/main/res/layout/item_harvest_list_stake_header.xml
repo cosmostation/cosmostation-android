@@ -15,5 +15,5 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/space_24"
         android:text="@string/str_hard_for_delegator_title"
-        style="@style/font_ss_14_white"/>
+        style="@style/font_ss_14_black_daynight"/>
 </RelativeLayout>
