@@ -44,7 +44,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ss_17_white"/>
+                            style="@style/font_ss_17_black_daynight"/>
                         <TextView
                             android:id="@+id/fee_denom"
                             android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
                                 android:id="@+id/gas_fee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/font_ss_15_white"
+                                style="@style/font_ss_15_black_daynight"
                                 android:text="-"/>
                             <TextView
                                 android:layout_width="wrap_content"

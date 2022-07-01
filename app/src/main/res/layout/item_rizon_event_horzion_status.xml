@@ -351,7 +351,7 @@
                             android:layout_toLeftOf="@+id/rizon_mint_symbol"
                             android:layout_marginRight="@dimen/space_2"
                             android:text="--"
-                            style="@style/font_ss_10_white"/>
+                            style="@style/font_ss_10_black_daynight"/>
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>

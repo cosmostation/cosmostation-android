@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
                 android:text="Claim Interchain Swap"
-                style="@style/font_ss_14_white"/>
+                style="@style/font_ss_14_black_daynight"/>
         </LinearLayout>
 
         <RelativeLayout

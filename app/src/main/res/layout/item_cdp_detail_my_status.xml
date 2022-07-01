@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    style="@style/font_ss_17_white"
+                    style="@style/font_ss_17_black_daynight"
                     android:text="@string/str_my_cdp_information"/>
             </LinearLayout>
 
@@ -66,7 +66,7 @@
                         android:layout_toRightOf="@+id/collateral_icon"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="COIN"
-                        style="@style/font_ss_14_white"/>
+                        style="@style/font_ss_14_black_daynight"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ssl_14_white"
+                        style="@style/font_ssl_14_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -138,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ssl_14_white"
+                        style="@style/font_ssl_14_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -180,7 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ssl_14_white"
+                        style="@style/font_ssl_14_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -294,7 +294,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ssl_14_white"
+                        style="@style/font_ssl_14_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -335,7 +335,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ssl_14_white"
+                        style="@style/font_ssl_14_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -376,7 +376,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ssl_14_white"
+                        style="@style/font_ssl_14_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>

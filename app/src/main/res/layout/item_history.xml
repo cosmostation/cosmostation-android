@@ -130,7 +130,7 @@
     <!--android:id="@+id/history_date"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->
-    <!--style="@style/font_ss_10_white"-->
+    <!--style="@style/font_ss_10_black_daynight"-->
     <!--android:singleLine="true"-->
     <!--android:text="-"/>-->
     <!--<TextView-->
@@ -138,7 +138,7 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_below="@+id/history_date"-->
-    <!--style="@style/font_ss_10_white"-->
+    <!--style="@style/font_ss_10_black_daynight"-->
     <!--android:singleLine="true"-->
     <!--android:text="-"/>-->
     <!--<TextView-->
@@ -182,7 +182,7 @@
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_marginTop="@dimen/space_4"-->
-    <!--style="@style/font_ss_14_white"-->
+    <!--style="@style/font_ss_14_black_daynight"-->
     <!--android:singleLine="true"-->
     <!--android:text="-"/>-->
     <!--<TextView-->
@@ -226,7 +226,7 @@
     <!--android:layout_marginRight="@dimen/space_2"-->
     <!--android:layout_alignBaseline="@+id/history_denom"-->
     <!--android:text="-"-->
-    <!--style="@style/font_ssl_11_white"/>-->
+    <!--style="@style/font_ssl_11_black_daynight"/>-->
     <!--</RelativeLayout>-->
     <!--<TextView-->
     <!--android:id="@+id/history_value"-->

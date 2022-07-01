@@ -34,7 +34,7 @@
 
                 <TextView
                     android:id="@+id/tx_gravity_swap_text"
-                    style="@style/font_ss_15_white"
+                    style="@style/font_ss_15_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"

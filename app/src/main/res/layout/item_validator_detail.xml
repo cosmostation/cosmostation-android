@@ -72,7 +72,7 @@
                                 android:layout_marginRight="@dimen/space_8"
                                 android:singleLine="true"
                                 android:ellipsize="end"
-                                style="@style/font_ss_14_white"
+                                style="@style/font_ss_14_black_daynight"
                                 android:text="-"/>
                             <ImageView
                                 android:id="@+id/band_oracle_off"
@@ -144,7 +144,7 @@
                         android:layout_alignParentRight="true"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        style="@style/font_ssl_14_black_daynight"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -162,7 +162,7 @@
                         android:layout_alignParentRight="true"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        style="@style/font_ssl_14_black_daynight"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -198,7 +198,7 @@
                         android:layout_alignParentRight="true"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssl_14_white"/>
+                        style="@style/font_ssl_14_black_daynight"/>
                 </RelativeLayout>
 
             </LinearLayout>

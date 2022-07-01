@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    style="@style/font_ss_17_white"
+                    style="@style/font_ss_17_black_daynight"
                     android:text="@string/str_my_available_assets"/>
             </LinearLayout>
 
@@ -70,7 +70,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_14_white"/>
+                    style="@style/font_ssl_14_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -8,13 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
         <TextView
             android:id="@+id/toolbar_title"
@@ -60,7 +60,7 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:gravity="center"
                     android:text=""
-                    style="@style/font_ss_15_white"/>
+                    style="@style/font_ss_15_black_daynight"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

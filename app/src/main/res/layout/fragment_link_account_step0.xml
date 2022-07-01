@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/space_2"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:text=""/>
             </LinearLayout>
             <ImageView
