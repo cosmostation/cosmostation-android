@@ -11,15 +11,18 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountDetailActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 
 public class Dialog_ChangeNickName extends DialogFragment {
 
+    private TextView mDialogTitle;
     private Button btn_nega, btn_posi;
     private EditText mNameInput;
 
@@ -39,10 +42,13 @@ public class Dialog_ChangeNickName extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_change_nickname, null);
+        mDialogTitle = view.findViewById(R.id.dialog_title);
         btn_nega = view.findViewById(R.id.btn_nega);
         btn_posi = view.findViewById(R.id.btn_posi);
         mNameInput = view.findViewById(R.id.et_nickname);
 
+        String title = getString(getArguments().getInt("title"));
+        mDialogTitle.setText(title);
         if (!TextUtils.isEmpty(getArguments().getString("name")))
             mNameInput.setText(getArguments().getString("name"));
 
@@ -65,7 +71,11 @@ public class Dialog_ChangeNickName extends DialogFragment {
                     imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
                 }
                 if (!TextUtils.isEmpty(mNameInput.getText().toString().trim())) {
-                    ((AccountDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
+                    if (title.equalsIgnoreCase(getString(R.string.str_change_mnemonic_nickname))) {
+                        ((MnemonicDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
+                    } else {
+                        ((AccountDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
+                    }
                 }
                 getDialog().dismiss();
             }

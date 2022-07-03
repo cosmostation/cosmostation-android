@@ -252,6 +252,26 @@
                                 style="@style/font_ss_12_white"/>
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/mnemonic_name_layer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_10"
+                            android:paddingRight="@dimen/space_8">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mnemonic"
+                                style="@style/font_ss_12_gray1"/>
+                            <TextView
+                                android:id="@+id/mnemonic_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="Mnemonic"
+                                style="@style/font_ss_12_white"/>
+                        </RelativeLayout>
+                        <RelativeLayout
                             android:id="@+id/account_path_layer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -280,7 +300,7 @@
                             android:paddingRight="@dimen/space_8"
                             android:gravity="right"
                             android:text="@string/str_import_msg"
-                            style="@style/font_ss_11_atom"/>
+                            style="@style/font_ss_11_photon"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -341,9 +361,6 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
-
-
     <LinearLayout
         android:id="@+id/bottom_layer"
         android:layout_width="match_parent"
@@ -361,14 +378,14 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16">
             <Button
-                android:id="@+id/btn_check"
+                android:id="@+id/btn_delete"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
                 android:minHeight="@dimen/space_45"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_with_red_border"
                 android:layout_weight="1"
-                style="@style/font_ss_14_photon"
-                android:text="@string/str_check_mnemonic"/>
+                style="@style/font_ss_14_red"
+                android:text="@string/str_delete_wallet"/>
             <View
                 android:id="@+id/view"
                 android:layout_width="1dp"
@@ -379,22 +396,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
                 android:minHeight="@dimen/space_45"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_with_photon_border"
                 android:layout_weight="1"
                 style="@style/font_ss_14_photon"
                 android:text="@string/str_check_private_key"
                 />
         </LinearLayout>
         <Button
-            android:id="@+id/btn_delete"
+            android:id="@+id/btn_check"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_marginTop="@dimen/space_12"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
-            android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_red"
-            android:text="@string/str_delete_wallet"/>
+            android:background="@drawable/btn_trans_with_photon_border"
+            style="@style/font_ss_14_photon"
+            android:text="@string/str_check_mnemonic"/>
     </LinearLayout>
 </RelativeLayout>

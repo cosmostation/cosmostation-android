@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities;
+package wannabit.io.cosmostaion.activities.setting;
 
 import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
 
@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
@@ -96,14 +95,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                 } else {
                     if (!SUPPORT_CHAINS().contains(chains.get(1))) {
                         onGenNewAccount(chains.get(0), mUserInput);
-
-                    } else {
-                        // support this testnet
-                        if (mUserInput.startsWith("cosmos1")) {
-                            onShowCosmosSelect(mUserInput);
-                        } else if (mUserInput.startsWith("iaa1")) {
-                            onShowIrisSelect(mUserInput);
-                        }
                     }
                 }
 
@@ -134,12 +125,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
         }
 
-    }
-
-    @Override
-    public void onChoiceNet(BaseChain chain) {
-        super.onChoiceNet(chain);
-        onGenNewAccount(chain, mUserInput);
     }
 
     public void onGenNewAccount(BaseChain chain, String address) {
@@ -177,19 +162,5 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-    }
-
-    private void onShowCosmosSelect(String input) {
-        FilledVerticalButtonAlertDialog.showDoubleButton(this,null,null,
-                getString(R.string.str_cosmos_main_net), view -> onChoiceNet(BaseChain.COSMOS_MAIN), getDrawable(R.drawable.cosmos_wh_main),
-                getString(R.string.str_cosmos_test_net), view -> onChoiceNet(BaseChain.COSMOS_TEST), getDrawable(R.drawable.chain_test_cosmos),
-                false);
-    }
-
-    private void onShowIrisSelect(String input) {
-        FilledVerticalButtonAlertDialog.showDoubleButton(this,null,null,
-                getString(R.string.str_iris_main_net), view -> onChoiceNet(BaseChain.IRIS_MAIN), getDrawable(R.drawable.irisnet),
-                getString(R.string.str_iris_test_net), view -> onChoiceNet(BaseChain.IRIS_TEST), getDrawable(R.drawable.chain_test_iris),
-                false);
     }
 }

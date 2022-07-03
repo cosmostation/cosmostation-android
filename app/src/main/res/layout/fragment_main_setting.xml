@@ -24,31 +24,6 @@
                 style="@style/font_ss_11_gray1"
                 android:text="@string/str_wallet"/>
             <FrameLayout
-                android:id="@+id/add_wallet"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
-                android:clickable="true"
-                android:background="@drawable/box_trans_round">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
-                        android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="@string/str_add_new"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/arrow_next_gr"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-            </FrameLayout>
-            <FrameLayout
                 android:id="@+id/card_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
@@ -65,6 +40,83 @@
                         android:layout_centerVertical="true"
                         style="@style/font_ss_12_white"
                         android:text="@string/str_wallet_manage"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_next_gr"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/card_mnemonic"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_8"
+                android:clickable="true"
+                android:background="@drawable/box_trans_round">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:layout_centerVertical="true"
+                        style="@style/font_ss_12_white"
+                        android:text="@string/str_mnemonic_manage"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_next_gr"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/card_key"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_8"
+                android:clickable="true"
+                android:background="@drawable/box_trans_round">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/font_ss_12_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_import_key" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_next_gr"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/card_watch_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_8"
+                android:clickable="true"
+                android:background="@drawable/box_trans_round">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/font_ss_12_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_import_watch_address" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -203,7 +255,6 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"/>
                     <TextView
-                        android:id="@+id/base_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/arrow_base_price"

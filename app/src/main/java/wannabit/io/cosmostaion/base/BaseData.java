@@ -19,6 +19,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -56,6 +57,7 @@ import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
@@ -66,6 +68,7 @@ import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
+import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
@@ -1072,6 +1075,14 @@ public class BaseData {
         return false;
     }
 
+    public void setDBVersion(int version) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_DB_VERSION, version).commit();
+    }
+
+    public int getDBVersion() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_DB_VERSION, 0);
+    }
+
     public void setUserHidenChains(ArrayList<BaseChain> hidedChains) {
         JSONArray array = new JSONArray();
         for (BaseChain baseChain: hidedChains) {
@@ -1259,7 +1270,7 @@ public class BaseData {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, null, null, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, null, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Account account = new Account(
@@ -1284,7 +1295,8 @@ public class BaseData {
                         cursor.getLong(18),
                         cursor.getInt(19) > 0,
                         cursor.getInt(20) > 0,
-                        cursor.getInt(21)
+                        cursor.getInt(21),
+                        cursor.getLong(22)
                 );
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
@@ -1297,6 +1309,17 @@ public class BaseData {
             Account account = iterator.next();
             if (!BaseChain.IS_SUPPORT_CHAIN(account.baseChain)) {
                 iterator.remove();
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Account> onSelectAccountsByMnemonic(long id) {
+        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> AllAccount = onSelectAccounts();
+        for (Account account : AllAccount) {
+            if (account.mnemonicId.equals(id)) {
+                result.add(account);
             }
         }
         return result;
@@ -1348,7 +1371,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, "id == ?", new String[]{id}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "id == ?", new String[]{id}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -1372,7 +1395,8 @@ public class BaseData {
                     cursor.getLong(18),
                     cursor.getInt(19) > 0,
                     cursor.getInt(20) > 0,
-                    cursor.getInt(21)
+                    cursor.getInt(21),
+                    cursor.getLong(22)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -1383,11 +1407,11 @@ public class BaseData {
         return result;
     }
 
-    public Account  onSelectExistAccount(String address, BaseChain chain) {
+    public Account onSelectExistAccount(String address, BaseChain chain) {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, "address == ?", new String[]{address}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "address == ?", new String[]{address}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Account account = new Account(
@@ -1412,7 +1436,8 @@ public class BaseData {
                         cursor.getLong(18),
                         cursor.getInt(19) > 0,
                         cursor.getInt(20) > 0,
-                        cursor.getInt(21)
+                        cursor.getInt(21),
+                        cursor.getLong(22)
                 );
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
@@ -1432,7 +1457,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath"}, "address == ?", new String[]{address}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "address == ?", new String[]{address}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -1456,7 +1481,8 @@ public class BaseData {
                     cursor.getLong(18),
                     cursor.getInt(19) > 0,
                     cursor.getInt(20) > 0,
-                    cursor.getInt(21)
+                    cursor.getInt(21),
+                    cursor.getLong(22)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -1487,7 +1513,9 @@ public class BaseData {
         values.put("sortOrder",         9999l);
         values.put("pushAlarm",         account.pushAlarm);
         values.put("newBip",            account.newBip44);
-        values.put("customPath",       account.customPath);
+        values.put("customPath",        account.customPath);
+        values.put("mnemonicId",        account.mnemonicId);
+        values.put("nickname",          account.nickName);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_ACCOUNT, null, values);
     }
 
@@ -1500,7 +1528,7 @@ public class BaseData {
         if(account.sequenceNumber != null)
             values.put("sequenceNumber",    account.sequenceNumber);
         if(account.accountNumber != null)
-            values.put("accountNumber",    account.accountNumber);
+            values.put("accountNumber",     account.accountNumber);
         if(account.fetchTime != null)
             values.put("fetchTime",         account.fetchTime);
         if(account.baseChain != null)
@@ -1529,6 +1557,12 @@ public class BaseData {
         return onSelectAccount(""+account.id);
     }
 
+    public long onUpdateMnemonicId(Account account) {
+        ContentValues values = new ContentValues();
+        values.put("mnemonicId",         account.mnemonicId);
+        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+    }
+
     public long onOverrideAccount(Account account) {
         ContentValues values = new ContentValues();
         values.put("hasPrivateKey",     account.hasPrivateKey);
@@ -1538,7 +1572,8 @@ public class BaseData {
         values.put("path",              account.path);
         values.put("msize",             account.msize);
         values.put("newBip",            account.newBip44);
-        values.put("customPath",       account.customPath);
+        values.put("customPath",        account.customPath);
+        values.put("mnemonicId",        account.mnemonicId);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
@@ -1553,10 +1588,66 @@ public class BaseData {
         return existed;
     }
 
-    public boolean onDeleteAccount(String id) {
+    public boolean onDeleteAccount(Account account) {
         //TODO delete Tx or else data with this account
-        onDeleteBalance(id);
-        return getBaseDB().delete(BaseConstant.DB_TABLE_ACCOUNT, "id = ?", new String[]{id}) > 0;
+        onDeleteBalance("" + account.id);
+        return getBaseDB().delete(BaseConstant.DB_TABLE_ACCOUNT, "id = ?", new String[]{"" + account.id}) > 0;
+    }
+
+    public ArrayList<MWords> onSelectAllMnemonics() {
+        ArrayList<MWords> result = new ArrayList<>();
+        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "nickName", "wordsCnt", "isFavo", "importTime"}, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                MWords mWords = new MWords(
+                        cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getInt(5),
+                        cursor.getInt(6) > 0,
+                        cursor.getLong(7)
+                );
+                result.add(mWords);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return result;
+    }
+
+    public MWords onSelectMnemonicById(long id) {
+        for (MWords mWord : onSelectAllMnemonics()) {
+            if (mWord.id.equals(id)) {
+                return mWord;
+            }
+        }
+        return null;
+    }
+
+    public long onInsertMnemonics(MWords mWords) {
+        ContentValues values = new ContentValues();
+        values.put("uuid",              mWords.uuid);
+        values.put("resource",          mWords.resource);
+        values.put("spec",              mWords.spec);
+        values.put("nickName",          mWords.nickName);
+        values.put("wordsCnt",          mWords.wordsCnt);
+        values.put("isFavo",            mWords.isFavo);
+        values.put("importTime",        mWords.importTime);
+        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_MNEMONIC, null, values);
+    }
+
+    public long onUpdateMnemonic(MWords mWords) {
+        ContentValues values = new ContentValues();
+        if(!TextUtils.isEmpty(mWords.nickName))
+            values.put("nickName",          mWords.nickName);
+        if(mWords.isFavo != null)
+            values.put("isFavo",            mWords.isFavo);
+        return getBaseDB().update(BaseConstant.DB_TABLE_MNEMONIC, values, "id = ?", new String[]{""+mWords.id} );
+    }
+
+    public boolean onDeleteMnemonic(MWords mWords) {
+        return getBaseDB().delete(BaseConstant.DB_TABLE_MNEMONIC, "id = ?", new String[]{""+mWords.id}) > 0;
     }
 
     //set custompath 118 - > 0,
@@ -1646,6 +1737,51 @@ public class BaseData {
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
+    @SuppressLint("NewApi")
+    public void upgradeMnemonicDB() {
+        //select old mnemonics for accounts
+        ArrayList<String> alreadyWords = new ArrayList<>();
+        for (Account account : onSelectAccounts()) {
+            if (account.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
+                String words = String.join(" ", WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy))).trim();
+                if (!alreadyWords.contains(words)) {
+                    alreadyWords.add(words);
+                }
+            }
+        }
+
+        //insert keychain and db for mnemonic
+        for (String alreadyWord : alreadyWords) {
+            if (!onSelectAllMnemonics().stream().filter(w -> w.getWords(mApp).equalsIgnoreCase(alreadyWord)).findFirst().isPresent()) {
+                ArrayList<String> mnWords = new ArrayList<>();
+                for (int i = 0; i < alreadyWord.split(" ").length; i++) {
+                    mnWords.add(alreadyWord.split(" ")[i]);
+                }
+                MWords tempMWords = MWords.getNewInstance();
+                String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mnWords));
+                EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
+                tempMWords.resource = encR.getEncDataString();
+                tempMWords.spec = encR.getIvDataString();
+                tempMWords.wordsCnt = mnWords.size();
+                onInsertMnemonics(tempMWords);
+            }
+        }
+
+        //link account and mnemonic id(fkey)
+        for (Account account : onSelectAccounts()) {
+            if (account.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
+                String words = String.join(" ", WKey.getRandomMnemonic(WUtil.HexStringToByteArray(entropy)));
+                for (MWords mWords : onSelectAllMnemonics()) {
+                    if (mWords.getWords(mApp).equalsIgnoreCase(words)) {
+                        account.mnemonicId = mWords.id;
+                        onUpdateMnemonicId(account);
+                    }
+                }
+            }
+        }
+    }
 
     public ArrayList<Balance> onSelectBalance(long accountId) {
         ArrayList<Balance> result = new ArrayList<>();

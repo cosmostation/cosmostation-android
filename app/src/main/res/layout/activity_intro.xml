@@ -21,39 +21,18 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/space_240">
+        android:paddingBottom="@dimen/space_280">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/cosmostation"
-                android:scaleType="fitXY"/>
-            <com.romainpiel.shimmer.ShimmerTextView
-                android:id="@+id/logo_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="by Cosmostation"
-                android:layout_marginTop="@dimen/space_100"
-                android:layout_centerHorizontal="true"
-                android:letterSpacing="0.31"
-                android:lineSpacingExtra="6sp"
-                style="@style/font_ss_12_gray6"
-                android:visibility="invisible"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/cosmostation" />
         </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_40"
-            android:layout_marginRight="@dimen/space_40"
-            android:lineSpacingExtra="4sp"
-            android:layout_marginTop="@dimen/space_16"
-            style="@style/font_ss_12_gray1"
-            android:gravity="center"
-            android:text="@string/str_intro"/>
     </LinearLayout>
 
 

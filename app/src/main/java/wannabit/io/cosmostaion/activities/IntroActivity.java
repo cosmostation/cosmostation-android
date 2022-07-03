@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.romainpiel.shimmer.ShimmerTextView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,9 +22,10 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -31,8 +33,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView bgImg, bgImgGr;
-    private ShimmerTextView logoTitle;
+    private ImageView bgImg, bgImgGr;;
     private LinearLayout bottomLayer1, bottomLayer2;
     private Button mStart;
 
@@ -42,7 +43,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         setContentView(R.layout.activity_intro);
         bgImg = findViewById(R.id.intro_bg);
         bgImgGr = findViewById(R.id.intro_bg_gr);
-        logoTitle = findViewById(R.id.logo_title);
         bottomLayer1 = findViewById(R.id.bottom_layer1);
         bottomLayer2 = findViewById(R.id.bottom_layer2);
         mStart = findViewById(R.id.btn_start);
@@ -67,7 +67,11 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        onCheckAppVersion();
+        if (getBaseDao().getDBVersion() < BaseConstant.DB_VERSION) {
+            onShowDBUpdate();
+        } else {
+            onCheckAppVersion();
+        }
     }
 
     private void onInitJob() {
@@ -98,7 +102,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-
     private void onInitView() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5);
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out5);
@@ -123,26 +126,42 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             }
         });
         bottomLayer1.startAnimation(mFadeOutAni);
-
-
-//        logoTitle.setVisibility(View.VISIBLE);
-//        Shimmer shimmer = new Shimmer();
-//        shimmer.setDuration(1500)
-//                .setStartDelay(600)
-//                .setDirection(Shimmer.ANIMATION_DIRECTION_LTR);
-//        shimmer.start(logoTitle);
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mStart)) {
-            Bundle bundle = new Bundle();
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
-            dialog.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            Dialog_AddAccount add = Dialog_AddAccount.newInstance(null);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
         }
     }
 
+    @SuppressLint("NewApi")
+    private void onShowDBUpdate() {
+        ProgressDialog dialog = new ProgressDialog(IntroActivity.this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setTitle("DB Upgrading..");
+        dialog.setMessage("Please wait for upgrade\n(Do not close the application)");
+        dialog.setCancelable(false);
+        dialog.show();
+        Thread update = new Thread() {
+            @Override
+            public void run() {
+                getBaseDao().upgradeMnemonicDB();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                        getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
+                        onCheckAppVersion();
+                    }
+                });
+            }
+        };
+        update.start();
+    }
 
     private void onCheckAppVersion() {
         ApiClient.getCosmostationOld(this).getVersion().enqueue(new Callback<ResVersionCheck>() {

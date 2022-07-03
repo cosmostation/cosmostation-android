@@ -81,7 +81,9 @@ import java.util.regex.Pattern;
 
 import cosmos.auth.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.BuildConfig;
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
 
@@ -620,16 +622,33 @@ public class WKey {
 
     public static String getCreateDpAddressFromEntropy(BaseChain chain, String entropy, int path, int customPath) {
         DeterministicKey childKey = getCreateKeyWithPathfromEntropy(chain, entropy, path, customPath);
-        if (chain.equals(OKEX_MAIN) && customPath == 1 || chain.equals(OKEX_MAIN) && customPath == 2) {
-            return generateEthAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
-        } else if (chain.equals(OKEX_MAIN) && customPath == 0) {
-            return generateTenderAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
+        if (chain.equals(OKEX_MAIN)) {
+            if (customPath == 0) {
+                return generateTenderAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
+            } else {
+                return generateEthAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
+            }
         } else if (chain.equals(INJ_MAIN)) {
             return generateAddressFromPriv("inj", childKey.getPrivateKeyAsHex());
         } else if (chain.equals(EVMOS_MAIN)) {
             return generateAddressFromPriv("evmos", childKey.getPrivateKeyAsHex());
         }
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
+    }
+
+    public static String getCreateDpAddressFromPkey(BaseChain chain, String pKey, int customPath) {
+        if (chain.equals(OKEX_MAIN)) {
+            if (customPath == 0) {
+                return generateTenderAddressFromPrivateKey(pKey);
+            } else {
+                return generateEthAddressFromPrivateKey(pKey);
+            }
+        } else if (chain.equals(INJ_MAIN)) {
+            return generateAddressFromPriv("inj", pKey);
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return generateAddressFromPriv("evmos", pKey);
+        }
+        return getDpAddress(chain, generatePubKeyHexFromPriv(pKey));
     }
 
     public static byte[] convertBits(byte[] data, int frombits, int tobits, boolean pad) throws Exception {

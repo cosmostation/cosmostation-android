@@ -311,10 +311,14 @@
     <string name="str_restore_key">Restore With PrivateKey</string>
     <string name="str_qr">QrCode</string>
     <string name="str_import">Restore With Mnemonic</string>
+    <string name="str_mnemonic_delete">Delete Mnemonic</string>
+    <string name="str_mnemonic_delete_msg">If you do not backup your mnemonics, you can not find it again!\n\nAnd %1$s derived wallets will also be deleted</string>
     <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
     <string name="str_check_private_key_c">CHECK PRIVATE KEY</string>
+    <string name="str_manage_mnemonic">Manage Mnemonic</string>
+    <string name="str_import_watch_address">Import Watching Address</string>
     <string name="str_start">START</string>
     <string name="str_check">Check</string>
     <string name="str_confirm">Confirm</string>
@@ -412,7 +416,12 @@
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
-    <string name="str_wallet_manage">Wallet Manage</string>
+    <string name="str_mnemonic_manage">Manage Mnemonic</string>
+    <string name="str_mnemonic_detail">Mnemonic Detail</string>
+    <string name="str_mnemonic_create">Mnemonic Create</string>
+    <string name="str_derive_wallet">Derive Wallet</string>
+    <string name="str_delete_mnemonic">Delete Mnemonic</string>
+    <string name="str_wallet_manage">Manage Wallet</string>
     <string name="str_edit_chains">Edit Chains</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>
@@ -467,7 +476,7 @@
     <string name="str_import_key">Import PrivateKey</string>
     <string name="str_share">Share</string>
     <string name="str_copy">Copy</string>
-    <string name="str_copy_to">Copy to clipboard</string>
+    <string name="str_copy_to">Copy to Clipboard</string>
     <string name="str_copied">Copied to clipboard</string>
     <string name="str_safe_copied">Mnemonic copied safely</string>
     <string name="str_add_mnemonics">Add Mnemonics</string>
@@ -986,7 +995,8 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/0/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
-    <string name="str_add_new">Add New Wallet</string>
+    <string name="str_add_new">Add Wallet</string>
+    <string name="str_add_wallet">Would you like to add %1$s wallet(s)?</string>
     <string name="str_error_not_support_chain_title">Error</string>
     <string name="str_error_not_support_chain_msg">No wallet for that chain</string>
     <string name="str_error_not_support_msg">%1$s are not currently supported chain</string>
@@ -1235,12 +1245,11 @@
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
     <string name="str_delete">Delete</string>
     <string name="str_close">Close</string>
-    <string name="str_intro"></string>
     <string name="str_no_history_with_this_validator">No history.</string>
     <string name="str_let_start_cosmos">Explore the Cosmos Hub</string>
     <string name="str_let_start_cosmos2">Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
-    <string name="str_change_nickname">Change wallet Name</string>
-    <string name="str_wallet_nickname">Wallet Name</string>
+    <string name="str_change_account_nickname">Change Wallet Name</string>
+    <string name="str_change_mnemonic_nickname">Change Mnemonic Name</string>
     <string name="str_start_delegate">Delegate your tokens with Cosmostation.\nStart earning staking rewards and contribute to the network ecosystem.</string>
     <string name="str_create_warn0">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
     <string name="str_create_warn1">Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.</string>
@@ -1351,7 +1360,7 @@
     <string name="str_value">Value</string>
     <string name="str_full_name">Detail</string>
     <string name="str_vesting_title">Vesting Account</string>
-    <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.</string>
+    <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli command delegate and undelegate tx for correct amount.</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_vesting_amount">Vesting (Only Delegable)</string>
     <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
@@ -1724,6 +1733,7 @@
     <string name="str_create_user_claim_address">User Claim Address</string>
     <string name="str_create_user_claim_type">User Claim Type</string>
     <string name="str_select_starname_domain">Select domain for starname</string>
+    <string name="str_picker_dialog_title">Select Custom Path</string>
 
     <string name="str_ibc_send_c">IBC SEND</string>
     <string name="str_ibc_warning_c">Notice</string>
@@ -1737,7 +1747,7 @@
     <string name="str_ibc_transfer_step_3">Select transaction fee</string>
     <string name="str_ibc_transfer_step_4">Check transaction detail</string>
     <string name="str_select_ibc_destination">Select Destination Chain</string>
-    <string name="str_select_ibc_relayer">Select Realyer for IBC Transfer</string>
+    <string name="str_select_ibc_relayer">Select Relayer for IBC Transfer</string>
     <string name="str_ibc_unknown_relayer_msg">This is an unconfirmed relayer. \nIBC transfers through an inoperable relayer may result in loss of assets. \nDo you wish to continue?</string>
     <string name="str_select_ibc_address">Recipient Address</string>
     <string name="str_ibc_recipient_chain">Recipient Chain</string>
@@ -1813,8 +1823,12 @@
     <string name="str_link_account_step_1">Insert memo (optional)</string>
     <string name="str_link_account_step_2">Select transaction fee</string>
     <string name="str_link_account_step_3">Check transaction detail</string>
-    <string name="str_select_link_chain">Select Chain To Link </string>
-    <string name="str_select_link_account">Select Account To Link </string>
+    <string name="str_select_link_chain">Select Chain To Link</string>
+    <string name="str_select_link_account">Select Account To Link</string>
+
+    <string name="str_mnemonic_confirm_msg">Losing your mnemonics could lead to loss of your asset.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
+    <string name="str_key_confirm_msg">Private Key is only used to restore the\ncurrently selected wallet.\nWe highly recommend keeping your mnemonics\noffline in a secure location, and never share your\nmnemonics with anyone else.\n\n
+                                       Private key is NOT mnemonics.\nYou MUST backup your mnemonics if you have one.\nYou need your mnemonics to restore your original wallets if you created them with mnemonics.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1874,7 +1888,7 @@
     <string name="error_less_than_min_principal">Less than the minimum loan amount.</string>
     <string name="error_dust_principal_remain">Remain Debt is less than 10$.</string>
     <string name="error_circuit_breaker">Now circuit break</string>
-    <string name="error_not_enought_deposit_asset">Not enought Asset to deposit.</string>
+    <string name="error_not_enought_deposit_asset">Not enough Asset to deposit.</string>
     <string name="error_not_enought_withdraw_asset">Cannot withdraw collateral now.</string>
     <string name="error_can_not_draw_debt">Cannot more loan now.</string>
     <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
@@ -1883,15 +1897,15 @@
     <string name="error_can_not_bep3_account_msg">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account and deposit at least 0.000075BNB for claim transaction fee.</string>
     <string name="error_can_not_bep3_account_msg2">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account wallet.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
-    <string name="error_no_more_faucet">Alreay have enought test coin.</string>
+    <string name="error_no_more_faucet">Already have enough test coin.</string>
     <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.</string>
     <string name="error_bnb_mini_amount">Minimum amount required for BEP8 transactions is 1 token. If your balance is less than 1, you must send the entire amount.</string>
     <string name="error_max_30_validator">You can select Max 30 Validators.</string>
     <string name="error_min_1_validator">Please select more than 1 validator.</string>
     <string name="error_only_deposit_can_vote">No staking amount.\nstaking first.</string>
     <string name="error_invalide_starname">Unregistered star name.</string>
-    <string name="error_no_mattched_starname">Valide starname, but there is no mattching address with this chain.</string>
-    <string name="error_starname_self_send">Valide starname, but self sending is not support.</string>
+    <string name="error_no_mattched_starname">Valid starname, but there is no matching address with this chain.</string>
+    <string name="error_starname_self_send">Valid starname, but self sending is not support.</string>
     <string name="error_bep3_supply_full">The swap has reached its network capacity.</string>
     <string name="error_bep3_under_min_amount">Need more balance for BEP3 send.</string>
     <string name="error_invalid_domain_format">Invalid domain format, please insert another text for domain</string>
@@ -1900,7 +1914,7 @@
     <string name="error_only_fixed_domain">now only support fixed iov domain, Well support soon all domain</string>
     <string name="error_invalid_account_format">Invalid account format, please insert another text for account</string>
     <string name="error_already_registered_account">This account already registered. please use another text for account</string>
-    <string name="error_not_support_cosmostation">Not supported chain Cosmostaion wallet.</string>
+    <string name="error_not_support_cosmostation">Not supported chain Cosmostation wallet.</string>
     <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
     <string name="error_no_address_added">Please enter at least 1 address.</string>
     <string name="error_cannot_delete_open_domain">Can not delete open domain.</string>
@@ -1940,6 +1954,9 @@
     <string name="error_profile_dtag_count">Please insert 6 to 30 characters without a blank and special characters</string>
     <string name="error_no_account_this_chain">No linkable account with this chain</string>
     <string name="error_select_account_link">Please select account to link</string>
+    <string name="error_alreay_imported_mnemonic">Already imported mnemonic</string>
+    <string name="error_not_selected_to_import">Select address to import</string>
+    <string name="error_no_mnemonic">Only private key imported</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>

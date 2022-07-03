@@ -28,9 +28,12 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
+import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
@@ -46,8 +49,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar mToolbar;
-    private View mView;
-    private Button mBtnCheck, mBtnCheckKey, mBtnDelete;
 
     private CardView mCardName;
     private ImageView mChainImg, mNameEditImg;
@@ -60,23 +61,21 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private CardView mCardBody;
     private ImageView mBtnQr;
     private TextView mAccountAddress, mAccountGenTime;
-    private TextView mAccountChain, mAccountState, mAccountPathTitle, mAccountPath, mImportMsg;
-    private RelativeLayout mPathLayer;
-
+    private TextView mAccountChain, mAccountState, mMnemonicName, mAccountPathTitle, mAccountPath, mImportMsg;
+    private RelativeLayout mMnemonicLayer, mPathLayer;
 
     private CardView mCardRewardAddress;
     private ImageView mBtnRewardAddressChange;
     private TextView mRewardAddress;
+
+    private View mView;
+    private Button mBtnDelete, mBtnCheckKey, mBtnCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_detail);
         mToolbar = findViewById(R.id.tool_bar);
-        mBtnCheck = findViewById(R.id.btn_check);
-        mView = findViewById(R.id.view);
-        mBtnCheckKey = findViewById(R.id.btn_check_key);
-        mBtnDelete = findViewById(R.id.btn_delete);
         mCardName = findViewById(R.id.card_name);
         mChainImg = findViewById(R.id.chain_img);
         mNameEditImg = findViewById(R.id.account_edit);
@@ -90,6 +89,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mAccountChain = findViewById(R.id.account_chain);
         mAccountGenTime = findViewById(R.id.account_import_time);
         mAccountState = findViewById(R.id.account_import_state);
+        mMnemonicLayer = findViewById(R.id.mnemonic_name_layer);
+        mMnemonicName = findViewById(R.id.mnemonic_name);
         mAccountPathTitle = findViewById(R.id.path_title);
         mAccountPath = findViewById(R.id.account_path);
         mImportMsg = findViewById(R.id.import_msg);
@@ -97,17 +98,23 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mCardRewardAddress = findViewById(R.id.card_reward_address);
         mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
         mRewardAddress = findViewById(R.id.reward_address);
+        mBtnDelete = findViewById(R.id.btn_delete);
+        mView = findViewById(R.id.view);
+        mBtnCheckKey = findViewById(R.id.btn_check_key);
+        mBtnCheck = findViewById(R.id.btn_check);
+
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mBtnCheck.setOnClickListener(this);
-        mBtnCheckKey.setOnClickListener(this);
-        mBtnDelete.setOnClickListener(this);
         mNameEditImg.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
         mBtnRewardAddressChange.setOnClickListener(this);
+        mBtnDelete.setOnClickListener(this);
+        mBtnCheckKey.setOnClickListener(this);
+        mBtnCheck.setOnClickListener(this);
+
     }
 
 
@@ -136,7 +143,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
-            onDeleteAccount(mAccount.id);
+            onDeleteAccount(mAccount);
         }
     }
 
@@ -159,6 +166,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             onBackPressed();
         }
         mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
+        MWords mWords = getBaseDao().onSelectMnemonicById(mAccount.mnemonicId);
         if (mAccount == null) onBackPressed();
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
@@ -185,6 +193,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountState.setText(getString(R.string.str_with_mnemonic));
             mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path), mAccount.customPath));
             mPathLayer.setVisibility(View.VISIBLE);
+            mMnemonicLayer.setVisibility(View.VISIBLE);
+            mMnemonicName.setText(mWords.getName());
             mImportMsg.setVisibility(View.GONE);
             mBtnCheck.setVisibility(View.VISIBLE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
@@ -194,9 +204,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (mAccount.hasPrivateKey && !mAccount.fromMnemonic) {
             mAccountState.setText(getString(R.string.str_with_privatekey));
             mPathLayer.setVisibility(View.GONE);
+            mMnemonicLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.GONE);
-            mBtnCheck.setVisibility(View.GONE);
-            mView.setVisibility(View.GONE);
+            mBtnCheck.setVisibility(View.VISIBLE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
             mBtnCheckKey.setText(getString(R.string.str_check_private_key));
             if (mBaseChain.equals(OKEX_MAIN)) {
@@ -213,12 +223,12 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             mAccountState.setText(getString(R.string.str_only_address));
             mPathLayer.setVisibility(View.GONE);
+            mMnemonicLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.VISIBLE);
-            mImportMsg.setTextColor(WDp.getChainColor(getBaseContext(), mBaseChain));
             mBtnCheck.setVisibility(View.VISIBLE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
             mBtnCheck.setText(getString(R.string.str_import_mnemonic));
-            mBtnCheckKey.setText(getString(R.string.str_import_key));
+            mBtnCheckKey.setText(getString(R.string.str_insert_private_key));
         }
 
     }
@@ -259,14 +269,18 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         if (v.equals(mBtnCheck)) {
             if (mAccount.hasPrivateKey) {
+                if (!mAccount.fromMnemonic) {
+                    Toast.makeText(this, R.string.error_no_mnemonic, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                intent.putExtra("checkid", mAccount.id);
+                intent.putExtra("checkid", mAccount.mnemonicId);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
             } else {
-                Intent restoreIntent = new Intent(AccountDetailActivity.this, RestoreActivity.class);
+                Intent restoreIntent = new Intent(AccountDetailActivity.this, MnemonicRestoreActivity.class);
                 restoreIntent.putExtra("chain", mBaseChain.getChain());
                 startActivity(restoreIntent);
             }
@@ -286,20 +300,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (v.equals(mBtnDelete)) {
-            int accountSum = 0;
-            for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
-                accountSum = accountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
-            }
-            if (accountSum <= 1) {
-                Toast.makeText(AccountDetailActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
-                return;
-            }
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
                     AlertDialogUtils.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(),
                     getString(R.string.str_close), null);
 
         } else if (v.equals(mNameEditImg)) {
             Bundle bundle = new Bundle();
+            bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);
             bundle.putString("name", mAccount.nickName);
             Dialog_ChangeNickName delete = Dialog_ChangeNickName.newInstance(bundle);

@@ -100,9 +100,9 @@ import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
-import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -111,9 +111,9 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
+import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -362,26 +362,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(intent);
     }
 
-    public void onChoiceNet(BaseChain chain) {
-    }
-
-    public void onChainSelected(BaseChain baseChain) {
-        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
-            Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bundle bundle = new Bundle();
-                bundle.putString("chain", baseChain.getChain());
-                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            }
-        }, 300);
-    }
-
     public void onChoiceStarnameResourceAddress(String address) {
     }
 
@@ -444,21 +424,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getString(R.string.str_with_text), view -> onShare(true, address), null);
     }
 
-    public void onDeleteAccount(long id) {
+    public void onDeleteAccount(Account account) {
         new PushUpdateTask(getBaseApplication(), null, mAccount, getBaseDao().getFCMToken(), false).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         try {
-            CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount("" + id).uuid);
+            CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount("" + account.id).uuid);
         } catch (Exception e) {
         }
         try {
-            CryptoHelper.deleteKey(getString(R.string.key_private) + getBaseDao().onSelectAccount("" + id).uuid);
+            CryptoHelper.deleteKey(getString(R.string.key_private) + getBaseDao().onSelectAccount("" + account.id).uuid);
         } catch (Exception e) {
         }
-        getBaseDao().onDeleteAccount("" + id);
-        getBaseDao().onSelectBalance(id);
+        getBaseDao().onDeleteAccount(account);
+        getBaseDao().onSelectBalance(account.id);
 
         if (getBaseDao().onSelectAccounts().size() > 0) {
-            if (mAccount.id.equals(id)) {
+            if (mAccount.id.equals(account.id)) {
                 getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
                 onStartMainActivity(0);
             } else {
@@ -482,8 +462,32 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
     }
 
+    public void onDeleteMnemonic(MWords mWords) {
+        ArrayList<Account> linkedAccounts = getBaseDao().onSelectAccountsByMnemonic(mWords.id);
+        for (Account account : linkedAccounts) {
+            onDeleteAccount(account);
+        }
+        getBaseDao().onDeleteMnemonic(mWords);
+
+        if (getBaseDao().onSelectAccounts().size() > 0) {
+            if (mAccount.id != null) {
+                getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
+                onStartMainActivity(0);
+            } else {
+                getBaseDao().setLastUser(mAccount.id);
+                onStartMainActivity(0);
+            }
+
+        } else {
+            getBaseDao().setLastUser(-1);
+            Intent intent = new Intent(this, IntroActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
+
     public void onAddMnemonicForAccount() {
-        startActivity(new Intent(BaseActivity.this, RestoreActivity.class));
+        startActivity(new Intent(BaseActivity.this, MnemonicRestoreActivity.class));
     }
 
     public void onUpdateUserAlarm(Account account, boolean useAlarm) {
