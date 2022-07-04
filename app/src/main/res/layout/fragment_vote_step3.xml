@@ -13,6 +13,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
             app:cardPreventCornerOverlap="true"
@@ -62,6 +63,7 @@
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:layout_marginTop="@dimen/space_4"
+            app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/space_6"
             app:cardBackgroundColor="@color/colorTransBg"

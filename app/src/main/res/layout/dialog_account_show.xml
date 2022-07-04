@@ -39,7 +39,7 @@
             android:layout_marginRight="@dimen/space_12"
             android:gravity="center"
             android:text="sdasasdasdasdasdasdasdasdasdsadasdsad"
-            style="@style/font_ss_11_gray1"/>
+            style="@style/font_rmr_11_gray1"/>
 
 
         <View

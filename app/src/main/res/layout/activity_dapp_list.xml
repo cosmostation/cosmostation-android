@@ -44,11 +44,12 @@
             android:background="@color/colorGray4"
             android:layout_below="@+id/validator_tab"
             android:layout_marginTop="-1dp"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/validator_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/validator_tab"/>
+            android:layout_below="@+id/validator_tab" />
     </RelativeLayout>
 
 </RelativeLayout>

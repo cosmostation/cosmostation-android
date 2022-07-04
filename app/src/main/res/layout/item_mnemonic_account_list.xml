@@ -5,17 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <FrameLayout
         android:id="@+id/accountCard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_account_unselected"
-        android:layout_marginRight="@dimen/space_12"
         android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_8"
+        android:background="@drawable/box_account_unselected"
+        android:foreground="?android:attr/selectableItemBackground"
         android:paddingLeft="@dimen/space_4"
         android:paddingRight="@dimen/space_4">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -30,23 +32,25 @@
                 android:paddingRight="@dimen/space_6"
                 android:scaleType="center"
                 android:src="@drawable/default_chain_img" />
+
             <LinearLayout
                 android:id="@+id/accountContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/chain_img"
-                android:layout_marginRight="@dimen/space_8"
-                android:layout_marginLeft="@dimen/space_4"
-                android:orientation="vertical"
                 android:layout_centerVertical="true"
-                android:gravity="center_vertical">
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_marginRight="@dimen/space_8"
+                android:layout_toRightOf="@+id/chain_img"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/account_address"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_rmr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -57,7 +61,7 @@
 
                     <TextView
                         android:id="@+id/account_state"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -68,37 +72,42 @@
                         android:singleLine="true"
                         android:text="" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/space_4">
+                    android:layout_marginTop="@dimen/space_4"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/key_path"
+                        style="@style/font_ss_10_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        style="@style/font_ss_10_gray1"
-                        android:text=""/>
+                        android:text="" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/accountAvailable"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ssl_12_white"
-                            android:text="loading..."/>
+                            android:text="loading..." />
+
                         <TextView
                             android:id="@+id/accountDenom"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
-                            android:text=""
-                            style="@style/font_ssl_12_white"/>
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

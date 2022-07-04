@@ -8,18 +8,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos" />
+        android:src="@color/colorWhiteDayNight" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_wallet_detail" />
@@ -74,7 +74,7 @@
 
                     <TextView
                         android:id="@+id/account_name"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -132,7 +132,7 @@
 
                         <TextView
                             android:id="@+id/account_alarm_msg"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:lines="2"
@@ -189,7 +189,7 @@
 
                             <TextView
                                 android:id="@+id/account_address"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -226,7 +226,7 @@
 
                             <TextView
                                 android:id="@+id/account_chain"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -248,7 +248,7 @@
 
                             <TextView
                                 android:id="@+id/account_import_time"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -270,7 +270,7 @@
 
                             <TextView
                                 android:id="@+id/account_import_state"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -293,7 +293,7 @@
 
                             <TextView
                                 android:id="@+id/mnemonic_name"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -317,7 +317,7 @@
 
                             <TextView
                                 android:id="@+id/account_path"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -382,7 +382,7 @@
 
                         <TextView
                             android:id="@+id/reward_address"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
