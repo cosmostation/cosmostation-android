@@ -85,7 +85,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -225,7 +225,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -247,7 +247,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -277,7 +277,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -299,7 +299,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -321,7 +321,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -343,7 +343,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -373,7 +373,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -395,7 +395,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -417,7 +417,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -439,7 +439,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -469,7 +469,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -491,7 +491,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -513,7 +513,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -535,7 +535,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -565,7 +565,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -587,7 +587,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -609,7 +609,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -631,7 +631,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_darkgray">
+                    android:background="@drawable/box_round_atom">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
