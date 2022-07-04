@@ -248,7 +248,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountDimLayer.setAlpha(1f);
             } else {
                 holder.accountDimLayer.setVisibility(View.GONE);
-                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_unselected));
+                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                 holder.accountState.setText("");
             }
 
@@ -262,7 +262,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     if (derive.selected) {
                         holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_round_seleted_white_daynight));
                     } else {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_unselected));
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                     }
                     onUpdateCnt();
                 }

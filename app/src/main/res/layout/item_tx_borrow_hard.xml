@@ -69,26 +69,29 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_borrow_amount"
                     style="@style/font_ss_12_gray1"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/borrow_amount_title">
+
                     <TextView
                         android:id="@+id/borrow_symbol"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="Coin"
-                        style="@style/font_ss_12_black_daynight"/>
+                        android:text="Coin" />
+
                     <TextView
                         android:id="@+id/borrow_amount"
+                        style="@style/font_ssl_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/borrow_symbol"
-                        android:layout_toLeftOf="@+id/borrow_symbol"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        android:layout_toLeftOf="@+id/borrow_symbol"
+                        android:text="-" />
                 </RelativeLayout>
             </RelativeLayout>
 
