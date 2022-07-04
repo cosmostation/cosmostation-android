@@ -129,6 +129,12 @@
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
+    <style name="font_rmr_9_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_mono_regular</item>
+        <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_9</item>
+    </style>
+
 
     <style name="font_ss_10_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
@@ -168,6 +174,12 @@
 
     <style name="font_ss_10_black_daynight" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+    </style>
+
+    <style name="font_rmr_10_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_mono_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
@@ -218,6 +230,12 @@
     <style name="font_ssl_11_black_daynight" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
+    <style name="font_rmr_11_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_mono_regular</item>
+        <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
@@ -379,6 +397,11 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_rmr_12_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_mono_regular</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
 
 
     <style name="font_ss_14_white" parent="@android:style/TextAppearance">
