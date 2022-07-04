@@ -105,6 +105,8 @@ import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
+import wannabit.io.cosmostaion.activities.setting.PrivateKeyCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -286,8 +288,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private String mHdacBurnRawTx;                 //for hdac burn & swap
 
-    private long mIdToDelete;
-    private long mIdToCheck;
+    private long    mIdToDelete;
+    private long    mIdMWordDelete;
+    private long    mIdToCheck;
 
 
     public ArrayList<String> mValOpAddresses_V1;
@@ -414,8 +417,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mHdacBurnRawTx = getIntent().getStringExtra("hdacBurnRawTx");
 
-
         mIdToDelete = getIntent().getLongExtra("id", -1);
+        mIdMWordDelete = getIntent().getLongExtra("mWordId", -1);
         mIdToCheck = getIntent().getLongExtra("checkid", -1);
 
         mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
@@ -529,7 +532,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
             onShowWaitDialog();
-            new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(mUserInput);
+            new CheckMnemonicTask(getBaseApplication(), this).execute(mUserInput);
 
         } else if (mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
             onShowWaitDialog();
@@ -821,7 +824,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (result.taskType == TASK_DELETE_USER) {
             if (result.isSuccess) {
-                onDeleteAccount(mIdToDelete);
+                if (mIdToDelete != -1) {
+                    onDeleteAccount(getBaseDao().onSelectAccount("" + mIdToDelete));
+                } else {
+                    onDeleteMnemonic(getBaseDao().onSelectMnemonicById(mIdMWordDelete));
+                }
             } else {
                 onShakeView();
                 onInitView();
@@ -831,9 +838,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (result.taskType == TASK_CHECK_MNEMONIC) {
             if (result.isSuccess) {
-                Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
-                checkintent.putExtra("checkid", mIdToCheck);
-                checkintent.putExtra("entropy", String.valueOf(result.resultData));
+                Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicDetailActivity.class);
+                checkintent.putExtra("mnemonicId", getIntent().getLongExtra("checkid", -1));
                 startActivity(checkintent);
 
             } else {

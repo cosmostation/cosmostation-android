@@ -1,48 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_32">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/dialog_bg">
 
         <TextView
             android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
-            style="@style/font_ss_17_gray8"
-            android:gravity="center"/>
-
-
-        <EditText
-            android:id="@+id/et_nickname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
-            android:minHeight="@dimen/space_40"
-            android:textCursorDrawable="@drawable/black_cursor"
-            android:maxLength="15"
-            android:singleLine="true"
-            android:textColorHint="@color/colorGray1"
-            android:background="@drawable/box_et_white"
-            style="@style/font_ss_14_gray8"
-            android:imeOptions="actionDone"
-            android:gravity="center"/>
+            style="@style/font_ss_17_gray8"
+            android:gravity="center"
+            android:text="@string/str_picker_dialog_title"/>
 
+        <NumberPicker
+            android:id="@+id/numberPicker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_10"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="@dimen/space_32"
             android:background="@color/colorGray10"/>
 
         <LinearLayout
@@ -70,7 +57,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_right"
                 style="@style/font_ss_14_gray8"
-                android:text="@string/str_ok"/>
+                android:text="@string/str_confirm"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

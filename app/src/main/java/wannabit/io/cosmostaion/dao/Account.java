@@ -52,6 +52,7 @@ public class Account {
     public Boolean  pushAlarm;
     public Boolean  newBip44;
     public Integer  customPath;
+    public Long     mnemonicId;
 
     public ArrayList<Balance>   balances;
 
@@ -68,7 +69,8 @@ public class Account {
     public Account(Long id, String uuid, String nickName, boolean isFavo, String address,
                    String baseChain, boolean hasPrivateKey, String resource, String spec,
                    boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber,
-                   int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal, long sortOrder, boolean pushAlarm, boolean newBip, int customPath) {
+                   int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal,
+                   long sortOrder, boolean pushAlarm, boolean newBip, int customPath, Long mnemonicId) {
         this.id = id;
         this.uuid = uuid;
         this.nickName = nickName;
@@ -91,6 +93,7 @@ public class Account {
         this.pushAlarm = pushAlarm;
         this.newBip44 = newBip;
         this.customPath = customPath;
+        this.mnemonicId = mnemonicId;
     }
 
     public ArrayList<Balance> getBalances() {
@@ -159,7 +162,7 @@ public class Account {
 
     public SpannableString getLastTotal(Context c, BaseChain chain) {
         if (TextUtils.isEmpty(lastTotal)) {
-            return SpannableString.valueOf("--");
+            return SpannableString.valueOf(WDp.getDpAmount2(c, BigDecimal.ZERO, 6, 6));
         }
         try {
             if (chain.equals(BaseChain.BNB_MAIN)) {

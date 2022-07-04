@@ -69,7 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/line_validator"
                 android:layout_marginLeft="@dimen/space_12"
-                android:layout_marginRight="@dimen/space_6"
+                android:layout_marginRight="@dimen/space_14"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 

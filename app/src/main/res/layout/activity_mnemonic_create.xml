@@ -4,25 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:background="@color/colorWhiteDayNight"/>
+        android:src="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorWhiteDayNight"
+        android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_ssm_17_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_check_mnemonic_c" />
+            android:text="@string/str_mnemonic_create" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
@@ -34,9 +35,9 @@
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_12"
         app:cardPreventCornerOverlap="true"
-        app:cardElevation="0dp"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBgCosmos"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true" >
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,7 +56,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -68,7 +69,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_1"
@@ -77,7 +78,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -90,7 +91,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_2"
@@ -99,7 +100,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -112,7 +113,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_3"
@@ -121,7 +122,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -134,7 +135,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -151,7 +152,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -164,7 +165,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_5"
@@ -173,7 +174,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -186,7 +187,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_6"
@@ -195,7 +196,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -208,7 +209,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_7"
@@ -217,7 +218,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -230,7 +231,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -247,7 +248,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -260,7 +261,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_9"
@@ -269,7 +270,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -282,7 +283,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_10"
@@ -291,7 +292,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -304,7 +305,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_11"
@@ -313,7 +314,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -326,7 +327,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -343,7 +344,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -356,7 +357,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_13"
@@ -365,7 +366,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -378,7 +379,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_14"
@@ -387,7 +388,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -400,7 +401,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_15"
@@ -409,7 +410,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -422,7 +423,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -439,7 +440,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -452,7 +453,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_17"
@@ -461,7 +462,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -474,7 +475,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_18"
@@ -483,7 +484,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -496,7 +497,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_19"
@@ -505,7 +506,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -518,7 +519,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -535,7 +536,7 @@
                     android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -548,7 +549,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_21"
@@ -557,7 +558,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -570,7 +571,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_22"
@@ -579,7 +580,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -592,7 +593,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_23"
@@ -601,7 +602,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
                     android:gravity="center_vertical"
-                    android:background="@drawable/box_round_atom">
+                    android:background="@drawable/box_round_darkgray">
                     <TextView
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
@@ -614,72 +615,32 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
                         android:gravity="center_vertical"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_ss_11_white"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-
     <LinearLayout
+        android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_layer"
-        android:orientation="vertical"
-        android:padding="@dimen/space_40"
-        android:gravity="center_horizontal">
-        <ImageView
-            android:id="@+id/create_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/warning_ic"/>
-        <TextView
-            android:id="@+id/create_msg1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_6"
-            android:gravity="center"
-            style="@style/font_ssm_17_black_daynight"
-            android:text="@string/str_warning"/>
-        <TextView
-            android:id="@+id/create_msg2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_6"
-            android:gravity="center"
-            style="@style/font_ss_12_gray1"
-            android:text="@string/str_create_warn1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bottom_layer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:layout_alignParentBottom="true">
-
+        android:layout_marginBottom="@dimen/space_24">
         <Button
-            android:id="@+id/btn_copy"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_derive"
+            android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
             android:minHeight="@dimen/space_45"
-            android:background="@drawable/btn_trans_with_border"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
+            android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"
-            android:text="@string/str_copy"/>
-
-        <Button
-            android:id="@+id/btn_ok"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginBottom="@dimen/space_36"
-            android:layout_marginTop="@dimen/space_8"
-            android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_ok"/>
+            android:text="@string/str_derive_wallet"/>
     </LinearLayout>
 </RelativeLayout>

@@ -32,10 +32,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicListActivity;
+import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
+import wannabit.io.cosmostaion.activities.setting.WatchingAccountAddActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -46,11 +48,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9036;
 
-    private FrameLayout mBtnAddWallet, mBtnWallet, mBtnNotice, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
-            mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage, mBtnStarnameWc,
-            mBtnTerm, mBtnGithub, mBtnVersion;
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey,mBtnWatchAddress, mBtnAlaram, mBtnAppLock, mBtnCurrency,
+                        mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
+                        mBtnTerm, mBtnGithub, mBtnVersion;
 
-    private TextView mTvAppLock, mTvCurrency, mTvBasePrice, mTvVersion;
+    private TextView mTvAppLock, mTvCurrency, mTvVersion;
 
     public static MainSettingFragment newInstance(Bundle bundle) {
         MainSettingFragment fragment = new MainSettingFragment();
@@ -101,16 +103,17 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_setting, container, false);
-        mBtnAddWallet = rootView.findViewById(R.id.add_wallet);
         mBtnWallet = rootView.findViewById(R.id.card_wallet);
-        mBtnNotice = rootView.findViewById(R.id.card_notice);
+        mBtnMnemonic = rootView.findViewById(R.id.card_mnemonic);
+        mBtnImportKey = rootView.findViewById(R.id.card_key);
+        mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
         mBtnAlaram = rootView.findViewById(R.id.card_alaram);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
-        mBtnBasePrice = rootView.findViewById(R.id.card_base_price);
+        mBtnExplore = rootView.findViewById(R.id.card_explore);
+        mBtnNotice = rootView.findViewById(R.id.card_notice);
         mBtnGuide = rootView.findViewById(R.id.card_guide);
         mBtnTelegram = rootView.findViewById(R.id.card_telegram);
-        mBtnExplore = rootView.findViewById(R.id.card_explore);
         mBtnHomepage = rootView.findViewById(R.id.card_homepage);
         mBtnStarnameWc = rootView.findViewById(R.id.card_starname_wallet_connect);
         mBtnTerm = rootView.findViewById(R.id.card_term);
@@ -118,19 +121,19 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnVersion = rootView.findViewById(R.id.card_version);
         mTvAppLock = rootView.findViewById(R.id.applock_text);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
-        mTvBasePrice = rootView.findViewById(R.id.base_price_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
 
-        mBtnAddWallet.setOnClickListener(this);
+        mBtnMnemonic.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
-        mBtnNotice.setOnClickListener(this);
+        mBtnImportKey.setOnClickListener(this);
+        mBtnWatchAddress.setOnClickListener(this);
         mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
-        mBtnBasePrice.setOnClickListener(this);
+        mBtnExplore.setOnClickListener(this);
+        mBtnNotice.setOnClickListener(this);
         mBtnGuide.setOnClickListener(this);
         mBtnTelegram.setOnClickListener(this);
-        mBtnExplore.setOnClickListener(this);
         mBtnHomepage.setOnClickListener(this);
         mBtnStarnameWc.setOnClickListener(this);
         mBtnTerm.setOnClickListener(this);
@@ -143,12 +146,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         return rootView;
     }
 
-
     @Override
-    public void onRefreshTab() {
-        if (!isAdded()) return;
-        mTvCurrency.setText(getBaseDao().getCurrencyString());
-        mTvBasePrice.setText(getString(R.string.str_coingecko));
+    public void onResume() {
+        super.onResume();
         if (getBaseDao().getUsingAppLock()) {
             mTvAppLock.setText(R.string.str_app_applock_enabled);
         } else {
@@ -157,15 +157,24 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.equals(mBtnAddWallet)) {
-            Bundle bundle = new Bundle();
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
-            dialog.setCancelable(true);
-            getMainActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+    public void onRefreshTab() {
+        if (!isAdded()) return;
+        mTvCurrency.setText(getBaseDao().getCurrencyString());
+    }
 
-        } else if (v.equals(mBtnWallet)) {
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mBtnWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
+
+        } else if (v.equals(mBtnMnemonic)) {
+            startActivity(new Intent(getBaseActivity(), MnemonicListActivity.class));
+
+        } else if (v.equals(mBtnImportKey)) {
+            startActivity(new Intent(getBaseActivity(), RestoreKeyActivity.class));
+
+        } else if (v.equals(mBtnWatchAddress)) {
+            startActivity(new Intent(getBaseActivity(), WatchingAccountAddActivity.class));
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
@@ -178,15 +187,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             currency_dialog.setCancelable(true);
             currency_dialog.setTargetFragment(this, SELECT_CURRENCY);
             getFragmentManager().beginTransaction().add(currency_dialog, "dialog").commitNowAllowingStateLoss();
-            return;
-
-        } else if (v.equals(mBtnBasePrice)) {
-            //NO more coinmarketcap always using coingecko
-//            Dialog_Market market = Dialog_Market.newInstance(null);
-//            market.setCancelable(true);
-//            market.setTargetFragment(this, SELECT_MARKET);
-//            getFragmentManager().beginTransaction().add(market, "dialog").commitNowAllowingStateLoss();
-//            return;
             return;
 
         } else if (v.equals(mBtnExplore)) {

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:background="@color/colorWhiteDayNight" />
+        android:src="@drawable/bg_cosmos" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorWhiteDayNight"
+        android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_ssm_17_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_wallet_detail" />
@@ -43,7 +43,6 @@
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_6"
                 app:cardPreventCornerOverlap="true"
@@ -75,7 +74,7 @@
 
                     <TextView
                         android:id="@+id/account_name"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_ss_14_white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -93,7 +92,6 @@
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_4"
                 android:layout_marginRight="@dimen/space_12"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_6"
                 app:cardPreventCornerOverlap="true"
@@ -134,7 +132,7 @@
 
                         <TextView
                             android:id="@+id/account_alarm_msg"
-                            style="@style/font_ss_12_black_daynight"
+                            style="@style/font_ss_12_white"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:lines="2"
@@ -150,7 +148,6 @@
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_4"
                 android:layout_marginRight="@dimen/space_12"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_6"
                 app:cardPreventCornerOverlap="true"
@@ -192,7 +189,7 @@
 
                             <TextView
                                 android:id="@+id/account_address"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_ss_12_white"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -229,7 +226,7 @@
 
                             <TextView
                                 android:id="@+id/account_chain"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_ss_12_white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -251,7 +248,7 @@
 
                             <TextView
                                 android:id="@+id/account_import_time"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_ss_12_white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -273,7 +270,30 @@
 
                             <TextView
                                 android:id="@+id/account_import_state"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_ss_12_white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="Mnemonic" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/mnemonic_name_layer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_10"
+                            android:paddingRight="@dimen/space_8">
+
+                            <TextView
+                                style="@style/font_ss_12_gray1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mnemonic" />
+
+                            <TextView
+                                android:id="@+id/mnemonic_name"
+                                style="@style/font_ss_12_white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -297,7 +317,7 @@
 
                             <TextView
                                 android:id="@+id/account_path"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_ss_12_white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -307,7 +327,7 @@
 
                         <TextView
                             android:id="@+id/import_msg"
-                            style="@style/font_ss_11_atom"
+                            style="@style/font_ss_11_photon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
@@ -326,7 +346,6 @@
                 android:layout_marginTop="@dimen/space_4"
                 android:layout_marginRight="@dimen/space_12"
                 android:layout_marginBottom="@dimen/space_12"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_6"
                 app:cardPreventCornerOverlap="true"
@@ -363,7 +382,7 @@
 
                         <TextView
                             android:id="@+id/reward_address"
-                            style="@style/font_ss_12_black_daynight"
+                            style="@style/font_ss_12_white"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -379,7 +398,6 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
     <LinearLayout
         android:id="@+id/bottom_layer"
@@ -400,14 +418,14 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_check"
-                style="@style/font_ss_14_photon"
+                android:id="@+id/btn_delete"
+                style="@style/font_ss_14_red"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
                 android:layout_weight="1"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_with_red_border"
                 android:minHeight="@dimen/space_45"
-                android:text="@string/str_check_mnemonic" />
+                android:text="@string/str_delete_wallet" />
 
             <View
                 android:id="@+id/view"
@@ -421,21 +439,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
                 android:layout_weight="1"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_with_photon_border"
                 android:minHeight="@dimen/space_45"
                 android:text="@string/str_check_private_key" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_delete"
-            style="@style/font_ss_14_red"
+            android:id="@+id/btn_check"
+            style="@style/font_ss_14_photon"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginRight="@dimen/space_16"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"
-            android:text="@string/str_delete_wallet" />
+            android:text="@string/str_check_mnemonic" />
     </LinearLayout>
 </RelativeLayout>

@@ -59,6 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/history_line"
+                android:layout_marginRight="@dimen/space_4"
                 android:paddingLeft="@dimen/space_12"
                 android:paddingRight="@dimen/space_8"
                 android:orientation="vertical"

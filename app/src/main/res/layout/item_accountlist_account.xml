@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/accountArrowSort"
-                android:layout_width="@dimen/space_44"
+                android:layout_width="@dimen/space_24"
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/space_6"
                 android:paddingRight="@dimen/space_6"

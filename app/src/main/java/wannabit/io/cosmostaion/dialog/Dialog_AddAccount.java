@@ -15,10 +15,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.CreateActivity;
-import wannabit.io.cosmostaion.activities.RestoreActivity;
-import wannabit.io.cosmostaion.activities.RestoreKeyActivity;
-import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicCreateActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
+import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
+import wannabit.io.cosmostaion.activities.setting.WatchingAccountAddActivity;
 
 public class Dialog_AddAccount extends DialogFragment {
 
@@ -50,9 +50,6 @@ public class Dialog_AddAccount extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent restoreIntent = new Intent(getActivity(), RestoreKeyActivity.class);
-                if (getArguments() != null && getArguments().getString("chain") != null) {
-                    restoreIntent.putExtra("chain", getArguments().getString("chain"));
-                }
                 startActivity(restoreIntent);
                 getDialog().dismiss();
             }
@@ -61,10 +58,7 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_import_mnemonic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent restoreIntent = new Intent(getActivity(), RestoreActivity.class);
-                if (getArguments() != null && getArguments().getString("chain") != null) {
-                    restoreIntent.putExtra("chain", getArguments().getString("chain"));
-                }
+                Intent restoreIntent = new Intent(getActivity(), MnemonicRestoreActivity.class);
                 startActivity(restoreIntent);
                 getDialog().dismiss();
             }
@@ -81,10 +75,7 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createIntent = new Intent(getActivity(), CreateActivity.class);
-                if (getArguments() != null && getArguments().getString("chain") != null) {
-                    createIntent.putExtra("chain", getArguments().getString("chain"));
-                }
+                Intent createIntent = new Intent(getActivity(), MnemonicCreateActivity.class);
                 startActivity(createIntent);
                 getDialog().dismiss();
             }

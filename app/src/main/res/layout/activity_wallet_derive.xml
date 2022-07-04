@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/chain_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_cosmos"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorBlack"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <TextView
+            android:id="@+id/tool_title"
+            style="@style/font_ssm_17_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mnemonic 1" />
+
+        <LinearLayout
+            android:id="@+id/cnt_layer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/space_16">
+            <TextView
+                android:id="@+id/account_cnt"
+                style="@style/font_ss_14_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1" />
+            <TextView
+                style="@style/font_ss_14_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" / " />
+            <TextView
+                android:id="@+id/chain_cnt"
+                style="@style/font_ss_14_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-" />
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/hd_path_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/space_4"
+        android:paddingBottom="@dimen/space_4">
+
+        <TextView
+            android:id="@+id/path_title"
+            style="@style/font_ss_14_gray1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_6"
+            android:layout_marginRight="@dimen/space_2"
+            android:text="HD Path : " />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_toRightOf="@+id/path_title">
+
+            <LinearLayout
+                android:id="@+id/path_layer"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_30"
+                android:layout_weight="1"
+                android:background="@drawable/box_round_unselected"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_4">
+
+                <TextView
+                    android:id="@+id/path"
+                    style="@style/font_ss_14_white"
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:text="0" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/space_16"
+                    android:src="@drawable/arrow_down_gr" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24">
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginTop="@dimen/space_8"
+            android:background="@drawable/btn_trans_with_photon_border"
+            style="@style/font_ss_14_photon"
+            android:textAllCaps="false"
+            android:text="Derive Wallets"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_control"
+        android:layout_below="@+id/hd_path_layer"
+        android:layout_marginTop="@dimen/space_4"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingTop="@dimen/space_6" />
+</RelativeLayout>
