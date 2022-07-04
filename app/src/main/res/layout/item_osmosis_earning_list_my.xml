@@ -31,13 +31,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/myfarming_img"
                     android:layout_width="@dimen/space_64"
                     android:layout_height="@dimen/space_64"
-                    android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/icon_myfarming"/>
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/icon_myfarming" />
 
                 <TextView
                     android:id="@+id/myfarming_apr"

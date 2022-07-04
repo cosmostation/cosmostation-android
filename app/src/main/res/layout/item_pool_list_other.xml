@@ -30,13 +30,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/pool_market_img"
                     android:layout_width="@dimen/space_64"
                     android:layout_height="@dimen/space_64"
-                    android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/icon_pool"/>
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/icon_pool" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
