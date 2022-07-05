@@ -246,6 +246,9 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         } else if (getSActivity().mBaseChain.equals(BaseChain.CUDOS_MAIN)) {
             mGasFee.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
             mGasRate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
+        } else if (getSActivity().mBaseChain.equals(BaseChain.EVMOS_MAIN)) {
+            mGasFee.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
+            mGasRate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
         }
         mGasFee.setText(mFee.toPlainString());
 
