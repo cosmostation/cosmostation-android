@@ -89,7 +89,7 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             }
             WDp.DpMainDenom(getSActivity(), baseChain, holder.accountDenom);
-            holder.accountAvailable.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(account.lastTotal), dpDecimal, 6));
+            holder.accountAvailable.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(account.getLastTotal(getSActivity(), baseChain).toString()), dpDecimal, 6));
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
