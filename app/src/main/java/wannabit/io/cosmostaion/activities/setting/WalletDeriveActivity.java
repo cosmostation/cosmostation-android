@@ -261,7 +261,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     }
                     derive.selected = !derive.selected;
                     if (derive.selected) {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_round_seleted_white_daynight));
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_selected));
                     } else {
                         holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_unselected));
                     }
