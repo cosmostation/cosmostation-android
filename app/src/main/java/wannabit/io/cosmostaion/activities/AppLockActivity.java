@@ -129,7 +129,7 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
                 @Override
                 public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
                     super.onAuthenticationSucceeded(result);
-                    mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.color_atom), android.graphics.PorterDuff.Mode.SRC_IN);
+                    mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.color_cosmos), android.graphics.PorterDuff.Mode.SRC_IN);
                     onUnlock();
                 }
 

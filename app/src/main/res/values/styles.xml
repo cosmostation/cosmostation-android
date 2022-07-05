@@ -48,7 +48,7 @@
     </style>
 
     <style name="ColorSwitchStyles">
-        <item name="colorControlActivated">@color/color_atom</item>
+        <item name="colorControlActivated">@color/color_cosmos</item>
     </style>
 
     <style name="ColorSwitchStylesIov">

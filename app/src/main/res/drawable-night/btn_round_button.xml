@@ -4,7 +4,7 @@
         android:radius="100dp"
         />
     <solid
-        android:color="@color/color_atom"/>
+        android:color="@color/color_cosmos"/>
     <size
         android:width="60dp"
         android:height="60dp"

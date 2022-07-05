@@ -182,7 +182,7 @@
                         app:radius="@dimen/space_6"
                         app:ripple="true"
                         app:rippleColor="@color/colorGray1"
-                        app:selectedBackground="@color/color_atom">
+                        app:selectedBackground="@color/color_cosmos">
                         <com.addisonelliott.segmentedbutton.SegmentedButton
                             android:id="@+id/btn_tiny"
                             android:layout_width="0dp"

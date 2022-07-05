@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:ellipsize="middle"
-                        android:maxWidth="@dimen/space_240"
+                        android:maxWidth="@dimen/space_180"
                         android:singleLine="true"
                         android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr" />
 
