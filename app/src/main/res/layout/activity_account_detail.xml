@@ -45,8 +45,7 @@
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true">
+                app:cardPreventCornerOverlap="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -91,11 +90,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_6"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true">
+                app:cardPreventCornerOverlap="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -147,11 +146,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_6"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true">
+                app:cardPreventCornerOverlap="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -345,11 +344,11 @@
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
                 android:layout_marginBottom="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_6"
                 app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true">
+                app:cardPreventCornerOverlap="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
