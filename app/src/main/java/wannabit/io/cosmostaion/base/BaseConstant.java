@@ -749,9 +749,9 @@ public class BaseConstant {
     public final static String UMEE_GAS_RATE_LOW                        = "0.001";
     public final static String UMEE_GAS_RATE_AVERAGE                    = "0.005";
 
-    public final static String EVMOS_GAS_RATE_TINY                      = "0.000";
-    public final static String EVMOS_GAS_RATE_LOW                       = "0.000";
-    public final static String EVMOS_GAS_RATE_AVERAGE                   = "0.000";
+    public final static String EVMOS_GAS_RATE_TINY                      = "20000000000.00";
+    public final static String EVMOS_GAS_RATE_LOW                       = "20000000000.00";
+    public final static String EVMOS_GAS_RATE_AVERAGE                   = "20000000000.00";
     
     public final static String CUDOS_GAS_RATE_TINY                      = "5000000000000.00";
     public final static String CUDOS_GAS_RATE_LOW                       = "5000000000000.00";
