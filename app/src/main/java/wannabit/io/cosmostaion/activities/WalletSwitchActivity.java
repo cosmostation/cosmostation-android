@@ -144,9 +144,9 @@ public class WalletSwitchActivity extends BaseActivity {
                 TextView accountDenom = accountLayout.findViewById(R.id.accountDenom);
 
                 if (account.id.equals(mAccount.id)) {
-                    accountCard.setBackground(getResources().getDrawable(R.drawable.box_round_seleted_white));
+                    accountCard.setBackground(getResources().getDrawable(R.drawable.box_round_seleted_white_daynight));
                 } else {
-                    accountCard.setBackground(getResources().getDrawable(R.drawable.box_round_darkgray));
+                    accountCard.setBackground(getResources().getDrawable(R.drawable.box_round_darkgray_daynight));
                 }
                 WDp.DpMainDenom(WalletSwitchActivity.this, account.baseChain, accountDenom);
                 accountAddress.setText(account.address);
