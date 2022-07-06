@@ -11,8 +11,8 @@
         android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
         android:background="@color/colorPrimaryDark"
+        android:scaleType="fitXY"
         app:layout_anchor="@+id/relativeLayout"
         app:layout_anchorGravity="center" />
 
@@ -53,6 +53,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:ellipsize="end"
+                        android:maxWidth="@dimen/space_80"
+                        android:maxLines="1"
                         android:text="Wannabit" />
 
                     <TextView

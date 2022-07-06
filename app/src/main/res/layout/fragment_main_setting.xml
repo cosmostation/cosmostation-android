@@ -30,7 +30,7 @@
                 android:id="@+id/card_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -59,7 +59,7 @@
                 android:id="@+id/card_mnemonic"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -88,7 +88,7 @@
                 android:id="@+id/card_key"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -117,7 +117,7 @@
                 android:id="@+id/card_watch_address"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -155,7 +155,7 @@
                 android:id="@+id/card_alaram"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -184,7 +184,7 @@
                 android:id="@+id/card_applock"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -224,7 +224,7 @@
                 android:id="@+id/card_currency"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -264,7 +264,7 @@
                 android:id="@+id/card_base_price"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -312,7 +312,7 @@
                 android:id="@+id/card_explore"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -342,7 +342,7 @@
                 android:id="@+id/card_notice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -371,7 +371,7 @@
                 android:id="@+id/card_guide"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -400,7 +400,7 @@
                 android:id="@+id/card_telegram"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -429,7 +429,7 @@
                 android:id="@+id/card_homepage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -458,7 +458,7 @@
                 android:id="@+id/card_starname_wallet_connect"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -496,7 +496,7 @@
                 android:id="@+id/card_term"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -525,7 +525,7 @@
                 android:id="@+id/card_github"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
@@ -554,7 +554,7 @@
                 android:id="@+id/card_version"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:background="@drawable/box_trans_round"
                 android:clickable="true">
 
