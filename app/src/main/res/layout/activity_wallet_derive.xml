@@ -31,7 +31,7 @@
             android:layout_marginRight="@dimen/space_16"
             android:orientation="horizontal"
             android:visibility="gone">
-
+            
             <TextView
                 android:id="@+id/account_cnt"
                 style="@style/font_ss_14_gray1"
