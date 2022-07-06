@@ -90,7 +90,7 @@ public class Dialog_WC_Account extends DialogFragment {
                 holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
             WDp.DpMainDenom(getSActivity(), baseChain, holder.accountDenom);
-            holder.accountAvailable.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(account.lastTotal), dpDecimal, 6));
+            holder.accountAvailable.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(account.getLastTotal(getSActivity(), baseChain).toString()), dpDecimal, 6));
             holder.rootLayer.setOnClickListener(v -> {
                 if (mOnSelectListener != null) {
                     mOnSelectListener.onSelect(id, account);

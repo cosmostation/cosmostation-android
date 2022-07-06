@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginRight="@dimen/space_16"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/account_cnt"
