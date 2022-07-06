@@ -17,7 +17,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -82,7 +81,6 @@ public class Dialog_WC_Account extends DialogFragment {
         public void onBindViewHolder(@NonNull AccountListAdapter.AccountHolder holder, int position) {
             final Account account = mAccounts.get(position);
             final BaseChain baseChain = BaseChain.getChain(account.baseChain);
-            final int dpDecimal = WDp.mainDisplayDecimal(baseChain);
             holder.accountKeyState.setColorFilter(WDp.getChainColor(getContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             holder.accountAddress.setText(account.address);
 
@@ -90,7 +88,7 @@ public class Dialog_WC_Account extends DialogFragment {
                 holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
             WDp.DpMainDenom(getSActivity(), baseChain, holder.accountDenom);
-            holder.accountAvailable.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(account.getLastTotal(getSActivity(), baseChain).toString()), dpDecimal, 6));
+            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
             holder.rootLayer.setOnClickListener(v -> {
                 if (mOnSelectListener != null) {
                     mOnSelectListener.onSelect(id, account);
