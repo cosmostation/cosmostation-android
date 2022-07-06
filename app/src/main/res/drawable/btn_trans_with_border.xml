@@ -11,7 +11,7 @@
                     <corners
                         android:radius="@dimen/space_6"/>
                     <stroke
-                        android:color="@color/colorGray5"
+                        android:color="@color/colorBlackDayNight"
                         android:width="@dimen/space_1"/>
                     <padding
                         android:left="@dimen/space_8"
@@ -29,7 +29,7 @@
                     <corners
                         android:radius="@dimen/space_6"/>
                     <stroke
-                        android:color="@color/colorWhite"
+                        android:color="@color/colorBlackDayNight"
                         android:width="@dimen/space_1"/>
                     <padding
                         android:left="@dimen/space_8"

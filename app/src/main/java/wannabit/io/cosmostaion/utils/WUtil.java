@@ -1355,7 +1355,7 @@ public class WUtil {
 
     public static String dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equals(TOKEN_ATOM)) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.color_atom));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.color_cosmos));
             textView.setText("ATOM");
 
         } else if (denom.startsWith("pool")) {

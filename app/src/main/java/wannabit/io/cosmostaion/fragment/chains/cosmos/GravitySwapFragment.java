@@ -101,7 +101,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         mBtnToggle.setOnClickListener(this);
         mBtnSwapStart.setOnClickListener(this);
 
-        mBtnToggle.setBackgroundTintList(ContextCompat.getColorStateList(getSActivity(), R.color.color_atom));
+        mBtnToggle.setBackgroundTintList(ContextCompat.getColorStateList(getSActivity(), R.color.color_cosmos));
         mSwapTitle.setText(getString(R.string.str_swap_gravity));
         return rootView;
     }

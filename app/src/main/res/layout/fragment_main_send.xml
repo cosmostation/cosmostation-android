@@ -14,20 +14,18 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/notice_root"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_40"
+            android:layout_height="@dimen/space_26"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_2"
                 android:paddingLeft="@dimen/space_16"
                 android:paddingTop="@dimen/space_6"
                 android:paddingRight="@dimen/space_6"
@@ -67,17 +65,19 @@
                 </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/card_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginTop="@dimen/space_6"
+            android:layout_marginBottom="@dimen/space_2"
             android:layout_marginRight="@dimen/space_12"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
 
             <LinearLayout
                 android:layout_width="match_parent"

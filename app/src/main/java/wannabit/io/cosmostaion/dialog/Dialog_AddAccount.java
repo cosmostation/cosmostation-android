@@ -33,7 +33,7 @@ public class Dialog_AddAccount extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.colorBlack)));
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.colorTrans)));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

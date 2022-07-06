@@ -15,7 +15,7 @@
     </style>
     <style name="font_ss_7_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_atom</item>
+        <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_7</item>
     </style>
 
@@ -53,7 +53,7 @@
 
     <style name="font_ss_9_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_atom</item>
+        <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
@@ -138,7 +138,7 @@
 
     <style name="font_ss_10_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_atom</item>
+        <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
@@ -205,7 +205,7 @@
 
     <style name="font_ss_11_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_atom</item>
+        <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
@@ -327,7 +327,7 @@
 
     <style name="font_ss_12_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_atom</item>
+        <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -449,7 +449,7 @@
 
     <style name="font_ss_14_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_atom</item>
+        <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -929,7 +929,7 @@
 
     <style name="font_ss_17_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_atom</item>
+        <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
