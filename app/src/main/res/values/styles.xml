@@ -10,13 +10,13 @@
         <item name="colorControlHighlight">@color/colorGray9</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.Intro">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="WhiteToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="colorControlNormal">@color/colorWhite</item>
@@ -48,11 +48,11 @@
     </style>
 
     <style name="ColorSwitchStyles">
-        <item name="colorControlActivated">@color/colorAtom</item>
+        <item name="colorControlActivated">@color/color_cosmos</item>
     </style>
 
     <style name="ColorSwitchStylesIov">
-        <item name="colorControlActivated">@color/colorIov</item>
+        <item name="colorControlActivated">@color/color_iov</item>
     </style>
 
     <style name="Theme.AppCompat.Translucent">

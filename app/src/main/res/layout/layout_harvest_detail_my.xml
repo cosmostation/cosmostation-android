@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_17_white"
+                style="@style/font_ss_17_black_daynight"
                 android:text="@string/str_my_harvest_information"/>
         </LinearLayout>
 
@@ -48,11 +48,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/deposit_icon"
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
-                android:src="@drawable/token_ic"/>
+                android:src="@drawable/token_ic" />
             <TextView
                 android:id="@+id/deposit_denom"
                 android:layout_width="wrap_content"
@@ -60,7 +61,7 @@
                 android:layout_toRightOf="@+id/deposit_icon"
                 android:layout_marginLeft="@dimen/space_8"
                 android:text="COIN"
-                style="@style/font_ss_14_white"/>
+                style="@style/font_ss_14_black_daynight"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -84,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="Coin"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/deposited_amount"
@@ -94,7 +95,7 @@
                     android:layout_alignBaseline="@+id/deposited_symbol"
                     android:layout_toLeftOf="@+id/deposited_symbol"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
         </RelativeLayout>
 
@@ -121,7 +122,7 @@
                     android:drawableLeft="@drawable/deposit_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:text="@string/str_collateral_deposit" />
             </RelativeLayout>
 
@@ -142,7 +143,7 @@
                     android:drawableLeft="@drawable/withdraw_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:text="@string/str_collateral_withdraw" />
             </RelativeLayout>
         </LinearLayout>
@@ -189,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="Coin"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/harvest_reward_amount"
@@ -199,7 +200,7 @@
                     android:layout_alignBaseline="@+id/harvest_reward_symbol"
                     android:layout_toLeftOf="@+id/harvest_reward_symbol"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
@@ -224,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="Coin"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:visibility="gone"/>
                 <TextView
                     android:id="@+id/daily_reward_amount"
@@ -234,7 +235,7 @@
                     android:layout_alignBaseline="@+id/daily_reward_denom"
                     android:layout_toLeftOf="@+id/daily_reward_denom"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
         </RelativeLayout>
 
@@ -254,7 +255,7 @@
                 android:drawableLeft="@drawable/incentive_s_ic"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_claim_reward" />
         </RelativeLayout>
 

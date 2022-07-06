@@ -14,19 +14,18 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/notice_root"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_40"
+            android:layout_height="@dimen/space_26"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_2"
                 android:paddingLeft="@dimen/space_16"
                 android:paddingTop="@dimen/space_6"
                 android:paddingRight="@dimen/space_6"
@@ -51,7 +50,7 @@
 
                     <TextView
                         android:id="@+id/info_notice"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -66,16 +65,19 @@
                 </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/card_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginTop="@dimen/space_6"
+            android:layout_marginBottom="@dimen/space_2"
             android:layout_marginRight="@dimen/space_12"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,7 +101,7 @@
 
                     <TextView
                         android:id="@+id/wallet_address"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_rmr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -111,7 +113,7 @@
 
                 <TextView
                     android:id="@+id/total_value"
-                    style="@style/font_ss_21_white"
+                    style="@style/font_ss_21_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_2"

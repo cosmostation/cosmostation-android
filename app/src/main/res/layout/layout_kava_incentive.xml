@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_kava_incentive_title"/>
 
             <TextView
@@ -64,7 +64,7 @@
                         android:layout_toLeftOf="@+id/incentive_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 

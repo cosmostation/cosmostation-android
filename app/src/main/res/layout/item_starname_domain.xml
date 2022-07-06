@@ -50,7 +50,7 @@
                         android:singleLine="true"
                         android:ellipsize="end"
                         android:letterSpacing="0.05"
-                        style="@style/font_ssm_17_white"
+                        style="@style/font_ssm_17_black_daynight"
                         android:text="-"/>
 
                     <TextView
@@ -59,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
 
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_white"
+                        style="@style/font_ss_11_black_daynight"
                         android:text="0"/>
                 </RelativeLayout>
 
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_11_white"
+                        style="@style/font_ss_11_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
 

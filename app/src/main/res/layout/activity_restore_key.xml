@@ -8,19 +8,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:background="@color/colorWhiteDayNight"/>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
+            style="@style/font_ssm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
-            android:text="@string/str_restore_key"/>
+            android:text="@string/str_restore_key" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -35,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssl_11_white"
+            style="@style/font_ssl_11_black_daynight"
             android:text="@string/str_key_msg"/>
 
         <EditText
@@ -50,7 +52,7 @@
             android:textColorHint="@color/colorGray4"
             android:background="@drawable/btn_trans_with_border"
             android:paddingEnd="@dimen/space_12"
-            style="@style/font_ss_12_white"
+            style="@style/font_ss_12_black_daynight"
             android:imeOptions="actionNext"
             android:scrollbars="vertical"
             android:gravity="center_vertical"/>
@@ -92,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_9_white"
+                style="@style/font_ss_9_black_daynight"
                 android:text="@string/str_qr_code"/>
         </LinearLayout>
         <LinearLayout
@@ -113,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_9_white"
+                style="@style/font_ss_9_black_daynight"
                 android:text="@string/str_paste"/>
         </LinearLayout>
     </LinearLayout>
@@ -134,7 +136,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button

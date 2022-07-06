@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="2dp"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgCosmos"
@@ -31,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10"
-                style="@style/font_ssm_17_white"
+                style="@style/font_ssm_17_black_daynight"
                 android:text="@string/str_promotion_title"/>
             <TextView
                 android:layout_width="wrap_content"

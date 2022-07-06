@@ -46,28 +46,31 @@
                         android:layout_height="@dimen/space_24"
                         android:layout_centerVertical="true"
                         android:src="@drawable/key_off"/>
+
                     <TextView
                         android:id="@+id/accountName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
-                        android:layout_toRightOf="@+id/accountKeyState"
-                        android:layout_toLeftOf="@+id/accountAddress"
-                        android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="Wallet Name"/>
-                    <TextView
-                        android:id="@+id/accountAddress"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:layout_toLeftOf="@+id/accountAddress"
+                        android:layout_toRightOf="@+id/accountKeyState"
                         android:maxWidth="@dimen/space_120"
+                        android:text="Wallet Name" />
+
+                    <TextView
+                        android:id="@+id/accountAddress"
+                        style="@style/font_rmr_12_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_gray1"
                         android:ellipsize="middle"
-                        android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
+                        android:gravity="right"
+                        android:maxWidth="@dimen/space_120"
                         android:singleLine="true"
-                        android:gravity="right"/>
+                        android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr" />
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_14_gray1"
+                        style="@style/font_ss_14_black_daynight"
                         android:text="-"/>
                     <TextView
                         android:id="@+id/accountDenom"

@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="2dp"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgOsmosis"
@@ -35,14 +36,14 @@
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/lock_id"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/lock_bar"
                     android:text="# 1234" />
                 <TextView
                     android:id="@+id/lock_bar"
-                    style="@style/font_ssl_12_white"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/lock_status"
@@ -50,7 +51,7 @@
                     android:text=" / "/>
                 <TextView
                     android:id="@+id/lock_status"
-                    style="@style/font_ssl_12_white"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -69,7 +70,7 @@
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/amount_denom"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -80,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/amount_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_white"
+                    style="@style/font_ssl_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -116,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/next_reward_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_white"
+                    style="@style/font_ssl_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -134,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:text="UnLock Now" />
             </RelativeLayout>
 

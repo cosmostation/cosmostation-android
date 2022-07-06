@@ -3,32 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorGray2"
+        android:backgroundTint="@color/colorWhiteDayNight"
+        app:cardElevation="0dp"
         app:contentPadding="@dimen/space_4">
+
         <TextView
             android:id="@+id/header_title"
+            style="@style/font_ss_12_gray1"
             android:layout_width="@dimen/space_300"
             android:layout_height="wrap_content"
-            android:text="Recently Histories"
-            style="@style/font_ss_12_gray1"
-            android:layout_marginLeft="@dimen/space_6"/>
+            android:layout_marginLeft="@dimen/space_14"
+            android:text="Recently Histories" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/header_title">
+
             <TextView
                 android:id="@+id/recycler_cnt"
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="@dimen/space_80"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/space_14"
                 android:gravity="end"
-                android:text="00"
-                style="@style/font_ss_12_white"
-                android:layout_marginRight="@dimen/space_6"/>
+                android:text="00" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

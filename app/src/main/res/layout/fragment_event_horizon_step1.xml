@@ -67,7 +67,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_2"
                         android:text=""
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -102,7 +102,7 @@
                         android:layout_toLeftOf="@+id/burn_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text=""
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -137,7 +137,7 @@
                     android:layout_toLeftOf="@+id/horizon_tx_fee_symbol"
                     android:layout_marginRight="@dimen/space_2"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
@@ -212,7 +212,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_2"
                         android:text=""
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -247,7 +247,7 @@
                         android:layout_toLeftOf="@+id/mint_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text=""
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
@@ -278,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                style="@style/font_ss_15_white"
+                style="@style/font_ss_15_black_daynight"
                 android:text="@string/str_back" />
         </RelativeLayout>
         <RelativeLayout

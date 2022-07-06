@@ -71,7 +71,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
 
         if (rawMsg.get("side").getAsLong() == 1L) {
             side_tv.setText("BUY");
-            side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorBnbBuy));
+            side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_bnbBuy));
 
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[1].split("-")[0] + ".png")
                     .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
@@ -88,7 +88,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
 
         } else if (rawMsg.get("side").getAsLong() == 2L) {
             side_tv.setText("SELL");
-            side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorBnbSell));
+            side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_bnbSell));
 
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[0].split("-")[0] + ".png")
                     .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)

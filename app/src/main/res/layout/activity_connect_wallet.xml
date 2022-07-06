@@ -9,18 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos" />
+        android:src="@color/colorWhiteDayNight" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_wallet_connect"
@@ -45,7 +45,7 @@
 
                     <TextView
                         android:id="@+id/dapp_title"
-                        style="@style/font_ssm_17_white"
+                        style="@style/font_ssm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_wc_dapp_title" />
@@ -132,7 +132,7 @@
 
                 <TextView
                     android:id="@+id/wc_name"
-                    style="@style/font_ss_15_white"
+                    style="@style/font_ss_15_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_16"
@@ -156,7 +156,7 @@
 
                 <TextView
                     android:id="@+id/wc_url"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -171,7 +171,7 @@
 
                 <TextView
                     android:id="@+id/wc_address"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -217,7 +217,7 @@
         android:visibility="gone">
 
         <TextView
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

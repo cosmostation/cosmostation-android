@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_get_commission"
-                    style="@style/font_ss_17_white"/>
+                    style="@style/font_ss_17_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
                 <TextView
                     android:id="@+id/tx_commission_moniker"
                     android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:text="-"
-                    style="@style/font_ss_11_white"/>
+                    style="@style/font_ss_11_black_daynight"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                             android:layout_alignParentRight="true" />
                         <TextView
                             android:id="@+id/tx_commission_amount0"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol0"
@@ -116,7 +116,7 @@
 
                         <TextView
                             android:id="@+id/tx_commission_amount1"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol1"
@@ -137,7 +137,7 @@
 
                         <TextView
                             android:id="@+id/tx_commission_amount2"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol2"
@@ -158,7 +158,7 @@
 
                         <TextView
                             android:id="@+id/tx_commission_amount3"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol3"

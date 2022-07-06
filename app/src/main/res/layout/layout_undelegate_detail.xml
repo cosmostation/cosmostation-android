@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                style="@style/font_ssl_14_white"
+                style="@style/font_ssl_14_black_daynight"
                 android:text="-"/>
         </RelativeLayout>
 
@@ -59,7 +59,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_white"/>
+                style="@style/font_ssl_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time0"
                 android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_white"/>
+                style="@style/font_ssl_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time1"
                 android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_white"/>
+                style="@style/font_ssl_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time2"
                 android:layout_width="wrap_content"
@@ -158,7 +158,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_white"/>
+                style="@style/font_ssl_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time3"
                 android:layout_width="wrap_content"
@@ -191,7 +191,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_white"/>
+                style="@style/font_ssl_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time4"
                 android:layout_width="wrap_content"

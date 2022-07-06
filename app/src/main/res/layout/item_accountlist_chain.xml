@@ -29,12 +29,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_5"
-                    android:src="@drawable/cosmos_wh_main"/>
+                    android:src="@drawable/chain_cosmos"/>
                 <TextView
                     android:id="@+id/chainName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_9_white"
+                    style="@style/font_ss_9_black_daynight"
                     android:letterSpacing="-0.07"
                     android:layout_marginTop="-4dp"
                     android:gravity="center"

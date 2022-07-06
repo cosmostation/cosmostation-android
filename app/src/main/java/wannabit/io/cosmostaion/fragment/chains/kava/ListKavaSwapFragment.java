@@ -102,7 +102,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         mBtnToggle.setOnClickListener(this);
         mBtnSwapStart.setOnClickListener(this);
 
-        mBtnToggle.setBackgroundTintList(ContextCompat.getColorStateList(getSActivity(), R.color.colorKava));
+        mBtnToggle.setBackgroundTintList(ContextCompat.getColorStateList(getSActivity(), R.color.color_kava));
         mSwapTitle.setText(getString(R.string.str_swap_kava));
         return rootView;
     }

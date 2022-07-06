@@ -14,6 +14,7 @@
         android:layout_marginBottom="2dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -40,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/farming_apr"
-                    style="@style/font_ssm_24_white"
+                    style="@style/font_ssm_24_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -57,7 +58,7 @@
 
                     <TextView
                         android:id="@+id/farming_pool_id"
-                        style="@style/font_ssm_17_white"
+                        style="@style/font_ssm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="EARNING #0"/>
@@ -83,7 +84,7 @@
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/available_denom"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -94,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/available_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_white"
+                    style="@style/font_ssl_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView

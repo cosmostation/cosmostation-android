@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,7 +67,7 @@
                         android:layout_gravity="center_vertical"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:text="ABCD"/>
                 </LinearLayout>
 
@@ -81,7 +81,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ssm_17_white"
+                        style="@style/font_ssm_17_black_daynight"
                         android:text="@string/str_profile_detail_title"/>
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -123,7 +123,7 @@
                 android:drawableLeft="@drawable/icon_profile"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_edit_profile" />
         </RelativeLayout>
     </LinearLayout>

@@ -42,7 +42,7 @@
                         android:layout_marginRight="@dimen/space_6"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_white"/>
+                        style="@style/font_ssm_17_black_daynight"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                         android:layout_marginRight="@dimen/space_6"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_white"/>
+                        style="@style/font_ssm_17_black_daynight"/>
                 </RelativeLayout>
 
             </LinearLayout>
@@ -116,7 +116,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_white"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="0%"/>
                         <TextView
                             android:id="@+id/vote_yes_cnt"
@@ -124,7 +124,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_white"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="0"
                             android:visibility="gone"/>
                         <ImageView
@@ -183,7 +183,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_white"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="0%"/>
                         <TextView
                             android:id="@+id/vote_no_cnt"
@@ -191,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_white"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="0"
                             android:visibility="gone"/>
                         <ImageView
@@ -256,7 +256,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_white"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="0%"/>
                         <TextView
                             android:id="@+id/vote_veto_cnt"
@@ -264,7 +264,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_white"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="0"
                             android:visibility="gone"/>
                         <ImageView
@@ -323,7 +323,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_white"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="0%"/>
                         <TextView
                             android:id="@+id/vote_abstain_cnt"
@@ -331,7 +331,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_white"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="0"
                             android:visibility="gone"/>
                         <ImageView

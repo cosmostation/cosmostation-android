@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -27,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/box_round_darkgray"
+                android:background="@drawable/box_round_darkgray_daynight"
                 android:padding="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16">
                 <LinearLayout
@@ -48,7 +49,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ss_14_white"/>
+                            style="@style/font_ss_14_black_daynight"/>
                     </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -64,16 +65,17 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:id="@+id/current_denom"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="@dimen/space_180"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:gravity="end"
                             android:ellipsize="middle"
+                            android:gravity="end"
                             android:singleLine="true"
-                            android:text="-"
-                            style="@style/font_ss_14_white"/>
+                            android:text="-" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -89,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/box_round_darkgray"
+                android:background="@drawable/box_round_darkgray_daynight"
                 android:padding="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16">
                 <LinearLayout
@@ -110,7 +112,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ss_14_white"/>
+                            style="@style/font_ss_14_black_daynight"/>
                     </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -135,7 +137,7 @@
                             android:singleLine="true"
                             android:ellipsize="middle"
                             android:text="-"
-                            style="@style/font_ss_14_white"/>
+                            style="@style/font_ss_14_black_daynight"/>
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

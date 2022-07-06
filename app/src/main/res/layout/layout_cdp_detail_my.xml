@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_17_white"
+                style="@style/font_ss_17_black_daynight"
                 android:text="@string/str_my_cdp_information"/>
         </LinearLayout>
 
@@ -58,7 +58,7 @@
                     android:layout_toRightOf="@+id/collateral_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="COIN"
-                    style="@style/font_ss_14_white"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -209,7 +209,7 @@
                     android:drawableLeft="@drawable/deposit_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:text="@string/str_collateral_deposit" />
             </RelativeLayout>
 
@@ -230,7 +230,7 @@
                     android:drawableLeft="@drawable/withdraw_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:text="@string/str_collateral_withdraw" />
             </RelativeLayout>
         </LinearLayout>
@@ -255,7 +255,7 @@
                     android:layout_toRightOf="@+id/principal_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="USDX"
-                    style="@style/font_ss_14_white"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -286,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -327,7 +327,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -368,7 +368,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -404,7 +404,7 @@
                     android:drawableLeft="@drawable/drawdebt_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:text="@string/str_principal_drawdebt" />
             </RelativeLayout>
 
@@ -424,7 +424,7 @@
                     android:drawableLeft="@drawable/repaydebt_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:text="@string/str_principal_repay" />
             </RelativeLayout>
         </LinearLayout>
@@ -466,7 +466,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -487,7 +487,7 @@
                 android:drawableLeft="@drawable/incentive_s_ic"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_claim_incentive" />
         </RelativeLayout>
 

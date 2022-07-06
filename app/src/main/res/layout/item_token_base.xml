@@ -35,7 +35,7 @@
                     android:layout_toRightOf="@+id/token_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="Coin"
-                    style="@style/font_ss_14_white"/>
+                    style="@style/font_ss_14_black_daynight"/>
                 <TextView
                     android:id="@+id/token_denom"
                     android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_white"/>
+                        style="@style/font_ssm_17_black_daynight"/>
                     <TextView
                         android:id="@+id/token_value"
                         android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -112,7 +112,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -133,7 +133,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
 

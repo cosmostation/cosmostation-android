@@ -29,7 +29,7 @@
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/vote_title"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <LinearLayout
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="YES"/>
             <ImageView
                 android:id="@+id/checkImg_yes"
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="NO"/>
             <ImageView
                 android:id="@+id/checkImg_no"
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="NoWithVeto"/>
             <ImageView
                 android:id="@+id/checkImg_veto"
@@ -141,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:text="Abstain"/>
             <ImageView
                 android:id="@+id/checkImg_abstain"
@@ -171,7 +171,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button

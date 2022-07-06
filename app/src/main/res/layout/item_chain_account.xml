@@ -9,7 +9,6 @@
         android:id="@+id/accountCard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
-        android:background="@drawable/box_round_darkgray"
         android:layout_marginRight="@dimen/space_10"
         android:layout_marginLeft="@dimen/space_10"
         android:layout_marginBottom="@dimen/space_8">
@@ -42,7 +41,7 @@
                         android:layout_toRightOf="@+id/accountKeyState"
                         android:layout_toLeftOf="@+id/accountAddress"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="Wallet Name"/>
                     <TextView
                         android:id="@+id/accountAddress"
@@ -51,7 +50,7 @@
                         android:maxWidth="160dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:ellipsize="middle"
                         android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                         android:singleLine="true"
@@ -68,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:text="-"/>
                     <TextView
                         android:id="@+id/accountDenom"

@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_12"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
                 app:cardBackgroundColor="@color/colorTransBg"
@@ -43,7 +44,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
                             android:text="@string/str_create_interchain_send"
-                            style="@style/font_ss_14_white"/>
+                            style="@style/font_ss_14_black_daynight"/>
                     </LinearLayout>
 
                     <RelativeLayout
@@ -67,14 +68,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_white"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/send_amount_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_white"/>
+                                style="@style/font_ss_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -99,14 +100,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_white"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/send_fee_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_white"/>
+                                style="@style/font_ss_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -130,7 +131,7 @@
                         android:text="Cosmostation"
                         android:singleLine="true"
                         android:ellipsize="middle"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,7 +147,7 @@
                         android:text="Cosmostation"
                         android:singleLine="true"
                         android:ellipsize="middle"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -158,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
                 app:cardBackgroundColor="@color/colorTransBg"
@@ -183,7 +185,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
                             android:text="@string/str_claim_interchain_swap"
-                            style="@style/font_ss_14_white"/>
+                            style="@style/font_ss_14_black_daynight"/>
                     </LinearLayout>
 
                     <RelativeLayout
@@ -207,14 +209,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_white"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/receive_amount_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_white"/>
+                                style="@style/font_ss_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -239,14 +241,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_white"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/relay_fee_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_white"/>
+                                style="@style/font_ss_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -271,14 +273,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_white"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/claim_fee_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_white"/>
+                                style="@style/font_ss_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -302,7 +304,7 @@
                         android:text="Cosmostation"
                         android:singleLine="true"
                         android:ellipsize="middle"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
 
 
                 </LinearLayout>
@@ -328,7 +330,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_back"/>
         <Button

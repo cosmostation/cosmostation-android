@@ -117,7 +117,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -350,7 +349,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             if (!TextUtils.isEmpty(rewardAddress)) {
                 mRewardAddress.setText(rewardAddress.trim());
                 if (rewardAddress.equals(mAccount.address)) {
-                    mRewardAddress.setTextColor(ContextCompat.getColor(AccountDetailActivity.this, R.color.colorWhite));
+                    mRewardAddress.setTextColor(ContextCompat.getColor(AccountDetailActivity.this, R.color.colorBlackDayNight));
                 } else {
                     mRewardAddress.setTextColor(ContextCompat.getColor(AccountDetailActivity.this, R.color.colorRed));
                 }

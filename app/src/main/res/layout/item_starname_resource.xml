@@ -10,6 +10,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="2dp"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -40,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:text="Chain Name"/>
             </LinearLayout>
             <TextView

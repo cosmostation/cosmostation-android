@@ -14,6 +14,7 @@
         android:layout_marginBottom="2dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgCosmos"
@@ -87,7 +88,7 @@
                         android:layout_centerVertical="true"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="moniker"/>
                     <ImageView
                         android:id="@+id/band_oracle_off"
@@ -214,7 +215,7 @@
                     <!--android:singleLine="true"-->
                     <!--android:gravity="center"-->
                     <!--android:ellipsize="end"-->
-                    <!--style="@style/font_ss_9_white"-->
+                    <!--style="@style/font_ss_9_black_daynight"-->
                     <!--android:text="moniker"/>-->
             <!--</LinearLayout>-->
             <!--<View-->
@@ -250,14 +251,14 @@
                     <!--<TextView-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
-                        <!--style="@style/font_ss_11_white"-->
+                        <!--style="@style/font_ss_11_black_daynight"-->
                         <!--android:text="Delegated"/>-->
                     <!--<TextView-->
                         <!--android:id="@+id/delegate_amount_validator"-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_11_white"-->
+                        <!--style="@style/font_ss_11_black_daynight"-->
                         <!--android:text="52,432,123.848390"/>-->
                 <!--</RelativeLayout>-->
 
@@ -349,7 +350,7 @@
                     <!--android:singleLine="true"-->
                     <!--android:gravity="center"-->
                     <!--android:ellipsize="end"-->
-                    <!--style="@style/font_ss_11_white"-->
+                    <!--style="@style/font_ss_11_black_daynight"-->
                     <!--android:text="moniker"/>-->
             <!--</LinearLayout>-->
 
@@ -386,14 +387,14 @@
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:layout_centerVertical="true"-->
-                        <!--style="@style/font_ss_9_white"-->
+                        <!--style="@style/font_ss_9_black_daynight"-->
                         <!--android:text="Delegated"/>-->
                     <!--<TextView-->
                         <!--android:id="@+id/delegate_amount_validator"-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_11_white"-->
+                        <!--style="@style/font_ss_11_black_daynight"-->
                         <!--android:text="52,432,123.848390"/>-->
                 <!--</RelativeLayout>-->
 

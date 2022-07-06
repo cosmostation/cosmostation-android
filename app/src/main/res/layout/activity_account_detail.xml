@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
+            style="@style/font_ssm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
-            android:text="@string/str_wallet_detail"/>
+            android:text="@string/str_wallet_detail" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar"
-        android:layout_above="@+id/bottom_layer">
+        android:layout_above="@+id/bottom_layer"
+        android:layout_below="@+id/tool_bar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,42 +42,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_12"
-                app:cardPreventCornerOverlap="true"
-                app:cardCornerRadius="@dimen/space_6"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
-                app:cardUseCompatPadding="true" >
+                app:cardCornerRadius="@dimen/space_6"
+                app:cardPreventCornerOverlap="true">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/space_8"
                     android:paddingTop="@dimen/space_8"
-                    android:paddingBottom="@dimen/space_8"
-                    android:paddingRight="@dimen/space_8">
+                    android:paddingRight="@dimen/space_8"
+                    android:paddingBottom="@dimen/space_8">
+
                     <ImageView
                         android:id="@+id/chain_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/chain_cosmos" />
+
                     <ImageView
                         android:id="@+id/account_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:padding="@dimen/space_8"
                         android:src="@drawable/edit_btn" />
+
                     <TextView
                         android:id="@+id/account_name"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/chain_img"
-                        android:layout_toLeftOf="@+id/account_edit"
                         android:layout_marginLeft="@dimen/space_8"
-                        style="@style/font_ss_14_white"
-                        android:text="wallet name"/>
+                        android:layout_toLeftOf="@+id/account_edit"
+                        android:layout_toRightOf="@+id/chain_img"
+                        android:text="wallet name" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -85,18 +90,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_4"
-                app:cardPreventCornerOverlap="true"
-                app:cardCornerRadius="@dimen/space_6"
+                android:layout_marginTop="@dimen/space_6"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
-                app:cardUseCompatPadding="true" >
+                app:cardCornerRadius="@dimen/space_6"
+                app:cardPreventCornerOverlap="true">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/space_8"
                     android:paddingTop="@dimen/space_8"
-                    android:paddingBottom="@dimen/space_8"
-                    android:paddingRight="@dimen/space_8">
+                    android:paddingRight="@dimen/space_8"
+                    android:paddingBottom="@dimen/space_8">
+
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_using_alarm"
                         android:layout_width="wrap_content"
@@ -105,27 +112,30 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_6"
                         android:scaleType="fitXY"
-                        android:theme="@style/ColorSwitchStyles"/>
+                        android:theme="@style/ColorSwitchStyles" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_12"
                         android:layout_centerVertical="true"
-                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/space_12"
+                        android:layout_marginRight="@dimen/space_16"
                         android:layout_toLeftOf="@+id/switch_using_alarm"
-                        android:layout_marginRight="@dimen/space_16">
+                        android:orientation="vertical">
+
                         <TextView
+                            style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_push_alarm"
-                            style="@style/font_ss_12_gray1"/>
+                            android:text="@string/str_push_alarm" />
+
                         <TextView
                             android:id="@+id/account_alarm_msg"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_12_white"
                             android:lines="2"
-                            android:text="Enabled push alarm for each send and received tx with this address"/>
+                            android:text="Enabled push alarm for each send and received tx with this address" />
                     </LinearLayout>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -136,50 +146,56 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_4"
-                app:cardPreventCornerOverlap="true"
-                app:cardCornerRadius="@dimen/space_6"
+                android:layout_marginTop="@dimen/space_6"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
-                app:cardUseCompatPadding="true" >
+                app:cardCornerRadius="@dimen/space_6"
+                app:cardPreventCornerOverlap="true">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingTop="@dimen/space_16"
-                    android:paddingBottom="@dimen/space_16"
                     android:paddingRight="@dimen/space_8"
-                    android:orientation="vertical">
+                    android:paddingBottom="@dimen/space_16">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <TextView
+                            style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_8"
-                            android:text="@string/str_my_address"
-                            style="@style/font_ss_12_gray1"/>
+                            android:text="@string/str_my_address" />
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="-8dp">
+
                             <ImageView
                                 android:id="@+id/account_qr"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:padding="@dimen/space_8"
-                                android:src="@drawable/btn_copy"/>
+                                android:src="@drawable/btn_copy" />
+
                             <TextView
                                 android:id="@+id/account_address"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_toLeftOf="@+id/account_qr"
-                                style="@style/font_ss_12_white"
-                                android:singleLine="true"
                                 android:ellipsize="middle"
-                                android:text="cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q"/>
+                                android:singleLine="true"
+                                android:text="cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -188,119 +204,135 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="@dimen/space_12"
                         android:layout_marginRight="@dimen/space_8"
-                        android:background="@color/colorGray3"/>
+                        android:background="@color/colorGray3" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16"
                         android:orientation="vertical">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingRight="@dimen/space_8">
+
                             <TextView
+                                style="@style/font_ss_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_chain_info"
-                                style="@style/font_ss_12_gray1"/>
+                                android:text="@string/str_chain_info" />
+
                             <TextView
                                 android:id="@+id/account_chain"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text=""
-                                style="@style/font_ss_12_white"/>
+                                android:text="" />
                         </RelativeLayout>
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_8"
                             android:paddingRight="@dimen/space_8">
+
                             <TextView
+                                style="@style/font_ss_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_import_time"
-                                style="@style/font_ss_12_gray1"/>
+                                android:text="@string/str_import_time" />
+
                             <TextView
                                 android:id="@+id/account_import_time"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="2010.213.123"
-                                style="@style/font_ss_12_white"/>
+                                android:text="2010.213.123" />
                         </RelativeLayout>
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
                             android:paddingRight="@dimen/space_8">
+
                             <TextView
+                                style="@style/font_ss_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_import_state"
-                                style="@style/font_ss_12_gray1"/>
+                                android:text="@string/str_import_state" />
+
                             <TextView
                                 android:id="@+id/account_import_state"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="Mnemonic"
-                                style="@style/font_ss_12_white"/>
+                                android:text="Mnemonic" />
                         </RelativeLayout>
+
                         <RelativeLayout
                             android:id="@+id/mnemonic_name_layer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
                             android:paddingRight="@dimen/space_8">
+
                             <TextView
+                                style="@style/font_ss_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Mnemonic"
-                                style="@style/font_ss_12_gray1"/>
+                                android:text="Mnemonic" />
+
                             <TextView
                                 android:id="@+id/mnemonic_name"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="Mnemonic"
-                                style="@style/font_ss_12_white"/>
+                                android:text="Mnemonic" />
                         </RelativeLayout>
+
                         <RelativeLayout
                             android:id="@+id/account_path_layer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
                             android:paddingRight="@dimen/space_8">
+
                             <TextView
                                 android:id="@+id/path_title"
+                                style="@style/font_ss_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_import_address_type"
-                                style="@style/font_ss_12_gray1"/>
+                                android:text="@string/str_import_address_type" />
+
                             <TextView
                                 android:id="@+id/account_path"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="m/44'/34343'"
-                                style="@style/font_ss_12_white"/>
+                                android:text="m/44'/34343'" />
                         </RelativeLayout>
+
                         <TextView
                             android:id="@+id/import_msg"
+                            style="@style/font_ss_11_photon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
-                            android:paddingRight="@dimen/space_8"
                             android:gravity="right"
-                            android:text="@string/str_import_msg"
-                            style="@style/font_ss_11_photon"/>
+                            android:paddingRight="@dimen/space_8"
+                            android:text="@string/str_import_msg" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -311,47 +343,52 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_4"
                 android:layout_marginBottom="@dimen/space_12"
-                app:cardPreventCornerOverlap="true"
-                app:cardCornerRadius="@dimen/space_6"
+                android:layout_marginTop="@dimen/space_6"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
-                app:cardUseCompatPadding="true" >
+                app:cardCornerRadius="@dimen/space_6"
+                app:cardPreventCornerOverlap="true">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:paddingLeft="@dimen/space_16"
                     android:paddingTop="@dimen/space_8"
-                    android:paddingBottom="@dimen/space_8"
                     android:paddingRight="@dimen/space_8"
-                    android:orientation="vertical">
+                    android:paddingBottom="@dimen/space_8">
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_8"
-                        android:text="@string/str_reward_to"
-                        style="@style/font_ss_12_gray1"/>
+                        android:text="@string/str_reward_to" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-8dp">
+
                         <ImageView
                             android:id="@+id/reward_change_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:padding="@dimen/space_8"
-                            android:src="@drawable/edit_btn"/>
+                            android:src="@drawable/edit_btn" />
+
                         <TextView
                             android:id="@+id/reward_address"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_toLeftOf="@+id/reward_change_btn"
-                            style="@style/font_ss_12_white"
-                            android:singleLine="true"
                             android:ellipsize="middle"
-                            android:text="-"/>
+                            android:singleLine="true"
+                            android:text="-" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -365,53 +402,57 @@
         android:id="@+id/bottom_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/space_36"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16">
+            android:layout_marginRight="@dimen/space_16"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_delete"
+                style="@style/font_ss_14_red"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
-                android:minHeight="@dimen/space_45"
-                android:background="@drawable/btn_trans_with_red_border"
                 android:layout_weight="1"
-                style="@style/font_ss_14_red"
-                android:text="@string/str_delete_wallet"/>
+                android:background="@drawable/btn_trans_with_red_border"
+                android:minHeight="@dimen/space_45"
+                android:text="@string/str_delete_wallet" />
+
             <View
                 android:id="@+id/view"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/space_8" />
+
             <Button
                 android:id="@+id/btn_check_key"
+                style="@style/font_ss_14_photon"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
-                android:minHeight="@dimen/space_45"
-                android:background="@drawable/btn_trans_with_photon_border"
                 android:layout_weight="1"
-                style="@style/font_ss_14_photon"
-                android:text="@string/str_check_private_key"
-                />
+                android:background="@drawable/btn_trans_with_photon_border"
+                android:minHeight="@dimen/space_45"
+                android:text="@string/str_check_private_key" />
         </LinearLayout>
+
         <Button
             android:id="@+id/btn_check"
+            style="@style/font_ss_14_photon"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_12"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_12"
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
-            android:text="@string/str_check_mnemonic"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_check_mnemonic" />
     </LinearLayout>
 </RelativeLayout>

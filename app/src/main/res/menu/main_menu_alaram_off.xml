@@ -16,7 +16,7 @@
 
     <item
         android:id="@+id/menu_accounts"
-        android:icon="@drawable/btn_switch_24"
+        android:icon="@drawable/icon_walletswitch"
         app:showAsAction="always"
         android:title="@string/str_accounts" />
 

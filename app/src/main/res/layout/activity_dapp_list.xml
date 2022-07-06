@@ -8,19 +8,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_black_daynight"
             android:text="@string/str_kava_dapp"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -36,19 +36,20 @@
             app:tabMode="fixed"
             app:tabGravity="fill"
             app:tabIndicatorHeight="2dp"
-            app:tabIndicatorColor="@color/colorKava"
-            app:tabIconTint="@color/colorKava"/>
+            app:tabIndicatorColor="@color/color_kava"
+            app:tabIconTint="@color/color_kava"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorGray4"
             android:layout_below="@+id/validator_tab"
             android:layout_marginTop="-1dp"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/validator_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/validator_tab"/>
+            android:layout_below="@+id/validator_tab" />
     </RelativeLayout>
 
 </RelativeLayout>

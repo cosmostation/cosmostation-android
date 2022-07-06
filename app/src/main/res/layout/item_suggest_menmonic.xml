@@ -14,7 +14,7 @@
         android:minWidth="@dimen/space_12"
         android:layout_centerInParent="true"
         android:padding="@dimen/space_8"
-        style="@style/font_ss_14_white"
+        style="@style/font_ss_14_black_daynight"
         android:gravity="center"
         android:background="@drawable/box_round_white"/>
 </RelativeLayout>

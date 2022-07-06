@@ -25,7 +25,7 @@
                 android:id="@+id/account_chain_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cosmos_wh_main"
+                android:src="@drawable/chain_cosmos"
                 android:layout_centerVertical="true"/>
 
             <ImageView
@@ -53,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:text="this is wallet"/>
 
                     <TextView
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_9_gray1"
+                    style="@style/font_rmr_9_gray1"
                     android:text="-"/>
             </LinearLayout>
 

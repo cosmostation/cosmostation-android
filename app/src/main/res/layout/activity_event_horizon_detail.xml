@@ -10,7 +10,7 @@
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,7 +19,7 @@
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssm_17_white"
+                style="@style/font_ssm_17_black_daynight"
                 android:text="@string/str_tx_detail"/>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Success"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <View
@@ -131,7 +131,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,7 +151,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -183,7 +183,7 @@
                         android:layout_toLeftOf="@+id/tx_hdac_burn_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <LinearLayout
@@ -204,7 +204,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -231,7 +231,7 @@
                 android:layout_marginTop="@dimen/space_4"
                 android:gravity="center"
                 android:text="@string/str_success_loading"
-                style="@style/font_ss_12_white"
+                style="@style/font_ss_12_black_daynight"
                 android:visibility="gone"/>
         </LinearLayout>
     </RelativeLayout>
@@ -248,7 +248,7 @@
         android:visibility="gone">
         <Button
             android:id="@+id/btn_explorer"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"

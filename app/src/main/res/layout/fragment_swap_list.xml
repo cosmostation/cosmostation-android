@@ -49,7 +49,7 @@
 
                     <TextView
                         android:id="@+id/txt_input_coin"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -59,7 +59,7 @@
 
                     <TextView
                         android:id="@+id/inpus_amount"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/token_swap_fee"
-                    style="@style/font_ss_11_white"
+                    style="@style/font_ss_11_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="" />
@@ -129,7 +129,7 @@
 
                 <TextView
                     android:id="@+id/swap_slippage"
-                    style="@style/font_ss_11_white"
+                    style="@style/font_ss_11_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
@@ -176,7 +176,7 @@
 
                     <TextView
                         android:id="@+id/txt_output_coin"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -215,7 +215,7 @@
 
             <TextView
                 android:id="@+id/swap_title"
-                style="@style/font_ss_12_white"
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-" />
@@ -235,21 +235,21 @@
 
                 <TextView
                     android:id="@+id/inputs_rate"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
                     android:id="@+id/inputs_rate_symbol"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="-" />
 
                 <TextView
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
@@ -258,14 +258,14 @@
 
                 <TextView
                     android:id="@+id/outputs_rate"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
                     android:id="@+id/outputs_rate_symbol"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -280,7 +280,7 @@
                 android:background="@color/colorGray3" />
 
             <TextView
-                style="@style/font_ss_12_white"
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Global Swap Rate" />
@@ -300,21 +300,21 @@
 
                 <TextView
                     android:id="@+id/global_inputs_rate"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
                     android:id="@+id/global_inputs_rate_symbol"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="-" />
 
                 <TextView
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
@@ -323,14 +323,14 @@
 
                 <TextView
                     android:id="@+id/global_outputs_rate"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
                     android:id="@+id/global_outputs_rate_symbol"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"

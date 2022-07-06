@@ -40,7 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="DONE"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
             <LinearLayout
                 android:id="@+id/hdacLayout"
@@ -108,7 +108,7 @@
                             android:layout_toLeftOf="@+id/rizon_swap_status"
                             android:src="@drawable/icon_pending"
                             android:visibility="gone"
-                            app:tint="@color/colorHdac" />
+                            app:tint="@color/color_hdac" />
                         <TextView
                             android:id="@+id/hdac_status"
                             style="@style/font_ss_12_hdac"
@@ -147,7 +147,7 @@
                             android:singleLine="true"
                             android:layout_marginRight="@dimen/space_2"
                             android:text=""
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -175,7 +175,7 @@
                             android:singleLine="true"
                             android:ellipsize="middle"
                             android:text=""
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -210,7 +210,7 @@
                             android:layout_toLeftOf="@+id/burn_amount_symbol"
                             android:layout_marginRight="@dimen/space_2"
                             android:text=""
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -288,7 +288,7 @@
                             android:singleLine="true"
                             android:layout_marginRight="@dimen/space_2"
                             android:text=""
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -316,7 +316,7 @@
                             android:ellipsize="middle"
                             android:text="--"
                             android:layout_marginLeft="@dimen/space_16"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_black_daynight"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -351,7 +351,7 @@
                             android:layout_toLeftOf="@+id/rizon_mint_symbol"
                             android:layout_marginRight="@dimen/space_2"
                             android:text="--"
-                            style="@style/font_ss_10_white"/>
+                            style="@style/font_ss_10_black_daynight"/>
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>

@@ -24,13 +24,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/vesting_title"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_vesting_schedule"
-                    style="@style/font_ss_14_white"/>
+                    android:text="@string/str_vesting_schedule" />
                 <TextView
                     android:id="@+id/vesting_count"
                     android:layout_width="wrap_content"
@@ -39,7 +40,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_14_white"/>
+                    style="@style/font_ssl_14_black_daynight"/>
             </RelativeLayout>
 
             <View
@@ -58,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
                 <TextView
                     android:id="@+id/vesting_gap0"
                     android:layout_width="wrap_content"
@@ -74,7 +75,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -88,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
                 <TextView
                     android:id="@+id/vesting_gap1"
                     android:layout_width="wrap_content"
@@ -104,7 +105,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -118,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
                 <TextView
                     android:id="@+id/vesting_gap2"
                     android:layout_width="wrap_content"
@@ -134,7 +135,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -148,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
                 <TextView
                     android:id="@+id/vesting_gap3"
                     android:layout_width="wrap_content"
@@ -164,7 +165,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -178,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
                 <TextView
                     android:id="@+id/vesting_gap4"
                     android:layout_width="wrap_content"
@@ -194,7 +195,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
         </LinearLayout>

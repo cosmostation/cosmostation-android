@@ -36,25 +36,28 @@
                     android:layout_height="@dimen/space_64"
                     android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"/>
+
                 <LinearLayout
                     android:id="@+id/safe_rate_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
                     android:gravity="right"
-                    android:layout_centerInParent="true">
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/cdp_safe_rate"
+                        style="@style/font_ss_26_black_daynight"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/font_ss_26_white"/>
+                        android:layout_height="wrap_content" />
+
                     <ImageView
                         android:id="@+id/cdp_safe_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_8"
-                        android:src="@drawable/img_safe"/>
+                        android:src="@drawable/img_safe" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -123,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -143,7 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -162,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -184,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_white"
+                    style="@style/font_ssl_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>

@@ -28,7 +28,7 @@
                     android:id="@+id/tx_msg_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="@color/colorIov"
+                    app:tint="@color/color_iov"
                     android:src="@drawable/ic_msgs_registerdomain"/>
                 <TextView
                     android:id="@+id/tx_msg_text"
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_starname_registe_domain"
-                    style="@style/font_ss_17_white"/>
+                    style="@style/font_ss_17_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -56,7 +56,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -76,7 +76,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -128,7 +128,7 @@
                         android:layout_toLeftOf="@+id/tx_starname_feet_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_white"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 

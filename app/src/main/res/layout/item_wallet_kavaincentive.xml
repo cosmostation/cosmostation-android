@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_2"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgKava"
@@ -24,11 +25,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_kava_incentive_info_title"
-                    style="@style/font_ss_14_white"/>
+                    android:text="@string/str_kava_incentive_info_title" />
             </RelativeLayout>
 
             <View
@@ -56,7 +58,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -78,7 +80,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -100,7 +102,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/btn_kava_incentive"
@@ -115,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:text="@string/str_claim_incentive" />
             </RelativeLayout>
 

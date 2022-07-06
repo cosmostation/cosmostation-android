@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_6"
         android:layout_centerInParent="true"
-        style="@style/font_ss_14_white"
+        style="@style/font_ss_14_black_daynight"
         android:text="Coming Soon!!"
         android:visibility="gone"/>
 

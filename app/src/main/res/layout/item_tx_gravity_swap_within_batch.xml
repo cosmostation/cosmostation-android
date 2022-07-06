@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -34,7 +35,7 @@
 
                 <TextView
                     android:id="@+id/tx_gravity_swap_text"
-                    style="@style/font_ss_15_white"
+                    style="@style/font_ss_15_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -59,7 +60,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,7 +75,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
 
             </LinearLayout>
             <LinearLayout
@@ -92,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:text="-" />
             </LinearLayout>
             <LinearLayout
@@ -109,7 +110,7 @@
                     android:id="@+id/tx_gravity_swap_order_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_marginTop="@dimen/space_4"
                     android:text="-" />
             </LinearLayout>
@@ -142,7 +143,7 @@
                         android:layout_toLeftOf="@+id/tx_token_swap_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

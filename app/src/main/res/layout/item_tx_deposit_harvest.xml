@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_kava_hard_deposit2"
-                    style="@style/font_ss_17_white"/>
+                    style="@style/font_ss_17_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -55,7 +55,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -76,7 +76,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                     <TextView
                         android:id="@+id/tx_deposit_amount"
                         android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
                         android:layout_toLeftOf="@+id/tx_deposit_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_white"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 

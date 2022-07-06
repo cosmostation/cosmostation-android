@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mnemonic 1"
-                style="@style/font_ss_14_white"/>
+                style="@style/font_ss_14_black_daynight"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                             style="@style/font_ss_12_gray1"/>
                         <TextView
                             android:id="@+id/derived_cnt"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -84,7 +84,7 @@
                             style="@style/font_ss_12_gray1"/>
                         <TextView
                             android:id="@+id/words_cnt"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -102,7 +102,7 @@
                             style="@style/font_ss_12_gray1"/>
                         <TextView
                             android:id="@+id/imported_date"
-                            style="@style/font_ss_12_white"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

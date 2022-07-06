@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
@@ -35,7 +35,7 @@
                     android:id="@+id/history_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_12_white"
+                    style="@style/font_ss_12_black_daynight"
                     android:text="Send"/>
                 <TextView
                     android:id="@+id/history_success"
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    style="@style/font_ss_11_white"
+                    style="@style/font_ss_11_black_daynight"
                     android:text="2018-12-23"/>
                 <TextView
                     android:id="@+id/history_time_gap"
@@ -86,14 +86,14 @@
 
                     <TextView
                         android:id="@+id/history_amount_symobl"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="ATOM" />
                     <TextView
                         android:id="@+id/history_amount"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/history_amount_symobl"

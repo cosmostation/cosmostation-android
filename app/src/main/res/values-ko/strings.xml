@@ -1769,4 +1769,44 @@
     <string name="str_dp_time_format4">yyyy-MM-dd</string>
     <string name="str_dp_date_format" >yyyy-MM-dd</string>
 
+    <string-array name="currency_symbol_array">
+        <item>$</item>
+        <item>€</item>
+        <item>₩</item>
+        <item>¥</item>
+        <item>¥</item>
+        <item>₽</item>
+        <item>£</item>
+        <item>₹</item>
+        <item>R$</item>
+        <item>Rp</item>
+        <item>Kr</item>
+        <item>Kr</item>
+        <item>Kr</item>
+        <item>sFr</item>
+        <item>AU$</item>
+        <item>$</item>
+        <item>RM</item>
+    </string-array>
+
+    <string-array name="currency_unit_array">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>KRW</item>
+        <item>JPY</item>
+        <item>CNY</item>
+        <item>RUB</item>
+        <item>GBP</item>
+        <item>INR</item>
+        <item>BRL</item>
+        <item>IDR</item>
+        <item>DKK</item>
+        <item>NOK</item>
+        <item>SEK</item>
+        <item>CHF</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>MYR</item>
+    </string-array>
+
 </resources>

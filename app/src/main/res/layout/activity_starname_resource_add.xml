@@ -34,7 +34,7 @@
                 android:id="@+id/chainImg"
                 android:layout_width="@dimen/space_18"
                 android:layout_height="@dimen/space_18"
-                android:src="@drawable/cosmos_wh_main"/>
+                android:src="@drawable/chain_cosmos"/>
             <TextView
                 android:id="@+id/chainName"
                 android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_iov"
-            android:textColor="@color/colorIov"
+            android:textColor="@color/color_iov"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>
     </LinearLayout>

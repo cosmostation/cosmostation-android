@@ -9,18 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_black_daynight"
             android:text="@string/str_tx_detail"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -42,7 +42,7 @@
 
             <Button
                 android:id="@+id/btn_share"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_45"
                 android:layout_marginRight="@dimen/space_4"
@@ -54,7 +54,7 @@
 
             <Button
                 android:id="@+id/btn_explorer"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_45"
                 android:layout_marginLeft="@dimen/space_4"
@@ -96,6 +96,7 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
+            app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/space_6"
             app:cardBackgroundColor="@color/colorTransBg"
@@ -119,7 +120,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="center"
                     android:text="@string/str_tx_error_description"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
                 <TextView
                     android:id="@+id/error_details"
                     android:layout_width="wrap_content"

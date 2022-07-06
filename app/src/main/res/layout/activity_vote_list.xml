@@ -8,19 +8,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_black_daynight"
             android:text="@string/str_proposal_list"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -38,7 +38,7 @@
 
                 <TextView
                     android:id="@+id/empty_proposal"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -61,16 +61,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:orientation="vertical">
+
             <ProgressBar
                 android:layout_width="@dimen/space_60"
                 android:layout_height="@dimen/space_60"
-                android:indeterminateDrawable="@drawable/loading"/>
+                android:indeterminateDrawable="@drawable/loading" />
         </LinearLayout>
     </RelativeLayout>
 

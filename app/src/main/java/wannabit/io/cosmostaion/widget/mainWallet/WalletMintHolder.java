@@ -63,9 +63,9 @@ public class WalletMintHolder extends BaseHolder {
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 msg = Html.fromHtml("<b>" + mainActivity.getString(R.string.str_apr_help_onchain_msg) + "</b>" + "<br>"
-                        + "<font color=\"#7A7F88\">" + msg2 + "</font>" + "<p>" + "<br>"
+                        +  msg2 + "<p>" + "<br>"
                         + "<b>" + mainActivity.getString(R.string.str_apr_help_real_msg) + "</b>" + "<br>"
-                        + "<font color=\"#7A7F88\">" + msg3 + "</font>", Html.FROM_HTML_MODE_LEGACY);
+                        +  msg3, Html.FROM_HTML_MODE_LEGACY);
             }
             AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, mainActivity.getString(R.string.str_ok), null);
         });

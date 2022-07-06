@@ -44,7 +44,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ss_17_white"/>
+                            style="@style/font_ss_17_black_daynight"/>
                         <TextView
                             android:id="@+id/fee_denom"
                             android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_2"
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_14_black_daynight"
                         android:text="-"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -96,7 +96,7 @@
                                 android:id="@+id/gas_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_black_daynight"
                                 android:text="-"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                                 android:id="@+id/gas_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/font_ss_12_white"
+                                style="@style/font_ss_12_black_daynight"
                                 android:text="-"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
                                 android:id="@+id/gas_fee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/font_ss_15_white"
+                                style="@style/font_ss_15_black_daynight"
                                 android:text="-"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                         app:radius="@dimen/space_6"
                         app:ripple="true"
                         app:rippleColor="@color/colorGray1"
-                        app:selectedBackground="@color/colorAtom">
+                        app:selectedBackground="@color/color_cosmos">
                         <com.addisonelliott.segmentedbutton.SegmentedButton
                             android:id="@+id/btn_tiny"
                             android:layout_width="0dp"
@@ -232,17 +232,12 @@
         android:layout_marginBottom="@dimen/space_24"
         android:orientation="vertical"
         android:gravity="center">
-        <ImageView
-            android:id="@+id/speed_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bycicle_img"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="@dimen/space_2"
-            style="@style/font_ssm_14_white"
+            style="@style/font_ssm_14_black_daynight"
             android:text="Cosmostation Wallet is a free service."/>
         <TextView
             android:id="@+id/speed_txt"
@@ -277,7 +272,7 @@
                 android:minHeight="@dimen/space_45"
                 android:layout_marginRight="@dimen/space_4"
                 android:background="@drawable/btn_trans_with_border"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_black_daynight"
                 android:textAllCaps="false"
                 android:text="@string/str_back"/>
             <Button

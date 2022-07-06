@@ -487,7 +487,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
                 holder.history_amount_symbol.setVisibility(View.VISIBLE);
                 holder.history_amount_symbol.setText(history.getVoteOption());
-                holder.history_amount_symbol.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorWhite));
+                holder.history_amount_symbol.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorBlackDayNight));
                 holder.history_amount.setVisibility(View.GONE);
             } else {
                 holder.history_amount_symbol.setVisibility(View.GONE);

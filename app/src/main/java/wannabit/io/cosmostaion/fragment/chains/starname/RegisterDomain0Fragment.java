@@ -98,11 +98,11 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 if (buttonView.isPressed()) {
                     if (isChecked) {
                         mDomainType.setText("Open".toUpperCase());
-                        mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorIov));
+                        mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_iov));
                         mTypeDescription.setText(getString(R.string.str_description_open_domain));
                     } else {
                         mDomainType.setText("Closed".toUpperCase());
-                        mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorWhite));
+                        mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
                         mTypeDescription.setText(getString(R.string.str_description_closed_domain));
                     }
 

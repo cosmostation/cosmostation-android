@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_ibc_send"
-                    style="@style/font_ss_15_white"/>
+                    style="@style/font_ss_15_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -83,7 +83,7 @@
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -108,7 +108,7 @@
 
                     <TextView
                         android:id="@+id/tx_ibc_transfer_amount_symbol"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -116,7 +116,7 @@
 
                     <TextView
                         android:id="@+id/tx_ibc_transfer_amount"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/tx_ibc_transfer_amount_symbol"

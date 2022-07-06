@@ -12,9 +12,10 @@
         android:layout_marginLeft="@dimen/space_8"
         android:layout_marginRight="@dimen/space_8"
         android:layout_marginTop="@dimen/space_8"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBg">
+        app:cardBackgroundColor="@color/colorWhite2DayNight">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -29,14 +30,15 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/chain_add_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/icon_listadd"
                         android:padding="@dimen/space_6"
-                        android:visibility="visible"/>
+                        android:src="@drawable/icon_listadd"
+                        android:visibility="visible" />
                     <ImageView
                         android:id="@+id/chain_img"
                         android:layout_width="wrap_content"
@@ -44,17 +46,18 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/chain_add_img"
-                        android:src="@drawable/cosmos_wh_main"/>
+                        android:src="@drawable/chain_cosmos"/>
+
                     <TextView
                         android:id="@+id/chain_name"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxWidth="@dimen/space_120"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/chain_img"
-                        android:layout_centerVertical="true"
-                        style="@style/font_ss_14_white"
-                        android:text="Wallet Name"/>
+                        android:maxWidth="@dimen/space_120"
+                        android:text="Wallet Name" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>

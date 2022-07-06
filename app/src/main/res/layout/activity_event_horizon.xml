@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssm_17_white"
+                style="@style/font_ssm_17_black_daynight"
                 android:text="@string/str_import"/>
             <TextView
                 android:id="@+id/toolbar_clear"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/space_16"
-                style="@style/font_ssm_17_white"
+                style="@style/font_ssm_17_black_daynight"
                 android:text="@string/str_clear_all"/>
 
         </RelativeLayout>
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_10"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:text="@string/str_event_horizon_step_0"/>
     </LinearLayout>
 

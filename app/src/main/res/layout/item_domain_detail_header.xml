@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="2dp"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgStarname"
@@ -38,7 +39,7 @@
                         android:singleLine="true"
                         android:ellipsize="end"
                         android:letterSpacing="0.05"
-                        style="@style/font_ssm_17_white"
+                        style="@style/font_ssm_17_black_daynight"
                         android:text="-"/>
                     <ImageView
                         android:id="@+id/web_detail"
@@ -56,20 +57,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6">
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_gray1"
-                        android:text="@string/str_domain_type"/>
+                        android:text="@string/str_domain_type" />
+
                     <TextView
                         android:id="@+id/domain_type"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_6"
-                        style="@style/font_ss_12_white"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -89,7 +92,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_6"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
 
@@ -110,7 +113,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_6"
-                        style="@style/font_ss_12_white"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
 

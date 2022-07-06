@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:text="CLOSED"/>
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -70,7 +70,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_26_white"
+                    style="@style/font_ss_26_black_daynight"
                     android:text="*"/>
                 <EditText
                     android:id="@+id/et_user_input"
@@ -83,7 +83,7 @@
                     android:background="@null"
                     android:inputType="textNoSuggestions|textVisiblePassword"
                     android:paddingLeft="@dimen/space_4"
-                    style="@style/font_ss_26_white"
+                    style="@style/font_ss_26_black_daynight"
                     android:imeOptions="actionNext"/>
             </LinearLayout>
 
@@ -111,7 +111,7 @@
                     android:layout_toLeftOf="@+id/starname_fee_denom"
                     android:layout_marginRight="@dimen/space_2"
                     android:text="-"
-                    style="@style/font_ssl_14_white"/>
+                    style="@style/font_ssl_14_black_daynight"/>
             </RelativeLayout>
 
 
@@ -138,7 +138,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button

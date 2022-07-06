@@ -40,7 +40,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="name"
-                            style="@style/font_ss_14_white"/>
+                            style="@style/font_ss_14_black_daynight"/>
                     </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                     android:singleLine="true"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ss_10_white"/>
+                    style="@style/font_ss_10_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -105,7 +105,7 @@
                     android:singleLine="true"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ss_10_white"/>
+                    style="@style/font_ss_10_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -128,7 +128,7 @@
                     android:singleLine="true"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ss_10_white"/>
+                    style="@style/font_ss_10_black_daynight"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

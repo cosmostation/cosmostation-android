@@ -53,14 +53,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_white"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/send_amount_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="@string/str_atom_c"
-                                    style="@style/font_ss_12_white"/>
+                                    style="@style/font_ss_12_black_daynight"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -85,14 +85,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:text="-"
-                                    style="@style/font_ssl_12_white"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/send_fees_type"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="@string/str_atom_c"
-                                    style="@style/font_ss_12_white"/>
+                                    style="@style/font_ss_12_black_daynight"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -123,14 +123,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_white"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/current_available_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="@string/str_atom_c"
-                                    style="@style/font_ss_12_white"/>
+                                    style="@style/font_ss_12_black_daynight"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -155,14 +155,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_white"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/remaining_available_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="@string/str_atom_c"
-                                    style="@style/font_ss_12_white"/>
+                                    style="@style/font_ss_12_black_daynight"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -199,12 +199,12 @@
                             android:text="Cosmostation"
                             android:singleLine="true"
                             android:ellipsize="middle"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/recipient_starname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_12_white"/>
+                            style="@style/font_ss_12_black_daynight"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
                             android:lines="2"
                             android:ellipsize="end"
                             android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed"
-                            style="@style/font_ss_11_white"/>
+                            style="@style/font_ss_11_black_daynight"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -248,7 +248,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_back"/>
         <Button

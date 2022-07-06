@@ -144,7 +144,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             final OkToken okToken = getBaseDao().okToken(mDenom);
             Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(okToken.original_symbol.toUpperCase());
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenDetailActivity.this, R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenDetailActivity.this, R.color.colorBlackDayNight));
 
             BigDecimal convertedOktAmount = WDp.convertTokenToOkt(getBaseDao(), mDenom);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_OK, convertedOktAmount, 0));
@@ -173,7 +173,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             final BnbToken bnbToken = getBaseDao().getBnbToken(mDenom);
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(bnbToken.original_symbol.toUpperCase());
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenDetailActivity.this, R.color.colorWhite));
+            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenDetailActivity.this, R.color.colorBlackDayNight));
 
             BigDecimal convertedBnbAmount = WUtil.getBnbConvertAmount(getBaseDao(), mDenom, amount);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, convertedBnbAmount, 0));

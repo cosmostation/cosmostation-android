@@ -8,35 +8,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:background="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_4"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_4">
+
             <TextView
                 android:id="@+id/toolbar_title"
+                style="@style/font_ssm_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssm_17_white"
-                android:text="@string/str_edit_chains"/>
+                android:text="@string/str_edit_chains" />
+
             <TextView
                 android:id="@+id/btn_done"
+                style="@style/font_ssm_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/space_16"
                 android:clickable="true"
                 android:focusable="true"
-                android:layout_marginRight="@dimen/space_16"
-                style="@style/font_ssm_17_white"
-                android:text="@string/str_done"/>
+                android:text="@string/str_done" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -45,43 +48,50 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
         android:orientation="vertical">
+
         <TextView
+            style="@style/font_ss_14_gray1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/str_display_chains"
-            style="@style/font_ss_14_gray1"
-            android:layout_margin="@dimen/space_8"/>
+            android:layout_margin="@dimen/space_8"
+            android:text="@string/str_display_chains" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/display_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:clipToPadding="false"
-            android:overScrollMode="never"/>
+            android:overScrollMode="never" />
+
         <TextView
+            style="@style/font_ss_14_gray1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/str_hide_chains"
-            style="@style/font_ss_14_gray1"
-            android:layout_margin="@dimen/space_8" />
+            android:layout_margin="@dimen/space_8"
+            android:text="@string/str_hide_chains" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5">
+
             <LinearLayout
                 android:id="@+id/empty_chains"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:visibility="gone">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/history_none_img"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/history_none_img" />
             </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/hide_recycler"
                 android:layout_width="match_parent"

@@ -8,19 +8,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_black_daynight"
             android:text="@string/str_wallet_connect"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -34,6 +34,7 @@
             android:id="@+id/wc_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/space_6"
             android:layout_marginLeft="@dimen/space_16"
@@ -59,7 +60,7 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:gravity="center"
                     android:text=""
-                    style="@style/font_ss_15_white"/>
+                    style="@style/font_ss_15_black_daynight"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -78,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -92,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:text=""
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_black_daynight"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

@@ -44,7 +44,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/tx_fee_denom"
                             android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_white"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/starname_fee_denom"
                             android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_14_white"/>
+                style="@style/font_ss_14_black_daynight"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_black_daynight"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_black_daynight"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
                 android:lines="2"
                 android:ellipsize="end"
                 android:text="-"
-                style="@style/font_ss_12_white"/>
+                style="@style/font_ss_12_black_daynight"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -168,7 +168,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_back"/>
         <Button

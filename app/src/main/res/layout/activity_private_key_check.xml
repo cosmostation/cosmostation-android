@@ -4,50 +4,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:background="@color/colorWhiteDayNight"
+        android:scaleType="fitXY" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
+            style="@style/font_ssm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
-            android:text="@string/str_check_private_key_c"/>
+            android:text="@string/str_check_private_key_c" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_80"
+        android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true"
-        android:layout_below="@+id/tool_bar">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/private_key"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_14_white"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -89,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:minHeight="@dimen/space_45"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
             android:visibility="gone"
@@ -101,7 +107,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginTop="@dimen/space_8"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
+            style="@style/font_ss_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_ok"/>
     </LinearLayout>

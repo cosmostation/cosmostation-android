@@ -33,7 +33,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView bgImg, bgImgGr;;
+    private ImageView bgImg;
     private LinearLayout bottomLayer1, bottomLayer2;
     private Button mStart;
 
@@ -42,7 +42,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         bgImg = findViewById(R.id.intro_bg);
-        bgImgGr = findViewById(R.id.intro_bg_gr);
         bottomLayer1 = findViewById(R.id.bottom_layer1);
         bottomLayer2 = findViewById(R.id.bottom_layer2);
         mStart = findViewById(R.id.btn_start);
@@ -105,7 +104,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     private void onInitView() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5);
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out5);
-        bgImgGr.startAnimation(fadeInAnimation);
+        bgImg.startAnimation(fadeInAnimation);
         bgImg.startAnimation(fadeOutAnimation);
 
         final Animation mFadeInAni = AnimationUtils.loadAnimation(this, R.anim.fade_in2);

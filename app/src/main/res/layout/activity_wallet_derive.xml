@@ -7,18 +7,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@color/colorWhiteDayNight"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <TextView
             android:id="@+id/tool_title"
-            style="@style/font_ssm_17_white"
+            style="@style/font_ssm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mnemonic 1" />
@@ -27,21 +27,24 @@
             android:id="@+id/cnt_layer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="right"
             android:layout_marginRight="@dimen/space_16"
+            android:orientation="horizontal"
             android:visibility="gone">
+            
             <TextView
                 android:id="@+id/account_cnt"
                 style="@style/font_ss_14_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1" />
+
             <TextView
                 style="@style/font_ss_14_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" / " />
+
             <TextView
                 android:id="@+id/chain_cnt"
                 style="@style/font_ss_14_gray1"
@@ -90,7 +93,7 @@
 
                 <TextView
                     android:id="@+id/path"
-                    style="@style/font_ss_14_white"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="@dimen/space_18"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
