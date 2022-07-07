@@ -1072,17 +1072,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortingGravityPool(ArrayList<Coin> coins, BaseData baseData) {
-        Collections.sort(coins, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                long id1 = baseData.getGravityPoolByDenom(o1.denom).getId();
-                long id2 = baseData.getGravityPoolByDenom(o2.denom).getId();
-                return id1 < id2 ? -1 : 1;
-            }
-        });
-    }
-
     public static void onSortingInjectivePool(ArrayList<Coin> coins) {
         Collections.sort(coins, new Comparator<Coin>() {
             @Override
