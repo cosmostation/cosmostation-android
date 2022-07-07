@@ -151,10 +151,15 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             } else if (proposal.proposal_status.contains("PASSED")) {
                 voteHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_passed_img));
                 voteHolder.proposal_status.setText("Passed");
+            } else if (proposal.proposal_status.contains("FAILED")) {
+                voteHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.failed));
+                voteHolder.proposal_status.setText("Failed");
             } else {
                 voteHolder.proposal_status_img.setVisibility(View.GONE);
-                voteHolder.proposal_status.setText("unKnown");
+                voteHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.failed));
+                voteHolder.proposal_status.setText("Unknown");
             }
+
 
             voteHolder.proposal_title.setText(proposal.title);
             voteHolder.proposal_details.setText(proposal.description);
@@ -162,15 +167,14 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (proposal.proposal_status.contains("PASSED") ||
-                            proposal.proposal_status.contains("REJECTED")) {
-                        String url = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-                    } else {
+                    if (proposal.proposal_status.contains("VOTING_PERIOD")) {
                         Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
                         voteIntent.putExtra("proposalId", String.valueOf(proposal.id));
                         startActivity(voteIntent);
+                    } else {
+                        String url = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
                     }
                 }
             });
