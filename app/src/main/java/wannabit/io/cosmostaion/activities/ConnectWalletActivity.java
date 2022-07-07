@@ -47,6 +47,7 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
@@ -359,13 +360,13 @@ public class ConnectWalletActivity extends BaseActivity {
         }
         RawTransaction rawTransaction = RawTransaction.createTransaction(
                 nonce,
-                BigInteger.valueOf(2000000020L),
-                BigInteger.valueOf(500000L),
+                BigInteger.valueOf(20000000000L),
+                DefaultGasProvider.GAS_LIMIT,
                 wcEthereumTransaction.getTo(),
                 value,
                 wcEthereumTransaction.getData()
         );
-        byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, 9001, credentials);
         String hexValue = Numeric.toHexString(signedMessage);
         return web3.ethSendRawTransaction(hexValue).sendAsync().get();
     }
