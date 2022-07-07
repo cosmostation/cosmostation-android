@@ -18,6 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="@dimen/space_12"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
                 app:cardBackgroundColor="@color/colorTransBg"

@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_2"
+        android:layout_marginTop="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBgKava"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/colorTransBgKava">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,6 +44,12 @@
                         style="@style/font_ssm_17_black_daynight"/>
                 </LinearLayout>
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/space_12"
+                android:background="@color/colorGrayDayNight"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

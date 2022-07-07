@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.AccountListActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -121,6 +124,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
             final BaseChain chain = mDisplayChains.get(position);
             WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
             WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
+            holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
 
             holder.chainRemoveImg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -213,6 +217,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
             final BaseChain chain = mHideChains.get(position);
             WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
             WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
+            holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
 
             holder.chainAddImg.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@color/colorWhiteDayNight"/>
+        android:src="@color/colorWhiteDayNight" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -19,46 +20,53 @@
         android:background="@color/colorWhiteDayNight"
         android:paddingRight="@dimen/space_24"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/toolbar_symbol_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/token_osmosis"/>
+
+            <ImageView
+                android:id="@+id/toolbar_symbol_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/token_osmosis" />
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/toolbar_symbol_img"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_4"
-                android:layout_centerVertical="true">
+                android:layout_toRightOf="@+id/toolbar_symbol_img">
+
                 <TextView
                     android:id="@+id/toolbar_symbol"
+                    style="@style/font_ssm_17_osmosis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    style="@style/font_ssm_17_osmosis"
                     android:layout_marginLeft="@dimen/space_6"
-                    android:text="OSMO"/>
+                    android:text="OSMO" />
+
                 <TextView
                     android:id="@+id/per_price"
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    style="@style/font_ssl_14_black_daynight"
-                    android:text="-"/>
+                    android:text="-" />
+
                 <LinearLayout
                     android:id="@+id/per_change"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/per_price"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/space_2"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/ic_price_updown"
                         android:layout_width="@dimen/space_12"
@@ -66,15 +74,16 @@
                         android:layout_marginTop="@dimen/space_2"
                         android:layout_marginRight="@dimen/space_2"
                         android:src="@drawable/ic_price_down"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/dash_price_updown_tx"
+                        style="@style/font_ss_10_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        style="@style/font_ss_10_black_daynight"
-                        android:text="-"/>
+                        android:text="-" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
@@ -84,33 +93,33 @@
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
-
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgOsmosis"
-        app:cardUseCompatPadding="true"
-        android:layout_below="@+id/tool_bar">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="@dimen/space_16"
             android:paddingTop="@dimen/space_12"
-            android:paddingBottom="@dimen/space_12"
-            android:paddingRight="@dimen/space_4">
+            android:paddingRight="@dimen/space_4"
+            android:paddingBottom="@dimen/space_12">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/img_account"
                     android:layout_width="@dimen/space_24"
                     android:layout_height="@dimen/space_24"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/key_off"/>
+                    android:src="@drawable/key_off" />
 
                 <TextView
                     android:id="@+id/account_Address"
@@ -123,16 +132,17 @@
                     android:singleLine="true"
                     android:text="" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/total_value"
+                style="@style/font_ss_21_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_2"
-                style="@style/font_ss_21_black_daynight"
+                android:gravity="center_horizontal"
+                android:paddingRight="@dimen/space_12"
                 android:singleLine="true"
-                android:text="0.000"
-                android:gravity="center_horizontal"/>
+                android:text="0.000" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

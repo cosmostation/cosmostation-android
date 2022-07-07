@@ -1099,6 +1099,7 @@ public class WDp {
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_crescent));
         } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_Mantle));
+            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(NYX_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_nyx));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));

@@ -5,20 +5,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <LinearLayout
                 android:id="@+id/turnout_layer"
                 android:layout_width="match_parent"
@@ -26,42 +29,48 @@
                 android:layout_marginBottom="@dimen/space_8"
                 android:orientation="vertical"
                 android:visibility="gone">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
+                        style="@style/font_ss_14_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_quorum"
-                        style="@style/font_ss_14_gray1"/>
+                        android:text="@string/str_quorum" />
+
                     <TextView
                         android:id="@+id/current_quorum"
+                        style="@style/font_ssm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_6"
                         android:gravity="right"
-                        android:text="-"
-                        style="@style/font_ssm_17_black_daynight"/>
+                        android:text="-" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
+
                     <TextView
+                        style="@style/font_ss_14_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_current_turnout"
-                        style="@style/font_ss_14_gray1"/>
+                        android:text="@string/str_current_turnout" />
+
                     <TextView
                         android:id="@+id/current_turnout"
+                        style="@style/font_ssm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_6"
                         android:gravity="right"
-                        android:text="-"
-                        style="@style/font_ssm_17_black_daynight"/>
+                        android:text="-" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -76,66 +85,73 @@
                     android:id="@+id/card_yes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/box_vote_trans"
                     android:layout_marginRight="@dimen/space_4"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_vote_trans"
+                    android:orientation="vertical"
                     android:padding="@dimen/space_14">
+
                     <ImageView
                         android:id="@+id/vote_yes_voted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_check_red"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/vote_yes_title"
+                        style="@style/font_ss_14_vote_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_14_vote_yes"
-                        android:text="@string/str_vote_yes"/>
+                        android:text="@string/str_vote_yes" />
+
                     <ProgressBar
                         android:id="@+id/vote_yes_progress"
-                        android:layout_below="@+id/vote_yes_title"
+                        style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_6"
+                        android:layout_below="@+id/vote_yes_title"
                         android:layout_marginTop="@dimen/space_12"
-                        android:maxHeight="@dimen/space_6"
-                        android:splitTrack="false"
-                        android:progress="0"
                         android:max="100"
+                        android:maxHeight="@dimen/space_6"
+                        android:progress="0"
                         android:progressDrawable="@drawable/progress_vote_yes"
-                        style="?android:attr/progressBarStyleHorizontal"/>
+                        android:splitTrack="false" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/vote_yes_progress"
                         android:layout_marginTop="@dimen/space_12">
+
                         <TextView
                             android:id="@+id/vote_yes_rate"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_black_daynight"
-                            android:text="0%"/>
+                            android:text="0%" />
+
                         <TextView
                             android:id="@+id/vote_yes_cnt"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_black_daynight"
                             android:text="0"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
+
                         <ImageView
                             android:id="@+id/vote_yes_cnt_img"
-                            android:layout_toLeftOf="@+id/vote_yes_cnt"
-                            android:layout_marginRight="@dimen/space_4"
-                            android:layout_centerVertical="true"
                             android:layout_width="@dimen/space_12"
                             android:layout_height="@dimen/space_12"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:layout_toLeftOf="@+id/vote_yes_cnt"
                             android:src="@drawable/ic_user_ic"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -143,66 +159,73 @@
                     android:id="@+id/card_no"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/box_vote_trans"
                     android:layout_marginLeft="@dimen/space_4"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_vote_trans"
+                    android:orientation="vertical"
                     android:padding="@dimen/space_14">
+
                     <ImageView
                         android:id="@+id/vote_no_voted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_check_red"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/vote_no_title"
+                        style="@style/font_ss_14_vote_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_14_vote_no"
-                        android:text="@string/str_vote_no"/>
+                        android:text="@string/str_vote_no" />
+
                     <ProgressBar
                         android:id="@+id/vote_no_progress"
-                        android:layout_below="@+id/vote_no_title"
+                        style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_6"
+                        android:layout_below="@+id/vote_no_title"
                         android:layout_marginTop="@dimen/space_12"
-                        android:maxHeight="@dimen/space_6"
-                        android:splitTrack="false"
-                        android:progress="0"
                         android:max="100"
+                        android:maxHeight="@dimen/space_6"
+                        android:progress="0"
                         android:progressDrawable="@drawable/progress_vote_no"
-                        style="?android:attr/progressBarStyleHorizontal"/>
+                        android:splitTrack="false" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/vote_no_progress"
                         android:layout_marginTop="@dimen/space_12">
+
                         <TextView
                             android:id="@+id/vote_no_rate"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_black_daynight"
-                            android:text="0%"/>
+                            android:text="0%" />
+
                         <TextView
                             android:id="@+id/vote_no_cnt"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_black_daynight"
                             android:text="0"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
+
                         <ImageView
                             android:id="@+id/vote_no_cnt_img"
-                            android:layout_toLeftOf="@+id/vote_no_cnt"
-                            android:layout_marginRight="@dimen/space_4"
-                            android:layout_centerVertical="true"
                             android:layout_width="@dimen/space_12"
                             android:layout_height="@dimen/space_12"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:layout_toLeftOf="@+id/vote_no_cnt"
                             android:src="@drawable/ic_user_ic"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -216,66 +239,73 @@
                     android:id="@+id/card_veto"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/box_vote_trans"
                     android:layout_marginRight="@dimen/space_4"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_vote_trans"
+                    android:orientation="vertical"
                     android:padding="@dimen/space_14">
+
                     <ImageView
                         android:id="@+id/vote_veto_voted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_check_red"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/vote_veto_title"
+                        style="@style/font_ss_14_vote_veto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_14_vote_veto"
-                        android:text="@string/str_vote_veto"/>
+                        android:text="@string/str_vote_veto" />
+
                     <ProgressBar
                         android:id="@+id/vote_veto_progress"
-                        android:layout_below="@+id/vote_veto_title"
+                        style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_6"
+                        android:layout_below="@+id/vote_veto_title"
                         android:layout_marginTop="@dimen/space_12"
-                        android:maxHeight="@dimen/space_6"
-                        android:splitTrack="false"
-                        android:progress="0"
                         android:max="100"
+                        android:maxHeight="@dimen/space_6"
+                        android:progress="0"
                         android:progressDrawable="@drawable/progress_vote_veto"
-                        style="?android:attr/progressBarStyleHorizontal"/>
+                        android:splitTrack="false" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/vote_veto_progress"
                         android:layout_marginTop="@dimen/space_12">
+
                         <TextView
                             android:id="@+id/vote_vetos_rate"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_black_daynight"
-                            android:text="0%"/>
+                            android:text="0%" />
+
                         <TextView
                             android:id="@+id/vote_veto_cnt"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_black_daynight"
                             android:text="0"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
+
                         <ImageView
                             android:id="@+id/vote_veto_cnt_img"
-                            android:layout_toLeftOf="@+id/vote_veto_cnt"
-                            android:layout_marginRight="@dimen/space_4"
-                            android:layout_centerVertical="true"
                             android:layout_width="@dimen/space_12"
                             android:layout_height="@dimen/space_12"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:layout_toLeftOf="@+id/vote_veto_cnt"
                             android:src="@drawable/ic_user_ic"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -283,66 +313,73 @@
                     android:id="@+id/card_abstain"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/box_vote_trans"
                     android:layout_marginLeft="@dimen/space_4"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_vote_trans"
+                    android:orientation="vertical"
                     android:padding="@dimen/space_14">
+
                     <ImageView
                         android:id="@+id/vote_abstain_voted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_check_red"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/vote_abstain_title"
+                        style="@style/font_ss_14_vote_abstain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_14_vote_abstain"
-                        android:text="@string/str_vote_abstain"/>
+                        android:text="@string/str_vote_abstain" />
+
                     <ProgressBar
                         android:id="@+id/vote_abstain_progress"
-                        android:layout_below="@+id/vote_abstain_title"
+                        style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_6"
+                        android:layout_below="@+id/vote_abstain_title"
                         android:layout_marginTop="@dimen/space_12"
-                        android:maxHeight="@dimen/space_6"
-                        android:splitTrack="false"
-                        android:progress="0"
                         android:max="100"
+                        android:maxHeight="@dimen/space_6"
+                        android:progress="0"
                         android:progressDrawable="@drawable/progress_vote_abstain"
-                        style="?android:attr/progressBarStyleHorizontal"/>
+                        android:splitTrack="false" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/vote_abstain_progress"
                         android:layout_marginTop="@dimen/space_12">
+
                         <TextView
                             android:id="@+id/vote_abstain_rate"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_black_daynight"
-                            android:text="0%"/>
+                            android:text="0%" />
+
                         <TextView
                             android:id="@+id/vote_abstain_cnt"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            style="@style/font_ss_14_black_daynight"
                             android:text="0"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
+
                         <ImageView
                             android:id="@+id/vote_abstain_cnt_img"
-                            android:layout_toLeftOf="@+id/vote_abstain_cnt"
-                            android:layout_marginRight="@dimen/space_4"
-                            android:layout_centerVertical="true"
                             android:layout_width="@dimen/space_12"
                             android:layout_height="@dimen/space_12"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:layout_toLeftOf="@+id/vote_abstain_cnt"
                             android:src="@drawable/ic_user_ic"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
