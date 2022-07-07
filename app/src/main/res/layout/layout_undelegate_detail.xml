@@ -60,7 +60,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_black_daynight"/>
+                style="@style/font_ss_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time0"
                 android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_black_daynight"/>
+                style="@style/font_ss_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time1"
                 android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_black_daynight"/>
+                style="@style/font_ss_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time2"
                 android:layout_width="wrap_content"
@@ -159,7 +159,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_black_daynight"/>
+                style="@style/font_ss_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time3"
                 android:layout_width="wrap_content"
@@ -192,7 +192,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_12_black_daynight"/>
+                style="@style/font_ss_12_black_daynight"/>
             <TextView
                 android:id="@+id/undelegate_detail_time4"
                 android:layout_width="wrap_content"

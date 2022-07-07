@@ -117,7 +117,7 @@
                         android:layout_toLeftOf="@+id/total_delegated_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -152,7 +152,7 @@
                         android:layout_toLeftOf="@+id/harvest_reward_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 

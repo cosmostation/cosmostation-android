@@ -68,7 +68,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_ss_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/send_amount_denom"
                                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_ss_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/send_fee_denom"
                                 android:layout_width="wrap_content"
@@ -209,7 +209,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_ss_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/receive_amount_denom"
                                 android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_ss_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/relay_fee_denom"
                                 android:layout_width="wrap_content"
@@ -273,7 +273,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_ss_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/claim_fee_denom"
                                 android:layout_width="wrap_content"

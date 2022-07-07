@@ -70,7 +70,7 @@
 
                 <TextView
                     android:id="@+id/available_amount"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -93,7 +93,7 @@
 
                 <TextView
                     android:id="@+id/vesting_amount"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -115,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/delegated_amount"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -137,7 +137,7 @@
 
                 <TextView
                     android:id="@+id/unbonding_amount"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -159,7 +159,7 @@
 
                 <TextView
                     android:id="@+id/reward_amount"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

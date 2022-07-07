@@ -50,7 +50,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_14_black_daynight"/>
+                                style="@style/font_ss_14_black_daynight"/>
                             <TextView
                                 android:id="@+id/more_loan_amount_denom"
                                 android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_14_black_daynight"/>
+                                style="@style/font_ss_14_black_daynight"/>
                             <TextView
                                 android:id="@+id/fees_denom"
                                 android:layout_width="wrap_content"
@@ -189,7 +189,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_14_black_daynight"/>
+                                style="@style/font_ss_14_black_daynight"/>
                             <TextView
                                 android:id="@+id/after_total_debt_denom"
                                 android:layout_width="wrap_content"
@@ -230,7 +230,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="-"/>
                     </RelativeLayout>
 
@@ -252,7 +252,7 @@
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginLeft="@dimen/space_16"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_ss_14_black_daynight"
                             android:text="-"/>
                     </RelativeLayout>
 

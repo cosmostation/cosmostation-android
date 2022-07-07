@@ -115,7 +115,7 @@
                             android:orientation="horizontal">
                             <TextView
                                 android:id="@+id/tx_swap_token_in_amount"
-                                style="@style/font_ssl_12_black_daynight"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
@@ -158,7 +158,7 @@
                             android:orientation="horizontal">
                             <TextView
                                 android:id="@+id/tx_swap_token_out_amount"
-                                style="@style/font_ssl_12_black_daynight"
+                                style="@style/font_ss_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />

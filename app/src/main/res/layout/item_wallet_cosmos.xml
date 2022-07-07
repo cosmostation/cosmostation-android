@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGrayDayNight"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -101,7 +101,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -120,7 +120,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -139,7 +139,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <LinearLayout

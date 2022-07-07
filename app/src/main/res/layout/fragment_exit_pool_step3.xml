@@ -47,7 +47,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/exit_fee_amount_symbol"
                             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/exit_in_amount_symbol"
                             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                         android:layout_gravity="right">
                         <TextView
                             android:id="@+id/exit_output0_amount"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
@@ -137,7 +137,7 @@
                         android:layout_gravity="right">
                         <TextView
                             android:id="@+id/exit_output1_amount"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />

@@ -47,7 +47,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_fee_amount_symbol"
                             android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_fee_symbol"
                             android:layout_width="@dimen/space_50"
@@ -126,7 +126,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_in_amount_symbol"
                             android:layout_width="wrap_content"
@@ -158,7 +158,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_out_amount_symbol"
                             android:layout_width="wrap_content"

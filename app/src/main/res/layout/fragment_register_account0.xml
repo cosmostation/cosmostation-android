@@ -108,7 +108,7 @@
                 android:layout_toLeftOf="@+id/starname_fee_denom"
                 android:layout_marginRight="@dimen/space_2"
                 android:text="-"
-                style="@style/font_ssl_14_black_daynight"/>
+                style="@style/font_ss_14_black_daynight"/>
         </RelativeLayout>
 
     </LinearLayout>

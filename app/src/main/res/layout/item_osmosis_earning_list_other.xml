@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/available_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView

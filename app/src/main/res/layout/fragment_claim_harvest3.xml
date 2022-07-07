@@ -48,7 +48,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_ss_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/fee_denom"
                                 android:layout_width="wrap_content"

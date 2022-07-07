@@ -163,7 +163,7 @@
                 android:layout_toLeftOf="@+id/img_send_arrow"
                 android:layout_marginLeft="@dimen/space_6"
                 android:layout_marginRight="@dimen/space_6"
-                style="@style/font_ssl_14_black_daynight"
+                style="@style/font_ss_14_black_daynight"
                 android:text="-"/>
             <ImageView
                 android:id="@+id/img_send_arrow"
@@ -216,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_ss_12_black_daynight"/>
                     <TextView
                         android:id="@+id/once_max_denom"
                         android:layout_width="wrap_content"
@@ -256,7 +256,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/system_max_denom"
                             android:layout_width="wrap_content"
@@ -289,7 +289,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_ss_12_black_daynight"/>
                         <TextView
                             android:id="@+id/remain_cap_denom"
                             android:layout_width="wrap_content"

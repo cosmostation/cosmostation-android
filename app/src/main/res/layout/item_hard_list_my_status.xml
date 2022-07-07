@@ -5,128 +5,140 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_2"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        android:layout_marginTop="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBgKava"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/cdp_ic"/>
+                    android:src="@drawable/cdp_ic" />
+
                 <TextView
+                    style="@style/font_ss_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    style="@style/font_ss_14_black_daynight"
-                    android:text="@string/str_my_harvest_information"/>
+                    android:text="@string/str_my_harvest_information" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
                     android:id="@+id/total_deposit_title"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_total_deposit_value"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_total_deposit_value" />
+
                 <TextView
                     android:id="@+id/total_deposit_value"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignBaseline="@+id/total_deposit_title"
+                    android:layout_alignParentRight="true"
                     android:layout_toLeftOf="@+id/total_deposit_title"
-                    android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
                     android:id="@+id/total_borrow_title"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_ltv_value"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_ltv_value" />
+
                 <TextView
                     android:id="@+id/total_borrow_value"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignBaseline="@+id/total_borrow_title"
+                    android:layout_alignParentRight="true"
                     android:layout_toLeftOf="@+id/total_borrow_title"
-                    android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_14"/>
+                android:layout_marginTop="@dimen/space_14"
+                android:background="@color/colorGrayDayNight" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
                     android:id="@+id/ltv_title"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_total_borrowed_value"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_total_borrowed_value" />
+
                 <TextView
                     android:id="@+id/ltv_value"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignBaseline="@+id/ltv_title"
+                    android:layout_alignParentRight="true"
                     android:layout_toLeftOf="@+id/ltv_title"
-                    android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
                     android:id="@+id/borrowable_title"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_borrow_limit_value"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_borrow_limit_value" />
+
                 <TextView
                     android:id="@+id/borrowable_value"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignBaseline="@+id/borrowable_title"
+                    android:layout_alignParentRight="true"
                     android:layout_toLeftOf="@+id/borrowable_title"
-                    android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="-" />
             </RelativeLayout>
 
         </LinearLayout>

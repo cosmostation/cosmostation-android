@@ -591,7 +591,7 @@
 
     
     <string name="str_min_collateral_rate">최소 담보 비율</string>
-    <string name="str_stability_fee">연간 수수료</string>
+    <string name="료">연간 수수료</string>
     <string name="str_liquidation_penalty">청산시 추가 수수료</string>
     <string name="str_liquidation_title1">Liquidation</string>
     <string name="str_liquidation_title3">청산 %1$s 가격</string>

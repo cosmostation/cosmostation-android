@@ -34,7 +34,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorGray3"
+            android:background="@color/colorGrayDayNight"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_12"/>
 
@@ -62,7 +62,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_14_black_daynight"/>
+                style="@style/font_ss_14_black_daynight"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_14_black_daynight"/>
+                style="@style/font_ss_14_black_daynight"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="-"
-                style="@style/font_ssl_14_black_daynight"/>
+                style="@style/font_ss_14_black_daynight"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"

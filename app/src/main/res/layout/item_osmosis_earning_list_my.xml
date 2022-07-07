@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/bonded_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/unbonding_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/unbonded_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/next_reward_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -238,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/available_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView

@@ -213,7 +213,7 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16"
-                android:background="@color/colorGray3" />
+                android:background="@color/colorGrayDayNight" />
 
             <TextView
                 android:layout_width="wrap_content"
