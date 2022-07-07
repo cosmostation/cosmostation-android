@@ -32,20 +32,22 @@
         android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        android:layout_marginBottom="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_44">
+
             <ImageView
                 android:id="@+id/btn_nickname_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:padding="@dimen/space_8"
                 android:src="@drawable/edit_btn" />
 
@@ -67,11 +69,10 @@
         android:layout_below="@+id/card_mnemonic_nickname_layer"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
 
         <LinearLayout
             android:layout_width="match_parent"
