@@ -121,7 +121,7 @@
 
                     <TextView
                         android:id="@+id/delegate_power_validator"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ssl_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -142,7 +142,7 @@
 
                     <TextView
                         android:id="@+id/delegate_commission_validator"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ssl_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

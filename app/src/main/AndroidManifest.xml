@@ -288,7 +288,7 @@
             android:name=".activities.setting.MnemonicDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".activities.setting.MnemonicCreateActivity"

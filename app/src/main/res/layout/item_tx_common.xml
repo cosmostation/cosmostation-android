@@ -249,7 +249,7 @@
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginBottom="@dimen/space_16"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGrayDayNight"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

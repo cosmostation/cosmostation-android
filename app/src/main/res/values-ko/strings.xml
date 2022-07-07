@@ -952,7 +952,7 @@
     <string name="str_cdp_warn_title">CDP에 관해서</string>
     <string name="str_cdp_warn_msg">CDP는 담보물의 가치변동에 따라 청산의 위험이 있습니다. CDP 개설, 상환, 청산을 포함한 모든 결정 권한과 책임은 사용자에게 있습니다. Cosmostation 지갑은 청산과 청산 위험에 대한 알람은 별도로 제공되지 않습니다.</string>
     <string name="str_delegate_warn_title">위임에 관해서</string>
-    <string name="str_delegate_warn_msg">검증인에게 위임하여 스테이킹 보상을 받을 수 있습니다. 선택한 노드에 문제가 발생하면 위임 지분의 일부를 잃을 수 있습니다. 신중히 선택해주세요.\n위임을 해하면 해지 기간이 있습니다. 이 시간 동안에는 스테이킹 보상을 받을 수 없습니다.</string>
+    <string name="str_delegate_warn_msg">검증인에게 위임하여 스테이킹 보상을 받을 수 있습니다. 선택한 노드에 문제가 발생하면 위임 지분의 일부를 잃을 수 있습니다. 신중히 선택해주세요.\n\n위임을 해하면 해지 기간이 있습니다. 이 시간 동안에는 스테이킹 보상을 받을 수 없습니다.\n\n</string>
     <string name="str_memo_warn">메모 기입을 확인 바랍니다.\n특정 거래소 또는 지갑은 메모 입력을 요구합니다.</string>
     <string name="str_ok_stake_deposit_step_0">위임 수량을 설정하세요</string>
     <string name="str_ok_stake_deposit_step_1">메모를 입력하세요 (선택사항)</string>

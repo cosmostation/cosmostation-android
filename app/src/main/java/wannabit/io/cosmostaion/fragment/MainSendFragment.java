@@ -256,6 +256,7 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_WALLET) {
                 return new WalletChainHolder(getLayoutInflater().inflate(R.layout.item_wallet_chain, viewGroup, false));
+
             } else if (viewType == TYPE_PRICE) {
                 return new WalletPriceHolder(getLayoutInflater().inflate(R.layout.item_wallet_price, viewGroup, false));
 

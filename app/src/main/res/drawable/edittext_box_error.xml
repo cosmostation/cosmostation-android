@@ -6,6 +6,8 @@
             <stroke
                 android:color="@color/colorRed"
                 android:width="@dimen/space_1"/>
+            <corners
+                android:radius="@dimen/space_6"/>
             <padding
                 android:left="@dimen/space_8"
                 android:top="@dimen/space_8"

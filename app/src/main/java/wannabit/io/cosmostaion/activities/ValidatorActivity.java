@@ -594,6 +594,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private void onBindMyValidatorV1(RecyclerView.ViewHolder viewHolder) {
             final MyValidatorHolder holder = (MyValidatorHolder) viewHolder;
             final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
+            holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mBaseChain));
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
             holder.itemTvAddress.setText(mGrpcValidator.getOperatorAddress());
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
