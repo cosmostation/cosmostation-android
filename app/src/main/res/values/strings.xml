@@ -1325,9 +1325,9 @@
     <string name="str_not_validator_title">Not Validator</string>
     <string name="str_not_validator_msg">This node is not a valid Cosmos validator.\nThis node does not participate in consensus, and therefore does not yield any rewards.\nWould you like to continue?</string>
     <string name="str_redelegation_limitted_title">Unable to redelegate.</string>
-    <string name="str_redelegation_limitted_msg">You have redelegated to this validator in the past certain period set by the system.</string>
+    <string name="str_redelegation_limitted_msg">You have redelegated to this validator in the past certain period set by the system.\n</string>
     <string name="str_redelegation_warnning_title">Notice</string>
-    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator, \nyou will not be able to redelegate FROM this validator for certain period set by the system. \nWould you like to continue?</string>
+    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator, \nyou will not be able to redelegate FROM this validator for certain period set by the system. \nWould you like to continue?\n</string>
     <string name="str_redelegation_description">For the certain period set by the system, you will not be able to redelegate from the validator you are redelegating to.</string>
     <string name="str_reward_address_change_title">Reward Address Change</string>
     <string name="str_reward_address_change_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>

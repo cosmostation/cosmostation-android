@@ -145,11 +145,9 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
                 holder.itemRevoked.setVisibility(View.GONE);
             }
-            holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), PorterDuff.Mode.SRC_IN);
             if (mCheckedGRpcValidator != null && mGrpcValidator.getOperatorAddress().equals(mCheckedGRpcValidator.getOperatorAddress())) {
                 holder.itemChecked.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mBaseChain), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTrans));
             } else {
                 holder.itemCheckedBorder.setVisibility(View.GONE);
                 holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBg));

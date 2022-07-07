@@ -912,9 +912,9 @@
     <string name="str_not_validator_title">유효한 검증인이 아닙니다.</string>
     <string name="str_not_validator_msg">이 노드는 유효한 검증인이 아닙니다.\n코스모스 컨센서스에 참여하는 검증인 노드가 아니며, 따라서 이자 또한 발생하지 않습니다.\n계속 진행하시겠습니까?</string>
     <string name="str_redelegation_limitted_title">재위임 불가</string>
-    <string name="str_redelegation_limitted_msg">이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(시스템이 설정한 일정 기간) 이 검증인으로부터 재위임을 신청할 수 있습니다.</string>
+    <string name="str_redelegation_limitted_msg">이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(시스템이 설정한 일정 기간) 이 검증인으로부터 재위임을 신청할 수 있습니다.\n</string>
     <string name="str_redelegation_warnning_title">경고</string>
-    <string name="str_redelegation_warnning_msg">재위임을 받는 검증인은 시스템이 설정한 일정 기간 동안 다시 재위임을 할 수 없습니다. 계속 진행 하시겠습니까?</string>
+    <string name="str_redelegation_warnning_msg">재위임을 받는 검증인은 시스템이 설정한 일정 기간 동안 다시 재위임을 할 수 없습니다. 계속 진행 하시겠습니까?\n</string>
     <string name="str_redelegation_description">재위임을 받을 검증인에서\n다시 재위임을 하는것은 시스템이 설정한 일정 기간 동안 불가능 합니다.</string>
     <string name="str_reward_address_change_title">이자 지급 주소 변경</string>
     <string name="str_reward_address_change_msg">이자 지급 주소를 변경하실 수 있습니다.\n주소 변경 후 이자요청시 모든 이자는 변경된 주소로 지급됩니다.\n복구 단어로 접근이 가능하신 주소를 변경주소로 선택하셔야 합니다.</string>

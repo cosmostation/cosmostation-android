@@ -72,7 +72,7 @@
                 android:id="@+id/checked_validator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_off"
+                android:src="@drawable/icon_check_off"
                 android:layout_marginRight="@dimen/space_12"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ss_11_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
 
@@ -132,7 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ss_11_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
             </LinearLayout>
