@@ -50,10 +50,11 @@
 
                     <TextView
                         android:id="@+id/account_address"
-                        style="@style/font_rmr_14_black_daynight"
+                        style="@style/font_rmr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:textStyle="bold"
                         android:ellipsize="middle"
                         android:maxWidth="@dimen/space_180"
                         android:singleLine="true"

@@ -44,17 +44,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_4"
                     android:layout_toRightOf="@+id/toolbar_net_image">
 
                     <TextView
                         android:id="@+id/toolbar_title"
-                        style="@style/font_ssm_17_black_daynight"
+                        style="@style/font_ssm_15_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:ellipsize="end"
-                        android:maxWidth="@dimen/space_80"
                         android:maxLines="1"
                         android:text="Wannabit" />
 

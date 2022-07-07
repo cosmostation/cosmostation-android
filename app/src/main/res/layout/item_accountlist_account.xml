@@ -57,8 +57,8 @@
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toLeftOf="@+id/accountAddress"
                         android:layout_toRightOf="@+id/accountKeyState"
-                        android:maxWidth="@dimen/space_120"
-                        android:text="Wallet Name" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
                     <TextView
                         android:id="@+id/accountAddress"
@@ -70,6 +70,7 @@
                         android:ellipsize="middle"
                         android:gravity="right"
                         android:maxWidth="@dimen/space_120"
+                        android:layout_marginLeft="@dimen/space_8"
                         android:singleLine="true"
                         android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr" />
                 </RelativeLayout>
