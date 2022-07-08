@@ -12,7 +12,7 @@
                         android:radius="@dimen/space_6"/>
                     <stroke
                         android:color="@color/colorBlackDayNight"
-                        android:width="@dimen/space_1"/>
+                        android:width="0.8dp"/>
                     <padding
                         android:left="@dimen/space_8"
                         android:top="@dimen/space_8"
@@ -30,7 +30,7 @@
                         android:radius="@dimen/space_6"/>
                     <stroke
                         android:color="@color/colorBlackDayNight"
-                        android:width="@dimen/space_1"/>
+                        android:width="0.8dp"/>
                     <padding
                         android:left="@dimen/space_8"
                         android:top="@dimen/space_8"

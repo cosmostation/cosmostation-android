@@ -17,10 +17,12 @@
             android:layout_height="@dimen/space_26"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_6"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
             app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="true">
+            app:cardPreventCornerOverlap="true"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,9 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginTop="@dimen/space_6"
-            android:layout_marginBottom="@dimen/space_2"
             android:layout_marginRight="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_2"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
             app:cardElevation="0dp"
@@ -107,8 +108,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_toRightOf="@+id/img_account"
-                        android:singleLine="true"
                         android:letterSpacing="-0.07"
+                        android:singleLine="true"
                         android:text="" />
                 </RelativeLayout>
 
