@@ -38,7 +38,7 @@
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:gravity="center"
-            android:text="sdasasdasdasdasdasdasdasdasdsadasdsad"
+            android:letterSpacing="-0.05"
             style="@style/font_rmr_11_gray1"/>
 
 

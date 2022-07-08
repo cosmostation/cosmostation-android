@@ -993,7 +993,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on E-Money Network");
-            Picasso.get().load(EMONEY_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            Picasso.get().load(EMONEY_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
 
             BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1195,7 +1195,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_HARD)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorHard));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
@@ -1206,7 +1206,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_USDX)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorUsdx));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
@@ -1217,7 +1217,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_SWP)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorSwp));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
@@ -1528,7 +1528,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("Pool Asset");
-        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_ic));
+        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_default));
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
 
@@ -1551,7 +1551,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(assets.display_symbol);
-            Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
 
             BigDecimal totalAmount = getBaseDao().getAvailable(assets.denom);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, assets.decimal, 6));
@@ -1571,7 +1571,7 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava bep2 tokens with gRPC
     private void onBindKavaBep2Token(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mKavaBep2Grpc.get(position);
-        Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+        Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
         holder.itemSymbol.setText(coin.denom.toUpperCase());
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
         holder.itemInnerSymbol.setText("");
@@ -1596,7 +1596,7 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava etc tokens with gRPC
     private void onBindEtcGrpcToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mEtcGrpc.get(position);
-        Picasso.get().load(KAVA_COIN_IMG_URL + "hbtc.png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+        Picasso.get().load(KAVA_COIN_IMG_URL + "hbtc.png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
         holder.itemSymbol.setText(coin.denom.toUpperCase());
         holder.itemInnerSymbol.setText("(" + coin.denom + ")");
@@ -1611,7 +1611,7 @@ public class MainTokensFragment extends BaseFragment {
     //bind cw20 tokens with gRPC
     private void onBindCw20GrpcToken(TokensAdapter.AssetHolder holder, int position) {
         final Cw20Assets cw20Asset = mCW20Grpc.get(position);
-        Picasso.get().load(cw20Asset.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+        Picasso.get().load(cw20Asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
         holder.itemSymbol.setText(cw20Asset.denom.toUpperCase());
         holder.itemInnerSymbol.setText("");
@@ -1705,7 +1705,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
                 holder.itemFullName.setText(okToken.description);
                 holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
-                Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
+                Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_default).error(R.drawable.token_default).fit().into(holder.itemImg);
             }
 
             BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
@@ -1729,7 +1729,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
             holder.itemFullName.setText(bnbToken.name);
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
 
@@ -1753,7 +1753,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");
-        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_ic));
+        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_default));
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, BigDecimal.ZERO, 6));
     }

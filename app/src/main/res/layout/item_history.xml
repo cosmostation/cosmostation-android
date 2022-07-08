@@ -55,6 +55,7 @@
                 android:id="@+id/history_line"
                 android:layout_width="1px"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_6"
                 android:layout_toRightOf="@+id/history_header"
                 android:background="@color/colorGray3" />
 

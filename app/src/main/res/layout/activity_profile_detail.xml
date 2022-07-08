@@ -120,7 +120,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/icon_profile"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 style="@style/font_ss_14_black_daynight"

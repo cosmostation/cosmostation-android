@@ -99,7 +99,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/colorGray3"
+                            android:background="@color/colorGrayDayNight"
                             android:layout_marginTop="@dimen/space_16"/>
 
                         <RelativeLayout
@@ -182,7 +182,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/colorGray3"
+                            android:background="@color/colorGrayDayNight"
                             android:layout_marginTop="@dimen/space_16"/>
 
                         <TextView
@@ -258,7 +258,7 @@
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>

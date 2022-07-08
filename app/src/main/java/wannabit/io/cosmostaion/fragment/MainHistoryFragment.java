@@ -299,7 +299,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         private final int topPadding;
 
         private View headerView;
-        private TextView mItemCnt;
+        private TextView mTitle, mItemCnt;
 
         public RecyclerViewHeader(Context context) {
             topPadding = dpToPx(context, 26);
@@ -316,7 +316,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
             if (headerView == null) {
                 headerView = inflateHeaderView(parent);
+                mTitle = (TextView) headerView.findViewById(R.id.header_title) ;
                 mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
+
+                mTitle.setText(R.string.str_history_title);
                 mItemCnt.setText("" + state.getItemCount());
                 fixLayoutSize(headerView, parent);
             }

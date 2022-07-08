@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/space_12"
-                    android:background="@color/colorGray3"/>
+                    android:background="@color/colorGrayDayNight"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -119,7 +119,7 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_24"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
             android:text="@string/str_disconnect"/>

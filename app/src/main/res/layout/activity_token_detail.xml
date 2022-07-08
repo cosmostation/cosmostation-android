@@ -29,8 +29,7 @@
                 android:id="@+id/toolbar_symbol_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/token_osmosis" />
+                android:layout_centerVertical="true" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -46,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
-                    android:text="OSMO" />
+                    android:text="-" />
 
                 <TextView
                     android:id="@+id/per_price"
@@ -190,7 +189,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/ic_ibcsend_20"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 style="@style/font_ss_14_black_daynight"
@@ -211,7 +209,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/ic_bepsend_20"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 style="@style/font_ss_14_black_daynight"
@@ -233,7 +230,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/ic_send_20"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 android:text="@string/str_send" />

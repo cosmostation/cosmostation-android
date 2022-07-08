@@ -33,7 +33,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
-                        android:background="@drawable/box_gray"/>
+                        android:background="@drawable/box_gray" />
                     <ImageView
                         android:id="@+id/img_from_chain"
                         android:layout_width="@dimen/space_32"
@@ -81,7 +81,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
-                        android:background="@drawable/edittext_box"/>
+                        android:background="@drawable/btn_trans_with_border"/>
                     <ImageView
                         android:id="@+id/img_to_chain"
                         android:layout_width="@dimen/space_32"
@@ -127,14 +127,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:background="@drawable/edittext_box"/>
+                android:background="@drawable/btn_trans_with_border"/>
             <ImageView
                 android:id="@+id/img_to_send_coin"
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
                 android:layout_marginLeft="@dimen/space_10"
                 android:layout_centerVertical="true"
-                android:src="@drawable/token_ic"/>
+                android:src="@drawable/token_default"/>
             <TextView
                 android:id="@+id/txt_to_send_coin"
                 android:layout_width="wrap_content"
@@ -338,7 +338,7 @@
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"

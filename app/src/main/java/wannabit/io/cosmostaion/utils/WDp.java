@@ -4079,46 +4079,15 @@ public class WDp {
     // HTLC using
     public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView
             txtView) {
-        if (chain.equals(COSMOS_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_cosmos));
-            txtView.setText(c.getString(R.string.str_cosmos_hub_2));
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_iris));
-            txtView.setText(c.getString(R.string.str_iris_net_2));
-
-        } else if (chain.equals(BNB_MAIN)) {
+        if (chain.equals(BNB_MAIN)) {
             if (imgView != null)
                 imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
-            txtView.setText(c.getString(R.string.str_binance_net_2));
+            txtView.setText("BINANCE");
 
         } else if (chain.equals(KAVA_MAIN)) {
             if (imgView != null)
                 imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.kava_img));
-            txtView.setText(c.getString(R.string.str_kava_net_2));
-
-        } else if (chain.equals(IOV_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_starname));
-            txtView.setText(c.getString(R.string.str_iov_net_2));
-
-        } else if (chain.equals(BAND_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.band_chain_img));
-            txtView.setText(c.getString(R.string.str_band_chain_2));
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_okx));
-            txtView.setText(c.getString(R.string.str_ok_net2));
-
-        } else if (chain.equals(CERTIK_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.certik_chain_img));
-            txtView.setText(c.getString(R.string.str_certik_chain_2));
-
+            txtView.setText(c.getString(R.string.str_kava_c));
         }
     }
 

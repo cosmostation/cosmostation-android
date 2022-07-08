@@ -231,7 +231,7 @@
 
             <Button
                 android:id="@+id/validator_btn_delegate"
-                style="@style/font_ss_12_photon"
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_40"
                 android:layout_marginTop="12dp"
