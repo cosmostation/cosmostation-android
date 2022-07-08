@@ -11,9 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_6"
         android:layout_marginRight="@dimen/space_6"
+        android:layout_marginTop="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
-        app:cardBackgroundColor="@color/zxing_transparent"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/zxing_transparent">
         <RelativeLayout
             android:id="@+id/wallet_layout"
             android:layout_width="match_parent"

@@ -30,70 +30,77 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
         android:keepScreenOn="true">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/wc_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardCornerRadius="@dimen/space_6"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_6"
             app:cardBackgroundColor="@color/colorTransBgBinance"
-            app:cardUseCompatPadding="true">
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:padding="@dimen/space_16">
+
                 <ImageView
                     android:id="@+id/wc_img"
                     android:layout_width="@dimen/space_64"
-                    android:layout_height="@dimen/space_64"/>
+                    android:layout_height="@dimen/space_64" />
+
                 <TextView
                     android:id="@+id/wc_name"
+                    style="@style/font_ss_15_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_16"
-                    android:layout_marginRight="@dimen/space_16"
                     android:layout_marginTop="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_16"
                     android:gravity="center"
-                    android:text=""
-                    style="@style/font_ss_15_black_daynight"/>
+                    android:text="" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/space_12"
-                    android:background="@color/colorGrayDayNight"/>
+                    android:background="@color/colorGrayDayNight" />
 
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
-                    android:text="@string/str_connect_to"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_connect_to" />
+
                 <TextView
                     android:id="@+id/wc_url"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
-                    android:text=""
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="" />
 
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
-                    android:text="@string/str_address"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_address" />
+
                 <TextView
                     android:id="@+id/wc_address"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
-                    android:text=""
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

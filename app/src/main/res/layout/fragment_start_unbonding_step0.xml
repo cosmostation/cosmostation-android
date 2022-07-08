@@ -10,17 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/space_12"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        android:layout_marginStart="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginEnd="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_12"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true" >
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/space_16"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,24 +34,27 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_osmosis_to_unbonding_id"
-                        style="@style/font_ss_12_gray1"/>
+                        android:text="@string/str_osmosis_to_unbonding_id" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/unbonding_ids"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="#91082"
-                            style="@style/font_ssl_12_black_daynight" />
+                            android:text="#91082" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -56,70 +63,79 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGrayDayNight" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingTop="@dimen/space_16"
-                android:paddingBottom="@dimen/space_16"
-                android:orientation="vertical">
+                android:paddingBottom="@dimen/space_16">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_osmosis_to_unbonding_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        android:text="@string/str_osmosis_to_unbonding_amount" />
+
                     <TextView
                         android:id="@+id/line"
                         style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true" />
+
                     <TextView
                         android:id="@+id/unbonding_amount_symbol"
+                        style="@style/font_ss_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_below="@+id/line"
-                        style="@style/font_ss_11_gray1"
+                        android:layout_alignParentRight="true"
                         android:gravity="right"
-                        android:text="-"/>
+                        android:text="-" />
+
                     <TextView
                         android:id="@+id/unbonding_amount"
+                        style="@style/font_ss_11_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/unbonding_amount_symbol"
                         android:layout_below="@+id/line"
                         android:layout_marginRight="@dimen/space_2"
-                        style="@style/font_ss_11_black_daynight"
+                        android:layout_toLeftOf="@+id/unbonding_amount_symbol"
                         android:gravity="right"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16">
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_osmosis_unbonding_duration"
-                        style="@style/font_ss_12_gray1"/>
+                        android:text="@string/str_osmosis_unbonding_duration" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/unbonding_duration"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="-"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            android:text="-" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -155,7 +171,7 @@
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"

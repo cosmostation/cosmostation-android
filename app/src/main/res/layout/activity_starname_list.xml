@@ -38,17 +38,12 @@
             app:tabIndicatorHeight="2dp"
             app:tabIndicatorColor="@color/color_cosmos"
             app:tabIconTint="@color/color_cosmos" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorGray4"
-            android:layout_below="@+id/name_service_tab"
-            android:layout_marginTop="-1dp"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/name_service_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/name_service_tab"/>
+            android:layout_below="@+id/name_service_tab" />
     </RelativeLayout>
 
 </RelativeLayout>

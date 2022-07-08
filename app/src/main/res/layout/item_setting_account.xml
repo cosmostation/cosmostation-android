@@ -10,10 +10,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBgCosmos"
-        app:cardUseCompatPadding="true" >
+        app:cardBackgroundColor="@color/colorTransBgCosmos">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_60"

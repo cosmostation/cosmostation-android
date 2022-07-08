@@ -5,60 +5,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        android:layout_marginBottom="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:padding="@dimen/space_16">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/one_profile_for_everything"/>
+                        android:src="@drawable/one_profile_for_everything" />
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_12_gray1"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="The Desmos Profile Manager application."/>
+                        android:text="The Desmos Profile Manager application." />
+
                     <RelativeLayout
                         android:id="@+id/btn_download_app"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_40"
-                        android:minHeight="@dimen/space_40"
                         android:layout_marginTop="12dp"
                         android:background="@drawable/btn_trans_with_border"
-                        android:clickable="true">
+                        android:clickable="true"
+                        android:minHeight="@dimen/space_40">
+
                         <TextView
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:drawableLeft="@drawable/icon_download"
                             android:drawablePadding="@dimen/space_2"
                             android:gravity="center"
-                            style="@style/font_ss_12_black_daynight"
                             android:text="Download (Beta)" />
                     </RelativeLayout>
                 </LinearLayout>

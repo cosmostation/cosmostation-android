@@ -15,8 +15,7 @@
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBgStarname"
-        app:cardUseCompatPadding="true" >
+        app:cardBackgroundColor="@color/colorTransBgStarname">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

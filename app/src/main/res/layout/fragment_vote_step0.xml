@@ -9,48 +9,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
         android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/space_12"
-                android:paddingBottom="@dimen/space_12"
+                android:orientation="vertical"
                 android:paddingLeft="@dimen/space_16"
+                android:paddingTop="@dimen/space_12"
                 android:paddingRight="@dimen/space_16"
-                android:orientation="vertical">
+                android:paddingBottom="@dimen/space_12">
+
                 <TextView
                     android:id="@+id/vote_title"
                     style="@style/font_ss_14_black_daynight"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_10"
                     android:orientation="horizontal"
                     android:visibility="gone">
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_proposer"
-                        style="@style/font_ss_12_gray1"/>
+                        android:text="@string/str_proposer" />
+
                     <TextView
                         android:id="@+id/vote_proposer"
+                        style="@style/font_ss_12_photon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
-                        style="@style/font_ss_12_photon"
-                        android:singleLine="true"
-                        android:ellipsize="middle"/>
+                        android:ellipsize="middle"
+                        android:singleLine="true" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -60,96 +66,104 @@
             android:id="@+id/checkBtn_yes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_16"
             android:layout_marginRight="@dimen/space_4"
-            android:clickable="true"
-            android:background="@drawable/box_round_unselected">
+            android:background="@drawable/box_round_unselected"
+            android:clickable="true">
+
             <TextView
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_black_daynight"
-                android:text="YES"/>
+                android:text="YES" />
+
             <ImageView
                 android:id="@+id/checkImg_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/icon_check_off"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_check_off" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/checkBtn_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_8"
             android:layout_marginRight="@dimen/space_4"
-            android:clickable="true"
-            android:background="@drawable/box_round_unselected">
+            android:background="@drawable/box_round_unselected"
+            android:clickable="true">
+
             <TextView
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_black_daynight"
-                android:text="NO"/>
+                android:text="NO" />
+
             <ImageView
                 android:id="@+id/checkImg_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/icon_check_off"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_check_off" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/checkBtn_veto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_8"
             android:layout_marginRight="@dimen/space_4"
-            android:clickable="true"
-            android:background="@drawable/box_round_unselected">
+            android:background="@drawable/box_round_unselected"
+            android:clickable="true">
+
             <TextView
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_black_daynight"
-                android:text="NoWithVeto"/>
+                android:text="NoWithVeto" />
+
             <ImageView
                 android:id="@+id/checkImg_veto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/icon_check_off"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_check_off" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/checkBtn_abstain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_8"
             android:layout_marginRight="@dimen/space_4"
-            android:clickable="true"
-            android:background="@drawable/box_round_unselected">
+            android:background="@drawable/box_round_unselected"
+            android:clickable="true">
+
             <TextView
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_black_daynight"
-                android:text="Abstain"/>
+                android:text="Abstain" />
+
             <ImageView
                 android:id="@+id/checkImg_abstain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/icon_check_off"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_check_off" />
         </RelativeLayout>
     </LinearLayout>
 

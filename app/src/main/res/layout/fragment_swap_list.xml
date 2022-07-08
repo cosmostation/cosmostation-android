@@ -14,8 +14,7 @@
             android:layout_height="wrap_content"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
-            app:cardCornerRadius="@dimen/space_6"
-            app:cardUseCompatPadding="true">
+            app:cardCornerRadius="@dimen/space_6">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,8 +141,7 @@
             android:layout_height="wrap_content"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
-            app:cardCornerRadius="@dimen/space_6"
-            app:cardUseCompatPadding="true">
+            app:cardCornerRadius="@dimen/space_6">
 
             <LinearLayout
                 android:layout_width="match_parent"
