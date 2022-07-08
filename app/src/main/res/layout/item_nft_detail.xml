@@ -5,53 +5,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/nft_card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_2"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        android:layout_marginLeft="@dimen/space_6"
+        android:layout_marginTop="@dimen/space_6"
+        android:layout_marginRight="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_18"
-            android:layout_marginRight="@dimen/space_18"
             android:layout_marginTop="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_18"
             android:layout_marginBottom="@dimen/space_16"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:id="@+id/nft_name"
+                            style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="name"
-                            style="@style/font_ss_14_black_daynight"/>
+                            android:text="name" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_8">
+
                         <TextView
                             android:id="@+id/nft_content"
+                            style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="content"
-                            style="@style/font_ss_12_gray1"/>
+                            android:text="content" />
                     </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -59,76 +67,82 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayDayNight"
-                android:layout_marginTop="@dimen/space_16"/>
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@color/colorGrayDayNight" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/space_20">
+                android:layout_marginTop="@dimen/space_20"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/denom_id_title"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Denom_id"
                     android:layout_marginRight="@dimen/space_30"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="Denom_id" />
+
                 <TextView
                     android:id="@+id/denom_id"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
-                    android:singleLine="true"
                     android:gravity="end"
-                    android:text="-"
-                    style="@style/font_ss_10_black_daynight"/>
+                    android:singleLine="true"
+                    android:text="-" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_12"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/token_id_title"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Token_id"
                     android:layout_marginRight="@dimen/space_30"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="Token_id" />
+
                 <TextView
                     android:id="@+id/token_id"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
-                    android:singleLine="true"
                     android:gravity="end"
-                    android:text="-"
-                    style="@style/font_ss_10_black_daynight"/>
+                    android:singleLine="true"
+                    android:text="-" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_12"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/issuer_title"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="issuer"
                     android:layout_marginRight="@dimen/space_30"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="issuer" />
+
                 <TextView
                     android:id="@+id/issuer"
+                    style="@style/font_ss_10_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
-                    android:singleLine="true"
                     android:gravity="end"
-                    android:text="-"
-                    style="@style/font_ss_10_black_daynight"/>
+                    android:singleLine="true"
+                    android:text="-" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -360,7 +360,7 @@
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"
             android:text="@string/str_token_swap_start"
             android:textAllCaps="false"
