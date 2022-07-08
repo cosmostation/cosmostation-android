@@ -94,8 +94,9 @@
         android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        app:cardBackgroundColor="@color/colorTransBgOsmosis"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true">
 
         <LinearLayout
@@ -120,14 +121,18 @@
 
                 <TextView
                     android:id="@+id/account_Address"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rmr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/img_account"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_centerVertical="true"
                     android:singleLine="true"
-                    android:text="" />
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeMaxTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:text=""/>
             </RelativeLayout>
 
             <TextView
@@ -139,7 +144,7 @@
                 android:gravity="center_horizontal"
                 android:paddingRight="@dimen/space_12"
                 android:singleLine="true"
-                android:text="$1,189,057.01" />
+                android:text="$0.00" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -162,7 +167,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
-        android:id="@+id/control_later"
+        android:id="@+id/control_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"

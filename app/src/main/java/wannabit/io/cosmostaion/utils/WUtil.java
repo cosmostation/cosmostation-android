@@ -1421,7 +1421,7 @@ public class WUtil {
                     textView.setText(ibcToken.display_denom.toUpperCase());
                 }
             } else {
-                textView.setText("UnKnown");
+                textView.setText("UNKNOWN");
             }
         }
         return denom;
@@ -1466,7 +1466,7 @@ public class WUtil {
                     return ibcToken.display_denom.toUpperCase();
                 }
             } else {
-                return "Unknown";
+                return "UNKNOWN";
             }
         }
         return denom.toUpperCase();

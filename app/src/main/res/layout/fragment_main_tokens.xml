@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/space_10"
+            android:paddingLeft="@dimen/space_16"
             android:paddingTop="@dimen/space_12"
             android:paddingBottom="@dimen/space_12"
             android:paddingRight="@dimen/space_4">
@@ -41,7 +41,10 @@
                     android:layout_centerVertical="true"
                     style="@style/font_rmr_12_black_daynight"
                     android:singleLine="true"
-                    android:letterSpacing="-0.07"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeMaxTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
                     android:text=""/>
             </RelativeLayout>
             <TextView

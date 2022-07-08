@@ -124,13 +124,17 @@
 
                 <TextView
                     android:id="@+id/account_Address"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rmr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/img_account"
                     android:singleLine="true"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeMaxTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
                     android:text="" />
             </RelativeLayout>
 

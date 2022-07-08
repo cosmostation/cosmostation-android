@@ -34,7 +34,7 @@
                             android:id="@+id/principal_icon"
                             android:layout_width="@dimen/space_32"
                             android:layout_height="@dimen/space_32"
-                            android:src="@drawable/token_ic"/>
+                            android:src="@drawable/token_default"/>
                         <TextView
                             android:id="@+id/principal_symbol"
                             android:layout_width="wrap_content"
@@ -84,26 +84,26 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/space_2"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="@string/str_repay_particaly"/>
                         <TextView
                             android:id="@+id/paritical_min_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="-"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:layout_marginRight="@dimen/space_2"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="~"/>
                         <TextView
                             android:id="@+id/paritical_max_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="-"/>
                         <TextView
                             android:id="@+id/principal_denom"
@@ -117,7 +117,7 @@
                         android:id="@+id/paritical_disable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="@string/str_cannot_particaly"
                         android:visibility="gone"/>
                     <LinearLayout
@@ -131,13 +131,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/space_2"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="@string/str_repay_all"/>
                         <TextView
                             android:id="@+id/all_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="-"/>
                         <TextView
                             android:id="@+id/all_denom"
@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_6"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="@string/str_cannot_repay_all"
                         android:visibility="gone"/>
                 </LinearLayout>
@@ -330,7 +330,7 @@
             android:id="@+id/btn_next"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"

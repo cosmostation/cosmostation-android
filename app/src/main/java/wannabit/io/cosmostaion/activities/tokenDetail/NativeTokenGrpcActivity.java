@@ -166,16 +166,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD)) {
-                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorHard));
-                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBghard));
-            } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_USDX)) {
-                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorUsdx));
-                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBgusdx));
-            } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
-                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorSwp));
-                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBgswp));
-            }
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
             Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);

@@ -12,13 +12,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/box_round_transbg"
+            android:padding="@dimen/space_10"
+            android:layout_margin="@dimen/space_6">
             <RelativeLayout
                 android:id="@+id/join_pool_input_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_12"
-                android:layout_marginRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_12">
                 <LinearLayout
                     android:id="@+id/join_pool_input_symbol_layer"
@@ -31,7 +32,7 @@
                         android:id="@+id/join_pool_input_icon"
                         android:layout_width="@dimen/space_28"
                         android:layout_height="@dimen/space_28"
-                        android:src="@drawable/token_ic"/>
+                        android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/join_pool_input_symbol"
                         android:layout_width="wrap_content"
@@ -74,7 +75,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_12">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ss_10_gray1"
+                            style="@style/font_ss_10_black_daynight"
                             android:text="12312312321"/>
                         <TextView
                             android:id="@+id/join_pool_input_amount_denom"
@@ -101,7 +101,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_50"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_4"
                     android:orientation="horizontal">
                     <Button
@@ -150,8 +149,6 @@
                 android:id="@+id/join_pool_output_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_12"
-                android:layout_marginRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_12">
                 <LinearLayout
                     android:id="@+id/join_pool_output_symbol_layer"
@@ -164,7 +161,7 @@
                         android:id="@+id/join_pool_output_icon"
                         android:layout_width="@dimen/space_28"
                         android:layout_height="@dimen/space_28"
-                        android:src="@drawable/token_ic"/>
+                        android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/join_pool_output_symbol"
                         android:layout_width="wrap_content"
@@ -206,7 +203,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_12">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -218,7 +214,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ss_10_gray1"
+                            style="@style/font_ss_10_black_daynight"
                             android:text="12312312321"/>
                         <TextView
                             android:id="@+id/join_pool_output_amount_denom"
@@ -233,7 +229,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_50"
-                    android:layout_marginRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_4"
                     android:orientation="horizontal">
                     <Button

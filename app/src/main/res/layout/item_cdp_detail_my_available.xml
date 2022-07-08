@@ -41,7 +41,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"
+                android:background="@color/colorGrayDayNight"
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginBottom="@dimen/space_12"/>
 
@@ -53,7 +53,7 @@
                     android:id="@+id/collateral_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/collateral_denom"
                     android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                     android:id="@+id/principal_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/principal_denom"
                     android:layout_width="wrap_content"
