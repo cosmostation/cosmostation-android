@@ -275,7 +275,7 @@
     <string name="str_front_guide_title_rizon"><![CDATA[라이즌 네트워크]]></string>
     <string name="str_front_guide_title_medi"><![CDATA[메디블록]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[알테아 네트워크]]></string>
-    <string name="str_front_guide_title_osmosis"><![CDATA[오스모시스 존]]></string>
+    <string name="str_front_guide_title_osmosis"><![CDATA[오스모시스]]></string>
     <string name="str_front_guide_title_umee"><![CDATA[우미 체인 (The Ocean)]]></string>
     <string name="str_front_guide_title_axelar"><![CDATA[악셀라 네트워크]]></string>
     <string name="str_front_guide_title_emoney"><![CDATA[e-머니]]></string>
@@ -1211,6 +1211,7 @@
     <string name="str_exit_pool_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_exit_pool_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_exit_pool_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_select_lockup_duration">락업 종류를 선택하세요</string>
     <string name="str_add_record_topic_name">Topic Name</string>
     <string name="str_add_record_writer_address">Writer Address</string>
     <string name="str_add_record_owner_address">Owner Address</string>
@@ -1347,7 +1348,7 @@
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
     <string name="str_sif_dex_eth_pol">Eth Pool</string>
-    <string name="str_sif_swap_rate">SifChain Swap Rate</string>
+    <string name="str_sif_swap_rate">Sif Dex Swap Rate</string>
     <string name="str_sif_swap_step_0">스왑 수량을 입력해주세요</string>
     <string name="str_sif_swap_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_sif_swap_step_2">Tx 수수료를 선택하세요</string>

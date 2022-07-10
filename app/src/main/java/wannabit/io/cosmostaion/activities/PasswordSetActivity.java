@@ -112,7 +112,7 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
 
     private void onFinishInput() {
         if (mIsConfirmSequence) {
-            mPassowrdMsg1.setVisibility(View.INVISIBLE);
+            mPassowrdMsg1.setVisibility(View.GONE);
             if (mConfirmInput.equals(mUserInput)) {
                 onShowWaitDialog();
                 new InitPasswordTask(getBaseApplication(), this).execute(mConfirmInput);

@@ -190,9 +190,11 @@ public class MainSendFragment extends BaseFragment {
         onNoticeView();
 
         if (mAccount.hasPrivateKey) {
+            itemKeyStatus.setImageResource(R.drawable.key_off);
             itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
             itemKeyStatus.setImageResource(R.drawable.watchmode);
+            itemKeyStatus.setColorFilter(R.color.colorTransBg, android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));

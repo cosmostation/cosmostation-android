@@ -23,7 +23,7 @@
             android:id="@+id/chainImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/chain_cosmos"/>
+            android:src="@drawable/token_default"/>
         <TextView
             android:id="@+id/chainName"
             android:layout_width="wrap_content"

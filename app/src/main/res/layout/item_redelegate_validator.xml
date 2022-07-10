@@ -13,13 +13,13 @@
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_6"
         android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
         android:padding="@dimen/space_4">
         <RelativeLayout
+            android:id="@+id/check_layer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_72">
             <LinearLayout
@@ -138,13 +138,4 @@
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-    <View
-        android:id="@+id/check_border"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_72"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/btn_trans_with_border"/>
 </RelativeLayout>

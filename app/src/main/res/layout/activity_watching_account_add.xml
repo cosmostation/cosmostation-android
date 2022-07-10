@@ -44,7 +44,7 @@
             android:id="@+id/et_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/space_80"
+            android:minHeight="@dimen/space_60"
             android:layout_marginTop="@dimen/space_8"
             android:hint="@string/str_address_pubkey"
             android:textCursorDrawable="@drawable/white_cursor"

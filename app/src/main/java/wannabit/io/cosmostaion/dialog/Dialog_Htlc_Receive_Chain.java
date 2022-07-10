@@ -65,7 +65,7 @@ public class Dialog_Htlc_Receive_Chain extends DialogFragment {
         @NonNull
         @Override
         public DestinationChainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new DestinationChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_destination_chain, viewGroup, false));
+            return new DestinationChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_ibc_receive_list, viewGroup, false));
         }
 
         @Override

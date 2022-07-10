@@ -3020,8 +3020,6 @@ public class WUtil {
             guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_okx));
             guideTitle.setText(R.string.str_front_guide_title_ok);
             guideMsg.setText(R.string.str_front_guide_msg_ok);
-            guideBtn1.setText(R.string.str_faq_ok);
-            guideBtn2.setText(R.string.str_guide_ok);
 
         } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
             guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.certik_img));

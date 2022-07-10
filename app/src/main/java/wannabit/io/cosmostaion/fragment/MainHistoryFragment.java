@@ -136,9 +136,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
         if (mAccount.hasPrivateKey) {
+            itemKeyStatus.setImageResource(R.drawable.key_off);
             itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
-            itemKeyStatus.setColorFilter(ContextCompat.getColor(getMainActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+            itemKeyStatus.setImageResource(R.drawable.watchmode);
+            itemKeyStatus.setColorFilter(R.color.colorTransBg, android.graphics.PorterDuff.Mode.SRC_IN);
         }
         mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));

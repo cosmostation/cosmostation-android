@@ -38,11 +38,11 @@
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:gravity="center"
-            android:singleLine="true"
+            android:maxLines="1"
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="11sp"
             android:autoSizeMaxTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
+            android:autoSizeStepGranularity="1sp"
             style="@style/font_rmr_11_gray1"/>
 
 

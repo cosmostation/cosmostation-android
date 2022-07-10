@@ -108,7 +108,7 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/space_16"
             android:paddingTop="@dimen/space_12"
-            android:paddingRight="@dimen/space_4"
+            android:paddingRight="@dimen/space_6"
             android:paddingBottom="@dimen/space_12">
 
             <RelativeLayout
@@ -130,11 +130,11 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/img_account"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="11sp"
                     android:autoSizeMaxTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeStepGranularity="1sp"
                     android:text="" />
             </RelativeLayout>
 

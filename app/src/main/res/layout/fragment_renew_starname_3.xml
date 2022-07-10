@@ -105,7 +105,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3" />
+                android:background="@color/colorGrayDayNight" />
 
             <TextView
                 style="@style/font_ss_12_gray1"

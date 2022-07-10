@@ -22,7 +22,7 @@
             android:paddingLeft="@dimen/space_16"
             android:paddingTop="@dimen/space_12"
             android:paddingBottom="@dimen/space_12"
-            android:paddingRight="@dimen/space_4">
+            android:paddingRight="@dimen/space_6">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -34,17 +34,17 @@
                     android:src="@drawable/key_off"/>
                 <TextView
                     android:id="@+id/wallet_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_20"
                     android:layout_toRightOf="@+id/img_account"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
                     style="@style/font_rmr_12_black_daynight"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="11sp"
                     android:autoSizeMaxTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeStepGranularity="1sp"
                     android:text=""/>
             </RelativeLayout>
             <TextView

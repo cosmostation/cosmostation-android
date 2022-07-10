@@ -87,7 +87,7 @@
                         android:layout_width="@dimen/space_8"
                         android:layout_height="@dimen/space_8"
                         android:layout_marginStart="@dimen/space_12"
-                        android:background="@drawable/ic_plus"/>
+                        android:background="@drawable/icon_plus"/>
                     <ImageView
                         android:id="@+id/img_circle4"
                         android:layout_width="wrap_content"

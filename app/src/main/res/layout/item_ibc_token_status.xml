@@ -151,9 +151,10 @@
                         <TextView
                             android:id="@+id/across_denom"
                             style="@style/font_ss_14_black_daynight"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/space_180"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:gravity="end"
                             android:ellipsize="middle"
                             android:singleLine="true"
                             android:text="-" />

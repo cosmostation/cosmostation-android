@@ -147,7 +147,11 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             mAddress.setText(mAccount.address);
             mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mAccount.hasPrivateKey) {
-                mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+                mKeyState.setImageResource(R.drawable.key_off);
+                mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            } else {
+                mKeyState.setImageResource(R.drawable.watchmode);
+                mKeyState.setColorFilter(R.color.colorTransBg, android.graphics.PorterDuff.Mode.SRC_IN);
             }
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mCw20Asset.denom, mTotalAmount, mCw20Asset.decimal));
             mSwipeRefreshLayout.setRefreshing(false);

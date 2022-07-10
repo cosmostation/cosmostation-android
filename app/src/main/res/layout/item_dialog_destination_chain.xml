@@ -21,9 +21,11 @@
         android:background="@drawable/box_et_white">
         <ImageView
             android:id="@+id/chainImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/chain_cosmos"/>
+            android:layout_width="@dimen/space_20"
+            android:layout_height="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_12"
+            android:src="@drawable/token_default"/>
         <TextView
             android:id="@+id/chainName"
             android:layout_width="wrap_content"

@@ -101,7 +101,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                 }
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
                 try {
-                    Picasso.get().load(KAVA_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
+                    Picasso.get().load(KAVA_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.chainImg);
                     String baseDenom = WDp.getKavaBaseDenom(mSwapCoinList.get(position));
                     if (baseDenom.equalsIgnoreCase(TOKEN_KAVA)) {
                         holder.chainName.setText(getString(R.string.str_kava_c));

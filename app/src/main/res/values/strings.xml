@@ -689,7 +689,7 @@
     <string name="str_front_guide_title_rizon"><![CDATA[RIZON CHAIN]]></string>
     <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
-    <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS ZONE]]></string>
+    <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS]]></string>
     <string name="str_front_guide_title_umee"><![CDATA[UMEE (The Ocean)]]></string>
     <string name="str_front_guide_title_axelar"><![CDATA[AXELAR NETWORK]]></string>
     <string name="str_front_guide_title_emoney"><![CDATA[e-Money]]></string>
@@ -1628,6 +1628,7 @@
     <string name="str_exit_pool_step_1">Insert memo (optional)</string>
     <string name="str_exit_pool_step_2">Select transaction fee</string>
     <string name="str_exit_pool_step_3">Check transaction detail</string>
+    <string name="str_select_lockup_duration">Select Lockup Type</string>
     <string name="str_add_record_topic_name">Topic Name</string>
     <string name="str_add_record_writer_address">Writer Address</string>
     <string name="str_add_record_owner_address">Owner Address</string>
@@ -1767,7 +1768,7 @@
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
     <string name="str_sif_dex_eth_pol">Eth Pool</string>
-    <string name="str_sif_swap_rate">SifChain Swap Rate</string>
+    <string name="str_sif_swap_rate">Sif Dex Swap Rate</string>
     <string name="str_sif_swap_step_0">Insert amount to swap</string>
     <string name="str_sif_swap_step_1">Insert memo (optional)</string>
     <string name="str_sif_swap_step_2">Select transaction fee</string>

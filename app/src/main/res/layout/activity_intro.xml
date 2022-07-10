@@ -36,13 +36,13 @@
 
         <Button
             android:id="@+id/btn_start"
-            style="@style/font_ss_14_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_50"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_with_border"
+            android:textColor="@color/colorWhite"
             android:minHeight="@dimen/space_45"
             android:text="@string/str_start" />
 

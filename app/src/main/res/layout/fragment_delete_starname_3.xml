@@ -64,7 +64,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginBottom="@dimen/space_16"
-                android:background="@color/colorGray3" />
+                android:background="@color/colorGrayDayNight" />
 
             <TextView
                 style="@style/font_ss_12_gray1"
