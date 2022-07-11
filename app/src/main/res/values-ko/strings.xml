@@ -136,6 +136,10 @@
     <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
     <string name="str_notice">공지사항</string>
+    <string name="str_theme">테마</string>
+    <string name="str_theme_system">시스템</string>
+    <string name="str_theme_light">라이트 모드</string>
+    <string name="str_theme_dark">다크 모드</string>
     <string name="str_alarm">알람</string>
     <string name="str_app_applock">앱 잠금</string>
     <string name="str_app_applock_enabled">사용중</string>

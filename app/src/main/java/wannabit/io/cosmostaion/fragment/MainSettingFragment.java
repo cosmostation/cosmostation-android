@@ -2,11 +2,13 @@ package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
+import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -39,6 +42,8 @@ import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectA
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
+import wannabit.io.cosmostaion.utils.ThemeUtil;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -48,11 +53,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9036;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey,mBtnWatchAddress, mBtnAlaram, mBtnAppLock, mBtnCurrency,
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey,mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnCurrency,
                         mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
-    private TextView mTvAppLock, mTvCurrency, mTvVersion;
+    private TextView mTvAppLock, mTvCurrency, mTvVersion, mTvTheme;
 
     public static MainSettingFragment newInstance(Bundle bundle) {
         MainSettingFragment fragment = new MainSettingFragment();
@@ -64,6 +69,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        themeColor = ThemeUtil.modLoad(getBaseActivity());
+        ThemeUtil.applyTheme(themeColor);
     }
 
     @Override
@@ -107,6 +115,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnMnemonic = rootView.findViewById(R.id.card_mnemonic);
         mBtnImportKey = rootView.findViewById(R.id.card_key);
         mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
+        mBtnTheme = rootView.findViewById(R.id.card_theme);
         mBtnAlaram = rootView.findViewById(R.id.card_alaram);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
@@ -122,11 +131,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvAppLock = rootView.findViewById(R.id.applock_text);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
+        mTvTheme = rootView.findViewById(R.id.theme_text);
 
         mBtnMnemonic.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
         mBtnImportKey.setOnClickListener(this);
         mBtnWatchAddress.setOnClickListener(this);
+        mBtnTheme.setOnClickListener(this);
         mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
@@ -144,6 +155,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         mBtnAlaram.setVisibility(View.GONE);
         return rootView;
+
     }
 
     @Override
@@ -153,6 +165,14 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvAppLock.setText(R.string.str_app_applock_enabled);
         } else {
             mTvAppLock.setText(R.string.str_app_applock_diabeld);
+        }
+
+        if(themeColor.equals("default")){
+            mTvTheme.setText(R.string.str_theme_system);
+        } else if(themeColor.equals("light")){
+            mTvTheme.setText(R.string.str_theme_light);
+        } else if(themeColor.equals("dark")){
+            mTvTheme.setText(R.string.str_theme_dark);
         }
     }
 
@@ -175,6 +195,21 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnWatchAddress)) {
             startActivity(new Intent(getBaseActivity(), WatchingAccountAddActivity.class));
+
+        } else if(v.equals(mBtnTheme)) {
+            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
+                    getString(R.string.str_theme_system), view -> {
+                        themeColor = ThemeUtil.DEFAULT_MODE;
+                        ThemeUtil.applyTheme(themeColor);
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);}, null,
+                    getString(R.string.str_theme_light), view -> {
+                        themeColor = ThemeUtil.LIGHT_MODE;
+                        ThemeUtil.applyTheme(themeColor);
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);}, null,
+                    getString(R.string.str_theme_dark), view -> {
+                        themeColor = ThemeUtil.DARK_MODE;
+                        ThemeUtil.applyTheme(themeColor);
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);},null);
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();

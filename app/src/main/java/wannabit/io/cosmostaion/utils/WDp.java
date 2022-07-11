@@ -1005,7 +1005,7 @@ public class WDp {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_ok));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(PERSIS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack2));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_persis));
         } else if (baseChain.equals(SENTINEL_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_sentinel));
