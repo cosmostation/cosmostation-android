@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.contract.SendContractActivity;
+import wannabit.io.cosmostaion.activities.txs.contract.SendContractActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Cw20Assets;

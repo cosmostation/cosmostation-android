@@ -29,7 +29,8 @@ import androidx.core.content.ContextCompat;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
-import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
+import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
+import wannabit.io.cosmostaion.activities.txs.common.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -293,7 +294,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
             } else {
-                Intent restoreIntent = new Intent(AccountDetailActivity.this, RestoreKeyActivity.class);
+                Intent restoreIntent = new Intent(AccountDetailActivity.this, PrivateKeyRestoreActivity.class);
                 restoreIntent.putExtra("chain", mBaseChain.getChain());
                 startActivity(restoreIntent);
             }

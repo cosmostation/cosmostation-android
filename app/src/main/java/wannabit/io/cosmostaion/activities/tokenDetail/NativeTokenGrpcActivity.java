@@ -10,7 +10,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +38,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;

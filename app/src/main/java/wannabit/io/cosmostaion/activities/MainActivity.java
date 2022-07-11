@@ -43,10 +43,12 @@ import java.util.ArrayList;
 
 import desmos.profiles.v1beta1.ModelsProfile;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.desmos.ProfileActivity;
-import wannabit.io.cosmostaion.activities.chains.desmos.ProfileDetailActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
-import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
+import wannabit.io.cosmostaion.activities.txs.desmos.ProfileActivity;
+import wannabit.io.cosmostaion.activities.txs.desmos.ProfileDetailActivity;
+import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.txs.sif.SifIncentiveActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.ConnectWalletActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;

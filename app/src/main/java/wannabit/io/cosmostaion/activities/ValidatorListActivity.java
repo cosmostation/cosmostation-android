@@ -29,6 +29,8 @@ import java.util.List;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.txs.common.ClaimRewardActivity;
+import wannabit.io.cosmostaion.activities.txs.common.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;

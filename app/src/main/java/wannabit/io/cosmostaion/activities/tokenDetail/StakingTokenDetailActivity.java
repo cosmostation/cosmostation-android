@@ -26,7 +26,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;

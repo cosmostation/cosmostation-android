@@ -55,6 +55,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.txs.kava.HtlcRefundActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;

@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.WalletConnectActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_Wc_Transfer extends DialogFragment {

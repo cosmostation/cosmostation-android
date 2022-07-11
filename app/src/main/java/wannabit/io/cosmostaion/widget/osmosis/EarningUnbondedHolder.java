@@ -17,7 +17,7 @@ import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.osmosis.EarningDetailActivity;
+import wannabit.io.cosmostaion.activities.txs.osmosis.EarningDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;

@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.WalletConnectActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 
 public class Dialog_Wc_Cancel extends DialogFragment {
 
