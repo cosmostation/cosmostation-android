@@ -136,12 +136,6 @@ public class MainSendFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-
-    @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
