@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
-import android.annotation.SuppressLint;
-
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -36,7 +34,6 @@ public class GenerateAccountTask extends CommonTask {
         this.mResult.taskType = BaseConstant.TASK_INIT_ACCOUNT;
     }
 
-    @SuppressLint("NewApi")
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
