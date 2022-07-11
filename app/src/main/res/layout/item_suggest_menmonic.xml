@@ -16,5 +16,5 @@
         android:padding="@dimen/space_8"
         style="@style/font_ss_14_black_daynight"
         android:gravity="center"
-        android:background="@drawable/box_round_white"/>
+        android:background="@drawable/btn_trans_with_border"/>
 </RelativeLayout>

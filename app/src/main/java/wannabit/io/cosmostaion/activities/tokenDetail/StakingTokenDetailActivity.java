@@ -154,7 +154,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
             mKeyState.setImageResource(R.drawable.watchmode);
-            mKeyState.setColorFilter(R.color.colorTransBg, android.graphics.PorterDuff.Mode.SRC_IN);
+            mKeyState.setColorFilter(null);
         }
         mTotalAmount = getBaseDao().getAllMainAssetOld(mMainDenom);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mMainDenom, mTotalAmount, mDivideDecimal));

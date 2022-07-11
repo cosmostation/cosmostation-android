@@ -185,9 +185,11 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             holder.accountAddress.setText(account.address);
             holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
             if (account.hasPrivateKey) {
+                holder.accountKeyState.setImageResource(R.drawable.key_off);
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
                 holder.accountKeyState.setImageResource(R.drawable.watchmode);
+                holder.accountKeyState.setColorFilter(null);
             }
 
             if (TextUtils.isEmpty(account.nickName)) {

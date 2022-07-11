@@ -423,7 +423,7 @@
     <string name="str_derive_wallet">Derive Wallet</string>
     <string name="str_delete_mnemonic">Delete Mnemonic</string>
     <string name="str_wallet_manage">Manage Wallet</string>
-    <string name="str_edit_chains">Edit Chains</string>
+    <string name="str_edit_chains">Manage Chain</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>
     <string name="str_token_detail">Token Detail</string>

@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -30,7 +29,6 @@ import com.google.common.collect.Lists;
 import java.math.BigDecimal;
 import java.util.List;
 
-import irismod.nft.Nft;
 import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTSendActivity;
@@ -50,7 +48,6 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
     private RecyclerView mRecyclerView;
     private NFTDetailAdapter mAdapter;
 
-    private Nft.BaseNFT myIrisNftInfo;
     private QueryOuterClass.QueryNFTResponse mIrisResponse;
     private chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo;
 
@@ -68,10 +65,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         mBtnSend = findViewById(R.id.btn_send);
 
         Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(Color.TRANSPARENT);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        window.setStatusBarColor(Color.TRANSPARENT);;
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -113,10 +107,10 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         try {
             if (mBaseChain.equals(IRIS_MAIN)) {
                 Glide.with(this).load(mIrisResponse.getNft().getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
-                        placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(mNftImg);
+                        placeholder(R.drawable.nft_none_img).error(R.drawable.nft_none_img).fitCenter().into(mNftImg);
             } else if (mBaseChain.equals(CRYPTO_MAIN)) {
                 Glide.with(this).load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).diskCacheStrategy(DiskCacheStrategy.ALL).
-                        placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(mNftImg);
+                        placeholder(R.drawable.nft_none_img).error(R.drawable.nft_none_img).fitCenter().into(mNftImg);
             }
 
         } catch (Exception e) {
