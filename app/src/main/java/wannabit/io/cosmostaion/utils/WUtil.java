@@ -1689,7 +1689,7 @@ public class WUtil {
             } else if (denom.startsWith("c")) {
                 Assets assets = baseData.getAsset(denom);
                 if (assets != null) {
-                    Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+                    Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
                 }
             } else if (denom.startsWith("ibc/")) {
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
@@ -1712,7 +1712,7 @@ public class WUtil {
                     Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
                 }
             } else {
-                Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+                Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
             }
         }
     }

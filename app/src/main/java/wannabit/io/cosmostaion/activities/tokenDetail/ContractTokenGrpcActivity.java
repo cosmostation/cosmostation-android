@@ -126,7 +126,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     private void onUpdateView() {
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(ContractTokenGrpcActivity.this, mBaseChain));
         if (mCw20Asset != null) {
-            Picasso.get().load(mCw20Asset.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            Picasso.get().load(mCw20Asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
             mToolbarSymbol.setText(mCw20Asset.denom.toUpperCase());
             mToolbarSymbol.setTextColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, R.color.colorBlackDayNight));
             mTotalAmount = mCw20Asset.getAmount();

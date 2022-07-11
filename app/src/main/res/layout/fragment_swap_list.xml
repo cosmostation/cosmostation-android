@@ -45,7 +45,7 @@
                         android:layout_height="@dimen/space_20"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_10"
-                        android:src="@drawable/token_ic" />
+                        android:src="@drawable/token_default" />
 
                     <TextView
                         android:id="@+id/txt_input_coin"
@@ -174,7 +174,7 @@
                         android:layout_height="@dimen/space_20"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_10"
-                        android:src="@drawable/token_ic" />
+                        android:src="@drawable/token_default" />
 
                     <TextView
                         android:id="@+id/txt_output_coin"

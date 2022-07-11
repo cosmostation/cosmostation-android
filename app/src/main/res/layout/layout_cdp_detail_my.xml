@@ -50,7 +50,7 @@
                     android:id="@+id/collateral_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/collateral_denom"
                     android:layout_width="wrap_content"
@@ -247,7 +247,7 @@
                     android:id="@+id/principal_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/principal_denom"
                     android:layout_width="wrap_content"

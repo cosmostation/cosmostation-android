@@ -52,7 +52,7 @@
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/deposit_denom"
                     android:layout_width="wrap_content"

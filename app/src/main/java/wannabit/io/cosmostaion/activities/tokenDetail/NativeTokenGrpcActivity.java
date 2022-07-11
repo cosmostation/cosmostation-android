@@ -162,12 +162,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         } else if (mBaseChain.equals(BaseChain.EMONEY_MAIN)) {
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
-            Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
-            Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
             if (WUtil.isBep3Coin(mNativeGrpcDenom)) {
                 mBtnIbcSend.setVisibility(View.GONE);

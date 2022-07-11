@@ -133,7 +133,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private void onUpdateView() {
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(BridgeTokenGrpcActivity.this, mBaseChain));
         final Assets assets = getBaseDao().getAsset(mBridgeDenom);
-        Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+        Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
         mToolbarSymbol.setText(assets.origin_symbol);
         mToolbarSymbol.setTextColor(ContextCompat.getColor(BridgeTokenGrpcActivity.this, R.color.colorBlackDayNight));
         mTotalAmount = getBaseDao().getAvailable(mBridgeDenom);

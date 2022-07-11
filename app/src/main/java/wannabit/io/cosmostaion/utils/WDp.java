@@ -1026,8 +1026,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_osmosis));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(MEDI_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_medi));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_medi));
+            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(EMONEY_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_emoney));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
@@ -3813,7 +3813,7 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_iss);
             }
         } else {
-            imageView.setImageResource(R.drawable.token_ic);
+            imageView.setImageResource(R.drawable.token_default);
         }
     }
 

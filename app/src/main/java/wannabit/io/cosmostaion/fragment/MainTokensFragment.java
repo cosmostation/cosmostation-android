@@ -1530,7 +1530,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("Pool Asset");
-        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_default));
+        holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.injectivepool_token));
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
 

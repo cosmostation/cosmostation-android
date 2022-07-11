@@ -85,7 +85,7 @@
                     android:layout_width="@dimen/space_16"
                     android:layout_height="@dimen/space_16"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/wc_send_coin_symbol"
                     android:layout_width="wrap_content"

@@ -149,7 +149,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             mBtnIbcSend.setVisibility(View.VISIBLE);
 
         } else if (mBaseChain.equals(INJ_MAIN)) {
-            mToolbarSymbolImg.setImageResource(R.drawable.token_ic);
+            mToolbarSymbolImg.setImageResource(R.drawable.token_default);
             mToolbarSymbol.setText("SHARE" + mPoolDenom.substring(5));
             mToolbarSymbol.setTextColor(ContextCompat.getColor(POOLTokenDetailActivity.this, R.color.colorBlackDayNight));
 

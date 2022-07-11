@@ -27,7 +27,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:background="@drawable/edittext_box"/>
+                android:background="@drawable/edittext_round_box"/>
             <ImageView
                 android:id="@+id/key_status"
                 android:layout_width="@dimen/space_24"

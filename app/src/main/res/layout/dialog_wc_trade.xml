@@ -144,7 +144,7 @@
                 android:id="@+id/from_coin_icon"
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
-                android:src="@drawable/token_ic"/>
+                android:src="@drawable/token_default"/>
             <TextView
                 android:id="@+id/from_coin_symbol"
                 android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                 android:id="@+id/to_coin_icon"
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
-                android:src="@drawable/token_ic"/>
+                android:src="@drawable/token_default"/>
             <TextView
                 android:id="@+id/to_coin_symbol"
                 android:layout_width="wrap_content"
