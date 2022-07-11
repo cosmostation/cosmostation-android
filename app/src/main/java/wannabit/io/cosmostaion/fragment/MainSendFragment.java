@@ -7,13 +7,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
-import static wannabit.io.cosmostaion.utils.ThemeUtil.DARK_MODE;
-import static wannabit.io.cosmostaion.utils.ThemeUtil.DEFAULT_MODE;
-import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,7 +21,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,7 +41,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResNotice;
-import wannabit.io.cosmostaion.utils.ThemeUtil;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -85,9 +79,6 @@ public class MainSendFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        themeColor = ThemeUtil.modLoad(getBaseActivity());
-        ThemeUtil.applyTheme(themeColor);
 
     }
 
@@ -147,19 +138,6 @@ public class MainSendFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(themeColor.equals("default")){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-            }
-            // 안드로이드 10 미만
-            else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-            }
-        } else if(themeColor.equals("light")){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if(themeColor.equals("dark")){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
     }
 
 
