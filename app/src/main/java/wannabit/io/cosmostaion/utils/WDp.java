@@ -213,7 +213,6 @@ public class WDp {
         } else if (chain.equals(BNB_MAIN)) {
             if (symbol.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
@@ -221,7 +220,12 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
 
         } else if (chain.equals(BAND_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_BAND)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(OKEX_MAIN)) {

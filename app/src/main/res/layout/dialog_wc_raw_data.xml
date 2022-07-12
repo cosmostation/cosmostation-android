@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
+        android:background="@color/colorWhite2DayNight"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_ss_17_black_daynight"
             android:gravity="center"
             android:text="Sign Request"/>
 
@@ -27,7 +27,7 @@
             android:layout_marginLeft="@dimen/space_10"
             android:layout_marginRight="@dimen/space_10"
             android:layout_marginTop="@dimen/space_12"
-            android:background="@color/colorGray10">
+            android:background="@color/colorGray5DayNight">
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -39,15 +39,15 @@
                     android:layout_marginLeft="@dimen/space_40"
                     android:layout_marginRight="@dimen/space_40"
                     android:gravity="left"
-                    style="@style/font_ss_12_gray1" />
+                    style="@style/font_ss_12_black_daynight" />
             </ScrollView>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorGray10"
-            android:layout_marginTop="@dimen/space_12"/>
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/space_24"
+            android:background="@color/colorGray4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,21 +59,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white_left"
+                android:background="@color/colorTrans"
                 style="@style/font_ss_14_red"
                 android:text="@string/str_cancel"/>
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray4"/>
             <Button
                 android:id="@+id/btn_posi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white_right"
-                style="@style/font_ss_14_gray8"
+                android:background="@color/colorTrans"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_confirm"/>
         </LinearLayout>
 

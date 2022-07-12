@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
+        android:background="@color/colorWhite2DayNight"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_ss_17_black_daynight"
             android:gravity="center"
             android:text="@string/str_wc_trade_title"/>
 
@@ -37,7 +37,7 @@
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginRight="@dimen/space_20"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGray4"/>
 
 
         <RelativeLayout
@@ -46,12 +46,13 @@
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginRight="@dimen/space_20">
+
             <TextView
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/str_wc_transfer_side"
-                style="@style/font_ss_12_black"/>
+                android:text="@string/str_wc_transfer_side" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,12 +75,13 @@
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginRight="@dimen/space_20">
+
             <TextView
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/str_wc_transfer_symbol"
-                style="@style/font_ss_12_black"/>
+                android:text="@string/str_wc_transfer_symbol" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
                     android:text="BNB"
-                    style="@style/font_ss_14_black"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </LinearLayout>
         </RelativeLayout>
         <RelativeLayout
@@ -102,12 +104,13 @@
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginRight="@dimen/space_20">
+
             <TextView
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/str_wc_transfer_price"
-                style="@style/font_ss_12_black"/>
+                android:text="@string/str_wc_transfer_price" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,14 +123,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_14_black"/>
+                    style="@style/font_ssl_14_black_daynight"/>
                 <TextView
                     android:id="@+id/wc_trade_price_denom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
                     android:text="BNB/ETHER"
-                    style="@style/font_ss_14_black"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -145,23 +148,25 @@
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
                 android:src="@drawable/token_default"/>
+
             <TextView
                 android:id="@+id/from_coin_symbol"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/from_coin_icon"
                 android:layout_marginLeft="@dimen/space_6"
-                android:text="Token"
-                style="@style/font_ss_14_black"/>
+                android:layout_toRightOf="@+id/from_coin_icon"
+                android:text="Token" />
+
             <TextView
                 android:id="@+id/from_coin_amount"
+                style="@style/font_ssl_12_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:gravity="right"
-                android:text="12321321312"
-                style="@style/font_ssl_12_black"/>
+                android:text="12321321312" />
         </RelativeLayout>
 
         <ImageView
@@ -183,31 +188,36 @@
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
                 android:src="@drawable/token_default"/>
+
             <TextView
                 android:id="@+id/to_coin_symbol"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/to_coin_icon"
                 android:layout_marginLeft="@dimen/space_6"
-                android:text="Token"
-                style="@style/font_ss_14_black"/>
+                android:layout_toRightOf="@+id/to_coin_icon"
+                android:text="Token" />
+
             <TextView
                 android:id="@+id/to_coin_amount"
+                style="@style/font_ssl_12_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:gravity="right"
-                android:text="12321321312"
-                style="@style/font_ssl_12_black"/>
+                android:text="12321321312" />
         </RelativeLayout>
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/space_24"
+            android:background="@color/colorGray4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/btn_nega"
@@ -215,21 +225,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white_left"
+                android:background="@color/colorTrans"
                 style="@style/font_ss_14_red"
                 android:text="@string/str_cancel"/>
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray4"/>
             <Button
                 android:id="@+id/btn_posi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white_right"
-                style="@style/font_ss_14_gray8"
+                android:background="@color/colorTrans"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_confirm"/>
         </LinearLayout>
 

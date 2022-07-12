@@ -409,6 +409,12 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ssm_12_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
 
     <style name="font_ss_14_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>

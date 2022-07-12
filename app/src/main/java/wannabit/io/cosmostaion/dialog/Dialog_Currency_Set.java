@@ -63,10 +63,8 @@ public class Dialog_Currency_Set extends DialogFragment {
 
         @Override
         public void onBindViewHolder(@NonNull CurrencySetAdapter.CurrencyHolder holder, int position) {
-            String[] mSymbolList = getResources().getStringArray(R.array.currency_symbol_array);
             String[] mUnitList = getResources().getStringArray(R.array.currency_unit_array);
 
-            holder.currencyImg.setText(mSymbolList[position]);
             holder.currencyName.setText(mUnitList[position]);
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,18 +79,16 @@ public class Dialog_Currency_Set extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            return getResources().getStringArray(R.array.currency_symbol_array).length;
+            return getResources().getStringArray(R.array.currency_unit_array).length;
         }
 
         public class CurrencyHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
-            TextView currencyImg;
             TextView currencyName;
 
             public CurrencyHolder(@NonNull View itemView) {
                 super(itemView);
                 rootLayer = itemView.findViewById(R.id.rootLayer);
-                currencyImg = itemView.findViewById(R.id.currencyImg);
                 currencyName = itemView.findViewById(R.id.currencyName);
             }
         }

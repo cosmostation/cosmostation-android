@@ -31,14 +31,14 @@
             android:id="@+id/btn_one"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_8"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
-            android:background="@drawable/btn_bottom_select_dialog"
+            android:background="@drawable/box_chain_selected"
             style="@style/font_ss_14_black_daynight"
             android:text="Button Title"
-            android:textColor="@color/color_bottom_dialog_btn_text"
+            android:textColor="@color/colorBlackDayNight"
             android:textAllCaps="false"/>
 
         <Button
@@ -49,10 +49,10 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
-            android:background="@drawable/btn_bottom_select_dialog"
+            android:background="@drawable/box_chain_selected"
             style="@style/font_ss_14_black_daynight"
             android:text="Button Title"
-            android:textColor="@color/color_bottom_dialog_btn_text"
+            android:textColor="@color/colorBlackDayNight"
             android:textAllCaps="false"/>
 
         <Button
@@ -63,10 +63,10 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
-            android:background="@drawable/btn_bottom_select_dialog"
+            android:background="@drawable/box_chain_selected"
             style="@style/font_ss_14_black_daynight"
             android:text="Button Title"
-            android:textColor="@color/color_bottom_dialog_btn_text"
+            android:textColor="@color/colorBlackDayNight"
             android:textAllCaps="false"
             android:visibility="gone"/>
     </LinearLayout>

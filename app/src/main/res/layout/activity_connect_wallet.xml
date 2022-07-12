@@ -113,10 +113,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBgKava"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardPreventCornerOverlap="true">
 
             <LinearLayout
                 android:layout_width="match_parent"

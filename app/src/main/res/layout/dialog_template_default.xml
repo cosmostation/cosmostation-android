@@ -63,7 +63,7 @@
                 android:id="@+id/btn_border"
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGrayDayNight"
+                android:background="@color/colorGray4"
                 android:visibility="gone"/>
 
             <Button
