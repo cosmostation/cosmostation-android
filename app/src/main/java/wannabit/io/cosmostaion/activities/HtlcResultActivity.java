@@ -7,8 +7,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +23,17 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.tx.v1beta1.ServiceGrpc;
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import io.grpc.stub.StreamObserver;
+import kava.bep3.v1beta1.Tx;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,10 +47,10 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcClaimTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcCreateTask;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -73,8 +81,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     private String mClaimTxHash;
     private ResBnbTxInfo mResSendBnbTxInfo;
     private ResBnbTxInfo mResReceiveBnbTxInfo;
-    private ResTxInfo mResSendTxInfo;
-    private ResTxInfo mResReceiveTxInfo;
+    private ServiceOuterClass.GetTxResponse mResponse;
 
 
     @Override
@@ -206,7 +213,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             memoTv.setText(mResSendBnbTxInfo.tx.value.memo);
 
             Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
-            WDp.showCoinDp(getBaseContext(), getBaseDao(), sendCoin, sendDenom, sendAmount, mBaseChain);
+            sendAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(sendCoin.amount), 8, 8));
+            sendDenom.setText(sendCoin.denom.toUpperCase());
 
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), feeDenom);
             feeAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(FEE_BNB_SEND), 0, 8));
@@ -217,38 +225,42 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             recipientTv.setText(msg.value.recipient_other_chain);
             randomHashTv.setText(msg.value.random_number_hash);
 
-        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN)) && mResSendTxInfo != null) {
-            final Msg msg = mResSendTxInfo.tx.value.msg.get(0);
-
-            if (mResSendTxInfo.isSuccess()) {
-                statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.success_ic));
-                statusTv.setText(R.string.str_success_c);
-            } else {
-                statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.fail_ic));
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) && mResponse != null) {
+            if (mResponse.getTxResponse().getCode() != 0) {
+                statusImg.setImageResource(R.drawable.fail_ic);
                 statusTv.setText(R.string.str_failed_c);
-                errorTv.setText(mResSendTxInfo.failMessage());
                 errorTv.setVisibility(View.VISIBLE);
+                errorTv.setText(mResponse.getTxResponse().getRawLog());
+            } else {
+                statusImg.setImageResource(R.drawable.success_ic);
+                statusTv.setText(R.string.str_success_c);
             }
 
-            blockHeightTv.setText(mResSendTxInfo.height);
-            txHashTv.setText(mResSendTxInfo.txhash);
-            memoTv.setText(mResSendTxInfo.tx.value.memo);
+            blockHeightTv.setText("" + mResponse.getTxResponse().getHeight());
+            txHashTv.setText(mResponse.getTxResponse().getTxhash());
+            memoTv.setText(mResponse.getTx().getBody().getMemo());
 
-            Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
-            sendDenom.setText(sendCoin.denom.toUpperCase());
-            sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom)));
+            try {
+                Tx.MsgCreateAtomicSwap msg = Tx.MsgCreateAtomicSwap.parseFrom(mResponse.getTx().getBody().getMessages(0).getValue());
+                List<Coin> coins = new ArrayList<>();
+                for (CoinOuterClass.Coin coin : msg.getAmountList()) {
+                    coins.add(new Coin(coin.getDenom(), coin.getAmount()));
+                }
 
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), feeDenom);
-            feeAmount.setText(WDp.getDpAmount2(getBaseContext(), mResSendTxInfo.simpleFee(), 6, 6));
+                Coin sendCoin = new Coin(msg.getAmount(0).getDenom(), msg.getAmount(0).getAmount());
+                sendDenom.setText(sendCoin.denom.toUpperCase());
+                sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom)));
 
-            senderTv.setText(msg.value.from);
-            relayRecipientTv.setText(msg.value.to);
-            relaySenderTv.setText(msg.value.sender_other_chain);
-            recipientTv.setText(msg.value.recipient_other_chain);
-            randomHashTv.setText(msg.value.random_number_hash);
+                feeDenom.setText("");
+                feeAmount.setText("");
+
+                senderTv.setText(msg.getFrom());
+                relayRecipientTv.setText(msg.getTo());
+                relaySenderTv.setText(msg.getSenderOtherChain());
+                recipientTv.setText(msg.getRecipientOtherChain());
+                randomHashTv.setText(msg.getRandomNumberHash());
+            } catch (InvalidProtocolBufferException e) { }
         }
-
-
     }
 
     private void onUpdateClaimView() {
@@ -296,45 +308,33 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             randomNumberTv.setText(msg.value.random_number);
             swapIdTv.setText(msg.value.swap_id);
 
-        } else if (mResReceiveTxInfo != null) {
-            if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-                final Msg msg = mResReceiveTxInfo.tx.value.msg.get(0);
-                if (mResReceiveTxInfo.isSuccess()) {
-                    statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.success_ic));
-                    statusTv.setText(R.string.str_success_c);
-                } else {
-                    statusImg.setImageDrawable(ContextCompat.getDrawable(HtlcResultActivity.this, R.drawable.fail_ic));
-                    statusTv.setText(R.string.str_failed_c);
-                    errorTv.setText(mResReceiveTxInfo.failMessage());
-                    errorTv.setVisibility(View.VISIBLE);
-                }
-
-                blockHeightTv.setText(mResReceiveTxInfo.height);
-                txHashTv.setText(mResReceiveTxInfo.txhash);
-                memoTv.setText(mResReceiveTxInfo.tx.value.memo);
-
-                Coin receiveCoin = mResReceiveTxInfo.simpleSwapCoin();
-                try {
-                    if (!TextUtils.isEmpty(receiveCoin.denom)) {
-                        WDp.showCoinDp(getBaseContext(), getBaseDao(), receiveCoin, claimDenom, claimAmount, mRecipientChain);
-                    } else {
-                        claimDenom.setText("");
-                        claimAmount.setText("");
-                    }
-
-                } catch (Exception e) {
-                    claimDenom.setText("");
-                    claimAmount.setText("");
-                }
-
-                WDp.DpMainDenom(getBaseContext(), mRecipientChain.getChain(), feeDenom);
-                feeAmount.setText(WDp.getDpAmount2(getBaseContext(), mResReceiveTxInfo.simpleFee(), 6, 6));
-
-                claimerTv.setText(msg.value.from);
-                randomNumberTv.setText(msg.value.random_number);
-                swapIdTv.setText(msg.value.swap_id);
+        } else if (mResponse != null && mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mResponse.getTxResponse().getCode() != 0) {
+                statusImg.setImageResource(R.drawable.fail_ic);
+                statusTv.setText(R.string.str_failed_c);
+                errorTv.setVisibility(View.VISIBLE);
+                errorTv.setText(mResponse.getTxResponse().getRawLog());
+            } else {
+                statusImg.setImageResource(R.drawable.success_ic);
+                statusTv.setText(R.string.str_success_c);
             }
 
+            blockHeightTv.setText("" + mResponse.getTxResponse().getHeight());
+            txHashTv.setText(mResponse.getTxResponse().getTxhash());
+            memoTv.setText(mResponse.getTx().getBody().getMemo());
+
+            try {
+                Tx.MsgClaimAtomicSwap msg = Tx.MsgClaimAtomicSwap.parseFrom(mResponse.getTx().getBody().getMessages(0).getValue());
+                claimDenom.setText("");
+                claimAmount.setText("");
+                feeDenom.setText("");
+                feeAmount.setText("");
+
+                claimerTv.setText(msg.getFrom());
+                randomNumberTv.setText(msg.getRandomNumber());
+                swapIdTv.setText(msg.getSwapId());
+
+            } catch (InvalidProtocolBufferException e) { }
         }
     }
 
@@ -361,22 +361,30 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             });
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+            ServiceGrpc.ServiceStub mStub = ServiceGrpc.newStub(ChannelBuilder.getChain(BaseChain.KAVA_MAIN));
+            ServiceOuterClass.GetTxRequest request = ServiceOuterClass.GetTxRequest.newBuilder().setHash(hash).build();
+            mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
                 @Override
-                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if (isFinishing()) return;
-                    WLog.w("onFetchSendTx " + response.toString());
-                    if (response.isSuccessful() && response.body() != null) {
-                        mResSendTxInfo = response.body();
-                    }
-                    onUpdateSendView();
+                public void onNext(ServiceOuterClass.GetTxResponse response) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (response != null && response.hasTxResponse()) {
+                                mResponse = response;
+                            }
+                            onUpdateSendView();
+                        }
+                    });
                 }
 
                 @Override
-                public void onFailure(Call<ResTxInfo> call, Throwable t) {
+                public void onError(Throwable t) {
                     WLog.w("onFetchSendTx KAVA onFailure");
                     if (BuildConfig.DEBUG) t.printStackTrace();
                 }
+
+                @Override
+                public void onCompleted() { }
             });
         }
     }
@@ -419,36 +427,35 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             });
 
         } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+            ServiceGrpc.ServiceStub mStub = ServiceGrpc.newStub(ChannelBuilder.getChain(BaseChain.KAVA_MAIN));
+            ServiceOuterClass.GetTxRequest request = ServiceOuterClass.GetTxRequest.newBuilder().setHash(hash).build();
+            mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
                 @Override
-                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if (isFinishing()) return;
-                    WLog.w("onFetchClaimTx " + response.toString());
-                    if (response.isSuccessful() && response.body() != null) {
-                        mResReceiveTxInfo = response.body();
-                        onUpdateView();
-                    } else {
-                        if (ClaimFetchCnt < 50) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ClaimFetchCnt++;
-                                    onFetchClaimTx(hash);
-                                }
-                            }, 3000);
-
-                        } else {
+                public void onNext(ServiceOuterClass.GetTxResponse response) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mResponse = response;
                             onUpdateView();
                         }
+                    });
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    if (ClaimFetchCnt < 15) {
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ClaimFetchCnt++;
+                                onFetchClaimTx(hash);
+                            }
+                        }, 3000);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    WLog.w("onFetchClaimTx KAVA onFailure");
-                    if (BuildConfig.DEBUG) t.printStackTrace();
-                    onUpdateView();
-                }
+                public void onCompleted() { }
             });
         }
     }
