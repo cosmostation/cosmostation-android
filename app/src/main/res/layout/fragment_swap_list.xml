@@ -366,6 +366,6 @@
             android:minHeight="@dimen/space_45"
             android:text="@string/str_token_swap_start"
             android:textAllCaps="false"
-            android:textColor="@color/color_btn_photon" />
+            android:textColor="@color/colorPhoton" />
     </LinearLayout>
 </RelativeLayout>

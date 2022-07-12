@@ -26,6 +26,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -135,12 +137,14 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
             mToChainLayer.setBackgroundResource(R.drawable.btn_trans_with_border);
             mDialogImg.setVisibility(View.VISIBLE);
         }
-        WDp.getChainImg(getSActivity(), getSActivity().mBaseChain, mFromChainImg);
-        WDp.getChainTitle2(getSActivity(), getSActivity().mBaseChain, mFromChainTv);
+        ChainConfig fromChainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
+        mFromChainImg.setImageResource(fromChainConfig.chainImg());
+        mFromChainTv.setText(fromChainConfig.chainTitleToUp());
 
         BaseChain toChain = WDp.getChainTypeByChainId(mIbcSelectedRelayer.chain_id);
-        WDp.getChainImg(getSActivity(), toChain, mToChainImg);
-        WDp.getChainTitle2(getSActivity(), toChain, mToChainTv);
+        ChainConfig toChainConfig = ChainFactory.getChain(toChain);
+        mToChainImg.setImageResource(toChainConfig.chainImg());
+        mToChainTv.setText(toChainConfig.chainTitleToUp());
 
         mRelayerTxt.setText(mIbcSelectedPath.channel_id);
         if (mIbcSelectedPath.auth == null) {

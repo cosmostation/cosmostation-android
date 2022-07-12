@@ -260,7 +260,7 @@
     <string name="str_available_send_amount"><![CDATA[전송 가능량 : ]]></string>
     <string name="str_tx_error_description">죄송합니다. 요청하신 전송이 실패하였습니다.\n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.</string>
     <string name="str_success_loading">트랜잭션 전송에 성공하였습니다.\n블록 체인에 완전히 기록된 후 결과가 표시됩니다.\n(대기 시간은 Tx 수수료에 따라 달라집니다.)</string>
-    <string name="str_front_guide_title"><![CDATA[코스모스 허브]]></string>
+    <string name="str_front_guide_title_cosmos"><![CDATA[코스모스 허브]]></string>
     <string name="str_front_guide_title_iris"><![CDATA[아이리스 허브]]></string>
     <string name="str_front_guide_title_binance"><![CDATA[바이낸스 체인]]></string>
     <string name="str_front_guide_title_kava"><![CDATA[카바 체인]]></string>
@@ -304,7 +304,7 @@
     <string name="str_front_guide_title_mantle"><![CDATA[ASSET MANTLE]]></string>
     <string name="str_front_guide_title_station"><![CDATA[스테이션]]></string>
     <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
-    <string name="str_front_guide_msg">Tendermint BFT와 ABCI 기반의 분산형 블록체인 네트워크.</string>
+    <string name="str_front_guide_msg_cosmos">Tendermint BFT와 ABCI 기반의 분산형 블록체인 네트워크.</string>
     <string name="str_front_guide_msg_iris">분산형 비즈니스 생태계를 위한 인터체인 서비스 인프라 <![CDATA[&]]> 프로토콜.</string>
     <string name="str_front_guide_msg_bnb">바이낸스가 구축한 Tendermint 기반의 빠르고 안전한 분산형 디지털 자산 거래소.</string>
     <string name="str_front_guide_msg_kava">Tendermint 기반의 레버리지, 헤지 및 CDP를 지원하는 최초의 인터 체인 DeFi 플랫폼.</string>

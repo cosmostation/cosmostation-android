@@ -221,7 +221,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             }
             if (mToLoanAmount.compareTo(mMinLoanableAmount) < 0 || mToLoanAmount.compareTo(mMaxLoanableAmount) > 0) {
                 mBtnNext.setText(R.string.str_next);
-                mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+                mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorPhoton));
                 mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
                 mAfterRiskLayer.setVisibility(View.INVISIBLE);
@@ -242,7 +242,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
 
         } catch (Exception e) {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+            mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorPhoton));
             mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             return false;

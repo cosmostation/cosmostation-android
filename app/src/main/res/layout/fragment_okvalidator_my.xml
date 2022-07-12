@@ -49,7 +49,7 @@
                 android:layout_margin="@dimen/space_16"
                 android:background="@drawable/btn_trans_with_photon_border"
                 style="@style/font_ss_14_photon"
-                android:textColor="@color/color_btn_photon"
+                android:textColor="@color/colorPhoton"
                 android:textAllCaps="false"
                 android:text="@string/str_vote_to"/>
             <androidx.recyclerview.widget.RecyclerView

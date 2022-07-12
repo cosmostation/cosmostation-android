@@ -28,8 +28,7 @@
                     android:id="@+id/chainImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_5"
-                    android:src="@drawable/chain_cosmos"/>
+                    android:layout_marginTop="@dimen/space_5"/>
                 <TextView
                     android:id="@+id/chainName"
                     android:layout_width="wrap_content"

@@ -31,7 +31,7 @@
                 android:paddingLeft="@dimen/space_6"
                 android:paddingRight="@dimen/space_6"
                 android:scaleType="center"
-                android:src="@drawable/default_chain_img" />
+                android:src="@drawable/chain_default" />
 
             <LinearLayout
                 android:id="@+id/accountContent"

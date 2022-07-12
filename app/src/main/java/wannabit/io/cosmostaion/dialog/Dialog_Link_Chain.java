@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_Link_Chain extends DialogFragment {
@@ -73,8 +74,9 @@ public class Dialog_Link_Chain extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull LinkChainAdapter.RelayerListHolder holder, int position) {
             final BaseChain baseChain = mLinkChainList.get(position);
-            WDp.getChainImg(getSActivity(), baseChain, holder.chainImg);
-            WDp.getChainTitle2(getSActivity(), baseChain, holder.chainName);
+            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            holder.chainImg.setImageResource(chainConfig.chainImg());
+            holder.chainName.setText(chainConfig.chainTitleToUp());
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override

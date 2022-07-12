@@ -347,7 +347,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
         } catch (Exception e) {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+            mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorPhoton));
             mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             return false;
@@ -357,7 +357,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     private void onUpdateNextBtn() {
         if (!onValidateAmount()) {
             mBtnNext.setText(R.string.str_next);
-            mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
+            mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorPhoton));
             mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             mAfterRiskLayer.setVisibility(View.INVISIBLE);

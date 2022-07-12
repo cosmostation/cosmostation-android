@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -196,13 +197,14 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         if (needFetch) {
             onShowWaitDialog();
             onFetchAllData();
 
             mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorBlackDayNight));
-            WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
+            mToolbarChainImg.setImageResource(mChainConfig.chainImg());
             WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
 
             mSelectedChain = mBaseChain;

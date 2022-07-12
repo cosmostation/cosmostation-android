@@ -24,6 +24,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.setting.WalletEditActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -116,6 +118,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, final int position) {
             BaseChain chain = mDisplayChains.get(position);
+            ChainConfig chainConfig = ChainFactory.getChain(chain);
             holder.chainCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -130,8 +133,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
             });
-            WDp.getChainImg(AccountListActivity.this, chain, holder.chainImg);
-            WDp.getChainTitle2(AccountListActivity.this, chain, holder.chainName);
+            holder.chainImg.setImageResource(chainConfig.chainImg());
+            holder.chainName.setText(chainConfig.chainTitleToUp());
 
             if (chain.equals(mSelectedChain)) {
                 holder.chainCard.setBackground(ContextCompat.getDrawable(AccountListActivity.this, R.drawable.box_chain_selected));

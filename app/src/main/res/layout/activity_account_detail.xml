@@ -59,8 +59,7 @@
                         android:id="@+id/chain_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/chain_cosmos" />
+                        android:layout_centerVertical="true"/>
 
                     <ImageView
                         android:id="@+id/account_edit"

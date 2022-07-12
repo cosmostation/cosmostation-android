@@ -39,8 +39,7 @@
                         android:layout_width="@dimen/space_32"
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/chain_cosmos"/>
+                        android:layout_centerVertical="true"/>
 
                     <TextView
                         android:id="@+id/txt_from_chain"
@@ -193,7 +192,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>
     </LinearLayout>

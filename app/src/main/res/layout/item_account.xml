@@ -25,7 +25,6 @@
                 android:id="@+id/btn_account_chain_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/chain_cosmos"
                 android:layout_centerVertical="true"/>
             <!--<Button-->
                 <!--android:id="@+id/btn_account_detail"-->

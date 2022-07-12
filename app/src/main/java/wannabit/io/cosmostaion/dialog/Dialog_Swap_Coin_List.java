@@ -113,7 +113,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
             } else if (inputCoin.equals(TOKEN_ATOM)) {
                 holder.chainName.setText(getString(R.string.str_atom_c));
                 Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.atom_ic));
+                holder.chainImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.token_cosmos));
             } else if (inputCoin.equals(TOKEN_OSMOSIS)) {
                 holder.chainName.setText(getString(R.string.str_osmosis_c));
                 Picasso.get().cancelRequest(holder.chainImg);

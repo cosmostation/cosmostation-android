@@ -33,6 +33,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Derive;
@@ -231,7 +233,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
             final Derive derive = mDerives.get(position);
             final BaseChain baseChain = derive.baseChain;
-            WDp.getChainImg(WalletDeriveActivity.this, baseChain, holder.accountChainImg);
+            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            holder.accountChainImg.setImageResource(chainConfig.chainImg());
             holder.accountAddress.setText(derive.dpAddress);
 
             if (mPrivateKeyMode) {

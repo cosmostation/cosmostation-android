@@ -674,7 +674,7 @@
     <string name="str_available_send_amount"><![CDATA[Available : ]]></string>
     <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
     <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
-    <string name="str_front_guide_title"><![CDATA[COSMOS HUB]]></string>
+    <string name="str_front_guide_title_cosmos"><![CDATA[COSMOS HUB]]></string>
     <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
     <string name="str_front_guide_title_binance"><![CDATA[BINANCE CHAIN]]></string>
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
@@ -718,7 +718,7 @@
     <string name="str_front_guide_title_mantle"><![CDATA[ASSETMANTLE]]></string>
     <string name="str_front_guide_title_station"><![CDATA[STATION]]></string>
     <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
-    <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
+    <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>

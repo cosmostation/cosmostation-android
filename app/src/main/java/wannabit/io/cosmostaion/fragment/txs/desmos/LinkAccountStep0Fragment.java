@@ -23,12 +23,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.desmos.LinkAccountActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Link_Accounts;
 import wannabit.io.cosmostaion.dialog.Dialog_Link_Chain;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
-import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -87,8 +87,9 @@ public class LinkAccountStep0Fragment extends BaseFragment implements View.OnCli
     }
 
     public void onUpdateView() {
-        WDp.getChainImg(getSActivity(), mSelectedChain, mLinkChain);
-        WDp.getChainTitle2(getSActivity(), mSelectedChain, mLinkChainTxt);
+        getSActivity().mChainConfig = ChainFactory.getChain(mSelectedChain);
+        mLinkChain.setImageResource(getSActivity().mChainConfig.chainImg());
+        mLinkChainTxt.setText(getSActivity().mChainConfig.chainTitleToUp());
 
         if ((mSelectedAccount != null)) {
             mLinkAccountName.setText(WUtil.getWalletName(getContext(), mSelectedAccount));

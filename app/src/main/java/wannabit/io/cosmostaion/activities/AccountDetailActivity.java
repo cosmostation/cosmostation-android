@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.activities.txs.common.RewardAddressChangeActivity
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
@@ -169,10 +170,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         MWords mWords = getBaseDao().onSelectMnemonicById(mAccount.mnemonicId);
         if (mAccount == null) onBackPressed();
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         onUpdatePushStatusUI();
-        WDp.showChainDp(AccountDetailActivity.this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
-        WDp.getChainImg(AccountDetailActivity.this, mBaseChain, mChainImg);
+        WDp.showChainDp(this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
+        mChainImg.setImageResource(mChainConfig.chainImg());
 
         if (isGRPC(mBaseChain)) {
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

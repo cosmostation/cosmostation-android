@@ -36,7 +36,7 @@
         android:layout_marginBottom="@dimen/space_24"
         android:background="@drawable/btn_trans_with_border"
         style="@style/font_ss_14_photon"
-        android:textColor="@color/color_btn_photon"
+        android:textColor="@color/colorPhoton"
         android:textAllCaps="false"
         android:text="@string/str_open_cdp"
         android:visibility="gone"/>

@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.txs.ibc;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -36,15 +39,14 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receivable_Accouts;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickListener{
 
@@ -60,6 +62,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     private BaseChain           mTochain;
     private ArrayList<Account>  mToAccountList;
     private Account             mToAccount;
+    private ChainConfig         mChainConfig;
 
     public static IBCSendStep1Fragment newInstance(Bundle bundle) {
         IBCSendStep1Fragment fragment = new IBCSendStep1Fragment();
@@ -127,11 +130,10 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     public void onRefreshTab() {
         super.onRefreshTab();
         mTochain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
+        mChainConfig = ChainFactory.getChain(mTochain);
         mToAccountList = getBaseDao().onSelectAccountsByChain(mTochain);
-        WDp.getChainTitle(getSActivity(), mTochain, mDesitination);
+        mDesitination.setText(mChainConfig.chainTitle());
         mDesitination.setTextColor(WDp.getChainColor(getSActivity(), mTochain));
-        String userInput = mAddressInput.getText().toString().trim();
-        WDp.getChainByAddress(mTochain, userInput, mAddressInput);
     }
 
     private void onUpdateView() {

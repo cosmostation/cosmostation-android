@@ -32,7 +32,7 @@
                     android:id="@+id/chain_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/atom_ic" />
+                    android:src="@drawable/token_cosmos" />
 
                 <TextView
                     android:id="@+id/chain_denom"

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -71,11 +74,12 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RelayerListHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RelayerListHolder holder, @SuppressLint("RecyclerView") int position) {
             final IbcPath ibcPath = mIbcSendableRelayers.get(position);
             final BaseChain toChain = WDp.getChainTypeByChainId(ibcPath.chain_id);
-            WDp.getChainImg(getSActivity(), toChain, holder.chainImg);
-            WDp.getChainTitle2(getSActivity(), toChain, holder.chainName);
+            final ChainConfig chainConfig = ChainFactory.getChain(toChain);
+            holder.chainImg.setImageResource(chainConfig.chainImg());
+            holder.chainName.setText(chainConfig.chainTitleToUp());
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override

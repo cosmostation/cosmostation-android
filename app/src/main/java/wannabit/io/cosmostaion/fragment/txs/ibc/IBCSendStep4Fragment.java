@@ -15,6 +15,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickListener{
@@ -25,7 +27,6 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
     private TextView        mSendAmountSymbol;
     private TextView        mRecipientChain;
     private TextView        mRecipientAddress;
-    private int             mDpDecimal = 6;
 
     private Button mBeforeBtn, mConfirmBtn;
 
@@ -60,7 +61,7 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        int mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         BigDecimal toSendAmount = new BigDecimal(getSActivity().mAmounts.get(0).amount);
 
@@ -69,7 +70,8 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
         WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mToIbcDenom, toSendAmount.toPlainString(), mSendAmountSymbol, mSendAmount, getSActivity().mBaseChain);
 
         BaseChain toChain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
-        WDp.getChainTitle(getSActivity(), toChain, mRecipientChain);
+        ChainConfig chainConfig = ChainFactory.getChain(toChain);
+        mRecipientChain.setText(chainConfig.chainTitle());
         mRecipientChain.setTextColor(WDp.getChainColor(getSActivity(), toChain));
         mRecipientAddress.setText(getSActivity().mToAddress);
     }

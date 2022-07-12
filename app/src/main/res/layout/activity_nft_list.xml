@@ -64,7 +64,7 @@
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/btn_trans_with_photon_border"
+        android:background="@drawable/btn_trans_with_border"
         android:clickable="true">
         <TextView
             android:layout_width="wrap_content"
