@@ -3230,7 +3230,7 @@ public class WUtil {
             coinDenom.setTextAppearance(R.style.font_ss_14_kava);
 
         } else if (chain.equals(IOV_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.iov_token_img));
+            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_starname));
             coinDenom.setText(R.string.str_iov_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_iov);
 

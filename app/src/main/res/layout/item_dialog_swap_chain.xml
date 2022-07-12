@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
+    android:background="@color/colorTrans"
     android:paddingLeft="@dimen/space_8"
     android:paddingRight="@dimen/space_8"
     android:paddingTop="@dimen/space_4"
@@ -18,7 +18,7 @@
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:background="@drawable/box_et_white">
+        android:background="@drawable/box_chain_selected">
         <ImageView
             android:id="@+id/chainImg"
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_8"
-            style="@style/font_ssm_14_gray8"
+            style="@style/font_ssm_14_black_daynight"
             android:singleLine="true"/>
     </LinearLayout>
 </LinearLayout>

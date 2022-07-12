@@ -67,6 +67,7 @@ public class AlertDialogUtils {
             dialog.dismiss();
         });
         dialog.rightButton.setVisibility(View.GONE);
+        dialog.buttonBorder.setVisibility(View.GONE);
 
         return dialog;
     }
@@ -80,6 +81,7 @@ public class AlertDialogUtils {
 
     private static CommonAlertDialog makeDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener) {
         CommonAlertDialog dialog = makeSingleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener);
+        dialog.buttonBorder.setVisibility(View.VISIBLE);
         dialog.rightButton.setVisibility(View.VISIBLE);
         dialog.rightButton.setText(rightButtonTitle);
         dialog.rightButton.setOnClickListener(view -> {
@@ -95,6 +97,7 @@ public class AlertDialogUtils {
         CommonAlertDialog dialog = makeSingleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener);
         dialog.headerImageView.setImageResource(imageResourceId);
         dialog.headerImageView.setVisibility(View.VISIBLE);
+        dialog.buttonBorder.setVisibility(View.VISIBLE);
         dialog.rightButton.setVisibility(View.VISIBLE);
         dialog.rightButton.setText(rightButtonTitle);
         dialog.rightButton.setOnClickListener(view -> {

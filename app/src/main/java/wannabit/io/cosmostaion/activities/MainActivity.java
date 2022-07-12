@@ -160,8 +160,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         mContentsPager.setCurrentItem(getIntent().getIntExtra("page", 0), false);
 
-//        themeColor = ThemeUtil.modLoad(getBaseContext());
-//        ThemeUtil.applyTheme(themeColor);
     }
 
     @Override
@@ -169,20 +167,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         onAccountSwitched();
         onChainSelect(mBaseChain);
-
-//        if(themeColor.equals("default")){
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//            }
-//            // 안드로이드 10 미만
-//            else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-//            }
-//        } else if(themeColor.equals("light")){
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        } else if(themeColor.equals("dark")){
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//        }
     }
 
     public void onAddressDialog() {

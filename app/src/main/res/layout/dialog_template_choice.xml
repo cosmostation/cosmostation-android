@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
+        android:background="@color/colorWhite2DayNight"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
