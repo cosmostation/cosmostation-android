@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
+        android:background="@color/colorWhite2DayNight"
         android:orientation="vertical"
         android:gravity="center_horizontal">
         <androidx.core.widget.NestedScrollView
@@ -24,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_24"
-                    style="@style/font_ss_17_gray8"
+                    style="@style/font_ss_17_black_daynight"
                     android:gravity="center"
                     android:text="Risk Score"
                     android:visibility="gone"/>
@@ -51,14 +51,14 @@
                         android:id="@+id/risk_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ssm_12_black"
+                        style="@style/font_ssm_12_black_daynight"
                         android:gravity="center"
                         android:text="SAFE"/>
                     <TextView
                         android:id="@+id/risk_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_26_black"
+                        style="@style/font_ss_26_black_daynight"
                         android:gravity="center"
                         android:text="20.00"/>
                 </LinearLayout>
@@ -69,7 +69,7 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray4"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -77,22 +77,24 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18">
+
                     <TextView
                         android:id="@+id/current_price_title"
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@string/str_current_title1"
-                        style="@style/font_ss_12_gray1"/>
+                        android:text="@string/str_current_title1" />
+
                     <TextView
                         android:id="@+id/current_price"
+                        style="@style/font_ssl_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ssl_14_black"
+                        android:layout_centerVertical="true"
                         android:gravity="right"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -102,22 +104,24 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18">
+
                     <TextView
                         android:id="@+id/liquidation_price_title"
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@string/str_liquidation_title1"
-                        style="@style/font_ss_12_gray1"/>
+                        android:text="@string/str_liquidation_title1" />
+
                     <TextView
                         android:id="@+id/liquidation_price"
+                        style="@style/font_ssl_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ssl_14_black"
+                        android:layout_centerVertical="true"
                         android:gravity="right"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <View
@@ -126,7 +130,7 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginRight="@dimen/space_18"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray4"/>
 
 
                 <TextView
@@ -143,7 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginTop="@dimen/space_24"
-                    android:background="@color/colorGray10"/>
+                    android:background="@color/colorGray4"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -155,8 +159,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAllCaps="false"
-                        android:background="@drawable/btn_dia_white"
-                        style="@style/font_ss_14_gray1"
+                        android:background="@color/colorTrans"
+                        style="@style/font_ss_14_black_daynight"
                         android:text="@string/str_ok"/>
                 </LinearLayout>
 

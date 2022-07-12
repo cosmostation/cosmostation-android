@@ -18,10 +18,10 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Safe_Score_Staus extends DialogFragment {
+public class Dialog_Safe_Score_Status extends DialogFragment {
 
-    public static Dialog_Safe_Score_Staus newInstance(Bundle bundle) {
-        Dialog_Safe_Score_Staus frag = new Dialog_Safe_Score_Staus();
+    public static Dialog_Safe_Score_Status newInstance(Bundle bundle) {
+        Dialog_Safe_Score_Status frag = new Dialog_Safe_Score_Status();
         frag.setArguments(bundle);
         return frag;
     }
