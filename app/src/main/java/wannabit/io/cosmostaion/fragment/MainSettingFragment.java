@@ -201,14 +201,17 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                     getString(R.string.str_theme_system), view -> {
                         themeColor = ThemeUtil.DEFAULT_MODE;
                         ThemeUtil.applyTheme(themeColor);
+                        mTvTheme.setText(R.string.str_theme_system);
                         ThemeUtil.modSave(getBaseActivity(), themeColor);}, null,
                     getString(R.string.str_theme_light), view -> {
                         themeColor = ThemeUtil.LIGHT_MODE;
                         ThemeUtil.applyTheme(themeColor);
+                        mTvTheme.setText(R.string.str_theme_light);
                         ThemeUtil.modSave(getBaseActivity(), themeColor);}, null,
                     getString(R.string.str_theme_dark), view -> {
                         themeColor = ThemeUtil.DARK_MODE;
                         ThemeUtil.applyTheme(themeColor);
+                        mTvTheme.setText(R.string.str_theme_dark);
                         ThemeUtil.modSave(getBaseActivity(), themeColor);},null);
 
         } else if (v.equals(mBtnAlaram)) {

@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_left"
-                style="@style/font_ss_14_gray8"
+                style="@style/font_ss_14_iris"
                 android:text="@string/str_share"/>
             <View
                 android:layout_width="1px"
@@ -76,7 +76,7 @@
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_right"
-                style="@style/font_ss_14_gray8"
+                style="@style/font_ss_14_iris"
                 android:text="@string/str_copy"/>
         </LinearLayout>
 

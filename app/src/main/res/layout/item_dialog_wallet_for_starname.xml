@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
+    android:background="@color/colorTrans"
     android:paddingLeft="@dimen/space_8"
     android:paddingRight="@dimen/space_8"
     android:paddingTop="@dimen/space_4"
@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/box_et_white">
+        android:background="@drawable/box_chain_selected">
         <LinearLayout
             android:id="@+id/accountContent"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:layout_toRightOf="@+id/accountKeyState"
                     android:layout_toLeftOf="@+id/accountAddress"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_14_black"
+                    style="@style/font_ss_14_black_daynight"
                     android:text="Wallet Name"/>
                 <TextView
                     android:id="@+id/accountAddress"
@@ -50,7 +50,7 @@
                     android:maxWidth="@dimen/space_120"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_black"
+                    style="@style/font_ss_12_black_daynight"
                     android:ellipsize="middle"
                     android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
                     android:singleLine="true"

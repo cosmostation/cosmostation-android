@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorWhite2DayNight"
     android:padding="@dimen/space_16"  >
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
             android:text="dialog_title"
-            style="@style/font_ss_17_black"/>
+            style="@style/font_ss_17_black_daynight"/>
 
         <TextView
             android:id="@+id/dialog_msg"
@@ -24,7 +25,7 @@
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_12"
             android:text="dialog_msg"
-            style="@style/font_ss_14_black"/>
+            style="@style/font_ss_14_black_daynight"/>
 
         <Button
             android:id="@+id/btn_one"

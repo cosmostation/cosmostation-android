@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
+        android:background="@color/colorWhite2DayNight"
         android:orientation="vertical">
 
         <TextView
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
             android:layout_gravity="center"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_ss_17_black_daynight"
             android:gravity="center"
             android:text=""
             android:visibility="gone"/>
@@ -28,7 +28,7 @@
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_12"
             android:layout_gravity="center"
-            style="@style/font_ss_12_gray1"
+            style="@style/font_ss_12_black_daynight"
             android:gravity="center"
             android:text=""
             android:visibility="gone"/>
@@ -36,7 +36,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGrayDayNight"/>
 
         <Button
             android:id="@+id/btn_one"
@@ -45,16 +45,16 @@
             android:layout_gravity="center"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
-            android:background="#00ff0000"
+            android:background="@color/colorTrans"
             android:drawableLeft="@drawable/chain_test_cosmos"
-            style="@style/font_ss_15_gray8"
+            style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGrayDayNight"/>
 
         <Button
             android:id="@+id/btn_two"
@@ -63,16 +63,16 @@
             android:layout_gravity="center"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
-            android:background="#00ff0000"
+            android:background="@color/colorTrans"
             android:drawableLeft="@drawable/chain_test_cosmos"
-            style="@style/font_ss_15_gray8"
+            style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGrayDayNight"/>
 
         <Button
             android:id="@+id/btn_three"
@@ -81,9 +81,9 @@
             android:layout_gravity="center"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
-            android:background="#00ff0000"
+            android:background="@color/colorTrans"
             android:drawableLeft="@drawable/chain_test_cosmos"
-            style="@style/font_ss_15_gray8"
+            style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"
             android:visibility="gone"/>
@@ -91,7 +91,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGrayDayNight"/>
 
         <Button
             android:id="@+id/btn_four"
@@ -100,9 +100,9 @@
             android:layout_gravity="center"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
-            android:background="#00ff0000"
+            android:background="@color/colorTrans"
             android:drawableLeft="@drawable/chain_test_cosmos"
-            style="@style/font_ss_15_gray8"
+            style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"
             android:visibility="gone"/>

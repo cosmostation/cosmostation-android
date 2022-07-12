@@ -8,6 +8,8 @@ import android.os.Build;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import wannabit.io.cosmostaion.base.BaseConstant;
+
 public class ThemeUtil {
     public static final String LIGHT_MODE = "light";
     public static final String DARK_MODE = "dark";
@@ -37,17 +39,17 @@ public class ThemeUtil {
         }
     }
 
-    public static void modSave(Context context, String select_mod) {
-        SharedPreferences sp = context.getSharedPreferences("mod", MODE_PRIVATE);
+    public static void modSave(Context context, String selectMod) {
+        SharedPreferences sp = context.getSharedPreferences(BaseConstant.PRE_THEME_MOD, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("mod", select_mod);
+        editor.putString(BaseConstant.PRE_THEME_MOD, selectMod);
         editor.apply();
     }
 
     public static String modLoad(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("mod", MODE_PRIVATE);
-        String load_mod = sp.getString("mod", "");
-        return load_mod;
+        SharedPreferences sp = context.getSharedPreferences(BaseConstant.PRE_THEME_MOD, MODE_PRIVATE);
+        String loadMod = sp.getString(BaseConstant.PRE_THEME_MOD, "");
+        return loadMod;
     }
 
 

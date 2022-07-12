@@ -32,7 +32,7 @@ public class BaseConstant {
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
     public final static String PRE_USER_EXPENDED_CHAINS     = "PRE_USER_EXPENDED_CHAINS";
     public final static String PRE_DB_VERSION               = "PRE_DB_VERSION";
-
+    public final static String PRE_THEME_MOD                = "PRE_THEME_MOD";
 
     public final static int TASK_INIT_PW                                = 2000;
     public final static int TASK_INIT_ACCOUNT                           = 2002;

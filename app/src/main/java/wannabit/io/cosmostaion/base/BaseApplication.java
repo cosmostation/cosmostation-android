@@ -2,7 +2,10 @@ package wannabit.io.cosmostaion.base;
 
 import android.app.Activity;
 import android.app.Application;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.FirebaseApp;
 import com.squareup.picasso.Picasso;
@@ -10,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.UUID;
 
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
+import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class BaseApplication extends Application {
 
@@ -30,6 +34,23 @@ public class BaseApplication extends Application {
         Picasso.setSingletonInstance(built);
 
         getBaseDao().mCopySalt = UUID.randomUUID().toString();
+
+        String themeColor = ThemeUtil.modLoad(getApplicationContext());
+        ThemeUtil.applyTheme(themeColor);
+
+        if(themeColor.equals("default")){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            }
+            // 안드로이드 10 미만
+            else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+            }
+        } else if(themeColor.equals("light")){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if(themeColor.equals("dark")){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
     }
 
     public BaseData getBaseDao() {
