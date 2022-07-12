@@ -67,7 +67,7 @@ public class WalletMintHolder extends BaseHolder {
                         + mainActivity.getString(R.string.str_apr_help_real_msg) + "<br>"
                         +  msg3, Html.FROM_HTML_MODE_LEGACY);
             }
-            AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, Html.fromHtml("<font color=\"#00A8FF\">" + mainActivity.getString(R.string.str_ok) + "</font>"), null);
+            AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, Html.fromHtml("<font color=\"#007AFF\">" + mainActivity.getString(R.string.str_ok) + "</font>"), null);
         });
     }
 }
