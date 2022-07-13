@@ -85,6 +85,9 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
             else holder.accountName.setText(account.nickName);
             if (account.hasPrivateKey) {
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            } else {
+                holder.accountKeyState.setImageResource(R.drawable.watchmode);
+                holder.accountKeyState.setColorFilter(null);
             }
             WDp.DpMainDenom(getSActivity(), baseChain, holder.accountDenom);
             holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));

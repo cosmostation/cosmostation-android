@@ -89,12 +89,18 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
             if (baseChain.equals(BaseChain.BNB_MAIN)) {
                 if (account.hasPrivateKey) {
                     holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_bnb), android.graphics.PorterDuff.Mode.SRC_IN);
+                } else {
+                    holder.accountKeyState.setImageResource(R.drawable.watchmode);
+                    holder.accountKeyState.setColorFilter(null);
                 }
                 WDp.showCoinDp(getContext(), getSActivity().getBaseDao(), TOKEN_BNB, account.getBnbBalanceScale().toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
 
             } else if (baseChain.equals(BaseChain.KAVA_MAIN)) {
                 if (account.hasPrivateKey) {
                     holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_kava), android.graphics.PorterDuff.Mode.SRC_IN);
+                } else {
+                    holder.accountKeyState.setImageResource(R.drawable.watchmode);
+                    holder.accountKeyState.setColorFilter(null);
                 }
                 WDp.showCoinDp(getContext(), getSActivity().getBaseDao(), TOKEN_KAVA, account.getTokenBalance(TOKEN_KAVA).toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
             }
