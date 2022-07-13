@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.widget.kava;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -137,6 +138,6 @@ public class CdpDetailInfoHolder extends BaseHolder {
     }
 
     private void onShowHelpPopup(CdpDetail5Activity context, String title, String msg) {
-        AlertDialogUtils.showSingleButtonDialog(context, title, msg, context.getString(R.string.str_ok), null);
+        AlertDialogUtils.showSingleButtonDialog(context, title, msg, Html.fromHtml("<font color=\"#007AFF\">" + context.getString(R.string.str_ok) + "</font>"), null);
     }
 }
