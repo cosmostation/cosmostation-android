@@ -39,6 +39,7 @@ import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
@@ -84,6 +85,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         mProposalId = getIntent().getStringExtra("proposalId");
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mChain = WDp.getChainNameByBaseChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
@@ -365,7 +367,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         }
 
         private void onExplorerLink() {
-            String url = WUtil.getExplorer(mBaseChain) + "proposals/" + mProposalId;
+            String url = mChainConfig.explorerUrl() + "proposals/" + mProposalId;
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         }

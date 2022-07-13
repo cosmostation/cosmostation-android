@@ -1,5 +1,12 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,14 +24,10 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 
 public class WalletPriceHolder extends BaseHolder {
     private CardView        itemRoot;
@@ -48,6 +51,7 @@ public class WalletPriceHolder extends BaseHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData data = mainActivity.getBaseDao();
         final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
 
         itemPerPrice.setText(WDp.dpPerUserCurrencyValue(data, denom));
         itemUpDownPrice.setText(WDp.dpValueChange(data, denom));
@@ -92,7 +96,7 @@ public class WalletPriceHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WUtil.getCoingekoIntent(mainActivity);
+                mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.coingeckoLink())));
             }
         });
 

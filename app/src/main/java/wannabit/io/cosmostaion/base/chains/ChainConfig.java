@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.base.chains;
 
+import org.bitcoinj.crypto.ChildNumber;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import wannabit.io.cosmostaion.R;
 
 public class ChainConfig {
@@ -18,9 +24,26 @@ public class ChainConfig {
     public int mainDenomImg() { return 0; }
     public String mainDenom() { return ""; }
     public String mainSymbol() { return ""; }
+    public int sendImgColor() { return R.color.colorWhite; }
+    public int sendBgColor() { return chainColor(); }
 
     public String addressPrefix() { return ""; }
     public String addressHdPath0() { return ""; }
 
     public boolean pushSupport() { return false; }
+    public boolean dexSupport() { return false; }
+    public boolean wcSupport() { return false; }
+    public BigDecimal blockTime() { return BigDecimal.ZERO; }
+    public String explorerUrl() { return ""; }
+    public String monikerUrl() { return ""; }
+    public String relayerImgUrl() { return ""; }
+    public String homeInfoLink() { return  ""; }
+    public String blogInfoLink() { return  ""; }
+    public String coingeckoLink() { return  ""; }
+
+
+    public List<ChildNumber> setParentPath(int customPath) {return null;}
+    public ArrayList<String> supportHdPaths() { return null; }
+    public String getHdPath(int customPath, String path) { return ""; }
+
 }

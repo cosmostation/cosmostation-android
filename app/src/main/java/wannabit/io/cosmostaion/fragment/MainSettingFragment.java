@@ -43,7 +43,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -226,7 +225,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             return;
 
         } else if (v.equals(mBtnExplore)) {
-            String url = WUtil.getExplorer(getMainActivity().mBaseChain);
+            String url = getMainActivity().mChainConfig.explorerUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
 

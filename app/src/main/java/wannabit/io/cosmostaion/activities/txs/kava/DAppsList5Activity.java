@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -94,24 +95,24 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_kava_swap_list);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_kava));
         mDappTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_kava));
         tabItemText1.setText(R.string.str_kava_pool_list);
         mDappTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_kava));
         tabItemText2.setText(R.string.str_kava_cdp_list);
         mDappTapLayer.getTabAt(2).setCustomView(tab2);
 
         View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText3 = tab3.findViewById(R.id.tabItemText);
-        tabItemText3.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText3.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_kava));
         tabItemText3.setText(R.string.str_kava_harvest_list);
         mDappTapLayer.getTabAt(3).setCustomView(tab3);
 

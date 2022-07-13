@@ -130,7 +130,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 holder.itemDomain.setText("*" + domain.getName());
                 holder.itemType.setText(domain.getType().toUpperCase());
                 if (domain.getType().equals("open")) {
-                    holder.itemType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_iov));
+                    holder.itemType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_starname));
                 } else {
                     holder.itemType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
                 }

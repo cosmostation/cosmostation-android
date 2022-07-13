@@ -200,7 +200,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, mTotalAmount, mDivideDecimal));
-        mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setImageResource(R.drawable.key_off);
             mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);

@@ -70,7 +70,6 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         if (mToAccount == null) {
             getSActivity().onBeforeStep();
         }
-        mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_bnb), android.graphics.PorterDuff.Mode.SRC_IN);
 

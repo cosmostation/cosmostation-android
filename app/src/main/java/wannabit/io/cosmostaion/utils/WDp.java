@@ -71,11 +71,9 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -117,10 +115,8 @@ import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResProposal;
-import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public class WDp {
     //show display text with full input amount and to divide deciaml and to show point
@@ -634,8 +630,7 @@ public class WDp {
         }
     }
 
-    public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView
-            cardAlarm, CardView cardBody, CardView cardRewardAddress) {
+    public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
         if (baseChain.equals(OKEX_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(FETCHAI_MAIN)) {
             cardRewardAddress.setVisibility(View.GONE);
         } else {
@@ -960,146 +955,146 @@ public class WDp {
 //        }
 //    }
 
-    public static void getFloatBtn(Context c, BaseChain baseChain, FloatingActionButton
-            floatBtn) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cosmos));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(IRIS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_iris));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(BNB_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_bnb));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_kava));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(IOV_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_iov));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(BAND_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_band));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(CERTIK_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_certik));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(SECRET_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_secret));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_akash));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(OKEX_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_ok));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack2));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_persis));
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_sentinel));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(FETCHAI_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_fetch));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cryto));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(SIF_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_sif));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(KI_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_ki));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_osmosis));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_medi));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_emoney));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(RIZON_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_rizon));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_juno));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_regen));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(BITCANNA_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_bitcanna));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(ALTHEA_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_althea));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(STARGAZE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_stargaze));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_grabridge));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(COMDEX_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_comdex));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(INJ_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_inj));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(BITSONG_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_bitsong));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(DESMOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_desmos));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(LUM_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_lum));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_chihuahua));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(AXELAR_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_axelar));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(KONSTELL_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_konstellation));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(UMEE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_umee));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(EVMOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_evmos));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(CUDOS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cudos));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(PROVENANCE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_provenance));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(CERBERUS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cerberus));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(OMNIFLIX_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_omniflix));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_crescent3));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_crescent));
-        } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_Mantle));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(NYX_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_nyx));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        } else if (baseChain.equals(COSMOS_TEST)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cosmos));
-        } else if (baseChain.equals(IRIS_TEST)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_iris));
-        } else if (baseChain.equals(STATION_TEST)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_station));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-        }
-    }
+//    public static void getFloatBtn(Context c, BaseChain baseChain, FloatingActionButton
+//            floatBtn) {
+//        if (baseChain.equals(COSMOS_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cosmos));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(IRIS_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_iris));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(BNB_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_bnb));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(KAVA_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_kava));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(IOV_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_starname));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(BAND_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_band));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(CERTIK_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_certik));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(SECRET_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_secret));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(AKASH_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_akash));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(OKEX_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_ok));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(PERSIS_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack2));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_persis));
+//        } else if (baseChain.equals(SENTINEL_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_sentinel));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(FETCHAI_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_fetch));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(CRYPTO_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cryto));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(SIF_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_sif));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(KI_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_ki));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(OSMOSIS_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_osmosis));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(MEDI_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_medi));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(EMONEY_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_emoney));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(RIZON_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_rizon));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(JUNO_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_juno));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(REGEN_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_regen));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(BITCANNA_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_bitcanna));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(ALTHEA_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_althea));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(STARGAZE_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_stargaze));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(GRABRIDGE_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_grabridge));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(COMDEX_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_comdex));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(INJ_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_inj));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(BITSONG_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_bitsong));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(DESMOS_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_desmos));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(LUM_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_lum));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_chihuahua));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(AXELAR_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_axelar));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(KONSTELL_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_konstellation));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(UMEE_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_umee));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(EVMOS_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_evmos));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(CUDOS_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cudos));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(PROVENANCE_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_provenance));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(CERBERUS_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cerberus));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_omniflix));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_crescent3));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_crescent));
+//        } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_Mantle));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(NYX_MAIN)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_nyx));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        } else if (baseChain.equals(COSMOS_TEST)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_cosmos));
+//        } else if (baseChain.equals(IRIS_TEST)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_iris));
+//        } else if (baseChain.equals(STATION_TEST)) {
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_station));
+//            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
+//        }
+//    }
 
     public static BaseChain getChainTypeByChainId(String chainId) {
         if (chainId != null) {
@@ -2659,378 +2654,197 @@ public class WDp {
 
     public static int getChainColor(Context c, BaseChain chain) {
         if (chain != null) {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                return ContextCompat.getColor(c, R.color.color_cosmos);
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                return ContextCompat.getColor(c, R.color.color_iris);
-            } else if (chain.equals(BNB_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_bnb);
-            } else if (chain.equals(KAVA_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_kava);
-            } else if (chain.equals(IOV_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_iov);
-            } else if (chain.equals(BAND_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_band);
-            } else if (chain.equals(OKEX_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_ok);
-            } else if (chain.equals(CERTIK_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_certik);
-            } else if (chain.equals(SECRET_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_secret);
-            } else if (chain.equals(AKASH_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_akash);
-            } else if (chain.equals(PERSIS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_persis);
-            } else if (chain.equals(SENTINEL_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_sentinel);
-            } else if (chain.equals(FETCHAI_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_fetch);
-            } else if (chain.equals(CRYPTO_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_cryto);
-            } else if (chain.equals(SIF_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_sif);
-            } else if (chain.equals(KI_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_ki);
-            } else if (chain.equals(OSMOSIS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_osmosis);
-            } else if (chain.equals(RIZON_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_rizon);
-            } else if (chain.equals(MEDI_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_medi);
-            } else if (chain.equals(EMONEY_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_emoney);
-            } else if (chain.equals(JUNO_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_juno);
-            } else if (chain.equals(REGEN_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_regen);
-            } else if (chain.equals(BITCANNA_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_bitcanna);
-            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-                return ContextCompat.getColor(c, R.color.color_althea);
-            } else if (chain.equals(STARGAZE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_stargaze);
-            } else if (chain.equals(GRABRIDGE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_grabridge);
-            } else if (chain.equals(COMDEX_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_comdex);
-            } else if (chain.equals(INJ_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_inj);
-            } else if (chain.equals(BITSONG_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_bitsong);
-            } else if (chain.equals(DESMOS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_desmos);
-            } else if (chain.equals(LUM_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_lum);
-            } else if (chain.equals(CHIHUAHUA_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_chihuahua);
-            } else if (chain.equals(UMEE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_umee);
-            } else if (chain.equals(AXELAR_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_axelar);
-            } else if (chain.equals(KONSTELL_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_konstellation);
-            } else if (chain.equals(EVMOS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_evmos);
-            } else if (chain.equals(CUDOS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_cudos);
-            } else if (chain.equals(PROVENANCE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_provenance);
-            } else if (chain.equals(CERBERUS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_cerberus);
-            } else if (chain.equals(OMNIFLIX_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_omniflix);
-            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-                return ContextCompat.getColor(c, R.color.color_crescent);
-            } else if (chain.equals(ASSETMANTLE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_Mantle);
-            } else if (chain.equals(NYX_MAIN)) {
-                return ContextCompat.getColor(c, R.color.color_nyx);
-            } else if (chain.equals(STATION_TEST)) {
-                return ContextCompat.getColor(c, R.color.color_station);
-            }
+            ChainConfig chainConfig = ChainFactory.getChain(chain);
+            return ContextCompat.getColor(c, chainConfig.chainColor());
+//            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
+//                return ContextCompat.getColor(c, R.color.color_cosmos);
+//            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+//                return ContextCompat.getColor(c, R.color.color_iris);
+//            } else if (chain.equals(BNB_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_bnb);
+//            } else if (chain.equals(KAVA_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_kava);
+//            } else if (chain.equals(IOV_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_starname);
+//            } else if (chain.equals(BAND_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_band);
+//            } else if (chain.equals(OKEX_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_ok);
+//            } else if (chain.equals(CERTIK_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_certik);
+//            } else if (chain.equals(SECRET_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_secret);
+//            } else if (chain.equals(AKASH_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_akash);
+//            } else if (chain.equals(PERSIS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_persis);
+//            } else if (chain.equals(SENTINEL_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_sentinel);
+//            } else if (chain.equals(FETCHAI_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_fetch);
+//            } else if (chain.equals(CRYPTO_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_cryto);
+//            } else if (chain.equals(SIF_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_sif);
+//            } else if (chain.equals(KI_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_ki);
+//            } else if (chain.equals(OSMOSIS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_osmosis);
+//            } else if (chain.equals(RIZON_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_rizon);
+//            } else if (chain.equals(MEDI_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_medi);
+//            } else if (chain.equals(EMONEY_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_emoney);
+//            } else if (chain.equals(JUNO_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_juno);
+//            } else if (chain.equals(REGEN_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_regen);
+//            } else if (chain.equals(BITCANNA_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_bitcanna);
+//            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+//                return ContextCompat.getColor(c, R.color.color_althea);
+//            } else if (chain.equals(STARGAZE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_stargaze);
+//            } else if (chain.equals(GRABRIDGE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_grabridge);
+//            } else if (chain.equals(COMDEX_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_comdex);
+//            } else if (chain.equals(INJ_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_inj);
+//            } else if (chain.equals(BITSONG_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_bitsong);
+//            } else if (chain.equals(DESMOS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_desmos);
+//            } else if (chain.equals(LUM_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_lum);
+//            } else if (chain.equals(CHIHUAHUA_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_chihuahua);
+//            } else if (chain.equals(UMEE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_umee);
+//            } else if (chain.equals(AXELAR_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_axelar);
+//            } else if (chain.equals(KONSTELL_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_konstellation);
+//            } else if (chain.equals(EVMOS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_evmos);
+//            } else if (chain.equals(CUDOS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_cudos);
+//            } else if (chain.equals(PROVENANCE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_provenance);
+//            } else if (chain.equals(CERBERUS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_cerberus);
+//            } else if (chain.equals(OMNIFLIX_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_omniflix);
+//            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
+//                return ContextCompat.getColor(c, R.color.color_crescent);
+//            } else if (chain.equals(ASSETMANTLE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_Mantle);
+//            } else if (chain.equals(NYX_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.color_nyx);
+//            } else if (chain.equals(STATION_TEST)) {
+//                return ContextCompat.getColor(c, R.color.color_station);
+//            }
+//        }
         }
-        return ContextCompat.getColor(c, R.color.colorGray0);
+        return ContextCompat.getColor(c, R.color.colorTrans);
     }
 
     public static int getChainBgColor(Context c, BaseChain chain) {
         if (chain != null) {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgCosmos);
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgIris);
-            } else if (chain.equals(BNB_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgBinance);
-            } else if (chain.equals(KAVA_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgKava);
-            } else if (chain.equals(IOV_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgStarname);
-            } else if (chain.equals(BAND_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgBand);
-            } else if (chain.equals(OKEX_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgOkex);
-            } else if (chain.equals(CERTIK_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgCertik);
-            } else if (chain.equals(SECRET_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgSecret);
-            } else if (chain.equals(AKASH_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgAkash);
-            } else if (chain.equals(PERSIS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgPersis);
-            } else if (chain.equals(SENTINEL_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgSentinel);
-            } else if (chain.equals(FETCHAI_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgFetch);
-            } else if (chain.equals(CRYPTO_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgCryto);
-            } else if (chain.equals(SIF_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgSif);
-            } else if (chain.equals(KI_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgKi);
-            } else if (chain.equals(OSMOSIS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgOsmosis);
-            } else if (chain.equals(RIZON_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgRizon);
-            } else if (chain.equals(MEDI_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgMedi);
-            } else if (chain.equals(EMONEY_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgEmoney);
-            } else if (chain.equals(JUNO_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgJuno);
-            } else if (chain.equals(REGEN_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgRegen);
-            } else if (chain.equals(BITCANNA_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgBitcanna);
-            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgAlthea);
-            } else if (chain.equals(STARGAZE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgStargaze);
-            } else if (chain.equals(GRABRIDGE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgGraBridge);
-            } else if (chain.equals(COMDEX_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgComdex);
-            } else if (chain.equals(INJ_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgInj);
-            } else if (chain.equals(BITSONG_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgBitsong);
-            } else if (chain.equals(DESMOS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgDesmos);
-            } else if (chain.equals(LUM_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgLum);
-            } else if (chain.equals(CHIHUAHUA_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgChihuahua);
-            } else if (chain.equals(AXELAR_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgAxelar);
-            } else if (chain.equals(KONSTELL_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgKonstellation);
-            } else if (chain.equals(UMEE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgUmee);
-            } else if (chain.equals(EVMOS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgEvmos);
-            } else if (chain.equals(CUDOS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgCudos);
-            } else if (chain.equals(PROVENANCE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgProvenance);
-            } else if (chain.equals(CERBERUS_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgCerberus);
-            } else if (chain.equals(OMNIFLIX_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgOmniflix);
-            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgCrescent);
-            } else if (chain.equals(ASSETMANTLE_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgMantle);
-            } else if (chain.equals(NYX_MAIN)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgNyx);
-            } else if (chain.equals(STATION_TEST)) {
-                return ContextCompat.getColor(c, R.color.colorTransBgStation);
-            }
+            ChainConfig chainConfig = ChainFactory.getChain(chain);
+            return ContextCompat.getColor(c, chainConfig.chainBgColor());
+//            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgCosmos);
+//            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgIris);
+//            } else if (chain.equals(BNB_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgBinance);
+//            } else if (chain.equals(KAVA_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgKava);
+//            } else if (chain.equals(IOV_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgStarname);
+//            } else if (chain.equals(BAND_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgBand);
+//            } else if (chain.equals(OKEX_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgOkex);
+//            } else if (chain.equals(CERTIK_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgCertik);
+//            } else if (chain.equals(SECRET_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgSecret);
+//            } else if (chain.equals(AKASH_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgAkash);
+//            } else if (chain.equals(PERSIS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgPersis);
+//            } else if (chain.equals(SENTINEL_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgSentinel);
+//            } else if (chain.equals(FETCHAI_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgFetch);
+//            } else if (chain.equals(CRYPTO_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgCryto);
+//            } else if (chain.equals(SIF_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgSif);
+//            } else if (chain.equals(KI_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgKi);
+//            } else if (chain.equals(OSMOSIS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgOsmosis);
+//            } else if (chain.equals(RIZON_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgRizon);
+//            } else if (chain.equals(MEDI_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgMedi);
+//            } else if (chain.equals(EMONEY_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgEmoney);
+//            } else if (chain.equals(JUNO_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgJuno);
+//            } else if (chain.equals(REGEN_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgRegen);
+//            } else if (chain.equals(BITCANNA_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgBitcanna);
+//            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgAlthea);
+//            } else if (chain.equals(STARGAZE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgStargaze);
+//            } else if (chain.equals(GRABRIDGE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgGraBridge);
+//            } else if (chain.equals(COMDEX_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgComdex);
+//            } else if (chain.equals(INJ_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgInj);
+//            } else if (chain.equals(BITSONG_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgBitsong);
+//            } else if (chain.equals(DESMOS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgDesmos);
+//            } else if (chain.equals(LUM_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgLum);
+//            } else if (chain.equals(CHIHUAHUA_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgChihuahua);
+//            } else if (chain.equals(AXELAR_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgAxelar);
+//            } else if (chain.equals(KONSTELL_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgKonstellation);
+//            } else if (chain.equals(UMEE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgUmee);
+//            } else if (chain.equals(EVMOS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgEvmos);
+//            } else if (chain.equals(CUDOS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgCudos);
+//            } else if (chain.equals(PROVENANCE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgProvenance);
+//            } else if (chain.equals(CERBERUS_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgCerberus);
+//            } else if (chain.equals(OMNIFLIX_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgOmniflix);
+//            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgCrescent);
+//            } else if (chain.equals(ASSETMANTLE_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgMantle);
+//            } else if (chain.equals(NYX_MAIN)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgNyx);
+//            } else if (chain.equals(STATION_TEST)) {
+//                return ContextCompat.getColor(c, R.color.colorTransBgStation);
+//            }
         }
         return ContextCompat.getColor(c, R.color.colorTransBg);
-    }
-
-    public static ColorStateList getTabColor(Context c, BaseChain chain) {
-        if (chain != null) {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_cosmos);
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_iris);
-            } else if (chain.equals(KAVA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_kava);
-            } else if (chain.equals(BAND_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_band);
-            } else if (chain.equals(IOV_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_iov);
-            } else if (chain.equals(OKEX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_ok);
-            } else if (chain.equals(CERTIK_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_certik);
-            } else if (chain.equals(SECRET_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_secret);
-            } else if (chain.equals(AKASH_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_akash);
-            } else if (chain.equals(PERSIS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_persis);
-            } else if (chain.equals(SENTINEL_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_sentinel);
-            } else if (chain.equals(FETCHAI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_fetch);
-            } else if (chain.equals(CRYPTO_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_cryto);
-            } else if (chain.equals(SIF_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_sif);
-            } else if (chain.equals(KI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_ki);
-            } else if (chain.equals(OSMOSIS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_osmosis);
-            } else if (chain.equals(RIZON_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_rizon);
-            } else if (chain.equals(MEDI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_med);
-            } else if (chain.equals(EMONEY_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_emoney);
-            } else if (chain.equals(JUNO_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_juno);
-            } else if (chain.equals(REGEN_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_regen);
-            } else if (chain.equals(BITCANNA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_bitcanna);
-            } else if (chain.equals(ALTHEA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_althea);
-            } else if (chain.equals(STARGAZE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_stargaze);
-            } else if (chain.equals(GRABRIDGE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_grabridge);
-            } else if (chain.equals(COMDEX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_comdex);
-            } else if (chain.equals(INJ_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_inj);
-            } else if (chain.equals(BITSONG_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_bitsong);
-            } else if (chain.equals(DESMOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_desmos);
-            } else if (chain.equals(LUM_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_lum);
-            } else if (chain.equals(CHIHUAHUA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_chihuahua);
-            } else if (chain.equals(UMEE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_umee);
-            } else if (chain.equals(AXELAR_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_axelar);
-            } else if (chain.equals(KONSTELL_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_konstellation);
-            } else if (chain.equals(EVMOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_evmos);
-            } else if (chain.equals(CUDOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_cudos);
-            } else if (chain.equals(PROVENANCE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_provenance);
-            } else if (chain.equals(CERBERUS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_cerberus);
-            } else if (chain.equals(OMNIFLIX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_omniflix);
-            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_crescent);
-            } else if (chain.equals(ASSETMANTLE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_mantle);
-            } else if (chain.equals(NYX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_nym);
-            } else if (chain.equals(STATION_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_station);
-            }
-        }
-        return ContextCompat.getColorStateList(c, R.color.color_tab_myvalidator_cosmos);
-    }
-
-    public static ColorStateList getChainTintColor(Context c, BaseChain chain) {
-        if (chain != null) {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_cosmos);
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_iris);
-            } else if (chain.equals(KAVA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_kava);
-            } else if (chain.equals(BAND_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_band);
-            } else if (chain.equals(IOV_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_iov);
-            } else if (chain.equals(OKEX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_ok);
-            } else if (chain.equals(CERTIK_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_certik);
-            } else if (chain.equals(SECRET_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_secret);
-            } else if (chain.equals(AKASH_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_akash);
-            } else if (chain.equals(PERSIS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_persis);
-            } else if (chain.equals(SENTINEL_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_sentinel);
-            } else if (chain.equals(FETCHAI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_fetch);
-            } else if (chain.equals(CRYPTO_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_cryto);
-            } else if (chain.equals(SIF_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_sif);
-            } else if (chain.equals(KI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_ki);
-            } else if (chain.equals(OSMOSIS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_osmosis);
-            } else if (chain.equals(RIZON_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_rizon);
-            } else if (chain.equals(MEDI_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_medi);
-            } else if (chain.equals(EMONEY_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_emoney);
-            } else if (chain.equals(JUNO_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_juno);
-            } else if (chain.equals(REGEN_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_regen);
-            } else if (chain.equals(BITCANNA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_bitcanna);
-            } else if (chain.equals(ALTHEA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_althea);
-            } else if (chain.equals(STARGAZE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_stargaze);
-            } else if (chain.equals(GRABRIDGE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_grabridge);
-            } else if (chain.equals(COMDEX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_comdex);
-            } else if (chain.equals(INJ_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_inj);
-            } else if (chain.equals(BITSONG_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_bitsong);
-            } else if (chain.equals(DESMOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_desmos);
-            } else if (chain.equals(LUM_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_lum);
-            } else if (chain.equals(CHIHUAHUA_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_chihuahua);
-            } else if (chain.equals(UMEE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_umee);
-            } else if (chain.equals(AXELAR_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_axelar);
-            } else if (chain.equals(KONSTELL_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_konstellation);
-            } else if (chain.equals(EVMOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_evmos);
-            } else if (chain.equals(CUDOS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_cudos);
-            } else if (chain.equals(PROVENANCE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_provenance);
-            } else if (chain.equals(CERBERUS_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_cerberus);
-            } else if (chain.equals(OMNIFLIX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_omniflix);
-            } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_crescent);
-            } else if (chain.equals(ASSETMANTLE_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_Mantle);
-            } else if (chain.equals(NYX_MAIN)) {
-                return ContextCompat.getColorStateList(c, R.color.color_nyx);
-            } else if (chain.equals(STATION_TEST)) {
-                return ContextCompat.getColorStateList(c, R.color.color_station);
-            }
-        }
-        return ContextCompat.getColorStateList(c, R.color.colorTransBg);
     }
 
     public static void DpMainDenom(Context c, BaseChain chain, TextView textview) {
@@ -3041,7 +2855,7 @@ public class WDp {
         if (!chain.isEmpty()) {
             ChainConfig chainConfig = ChainFactory.getChain(getChain(chain));
             textview.setText(chainConfig.mainSymbol());
-            textview.setTextColor(chainConfig.chainColor());
+            textview.setTextColor(ContextCompat.getColor(c, chainConfig.chainColor()));
         }
 //        if (getChain(chain).equals(COSMOS_MAIN)) {
 //            textview.setTextColor(ContextCompat.getColor(c, R.color.color_cosmos));
@@ -3060,7 +2874,7 @@ public class WDp {
 //            textview.setText(c.getString(R.string.s_kava));
 //
 //        } else if (getChain(chain).equals(IOV_MAIN)) {
-//            textview.setTextColor(ContextCompat.getColor(c, R.color.color_iov));
+//            textview.setTextColor(ContextCompat.getColor(c, R.color.color_starname));
 //            textview.setText(c.getString(R.string.s_iov));
 //
 //        } else if (getChain(chain).equals(BAND_MAIN)) {
@@ -3342,8 +3156,7 @@ public class WDp {
         return Lists.newArrayList(mainDenom(baseChain));
     }
 
-    public static void setGasDenomTv(Context c, BaseChain baseChain, String denom, TextView
-            denomTv) {
+    public static void setGasDenomTv(Context c, BaseChain baseChain, String denom, TextView denomTv) {
         if (denom.equalsIgnoreCase(TOKEN_BCRE)) {
             denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_crescent2));
             denomTv.setText(c.getString(R.string.str_bcre_c));
@@ -3552,8 +3365,7 @@ public class WDp {
         }
     }
 
-    public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView
-            imageview) {
+    public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
         textView.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
         if (riskRate.floatValue() <= 50) {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));
@@ -3619,8 +3431,7 @@ public class WDp {
         }
     }
 
-    public static void DpRiskRate2(Context c, BigDecimal riskRate, TextView text, TextView
-            rate, LinearLayout layer) {
+    public static void DpRiskRate2(Context c, BigDecimal riskRate, TextView text, TextView rate, LinearLayout layer) {
         rate.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
         if (riskRate.longValue() <= 50) {
             text.setText("SAFE");
@@ -3636,8 +3447,7 @@ public class WDp {
         }
     }
 
-    public static void DpRiskRate3(Context c, BigDecimal riskRate, TextView score, TextView
-            rate) {
+    public static void DpRiskRate3(Context c, BigDecimal riskRate, TextView score, TextView rate) {
         score.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
         if (riskRate.longValue() <= 50) {
             rate.setText("SAFE");
@@ -3656,8 +3466,7 @@ public class WDp {
         }
     }
 
-    public static BigDecimal getCdpGrpcHiddenFee(Context c, BigDecimal
-            outstandingDebt, Genesis.CollateralParam paramCdp, QueryOuterClass.CDPResponse myCdp) {
+    public static BigDecimal getCdpGrpcHiddenFee(Context c, BigDecimal outstandingDebt, Genesis.CollateralParam paramCdp, QueryOuterClass.CDPResponse myCdp) {
         BigDecimal result = BigDecimal.ZERO;
         try {
             long now = Calendar.getInstance().getTimeInMillis();
@@ -3712,8 +3521,7 @@ public class WDp {
     }
 
     // HTLC using
-    public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView
-            txtView) {
+    public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
         if (chain.equals(BNB_MAIN)) {
             if (imgView != null)
                 imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
@@ -3726,8 +3534,7 @@ public class WDp {
         }
     }
 
-    public static void onDpSwapChain(Context c, BaseChain chain, ImageView imgView, TextView
-            txtView) {
+    public static void onDpSwapChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
         if (chain.equals(BNB_MAIN)) {
             if (imgView != null)
                 imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
@@ -3737,31 +3544,10 @@ public class WDp {
             if (imgView != null)
                 imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.kava_img));
             txtView.setText(c.getString(R.string.str_kava));
-
         }
     }
 
-    public static String getKavaHtlcStatus(Context c, ResTxInfo resTxInfo, ResKavaSwapInfo
-            resKavaSwapInfo) {
-        if (!resTxInfo.isSuccess()) {
-            return c.getString(R.string.str_bep3_status_open);
-        }
-
-        if (resKavaSwapInfo == null) {
-            return c.getString(R.string.str_bep3_status_completed);
-        }
-
-        if (resKavaSwapInfo.result.status.equals(ResKavaSwapInfo.STATUS_EXPIRED)) {
-            return c.getString(R.string.str_bep3_status_expired);
-        } else if (resKavaSwapInfo.result.status.equals(ResKavaSwapInfo.STATUS_OPEN)) {
-            return c.getString(R.string.str_bep3_status_open);
-        } else {
-            return c.getString(R.string.str_bep3_status_completed);
-        }
-    }
-
-    public static String getBnbHtlcStatus(Context c, ResBnbSwapInfo resBnbSwapInfo, ResNodeInfo
-            resNodeInfo) {
+    public static String getBnbHtlcStatus(Context c, ResBnbSwapInfo resBnbSwapInfo, ResNodeInfo resNodeInfo) {
         if (resBnbSwapInfo == null || resNodeInfo == null) {
             return "-";
         }
@@ -3964,8 +3750,7 @@ public class WDp {
         return result;
     }
 
-    public static ArrayList<Coin> onParseAutoReward(ServiceOuterClass.GetTxResponse
-                                                            response, String Addr, int position) {
+    public static ArrayList<Coin> onParseAutoReward(ServiceOuterClass.GetTxResponse response, String Addr, int position) {
         ArrayList<Coin> result = new ArrayList<>();
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
@@ -3994,8 +3779,7 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParseStakeReward(BaseChain
-                                                        baseChain, ServiceOuterClass.GetTxResponse response, String valAddr, int position) {
+    public static BigDecimal onParseStakeReward(BaseChain baseChain, ServiceOuterClass.GetTxResponse response, String valAddr, int position) {
         BigDecimal result = BigDecimal.ZERO;
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
@@ -4019,8 +3803,7 @@ public class WDp {
         return result;
     }
 
-    public static ArrayList<Coin> onParseCommission(ServiceOuterClass.GetTxResponse response,
-                                                    int position) {
+    public static ArrayList<Coin> onParseCommission(ServiceOuterClass.GetTxResponse response, int position) {
         ArrayList<Coin> result = new ArrayList<>();
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
@@ -4045,8 +3828,7 @@ public class WDp {
         return result;
     }
 
-    public static ArrayList<Coin> onParseKavaIncentiveGrpc(ServiceOuterClass.GetTxResponse tx,
-                                                           int position) {
+    public static ArrayList<Coin> onParseKavaIncentiveGrpc(ServiceOuterClass.GetTxResponse tx, int position) {
         ArrayList<Coin> result = new ArrayList<>();
         if (tx.getTxResponse().getLogsList() != null && tx.getTxResponse().getLogsCount() > position && tx.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event : tx.getTxResponse().getLogs(position).getEventsList()) {
@@ -4071,8 +3853,7 @@ public class WDp {
         return result;
     }
 
-    public static long onParsePeriodicUnLockTime(Vesting.PeriodicVestingAccount vestingAccount,
-                                                 int position) {
+    public static long onParsePeriodicUnLockTime(Vesting.PeriodicVestingAccount vestingAccount, int position) {
         long result = vestingAccount.getStartTime();
         for (int i = 0; i <= position; i++) {
             result = result + vestingAccount.getVestingPeriods(i).getLength();
@@ -4093,8 +3874,7 @@ public class WDp {
         return result;
     }
 
-    public static ArrayList<Vesting.Period> onParsePeriodicRemainVestingsByDenom
-            (Vesting.PeriodicVestingAccount vestingAccount, String denom) {
+    public static ArrayList<Vesting.Period> onParsePeriodicRemainVestingsByDenom(Vesting.PeriodicVestingAccount vestingAccount, String denom) {
         ArrayList<Vesting.Period> result = new ArrayList<>();
         for (Vesting.Period vp : onParsePeriodicRemainVestings(vestingAccount)) {
             for (CoinOuterClass.Coin coin : vp.getAmountList()) {
@@ -4106,8 +3886,7 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParsePeriodicRemainVestingsAmountByDenom
-            (Vesting.PeriodicVestingAccount vestingAccount, String denom) {
+    public static BigDecimal onParsePeriodicRemainVestingsAmountByDenom(Vesting.PeriodicVestingAccount vestingAccount, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         ArrayList<Vesting.Period> vps = onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
         for (Vesting.Period vp : vps) {

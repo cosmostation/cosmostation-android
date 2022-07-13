@@ -28,6 +28,7 @@ import java.util.Comparator;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanProposalListTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -62,6 +63,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mChain = WDp.getChainNameByBaseChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
@@ -172,7 +174,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                         voteIntent.putExtra("proposalId", String.valueOf(proposal.id));
                         startActivity(voteIntent);
                     } else {
-                        String url = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
+                        String url = mChainConfig.explorerUrl() + "proposals/" + proposal.id;
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
                     }

@@ -917,6 +917,11 @@ public class BaseConstant {
     public final static String EXPLORER_CRESCENT_TEST   = "https://testnet.mintscan.io/crescent/";
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
 
+    public final static String EXPLORER_BASE_URL        = "https://www.mintscan.io/";
+    public final static String RESOURCE_BASE_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/";
+    public final static String MONIKER_URL              = RESOURCE_BASE_URL + "moniker/";
+    public final static String UNKNOWN_RELAYER_URL      = RESOURCE_BASE_URL + "relayer/";
+    public final static String COINGECKO_URL            = "https://www.coingecko.com/en/coins/";
 
     public final static String AKASH_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";
     public final static String BAND_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/band/relay-band-unknown.png";

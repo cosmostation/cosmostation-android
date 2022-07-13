@@ -56,13 +56,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.net.Uri;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -89,7 +85,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,14 +110,13 @@ import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.wc.ConnectWalletActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.txs.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameListActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.ConnectWalletActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -2714,766 +2708,610 @@ public class WUtil {
         return result;
     }
 
-    /**
-     * Real Block Time
-     */
-    public static BigDecimal getRealBlockTime(BaseChain chain) {
-        if (chain != null) {
-            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                return BLOCK_TIME_COSMOS;
-
-            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                return BLOCK_TIME_IRIS;
-
-            } else if (chain.equals(IOV_MAIN)) {
-                return BLOCK_TIME_IOV;
-
-            } else if (chain.equals(KAVA_MAIN)) {
-                return BLOCK_TIME_KAVA;
-
-            } else if (chain.equals(BAND_MAIN)) {
-                return BLOCK_TIME_BAND;
-
-            } else if (chain.equals(CERTIK_MAIN)) {
-                return BLOCK_TIME_CERTIK;
-
-            } else if (chain.equals(SECRET_MAIN)) {
-                return BLOCK_TIME_SECRET;
-
-            } else if (chain.equals(AKASH_MAIN)) {
-                return BLOCK_TIME_AKASH;
-
-            } else if (chain.equals(SENTINEL_MAIN)) {
-                return BLOCK_TIME_SENTINEL;
-
-            } else if (chain.equals(PERSIS_MAIN)) {
-                return BLOCK_TIME_PERSISTENCE;
-
-            } else if (chain.equals(FETCHAI_MAIN)) {
-                return BLOCK_TIME_FETCH;
-
-            } else if (chain.equals(CRYPTO_MAIN)) {
-                return BLOCK_TIME_CRYPTO;
-
-            } else if (chain.equals(SIF_MAIN)) {
-                return BLOCK_TIME_SIF;
-
-            } else if (chain.equals(KI_MAIN)) {
-                return BLOCK_TIME_KI;
-
-            } else if (chain.equals(MEDI_MAIN)) {
-                return BLOCK_TIME_MEDI;
-
-            } else if (chain.equals(OSMOSIS_MAIN)) {
-                return BLOCK_TIME_OSMOSIS;
-
-            } else if (chain.equals(EMONEY_MAIN)) {
-                return BLOCK_TIME_EMONEY;
-
-            } else if (chain.equals(RIZON_MAIN)) {
-                return BLOCK_TIME_RIZON;
-
-            } else if (chain.equals(JUNO_MAIN)) {
-                return BLOCK_TIME_JUNO;
-
-            } else if (chain.equals(BITCANNA_MAIN)) {
-                return BLOCK_TIME_BITCANNA;
-
-            } else if (chain.equals(REGEN_MAIN)) {
-                return BLOCK_TIME_REGEN;
-
-            } else if (chain.equals(STARGAZE_MAIN)) {
-                return BLOCK_TIME_STARGAZE;
-
-            } else if (chain.equals(INJ_MAIN)) {
-                return BLOCK_TIME_INJECTIVE;
-
-            } else if (chain.equals(BITSONG_MAIN)) {
-                return BLOCK_TIME_BITSONG;
-
-            } else if (chain.equals(OKEX_MAIN)) {
-                return BLOCK_TIME_OKEX;
-
-            } else if (chain.equals(BNB_MAIN)) {
-                return BLOCK_TIME_BNB;
-
-            } else if (chain.equals(COMDEX_MAIN)) {
-                return BLOCK_TIME_COMDEX;
-
-            } else if (chain.equals(DESMOS_MAIN)) {
-                return BLOCK_TIME_DESMOS;
-
-            } else if (chain.equals(GRABRIDGE_MAIN)) {
-                return BLOCK_TIME_GRAV;
-
-            } else if (chain.equals(LUM_MAIN)) {
-                return BLOCK_TIME_LUM;
-
-            } else if (chain.equals(CHIHUAHUA_MAIN)) {
-                return BLOCK_TIME_CHIHUAHUA;
-
-            } else if (chain.equals(AXELAR_MAIN)) {
-                return BLOCK_TIME_AXELAR;
-
-            } else if (chain.equals(KONSTELL_MAIN)) {
-                return BLOCK_TIME_KONSTELLATION;
-
-            } else if (chain.equals(UMEE_MAIN)) {
-                return BLOCK_TIME_UMEE;
-
-            } else if (chain.equals(EVMOS_MAIN)) {
-                return BLOCK_TIME_EVMOS;
-
-            } else if (chain.equals(PROVENANCE_MAIN)) {
-                return BLOCK_TIME_PROVENANCE;
-
-            } else if (chain.equals(CERBERUS_MAIN)) {
-                return BLOCK_TIME_CERBERUS;
-
-            } else if (chain.equals(OMNIFLIX_MAIN)) {
-                return BLOCK_TIME_OMNIFLIX;
-
-            } else if (chain.equals(CRESCENT_MAIN)) {
-                return BLOCK_TIME_CRESCENT;
-
-            } else if (chain.equals(ASSETMANTLE_MAIN)) {
-                return BLOCK_TIME_MANTLE;
-
-            } else if (chain.equals(NYX_MAIN)) {
-                return BLOCK_TIME_NYX;
-
-            } else if (chain.equals(CUDOS_MAIN)) {
-                return BLOCK_TIME_CUDOS;
-            }
-        }
-        return BigDecimal.ZERO;
-    }
-
-    public static BigDecimal getRealBlockPerYear(BaseChain chain) {
-        if (chain != null) {
-            if (getRealBlockTime(chain) == BigDecimal.ZERO) {
-                return BigDecimal.ZERO;
-            }
-        }
-        return YEAR_SEC.divide(getRealBlockTime(chain), 2, RoundingMode.DOWN);
-    }
-
-    /**
-     * coingeko
-     */
-    public static Intent getCoingekoIntent(MainActivity mainActivity) {
-        if (mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cosmos")));
-
-        } else if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/irisnet")));
-
-        } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/starname")));
-
-        } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/binancecoin")));
-
-        } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/kava")));
-
-        } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/band-protocol")));
-
-        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/certik")));
-
-        } else if (mainActivity.mBaseChain.equals(SECRET_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/secret")));
-
-        } else if (mainActivity.mBaseChain.equals(AKASH_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/akash-network")));
-
-        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/okexchain")));
-
-        } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/sentinel")));
-
-        } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/persistence")));
-
-        } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/fetch-ai")));
-
-        } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/crypto-com-chain")));
-
-        } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/sifchain")));
-
-        } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/ki")));
-
-        } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/osmosis")));
-
-        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/medibloc")));
-
-        } else if (mainActivity.mBaseChain.equals(EMONEY_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/e-money")));
-
-        } else if (mainActivity.mBaseChain.equals(JUNO_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/juno-network")));
-
-        } else if (mainActivity.mBaseChain.equals(REGEN_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/regen")));
-
-        } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/bitcanna")));
-
-        } else if (mainActivity.mBaseChain.equals(INJ_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/injective-protocol")));
-
-        } else if (mainActivity.mBaseChain.equals(BITSONG_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/bitsong")));
-
-        } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/rizon")));
-
-        } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/comdex")));
-
-        } else if (mainActivity.mBaseChain.equals(STARGAZE_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/stargaze")));
-
-        } else if (mainActivity.mBaseChain.equals(LUM_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/lum-network")));
-
-        } else if (mainActivity.mBaseChain.equals(DESMOS_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/desmos")));
-
-        } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/chihuahua-chain")));
-
-        } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/umee")));
-
-        } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cudos")));
-
-        } else if (mainActivity.mBaseChain.equals(GRABRIDGE_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/graviton")));
-
-        } else if (mainActivity.mBaseChain.equals(ASSETMANTLE_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/assetmantle")));
-
-        } else if (mainActivity.mBaseChain.equals(CERBERUS_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cerberus")));
-
-        } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/evmos")));
-
-        } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/konstellation")));
-
-        } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
-            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/provenance-blockchain")));
-
-        }
-        return null;
-    }
-
-    /**
-     * Main Guide
-     */
-    public static void getGuide(MainActivity mainActivity, ImageView guideImg, TextView guideTitle, TextView guideMsg, Button guideBtn1, Button guideBtn2) {
-        guideBtn1.setText(R.string.str_home);
-        guideBtn2.setText(R.string.str_blog);
-        if (mainActivity.mBaseChain.equals(COSMOS_MAIN) || mainActivity.mBaseChain.equals(COSMOS_TEST)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_cosmos));
-            guideTitle.setText(R.string.str_front_guide_title_cosmos);
-            guideMsg.setText(R.string.str_front_guide_msg_cosmos);
-
-        } else if (mainActivity.mBaseChain.equals(IRIS_MAIN) || mainActivity.mBaseChain.equals(IRIS_TEST)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_iris));
-            guideTitle.setText(R.string.str_front_guide_title_iris);
-            guideMsg.setText(R.string.str_front_guide_msg_iris);
-
-        } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.binance_img));
-            guideTitle.setText(R.string.str_front_guide_title_binance);
-            guideMsg.setText(R.string.str_front_guide_msg_bnb);
-
-        } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.kavamain_img));
-            guideTitle.setText(R.string.str_front_guide_title_kava);
-            guideMsg.setText(R.string.str_front_guide_msg_kava);
-
-        } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.iov_img));
-            guideTitle.setText(R.string.str_front_guide_title_iov);
-            guideMsg.setText(R.string.str_front_guide_msg_iov);
-
-        } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_bandprotocol));
-            guideTitle.setText(R.string.str_front_guide_title_band);
-            guideMsg.setText(R.string.str_front_guide_msg_band);
-
-        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_okx));
-            guideTitle.setText(R.string.str_front_guide_title_ok);
-            guideMsg.setText(R.string.str_front_guide_msg_ok);
-
-        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.certik_img));
-            guideTitle.setText(R.string.str_front_guide_title_certik);
-            guideMsg.setText(R.string.str_front_guide_msg_certik);
-
-        } else if (mainActivity.mBaseChain.equals(AKASH_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.akash_img));
-            guideTitle.setText(R.string.str_front_guide_title_akash);
-            guideMsg.setText(R.string.str_front_guide_msg_akash);
-
-        } else if (mainActivity.mBaseChain.equals(SECRET_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.secret_img));
-            guideTitle.setText(R.string.str_front_guide_title_secret);
-            guideMsg.setText(R.string.str_front_guide_msg_secret);
-
-        } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.persistence_img));
-            guideTitle.setText(R.string.str_front_guide_title_persis);
-            guideMsg.setText(R.string.str_front_guide_msg_persis);
-
-        } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.sentinel_img));
-            guideTitle.setText(R.string.str_front_guide_title_sentinel);
-            guideMsg.setText(R.string.str_front_guide_msg_sentinel);
-
-        } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.fetchai_img));
-            guideTitle.setText(R.string.str_front_guide_title_fetch);
-            guideMsg.setText(R.string.str_front_guide_msg_fetch);
-
-        } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.cryptochain_img));
-            guideTitle.setText(R.string.str_front_guide_title_crypto);
-            guideMsg.setText(R.string.str_front_guide_msg_crypto);
-
-        } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.sifchain_img));
-            guideTitle.setText(R.string.str_front_guide_title_sif);
-            guideMsg.setText(R.string.str_front_guide_msg_sif);
-
-        } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.kifoundation_img));
-            guideTitle.setText(R.string.str_front_guide_title_ki);
-            guideMsg.setText(R.string.str_front_guide_msg_ki);
-
-        } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_osmosis));
-            guideTitle.setText(R.string.str_front_guide_title_osmosis);
-            guideMsg.setText(R.string.str_front_guide_msg_osmosis);
-
-        } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_rizon));
-            guideTitle.setText(R.string.str_front_guide_title_rizon);
-            guideMsg.setText(R.string.str_front_guide_msg_rizon);
-
-        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.medibloc_img));
-            guideTitle.setText(R.string.str_front_guide_title_medi);
-            guideMsg.setText(R.string.str_front_guide_msg_medi);
-
-        } else if (mainActivity.mBaseChain.equals(EMONEY_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_emoney));
-            guideTitle.setText(R.string.str_front_guide_title_emoney);
-            guideMsg.setText(R.string.str_front_guide_msg_emoney);
-
-        } else if (mainActivity.mBaseChain.equals(JUNO_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_juno));
-            guideTitle.setText(R.string.str_front_guide_title_juno);
-            guideMsg.setText(R.string.str_front_guide_msg_juno);
-
-        } else if (mainActivity.mBaseChain.equals(REGEN_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_regen));
-            guideTitle.setText(R.string.str_front_guide_title_regen);
-            guideMsg.setText(R.string.str_front_guide_msg_regen);
-
-        } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_bitcanna));
-            guideTitle.setText(R.string.str_front_guide_title_bitcanna);
-            guideMsg.setText(R.string.str_front_guide_msg_bitcanna);
-
-        } else if (mainActivity.mBaseChain.equals(ALTHEA_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_althea));
-            guideTitle.setText(R.string.str_front_guide_title_althea);
-            guideMsg.setText(R.string.str_front_guide_msg_althea);
-
-        } else if (mainActivity.mBaseChain.equals(STARGAZE_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_stargaze));
-            guideTitle.setText(R.string.str_front_guide_title_stargaze);
-            guideMsg.setText(R.string.str_front_guide_msg_stargaze);
-
-        } else if (mainActivity.mBaseChain.equals(GRABRIDGE_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_gravitybridge));
-            guideTitle.setText(R.string.str_front_guide_title_grabridge);
-            guideMsg.setText(R.string.str_front_guide_msg_grabridge);
-
-        } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_comdex));
-            guideTitle.setText(R.string.str_front_guide_title_comdex);
-            guideMsg.setText(R.string.str_front_guide_msg_comdex);
-
-        } else if (mainActivity.mBaseChain.equals(INJ_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_injective));
-            guideTitle.setText(R.string.str_front_guide_title_inj);
-            guideMsg.setText(R.string.str_front_guide_msg_inj);
-
-        } else if (mainActivity.mBaseChain.equals(BITSONG_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_bitsong));
-            guideTitle.setText(R.string.str_front_guide_title_bitsong);
-            guideMsg.setText(R.string.str_front_guide_msg_bitsong);
-
-        } else if (mainActivity.mBaseChain.equals(DESMOS_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_desmos));
-            guideTitle.setText(R.string.str_front_guide_title_desmos);
-            guideMsg.setText(R.string.str_front_guide_msg_desmos);
-
-        } else if (mainActivity.mBaseChain.equals(LUM_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_lumnetwork));
-            guideTitle.setText(R.string.str_front_guide_title_lum);
-            guideMsg.setText(R.string.str_front_guide_msg_lum);
-
-        } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_chihuahua));
-            guideTitle.setText(R.string.str_front_guide_title_chihuahua);
-            guideMsg.setText(R.string.str_front_guide_msg_chihuahua);
-
-        } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_umee));
-            guideTitle.setText(R.string.str_front_guide_title_umee);
-            guideMsg.setText(R.string.str_front_guide_msg_umee);
-
-        } else if (mainActivity.mBaseChain.equals(AXELAR_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_axelar));
-            guideTitle.setText(R.string.str_front_guide_title_axelar);
-            guideMsg.setText(R.string.str_front_guide_msg_axelar);
-
-        } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_konstellation));
-            guideTitle.setText(R.string.str_front_guide_title_konstellation);
-            guideMsg.setText(R.string.str_front_guide_msg_konstellation);
-
-        } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_evmos));
-            guideTitle.setText(R.string.str_front_guide_title_evmos);
-            guideMsg.setText(R.string.str_front_guide_msg_evmos);
-
-        } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_cudos));
-            guideTitle.setText(R.string.str_front_guide_title_cudos);
-            guideMsg.setText(R.string.str_front_guide_msg_cudos);
-
-        } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_provenance));
-            guideTitle.setText(R.string.str_front_guide_title_provenance);
-            guideMsg.setText(R.string.str_front_guide_msg_provenance);
-
-        } else if (mainActivity.mBaseChain.equals(CERBERUS_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_cerberus));
-            guideTitle.setText(R.string.str_front_guide_title_cerberus);
-            guideMsg.setText(R.string.str_front_guide_msg_cerberus);
-
-        } else if (mainActivity.mBaseChain.equals(OMNIFLIX_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_omniflix));
-            guideTitle.setText(R.string.str_front_guide_title_omniflix);
-            guideMsg.setText(R.string.str_front_guide_msg_omniflix);
-
-        } else if (mainActivity.mBaseChain.equals(CRESCENT_MAIN) || mainActivity.mBaseChain.equals(CRESCENT_TEST)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_crescent));
-            guideTitle.setText(R.string.str_front_guide_title_crescent);
-            guideMsg.setText(R.string.str_front_guide_msg_crescent);
-
-        } else if (mainActivity.mBaseChain.equals(ASSETMANTLE_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_assetmantle));
-            guideTitle.setText(R.string.str_front_guide_title_mantle);
-            guideMsg.setText(R.string.str_front_guide_msg_mantle);
-
-        } else if (mainActivity.mBaseChain.equals(STATION_TEST)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_station));
-            guideTitle.setText(R.string.str_front_guide_title_station);
-            guideMsg.setText(R.string.str_front_guide_msg_station);
-        } else if (mainActivity.mBaseChain.equals(NYX_MAIN)) {
-            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_nym));
-            guideTitle.setText(R.string.str_front_guide_title_nyx);
-            guideMsg.setText(R.string.str_front_guide_msg_nyx);
-
-        }
-    }
-
-    public static void getWalletData(MainActivity mainActivity, BaseChain chain, ImageView coinImg, TextView coinDenom) {
-        if (chain.equals(COSMOS_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_cosmos));
-            coinDenom.setText(R.string.str_atom_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_atom);
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_iris));
-            coinDenom.setText(R.string.str_iris_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_iris);
-
-        } else if (chain.equals(BNB_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.binance_img));
-            coinDenom.setText(R.string.str_front_guide_title_binance);
-            coinDenom.setTextAppearance(R.style.font_ss_14_bnb);
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.kava_token_img));
-            coinDenom.setText(R.string.str_kava_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_kava);
-
-        } else if (chain.equals(IOV_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_starname));
-            coinDenom.setText(R.string.str_iov_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_iov);
-
-        } else if (chain.equals(BAND_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.band_token_img));
-            coinDenom.setText(R.string.str_band_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_band);
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_okx));
-            coinDenom.setText(R.string.str_ok_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_ok);
-
-        } else if (chain.equals(CERTIK_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.certik_token_img));
-            coinDenom.setText(R.string.str_ctk_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_certik);
-
-        } else if (chain.equals(AKASH_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.akash_token_img));
-            coinDenom.setText(R.string.str_akt_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_akash);
-
-        } else if (chain.equals(SECRET_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokensecret));
-            coinDenom.setText(R.string.str_scrt_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_secret);
-
-        } else if (chain.equals(PERSIS_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokenpersistence));
-            coinDenom.setText(R.string.str_xprt_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_persis);
-
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokensentinel));
-            coinDenom.setText(R.string.str_dvpn_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_sentinel);
-
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokenfetchai));
-            coinDenom.setText(R.string.str_fet_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_fetch);
-
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokencrypto));
-            coinDenom.setText(R.string.str_cro_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_cryto);
-
-        } else if (chain.equals(SIF_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokensifchain));
-            coinDenom.setText(R.string.str_sif_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_sif);
-
-        } else if (chain.equals(KI_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_kifoundation));
-            coinDenom.setText(R.string.str_ki_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_ki);
-
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_osmosis));
-            coinDenom.setText(R.string.str_osmosis_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_osmosis);
-
-        } else if (chain.equals(RIZON_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_rizon));
-            coinDenom.setText(R.string.str_rizon_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_rizon);
-
-        } else if (chain.equals(MEDI_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokenmedibloc));
-            coinDenom.setText(R.string.str_medi_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_medi);
-
-        } else if (chain.equals(EMONEY_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_emoney));
-            coinDenom.setText(R.string.str_ngm_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_emoney);
-
-        } else if (chain.equals(JUNO_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_juno));
-            coinDenom.setText(R.string.str_juno_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_juno);
-
-        } else if (chain.equals(REGEN_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_regen));
-            coinDenom.setText(R.string.str_regen_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_regen);
-
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_bitcanna));
-            coinDenom.setText(R.string.str_bitcanna_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_bitcanna);
-
-        } else if (chain.equals(ALTHEA_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_althea));
-            coinDenom.setText(R.string.str_althea_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_althea);
-
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_stargaze));
-            coinDenom.setText(R.string.str_stargaze_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_stargaze);
-
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_gravitybridge));
-            coinDenom.setText(R.string.str_grabridge_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_grabridge);
-
-        } else if (chain.equals(COMDEX_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_comdex));
-            coinDenom.setText(R.string.str_comdex_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_comdex);
-
-        } else if (chain.equals(INJ_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_injective));
-            coinDenom.setText(R.string.str_inj_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_inj);
-
-        } else if (chain.equals(BITSONG_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_bitsong));
-            coinDenom.setText(R.string.str_bitsong_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_bitsong);
-
-        } else if (chain.equals(DESMOS_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_desmos));
-            coinDenom.setText(R.string.str_desmos_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_desmos);
-
-        } else if (chain.equals(LUM_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_lum));
-            coinDenom.setText(R.string.str_lum_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_lum);
-
-        } else if (chain.equals(CHIHUAHUA_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_huahua));
-            coinDenom.setText(R.string.str_chihuahua_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_chihuahua);
-
-        } else if (chain.equals(UMEE_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_umee));
-            coinDenom.setText(R.string.str_umee_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_umee);
-
-        } else if (chain.equals(AXELAR_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_axelar));
-            coinDenom.setText(R.string.str_axl_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_axelar);
-
-        } else if (chain.equals(KONSTELL_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_konstellation));
-            coinDenom.setText(R.string.str_konstellation_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_konstellation);
-
-        } else if (chain.equals(EVMOS_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_evmos));
-            coinDenom.setText(R.string.str_evmos_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_evmos);
-
-        } else if (chain.equals(CUDOS_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_cudos));
-            coinDenom.setText(R.string.str_cudos_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_cudos);
-
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_hash));
-            coinDenom.setText(R.string.str_provenance_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_provenance);
-
-        } else if (chain.equals(CERBERUS_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_cerberus));
-            coinDenom.setText(R.string.str_cerberus_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_cerberus);
-
-        } else if (chain.equals(OMNIFLIX_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_omniflix));
-            coinDenom.setText(R.string.str_omniflix_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_omniflix);
-
-        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_crescent));
-            coinDenom.setText(R.string.str_cre_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_crescent);
-
-        } else if (chain.equals(ASSETMANTLE_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_assetmantle));
-            coinDenom.setText(R.string.str_mantle_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_mantle);
-
-        } else if (chain.equals(NYX_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_nyx));
-            coinDenom.setText(R.string.str_nyx_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_nyx);
-
-        } else if (chain.equals(STATION_TEST)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_iss));
-            coinDenom.setText(R.string.str_station_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_station);
-
-        }
-    }
-
-    public static void getDexTitle(MainActivity mainActivity, BaseChain chain, RelativeLayout mBtnDex, TextView dexTitle) {
+//    /**
+//     * coingeko
+//     */
+//    public static Intent getCoingekoIntent(MainActivity mainActivity) {
+//        if (mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cosmos")));
+//
+//        } else if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/irisnet")));
+//
+//        } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/starname")));
+//
+//        } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/binancecoin")));
+//
+//        } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/kava")));
+//
+//        } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/band-protocol")));
+//
+//        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/certik")));
+//
+//        } else if (mainActivity.mBaseChain.equals(SECRET_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/secret")));
+//
+//        } else if (mainActivity.mBaseChain.equals(AKASH_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/akash-network")));
+//
+//        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/okexchain")));
+//
+//        } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/sentinel")));
+//
+//        } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/persistence")));
+//
+//        } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/fetch-ai")));
+//
+//        } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/crypto-com-chain")));
+//
+//        } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/sifchain")));
+//
+//        } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/ki")));
+//
+//        } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/osmosis")));
+//
+//        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/medibloc")));
+//
+//        } else if (mainActivity.mBaseChain.equals(EMONEY_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/e-money")));
+//
+//        } else if (mainActivity.mBaseChain.equals(JUNO_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/juno-network")));
+//
+//        } else if (mainActivity.mBaseChain.equals(REGEN_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/regen")));
+//
+//        } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/bitcanna")));
+//
+//        } else if (mainActivity.mBaseChain.equals(INJ_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/injective-protocol")));
+//
+//        } else if (mainActivity.mBaseChain.equals(BITSONG_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/bitsong")));
+//
+//        } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/rizon")));
+//
+//        } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/comdex")));
+//
+//        } else if (mainActivity.mBaseChain.equals(STARGAZE_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/stargaze")));
+//
+//        } else if (mainActivity.mBaseChain.equals(LUM_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/lum-network")));
+//
+//        } else if (mainActivity.mBaseChain.equals(DESMOS_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/desmos")));
+//
+//        } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/chihuahua-chain")));
+//
+//        } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/umee")));
+//
+//        } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cudos")));
+//
+//        } else if (mainActivity.mBaseChain.equals(GRABRIDGE_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/graviton")));
+//
+//        } else if (mainActivity.mBaseChain.equals(ASSETMANTLE_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/assetmantle")));
+//
+//        } else if (mainActivity.mBaseChain.equals(CERBERUS_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/cerberus")));
+//
+//        } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/evmos")));
+//
+//        } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/konstellation")));
+//
+//        } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
+//            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coingecko.com/en/coins/provenance-blockchain")));
+//
+//        }
+//        return null;
+//    }
+
+//    /**
+//     * Main Guide
+//     */
+//    public static void getGuide(MainActivity mainActivity, ImageView guideImg, TextView guideTitle, TextView guideMsg, Button guideBtn1, Button guideBtn2) {
+//        guideBtn1.setText(R.string.str_home);
+//        guideBtn2.setText(R.string.str_blog);
+//        if (mainActivity.mBaseChain.equals(COSMOS_MAIN) || mainActivity.mBaseChain.equals(COSMOS_TEST)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_cosmos));
+//            guideTitle.setText(R.string.str_front_guide_title_cosmos);
+//            guideMsg.setText(R.string.str_front_guide_msg_cosmos);
+//
+//        } else if (mainActivity.mBaseChain.equals(IRIS_MAIN) || mainActivity.mBaseChain.equals(IRIS_TEST)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_iris));
+//            guideTitle.setText(R.string.str_front_guide_title_iris);
+//            guideMsg.setText(R.string.str_front_guide_msg_iris);
+//
+//        } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.binance_img));
+//            guideTitle.setText(R.string.str_front_guide_title_binance);
+//            guideMsg.setText(R.string.str_front_guide_msg_bnb);
+//
+//        } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.kavamain_img));
+//            guideTitle.setText(R.string.str_front_guide_title_kava);
+//            guideMsg.setText(R.string.str_front_guide_msg_kava);
+//
+//        } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.iov_img));
+//            guideTitle.setText(R.string.str_front_guide_title_iov);
+//            guideMsg.setText(R.string.str_front_guide_msg_iov);
+//
+//        } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_bandprotocol));
+//            guideTitle.setText(R.string.str_front_guide_title_band);
+//            guideMsg.setText(R.string.str_front_guide_msg_band);
+//
+//        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_okx));
+//            guideTitle.setText(R.string.str_front_guide_title_ok);
+//            guideMsg.setText(R.string.str_front_guide_msg_ok);
+//
+//        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.certik_img));
+//            guideTitle.setText(R.string.str_front_guide_title_certik);
+//            guideMsg.setText(R.string.str_front_guide_msg_certik);
+//
+//        } else if (mainActivity.mBaseChain.equals(AKASH_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.akash_img));
+//            guideTitle.setText(R.string.str_front_guide_title_akash);
+//            guideMsg.setText(R.string.str_front_guide_msg_akash);
+//
+//        } else if (mainActivity.mBaseChain.equals(SECRET_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.secret_img));
+//            guideTitle.setText(R.string.str_front_guide_title_secret);
+//            guideMsg.setText(R.string.str_front_guide_msg_secret);
+//
+//        } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.persistence_img));
+//            guideTitle.setText(R.string.str_front_guide_title_persis);
+//            guideMsg.setText(R.string.str_front_guide_msg_persis);
+//
+//        } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.sentinel_img));
+//            guideTitle.setText(R.string.str_front_guide_title_sentinel);
+//            guideMsg.setText(R.string.str_front_guide_msg_sentinel);
+//
+//        } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.fetchai_img));
+//            guideTitle.setText(R.string.str_front_guide_title_fetch);
+//            guideMsg.setText(R.string.str_front_guide_msg_fetch);
+//
+//        } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.cryptochain_img));
+//            guideTitle.setText(R.string.str_front_guide_title_crypto);
+//            guideMsg.setText(R.string.str_front_guide_msg_crypto);
+//
+//        } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.sifchain_img));
+//            guideTitle.setText(R.string.str_front_guide_title_sif);
+//            guideMsg.setText(R.string.str_front_guide_msg_sif);
+//
+//        } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.kifoundation_img));
+//            guideTitle.setText(R.string.str_front_guide_title_ki);
+//            guideMsg.setText(R.string.str_front_guide_msg_ki);
+//
+//        } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_osmosis));
+//            guideTitle.setText(R.string.str_front_guide_title_osmosis);
+//            guideMsg.setText(R.string.str_front_guide_msg_osmosis);
+//
+//        } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_rizon));
+//            guideTitle.setText(R.string.str_front_guide_title_rizon);
+//            guideMsg.setText(R.string.str_front_guide_msg_rizon);
+//
+//        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.medibloc_img));
+//            guideTitle.setText(R.string.str_front_guide_title_medi);
+//            guideMsg.setText(R.string.str_front_guide_msg_medi);
+//
+//        } else if (mainActivity.mBaseChain.equals(EMONEY_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_emoney));
+//            guideTitle.setText(R.string.str_front_guide_title_emoney);
+//            guideMsg.setText(R.string.str_front_guide_msg_emoney);
+//
+//        } else if (mainActivity.mBaseChain.equals(JUNO_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_juno));
+//            guideTitle.setText(R.string.str_front_guide_title_juno);
+//            guideMsg.setText(R.string.str_front_guide_msg_juno);
+//
+//        } else if (mainActivity.mBaseChain.equals(REGEN_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_regen));
+//            guideTitle.setText(R.string.str_front_guide_title_regen);
+//            guideMsg.setText(R.string.str_front_guide_msg_regen);
+//
+//        } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_bitcanna));
+//            guideTitle.setText(R.string.str_front_guide_title_bitcanna);
+//            guideMsg.setText(R.string.str_front_guide_msg_bitcanna);
+//
+//        } else if (mainActivity.mBaseChain.equals(ALTHEA_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_althea));
+//            guideTitle.setText(R.string.str_front_guide_title_althea);
+//            guideMsg.setText(R.string.str_front_guide_msg_althea);
+//
+//        } else if (mainActivity.mBaseChain.equals(STARGAZE_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_stargaze));
+//            guideTitle.setText(R.string.str_front_guide_title_stargaze);
+//            guideMsg.setText(R.string.str_front_guide_msg_stargaze);
+//
+//        } else if (mainActivity.mBaseChain.equals(GRABRIDGE_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_gravitybridge));
+//            guideTitle.setText(R.string.str_front_guide_title_grabridge);
+//            guideMsg.setText(R.string.str_front_guide_msg_grabridge);
+//
+//        } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_comdex));
+//            guideTitle.setText(R.string.str_front_guide_title_comdex);
+//            guideMsg.setText(R.string.str_front_guide_msg_comdex);
+//
+//        } else if (mainActivity.mBaseChain.equals(INJ_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_injective));
+//            guideTitle.setText(R.string.str_front_guide_title_inj);
+//            guideMsg.setText(R.string.str_front_guide_msg_inj);
+//
+//        } else if (mainActivity.mBaseChain.equals(BITSONG_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_bitsong));
+//            guideTitle.setText(R.string.str_front_guide_title_bitsong);
+//            guideMsg.setText(R.string.str_front_guide_msg_bitsong);
+//
+//        } else if (mainActivity.mBaseChain.equals(DESMOS_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_desmos));
+//            guideTitle.setText(R.string.str_front_guide_title_desmos);
+//            guideMsg.setText(R.string.str_front_guide_msg_desmos);
+//
+//        } else if (mainActivity.mBaseChain.equals(LUM_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_lumnetwork));
+//            guideTitle.setText(R.string.str_front_guide_title_lum);
+//            guideMsg.setText(R.string.str_front_guide_msg_lum);
+//
+//        } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_chihuahua));
+//            guideTitle.setText(R.string.str_front_guide_title_chihuahua);
+//            guideMsg.setText(R.string.str_front_guide_msg_chihuahua);
+//
+//        } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_umee));
+//            guideTitle.setText(R.string.str_front_guide_title_umee);
+//            guideMsg.setText(R.string.str_front_guide_msg_umee);
+//
+//        } else if (mainActivity.mBaseChain.equals(AXELAR_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_axelar));
+//            guideTitle.setText(R.string.str_front_guide_title_axelar);
+//            guideMsg.setText(R.string.str_front_guide_msg_axelar);
+//
+//        } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_konstellation));
+//            guideTitle.setText(R.string.str_front_guide_title_konstellation);
+//            guideMsg.setText(R.string.str_front_guide_msg_konstellation);
+//
+//        } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_evmos));
+//            guideTitle.setText(R.string.str_front_guide_title_evmos);
+//            guideMsg.setText(R.string.str_front_guide_msg_evmos);
+//
+//        } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_cudos));
+//            guideTitle.setText(R.string.str_front_guide_title_cudos);
+//            guideMsg.setText(R.string.str_front_guide_msg_cudos);
+//
+//        } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_provenance));
+//            guideTitle.setText(R.string.str_front_guide_title_provenance);
+//            guideMsg.setText(R.string.str_front_guide_msg_provenance);
+//
+//        } else if (mainActivity.mBaseChain.equals(CERBERUS_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_cerberus));
+//            guideTitle.setText(R.string.str_front_guide_title_cerberus);
+//            guideMsg.setText(R.string.str_front_guide_msg_cerberus);
+//
+//        } else if (mainActivity.mBaseChain.equals(OMNIFLIX_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_omniflix));
+//            guideTitle.setText(R.string.str_front_guide_title_omniflix);
+//            guideMsg.setText(R.string.str_front_guide_msg_omniflix);
+//
+//        } else if (mainActivity.mBaseChain.equals(CRESCENT_MAIN) || mainActivity.mBaseChain.equals(CRESCENT_TEST)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_crescent));
+//            guideTitle.setText(R.string.str_front_guide_title_crescent);
+//            guideMsg.setText(R.string.str_front_guide_msg_crescent);
+//
+//        } else if (mainActivity.mBaseChain.equals(ASSETMANTLE_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_assetmantle));
+//            guideTitle.setText(R.string.str_front_guide_title_mantle);
+//            guideMsg.setText(R.string.str_front_guide_msg_mantle);
+//
+//        } else if (mainActivity.mBaseChain.equals(STATION_TEST)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_station));
+//            guideTitle.setText(R.string.str_front_guide_title_station);
+//            guideMsg.setText(R.string.str_front_guide_msg_station);
+//        } else if (mainActivity.mBaseChain.equals(NYX_MAIN)) {
+//            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_nym));
+//            guideTitle.setText(R.string.str_front_guide_title_nyx);
+//            guideMsg.setText(R.string.str_front_guide_msg_nyx);
+//
+//        }
+//    }
+
+//    public static void getWalletData(MainActivity mainActivity, BaseChain chain, ImageView coinImg, TextView coinDenom) {
+//        if (chain.equals(COSMOS_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_cosmos));
+//            coinDenom.setText(R.string.str_atom_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_atom);
+//
+//        } else if (chain.equals(IRIS_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_iris));
+//            coinDenom.setText(R.string.str_iris_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_iris);
+//
+//        } else if (chain.equals(BNB_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.binance_img));
+//            coinDenom.setText(R.string.str_front_guide_title_binance);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_bnb);
+//
+//        } else if (chain.equals(KAVA_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.kava_token_img));
+//            coinDenom.setText(R.string.str_kava_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_kava);
+//
+//        } else if (chain.equals(IOV_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_starname));
+//            coinDenom.setText(R.string.str_iov_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_iov);
+//
+//        } else if (chain.equals(BAND_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.band_token_img));
+//            coinDenom.setText(R.string.str_band_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_band);
+//
+//        } else if (chain.equals(OKEX_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_okx));
+//            coinDenom.setText(R.string.str_ok_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_ok);
+//
+//        } else if (chain.equals(CERTIK_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.certik_token_img));
+//            coinDenom.setText(R.string.str_ctk_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_certik);
+//
+//        } else if (chain.equals(AKASH_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.akash_token_img));
+//            coinDenom.setText(R.string.str_akt_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_akash);
+//
+//        } else if (chain.equals(SECRET_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokensecret));
+//            coinDenom.setText(R.string.str_scrt_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_secret);
+//
+//        } else if (chain.equals(PERSIS_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokenpersistence));
+//            coinDenom.setText(R.string.str_xprt_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_persis);
+//
+//        } else if (chain.equals(SENTINEL_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokensentinel));
+//            coinDenom.setText(R.string.str_dvpn_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_sentinel);
+//
+//        } else if (chain.equals(FETCHAI_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokenfetchai));
+//            coinDenom.setText(R.string.str_fet_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_fetch);
+//
+//        } else if (chain.equals(CRYPTO_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokencrypto));
+//            coinDenom.setText(R.string.str_cro_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_cryto);
+//
+//        } else if (chain.equals(SIF_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokensifchain));
+//            coinDenom.setText(R.string.str_sif_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_sif);
+//
+//        } else if (chain.equals(KI_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_kifoundation));
+//            coinDenom.setText(R.string.str_ki_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_ki);
+//
+//        } else if (chain.equals(OSMOSIS_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_osmosis));
+//            coinDenom.setText(R.string.str_osmosis_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_osmosis);
+//
+//        } else if (chain.equals(RIZON_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_rizon));
+//            coinDenom.setText(R.string.str_rizon_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_rizon);
+//
+//        } else if (chain.equals(MEDI_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.tokenmedibloc));
+//            coinDenom.setText(R.string.str_medi_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_medi);
+//
+//        } else if (chain.equals(EMONEY_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_emoney));
+//            coinDenom.setText(R.string.str_ngm_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_emoney);
+//
+//        } else if (chain.equals(JUNO_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_juno));
+//            coinDenom.setText(R.string.str_juno_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_juno);
+//
+//        } else if (chain.equals(REGEN_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_regen));
+//            coinDenom.setText(R.string.str_regen_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_regen);
+//
+//        } else if (chain.equals(BITCANNA_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_bitcanna));
+//            coinDenom.setText(R.string.str_bitcanna_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_bitcanna);
+//
+//        } else if (chain.equals(ALTHEA_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_althea));
+//            coinDenom.setText(R.string.str_althea_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_althea);
+//
+//        } else if (chain.equals(STARGAZE_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_stargaze));
+//            coinDenom.setText(R.string.str_stargaze_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_stargaze);
+//
+//        } else if (chain.equals(GRABRIDGE_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_gravitybridge));
+//            coinDenom.setText(R.string.str_grabridge_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_grabridge);
+//
+//        } else if (chain.equals(COMDEX_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_comdex));
+//            coinDenom.setText(R.string.str_comdex_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_comdex);
+//
+//        } else if (chain.equals(INJ_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_injective));
+//            coinDenom.setText(R.string.str_inj_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_inj);
+//
+//        } else if (chain.equals(BITSONG_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_bitsong));
+//            coinDenom.setText(R.string.str_bitsong_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_bitsong);
+//
+//        } else if (chain.equals(DESMOS_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_desmos));
+//            coinDenom.setText(R.string.str_desmos_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_desmos);
+//
+//        } else if (chain.equals(LUM_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_lum));
+//            coinDenom.setText(R.string.str_lum_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_lum);
+//
+//        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_huahua));
+//            coinDenom.setText(R.string.str_chihuahua_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_chihuahua);
+//
+//        } else if (chain.equals(UMEE_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_umee));
+//            coinDenom.setText(R.string.str_umee_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_umee);
+//
+//        } else if (chain.equals(AXELAR_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_axelar));
+//            coinDenom.setText(R.string.str_axl_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_axelar);
+//
+//        } else if (chain.equals(KONSTELL_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_konstellation));
+//            coinDenom.setText(R.string.str_konstellation_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_konstellation);
+//
+//        } else if (chain.equals(EVMOS_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_evmos));
+//            coinDenom.setText(R.string.str_evmos_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_evmos);
+//
+//        } else if (chain.equals(CUDOS_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_cudos));
+//            coinDenom.setText(R.string.str_cudos_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_cudos);
+//
+//        } else if (chain.equals(PROVENANCE_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_hash));
+//            coinDenom.setText(R.string.str_provenance_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_provenance);
+//
+//        } else if (chain.equals(CERBERUS_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_cerberus));
+//            coinDenom.setText(R.string.str_cerberus_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_cerberus);
+//
+//        } else if (chain.equals(OMNIFLIX_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_omniflix));
+//            coinDenom.setText(R.string.str_omniflix_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_omniflix);
+//
+//        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_crescent));
+//            coinDenom.setText(R.string.str_cre_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_crescent);
+//
+//        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_assetmantle));
+//            coinDenom.setText(R.string.str_mantle_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_mantle);
+//
+//        } else if (chain.equals(NYX_MAIN)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_nyx));
+//            coinDenom.setText(R.string.str_nyx_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_nyx);
+//
+//        } else if (chain.equals(STATION_TEST)) {
+//            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_iss));
+//            coinDenom.setText(R.string.str_station_c);
+//            coinDenom.setTextAppearance(R.style.font_ss_14_station);
+//
+//        }
+//    }
+
+    public static void setDexTitle(MainActivity mainActivity, BaseChain chain, TextView dexTitle) {
         if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
-            mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_nft), null, null, null);
             dexTitle.setText(R.string.str_nft_c);
         } else if (chain.equals(IOV_MAIN)) {
-            mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.name_ic), null, null, null);
             dexTitle.setText(R.string.str_starname_service);
         } else if (chain.equals(KAVA_MAIN)) {
-            mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.cdp_s_ic), null, null, null);
             dexTitle.setText(R.string.str_kava_dapp);
         } else if (chain.equals(SIF_MAIN)) {
-            mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_sifdex), null, null, null);
             dexTitle.setText(R.string.str_sif_dex_title);
         } else if (chain.equals(OSMOSIS_MAIN)) {
-            mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
         } else if (chain.equals(STATION_TEST)) {
-            mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_station), null, null, null);
             dexTitle.setText("Cosmostation Dapps");
         } else if (chain.equals(CRESCENT_MAIN)) {
-            mBtnDex.setVisibility(View.GONE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_crescentapp), null, null, null);
             dexTitle.setText(R.string.str_crescent_app);
         } else if (chain.equals(DESMOS_MAIN)) {
-            mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_profile), null, null, null);
             dexTitle.setText(R.string.str_desmos_airdrop);
-        } else {
-            mBtnDex.setVisibility(View.GONE);
         }
     }
 
     public static Intent getDexIntent(MainActivity mainActivity, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
-            return new Intent(mainActivity, GravityListActivity.class);
-        } else if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
+        if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
             return new Intent(mainActivity, NFTListActivity.class);
         } else if (chain.equals(IOV_MAIN)) {
             return new Intent(mainActivity, StarNameListActivity.class);
@@ -3492,426 +3330,426 @@ public class WUtil {
         }
     }
 
-    public static Intent getGuide1Intent(BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmos.network"));
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.irisnet.org"));
-
-        } else if (chain.equals(BNB_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.binance.org/en"));
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.kava.io"));
-
-        } else if (chain.equals(IOV_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.starname.me"));
-
-        } else if (chain.equals(BAND_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bandprotocol.com"));
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.okex.com"));
-
-        } else if (chain.equals(CERTIK_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.certik.foundation"));
-
-        } else if (chain.equals(AKASH_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://akash.network"));
-
-        } else if (chain.equals(SECRET_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://scrt.network"));
-
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://persistence.one"));
-
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://sentinel.co"));
-
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fetch.ai"));
-
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crypto.org"));
-
-        } else if (chain.equals(SIF_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://sifchain.finance"));
-
-        } else if (chain.equals(KI_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://foundation.ki"));
-
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://osmosis.zone"));
-
-        } else if (chain.equals(MEDI_MAIN)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com"));
-            } else {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com/en"));
-            }
-
-        } else if (chain.equals(EMONEY_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.e-money.com"));
-
-        } else if (chain.equals(RIZON_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://rizon.world"));
-
-        } else if (chain.equals(JUNO_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://junochain.com"));
-
-        } else if (chain.equals(REGEN_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.regen.network"));
-
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bitcanna.io"));
-
-        } else if (chain.equals(ALTHEA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.althea.net"));
-
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://stargaze.zone"));
-
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gravitybridge.net"));
-
-        } else if (chain.equals(COMDEX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://comdex.one"));
-
-        } else if (chain.equals(INJ_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://injectiveprotocol.com"));
-
-        } else if (chain.equals(BITSONG_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bitsong.io"));
-
-        } else if (chain.equals(DESMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.desmos.network"));
-
-        } else if (chain.equals(LUM_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://lum.network"));
-
-        } else if (chain.equals(CHIHUAHUA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://chi.huahua.wtf"));
-
-        } else if (chain.equals(UMEE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.umee.cc"));
-
-        } else if (chain.equals(AXELAR_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://axelar.network"));
-
-        } else if (chain.equals(KONSTELL_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://konstellation.tech"));
-
-        } else if (chain.equals(EVMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://evmos.org"));
-
-        } else if (chain.equals(CUDOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cudos.org"));
-
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.provenance.io"));
-
-        } else if (chain.equals(CERBERUS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cerberus.zone"));
-
-        } else if (chain.equals(OMNIFLIX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.omniflix.network"));
-
-        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescent.network"));
-
-        } else if (chain.equals(ASSETMANTLE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://assetmantle.one"));
-
-        } else if (chain.equals(NYX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net"));
-
-        }
-        return null;
-    }
-
-    public static Intent getGuide2Intent(BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.cosmos.network"));
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/irisnet-blog"));
-
-        } else if (chain.equals(BNB_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bnbchain.org/en/blog"));
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/kava-labs"));
-
-        } else if (chain.equals(IOV_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/iov-internet-of-values"));
-
-        } else if (chain.equals(BAND_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/bandprotocol"));
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.okex.com/academy/en"));
-
-        } else if (chain.equals(CERTIK_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.certik.foundation/blog"));
-
-        } else if (chain.equals(AKASH_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://akash.network/blog"));
-
-        } else if (chain.equals(SECRET_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.scrt.network"));
-
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/persistence-blog"));
-
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/sentinel"));
-
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fetch.ai/blog"));
-
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.crypto.com"));
-
-        } else if (chain.equals(SIF_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/sifchain-finance"));
-
-        } else if (chain.equals(KI_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/ki-foundation"));
-
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/osmosis"));
-
-        } else if (chain.equals(MEDI_MAIN)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.medibloc.org"));
-            } else {
-                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/medibloc"));
-            }
-
-        } else if (chain.equals(EMONEY_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/e-money-com"));
-
-        } else if (chain.equals(RIZON_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@hdac-rizon"));
-
-        } else if (chain.equals(JUNO_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@JunoNetwork"));
-
-        } else if (chain.equals(REGEN_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/regen-network"));
-
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@BitCannaGlobal"));
-
-        } else if (chain.equals(ALTHEA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.althea.net"));
-
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://mirror.xyz/stargazezone.eth"));
-
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gravitybridge.net/blog"));
-
-        } else if (chain.equals(COMDEX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.comdex.one"));
-
-        } else if (chain.equals(INJ_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.injectiveprotocol.com"));
-
-        } else if (chain.equals(BITSONG_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bitsongofficial.medium.com"));
-
-        } else if (chain.equals(DESMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/desmosnetwork"));
-
-        } else if (chain.equals(LUM_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/lum-network"));
-
-        } else if (chain.equals(CHIHUAHUA_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://chi.huahua.wtf"));
-
-        } else if (chain.equals(UMEE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/umeeblog"));
-
-        } else if (chain.equals(AXELAR_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://axelar.network/blog"));
-
-        } else if (chain.equals(KONSTELL_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://konstellation.medium.com"));
-
-        } else if (chain.equals(EVMOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://evmos.blog"));
-
-        } else if (chain.equals(CUDOS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cudos.org/blog"));
-
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.provenance.io/blog"));
-
-        } else if (chain.equals(CERBERUS_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cerberus_zone"));
-
-        } else if (chain.equals(OMNIFLIX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.omniflix.network"));
-
-        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescentnetwork.medium.com"));
-
-        } else if (chain.equals(ASSETMANTLE_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.assetmantle.one"));
-
-        } else if (chain.equals(NYX_MAIN)) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net/blog"));
-
-        }
-        return null;
-    }
-
-    public static String getExplorer(BaseChain basechain) {
-        if (basechain.equals(BNB_MAIN)) {
-            return EXPLORER_BINANCE_MAIN;
-
-        } else if (basechain.equals(OKEX_MAIN)) {
-            return EXPLORER_OKEX_MAIN;
-
-        } else if (basechain.equals(SECRET_MAIN)) {
-            return EXPLORER_SECRET_MAIN;
-
-        } else if (basechain.equals(COSMOS_MAIN)) {
-            return EXPLORER_COSMOS_MAIN;
-
-        } else if (basechain.equals(IRIS_MAIN)) {
-            return EXPLORER_IRIS_MAIN;
-
-        } else if (basechain.equals(AKASH_MAIN)) {
-            return EXPLORER_AKASH_MAIN;
-
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            return EXPLORER_SENTINEL_MAIN;
-
-        } else if (basechain.equals(PERSIS_MAIN)) {
-            return EXPLORER_PERSIS_MAIN;
-
-        } else if (basechain.equals(CRYPTO_MAIN)) {
-            return EXPLORER_CRYPTOORG_MAIN;
-
-        } else if (basechain.equals(OSMOSIS_MAIN)) {
-            return EXPLORER_OSMOSIS_MAIN;
-
-        } else if (basechain.equals(IOV_MAIN)) {
-            return EXPLORER_IOV_MAIN;
-
-        } else if (basechain.equals(SIF_MAIN)) {
-            return EXPLORER_SIF_MAIN;
-
-        } else if (basechain.equals(BAND_MAIN)) {
-            return EXPLORER_BAND_MAIN;
-
-        } else if (basechain.equals(MEDI_MAIN)) {
-            return EXPLORER_MEDI_MAIN;
-
-        } else if (basechain.equals(CERTIK_MAIN)) {
-            return EXPLORER_CERTIK_MAIN;
-
-        } else if (basechain.equals(EMONEY_MAIN)) {
-            return EXPLORER_EMONEY_MAIN;
-
-        } else if (basechain.equals(FETCHAI_MAIN)) {
-            return EXPLORER_FETCHAI_MAIN;
-
-        } else if (basechain.equals(RIZON_MAIN)) {
-            return EXPLORER_RIZON_MAIN;
-
-        } else if (basechain.equals(JUNO_MAIN)) {
-            return EXPLORER_JUNO_MAIN;
-
-        } else if (basechain.equals(REGEN_MAIN)) {
-            return EXPLORER_REGEN_MAIN;
-
-        } else if (basechain.equals(BITCANNA_MAIN)) {
-            return EXPLORER_BITCANNA_MAIN;
-
-        } else if (basechain.equals(ALTHEA_MAIN)) {
-            return EXPLORER_ALTHEA_MAIN;
-
-        } else if (basechain.equals(STARGAZE_MAIN)) {
-            return EXPLORER_STARGAZE_MAIN;
-
-        } else if (basechain.equals(GRABRIDGE_MAIN)) {
-            return EXPLORER_GRABRIDGE_MAIN;
-
-        } else if (basechain.equals(KI_MAIN)) {
-            return EXPLORER_KI_MAIN;
-
-        } else if (basechain.equals(COMDEX_MAIN)) {
-            return EXPLORER_COMDEX_MAIN;
-
-        } else if (basechain.equals(INJ_MAIN)) {
-            return EXPLORER_INJ_MAIN;
-
-        } else if (basechain.equals(BITSONG_MAIN)) {
-            return EXPLORER_BITSONG_MAIN;
-
-        } else if (basechain.equals(DESMOS_MAIN)) {
-            return EXPLORER_DESMOS_MAIN;
-
-        } else if (basechain.equals(LUM_MAIN)) {
-            return EXPLORER_LUM_MAIN;
-
-        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
-            return EXPLORER_CHIHUAHUA_MAIN;
-
-        } else if (basechain.equals(KAVA_MAIN)) {
-            return EXPLORER_KAVA_MAIN;
-
-        } else if (basechain.equals(AXELAR_MAIN)) {
-            return EXPLORER_AXELAR_MAIN;
-
-        } else if (basechain.equals(KONSTELL_MAIN)) {
-            return EXPLORER_KONSTELL_MAIN;
-
-        } else if (basechain.equals(UMEE_MAIN)) {
-            return EXPLORER_UMEE_MAIN;
-
-        } else if (basechain.equals(EVMOS_MAIN)) {
-            return EXPLORER_EVMOS_MAIN;
-
-        } else if (basechain.equals(CUDOS_MAIN)) {
-            return EXPLORER_CUDOS_MAIN;
-
-        } else if (basechain.equals(PROVENANCE_MAIN)) {
-            return EXPLORER_PROVENANCE_MAIN;
-
-        } else if (basechain.equals(CERBERUS_MAIN)) {
-            return EXPLORER_CERBERUS_MAIN;
-
-        } else if (basechain.equals(OMNIFLIX_MAIN)) {
-            return EXPLORER_OMNIFLIX_MAIN;
-
-        } else if (basechain.equals(CRESCENT_MAIN)) {
-            return EXPLORER_CRESCENT_MAIN;
-
-        } else if (basechain.equals(ASSETMANTLE_MAIN)) {
-            return EXPLORER_MANTLE_MAIN;
-
-        } else if (basechain.equals(STATION_TEST)) {
-            return EXPLORER_STATION_TEST;
-        } else if (basechain.equals(NYX_MAIN)) {
-            return EXPLORER_NYX_MAIN;
-
-        } else if (basechain.equals(COSMOS_TEST)) {
-            return EXPLORER_COSMOS_TEST;
-
-        } else if (basechain.equals(IRIS_TEST)) {
-            return EXPLORER_IRIS_TEST;
-
-        } else if (basechain.equals(CRESCENT_TEST)) {
-            return EXPLORER_CRESCENT_TEST;
-
-        }
-        return "";
-    }
+//    public static Intent getGuide1Intent(BaseChain chain) {
+//        if (chain.equals(COSMOS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cosmos.network"));
+//
+//        } else if (chain.equals(IRIS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.irisnet.org"));
+//
+//        } else if (chain.equals(BNB_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.binance.org/en"));
+//
+//        } else if (chain.equals(KAVA_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.kava.io"));
+//
+//        } else if (chain.equals(IOV_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.starname.me"));
+//
+//        } else if (chain.equals(BAND_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bandprotocol.com"));
+//
+//        } else if (chain.equals(OKEX_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.okex.com"));
+//
+//        } else if (chain.equals(CERTIK_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.certik.foundation"));
+//
+//        } else if (chain.equals(AKASH_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://akash.network"));
+//
+//        } else if (chain.equals(SECRET_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://scrt.network"));
+//
+//        } else if (chain.equals(PERSIS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://persistence.one"));
+//
+//        } else if (chain.equals(SENTINEL_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://sentinel.co"));
+//
+//        } else if (chain.equals(FETCHAI_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fetch.ai"));
+//
+//        } else if (chain.equals(CRYPTO_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crypto.org"));
+//
+//        } else if (chain.equals(SIF_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://sifchain.finance"));
+//
+//        } else if (chain.equals(KI_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://foundation.ki"));
+//
+//        } else if (chain.equals(OSMOSIS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://osmosis.zone"));
+//
+//        } else if (chain.equals(MEDI_MAIN)) {
+//            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+//                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com"));
+//            } else {
+//                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medibloc.com/en"));
+//            }
+//
+//        } else if (chain.equals(EMONEY_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.e-money.com"));
+//
+//        } else if (chain.equals(RIZON_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://rizon.world"));
+//
+//        } else if (chain.equals(JUNO_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://junochain.com"));
+//
+//        } else if (chain.equals(REGEN_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.regen.network"));
+//
+//        } else if (chain.equals(BITCANNA_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bitcanna.io"));
+//
+//        } else if (chain.equals(ALTHEA_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.althea.net"));
+//
+//        } else if (chain.equals(STARGAZE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://stargaze.zone"));
+//
+//        } else if (chain.equals(GRABRIDGE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gravitybridge.net"));
+//
+//        } else if (chain.equals(COMDEX_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://comdex.one"));
+//
+//        } else if (chain.equals(INJ_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://injectiveprotocol.com"));
+//
+//        } else if (chain.equals(BITSONG_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bitsong.io"));
+//
+//        } else if (chain.equals(DESMOS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.desmos.network"));
+//
+//        } else if (chain.equals(LUM_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://lum.network"));
+//
+//        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://chi.huahua.wtf"));
+//
+//        } else if (chain.equals(UMEE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.umee.cc"));
+//
+//        } else if (chain.equals(AXELAR_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://axelar.network"));
+//
+//        } else if (chain.equals(KONSTELL_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://konstellation.tech"));
+//
+//        } else if (chain.equals(EVMOS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://evmos.org"));
+//
+//        } else if (chain.equals(CUDOS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cudos.org"));
+//
+//        } else if (chain.equals(PROVENANCE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.provenance.io"));
+//
+//        } else if (chain.equals(CERBERUS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://cerberus.zone"));
+//
+//        } else if (chain.equals(OMNIFLIX_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.omniflix.network"));
+//
+//        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescent.network"));
+//
+//        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://assetmantle.one"));
+//
+//        } else if (chain.equals(NYX_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net"));
+//
+//        }
+//        return null;
+//    }
+
+//    public static Intent getGuide2Intent(BaseChain chain) {
+//        if (chain.equals(COSMOS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.cosmos.network"));
+//
+//        } else if (chain.equals(IRIS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/irisnet-blog"));
+//
+//        } else if (chain.equals(BNB_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bnbchain.org/en/blog"));
+//
+//        } else if (chain.equals(KAVA_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/kava-labs"));
+//
+//        } else if (chain.equals(IOV_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/iov-internet-of-values"));
+//
+//        } else if (chain.equals(BAND_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/bandprotocol"));
+//
+//        } else if (chain.equals(OKEX_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.okex.com/academy/en"));
+//
+//        } else if (chain.equals(CERTIK_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.certik.foundation/blog"));
+//
+//        } else if (chain.equals(AKASH_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://akash.network/blog"));
+//
+//        } else if (chain.equals(SECRET_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.scrt.network"));
+//
+//        } else if (chain.equals(PERSIS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/persistence-blog"));
+//
+//        } else if (chain.equals(SENTINEL_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/sentinel"));
+//
+//        } else if (chain.equals(FETCHAI_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fetch.ai/blog"));
+//
+//        } else if (chain.equals(CRYPTO_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.crypto.com"));
+//
+//        } else if (chain.equals(SIF_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/sifchain-finance"));
+//
+//        } else if (chain.equals(KI_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/ki-foundation"));
+//
+//        } else if (chain.equals(OSMOSIS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/osmosis"));
+//
+//        } else if (chain.equals(MEDI_MAIN)) {
+//            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+//                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.medibloc.org"));
+//            } else {
+//                return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/medibloc"));
+//            }
+//
+//        } else if (chain.equals(EMONEY_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/e-money-com"));
+//
+//        } else if (chain.equals(RIZON_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@hdac-rizon"));
+//
+//        } else if (chain.equals(JUNO_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@JunoNetwork"));
+//
+//        } else if (chain.equals(REGEN_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/regen-network"));
+//
+//        } else if (chain.equals(BITCANNA_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@BitCannaGlobal"));
+//
+//        } else if (chain.equals(ALTHEA_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.althea.net"));
+//
+//        } else if (chain.equals(STARGAZE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://mirror.xyz/stargazezone.eth"));
+//
+//        } else if (chain.equals(GRABRIDGE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gravitybridge.net/blog"));
+//
+//        } else if (chain.equals(COMDEX_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.comdex.one"));
+//
+//        } else if (chain.equals(INJ_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.injectiveprotocol.com"));
+//
+//        } else if (chain.equals(BITSONG_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://bitsongofficial.medium.com"));
+//
+//        } else if (chain.equals(DESMOS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/desmosnetwork"));
+//
+//        } else if (chain.equals(LUM_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/lum-network"));
+//
+//        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://chi.huahua.wtf"));
+//
+//        } else if (chain.equals(UMEE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/umeeblog"));
+//
+//        } else if (chain.equals(AXELAR_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://axelar.network/blog"));
+//
+//        } else if (chain.equals(KONSTELL_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://konstellation.medium.com"));
+//
+//        } else if (chain.equals(EVMOS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://evmos.blog"));
+//
+//        } else if (chain.equals(CUDOS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cudos.org/blog"));
+//
+//        } else if (chain.equals(PROVENANCE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.provenance.io/blog"));
+//
+//        } else if (chain.equals(CERBERUS_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@cerberus_zone"));
+//
+//        } else if (chain.equals(OMNIFLIX_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.omniflix.network"));
+//
+//        } else if (chain.equals(CRESCENT_MAIN) || chain.equals(CRESCENT_TEST)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://crescentnetwork.medium.com"));
+//
+//        } else if (chain.equals(ASSETMANTLE_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.assetmantle.one"));
+//
+//        } else if (chain.equals(NYX_MAIN)) {
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://nymtech.net/blog"));
+//
+//        }
+//        return null;
+//    }
+
+//    public static String getExplorer(BaseChain basechain) {
+//        if (basechain.equals(BNB_MAIN)) {
+//            return EXPLORER_BINANCE_MAIN;
+//
+//        } else if (basechain.equals(OKEX_MAIN)) {
+//            return EXPLORER_OKEX_MAIN;
+//
+//        } else if (basechain.equals(SECRET_MAIN)) {
+//            return EXPLORER_SECRET_MAIN;
+//
+//        } else if (basechain.equals(COSMOS_MAIN)) {
+//            return EXPLORER_COSMOS_MAIN;
+//
+//        } else if (basechain.equals(IRIS_MAIN)) {
+//            return EXPLORER_IRIS_MAIN;
+//
+//        } else if (basechain.equals(AKASH_MAIN)) {
+//            return EXPLORER_AKASH_MAIN;
+//
+//        } else if (basechain.equals(SENTINEL_MAIN)) {
+//            return EXPLORER_SENTINEL_MAIN;
+//
+//        } else if (basechain.equals(PERSIS_MAIN)) {
+//            return EXPLORER_PERSIS_MAIN;
+//
+//        } else if (basechain.equals(CRYPTO_MAIN)) {
+//            return EXPLORER_CRYPTOORG_MAIN;
+//
+//        } else if (basechain.equals(OSMOSIS_MAIN)) {
+//            return EXPLORER_OSMOSIS_MAIN;
+//
+//        } else if (basechain.equals(IOV_MAIN)) {
+//            return EXPLORER_IOV_MAIN;
+//
+//        } else if (basechain.equals(SIF_MAIN)) {
+//            return EXPLORER_SIF_MAIN;
+//
+//        } else if (basechain.equals(BAND_MAIN)) {
+//            return EXPLORER_BAND_MAIN;
+//
+//        } else if (basechain.equals(MEDI_MAIN)) {
+//            return EXPLORER_MEDI_MAIN;
+//
+//        } else if (basechain.equals(CERTIK_MAIN)) {
+//            return EXPLORER_CERTIK_MAIN;
+//
+//        } else if (basechain.equals(EMONEY_MAIN)) {
+//            return EXPLORER_EMONEY_MAIN;
+//
+//        } else if (basechain.equals(FETCHAI_MAIN)) {
+//            return EXPLORER_FETCHAI_MAIN;
+//
+//        } else if (basechain.equals(RIZON_MAIN)) {
+//            return EXPLORER_RIZON_MAIN;
+//
+//        } else if (basechain.equals(JUNO_MAIN)) {
+//            return EXPLORER_JUNO_MAIN;
+//
+//        } else if (basechain.equals(REGEN_MAIN)) {
+//            return EXPLORER_REGEN_MAIN;
+//
+//        } else if (basechain.equals(BITCANNA_MAIN)) {
+//            return EXPLORER_BITCANNA_MAIN;
+//
+//        } else if (basechain.equals(ALTHEA_MAIN)) {
+//            return EXPLORER_ALTHEA_MAIN;
+//
+//        } else if (basechain.equals(STARGAZE_MAIN)) {
+//            return EXPLORER_STARGAZE_MAIN;
+//
+//        } else if (basechain.equals(GRABRIDGE_MAIN)) {
+//            return EXPLORER_GRABRIDGE_MAIN;
+//
+//        } else if (basechain.equals(KI_MAIN)) {
+//            return EXPLORER_KI_MAIN;
+//
+//        } else if (basechain.equals(COMDEX_MAIN)) {
+//            return EXPLORER_COMDEX_MAIN;
+//
+//        } else if (basechain.equals(INJ_MAIN)) {
+//            return EXPLORER_INJ_MAIN;
+//
+//        } else if (basechain.equals(BITSONG_MAIN)) {
+//            return EXPLORER_BITSONG_MAIN;
+//
+//        } else if (basechain.equals(DESMOS_MAIN)) {
+//            return EXPLORER_DESMOS_MAIN;
+//
+//        } else if (basechain.equals(LUM_MAIN)) {
+//            return EXPLORER_LUM_MAIN;
+//
+//        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+//            return EXPLORER_CHIHUAHUA_MAIN;
+//
+//        } else if (basechain.equals(KAVA_MAIN)) {
+//            return EXPLORER_KAVA_MAIN;
+//
+//        } else if (basechain.equals(AXELAR_MAIN)) {
+//            return EXPLORER_AXELAR_MAIN;
+//
+//        } else if (basechain.equals(KONSTELL_MAIN)) {
+//            return EXPLORER_KONSTELL_MAIN;
+//
+//        } else if (basechain.equals(UMEE_MAIN)) {
+//            return EXPLORER_UMEE_MAIN;
+//
+//        } else if (basechain.equals(EVMOS_MAIN)) {
+//            return EXPLORER_EVMOS_MAIN;
+//
+//        } else if (basechain.equals(CUDOS_MAIN)) {
+//            return EXPLORER_CUDOS_MAIN;
+//
+//        } else if (basechain.equals(PROVENANCE_MAIN)) {
+//            return EXPLORER_PROVENANCE_MAIN;
+//
+//        } else if (basechain.equals(CERBERUS_MAIN)) {
+//            return EXPLORER_CERBERUS_MAIN;
+//
+//        } else if (basechain.equals(OMNIFLIX_MAIN)) {
+//            return EXPLORER_OMNIFLIX_MAIN;
+//
+//        } else if (basechain.equals(CRESCENT_MAIN)) {
+//            return EXPLORER_CRESCENT_MAIN;
+//
+//        } else if (basechain.equals(ASSETMANTLE_MAIN)) {
+//            return EXPLORER_MANTLE_MAIN;
+//
+//        } else if (basechain.equals(STATION_TEST)) {
+//            return EXPLORER_STATION_TEST;
+//        } else if (basechain.equals(NYX_MAIN)) {
+//            return EXPLORER_NYX_MAIN;
+//
+//        } else if (basechain.equals(COSMOS_TEST)) {
+//            return EXPLORER_COSMOS_TEST;
+//
+//        } else if (basechain.equals(IRIS_TEST)) {
+//            return EXPLORER_IRIS_TEST;
+//
+//        } else if (basechain.equals(CRESCENT_TEST)) {
+//            return EXPLORER_CRESCENT_TEST;
+//
+//        }
+//        return "";
+//    }
 
     public static String getTxExplorer(BaseChain basechain, String hash) {
         if (hash != null) {
@@ -4874,20 +4712,6 @@ public class WUtil {
             return true;
         }
         if (denom.equals(TOKEN_HTLC_KAVA_BUSD)) {
-            return true;
-        }
-
-        if (denom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
-            return true;
-        }
-        if (denom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
-            return true;
-        }
-
-        if (denom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
-            return true;
-        }
-        if (denom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
             return true;
         }
         return false;

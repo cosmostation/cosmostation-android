@@ -154,7 +154,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenGrpcActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
-        mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setImageResource(R.drawable.key_off);
             mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);

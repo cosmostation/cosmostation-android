@@ -86,7 +86,7 @@
                         android:minHeight="@dimen/space_44"
                         android:background="?android:attr/selectableItemBackground"
                         style="@style/font_ss_14_black_daynight"
-                        android:text="@string/str_guide"/>
+                        android:text="HOME"/>
                     <Button
                         android:id="@+id/btn_guide2"
                         android:layout_width="0dp"
@@ -95,7 +95,7 @@
                         android:minHeight="@dimen/space_44"
                         android:background="?android:attr/selectableItemBackground"
                         style="@style/font_ss_14_black_daynight"
-                        android:text="@string/str_faq"/>
+                        android:text="BLOG"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

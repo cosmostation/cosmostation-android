@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -24,14 +25,12 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKValidatorOtherFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKValidatorTopFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
-import wannabit.io.cosmostaion.utils.WDp;
 
 public class OKValidatorListActivity extends BaseActivity implements FetchCallBack {
 
@@ -57,7 +56,6 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         mToolbarTitle.setText(R.string.str_validator_vote);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mPageAdapter = new OKValidatorPageAdapter(getSupportFragmentManager());
         mValidatorPager.setAdapter(mPageAdapter);
@@ -67,23 +65,23 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_my_validators);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_ok));
         mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_ok));
         tabItemText1.setText(R.string.str_top_100_validators);
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_ok));
         tabItemText2.setText(R.string.str_other_validators);
         mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
 
-        mValidatorTapLayer.setTabIconTint(WDp.getChainTintColor(this, mBaseChain));
-        mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, mBaseChain));
+        mValidatorTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, R.color.color_ok));
+        mValidatorTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.color_ok));
 
         mValidatorPager.setOffscreenPageLimit(3);
         mValidatorPager.setCurrentItem(0, false);

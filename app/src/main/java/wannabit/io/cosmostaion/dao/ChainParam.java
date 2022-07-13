@@ -7,6 +7,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -20,6 +21,8 @@ import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -271,11 +274,23 @@ public class ChainParam {
             return getApr(baseChain).movePointRight(2);
         }
 
+        public BigDecimal getRealBlockPerYear(BaseChain chain) {
+            if (chain != null) {
+                ChainConfig chainConfig = ChainFactory.getChain(chain);
+                if (chainConfig.blockTime() == BigDecimal.ZERO) {
+                    return BigDecimal.ZERO;
+                } else {
+                    return YEAR_SEC.divide(chainConfig.blockTime(), 2, RoundingMode.DOWN);
+                }
+            }
+            return BigDecimal.ZERO;
+        }
+
         public BigDecimal getRealApr(BaseChain baseChain) {
-            if (WUtil.getRealBlockPerYear(baseChain) == BigDecimal.ZERO || getBlockPerYear(baseChain) == BigDecimal.ZERO) {
+            if (getRealBlockPerYear(baseChain) == BigDecimal.ZERO || getBlockPerYear(baseChain) == BigDecimal.ZERO) {
                 return BigDecimal.ZERO;
             }
-            return getApr(baseChain).multiply(WUtil.getRealBlockPerYear(baseChain)).divide(getBlockPerYear(baseChain), 6, RoundingMode.DOWN);
+            return getApr(baseChain).multiply(getRealBlockPerYear(baseChain)).divide(getBlockPerYear(baseChain), 6, RoundingMode.DOWN);
         }
 
         public BigDecimal getDpRealApr(BaseChain baseChain) {
