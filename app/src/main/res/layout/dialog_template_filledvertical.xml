@@ -40,13 +40,12 @@
 
         <Button
             android:id="@+id/btn_one"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
             android:background="@color/colorTrans"
-            android:drawableLeft="@drawable/chain_test_cosmos"
             style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"/>
@@ -58,13 +57,12 @@
 
         <Button
             android:id="@+id/btn_two"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
             android:background="@color/colorTrans"
-            android:drawableLeft="@drawable/chain_test_cosmos"
             style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"/>
@@ -76,13 +74,12 @@
 
         <Button
             android:id="@+id/btn_three"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
             android:background="@color/colorTrans"
-            android:drawableLeft="@drawable/chain_test_cosmos"
             style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"
@@ -95,13 +92,12 @@
 
         <Button
             android:id="@+id/btn_four"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
             android:background="@color/colorTrans"
-            android:drawableLeft="@drawable/chain_test_cosmos"
             style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"

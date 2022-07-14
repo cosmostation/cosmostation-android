@@ -144,7 +144,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
-            onDeleteAccount(mAccount);
+            onDeleteAccountExternal(mAccount);
         }
     }
 

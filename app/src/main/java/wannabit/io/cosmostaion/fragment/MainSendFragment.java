@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletChainHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletDesmosAppHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGuideHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKavaIncentiveHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletMedipassHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletMintHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPriceHolder;
@@ -244,6 +246,7 @@ public class MainSendFragment extends BaseFragment {
 
         private static final int TYPE_KAVA_INCENTIVE = 40;
         private static final int TYPE_DESMOS_APP = 50;
+        private static final int TYPE_MEDIPASS = 60;
         private static final int TYPE_PRICE = 80;
         private static final int TYPE_MINT = 81;
         private static final int TYPE_GIUDE = 82;
@@ -275,7 +278,12 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_DESMOS_APP) {
                 return new WalletDesmosAppHolder(getLayoutInflater().inflate(R.layout.item_wallet_desmos_app, viewGroup, false));
 
+            } else if (viewType == TYPE_MEDIPASS) {
+                return new WalletMedipassHolder(getLayoutInflater().inflate(R.layout.item_wallet_medipass, viewGroup, false));
+
             }
+
+
             return null;
         }
 
@@ -290,7 +298,7 @@ public class MainSendFragment extends BaseFragment {
             if (getMainActivity().mBaseChain == null) {
                 return 0;
             }
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
                 return 5;
             } else if (isGRPC(getMainActivity().mBaseChain)) {
                 return 4;
@@ -323,6 +331,19 @@ public class MainSendFragment extends BaseFragment {
                     return TYPE_MINT;
                 } else if (position == 3) {
                     return TYPE_DESMOS_APP;
+                } else if (position == 4) {
+                    return TYPE_GIUDE;
+                }
+
+            } else if (getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
+                if (position == 0) {
+                    return TYPE_WALLET;
+                } else if (position == 1) {
+                    return TYPE_PRICE;
+                } else if (position == 2) {
+                    return TYPE_MINT;
+                } else if (position == 3) {
+                    return TYPE_MEDIPASS;
                 } else if (position == 4) {
                     return TYPE_GIUDE;
                 }

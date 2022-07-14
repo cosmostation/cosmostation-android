@@ -11,15 +11,15 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_6"
         android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
-        android:padding="@dimen/space_4">
+        android:padding="@dimen/space_4"
+        app:cardUseCompatPadding="true" >
         <RelativeLayout
-            android:id="@+id/check_layer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_72">
             <LinearLayout
@@ -40,12 +40,13 @@
                         android:src="@drawable/validator_none_img"
                         app:civ_border_width="1dp"
                         app:civ_border_color="@color/colorGray3"/>
+
                     <ImageView
                         android:id="@+id/avatar_validator_revoke"
                         android:layout_width="@dimen/space_50"
                         android:layout_height="@dimen/space_50"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/jailed_img"/>
+                        android:src="@drawable/jailed_img" />
                     <ImageView
                         android:id="@+id/avatar_validator_free"
                         android:layout_width="wrap_content"
@@ -71,8 +72,8 @@
                 android:id="@+id/checked_validator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_check_off"
-                android:layout_marginRight="@dimen/space_12"
+                android:src="@drawable/ic_check_off"
+                android:layout_marginRight="@dimen/space_4"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
 
@@ -113,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_ss_11_gray1"
                         android:text="-"/>
                 </RelativeLayout>
 
@@ -131,11 +132,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_ss_11_gray1"
                         android:text="-"/>
                 </RelativeLayout>
             </LinearLayout>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+    <View
+        android:id="@+id/check_border"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_72"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/btn_trans_with_border"/>
 </RelativeLayout>

@@ -97,14 +97,14 @@ import osmosis.gamm.v1beta1.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
-import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
+import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
@@ -280,7 +280,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(intent);
     }
 
-
     public void onStartSendMainDenom() {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
@@ -437,22 +436,23 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } catch (Exception e) {
         }
         getBaseDao().onDeleteAccount(account);
-        getBaseDao().onSelectBalance(account.id);
+    }
+
+    public void onDeleteAccountExternal(Account account) {
+        onDeleteAccount(account);
 
         if (getBaseDao().onSelectAccounts().size() > 0) {
             if (mAccount.id.equals(account.id)) {
                 getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
-                onStartMainActivity(0);
             } else {
                 getBaseDao().setLastUser(mAccount.id);
-                onStartMainActivity(0);
-                return;
             }
+            onStartMainActivity(0);
 
         } else {
             getBaseDao().setLastUser(-1);
             Intent intent = new Intent(this, IntroActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
@@ -474,16 +474,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (getBaseDao().onSelectAccounts().size() > 0) {
             if (mAccount.id != null) {
                 getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
-                onStartMainActivity(0);
             } else {
                 getBaseDao().setLastUser(mAccount.id);
-                onStartMainActivity(0);
             }
+            onStartMainActivity(0);
 
         } else {
             getBaseDao().setLastUser(-1);
             Intent intent = new Intent(this, IntroActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }
@@ -1138,7 +1137,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public void onShowBuySelectFiat() {
         FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
                 Html.fromHtml("<font color=\"#007AFF\">" + "USD" + "</font>"), view -> onStartMoonpaySignature("usd"), null,
-                Html.fromHtml("<font color=\"#007AFF\">" + "EUR" + "</font>"), view -> onStartMoonpaySignature("EUR"),null,
+                Html.fromHtml("<font color=\"#007AFF\">" + "EUR" + "</font>"), view -> onStartMoonpaySignature("eur"),null,
                 Html.fromHtml("<font color=\"#007AFF\">" + "GBP" + "</font>"), view -> onStartMoonpaySignature("gbp"), null);
     }
 
