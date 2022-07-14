@@ -37,6 +37,7 @@ jobs:
       
     - name: Upload to slack step
       uses: adrey/slack-file-upload-action@master
+      continue-on-error: true
       with:
         token: ${{ secrets.SLACK_TOKEN }}
         path: ${{ env.FILE_NAME }}
