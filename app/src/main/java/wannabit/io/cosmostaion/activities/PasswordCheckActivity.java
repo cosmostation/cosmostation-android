@@ -825,7 +825,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (result.taskType == TASK_DELETE_USER) {
             if (result.isSuccess) {
                 if (mIdToDelete != -1) {
-                    onDeleteAccount(getBaseDao().onSelectAccount("" + mIdToDelete));
+                    onDeleteAccountExternal(getBaseDao().onSelectAccount("" + mIdToDelete));
                 } else {
                     onDeleteMnemonic(getBaseDao().onSelectMnemonicById(mIdMWordDelete));
                 }
