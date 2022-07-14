@@ -1400,7 +1400,7 @@ public class BaseData {
             result.setBalances(onSelectBalance(result.id));
         }
         cursor.close();
-        if (!BaseChain.IS_SUPPORT_CHAIN(result.baseChain)) {
+        if (result == null || !BaseChain.IS_SUPPORT_CHAIN(result.baseChain)) {
             return onSelectAccounts().get(0);
         }
         return result;

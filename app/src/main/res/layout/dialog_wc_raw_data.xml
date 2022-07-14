@@ -27,7 +27,7 @@
             android:layout_marginLeft="@dimen/space_10"
             android:layout_marginRight="@dimen/space_10"
             android:layout_marginTop="@dimen/space_12"
-            android:background="@color/colorGray5DayNight">
+            android:background="@color/colorTrans">
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

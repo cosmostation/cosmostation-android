@@ -86,10 +86,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
             mUserInput = mInput.getText().toString().trim();
             ArrayList<BaseChain> chains = WDp.getChainsFromAddress(mUserInput);
             if (chains != null) {
-                if (getBaseDao().onSelectAccountsByChain(chains.get(0)).size() >= 5) {
-                    Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if (chains.size() == 1) {
                     onGenNewAccount(chains.get(0), mUserInput);
                 } else {
