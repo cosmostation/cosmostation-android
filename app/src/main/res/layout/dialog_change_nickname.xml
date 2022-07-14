@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
+        android:background="@color/colorWhite2DayNight"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_ss_17_black_daynight"
             android:gravity="center"/>
 
 
@@ -29,12 +29,12 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:minHeight="@dimen/space_40"
-            android:textCursorDrawable="@drawable/black_cursor"
+            android:textCursorDrawable="@color/colorBlackDayNight"
             android:maxLength="15"
             android:singleLine="true"
             android:textColorHint="@color/colorGray1"
-            android:background="@drawable/box_et_white"
-            style="@style/font_ss_14_gray8"
+            android:background="@drawable/box_chain_selected"
+            style="@style/font_ss_14_black_daynight"
             android:imeOptions="actionDone"
             android:gravity="center"/>
 
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="@dimen/space_32"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGray4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,21 +55,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white_left"
+                android:background="@color/colorTrans"
                 style="@style/font_ss_14_red"
                 android:text="@string/str_cancel"/>
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray4"/>
             <Button
                 android:id="@+id/btn_posi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white_right"
-                style="@style/font_ss_14_gray8"
+                android:background="@color/colorTrans"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_ok"/>
         </LinearLayout>
     </LinearLayout>

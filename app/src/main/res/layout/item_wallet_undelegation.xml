@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_2"
+        android:layout_marginTop="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/colorTransBg">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,18 +24,19 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_undelegate_status"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="@string/str_undelegate_status" />
                 <TextView
                     android:id="@+id/undelegate_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_ss_14_black_daynight"
                     android:text="-"/>
             </RelativeLayout>
 
@@ -43,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGrayDayNight"/>
 
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer0"
@@ -194,15 +195,16 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
+
                 <TextView
                     android:id="@+id/undelegate_detail_time4_remain"
+                    style="@style/font_ss_10_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_below="@+id/undelegate_detail_time4"
-                    android:text=""
-                    style="@style/font_ss_10_gray1"/>
+                    android:gravity="right"
+                    android:text="" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

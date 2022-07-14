@@ -29,7 +29,7 @@
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:background="@drawable/box_et_gary">
+            android:background="@drawable/box_gray">
             <ImageView
                 android:id="@+id/chainImg"
                 android:layout_width="@dimen/space_18"
@@ -56,7 +56,7 @@
             android:textCursorDrawable="@drawable/white_cursor"
             android:maxLength="80"
             android:textColorHint="@color/colorGray4"
-            android:background="@drawable/box_et_white"
+            android:background="@drawable/edittext_box"
             android:paddingLeft="@dimen/space_8"
             android:paddingRight="@dimen/space_8"
             android:inputType="textNoSuggestions"

@@ -18,10 +18,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="@dimen/space_12"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardBackgroundColor="@color/colorTransBg"
-                app:cardUseCompatPadding="true" >
+                app:cardBackgroundColor="@color/colorTransBg">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_black_daynight"/>
+                                    style="@style/font_ss_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/send_amount_title"
                                     android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:text="-"
-                                    style="@style/font_ssl_12_black_daynight"/>
+                                    style="@style/font_ss_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/send_fees_type"
                                     android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/colorGray3"
+                            android:background="@color/colorGrayDayNight"
                             android:layout_marginTop="@dimen/space_16"/>
 
                         <RelativeLayout
@@ -123,7 +123,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_black_daynight"/>
+                                    style="@style/font_ss_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/current_available_title"
                                     android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ssl_12_black_daynight"/>
+                                    style="@style/font_ss_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/remaining_available_title"
                                     android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/colorGray3"
+                            android:background="@color/colorGrayDayNight"
                             android:layout_marginTop="@dimen/space_16"/>
 
                         <TextView
@@ -258,7 +258,7 @@
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>

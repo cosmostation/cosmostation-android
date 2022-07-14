@@ -4,34 +4,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="@dimen/space_16"
             android:paddingTop="@dimen/space_12"
-            android:paddingBottom="@dimen/space_12"
-            android:paddingRight="@dimen/space_4">
+            android:paddingRight="@dimen/space_6"
+            android:paddingBottom="@dimen/space_12">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/img_account"
                     android:layout_width="@dimen/space_24"
                     android:layout_height="@dimen/space_24"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/key_off"/>
+                    android:src="@drawable/key_off" />
 
                 <TextView
                     android:id="@+id/wallet_address"
@@ -41,19 +44,24 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/img_account"
-                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="11sp"
+                    android:autoSizeMaxTextSize="12sp"
+                    android:autoSizeStepGranularity="1sp"
                     android:text="" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/total_value"
+                style="@style/font_ss_21_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_2"
-                style="@style/font_ss_21_black_daynight"
+                android:gravity="center_horizontal"
+                android:paddingRight="@dimen/space_12"
                 android:singleLine="true"
-                android:text="0.000"
-                android:gravity="center_horizontal"/>
+                android:text="0.000" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

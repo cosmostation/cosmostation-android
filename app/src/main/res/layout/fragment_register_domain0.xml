@@ -111,7 +111,7 @@
                     android:layout_toLeftOf="@+id/starname_fee_denom"
                     android:layout_marginRight="@dimen/space_2"
                     android:text="-"
-                    style="@style/font_ssl_14_black_daynight"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </RelativeLayout>
 
 
@@ -148,7 +148,7 @@
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"

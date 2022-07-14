@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -145,14 +146,9 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
                 holder.itemRevoked.setVisibility(View.GONE);
             }
-            holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), PorterDuff.Mode.SRC_IN);
             if (mCheckedGRpcValidator != null && mGrpcValidator.getOperatorAddress().equals(mCheckedGRpcValidator.getOperatorAddress())) {
                 holder.itemChecked.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mBaseChain), PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTrans));
-            } else {
-                holder.itemCheckedBorder.setVisibility(View.GONE);
-                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBg));
+                holder.itemCheckedBorder.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_seleted_white_daynight));
             }
         }
 
@@ -163,6 +159,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
         public class ToValidatorHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
+            RelativeLayout itemCheckedBorder;
             CircleImageView itemAvatar;
             ImageView itemRevoked;
             ImageView itemFree;
@@ -170,11 +167,11 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             TextView itemTvMoniker;
             TextView itemTvVotingPower;
             TextView itemTvYieldRate;
-            View itemCheckedBorder;
 
             public ToValidatorHolder(@NonNull View itemView) {
                 super(itemView);
                 itemRoot = itemView.findViewById(R.id.card_validator);
+                itemCheckedBorder = itemView.findViewById(R.id.check_layer);
                 itemAvatar = itemView.findViewById(R.id.avatar_validator);
                 itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemFree = itemView.findViewById(R.id.avatar_validator_free);
@@ -182,7 +179,6 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
                 itemTvYieldRate = itemView.findViewById(R.id.delegate_yield_commission);
-                itemCheckedBorder = itemView.findViewById(R.id.check_border);
             }
         }
     }

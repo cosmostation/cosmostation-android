@@ -74,10 +74,10 @@ public class Dialog_Wc_Trade extends DialogFragment {
             side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_bnbBuy));
 
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[1].split("-")[0] + ".png")
-                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(fromCoinImg);
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[0].split("-")[0] + ".png")
-                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(toCoinImg);
 
             fromCoinSymbol.setText(pair_denom[1].split("-")[0]);
@@ -91,10 +91,10 @@ public class Dialog_Wc_Trade extends DialogFragment {
             side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_bnbSell));
 
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[0].split("-")[0] + ".png")
-                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(fromCoinImg);
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[1].split("-")[0] + ".png")
-                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(toCoinImg);
 
             fromCoinSymbol.setText(pair_denom[0].split("-")[0]);

@@ -38,12 +38,7 @@
             app:tabIndicatorHeight="2dp"
             app:tabIndicatorColor="@color/color_osmosis"
             app:tabIconTint="@color/color_osmosis" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorGray4"
-            android:layout_below="@+id/lab_tab"
-            android:layout_marginTop="-1dp"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/lab_view_pager"
             android:layout_width="match_parent"

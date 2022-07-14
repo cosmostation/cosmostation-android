@@ -5,418 +5,170 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_validator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginBottom="@dimen/space_6"
         android:clickable="true"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@color/colorTransBgCosmos"
-        app:cardUseCompatPadding="true" >
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_84">
+
             <LinearLayout
                 android:id="@+id/views_validator"
                 android:layout_width="@dimen/space_72"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/space_2"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/avatar_validator"
                         android:layout_width="@dimen/space_50"
                         android:layout_height="@dimen/space_50"
                         android:layout_centerInParent="true"
                         android:src="@drawable/validator_none_img"
-                        app:civ_border_width="1dp"
-                        app:civ_border_color="@color/colorGray3"/>
+                        app:civ_border_color="@color/colorGray3"
+                        app:civ_border_width="1dp" />
+
                     <ImageView
                         android:id="@+id/avatar_validator_revoke"
-                        android:layout_centerInParent="true"
                         android:layout_width="@dimen/space_50"
                         android:layout_height="@dimen/space_50"
-                        android:src="@drawable/jailed_img"/>
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/jailed_img" />
+
                     <ImageView
                         android:id="@+id/avatar_validator_free"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/space_4"
                         android:layout_marginTop="@dimen/space_4"
+                        android:layout_marginRight="@dimen/space_4"
                         android:src="@drawable/free_ic"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </RelativeLayout>
             </LinearLayout>
+
             <View
                 android:id="@+id/line_validator"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/views_validator"
-                android:background="@color/colorGray3"
                 android:layout_marginTop="@dimen/space_10"
-                android:layout_marginBottom="@dimen/space_10"/>
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_toRightOf="@+id/views_validator"
+                android:background="@color/colorGray3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/line_validator"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_14"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:layout_toRightOf="@+id/line_validator"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/moniker_validator"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/band_oracle_off"
-                        android:layout_marginRight="@dimen/space_8"
                         android:layout_centerVertical="true"
-                        android:singleLine="true"
+                        android:layout_marginRight="@dimen/space_8"
+                        android:layout_toLeftOf="@+id/band_oracle_off"
                         android:ellipsize="end"
-                        style="@style/font_ss_12_black_daynight"
-                        android:text="moniker"/>
+                        android:singleLine="true"
+                        android:text="moniker" />
+
                     <ImageView
                         android:id="@+id/band_oracle_off"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/band_oracleoff_s"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6">
+
                     <TextView
+                        style="@style/font_ss_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_amount_validator"
-                        style="@style/font_ss_11_gray1"
-                        android:text="@string/str_tx_delegated_amount"/>
+                        android:text="@string/str_tx_delegated_amount" />
+
                     <TextView
                         android:id="@+id/delegate_amount_validator"
+                        style="@style/font_ssl_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
+                        style="@style/font_ss_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/undelegate_amount_validator"
-                        style="@style/font_ss_11_gray1"
-                        android:text="@string/str_tx_undelegated_amount"/>
+                        android:text="@string/str_tx_undelegated_amount" />
+
                     <TextView
                         android:id="@+id/undelegate_amount_validator"
+                        style="@style/font_ssl_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
+                        style="@style/font_ss_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/delegate_commission_validator"
-                        style="@style/font_ss_11_gray1"
-                        android:text="@string/str_reward_amount"/>
+                        android:text="@string/str_reward_amount" />
+
                     <TextView
                         android:id="@+id/my_reward_validator"
+                        style="@style/font_ssl_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
-
-                <!--<TextView-->
-                    <!--android:id="@+id/description_validator"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/space_4"-->
-                    <!--android:maxLines="2"-->
-                    <!--style="@style/font_ss_11_gray1"-->
-                    <!--android:text="Cosmostation"/>-->
-
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
-
-<!--<RelativeLayout-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-    <!--<androidx.cardview.widget.CardView-->
-        <!--android:id="@+id/card_validator"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/space_12"-->
-        <!--android:layout_marginRight="@dimen/space_12"-->
-        <!--android:layout_marginBottom="2dp"-->
-        <!--android:foreground="?android:attr/selectableItemBackground"-->
-        <!--android:clickable="true"-->
-        <!--app:cardPreventCornerOverlap="true"-->
-        <!--app:cardCornerRadius="@dimen/space_6"-->
-        <!--app:cardBackgroundColor="@color/colorTransBgCosmos"-->
-        <!--app:cardUseCompatPadding="true" >-->
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/space_78">-->
-            <!--<LinearLayout-->
-                <!--android:id="@+id/views_validator"-->
-                <!--android:layout_width="@dimen/space_78"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginLeft="@dimen/space_2"-->
-                <!--android:orientation="vertical"-->
-                <!--android:gravity="center">-->
-                <!--<agency.tango.android.avatarview.views.AvatarView-->
-                    <!--android:id="@+id/avatar_validator"-->
-                    <!--android:layout_width="@dimen/space_40"-->
-                    <!--android:layout_height="@dimen/space_40"-->
-                    <!--app:av_border_color="@color/colorGray3"-->
-                    <!--app:av_border_width="1dp"-->
-                    <!--app:av_text_size_percentage="40"/>-->
-                <!--<TextView-->
-                    <!--android:id="@+id/moniker_validator"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="@dimen/space_2"-->
-                    <!--android:layout_marginRight="@dimen/space_2"-->
-                    <!--android:layout_marginTop="@dimen/space_1"-->
-                    <!--android:singleLine="true"-->
-                    <!--android:gravity="center"-->
-                    <!--android:ellipsize="end"-->
-                    <!--style="@style/font_ss_9_black_daynight"-->
-                    <!--android:text="moniker"/>-->
-            <!--</LinearLayout>-->
-            <!--<View-->
-                <!--android:id="@+id/line_validator"-->
-                <!--android:layout_width="0.5dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_toRightOf="@+id/views_validator"-->
-                <!--android:background="@color/colorGray3"-->
-                <!--android:layout_marginTop="@dimen/space_10"-->
-                <!--android:layout_marginBottom="@dimen/space_10"/>-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/arrow_validator"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:src="@drawable/arrow_next_gr"-->
-                <!--android:layout_marginRight="@dimen/space_8"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_alignParentRight="true"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_toRightOf="@+id/line_validator"-->
-                <!--android:layout_toLeftOf="@+id/arrow_validator"-->
-                <!--android:layout_marginLeft="@dimen/space_12"-->
-                <!--android:layout_marginRight="@dimen/space_6"-->
-                <!--android:orientation="vertical"-->
-                <!--android:gravity="center_vertical">-->
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--style="@style/font_ss_11_black_daynight"-->
-                        <!--android:text="Delegated"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/delegate_amount_validator"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_11_black_daynight"-->
-                        <!--android:text="52,432,123.848390"/>-->
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/space_2">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignBaseline="@+id/reward_atom_validator"-->
-                        <!--style="@style/font_ss_9_gray1"-->
-                        <!--android:text="Atom Rewards"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/reward_atom_validator"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_11_gray1"-->
-                        <!--android:text="23.349000"/>-->
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="-2dp">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignBaseline="@+id/reward_photon_validator"-->
-                        <!--style="@style/font_ss_9_gray1"-->
-                        <!--android:text="Photon Rewards"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/reward_photon_validator"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_11_gray1"-->
-                        <!--android:text="23.349000"/>-->
-                <!--</RelativeLayout>-->
-            <!--</LinearLayout>-->
-        <!--</RelativeLayout>-->
-    <!--</androidx.cardview.widget.CardView>-->
-<!--</RelativeLayout>-->
-
-
-<!--<RelativeLayout-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-    <!--<androidx.cardview.widget.CardView-->
-        <!--android:id="@+id/card_validator"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/space_12"-->
-        <!--android:layout_marginRight="@dimen/space_12"-->
-        <!--android:layout_marginBottom="2dp"-->
-        <!--android:foreground="?android:attr/selectableItemBackground"-->
-        <!--android:clickable="true"-->
-        <!--app:cardPreventCornerOverlap="true"-->
-        <!--app:cardCornerRadius="@dimen/space_6"-->
-        <!--app:cardBackgroundColor="@color/colorTransBgCosmos"-->
-        <!--app:cardUseCompatPadding="true" >-->
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/space_68">-->
-            <!--<LinearLayout-->
-                <!--android:id="@+id/view1_validator"-->
-                <!--android:layout_width="@dimen/space_74"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:orientation="vertical"-->
-                <!--android:gravity="center">-->
-                <!--<agency.tango.android.avatarview.views.AvatarView-->
-                    <!--android:id="@+id/avatar_validator"-->
-                    <!--android:layout_width="@dimen/space_30"-->
-                    <!--android:layout_height="@dimen/space_30"-->
-                    <!--app:av_border_color="@color/colorGray3"-->
-                    <!--app:av_border_width="1dp"-->
-                    <!--app:av_text_size_percentage="40"/>-->
-                <!--<TextView-->
-                    <!--android:id="@+id/moniker_validator"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/space_2"-->
-                    <!--android:layout_marginLeft="@dimen/space_2"-->
-                    <!--android:layout_marginRight="@dimen/space_2"-->
-                    <!--android:singleLine="true"-->
-                    <!--android:gravity="center"-->
-                    <!--android:ellipsize="end"-->
-                    <!--style="@style/font_ss_11_black_daynight"-->
-                    <!--android:text="moniker"/>-->
-            <!--</LinearLayout>-->
-
-            <!--<View-->
-                <!--android:layout_width="0.5dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_toRightOf="@+id/view1_validator"-->
-                <!--android:background="@color/colorGray3"-->
-                <!--android:layout_marginTop="@dimen/space_10"-->
-                <!--android:layout_marginBottom="@dimen/space_10"/>-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/arrow_validator"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:src="@drawable/arrow_next_gr"-->
-                <!--android:layout_marginRight="@dimen/space_8"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_alignParentRight="true"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_toRightOf="@+id/view1_validator"-->
-                <!--android:layout_toLeftOf="@+id/arrow_validator"-->
-                <!--android:layout_marginLeft="@dimen/space_8"-->
-                <!--android:layout_marginRight="@dimen/space_8"-->
-                <!--android:orientation="vertical"-->
-                <!--android:gravity="center_vertical">-->
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--style="@style/font_ss_9_black_daynight"-->
-                        <!--android:text="Delegated"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/delegate_amount_validator"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_11_black_daynight"-->
-                        <!--android:text="52,432,123.848390"/>-->
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/space_4">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--style="@style/font_ss_9_gray1"-->
-                        <!--android:text="Rewards"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/reward_amount_validator"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--style="@style/font_ss_9_gray1"-->
-                        <!--android:text="23.349000"/>-->
-                <!--</RelativeLayout>-->
-            <!--</LinearLayout>-->
-        <!--</RelativeLayout>-->
-    <!--</androidx.cardview.widget.CardView>-->
-<!--</RelativeLayout>-->

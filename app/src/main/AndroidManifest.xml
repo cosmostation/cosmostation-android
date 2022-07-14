@@ -288,7 +288,7 @@
             android:name=".activities.setting.MnemonicDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".activities.setting.MnemonicCreateActivity"
@@ -712,13 +712,6 @@
         <!--android:name="com.google.firebase.messaging.default_notification_color"-->
         <!--android:resource="@color/colorWhite" />-->
 
-
-        <activity
-            android:name=".test.TestActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

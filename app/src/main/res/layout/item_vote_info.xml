@@ -10,11 +10,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_6"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/colorTransBg">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,8 +65,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16"/>
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginRight="@dimen/space_16"
+                android:singleLine="true"
+                android:ellipsize="end"/>
 
             <RelativeLayout
                 android:id="@+id/vote_proposer_layer"
@@ -77,7 +79,7 @@
                 android:layout_marginRight="@dimen/space_16">
                 <TextView
                     android:id="@+id/vote_proposer_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/space_180"
                     android:layout_height="wrap_content"
                     android:text="@string/str_proposer"
                     style="@style/font_ss_12_gray1"/>
@@ -89,7 +91,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="right"
-                    android:text="-"
                     android:singleLine="true"
                     android:ellipsize="middle"
                     style="@style/font_ss_12_black_daynight"/>
@@ -213,7 +214,7 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16"
-                android:background="@color/colorGray3" />
+                android:background="@color/colorGrayDayNight" />
 
             <TextView
                 android:layout_width="wrap_content"

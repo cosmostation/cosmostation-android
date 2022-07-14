@@ -63,7 +63,7 @@ public class Dialog_Wc_Transfer extends DialogFragment {
             BigDecimal dpAmount = new BigDecimal(msg.getOutputs().get(0).getCoins().get(0).getAmount()).movePointLeft(8);
 
             Picasso.get().load(BINANCE_TOKEN_IMG_URL + dpDenom + ".png")
-                    .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(send_coin_icon);
             send_coin_symbol.setText(dpDenom);
             send_coin_amount.setText(WDp.getDpAmount2(getContext(), dpAmount, 0, 8));

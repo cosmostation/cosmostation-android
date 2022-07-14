@@ -122,7 +122,7 @@ public class WalletChainHolder extends BaseHolder {
             }
         });
 
-        if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
+        if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
                 mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.STATION_TEST) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
         } else {

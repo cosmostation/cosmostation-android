@@ -22,7 +22,7 @@
                 android:id="@+id/tx_all_rewards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ssl_11_black_daynight"
+                style="@style/font_ss_11_black_daynight"
                 android:text="-"/>
             <TextView
                 android:id="@+id/tx_demon"

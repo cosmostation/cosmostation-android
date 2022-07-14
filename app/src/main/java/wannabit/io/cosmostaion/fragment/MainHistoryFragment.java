@@ -136,9 +136,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
         if (mAccount.hasPrivateKey) {
+            itemKeyStatus.setImageResource(R.drawable.key_off);
             itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
-            itemKeyStatus.setColorFilter(ContextCompat.getColor(getMainActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+            itemKeyStatus.setImageResource(R.drawable.watchmode);
+            itemKeyStatus.setColorFilter(null);
         }
         mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
@@ -299,7 +301,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         private final int topPadding;
 
         private View headerView;
-        private TextView mItemCnt;
+        private TextView mTitle, mItemCnt;
 
         public RecyclerViewHeader(Context context) {
             topPadding = dpToPx(context, 26);
@@ -316,7 +318,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
             if (headerView == null) {
                 headerView = inflateHeaderView(parent);
+                mTitle = (TextView) headerView.findViewById(R.id.header_title) ;
                 mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
+
+                mTitle.setText(R.string.str_history_title);
                 mItemCnt.setText("" + state.getItemCount());
                 fixLayoutSize(headerView, parent);
             }

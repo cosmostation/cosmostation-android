@@ -4,10 +4,12 @@
     <item
         android:state_focused="false">
         <shape  android:shape="rectangle">
-            <solid android:color="@color/colorTrans"/>
+            <solid android:color="@color/colorTransBg"/>
             <stroke
                 android:color="@color/colorGray5"
                 android:width="@dimen/space_1"/>
+            <corners
+                android:radius="@dimen/space_6"/>
             <padding
                 android:left="@dimen/space_8"
                 android:top="@dimen/space_8"
@@ -15,21 +17,5 @@
                 android:bottom="@dimen/space_8" />
         </shape>
     </item>
-
-    <item
-        android:state_focused="true">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/colorTrans"/>
-            <stroke
-                android:color="@color/colorBlackDayNight"
-                android:width="@dimen/space_1"/>
-            <padding
-                android:left="@dimen/space_8"
-                android:top="@dimen/space_8"
-                android:right="@dimen/space_8"
-                android:bottom="@dimen/space_8" />
-        </shape>
-    </item>
-
 
 </selector>

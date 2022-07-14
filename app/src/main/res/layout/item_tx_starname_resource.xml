@@ -5,121 +5,136 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        android:layout_marginTop="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:id="@+id/tx_msg_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="@color/color_iov"
-                    android:src="@drawable/ic_msgs_renewaccount"/>
+                    android:src="@drawable/ic_msgs_renewaccount"
+                    app:tint="@color/color_iov" />
+
                 <TextView
                     android:id="@+id/tx_msg_text"
+                    style="@style/font_ss_17_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_starname_update_resource"
-                    style="@style/font_ss_17_black_daynight"/>
+                    android:text="@string/tx_starname_update_resource" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_16"
+                android:orientation="vertical">
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_starnamne"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_starnamne" />
+
                 <TextView
                     android:id="@+id/tx_starname"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
-                    android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="-" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_16"
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/tx_starname_fee"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_starnamne_fee"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_starnamne_fee" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tx_payment_title">
+
                     <TextView
                         android:id="@+id/tx_starname_feet_symbol"
+                        style="@style/font_ssl_12_iov"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="IOV"
-                        style="@style/font_ssl_12_iov"/>
+                        android:text="IOV" />
+
                     <TextView
                         android:id="@+id/tx_starname_fee_amount"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/tx_starname_feet_symbol"
-                        android:layout_toLeftOf="@+id/tx_starname_feet_symbol"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        android:layout_toLeftOf="@+id/tx_starname_feet_symbol"
+                        android:text="-" />
                 </RelativeLayout>
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/space_16"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@color/colorGrayDayNight" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_16"
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
+                        style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_connected_addressed"
-                        style="@style/font_ss_12_gray1"/>
+                        android:text="@string/str_connected_addressed" />
+
                     <TextView
                         android:id="@+id/tx_address_cnt"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:singleLine="true"
-                        android:text="0"
-                        style="@style/font_ss_12_black_daynight"/>
+                        android:text="0" />
 
                 </RelativeLayout>
             </LinearLayout>

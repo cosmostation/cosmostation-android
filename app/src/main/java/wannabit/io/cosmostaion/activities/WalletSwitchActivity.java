@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -151,9 +150,12 @@ public class WalletSwitchActivity extends BaseActivity {
                 WDp.DpMainDenom(WalletSwitchActivity.this, account.baseChain, accountDenom);
                 accountAddress.setText(account.address);
                 accountAvailable.setText(account.getLastTotal(WalletSwitchActivity.this, BaseChain.getChain(account.baseChain)));
-                accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
                 if (account.hasPrivateKey) {
+                    accountState.setImageResource(R.drawable.key_off);
                     accountState.setColorFilter(WDp.getChainColor(WalletSwitchActivity.this, BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
+                } else {
+                    accountState.setImageResource(R.drawable.watchmode);
+                    accountState.setColorFilter(null);
                 }
 
                 if (TextUtils.isEmpty(account.nickName)){

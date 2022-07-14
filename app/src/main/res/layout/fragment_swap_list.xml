@@ -12,9 +12,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
-            app:cardCornerRadius="@dimen/space_6"
-            app:cardUseCompatPadding="true">
+            app:cardCornerRadius="@dimen/space_6">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                         android:layout_height="@dimen/space_20"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_10"
-                        android:src="@drawable/token_ic" />
+                        android:src="@drawable/token_default" />
 
                     <TextView
                         android:id="@+id/txt_input_coin"
@@ -84,6 +84,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginBottom="@dimen/space_8"
             android:padding="@dimen/space_6">
 
             <LinearLayout
@@ -139,9 +141,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
-            app:cardCornerRadius="@dimen/space_6"
-            app:cardUseCompatPadding="true">
+            app:cardCornerRadius="@dimen/space_6">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,7 +174,7 @@
                         android:layout_height="@dimen/space_20"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_10"
-                        android:src="@drawable/token_ic" />
+                        android:src="@drawable/token_default" />
 
                     <TextView
                         android:id="@+id/txt_output_coin"
@@ -200,10 +202,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_control"
+        android:layout_marginStart="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginEnd="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_12"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_6"
-        android:layout_above="@+id/bottom_control"
-        android:layout_margin="@dimen/space_12"
+        app:cardElevation="0dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -277,7 +283,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginBottom="@dimen/space_16"
-                android:background="@color/colorGray3" />
+                android:background="@color/colorGrayDayNight" />
 
             <TextView
                 style="@style/font_ss_12_black_daynight"
@@ -356,7 +362,7 @@
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"
             android:text="@string/str_token_swap_start"
             android:textAllCaps="false"

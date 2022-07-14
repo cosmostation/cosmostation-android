@@ -11,8 +11,8 @@
         android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
         android:background="@color/colorPrimaryDark"
+        android:scaleType="fitXY"
         app:layout_anchor="@+id/relativeLayout"
         app:layout_anchorGravity="center" />
 
@@ -44,26 +44,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_4"
                     android:layout_toRightOf="@+id/toolbar_net_image">
 
                     <TextView
                         android:id="@+id/toolbar_title"
-                        style="@style/font_ssm_17_black_daynight"
+                        style="@style/font_ssm_15_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="Wannabit" />
 
-                    <TextView
-                        android:id="@+id/toolbar_net_name"
-                        style="@style/font_ss_11_gray1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/toolbar_title"
-                        android:layout_marginLeft="@dimen/space_6"
-                        android:layout_toRightOf="@+id/toolbar_title"
-                        android:text="(testnet gaia-12k)" />
                 </RelativeLayout>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>

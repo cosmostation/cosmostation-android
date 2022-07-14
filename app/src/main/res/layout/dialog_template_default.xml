@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorWhite2DayNight">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/dialog_title"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_ss_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/dialog_msg"
-            style="@style/font_ss_12_gray1"
+            style="@style/font_ss_12_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -51,26 +51,28 @@
 
             <Button
                 android:id="@+id/btn_left"
-                style="@style/font_ss_14_gray1"
+                style="@style/font_ss_14_black_daynight"
+                android:background="@color/colorTrans"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/btn_dia_white"
                 android:textAllCaps="false"
                 tools:text="Button Title" />
 
             <View
+                android:id="@+id/btn_border"
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray4"/>
+                android:background="@color/colorGray4"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btn_right"
-                style="@style/font_ss_14_gray1"
+                style="@style/font_ss_14_black_daynight"
+                android:background="@color/colorWhite2DayNight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/btn_dia_white"
                 android:textAllCaps="false"
                 android:visibility="gone"
                 tools:text="Button Title" />

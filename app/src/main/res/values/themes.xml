@@ -18,6 +18,9 @@
         <item name="android:statusBarColor">@color/colorWhiteDayNight</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="alertDialogTheme">@style/Theme.AppCompat.DayNight.Dialog.Alert</item>
+        <item name="android:textColorPrimary">@color/colorBlackDayNight</item>
+        <item name="colorControlNormal">@color/colorGrayDayNight</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light"/>

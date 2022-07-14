@@ -35,7 +35,7 @@
                             android:id="@+id/principal_icon"
                             android:layout_width="@dimen/space_32"
                             android:layout_height="@dimen/space_32"
-                            android:src="@drawable/token_ic"/>
+                            android:src="@drawable/token_default"/>
                         <TextView
                             android:id="@+id/principal_symbol"
                             android:layout_width="wrap_content"
@@ -83,20 +83,20 @@
                             android:id="@+id/loanable_min_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="-"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="~"/>
                         <TextView
                             android:id="@+id/loanable_max_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="-"/>
                         <TextView
                             android:id="@+id/loanable_denom"
@@ -289,10 +289,10 @@
             android:id="@+id/btn_next"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"

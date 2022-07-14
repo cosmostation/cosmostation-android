@@ -162,22 +162,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         } else if (mBaseChain.equals(BaseChain.EMONEY_MAIN)) {
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
-            Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD)) {
-                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorHard));
-                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBghard));
-            } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_USDX)) {
-                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorUsdx));
-                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBgusdx));
-            } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
-                mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorSwp));
-                mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorTransBgswp));
-            }
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
-            Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
             if (WUtil.isBep3Coin(mNativeGrpcDenom)) {
                 mBtnIbcSend.setVisibility(View.GONE);
@@ -213,7 +203,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, mTotalAmount, mDivideDecimal));
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            mKeyState.setImageResource(R.drawable.key_off);
+            mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            mKeyState.setImageResource(R.drawable.watchmode);
+            mKeyState.setColorFilter(null);
         }
         mSwipeRefreshLayout.setRefreshing(false);
     }

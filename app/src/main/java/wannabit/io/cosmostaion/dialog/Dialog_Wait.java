@@ -23,6 +23,7 @@ public class Dialog_Wait extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        getDialog().getWindow().setDimAmount(0.2f);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

@@ -87,7 +87,7 @@
 
                 <TextView
                     android:id="@+id/chain_available"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -110,7 +110,7 @@
 
                 <TextView
                     android:id="@+id/chain_vesting"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -131,7 +131,7 @@
 
                 <TextView
                     android:id="@+id/chain_delegate"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -152,7 +152,7 @@
 
                 <TextView
                     android:id="@+id/chain_unbonding"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -173,7 +173,7 @@
 
                 <TextView
                     android:id="@+id/chain_reward"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -190,7 +190,7 @@
                     android:id="@+id/btn_delegate"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_40"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="@dimen/space_5"
                     android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"

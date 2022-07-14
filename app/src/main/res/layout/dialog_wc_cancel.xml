@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
+        android:background="@color/colorWhite2DayNight"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_ss_17_black_daynight"
             android:gravity="center"
             android:text="@string/str_wc_cancel_title"/>
 
@@ -45,12 +45,13 @@
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginRight="@dimen/space_20">
+
             <TextView
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/str_wc_transfer_symbol"
-                style="@style/font_ss_12_black"/>
+                android:text="@string/str_wc_transfer_symbol" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,15 +65,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
                     android:text="BNB"
-                    style="@style/font_ss_14_black"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </LinearLayout>
         </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/space_24"
+            android:background="@color/colorGray4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/btn_nega"
@@ -80,21 +85,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white_left"
+                android:background="@color/colorTrans"
                 style="@style/font_ss_14_red"
                 android:text="@string/str_cancel"/>
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray4"/>
             <Button
                 android:id="@+id/btn_posi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white_right"
-                style="@style/font_ss_14_gray8"
+                android:background="@color/colorTrans"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_confirm"/>
         </LinearLayout>
 

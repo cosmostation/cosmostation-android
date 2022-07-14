@@ -136,9 +136,9 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
                             return;
                         }
                         if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
-                            mBorrowInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mBorrowInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
-                            mBorrowInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mBorrowInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
                         mBorrowInput.setSelection(mBorrowInput.getText().length());
                     } catch (Exception e) {

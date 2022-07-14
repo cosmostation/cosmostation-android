@@ -5,59 +5,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginTop="@dimen/space_6"
         android:clickable="true"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBgSif"
-        app:cardUseCompatPadding="true" >
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_18"
-            android:layout_marginRight="@dimen/space_18"
             android:layout_marginTop="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_18"
             android:layout_marginBottom="@dimen/space_16"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/mypool_native_img"
                     android:layout_width="@dimen/space_30"
                     android:layout_height="@dimen/space_30"
-                    android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/tokensifchain"/>
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/tokensifchain" />
+
                 <ImageView
                     android:id="@+id/mypool_external_img"
                     android:layout_width="@dimen/space_30"
                     android:layout_height="@dimen/space_30"
-                    android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:layout_toRightOf="@+id/mypool_external_img"
-                    android:layout_centerInParent="true">
+                    android:layout_toRightOf="@+id/mypool_external_img">
+
                     <TextView
                         android:id="@+id/mypool_market_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="COIN / COIN"
                         android:textColor="@color/color_sif"
-                        android:textSize="@dimen/space_18"/>
+                        android:textSize="@dimen/space_18" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -65,46 +71,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_pool_total_liquidity_value"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_pool_total_liquidity_value" />
+
                 <TextView
                     android:id="@+id/mypool_total_liquidity_value"
+                    style="@style/font_ss_15_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_15_black_daynight"
-                    android:textStyle="bold"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
+
                 <TextView
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_pool_total_liquidity_amount" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
+                        android:layout_gravity="right"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/mypool_total_liquidity_amount1"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="" />
+
                         <TextView
                             android:id="@+id/mypool_total_liquidity_symbol1"
                             style="@style/font_ss_12_black_daynight"
@@ -114,17 +127,20 @@
                             android:gravity="end"
                             android:text="" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
+                        android:layout_gravity="right"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/mypool_total_liquidity_amount2"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="" />
+
                         <TextView
                             android:id="@+id/mypool_total_liquidity_symbol2"
                             style="@style/font_ss_12_black_daynight"
@@ -140,82 +156,92 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_14"/>
+                android:layout_marginTop="@dimen/space_14"
+                android:background="@color/colorGrayDayNight" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_14">
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_deposit_my_value"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_deposit_my_value" />
+
                 <TextView
                     android:id="@+id/mypool_deposit_value"
+                    style="@style/font_ss_15_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_15_black_daynight"
-                    android:textStyle="bold"
                     android:gravity="right"
-                    android:text="-"/>
+                    android:text="-"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
+
                 <TextView
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_deposit_my_coins" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
+                        android:layout_gravity="right"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/mypool_deposit_amout0"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="" />
+
                         <TextView
                             android:id="@+id/mypool_deposit_symbol0"
                             style="@style/font_ss_12_black_daynight"
                             android:layout_width="@dimen/space_50"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:singleLine="true"
                             android:gravity="end"
+                            android:singleLine="true"
                             android:text="" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
+                        android:layout_gravity="right"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/mypool_deposit_amout1"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="" />
+
                         <TextView
                             android:id="@+id/mypool_deposit_symbol1"
                             style="@style/font_ss_12_black_daynight"
                             android:layout_width="@dimen/space_50"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:singleLine="true"
                             android:gravity="end"
+                            android:singleLine="true"
                             android:text="" />
                     </LinearLayout>
                 </LinearLayout>
@@ -225,63 +251,73 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_14">
+
                 <TextView
                     android:id="@+id/mypool_available_liquidity_amount"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_pool_my_liquidity_available_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_pool_my_liquidity_available_amount" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/mypool_available_liquidity_amount">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="right">
+                                android:layout_gravity="right"
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/my_available_amount0"
-                                    style="@style/font_ssl_12_black_daynight"
+                                    style="@style/font_ss_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
+
                                 <TextView
                                     android:id="@+id/my_available_symbol0"
                                     style="@style/font_ss_12_black_daynight"
                                     android:layout_width="@dimen/space_50"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:singleLine="true"
                                     android:gravity="end"
+                                    android:singleLine="true"
                                     android:text="-" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="right">
+                                android:layout_gravity="right"
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/my_available_amount1"
-                                    style="@style/font_ssl_12_black_daynight"
+                                    style="@style/font_ss_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
+
                                 <TextView
                                     android:id="@+id/my_available_symbol1"
                                     style="@style/font_ss_12_black_daynight"
                                     android:layout_width="@dimen/space_50"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:singleLine="true"
                                     android:gravity="end"
+                                    android:singleLine="true"
                                     android:text="-" />
                             </LinearLayout>
                         </LinearLayout>

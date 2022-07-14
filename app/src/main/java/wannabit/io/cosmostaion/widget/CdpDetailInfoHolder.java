@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.widget;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +23,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
+import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Status;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -107,7 +108,7 @@ public class CdpDetailInfoHolder extends BaseHolder {
                 bundle.putString("liquidationPrice", mLiquidationPrice.toPlainString());
                 bundle.putString("currentPrice", currentPrice.toPlainString());
                 bundle.putString("denom", cDenom);
-                Dialog_Safe_Score_Staus dialog = Dialog_Safe_Score_Staus.newInstance(bundle);
+                Dialog_Safe_Score_Status dialog = Dialog_Safe_Score_Status.newInstance(bundle);
                 dialog.setCancelable(true);
                 context.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
@@ -136,6 +137,6 @@ public class CdpDetailInfoHolder extends BaseHolder {
     }
 
     private void onShowHelpPopup(CdpDetail5Activity context, String title, String msg) {
-        AlertDialogUtils.showSingleButtonDialog(context, title, msg, context.getString(R.string.str_ok), null);
+        AlertDialogUtils.showSingleButtonDialog(context, title, msg, Html.fromHtml("<font color=\"#007AFF\">" + context.getString(R.string.str_ok) + "</font>"), null);
     }
 }

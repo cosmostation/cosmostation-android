@@ -111,6 +111,7 @@
     <string name="str_request_amount">요청 금액</string>
     <string name="str_current_turnout">현재 투표율</string>
     <string name="str_voting_description">설명</string>
+    <string name="str_history_title">최근 기록</string>
     <string name="str_no_history">거래 내역이 없습니다.</string>
     <string name="str_no_coin">자산이 없습니다.</string>
     <string name="str_no_proposal">의제가 없습니다.</string>
@@ -125,7 +126,7 @@
     <string name="str_derive_wallet">Derive Wallet</string>
     <string name="str_delete_mnemonic">Delete Mnemonic</string>
     <string name="str_wallet_manage">지갑 관리</string>
-    <string name="str_edit_chains">지갑 편집</string>
+    <string name="str_edit_chains">체인 관리</string>
     <string name="str_validators_list"><![CDATA[검증인 목록]]></string>
     <string name="str_validator_detail">검증인 상세</string>
     <string name="str_token_detail">토큰 상세</string>
@@ -135,6 +136,10 @@
     <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
     <string name="str_notice">공지사항</string>
+    <string name="str_theme">테마</string>
+    <string name="str_theme_system">시스템</string>
+    <string name="str_theme_light">라이트 모드</string>
+    <string name="str_theme_dark">다크 모드</string>
     <string name="str_alarm">알람</string>
     <string name="str_app_applock">앱 잠금</string>
     <string name="str_app_applock_enabled">사용중</string>
@@ -178,7 +183,7 @@
     <string name="str_import_mnemonic">니모닉 입력</string>
     <string name="str_import_key">개인키 등록</string>
     <string name="str_share">공유</string>
-    <string name="str_copy">Copy</string>
+    <string name="str_copy">복사</string>
     <string name="str_copy_to">Copy to Clipboard</string>
     <string name="str_copied">클립보드에 복사하였습니다.</string>
     <string name="str_safe_copied">안전 모드로 복사되었습니다.</string>
@@ -274,7 +279,7 @@
     <string name="str_front_guide_title_rizon"><![CDATA[라이즌 네트워크]]></string>
     <string name="str_front_guide_title_medi"><![CDATA[메디블록]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[알테아 네트워크]]></string>
-    <string name="str_front_guide_title_osmosis"><![CDATA[오스모시스 존]]></string>
+    <string name="str_front_guide_title_osmosis"><![CDATA[오스모시스]]></string>
     <string name="str_front_guide_title_umee"><![CDATA[우미 체인 (The Ocean)]]></string>
     <string name="str_front_guide_title_axelar"><![CDATA[악셀라 네트워크]]></string>
     <string name="str_front_guide_title_emoney"><![CDATA[e-머니]]></string>
@@ -893,7 +898,7 @@
     <string name="str_sorting_by_reward">내 이자 수량으로 정렬</string>
     <string name="str_sorting_by_amount">수량으로 정렬</string>
     <string name="str_sorting_by_value">금액로 정렬</string>
-    <string name="str_qr_code">QR 스캔</string>
+    <string name="str_qr_code">QR</string>
     <string name="str_recent">최근 목록</string>
     <string name="str_in_wallet">지갑 목록</string>
     <string name="str_fee_free_title">Tx 수수료 무료 </string>
@@ -912,9 +917,9 @@
     <string name="str_not_validator_title">유효한 검증인이 아닙니다.</string>
     <string name="str_not_validator_msg">이 노드는 유효한 검증인이 아닙니다.\n코스모스 컨센서스에 참여하는 검증인 노드가 아니며, 따라서 이자 또한 발생하지 않습니다.\n계속 진행하시겠습니까?</string>
     <string name="str_redelegation_limitted_title">재위임 불가</string>
-    <string name="str_redelegation_limitted_msg">이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(시스템이 설정한 일정 기간) 이 검증인으로부터 재위임을 신청할 수 있습니다.</string>
+    <string name="str_redelegation_limitted_msg">이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(시스템이 설정한 일정 기간) 이 검증인으로부터 재위임을 신청할 수 있습니다.\n</string>
     <string name="str_redelegation_warnning_title">경고</string>
-    <string name="str_redelegation_warnning_msg">재위임을 받는 검증인은 시스템이 설정한 일정 기간 동안 다시 재위임을 할 수 없습니다. 계속 진행 하시겠습니까?</string>
+    <string name="str_redelegation_warnning_msg">재위임을 받는 검증인은 시스템이 설정한 일정 기간 동안 다시 재위임을 할 수 없습니다. 계속 진행 하시겠습니까?\n</string>
     <string name="str_redelegation_description">재위임을 받을 검증인에서\n다시 재위임을 하는것은 시스템이 설정한 일정 기간 동안 불가능 합니다.</string>
     <string name="str_reward_address_change_title">이자 지급 주소 변경</string>
     <string name="str_reward_address_change_msg">이자 지급 주소를 변경하실 수 있습니다.\n주소 변경 후 이자요청시 모든 이자는 변경된 주소로 지급됩니다.\n복구 단어로 접근이 가능하신 주소를 변경주소로 선택하셔야 합니다.</string>
@@ -948,11 +953,11 @@
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
     <string name="str_vesting_amount">잠긴수량 (위임만 가능)</string>
     <string name="str_htlc_warn_title">BEP3 스왑에 관해서</string>
-    <string name="str_htlc_warn_msg">BEP3 전송은 전환을 원하는 각 체인의 네트워크와 릴레이어가 처리합니다. 코스모스테이션은 BEP3 전송을 중계하지만 해당 네트워크의 안정성과 전송에 대한 성공을 보장하지 않습니다. 전송 실패 시 해당 네트워크 커뮤니티 채널에 문의하세요. BEP3 전송 실패 시 해당 트랜잭션 내역에 활성화된 [Refund] 기능을 통해 코인을 전액 반환할 수 있습니다.</string>
+    <string name="str_htlc_warn_msg">BEP3 전송은 전환을 원하는 각 체인의 네트워크와 릴레이어가 처리합니다. 코스모스테이션은 BEP3 전송을 중계하지만 해당 네트워크의 안정성과 전송에 대한 성공을 보장하지 않습니다. 전송 실패 시 해당 네트워크 커뮤니티 채널에 문의하세요. \n\nBEP3 전송 실패 시 해당 트랜잭션 내역에 활성화된 [Refund] 기능을 통해 코인을 전액 반환할 수 있습니다.\n\n</string>
     <string name="str_cdp_warn_title">CDP에 관해서</string>
     <string name="str_cdp_warn_msg">CDP는 담보물의 가치변동에 따라 청산의 위험이 있습니다. CDP 개설, 상환, 청산을 포함한 모든 결정 권한과 책임은 사용자에게 있습니다. Cosmostation 지갑은 청산과 청산 위험에 대한 알람은 별도로 제공되지 않습니다.</string>
     <string name="str_delegate_warn_title">위임에 관해서</string>
-    <string name="str_delegate_warn_msg">검증인에게 위임하여 스테이킹 보상을 받을 수 있습니다. 선택한 노드에 문제가 발생하면 위임 지분의 일부를 잃을 수 있습니다. 신중히 선택해주세요.\n위임을 해하면 해지 기간이 있습니다. 이 시간 동안에는 스테이킹 보상을 받을 수 없습니다.</string>
+    <string name="str_delegate_warn_msg">검증인에게 위임하여 스테이킹 보상을 받을 수 있습니다. 선택한 노드에 문제가 발생하면 위임 지분의 일부를 잃을 수 있습니다. 신중히 선택해주세요.\n\n위임을 해하면 해지 기간이 있습니다. 이 시간 동안에는 스테이킹 보상을 받을 수 없습니다.\n\n</string>
     <string name="str_memo_warn">메모 기입을 확인 바랍니다.\n특정 거래소 또는 지갑은 메모 입력을 요구합니다.</string>
     <string name="str_ok_stake_deposit_step_0">위임 수량을 설정하세요</string>
     <string name="str_ok_stake_deposit_step_1">메모를 입력하세요 (선택사항)</string>
@@ -1210,6 +1215,7 @@
     <string name="str_exit_pool_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_exit_pool_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_exit_pool_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_select_lockup_duration">락업 종류를 선택하세요</string>
     <string name="str_add_record_topic_name">Topic Name</string>
     <string name="str_add_record_writer_address">Writer Address</string>
     <string name="str_add_record_owner_address">Owner Address</string>
@@ -1249,7 +1255,7 @@
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">CW20 Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
-    <string name="str_unknown_token_title">Unknown</string>
+    <string name="str_unknown_token_title">Unknown Coins</string>
     <string name="str_ibc_info_title">IBC information</string>
     <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>
     <string name="str_ibc_channel_title">Channel</string>
@@ -1314,9 +1320,9 @@
     <string name="str_create_user_claim_type">User Claim Type</string>
 
     <string name="str_ibc_send_c">IBC 보내기</string>
-    <string name="str_ibc_warning_c">Notice</string>
+    <string name="str_ibc_warning_c">경고</string>
     <string name="str_ibc_warning_msg1">IBC 전송은 거래소 입금을 지원 하지 않습니다. \n거래소로 전송을 원하실 경우 반드시 해당 체인의 본인 계정으로 IBC 전송 후에 다시 일반 전송으로 입금해야합니다.</string>
-    <string name="str_ibc_warning_msg2">또한 본 지갑은 현재 활성화된 릴레이어의 IBC 전송 중계를 지원할뿐 전송간 일어나는 내제적인 문제에 대해서는 책임을 지지 않습니다. \nIBC 트랜잭션을 진행하기전에 선택한 릴레이어에 대한 안정성은 사용자가 직접 검토해야 합니다.</string>
+    <string name="str_ibc_warning_msg2">또한 본 지갑은 현재 활성화된 릴레이어의 IBC 전송 중계를 지원할뿐 전송간 일어나는 내제적인 문제에 대해서는 책임을 지지 않습니다. \nIBC 트랜잭션을 진행하기전에 선택한 릴레이어에 대한 안정성은 사용자가 직접 검토해야 합니다.\n\n</string>
     <string name="str_ibc_continue_c">진행하기</string>
     <string name="str_ibc_send_channel">릴레이어 채널</string>
     <string name="str_ibc_transfer_step_0">받을 체인과 릴레이어를 선택하세요</string>
@@ -1346,7 +1352,7 @@
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
     <string name="str_sif_dex_eth_pol">Eth Pool</string>
-    <string name="str_sif_swap_rate">SifChain Swap Rate</string>
+    <string name="str_sif_swap_rate">Sif Dex Swap Rate</string>
     <string name="str_sif_swap_step_0">스왑 수량을 입력해주세요</string>
     <string name="str_sif_swap_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_sif_swap_step_2">Tx 수수료를 선택하세요</string>
@@ -1365,6 +1371,7 @@
     <string name="str_my_nfts">My NFTs</string>
     <string name="str_top_nfts">Top NFTs</string>
     <string name="str_no_nfts">No NFT</string>
+    <string name="str_nft_detail">NFT 상세</string>
     <string name="str_create_nfts">NFT 발행</string>
     <string name="str_issue_nft_step_0">NFT 정보를 입력하세요</string>
     <string name="str_issue_nft_step_1">메모를 입력하세요 (선택사항)</string>
@@ -1476,8 +1483,8 @@
     <string name="error_not_enought_principal_asset">USDX가 충분하지 않아 상환할 수 없습니다.</string>
     <string name="error_can_not_repay">지금은 상환할 수 없습니다. USDX가 더 필요합니다.</string>
     <string name="error_can_not_bep3_account_title">수신 가능한 %1$s 지갑 없음</string>
-    <string name="error_can_not_bep3_account_msg">인터체인 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다. 수신할 지갑은 인터체인 받기용 수수료 0.000075BNB 이상의 발란스를 가지고 있는 지갑이어야 합니다.</string>
-    <string name="error_can_not_bep3_account_msg2">인터체인 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다.</string>
+    <string name="error_can_not_bep3_account_msg">BEP3 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다. 수신할 지갑은 인터체인 받기용 수수료 0.000075BNB 이상의 발란스를 가지고 있는 지갑이어야 합니다.</string>
+    <string name="error_can_not_bep3_account_msg2">BEP3 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다.</string>
     <string name="error_select_account_to_recipient">받을 계정을 선택해 주세요.</string>
     <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>
     <string name="error_no_more_debt_kava">USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.</string>
@@ -1699,7 +1706,7 @@
     <string name="tx_task_response">Task 응답</string>
     <string name="tx_create_task">Task 생성</string>
 
-    <string name="tx_issue_denom">Issue NFT Denom</string>
+    <string name="tx_issue_denom">NFT Denom 발행</string>
     <string name="tx_issue_denom_id">Denom ID</string>
     <string name="tx_issue_denom_name">Denom Name</string>
     <string name="tx_issue_denom_schema">Schema</string>
@@ -1768,26 +1775,6 @@
     <string name="str_dp_time_format3" >HH:mm:ss</string>
     <string name="str_dp_time_format4">yyyy-MM-dd</string>
     <string name="str_dp_date_format" >yyyy-MM-dd</string>
-
-    <string-array name="currency_symbol_array">
-        <item>$</item>
-        <item>€</item>
-        <item>₩</item>
-        <item>¥</item>
-        <item>¥</item>
-        <item>₽</item>
-        <item>£</item>
-        <item>₹</item>
-        <item>R$</item>
-        <item>Rp</item>
-        <item>Kr</item>
-        <item>Kr</item>
-        <item>Kr</item>
-        <item>sFr</item>
-        <item>AU$</item>
-        <item>$</item>
-        <item>RM</item>
-    </string-array>
 
     <string-array name="currency_unit_array">
         <item>USD</item>

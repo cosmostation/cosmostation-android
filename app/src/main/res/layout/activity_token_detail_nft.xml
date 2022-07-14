@@ -40,7 +40,7 @@
                     android:layout_height="450dp"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/icon_nft_none"
+                    android:src="@drawable/nft_none_img"
                     app:layout_collapseMode="parallax" />
 
                 <androidx.appcompat.widget.Toolbar
@@ -55,7 +55,7 @@
                         style="@style/font_ssm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NFT Detail" />
+                        android:text="@string/str_nft_detail" />
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -96,7 +96,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/ic_ibcsend_20"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 android:text="@string/str_ibc_send" />
@@ -117,7 +116,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/ic_send_20"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 android:text="@string/str_send" />

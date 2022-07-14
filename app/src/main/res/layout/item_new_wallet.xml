@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="@dimen/space_6"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBgCosmos"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/colorTransBgCosmos">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/photon_layer"
@@ -89,7 +89,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/iris_layer"
@@ -111,7 +111,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text=""
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/bnb_layer"
@@ -133,7 +133,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/kava_layer"
@@ -155,7 +155,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/iov_layer"
@@ -177,7 +177,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/band_layer"
@@ -199,7 +199,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/ok_layer"
@@ -221,7 +221,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/certik_layer"
@@ -243,7 +243,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/akash_layer"
@@ -265,7 +265,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/secret_layer"
@@ -287,7 +287,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/coin_layer"
@@ -310,7 +310,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="0"
-                    style="@style/font_ssl_9_black_daynight"/>
+                    style="@style/font_ss_9_black_daynight"/>
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

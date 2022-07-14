@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:minHeight="@dimen/space_45"
                 android:layout_marginRight="@dimen/space_4"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_with_red_border"
                 style="@style/font_ss_14_red"
                 android:textAllCaps="false"
                 android:text="@string/str_delete_starname"/>

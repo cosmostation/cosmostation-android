@@ -4,7 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -146,7 +145,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         }).start();
     }
 
-    @SuppressLint("NewApi")
     private void onGetAllKeyTypes() {
         runOnUiThread(() -> {
             mAccountListAdapter.notifyDataSetChanged();
@@ -181,7 +179,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    @SuppressLint("NewApi")
     private void onUpdateCnt() {
         mCntLayer.setVisibility(View.VISIBLE);
         int allKeyCnt = mDerives.size();
@@ -198,7 +195,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         mChainCnt.setText("" + allKeyCnt);
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onClick(View v) {
         if (v.equals(mPathLayer)) {
@@ -431,7 +427,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;

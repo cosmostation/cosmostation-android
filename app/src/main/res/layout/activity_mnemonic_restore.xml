@@ -827,7 +827,7 @@
                     android:layout_height="@dimen/space_45"
                     android:layout_weight="1"
                     android:minHeight="@dimen/space_45"
-                    android:background="@drawable/btn_black_boarder"
+                    android:background="@drawable/btn_square_with_border"
                     style="@style/font_ss_14_black_daynight"
                     android:textAllCaps="false"
                     android:text="@string/str_paste"/>
@@ -837,7 +837,7 @@
                     android:layout_height="@dimen/space_45"
                     android:layout_weight="1"
                     android:minHeight="@dimen/space_45"
-                    android:background="@drawable/btn_black_boarder"
+                    android:background="@drawable/btn_square_with_border"
                     style="@style/font_ss_14_photon"
                     android:textAllCaps="false"
                     android:text="@string/str_confirm"/>
@@ -1149,9 +1149,11 @@
                     android:layout_height="@dimen/space_36"
                     android:layout_weight="1"
                     android:minHeight="@dimen/space_36"
-                    android:background="@drawable/button_gray"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/btn_black_boarder"
                     style="@style/font_ssm_17_keyboard"
                     android:textAllCaps="false"
+                    android:stateListAnimator="@null"
                     android:text="@string/str_next_word"/>
             </LinearLayout>
         </LinearLayout>

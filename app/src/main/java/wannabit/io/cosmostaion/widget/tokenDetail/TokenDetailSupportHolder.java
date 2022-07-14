@@ -1,5 +1,13 @@
 package wannabit.io.cosmostaion.widget.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -14,10 +22,8 @@ import com.google.gson.JsonParser;
 
 import java.math.BigDecimal;
 
-import irismod.nft.Nft;
 import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Assets;
@@ -27,15 +33,6 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class TokenDetailSupportHolder extends BaseHolder {
     private CardView            mAmountView;
@@ -88,14 +85,6 @@ public class TokenDetailSupportHolder extends BaseHolder {
     public void onBindNativeTokengRPC(Context c, BaseChain baseChain, BaseData baseData, String denom) {
         if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
-            if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-                mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBghard));
-            } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
-                mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgusdx));
-            } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
-                mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgswp));
-            }
-
             mAvailableAmount = baseData.getAvailable(denom);
             BigDecimal vestingAmount = baseData.getVesting(denom);
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));

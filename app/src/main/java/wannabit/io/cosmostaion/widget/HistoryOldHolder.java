@@ -37,7 +37,7 @@ public class HistoryOldHolder extends BaseHolder {
         historyType.setText(WDp.DpBNBTxType(mainActivity, history, mainActivity.mAccount.address));
         history_time.setText(WDp.getTimeformat(mainActivity, history.timeStamp));
         history_time_gap.setText(WDp.getTimeGap(mainActivity, history.timeStamp));
-        history_block.setText(history.blockHeight + "block");
+        history_block.setText(history.blockHeight + " block");
         historySuccess.setVisibility(View.GONE);
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class HistoryOldHolder extends BaseHolder {
         historySuccess.setVisibility(View.GONE);
         history_time.setText(WDp.getDpTime(mainActivity, history.blockTimeU0));
         history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blockTimeU0));
-        history_block.setText(history.hash + "block");
+        history_block.setText(history.hash + " block");
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

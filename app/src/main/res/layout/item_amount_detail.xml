@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/colorTransBg">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +53,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"
+                android:background="@color/colorGrayDayNight"
                 android:layout_marginLeft="@dimen/space_14"
                 android:layout_marginRight="@dimen/space_14"/>
 
@@ -157,14 +158,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/vesting_title">
+
                     <TextView
                         android:id="@+id/vesrting_amount"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="12313123"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_12_black_daynight"/>
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="12313123" />
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

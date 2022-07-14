@@ -11,16 +11,15 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="@dimen/space_6"
         android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
-        android:padding="@dimen/space_4"
-        app:cardUseCompatPadding="true" >
+        android:padding="@dimen/space_4">
         <RelativeLayout
+            android:id="@+id/check_layer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_72">
             <LinearLayout
@@ -72,7 +71,7 @@
                 android:id="@+id/checked_validator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_off"
+                android:src="@drawable/icon_check_off"
                 android:layout_marginRight="@dimen/space_12"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
@@ -114,7 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ss_11_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
 
@@ -132,20 +131,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_ss_11_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
             </LinearLayout>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-    <View
-        android:id="@+id/check_border"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_72"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/btn_trans_with_border"/>
 </RelativeLayout>

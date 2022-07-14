@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -17,9 +16,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 public class VestingHolder extends BaseHolder {
     private CardView            mVestingRoot;
@@ -57,18 +53,15 @@ public class VestingHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
-        mVestingRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
-        if (denom.equals(TOKEN_HARD)) {
-            mVestingRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBghard));
-        } else if (denom.equals(TOKEN_SWP)) {
-            mVestingRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgswp));
+        if (denom.equalsIgnoreCase(WDp.mainDenom(chain))) {
+            mVestingRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
         }
         onBindGRPC(c, chain, baseData, denom);
     }
 
     private void onBindGRPC (Context c, BaseChain chain, BaseData baseData, String denom) {
         ArrayList<Vesting.Period> vps = baseData.onParseRemainVestingsByDenom(denom);
-        mVestingCnt.setText("(" + vps.size() + ")");
+        mVestingCnt.setText("" + vps.size());
 
         mVestingTime0.setText(WDp.getDpTime(c, vps.get(0).getLength()));
         mVestingGap0.setText(WDp.getUnbondingTimeleft(c, vps.get(0).getLength()));

@@ -87,6 +87,9 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
             holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             if (account.hasPrivateKey) {
                 holder.accountKeyState.setColorFilter(WDp.getChainColor(getSActivity(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
+            } else {
+                holder.accountKeyState.setImageResource(R.drawable.watchmode);
+                holder.accountKeyState.setColorFilter(null);
             }
 
             if (TextUtils.isEmpty(account.nickName)) {

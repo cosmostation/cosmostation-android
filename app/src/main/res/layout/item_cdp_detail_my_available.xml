@@ -11,12 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_2"
+        android:layout_marginTop="@dimen/space_6"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/colorTransBg">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,7 +41,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"
+                android:background="@color/colorGrayDayNight"
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginBottom="@dimen/space_12"/>
 
@@ -54,7 +53,7 @@
                     android:id="@+id/collateral_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/collateral_denom"
                     android:layout_width="wrap_content"
@@ -70,7 +69,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_14_black_daynight"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -106,7 +105,7 @@
                     android:id="@+id/principal_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_ic"/>
+                    android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/principal_denom"
                     android:layout_width="wrap_content"
@@ -122,7 +121,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_14_black_daynight"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -174,7 +173,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_14_black_daynight"/>
+                    style="@style/font_ss_14_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

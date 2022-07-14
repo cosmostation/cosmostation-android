@@ -305,7 +305,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPassowrdMsg1 = findViewById(R.id.tv_password_msg1);
         mPassowrdMsg2 = findViewById(R.id.tv_password_msg2);
         mViewPager = findViewById(R.id.pager_keyboard);
-        mPassowrdMsg2.setVisibility(View.INVISIBLE);
+        mPassowrdMsg2.setVisibility(View.GONE);
         mNeedLeaveTime = false;
 
         for (int i = 0; i < mIvCircle.length; i++) {

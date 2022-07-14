@@ -18,11 +18,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_2"
+                android:layout_marginTop="@dimen/space_6"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardBackgroundColor="@color/colorTransBgCosmos"
-                app:cardUseCompatPadding="true">
+                app:cardBackgroundColor="@color/colorTransBgCosmos">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_2"
-                        style="@style/font_ss_14_black_daynight"
+                        android:textColor="@color/colorGray1"
                         android:text="-"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -70,10 +70,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_6"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardBackgroundColor="@color/colorTransBg"
-                app:cardUseCompatPadding="true">
+                app:cardBackgroundColor="@color/colorTransBg">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -263,7 +264,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:minHeight="@dimen/space_45"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             android:clickable="true">
             <TextView
                 android:layout_width="wrap_content"
@@ -299,7 +300,7 @@
                 android:layout_weight="1"
                 android:minHeight="@dimen/space_45"
                 android:layout_marginLeft="@dimen/space_4"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_with_photon_border"
                 style="@style/font_ss_14_photon"
                 android:textColor="@color/color_btn_photon"
                 android:textAllCaps="false"

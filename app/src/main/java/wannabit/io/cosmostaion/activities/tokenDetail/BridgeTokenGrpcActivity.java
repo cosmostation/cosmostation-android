@@ -133,7 +133,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private void onUpdateView() {
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(BridgeTokenGrpcActivity.this, mBaseChain));
         final Assets assets = getBaseDao().getAsset(mBridgeDenom);
-        Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+        Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
         mToolbarSymbol.setText(assets.origin_symbol);
         mToolbarSymbol.setTextColor(ContextCompat.getColor(BridgeTokenGrpcActivity.this, R.color.colorBlackDayNight));
         mTotalAmount = getBaseDao().getAvailable(mBridgeDenom);
@@ -154,7 +154,11 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            mKeyState.setImageResource(R.drawable.key_off);
+            mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            mKeyState.setImageResource(R.drawable.watchmode);
+            mKeyState.setColorFilter(null);
         }
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.origin_symbol, mTotalAmount, assets.decimal));
         mSwipeRefreshLayout.setRefreshing(false);

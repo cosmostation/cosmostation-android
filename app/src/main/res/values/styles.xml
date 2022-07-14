@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/colorGray9</item>
+        <item name="android:actionButtonStyle">@style/MenuActionButtonStyle</item>
+    </style>
+
+    <style name="MenuActionButtonStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:minWidth">20dip</item>
+        <item name="android:padding">6dip</item>
     </style>
 
     <style name="AppTheme.Intro">

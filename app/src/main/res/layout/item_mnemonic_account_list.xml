@@ -10,9 +10,9 @@
         android:id="@+id/accountCard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_8"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_6"
         android:background="@drawable/box_account_unselected"
         android:foreground="?android:attr/selectableItemBackground"
         android:paddingLeft="@dimen/space_4"
@@ -50,18 +50,19 @@
 
                     <TextView
                         android:id="@+id/account_address"
-                        style="@style/font_rmr_14_black_daynight"
+                        style="@style/font_rmm_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:ellipsize="middle"
                         android:maxWidth="@dimen/space_180"
                         android:singleLine="true"
-                        android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr" />
+                        android:text="cosmos1qwl879nx9t6kef4supyazayf7vjhennyjqwjgr"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/account_state"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rmr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -95,7 +96,7 @@
 
                         <TextView
                             android:id="@+id/accountAvailable"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -121,8 +122,8 @@
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/box_account_unselected"
-        android:layout_marginRight="@dimen/space_12"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_8"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_6"
         android:visibility="gone"/>
 </RelativeLayout>

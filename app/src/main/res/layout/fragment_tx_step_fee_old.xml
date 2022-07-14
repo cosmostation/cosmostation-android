@@ -232,22 +232,6 @@
         android:layout_marginBottom="@dimen/space_24"
         android:orientation="vertical"
         android:gravity="center">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/space_2"
-            style="@style/font_ssm_14_black_daynight"
-            android:text="Cosmostation Wallet is a free service."/>
-        <TextView
-            android:id="@+id/speed_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_36"
-            android:layout_marginRight="@dimen/space_36"
-            android:gravity="center"
-            style="@style/font_ss_12_gray1"
-            android:text="@string/str_fee_speed_title_0"/>
     </LinearLayout>
 
     <LinearLayout
@@ -282,7 +266,7 @@
                 android:layout_weight="1"
                 android:minHeight="@dimen/space_45"
                 android:layout_marginLeft="@dimen/space_4"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_with_photon_border"
                 style="@style/font_ss_14_photon"
                 android:textColor="@color/color_btn_photon"
                 android:textAllCaps="false"

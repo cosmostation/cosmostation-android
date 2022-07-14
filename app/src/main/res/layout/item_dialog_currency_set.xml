@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
+    android:background="@color/colorWhite2DayNight"
     android:paddingLeft="@dimen/space_8"
     android:paddingRight="@dimen/space_8"
     android:orientation="vertical"
@@ -14,23 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_50"
         android:orientation="horizontal"
-        android:layout_centerVertical="true"
-        android:gravity="center_vertical">
-        <TextView
-            android:id="@+id/currencyImg"
-            android:layout_width="@dimen/space_40"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_16"
-            style="@style/font_ss_17_atom"/>
+        android:gravity="center"
+        android:layout_centerVertical="true">
         <TextView
             android:id="@+id/currencyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_20"
-            style="@style/font_ss_15_gray8" />
+            android:textColor="@color/colorDialog"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/colorGray10"/>
+        android:background="@color/colorGray4"/>
 </LinearLayout>

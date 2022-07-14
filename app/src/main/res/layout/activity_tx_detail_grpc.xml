@@ -71,7 +71,7 @@
             android:layout_height="@dimen/space_45"
             android:layout_marginTop="@dimen/space_6"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             android:text="@string/str_done"
             android:textAllCaps="false" />
     </LinearLayout>

@@ -408,6 +408,7 @@
     <string name="str_request_amount">Request Amount</string>
     <string name="str_current_turnout">Current Turnout</string>
     <string name="str_voting_description">Description</string>
+    <string name="str_history_title">Recently Histories</string>
     <string name="str_no_history">No History</string>
     <string name="str_no_coin">No Assets</string>
     <string name="str_no_proposal">No Proposals</string>
@@ -422,7 +423,7 @@
     <string name="str_derive_wallet">Derive Wallet</string>
     <string name="str_delete_mnemonic">Delete Mnemonic</string>
     <string name="str_wallet_manage">Manage Wallet</string>
-    <string name="str_edit_chains">Edit Chains</string>
+    <string name="str_edit_chains">Manage Chain</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>
     <string name="str_token_detail">Token Detail</string>
@@ -432,6 +433,10 @@
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
     <string name="str_notice">Notice</string>
+    <string name="str_theme">Theme</string>
+    <string name="str_theme_system">System</string>
+    <string name="str_theme_light">Light Mode</string>
+    <string name="str_theme_dark">Dark Mode</string>
     <string name="str_alarm">Alarm</string>
     <string name="str_app_applock">App Lock</string>
     <string name="str_app_applock_enabled">Enabled</string>
@@ -688,7 +693,7 @@
     <string name="str_front_guide_title_rizon"><![CDATA[RIZON CHAIN]]></string>
     <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
-    <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS ZONE]]></string>
+    <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS]]></string>
     <string name="str_front_guide_title_umee"><![CDATA[UMEE (The Ocean)]]></string>
     <string name="str_front_guide_title_axelar"><![CDATA[AXELAR NETWORK]]></string>
     <string name="str_front_guide_title_emoney"><![CDATA[e-Money]]></string>
@@ -1306,7 +1311,7 @@
     <string name="str_sorting_by_reward">By Reward</string>
     <string name="str_sorting_by_amount">By Amount</string>
     <string name="str_sorting_by_value">By Value</string>
-    <string name="str_qr_code">QR Scan</string>
+    <string name="str_qr_code">Scan</string>
     <string name="str_recent">Recent</string>
     <string name="str_in_wallet">Wallet</string>
     <string name="str_fee_free_title">Fee Free Event</string>
@@ -1325,9 +1330,9 @@
     <string name="str_not_validator_title">Not Validator</string>
     <string name="str_not_validator_msg">This node is not a valid Cosmos validator.\nThis node does not participate in consensus, and therefore does not yield any rewards.\nWould you like to continue?</string>
     <string name="str_redelegation_limitted_title">Unable to redelegate.</string>
-    <string name="str_redelegation_limitted_msg">You have redelegated to this validator in the past certain period set by the system.</string>
+    <string name="str_redelegation_limitted_msg">You have redelegated to this validator in the past certain period set by the system.\n</string>
     <string name="str_redelegation_warnning_title">Notice</string>
-    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator, \nyou will not be able to redelegate FROM this validator for certain period set by the system. \nWould you like to continue?</string>
+    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator, \nyou will not be able to redelegate FROM this validator for certain period set by the system. \nWould you like to continue?\n</string>
     <string name="str_redelegation_description">For the certain period set by the system, you will not be able to redelegate from the validator you are redelegating to.</string>
     <string name="str_reward_address_change_title">Reward Address Change</string>
     <string name="str_reward_address_change_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>
@@ -1364,11 +1369,11 @@
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_vesting_amount">Vesting (Only Delegable)</string>
     <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
-    <string name="str_htlc_warn_msg">BEP3 transactions are handled by two networks on both ends of the interchain transfer<![CDATA[ & ]]>a relayer in between. \nCosmostation supports BEP3 transactions, but does not guarantee the stability of the network and success of the transaction. If your transaction fails, please make an inquiry on the network community channel.\n\nShould the BEP3 transaction fail, your tokens can be returned in full through the [Refund] function activated in your transaction history.</string>
+    <string name="str_htlc_warn_msg">BEP3 transactions are handled by two networks on both ends of the interchain transfer<![CDATA[ & ]]>a relayer in between. \nCosmostation supports BEP3 transactions, but does not guarantee the stability of the network and success of the transaction. If your transaction fails, please make an inquiry on the network community channel.\n\nShould the BEP3 transaction fail, your tokens can be returned in full through the [Refund] function activated in your transaction history.\n\n</string>
     <string name="str_cdp_warn_title">CDP Notice</string>
     <string name="str_cdp_warn_msg">CDP risks liquidation due to changes in the value of collateral. The user is responsible for all decisions and responsibilities, including the opening, reimbursement and liquidation of the CDP. \n\nThe Cosmostation wallet does not provide separate alarms for liquidation and liquidation risk.</string>
     <string name="str_delegate_warn_title">Delegate Notice</string>
-    <string name="str_delegate_warn_msg">You can receive staking rewards by delegating to a validator. You may lose a portion of your delegated stake if a problem occurs with the selected node. Please perform careful due diligence before delegating.\nWhen you undelegate, there is an unbonding period. You will not receive staking rewards during this time.</string>
+    <string name="str_delegate_warn_msg">You can receive staking rewards by delegating to a validator. You may lose a portion of your delegated stake if a problem occurs with the selected node. Please perform careful due diligence before delegating.\n\nWhen you undelegate, there is an unbonding period. You will not receive staking rewards during this time.\n\n</string>
     <string name="str_memo_warn">Please check your memo.\nSome exchanges or wallets may require a specific memo for deposits.</string>
     <string name="str_ok_stake_deposit_step_0">Insert amount to stake</string>
     <string name="str_ok_stake_deposit_step_1">Insert memo (optional)</string>
@@ -1627,6 +1632,7 @@
     <string name="str_exit_pool_step_1">Insert memo (optional)</string>
     <string name="str_exit_pool_step_2">Select transaction fee</string>
     <string name="str_exit_pool_step_3">Check transaction detail</string>
+    <string name="str_select_lockup_duration">Select Lockup Type</string>
     <string name="str_add_record_topic_name">Topic Name</string>
     <string name="str_add_record_writer_address">Writer Address</string>
     <string name="str_add_record_owner_address">Owner Address</string>
@@ -1669,7 +1675,7 @@
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">CW20 Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
-    <string name="str_unknown_token_title">Unknown</string>
+    <string name="str_unknown_token_title">Unknown Coins</string>
     <string name="str_ibc_info_title">IBC information</string>
     <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>
     <string name="str_ibc_channel_title">Channel</string>
@@ -1738,7 +1744,7 @@
     <string name="str_ibc_send_c">IBC SEND</string>
     <string name="str_ibc_warning_c">Notice</string>
     <string name="str_ibc_warning_msg1">IBC transactions are not supported on centralized exchanges. \nIf you wish to transfer to an exchange, you must send back the asset to its original chain before depositing it via a regular send transaction.</string>
-    <string name="str_ibc_warning_msg2">This wallet only supports the broadcasting of txs through active IBC relayers and therefore is not responsible for intrinsic issues that may exist in IBC txs. \nUser must perform due diligence on the stability and security of the selected relayer before executing IBC txs.</string>
+    <string name="str_ibc_warning_msg2">This wallet only supports the broadcasting of txs through active IBC relayers and therefore is not responsible for intrinsic issues that may exist in IBC txs. \nUser must perform due diligence on the stability and security of the selected relayer before executing IBC txs.\n\n</string>
     <string name="str_ibc_continue_c">Continue</string>
     <string name="str_ibc_send_channel">Relayer Channel</string>
     <string name="str_ibc_transfer_step_0">Select destination chain <![CDATA[&]]> relayer</string>
@@ -1766,7 +1772,7 @@
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
     <string name="str_sif_dex_eth_pol">Eth Pool</string>
-    <string name="str_sif_swap_rate">SifChain Swap Rate</string>
+    <string name="str_sif_swap_rate">Sif Dex Swap Rate</string>
     <string name="str_sif_swap_step_0">Insert amount to swap</string>
     <string name="str_sif_swap_step_1">Insert memo (optional)</string>
     <string name="str_sif_swap_step_2">Select transaction fee</string>
@@ -1785,6 +1791,7 @@
     <string name="str_my_nfts">My NFTs</string>
     <string name="str_top_nfts">Top NFTs</string>
     <string name="str_no_nfts">No NFT</string>
+    <string name="str_nft_detail">NFT Detail</string>
     <string name="str_create_nfts">Issue NFT</string>
     <string name="str_issue_nft_step_0">Insert NFT Information</string>
     <string name="str_issue_nft_step_1">Insert memo (optional)</string>
@@ -1894,8 +1901,8 @@
     <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
     <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
     <string name="error_can_not_bep3_account_title">No valid account at %1$s</string>
-    <string name="error_can_not_bep3_account_msg">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account and deposit at least 0.000075BNB for claim transaction fee.</string>
-    <string name="error_can_not_bep3_account_msg2">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account wallet.</string>
+    <string name="error_can_not_bep3_account_msg">In order to receive BEP3 transfer,\nyou must create a valid(with private key) %1$s account and deposit at least 0.000075BNB for claim transaction fee.</string>
+    <string name="error_can_not_bep3_account_msg2">In order to receive BEP3 transfer,\nyou must create a valid(with private key) %1$s account wallet.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
     <string name="error_no_more_faucet">Already have enough test coin.</string>
     <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.</string>
@@ -2235,26 +2242,6 @@
     <string name="str_dp_time_format3">HH:mm:ss</string>
     <string name="str_dp_time_format4">MMM d, yyyy</string>
     <string name="str_dp_date_format">MMM d, yyyy</string>
-
-    <string-array name="currency_symbol_array">
-        <item>$</item>
-        <item>€</item>
-        <item>₩</item>
-        <item>¥</item>
-        <item>¥</item>
-        <item>₽</item>
-        <item>£</item>
-        <item>₹</item>
-        <item>R$</item>
-        <item>Rp</item>
-        <item>Kr</item>
-        <item>Kr</item>
-        <item>Kr</item>
-        <item>sFr</item>
-        <item>AU$</item>
-        <item>$</item>
-        <item>RM</item>
-    </string-array>
 
     <string-array name="currency_unit_array">
         <item>USD</item>

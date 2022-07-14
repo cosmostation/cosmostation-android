@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <solid android:color="@color/colorTransBg"/>
+    <corners
+        android:radius="@dimen/space_6"/>
     <padding
         android:left="@dimen/space_8"
         android:top="@dimen/space_8"

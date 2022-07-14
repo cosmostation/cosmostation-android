@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -48,6 +48,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         mNeedLeaveTime = false;
 
         mStart.setOnClickListener(this);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -102,9 +104,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onInitView() {
-        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5);
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out5);
-        bgImg.startAnimation(fadeInAnimation);
         bgImg.startAnimation(fadeOutAnimation);
 
         final Animation mFadeInAni = AnimationUtils.loadAnimation(this, R.anim.fade_in2);
@@ -136,7 +136,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    @SuppressLint("NewApi")
     private void onShowDBUpdate() {
         ProgressDialog dialog = new ProgressDialog(IntroActivity.this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

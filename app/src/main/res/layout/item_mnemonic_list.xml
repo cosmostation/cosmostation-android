@@ -5,18 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
-        app:cardPreventCornerOverlap="true"
+        android:layout_marginBottom="@dimen/space_6"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/colorTransBg"
-        app:cardUseCompatPadding="true" >
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,10 +28,10 @@
 
             <TextView
                 android:id="@+id/mnemonic_nickname"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mnemonic 1"
-                style="@style/font_ss_14_black_daynight"/>
+                android:text="Mnemonic 1" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -47,22 +48,25 @@
                     android:paddingRight="@dimen/space_6"
                     android:scaleType="center"
                     android:src="@drawable/arrow_next_gr" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/mnemonicArrowSort"
-                    android:orientation="vertical"
                     android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
+                    android:layout_toLeftOf="@+id/mnemonicArrowSort"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
+                            style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Derived Wallet"
-                            style="@style/font_ss_12_gray1"/>
+                            android:text="Derived Wallet" />
+
                         <TextView
                             android:id="@+id/derived_cnt"
                             style="@style/font_ss_12_black_daynight"
@@ -70,18 +74,20 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:gravity="right"
-                            android:text="9"/>
+                            android:text="9" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_6">
+
                         <TextView
+                            style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Words Count"
-                            style="@style/font_ss_12_gray1"/>
+                            android:text="Words Count" />
+
                         <TextView
                             android:id="@+id/words_cnt"
                             style="@style/font_ss_12_black_daynight"
@@ -89,17 +95,20 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:gravity="right"
-                            android:text="24"/>
+                            android:text="24" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_6">
+
                         <TextView
+                            style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Imported Date"
-                            style="@style/font_ss_12_gray1"/>
+                            android:text="Imported Date" />
+
                         <TextView
                             android:id="@+id/imported_date"
                             style="@style/font_ss_12_black_daynight"
@@ -107,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:gravity="right"
-                            android:text="2022-05-09 00:14:22"/>
+                            android:text="2022-05-09 00:14:22" />
                     </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>

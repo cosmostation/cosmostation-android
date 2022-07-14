@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
         android:minHeight="@dimen/space_45"
-        android:background="@drawable/btn_trans_with_border"
+        android:background="@drawable/btn_trans_with_photon_border"
         style="@style/font_ss_14_photon"
         android:textAllCaps="false"
         android:text="@string/str_vote_to"
@@ -53,7 +53,6 @@
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/layer_refresher"
-            android:layout_below="@+id/layer_sort"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <androidx.recyclerview.widget.RecyclerView

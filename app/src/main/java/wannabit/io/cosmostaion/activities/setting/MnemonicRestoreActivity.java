@@ -109,7 +109,7 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         }
 
         mEtMnemonics[0].requestFocus();
-        mChainImg.setColorFilter(getColor(R.color.colorGray1), android.graphics.PorterDuff.Mode.SRC_IN);
+        mChainImg.setColorFilter(getColor(R.color.colorBlackDayNight), android.graphics.PorterDuff.Mode.SRC_IN);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
         mRecyclerView.setHasFixedSize(true);

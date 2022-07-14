@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBgCosmos"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/colorTransBgCosmos">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGrayDayNight"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -101,7 +101,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -120,7 +120,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -139,7 +139,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
 
             <LinearLayout

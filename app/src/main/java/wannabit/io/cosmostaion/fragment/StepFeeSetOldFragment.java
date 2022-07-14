@@ -40,7 +40,6 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     private SegmentedButtonGroup mButtonGroup;
 
     private LinearLayout mSpeedLayer;
-    private TextView mSpeedTxt;
 
     private LinearLayout mBottomControlCard;
     private Button mBtnBefore, mBtnNext;
@@ -75,7 +74,6 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
         mButtonGroup = rootView.findViewById(R.id.btns_segmented);
 
         mSpeedLayer = rootView.findViewById(R.id.speed_layer);
-        mSpeedTxt = rootView.findViewById(R.id.speed_txt);
 
         mBottomControlCard = rootView.findViewById(R.id.bottom_control_layer);
         mBtnBefore = rootView.findViewById(R.id.btn_before);
@@ -136,7 +134,6 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
         mGasAmount.setText(mEstimateGasAmount.toPlainString());
         mGasFee.setText(mFee.toPlainString());
 
-        mSpeedTxt.setText(getString(R.string.str_fee_speed_title_2));
     }
 
     @Override

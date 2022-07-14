@@ -142,7 +142,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(OKEX_MAIN)) {
             final OkToken okToken = getBaseDao().okToken(mDenom);
-            Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
+            Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_default).error(R.drawable.token_default).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(okToken.original_symbol.toUpperCase());
             mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenDetailActivity.this, R.color.colorBlackDayNight));
 
@@ -171,7 +171,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         } else if (mBaseChain.equals(BNB_MAIN)) {
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(mDenom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(mDenom);
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png").placeholder(R.drawable.token_default).error(R.drawable.token_default).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(bnbToken.original_symbol.toUpperCase());
             mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenDetailActivity.this, R.color.colorBlackDayNight));
 
@@ -186,7 +186,11 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            mKeyState.setImageResource(R.drawable.key_off);
+            mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            mKeyState.setImageResource(R.drawable.watchmode);
+            mKeyState.setColorFilter(null);
         }
         mSwipeRefreshLayout.setRefreshing(false);
     }

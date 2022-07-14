@@ -503,14 +503,14 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) {
                     mBtnNext.setText(R.string.str_next);
                     mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
-                    mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
+                    mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_photon_border));
                     mBtnNext.setTypeface(null, Typeface.NORMAL);
                     return;
                 }
                 if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) {
                     mBtnNext.setText(R.string.str_next);
                     mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
-                    mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
+                    mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_photon_border));
                     mBtnNext.setTypeface(null, Typeface.NORMAL);
                     return;
 
@@ -524,14 +524,14 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             } catch (Exception e) {
                 mBtnNext.setText(R.string.str_next);
                 mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
-                mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
+                mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_photon_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
             }
 
         } else {
             mBtnNext.setText(R.string.str_next);
             mBtnNext.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_btn_photon));
-            mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_border));
+            mBtnNext.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.btn_trans_with_photon_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
 
         }

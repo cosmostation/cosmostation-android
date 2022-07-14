@@ -1072,17 +1072,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortingGravityPool(ArrayList<Coin> coins, BaseData baseData) {
-        Collections.sort(coins, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                long id1 = baseData.getGravityPoolByDenom(o1.denom).getId();
-                long id2 = baseData.getGravityPoolByDenom(o2.denom).getId();
-                return id1 < id2 ? -1 : 1;
-            }
-        });
-    }
-
     public static void onSortingInjectivePool(ArrayList<Coin> coins) {
         Collections.sort(coins, new Comparator<Coin>() {
             @Override
@@ -1432,7 +1421,7 @@ public class WUtil {
                     textView.setText(ibcToken.display_denom.toUpperCase());
                 }
             } else {
-                textView.setText("UnKnown");
+                textView.setText("UNKNOWN");
             }
         }
         return denom;
@@ -1477,7 +1466,7 @@ public class WUtil {
                     return ibcToken.display_denom.toUpperCase();
                 }
             } else {
-                return "Unknown";
+                return "UNKNOWN";
             }
         }
         return denom.toUpperCase();
@@ -1700,7 +1689,7 @@ public class WUtil {
             } else if (denom.startsWith("c")) {
                 Assets assets = baseData.getAsset(denom);
                 if (assets != null) {
-                    Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+                    Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
                 }
             } else if (denom.startsWith("ibc/")) {
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
@@ -1723,7 +1712,7 @@ public class WUtil {
                     Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
                 }
             } else {
-                Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+                Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
             }
         }
     }
@@ -3031,8 +3020,6 @@ public class WUtil {
             guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_okx));
             guideTitle.setText(R.string.str_front_guide_title_ok);
             guideMsg.setText(R.string.str_front_guide_msg_ok);
-            guideBtn1.setText(R.string.str_faq_ok);
-            guideBtn2.setText(R.string.str_guide_ok);
 
         } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
             guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.certik_img));
@@ -3243,7 +3230,7 @@ public class WUtil {
             coinDenom.setTextAppearance(R.style.font_ss_14_kava);
 
         } else if (chain.equals(IOV_MAIN)) {
-            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.iov_token_img));
+            coinImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.token_starname));
             coinDenom.setText(R.string.str_iov_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_iov);
 

@@ -62,12 +62,12 @@ public class WalletMintHolder extends BaseHolder {
                 msg3 = "" + WDp.getPercentDp(param.getDpRealApr(baseChain));
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                msg = Html.fromHtml("<b>" + mainActivity.getString(R.string.str_apr_help_onchain_msg) + "</b>" + "<br>"
+                msg = Html.fromHtml(mainActivity.getString(R.string.str_apr_help_onchain_msg)  + "<br>"
                         +  msg2 + "<p>" + "<br>"
-                        + "<b>" + mainActivity.getString(R.string.str_apr_help_real_msg) + "</b>" + "<br>"
+                        + mainActivity.getString(R.string.str_apr_help_real_msg) + "<br>"
                         +  msg3, Html.FROM_HTML_MODE_LEGACY);
             }
-            AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, mainActivity.getString(R.string.str_ok), null);
+            AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, Html.fromHtml("<font color=\"#007AFF\">" + mainActivity.getString(R.string.str_ok) + "</font>"), null);
         });
     }
 }

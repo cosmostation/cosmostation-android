@@ -17,7 +17,9 @@
             android:paddingRight="@dimen/space_16"
             android:paddingTop="@dimen/space_8"
             android:paddingBottom="@dimen/space_8"
-            android:background="@color/colorTransBg">
+            android:layout_marginRight="@dimen/space_6"
+            android:layout_marginLeft="@dimen/space_6"
+            android:background="@drawable/box_round_transbg">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -66,7 +68,7 @@
                         android:id="@+id/swap_input_icon"
                         android:layout_width="@dimen/space_28"
                         android:layout_height="@dimen/space_28"
-                        android:src="@drawable/token_ic"/>
+                        android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/swap_input_symbol"
                         android:layout_width="wrap_content"
@@ -163,7 +165,9 @@
             android:paddingTop="@dimen/space_8"
             android:paddingBottom="@dimen/space_8"
             android:layout_marginTop="@dimen/space_10"
-            android:background="@color/colorTransBg">
+            android:layout_marginLeft="@dimen/space_6"
+            android:layout_marginRight="@dimen/space_6"
+            android:background="@drawable/box_round_transbg">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -191,7 +195,7 @@
                         android:id="@+id/swap_output_icon"
                         android:layout_width="@dimen/space_28"
                         android:layout_height="@dimen/space_28"
-                        android:src="@drawable/token_ic"/>
+                        android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/swap_output_symbol"
                         android:layout_width="wrap_content"
@@ -243,7 +247,7 @@
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textColor="@color/color_btn_photon"
             android:textAllCaps="false"

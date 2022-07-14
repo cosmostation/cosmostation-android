@@ -211,7 +211,6 @@ public class WDp {
         } else if (chain.equals(BNB_MAIN)) {
             if (symbol.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
@@ -219,7 +218,12 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
 
         } else if (chain.equals(BAND_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_BAND)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(OKEX_MAIN)) {
@@ -1005,7 +1009,7 @@ public class WDp {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_ok));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(PERSIS_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack2));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_persis));
         } else if (baseChain.equals(SENTINEL_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_sentinel));
@@ -1026,8 +1030,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_osmosis));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(MEDI_MAIN)) {
-            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
-            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_medi));
+            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_medi));
+            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(EMONEY_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_emoney));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
@@ -1099,6 +1103,7 @@ public class WDp {
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.color_crescent));
         } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_Mantle));
+            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
         } else if (baseChain.equals(NYX_MAIN)) {
             floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_nyx));
             floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
@@ -3812,7 +3817,7 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_iss);
             }
         } else {
-            imageView.setImageResource(R.drawable.token_ic);
+            imageView.setImageResource(R.drawable.token_default);
         }
     }
 
@@ -4078,46 +4083,15 @@ public class WDp {
     // HTLC using
     public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView
             txtView) {
-        if (chain.equals(COSMOS_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_cosmos));
-            txtView.setText(c.getString(R.string.str_cosmos_hub_2));
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_iris));
-            txtView.setText(c.getString(R.string.str_iris_net_2));
-
-        } else if (chain.equals(BNB_MAIN)) {
+        if (chain.equals(BNB_MAIN)) {
             if (imgView != null)
                 imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
-            txtView.setText(c.getString(R.string.str_binance_net_2));
+            txtView.setText("BINANCE");
 
         } else if (chain.equals(KAVA_MAIN)) {
             if (imgView != null)
                 imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.kava_img));
-            txtView.setText(c.getString(R.string.str_kava_net_2));
-
-        } else if (chain.equals(IOV_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_starname));
-            txtView.setText(c.getString(R.string.str_iov_net_2));
-
-        } else if (chain.equals(BAND_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.band_chain_img));
-            txtView.setText(c.getString(R.string.str_band_chain_2));
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_okx));
-            txtView.setText(c.getString(R.string.str_ok_net2));
-
-        } else if (chain.equals(CERTIK_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.certik_chain_img));
-            txtView.setText(c.getString(R.string.str_certik_chain_2));
-
+            txtView.setText(c.getString(R.string.str_kava_c));
         }
     }
 

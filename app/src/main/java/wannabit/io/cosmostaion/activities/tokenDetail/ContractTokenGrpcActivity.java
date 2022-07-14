@@ -126,7 +126,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     private void onUpdateView() {
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(ContractTokenGrpcActivity.this, mBaseChain));
         if (mCw20Asset != null) {
-            Picasso.get().load(mCw20Asset.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            Picasso.get().load(mCw20Asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
             mToolbarSymbol.setText(mCw20Asset.denom.toUpperCase());
             mToolbarSymbol.setTextColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, R.color.colorBlackDayNight));
             mTotalAmount = mCw20Asset.getAmount();
@@ -147,7 +147,11 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             mAddress.setText(mAccount.address);
             mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mAccount.hasPrivateKey) {
-                mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+                mKeyState.setImageResource(R.drawable.key_off);
+                mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            } else {
+                mKeyState.setImageResource(R.drawable.watchmode);
+                mKeyState.setColorFilter(null);
             }
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mCw20Asset.denom, mTotalAmount, mCw20Asset.decimal));
             mSwipeRefreshLayout.setRefreshing(false);

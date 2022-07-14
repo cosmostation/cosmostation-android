@@ -17,6 +17,7 @@ public class CommonAlertDialog extends AlertDialog {
     Button rightButton;
     Button leftButton;
     ImageView headerImageView;
+    View buttonBorder;
 
     public CommonAlertDialog(Context context) {
         super(context);
@@ -27,6 +28,7 @@ public class CommonAlertDialog extends AlertDialog {
         messageTextView = view.findViewById(R.id.dialog_msg);
         rightButton = view.findViewById(R.id.btn_right);
         leftButton = view.findViewById(R.id.btn_left);
+        buttonBorder = view.findViewById(R.id.btn_border);
         setView(view);
     }
 

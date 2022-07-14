@@ -113,10 +113,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBgKava"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardPreventCornerOverlap="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -145,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/space_12"
-                    android:background="@color/colorGray3" />
+                    android:background="@color/colorGrayDayNight" />
 
                 <TextView
                     style="@style/font_ss_12_gray1"
@@ -234,7 +234,7 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24"
-        android:background="@drawable/btn_trans_with_border"
+        android:background="@drawable/btn_trans_with_photon_border"
         android:minHeight="@dimen/space_45"
         android:text="@string/str_disconnect"
         android:textAllCaps="false" />

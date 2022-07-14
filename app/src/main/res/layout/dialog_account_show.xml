@@ -38,7 +38,11 @@
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:gravity="center"
-            android:text="sdasasdasdasdasdasdasdasdasdsadasdsad"
+            android:maxLines="1"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="11sp"
+            android:autoSizeMaxTextSize="12sp"
+            android:autoSizeStepGranularity="1sp"
             style="@style/font_rmr_11_gray1"/>
 
 
@@ -46,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="@dimen/space_32"
-            android:background="@color/colorGray10"/>
+            android:background="@color/colorGray4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,12 +63,12 @@
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_left"
-                style="@style/font_ss_14_gray8"
+                style="@style/font_ss_14_iris"
                 android:text="@string/str_share"/>
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray10"/>
+                android:background="@color/colorGray4"/>
             <Button
                 android:id="@+id/btn_posi"
                 android:layout_width="0dp"
@@ -72,7 +76,7 @@
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_right"
-                style="@style/font_ss_14_gray8"
+                style="@style/font_ss_14_iris"
                 android:text="@string/str_copy"/>
         </LinearLayout>
 

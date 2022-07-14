@@ -149,7 +149,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             mBtnIbcSend.setVisibility(View.VISIBLE);
 
         } else if (mBaseChain.equals(INJ_MAIN)) {
-            mToolbarSymbolImg.setImageResource(R.drawable.token_ic);
+            mToolbarSymbolImg.setImageResource(R.drawable.token_default);
             mToolbarSymbol.setText("SHARE" + mPoolDenom.substring(5));
             mToolbarSymbol.setTextColor(ContextCompat.getColor(POOLTokenDetailActivity.this, R.color.colorBlackDayNight));
 
@@ -190,7 +190,11 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
-            mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            mKeyState.setImageResource(R.drawable.key_off);
+            mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            mKeyState.setImageResource(R.drawable.watchmode);
+            mKeyState.setColorFilter(null);
         }
         mSwipeRefreshLayout.setRefreshing(false);
     }

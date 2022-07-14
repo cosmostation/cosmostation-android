@@ -71,7 +71,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private Toolbar mToolbar;
     private ImageView mToolbarChainImg;
     private TextView mToolbarTitle;
-    private TextView mToolbarChainName;
 
     private StopViewPager mContentsPager;
     private TabLayout mTabLayer;
@@ -89,7 +88,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mToolbar = findViewById(R.id.tool_bar);
         mToolbarTitle = findViewById(R.id.toolbar_title);
         mToolbarChainImg = findViewById(R.id.toolbar_net_image);
-        mToolbarChainName = findViewById(R.id.toolbar_net_name);
         mContentsPager = findViewById(R.id.view_pager);
         mTabLayer = findViewById(R.id.bottom_tab);
         mFloatBtn = findViewById(R.id.btn_floating);
@@ -159,6 +157,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         });
 
         mContentsPager.setCurrentItem(getIntent().getIntExtra("page", 0), false);
+
     }
 
     @Override
@@ -202,8 +201,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
             mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorBlackDayNight));
             WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
-            WDp.getChainTitle(MainActivity.this, mBaseChain, mToolbarChainName);
-            mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));
             WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
 
             mSelectedChain = mBaseChain;
