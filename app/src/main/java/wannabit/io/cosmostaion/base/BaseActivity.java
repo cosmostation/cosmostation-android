@@ -1135,7 +1135,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public void onShowBuySelectFiat() {
         FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
                 Html.fromHtml("<font color=\"#007AFF\">" + "USD" + "</font>"), view -> onStartMoonpaySignature("usd"), null,
-                Html.fromHtml("<font color=\"#007AFF\">" + "EUR" + "</font>"), view -> onStartMoonpaySignature("EUR"),null,
+                Html.fromHtml("<font color=\"#007AFF\">" + "EUR" + "</font>"), view -> onStartMoonpaySignature("eur"),null,
                 Html.fromHtml("<font color=\"#007AFF\">" + "GBP" + "</font>"), view -> onStartMoonpaySignature("gbp"), null);
     }
 
