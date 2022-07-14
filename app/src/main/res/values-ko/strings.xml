@@ -123,8 +123,9 @@
     <string name="str_mnemonic_manage">니모닉 관리</string>
     <string name="str_mnemonic_detail">니모닉 상세</string>
     <string name="str_mnemonic_create">니모닉 생성</string>
-    <string name="str_derive_wallet">Derive Wallet</string>
-    <string name="str_delete_mnemonic">Delete Mnemonic</string>
+    <string name="str_derive_wallet">지갑 추가</string>
+    <string name="str_delete_mnemonic">니모닉 삭제</string>
+    <string name="str_derive_wallets">지갑 추가</string>
     <string name="str_wallet_manage">지갑 관리</string>
     <string name="str_edit_chains">체인 관리</string>
     <string name="str_validators_list"><![CDATA[검증인 목록]]></string>
@@ -180,7 +181,7 @@
     <string name="str_import_path">경로</string>
     <string name="str_import_address_type">주소 타입</string>
     <string name="str_import_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
-    <string name="str_import_mnemonic">니모닉 입력</string>
+    <string name="str_import_mnemonic">니모닉 복원</string>
     <string name="str_import_key">개인키 등록</string>
     <string name="str_share">공유</string>
     <string name="str_copy">복사</string>

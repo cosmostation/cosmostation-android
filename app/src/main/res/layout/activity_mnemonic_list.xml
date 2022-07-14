@@ -54,7 +54,7 @@
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
-            android:text="Import Mnemonic"/>
+            android:text="@string/str_import_mnemonic"/>
         <Button
             android:id="@+id/btn_create_mnemonic"
             android:layout_width="0dp"
@@ -65,6 +65,6 @@
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
-            android:text="Create Mnemonic"/>
+            android:text="@string/str_mnemonic_create"/>
     </LinearLayout>
 </RelativeLayout>

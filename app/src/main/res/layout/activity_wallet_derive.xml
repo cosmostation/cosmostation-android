@@ -127,7 +127,7 @@
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
-            android:text="Derive Wallets"/>
+            android:text="@string/str_derive_wallets"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
