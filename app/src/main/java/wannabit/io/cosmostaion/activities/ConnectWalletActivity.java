@@ -360,11 +360,13 @@ public class ConnectWalletActivity extends BaseActivity {
         }
         RawTransaction rawTransaction = RawTransaction.createTransaction(
                 nonce,
-                BigInteger.valueOf(20000000000L),
-                DefaultGasProvider.GAS_LIMIT,
+                BigInteger.valueOf(27500000000L),
+                BigInteger.valueOf(900000L),
                 wcEthereumTransaction.getTo(),
                 value,
-                wcEthereumTransaction.getData()
+                wcEthereumTransaction.getData(),
+                BigInteger.valueOf(27500000000L),
+                BigInteger.valueOf(27500000000L)
         );
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, 9001, credentials);
         String hexValue = Numeric.toHexString(signedMessage);
