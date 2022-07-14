@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
 
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -146,9 +147,12 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
                 holder.itemRevoked.setVisibility(View.GONE);
             }
+            holder.itemChecked.setColorFilter(null);
             if (mCheckedGRpcValidator != null && mGrpcValidator.getOperatorAddress().equals(mCheckedGRpcValidator.getOperatorAddress())) {
                 holder.itemChecked.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mBaseChain), PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_seleted_white_daynight));
+                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+            } else {
+                holder.itemCheckedBorder.setVisibility(View.GONE);
             }
         }
 
@@ -159,7 +163,6 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
         public class ToValidatorHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
-            RelativeLayout itemCheckedBorder;
             CircleImageView itemAvatar;
             ImageView itemRevoked;
             ImageView itemFree;
@@ -167,11 +170,11 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             TextView itemTvMoniker;
             TextView itemTvVotingPower;
             TextView itemTvYieldRate;
+            View itemCheckedBorder;
 
             public ToValidatorHolder(@NonNull View itemView) {
                 super(itemView);
                 itemRoot = itemView.findViewById(R.id.card_validator);
-                itemCheckedBorder = itemView.findViewById(R.id.check_layer);
                 itemAvatar = itemView.findViewById(R.id.avatar_validator);
                 itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemFree = itemView.findViewById(R.id.avatar_validator_free);
@@ -179,6 +182,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
                 itemTvYieldRate = itemView.findViewById(R.id.delegate_yield_commission);
+                itemCheckedBorder = itemView.findViewById(R.id.check_border);
             }
         }
     }

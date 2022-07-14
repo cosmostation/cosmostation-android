@@ -419,9 +419,10 @@
     <string name="str_wallet">Wallet</string>
     <string name="str_mnemonic_manage">Manage Mnemonic</string>
     <string name="str_mnemonic_detail">Mnemonic Detail</string>
-    <string name="str_mnemonic_create">Mnemonic Create</string>
+    <string name="str_mnemonic_create">Create Mnemonic</string>
     <string name="str_derive_wallet">Derive Wallet</string>
     <string name="str_delete_mnemonic">Delete Mnemonic</string>
+    <string name="str_derive_wallets">Derive Wallets</string>
     <string name="str_wallet_manage">Manage Wallet</string>
     <string name="str_edit_chains">Manage Chain</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>

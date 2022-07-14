@@ -120,9 +120,12 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
 
+                holder.itemChecked.setColorFilter(null);
                 if (getSActivity().mValAddesses.contains(validator.operator_address)) {
                     holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.color_ok), android.graphics.PorterDuff.Mode.SRC_IN);
-                    holder.itemCheckedBorder.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_seleted_white_daynight));
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemCheckedBorder.setVisibility(View.GONE);
                 }
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +158,6 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
 
         public class ToValidatorHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
-            RelativeLayout itemCheckedBorder;
             CircleImageView itemAvatar;
             ImageView itemRevoked;
             ImageView itemFree;
@@ -163,11 +165,11 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
             TextView itemTvMoniker;
             TextView itemTvVotingPower;
             TextView itemTvCommission;
+            View itemCheckedBorder;
 
             public ToValidatorHolder(@NonNull View itemView) {
                 super(itemView);
                 itemRoot = itemView.findViewById(R.id.card_validator);
-                itemCheckedBorder = itemView.findViewById(R.id.check_layer);
                 itemAvatar = itemView.findViewById(R.id.avatar_validator);
                 itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemFree = itemView.findViewById(R.id.avatar_validator_free);
@@ -175,6 +177,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
                 itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
                 itemTvCommission = itemView.findViewById(R.id.delegate_yield_commission);
+                itemCheckedBorder = itemView.findViewById(R.id.check_border);
             }
         }
 
