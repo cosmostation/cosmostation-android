@@ -6,12 +6,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorWhite2DayNight"
     android:padding="@dimen/space_32">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite2DayNight"
+        android:background="@color/colorGray2DayNight"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         app:layout_constrainedHeight="true"
