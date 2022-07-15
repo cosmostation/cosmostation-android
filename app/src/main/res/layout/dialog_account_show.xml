@@ -39,6 +39,7 @@
             android:layout_marginRight="@dimen/space_12"
             android:gravity="center"
             android:maxLines="1"
+            android:ellipsize="middle"
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="11sp"
             android:autoSizeMaxTextSize="12sp"
