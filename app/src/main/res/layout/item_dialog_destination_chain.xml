@@ -11,27 +11,30 @@
     android:paddingTop="@dimen/space_4"
     android:paddingBottom="@dimen/space_4"
     android:clickable="true">
+
     <LinearLayout
         android:id="@+id/rootLayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_centerVertical="true"
+        android:background="@drawable/box_chain_selected"
         android:gravity="center_vertical"
-        android:background="@drawable/box_chain_selected">
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/chainImg"
             android:layout_width="@dimen/space_20"
             android:layout_height="@dimen/space_20"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_12"
-            android:src="@drawable/token_default"/>
+            android:src="@drawable/token_default" />
+
         <TextView
             android:id="@+id/chainName"
+            style="@style/font_ssm_14_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_8"
-            style="@style/font_ssm_14_black_daynight"
-            android:singleLine="true"/>
+            android:singleLine="true" />
     </LinearLayout>
 </RelativeLayout>

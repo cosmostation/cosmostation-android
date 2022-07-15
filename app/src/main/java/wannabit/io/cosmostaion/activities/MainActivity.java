@@ -305,9 +305,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void fetchFinished() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            if (mPageAdapter.getItem(0) != null) mPageAdapter.getItem(0).onRefreshTab();
-            if (mPageAdapter.getItem(1) != null) mPageAdapter.getItem(1).onRefreshTab();
-            if (mPageAdapter.getItem(2) != null) mPageAdapter.getItem(2).onRefreshTab();
+            if (mPageAdapter.mCurrentFragment != null) mPageAdapter.mCurrentFragment.onRefreshTab();
+            if (mPageAdapter.getItem(0) != null && mPageAdapter.mCurrentFragment != mPageAdapter.getItem(0))
+                ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(0).onRefreshTab();
+            if (mPageAdapter.getItem(1) != null && mPageAdapter.mCurrentFragment != mPageAdapter.getItem(1))
+                ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(1).onRefreshTab();
+            if (mPageAdapter.getItem(2) != null && mPageAdapter.mCurrentFragment != mPageAdapter.getItem(2))
+                ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(2).onRefreshTab();
         }
     }
 
@@ -315,7 +319,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void fetchBusy() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            mPageAdapter.mCurrentFragment.onBusyFetch();
+            if (mPageAdapter.mCurrentFragment != null) mPageAdapter.mCurrentFragment.onBusyFetch();
         }
     }
 

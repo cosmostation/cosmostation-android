@@ -63,10 +63,10 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
+            app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/space_6"
             app:cardBackgroundColor="@color/colorTransBg"
-            app:cardUseCompatPadding="true"
             android:visibility="gone">
             <LinearLayout
                 android:layout_width="match_parent"

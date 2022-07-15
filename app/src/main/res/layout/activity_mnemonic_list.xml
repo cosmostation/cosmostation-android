@@ -30,10 +30,10 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:layout_below="@+id/tool_bar"
         android:layout_above="@+id/bottom_control"
-        android:overScrollMode="never"/>
+        android:layout_below="@+id/tool_bar"
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
 
     <LinearLayout
         android:id="@+id/bottom_control"

@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_6"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg">

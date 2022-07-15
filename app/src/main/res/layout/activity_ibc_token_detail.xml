@@ -131,6 +131,7 @@
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/img_account"
                     android:maxLines="1"
+                    android:ellipsize="middle"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="11sp"
                     android:autoSizeMaxTextSize="12sp"

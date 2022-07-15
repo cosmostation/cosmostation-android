@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,57 +14,50 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/notice_root"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_26"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_6"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
             app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="true"
-            android:visibility="gone">
+            app:cardPreventCornerOverlap="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/space_16"
-                android:paddingTop="@dimen/space_6"
+                android:paddingTop="@dimen/space_10"
                 android:paddingRight="@dimen/space_6"
-                android:paddingBottom="@dimen/space_6">
+                android:paddingBottom="@dimen/space_10">
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/title_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/round_bg"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_8"
+                    android:textStyle="bold"
+                    tools:text="News" />
+
+                <TextView
+                    android:id="@+id/info_notice"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/title_notice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/space_14"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/round_bg"
-                        android:fontFamily="sans-serif"
-                        android:gravity="center"
-                        android:paddingHorizontal="@dimen/space_6"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="8sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/info_notice"
-                        style="@style/font_ss_12_black_daynight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_6"
-                        android:layout_toRightOf="@+id/title_notice"
-                        android:fontFamily="sans-serif"
-                        android:singleLine="true"
-                        android:text=""
-                        android:textSize="10sp"
-
-                        android:textStyle="normal" />
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_size_10"
+                    android:textStyle="normal"
+                    tools:text="Notice" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -104,15 +97,16 @@
                         android:id="@+id/wallet_address"
                         style="@style/font_rmr_12_black_daynight"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/space_20"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_toRightOf="@+id/img_account"
-                        android:maxLines="1"
-                        android:autoSizeTextType="uniform"
-                        android:autoSizeMinTextSize="11sp"
                         android:autoSizeMaxTextSize="12sp"
+                        android:autoSizeMinTextSize="11sp"
                         android:autoSizeStepGranularity="1sp"
+                        android:autoSizeTextType="uniform"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
                         android:text="" />
                 </RelativeLayout>
 

@@ -78,7 +78,7 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
             if (alreadyHave(resource)) {
                 holder.rootLayer.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_et_gary));
             } else {
-                holder.rootLayer.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_et_white));
+                holder.rootLayer.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_et_chain));
             }
             Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.url)).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.chainImg);
             holder.chainName.setText(StarnameAssets.getStarNameChainName(resource.url));
