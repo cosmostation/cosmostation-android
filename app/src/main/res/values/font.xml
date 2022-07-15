@@ -1026,7 +1026,7 @@
     </style>
 
     <style name="font_ss_21_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_21</item>
     </style>
