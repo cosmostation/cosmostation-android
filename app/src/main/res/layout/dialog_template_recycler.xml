@@ -5,14 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorWhite2DayNight"
-    android:padding="@dimen/space_32">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorGray2DayNight"
+        android:background="@color/colorWhite2DayNight"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         app:layout_constrainedHeight="true"

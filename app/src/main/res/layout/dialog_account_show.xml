@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="@dimen/space_32">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/wallet_name"
+            style="@style/font_ss_17_gray8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
-            style="@style/font_ss_17_gray8"
             android:gravity="center"
-            android:text="Sent Transaction Succesfully"/>
+            android:text="Sent Transaction Succesfully" />
 
 
         <ImageView
@@ -28,56 +28,58 @@
             android:layout_height="@dimen/space_120"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/space_16"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/wallet_address_tv"
+            style="@style/font_rmr_11_gray1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginTop="@dimen/space_8"
             android:layout_marginRight="@dimen/space_12"
-            android:gravity="center"
-            android:maxLines="1"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="11sp"
             android:autoSizeMaxTextSize="12sp"
+            android:autoSizeMinTextSize="11sp"
             android:autoSizeStepGranularity="1sp"
-            style="@style/font_rmr_11_gray1"/>
+            android:autoSizeTextType="uniform"
+            android:gravity="center" />
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="@dimen/space_32"
-            android:background="@color/colorGray4"/>
+            android:background="@color/colorGray4" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_nega"
+                style="@style/font_ss_14_iris"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_left"
-                style="@style/font_ss_14_iris"
-                android:text="@string/str_share"/>
+                android:text="@string/str_share"
+                android:textAllCaps="false" />
+
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray4"/>
+                android:background="@color/colorGray4" />
+
             <Button
                 android:id="@+id/btn_posi"
+                style="@style/font_ss_14_iris"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white_right"
-                style="@style/font_ss_14_iris"
-                android:text="@string/str_copy"/>
+                android:text="@string/str_copy"
+                android:textAllCaps="false" />
         </LinearLayout>
 
     </LinearLayout>

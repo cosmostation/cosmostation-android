@@ -97,7 +97,7 @@
                         android:id="@+id/wallet_address"
                         style="@style/font_rmr_12_black_daynight"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/space_20"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_toRightOf="@+id/img_account"
@@ -106,6 +106,7 @@
                         android:autoSizeStepGranularity="1sp"
                         android:autoSizeTextType="uniform"
                         android:maxLines="1"
+                        android:ellipsize="middle"
                         android:text="" />
                 </RelativeLayout>
 
