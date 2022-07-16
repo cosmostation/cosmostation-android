@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,12 +13,12 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HistoryNewHolder extends BaseHolder {
     private CardView historyRoot;
@@ -41,6 +40,7 @@ public class HistoryNewHolder extends BaseHolder {
         history_time.setText(WDp.getTimeTxformat(mainActivity, history.data.timestamp));
         history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.data.timestamp));
         final Coin coin = history.getDpCoin(mainActivity.mBaseChain);
+        final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
         if (coin != null) {
             history_amount_symbol.setVisibility(View.VISIBLE);
             history_amount.setVisibility(View.VISIBLE);
@@ -62,7 +62,7 @@ public class HistoryNewHolder extends BaseHolder {
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.data.txhash);
+                String url = chainConfig.explorerUrl() + "txs/" + history.data.txhash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 mainActivity.startActivity(intent);
             }

@@ -35,8 +35,9 @@ import starnamed.x.starname.v1beta1.QueryGrpc;
 import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTSendActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -122,11 +123,11 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
             }
 
             if (WUtil.isValidStarName(userInput.toLowerCase())) {
-                onCheckNameService(userInput.toLowerCase(), getSActivity().mBaseChain);
+                onCheckNameService(userInput.toLowerCase(), ChainFactory.getChain(getSActivity().mBaseChain));
                 return;
             }
 
-            if (WDp.isValidChainAddress(getSActivity().mBaseChain, userInput)) {
+            if (WDp.isValidChainAddress(ChainFactory.getChain(getSActivity().mBaseChain), userInput)) {
                 getSActivity().mToAddress = userInput;
                 getSActivity().onNextStep();
             } else {
@@ -186,7 +187,7 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
         }
     }
 
-    private void onCheckNameService(String userInput, BaseChain chain) {
+    private void onCheckNameService(String userInput, ChainConfig chainConfig) {
         QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(userInput).build();
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
@@ -195,7 +196,7 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        final String matchAddress = WUtil.checkStarnameWithResource(chain, value.getAccount().getResourcesList());
+                        final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
                         if (TextUtils.isEmpty(matchAddress)) {
                             Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
                             return;

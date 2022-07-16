@@ -56,6 +56,8 @@ import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
@@ -188,7 +190,7 @@ public class BaseData {
         ArrayList<Cw20Assets> result = new ArrayList<>();
         if (mCw20Assets != null && mCw20Assets.size() > 0) {
             for (Cw20Assets assets: mCw20Assets) {
-                if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(baseChain)) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                if (assets.chain.equalsIgnoreCase(ChainFactory.getChain(baseChain).chainName()) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
                     result.add(assets);
                 }
             }
@@ -230,12 +232,12 @@ public class BaseData {
         return denom;
     }
 
-    public String getIbcRelayerImg(BaseChain baseChain, String channelId) {
+    public String getIbcRelayerImg(ChainConfig chainConfig, String channelId) {
         String url = "";
         if (getIbcPath(channelId).relayer_img != null) {
             url = getIbcPath(channelId).relayer_img;
         } else {
-            url = WDp.getDefaultRelayerImg(baseChain);
+            url = chainConfig.relayerImgUrl();
         }
         return url;
     }

@@ -22,6 +22,7 @@ import com.google.zxing.integration.android.IntentResult;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RewardAddressChangeStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -71,7 +72,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 return;
             }
 
-            if (WDp.isValidChainAddress(getSActivity().mBaseChain, targetAddress)) {
+            if (WDp.isValidChainAddress(ChainFactory.getChain(getSActivity().mBaseChain), targetAddress)) {
                 getSActivity().mNewRewardAddress = targetAddress;
                 getSActivity().onNextStep();
             } else {

@@ -32,10 +32,10 @@ import ibc.applications.transfer.v1.Tx;
 import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxClaimHTLCHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommissionHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommonHolder;
@@ -144,12 +144,13 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain  = getChain(mAccount.baseChain);
-        mIsSuccess  = getIntent().getBooleanExtra("isSuccess", false);
-        mErrorCode  = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
-        mErrorMsg   = getIntent().getStringExtra("errorMsg");
-        mTxHash     = getIntent().getStringExtra("txHash");
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mIsSuccess = getIntent().getBooleanExtra("isSuccess", false);
+        mErrorCode = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
+        mErrorMsg = getIntent().getStringExtra("errorMsg");
+        mTxHash = getIntent().getStringExtra("txHash");
 
         mShareBtn.setOnClickListener(this);
         mDismissBtn.setOnClickListener(this);
@@ -210,12 +211,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         } else if (v.equals(mShareBtn)) {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, WUtil.getTxExplorer(mBaseChain, mResponse.getTxResponse().getTxhash()));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerUrl() + "txs/" + mResponse.getTxResponse().getTxhash());
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
 
         } else if (v.equals(mExplorerBtn)) {
-            String url  = WUtil.getTxExplorer(mBaseChain, mResponse.getTxResponse().getTxhash());
+            String url = mChainConfig.explorerUrl() + "txs/" + mResponse.getTxResponse().getTxhash();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         }

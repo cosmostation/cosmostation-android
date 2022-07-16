@@ -154,7 +154,9 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         mDerives.clear();
         for (BaseChain chain : BaseChain.SUPPORT_CHAINS()) {
-            for (int i = 0; i < hdPathCount(chain); i++) {
+            ChainConfig chainConfig = ChainFactory.getChain(chain);
+            for (int i = 0; i < chainConfig.supportHdPaths().size(); i++) {
+//            for (int i = 0; i < hdPathCount(chain); i++) {
                 String dpAddress = "";
                 if (mPrivateKeyMode) {
                     dpAddress = WKey.getCreateDpAddressFromPkey(chain, mPKey, i);
@@ -167,7 +169,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     if (checkAccount.hasPrivateKey) { status = 2; }
                     else { status = 1; }
                 } else { status = 0; }
-                Derive derive = new Derive(chain, i, mPath, WDp.getAllPath(chain, mPath, i), dpAddress, status);
+                Derive derive = new Derive(chain, i, mPath, chainConfig.getHdPath(i, String.valueOf(mPath)), dpAddress, status);
+//                Derive derive = new Derive(chain, i, mPath, WDp.getAllPath(chain, mPath, i), dpAddress, status);
                 if (!mDerives.stream().filter(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress)).findAny().isPresent()) {
                     mDerives.add(derive);
                 }
@@ -402,20 +405,20 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    public static int hdPathCount(BaseChain baseChain) {
-        switch (baseChain) {
-            case KAVA_MAIN:
-            case LUM_MAIN:
-            case SECRET_MAIN:
-                return 2;
-            case OKEX_MAIN:
-                return 3;
-            case FETCHAI_MAIN:
-                return 4;
-            default:
-                return 1;
-        }
-    }
+//    public static int hdPathCount(BaseChain baseChain) {
+//        switch (baseChain) {
+//            case KAVA_MAIN:
+//            case LUM_MAIN:
+//            case SECRET_MAIN:
+//                return 2;
+//            case OKEX_MAIN:
+//                return 3;
+//            case FETCHAI_MAIN:
+//                return 4;
+//            default:
+//                return 1;
+//        }
+//    }
 
     public void onSaveAccount() {
         onShowWaitDialog();

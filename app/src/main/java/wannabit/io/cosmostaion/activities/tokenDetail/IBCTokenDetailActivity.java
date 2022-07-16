@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
@@ -95,6 +96,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mIbcDenom = getIntent().getStringExtra("denom");
         mIbcToken = getBaseDao().getIbcToken(mIbcDenom);
 
@@ -302,7 +304,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 mIbcDisplayDecimal = mIbcToken.decimal;
             }
             try {
-                Picasso.get().load(getBaseDao().getIbcRelayerImg(mBaseChain, mIbcToken.channel_id)).into(holder.itemRelayer);
+                Picasso.get().load(getBaseDao().getIbcRelayerImg(mChainConfig, mIbcToken.channel_id)).into(holder.itemRelayer);
             } catch (Exception e) {
             }
             holder.itemCurrentAmount.setText(WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));

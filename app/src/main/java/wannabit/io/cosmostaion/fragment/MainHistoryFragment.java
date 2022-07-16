@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -35,6 +34,8 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
@@ -67,6 +68,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private Account mAccount;
     private BaseChain mBaseChain;
+    private ChainConfig mChainConfig;
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -91,16 +93,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mEmptyHistory = rootView.findViewById(R.id.empty_history);
         mNotYet = rootView.findViewById(R.id.text_notyet);
-        mEmptyHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent txDetail = new Intent(getBaseActivity(), TxDetailgRPCActivity.class);
-//                txDetail.putExtra("txHash", "CF91C15F336F06C7966A9DBC0CAE98A07C548FBFAC3CE787EF856A9018F35542");
-//                txDetail.putExtra("isGen", false);
-//                txDetail.putExtra("isSuccess", true);
-//                startActivity(txDetail);
-            }
-        });
 
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +125,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         mAccount = getMainActivity().mAccount;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
         if (mAccount.hasPrivateKey) {
@@ -156,8 +149,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().mAccount.pushAlarm) {
+        if (mChainConfig.wcSupport()) {
+            if (mAccount.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
@@ -177,10 +170,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 getMainActivity().onExplorerView();
                 break;
             case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
+                getMainActivity().onUpdateUserAlarm(mAccount, true);
                 break;
             case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
+                getMainActivity().onUpdateUserAlarm(mAccount, false);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -189,14 +182,14 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         mNotYet.setVisibility(View.GONE);
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
-            new BnbHistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
+        if (mBaseChain.equals(BNB_MAIN)) {
+            new BnbHistoryTask(getBaseApplication(), this, null, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
-        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
-            new OkHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else if (mBaseChain.equals(OKEX_MAIN)) {
+            new OkHistoryTask(getBaseApplication(), this, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
-            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -259,17 +252,17 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (isGRPC(getMainActivity().mBaseChain)) {
+            if (isGRPC(mBaseChain)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), getBaseDao(), history);
 
             } else {
                 HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
-                if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
+                if (mBaseChain.equals(BNB_MAIN)) {
                     final BnbHistory history = mBnbHistory.get(position);
                     holder.onBindOldBnbHistory(getMainActivity(), history);
-                } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+                } else if (mBaseChain.equals(OKEX_MAIN)) {
                     final ResOkHistory.Data.Hit history = mOkHistory.get(position);
                     holder.onBindOldOkHistory(getMainActivity(), history);
                 }
@@ -278,7 +271,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (isGRPC(getMainActivity().mBaseChain)) {
+            if (isGRPC(mBaseChain)) {
                 return TYPE_NEW_HISTORY;
             } else {
                 return TYPE_OLD_HISTORY;
@@ -287,9 +280,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
+            if (mBaseChain.equals(BNB_MAIN)) {
                 return mBnbHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+            } else if (mBaseChain.equals(OKEX_MAIN)) {
                 return mOkHistory.size();
             } else {
                 return mApiNewTxCustomHistory.size();

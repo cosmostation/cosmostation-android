@@ -33,8 +33,6 @@ import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanProposalListTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class VoteListActivity extends BaseActivity implements TaskListener {
 
@@ -45,11 +43,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private RelativeLayout mLoadingLayer;
 
     private GrpcProposalsAdapter mGrpcProposalsAdapter;
-
     // proposal api
     private ArrayList<ResProposal> mApiProposalList = new ArrayList<>();
-
-    private String mChain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +59,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mChain = WDp.getChainNameByBaseChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -107,7 +101,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private void onFetchProposals() {
         if (mAccount == null) return;
         mApiProposalList.clear();
-        new MintScanProposalListTask(getBaseApplication(), this, mChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new MintScanProposalListTask(getBaseApplication(), this, mChainConfig.chainName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

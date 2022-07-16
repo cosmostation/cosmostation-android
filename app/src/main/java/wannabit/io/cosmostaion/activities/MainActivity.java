@@ -208,6 +208,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         if (TextUtils.isEmpty(mAccount.nickName))
             mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
+
+        if (mPageAdapter.mCurrentFragment != null) {
+            ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(0).onRefreshTab();
+        }
     }
 
     private void onChainSelect(BaseChain baseChain) {

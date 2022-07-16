@@ -31,6 +31,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -173,15 +175,15 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 final RewardMyValidatorHolder holder = (RewardMyValidatorHolder) viewHolder;
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                 final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
+                final ChainConfig chainConfig = ChainFactory.getChain(getMainActivity().mBaseChain);
                 if (isGRPC(getMainActivity().mBaseChain)) {
                     final Staking.Validator validator = getBaseDao().mGRpcMyValidators.get(position);
                     final BigDecimal delegationAmount = getBaseDao().getDelegation(validator.getOperatorAddress());
                     final BigDecimal undelegationAmount = getBaseDao().getUndelegation(validator.getOperatorAddress());
                     final BigDecimal rewardAmount = getBaseDao().getReward(WDp.mainDenom(getMainActivity().mBaseChain), validator.getOperatorAddress());
                     try {
-                        Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                    } catch (Exception e) {
-                    }
+                        Picasso.get().load(chainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    } catch (Exception e) { }
 
                     holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
@@ -217,7 +219,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     final BigDecimal undelegationAmount = getBaseDao().unbondingAmountByValidator(validator.operator_address);
                     final BigDecimal rewardAmount = getBaseDao().rewardAmountByValidator(WDp.mainDenom(getMainActivity().mBaseChain), validator.operator_address);
                     try {
-                        Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                        Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                     } catch (Exception e) {
                     }
 

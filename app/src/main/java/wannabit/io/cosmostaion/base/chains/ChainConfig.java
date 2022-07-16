@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 
 public class ChainConfig {
 
+    public BaseChain baseChain() { return null; }
     public int chainImg() { return R.drawable.chain_default; }
     public int chainInfoImg() { return 0; }
     public int chainInfoTitle() { return 0; }
@@ -20,6 +22,7 @@ public class ChainConfig {
     public String chainName() { return "unknown"; }
     public String chainTitle() { return "(" + chainName().substring(0, 1).toUpperCase() + chainName().substring(1) + ")"; }
     public String chainTitleToUp() { return chainName().toUpperCase(); }
+    public String chainIdPrefix() { return ""; }
 
     public int mainDenomImg() { return 0; }
     public String mainDenom() { return ""; }
@@ -28,11 +31,15 @@ public class ChainConfig {
     public int sendBgColor() { return chainColor(); }
 
     public String addressPrefix() { return ""; }
-    public String addressHdPath0() { return ""; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+
+    public String grpcUrl() { return ""; }
+    public String lcdUrl() { return ""; }
+    public String apiUrl() { return ""; }
+
     public BigDecimal blockTime() { return BigDecimal.ZERO; }
     public String explorerUrl() { return ""; }
     public String monikerUrl() { return ""; }
