@@ -122,7 +122,6 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     }
 
     private void onUpdateView() {
-        mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         if (mCw20Asset != null) {
             Picasso.get().load(mCw20Asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
             mToolbarSymbol.setText(mCw20Asset.denom.toUpperCase());
@@ -140,6 +139,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }
 
+            mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, mChainConfig.chainBgColor()));
             isAccountKey(mKeyState);
             mAddress.setText(mAccount.address);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mCw20Asset.denom, mCw20Asset.getAmount(), mCw20Asset.decimal));
@@ -169,7 +169,6 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
-                return;
             }
             Intent intent = new Intent(getBaseContext(), SendContractActivity.class);
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_EXECUTE_CONTRACT, 0);

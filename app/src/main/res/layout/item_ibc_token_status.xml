@@ -57,6 +57,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:maxLines="1"
+                            android:ellipsize="middle"
                             android:text="-" />
                     </RelativeLayout>
                 </LinearLayout>

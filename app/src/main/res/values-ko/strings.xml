@@ -290,7 +290,7 @@
     <string name="str_front_guide_title_stargaze"><![CDATA[스타게이즈]]></string>
     <string name="str_front_guide_title_grabridge"><![CDATA[그래비티 브릿지]]></string>
     <string name="str_front_guide_title_comdex"><![CDATA[컴덱스]]></string>
-    <string name="str_front_guide_title_inj"><![CDATA[인젝티브 프로토콜]]></string>
+    <string name="str_front_guide_title_injective"><![CDATA[인젝티브 프로토콜]]></string>
     <string name="str_front_guide_title_bitsong"><![CDATA[BITSONG 네트워크]]></string>
     <string name="str_front_guide_title_desmos"><![CDATA[데스모스 네트워크]]></string>
     <string name="str_front_guide_title_lum"><![CDATA[LUM 네트워크]]></string>
@@ -334,7 +334,7 @@
     <string name="str_front_guide_msg_stargaze"><![CDATA[소셜 콘텐츠의 NFT화를 통해 탈중앙화를 실현하는 Cosmos SDK 기반 NFT 마켓플레이스 및 소셜 네트워크.]]></string>
     <string name="str_front_guide_msg_grabridge"><![CDATA[코스모스와 이더리움 생태계의 브릿지 연결을 위해 설계된 Tendermint 기반 블록체인.]]></string>
     <string name="str_front_guide_msg_comdex"><![CDATA[토큰화된 합성자산의 거래와 파생상품 활용을 위한 탈중앙화 플랫폼.]]></string>
-    <string name="str_front_guide_msg_inj"><![CDATA[다양한 금융서비스를 제공하는 Cosmos SDK 기반의 탈중앙화 크로스체인 금융 플랫폼입니다.]]></string>
+    <string name="str_front_guide_msg_injective"><![CDATA[다양한 금융서비스를 제공하는 Cosmos SDK 기반의 탈중앙화 크로스체인 금융 플랫폼입니다.]]></string>
     <string name="str_front_guide_msg_bitsong"><![CDATA[Cosmos SDK 기반 블록체인으로서 음악산업 내 아티스트와 팬, 음원 공급사를 연결해주는 탈중앙화 플랫폼.]]></string>
     <string name="str_front_guide_msg_desmos"><![CDATA[Desmos 프로필을 통해 탈중앙화를 실현하는 Forbole사의 소셜 네트워크 블록체인.]]></string>
     <string name="str_front_guide_msg_lum"><![CDATA[상품평 및 리뷰를 체인에 저장하고, 토큰으로 보상을 지급하는 Cosmos SDK 기반 블록체인.]]></string>
@@ -1251,7 +1251,7 @@
     <string name="str_unknown_ibc_token_title">Unknown IBC Coins</string>
     <string name="str_pool_coin_title">POOL Coins</string>
     <string name="str_gravity_dex_token_title">Gravity Dex Coins</string>
-    <string name="str_sif_ether_token_title">Ether Bridged Coins</string>
+    <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
     <string name="str_kava_bep2_token_title">BEP2 Coins</string>
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">CW20 Tokens</string>

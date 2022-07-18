@@ -136,7 +136,6 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         final String baseDenom = getBaseDao().getBaseDenom(mIbcDenom);
         if (mIbcToken == null) {
             mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.token_default_ibc));
-            mToolbarSymbol.setText("UNKNOWN");
 
         } else {
             if (mIbcToken.auth) {
@@ -145,7 +144,6 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                     Picasso.get().load(mIbcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(mToolbarSymbolImg);
                 } catch (Exception e) { }
 
-                mToolbarSymbol.setText(mIbcToken.display_denom.toUpperCase());
                 mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, getBaseDao().getAvailable(mIbcDenom), mIbcDecimal));
 
                 mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
@@ -163,13 +161,13 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
             } else {
                 mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.token_default_ibc));
-                mToolbarSymbol.setText("UNKNOWN");
 
                 mItemPerPrice.setText("");
                 mItemUpDownPrice.setText("");
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }
         }
+        mToolbarSymbol.setText(WDp.getDisplaySymbol(getBaseDao(), mChainConfig, mIbcDenom));
         mToolbarChannel.setText("(" + mIbcToken.channel_id + ")");
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(IBCTokenDetailActivity.this, mChainConfig.chainBgColor()));
@@ -279,15 +277,15 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             final BigDecimal totalAmount = getBaseDao().getAvailable(mIbcDenom);
             if (mIbcToken.auth) {
                 mIbcDecimal = mIbcToken.decimal;
-                try {
-                    Picasso.get().load(getIbcRelayerImg(mChainConfig, mIbcToken.channel_id)).into(holder.itemRelayer);
-                } catch (Exception e) { }
-                holder.itemCurrentAmount.setText(WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDecimal, mIbcDecimal));
-                holder.itemCurrentDenom.setText("ibc/" + mIbcToken.hash);
-
-                holder.itemAcrossChain.setText(mIbcToken.counter_party.chain_id);
-                holder.itemAcrossDenom.setText(mIbcToken.base_denom);
             }
+            try {
+                Picasso.get().load(getIbcRelayerImg(mChainConfig, mIbcToken.channel_id)).into(holder.itemRelayer);
+            } catch (Exception e) { }
+            holder.itemCurrentAmount.setText(WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDecimal, mIbcDecimal));
+            holder.itemCurrentDenom.setText("ibc/" + mIbcToken.hash);
+
+            holder.itemAcrossChain.setText(mIbcToken.counter_party.chain_id);
+            holder.itemAcrossDenom.setText(mIbcToken.base_denom);
         }
 
         public class IbcStatusHolder extends RecyclerView.ViewHolder {

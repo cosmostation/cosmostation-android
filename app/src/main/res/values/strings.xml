@@ -59,9 +59,6 @@
     <string name="url_api_medibloc" translatable="false">https://api-medibloc.cosmostation.io/</string>
 
 
-    <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
-
-
     <string name="url_api_emoney" translatable="false">https://api-emoney.cosmostation.io/</string>
 
 
@@ -75,9 +72,6 @@
 
 
     <string name="url_api_stargaze" translatable="false">https://api-stargaze.cosmostation.io/</string>
-
-
-    <string name="url_api_inj" translatable="false">https://api-inj.cosmostation.io/</string>
 
 
     <string name="url_api_grabridge" translatable="false">https://api-gravity-bridge.cosmostation.io/</string>
@@ -121,9 +115,6 @@
 
 
     <string name="url_api_omniflix" translatable="false">https://api-omniflix.cosmostation.io/</string>
-
-
-    <string name="url_api_crescent" translatable="false">https://api-crescent.cosmostation.io/</string>
 
 
     <string name="url_api_mantle" translatable="false">https://api-asset-mantle.cosmostation.io/</string>
@@ -688,7 +679,7 @@
     <string name="str_front_guide_title_stargaze"><![CDATA[STARGAZE]]></string>
     <string name="str_front_guide_title_grabridge"><![CDATA[GRAVITY BRIDGE]]></string>
     <string name="str_front_guide_title_comdex"><![CDATA[COMDEX]]></string>
-    <string name="str_front_guide_title_inj"><![CDATA[Injective PROTOCOL]]></string>
+    <string name="str_front_guide_title_injective"><![CDATA[Injective PROTOCOL]]></string>
     <string name="str_front_guide_title_bitsong"><![CDATA[BITSONG NETWORK]]></string>
     <string name="str_front_guide_title_desmos"><![CDATA[DESMOS NETWORK]]></string>
     <string name="str_front_guide_title_lum"><![CDATA[LUM NETWORK]]></string>
@@ -732,7 +723,7 @@
     <string name="str_front_guide_msg_stargaze"><![CDATA[A Cosmos SDK-based decentralized interchain NFT marketplace and social network.]]></string>
     <string name="str_front_guide_msg_grabridge"><![CDATA[A neutral peg zone designed primarily for bridge operation between Cosmos and Ethereum ecosystems.]]></string>
     <string name="str_front_guide_msg_comdex"><![CDATA[A decentralized platform for minting & exchanging of synthetic assets.]]></string>
-    <string name="str_front_guide_msg_inj"><![CDATA[A Cosmos SDK based fully decentralized financial network for cross-chain trading and derivatives.]]></string>
+    <string name="str_front_guide_msg_injective"><![CDATA[A Cosmos SDK based fully decentralized financial network for cross-chain trading and derivatives.]]></string>
     <string name="str_front_guide_msg_bitsong"><![CDATA[A decentralized blockchain hub that provides a trustless marketplace for the music industry.]]></string>
     <string name="str_front_guide_msg_desmos"><![CDATA[A blockchain for decentralized social networks powered by Forbole.]]></string>
     <string name="str_front_guide_msg_lum"><![CDATA[A Cosmos SDK-based blockchain designed for on-chain user reviews and rewards.]]></string>
@@ -1655,7 +1646,7 @@
     <string name="str_unknown_ibc_token_title">Unknown IBC Coins</string>
     <string name="str_pool_coin_title">POOL Coins</string>
     <string name="str_gravity_dex_token_title">Gravity Dex Coins</string>
-    <string name="str_sif_ether_token_title">Ether Bridged Coins</string>
+    <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
     <string name="str_kava_bep2_token_title">BEP2 Coins</string>
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">CW20 Tokens</string>

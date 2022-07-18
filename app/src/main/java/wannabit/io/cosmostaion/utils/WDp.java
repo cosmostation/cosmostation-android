@@ -111,6 +111,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
+import static wannabit.io.cosmostaion.base.chains.Crescent.CRESCENT_BCRE_DENOM;
+import static wannabit.io.cosmostaion.base.chains.Osmosis.OSMOSIS_ION_DENOM;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
@@ -198,6 +200,39 @@ public class WDp {
         result = new SpannableString(input);
         result.setSpan(new RelativeSizeSpan(0.8f), 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
+    }
+
+    public static String getDisplaySymbol(BaseData baseData, ChainConfig chainConfig, String denom) {
+        if (chainConfig == null || denom.isEmpty()) { return "UNKNOWN"; }
+        if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
+            return chainConfig.mainSymbol();
+
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken != null && ibcToken.auth) {
+                return ibcToken.display_denom.toUpperCase();
+            } else {
+                return "UNKNOWN";
+            }
+
+        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
+
+        } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
+            if (denom.equalsIgnoreCase(OSMOSIS_ION_DENOM)) return "ION";
+            else if (denom.startsWith("gamm/pool/")) {
+                String[] split = denom.split("/");
+                return "GAMM-" + split[split.length - 1];
+            }
+
+        } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
+            if (denom.equalsIgnoreCase(CRESCENT_BCRE_DENOM)) return "BCRE";
+            else if (denom.startsWith("pool")) { return denom.toUpperCase(); }
+
+        } else if (chainConfig.baseChain().equals(INJ_MAIN)) {
+            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).origin_symbol;
+            else if (denom.startsWith("share")) return denom.toUpperCase();
+        }
+        return "UNKNOWN";
     }
 
     public static void showCoinDp(Context c, BaseData baseData, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {

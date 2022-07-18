@@ -40,7 +40,7 @@
     <color name="colorTransBgStargaze">#fdf4fb</color>
     <color name="colorTransBgGraBridge">#d9edf7</color>
     <color name="colorTransBgComdex">#d9e6f7</color>
-    <color name="colorTransBgInj">#eaf8fa</color>
+    <color name="colorTransBgInjective">#eaf8fa</color>
     <color name="colorTransBgBitsong">#ffebf2</color>
     <color name="colorTransBgDesmos">#fff2f0</color>
     <color name="colorTransBgLum">#e7ecfe</color>
@@ -181,7 +181,7 @@
     <color name="color_comdex2">#802938</color>
     <color name="color_comdex3">#005ac5</color>
 
-    <color name="color_inj">#00bbdd</color>
+    <color name="color_injective">#00bbdd</color>
     <color name="color_inj2">#016c80</color>
 
     <color name="color_bitsong">#ff005c</color>

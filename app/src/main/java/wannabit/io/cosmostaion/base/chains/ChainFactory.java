@@ -21,8 +21,17 @@ public class ChainFactory {
                 case IRIS_MAIN:
                     return new Iris();
 
+                case CRESCENT_MAIN:
+                    return new Crescent();
+
+                case INJ_MAIN:
+                    return new Injective();
+
                 case JUNO_MAIN:
                     return new Juno();
+
+                case OSMOSIS_MAIN:
+                    return new Osmosis();
             }
         }
 //        return null;

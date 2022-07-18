@@ -16,7 +16,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_bar_height"
+        android:layout_height="wrap_content"
         android:background="@color/colorWhiteDayNight"
         android:paddingRight="@dimen/space_14"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -133,7 +133,7 @@
 
                 <TextView
                     android:id="@+id/account_Address"
-                    style="@style/font_rmr_12_black_daynight"
+                    style="@style/font_rmr_14_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -143,7 +143,7 @@
                     android:ellipsize="middle"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="11dp"
-                    android:autoSizeMaxTextSize="12dp"
+                    android:autoSizeMaxTextSize="14dp"
                     android:autoSizeStepGranularity="1dp"
                     android:text="" />
             </RelativeLayout>
