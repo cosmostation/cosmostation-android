@@ -4,10 +4,6 @@
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#7A7f88</color>
 
-    <!--<color name="colorPrimary">#5b72c5</color>-->
-    <!--<color name="colorPrimaryDark">#234794</color>-->
-    <!--<color name="colorAccent">#dcb86b</color>-->
-
     <color name="colorTrans">#00000000</color>
     <color name="colorTransBg">#f5f5f5</color>
     <color name="colorTransBg0">#222E2E2E</color>
@@ -77,7 +73,7 @@
     <color name="colorGray11">#242627</color>
     <color name="colorGray12">#f5f5f5</color>
 
-
+    <color name="colorBorderGray">#565b60</color>
     <color name="colorWhiteDayNight">#ffffff</color>
     <color name="colorWhite2DayNight">#f5f5f5</color>
     <color name="colorGrayDayNight">#bec6d1</color>

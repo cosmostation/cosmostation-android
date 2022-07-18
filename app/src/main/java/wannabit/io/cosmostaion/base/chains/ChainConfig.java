@@ -6,8 +6,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.grpc.ManagedChannel;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.network.HistoryApi;
 
 public class ChainConfig {
 
@@ -37,8 +41,11 @@ public class ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return ""; }
+    public int grpcPort() { return 9090; }
     public String lcdUrl() { return ""; }
     public String apiUrl() { return ""; }
+    public ManagedChannel getConnection() { return null; }
+    public HistoryApi getHistoryApi() { return null; }
 
     public BigDecimal blockTime() { return BigDecimal.ZERO; }
     public String explorerUrl() { return ""; }

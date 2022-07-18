@@ -102,9 +102,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindPoolToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            dpDecimal = 6;
-        } else if (baseChain.equals(CRESCENT_MAIN)) {
+        if (baseChain.equals(CRESCENT_MAIN)) {
             dpDecimal = 12;
         } else {
             dpDecimal = 18;

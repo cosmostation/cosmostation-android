@@ -62,10 +62,6 @@ import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxExecuteContractHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxInstantContractHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxStoreContractHolder;
-import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityCreatePoolHolder;
-import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityDepositHolder;
-import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravitySwapHolder;
-import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityWithdrawHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
@@ -99,8 +95,6 @@ import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxLockTokenHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxAddLiquidityHolder;
-import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateEthBridgeHolder;
-import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateUserClaimHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
@@ -257,18 +251,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN = 45;
         private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL = 46;
 
-        private static final int TYPE_TX_GRAVITY_CREATE_POOL = 50;
-        private static final int TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH = 51;
-        private static final int TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH = 52;
-        private static final int TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH = 53;
-
         private static final int TYPE_TX_CREATE_TOKEN_SWAP = 62;
 
         private static final int TYPE_TX_ADD_LIQUIDITY = 70;
         private static final int TYPE_TX_REMOVE_LIQUIDITY = 71;
         private static final int TYPE_TX_SWAP = 72;
-        private static final int TYPE_TX_CREATE_ETH_BRIDGE = 73;
-        private static final int TYPE_TX_CREATE_USER_CLAIM = 74;
 
         private static final int TYPE_TX_ISSUE_DENOM = 90;
         private static final int TYPE_TX_MINT_NFT = 91;
@@ -396,19 +383,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             }
 
-            else if (viewType == TYPE_TX_GRAVITY_CREATE_POOL) {
-                return new TxGravityCreatePoolHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_create_pool, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH) {
-                return new TxGravitySwapHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_swap_within_batch, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH) {
-                return new TxGravityDepositHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_deposit_within_batch, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH) {
-                return new TxGravityWithdrawHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_withdraw_within_batch, viewGroup, false));
-            }
-
             else if (viewType == TYPE_TX_CREATE_TOKEN_SWAP) {
                 return new TxCreateTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_create_token_swap, viewGroup, false));
             }
@@ -422,12 +396,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_SWAP) {
                 return new TxSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_swap, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_CREATE_ETH_BRIDGE) {
-                return new TxCreateEthBridgeHolder(getLayoutInflater().inflate(R.layout.item_tx_create_eth_bridge, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_CREATE_USER_CLAIM) {
-                return new TxCreateUserClaimHolder(getLayoutInflater().inflate(R.layout.item_tx_create_user_claim, viewGroup, false));
 
             }
 
@@ -620,16 +588,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL;
                 }
 
-                else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
-                    return TYPE_TX_GRAVITY_CREATE_POOL;
-                } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch.getDescriptor().getFullName())) {
-                    return TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH;
-                } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgDepositWithinBatch.getDescriptor().getFullName())) {
-                    return TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH;
-                } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch.getDescriptor().getFullName())) {
-                    return TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH;
-                }
-
                 else if (msg.getTypeUrl().contains(rizonworld.rizon.tokenswap.Tx.MsgCreateTokenswapRequest.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_TOKEN_SWAP;
                 }
@@ -641,10 +599,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_REMOVE_LIQUIDITY;
                 } else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgSwap.getDescriptor().getFullName())) {
                     return TYPE_TX_SWAP;
-                } else if (msg.getTypeUrl().contains(sifnode.ethbridge.v1.Tx.MsgCreateEthBridgeClaim.getDescriptor().getFullName())) {
-                    return TYPE_TX_CREATE_ETH_BRIDGE;
-                } else if (msg.getTypeUrl().contains(sifnode.dispensation.v1.Tx.MsgCreateUserClaim.getDescriptor().getFullName())) {
-                    return TYPE_TX_CREATE_USER_CLAIM;
                 }
 
                 // nft msg

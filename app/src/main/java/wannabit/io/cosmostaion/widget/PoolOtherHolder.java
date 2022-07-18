@@ -13,9 +13,7 @@ import java.math.RoundingMode;
 import cosmos.base.v1beta1.CoinOuterClass;
 import kava.swap.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPool;
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -116,42 +114,6 @@ public class PoolOtherHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 ((DAppsList5Activity)activity).onCheckStartJoinPool(otherPool);
-            }
-        });
-    }
-
-    @Override
-    public void onBindGDexOtherPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool otherPool) {
-        String coin0Denom = otherPool.getReserveCoinDenoms(0);
-        String coin1Denom = otherPool.getReserveCoinDenoms(1);
-        BigDecimal coin0Amount = activity.getLpAmount(otherPool.getReserveAccountAddress(), coin0Denom);
-        BigDecimal coin1Amount = activity.getLpAmount(otherPool.getReserveAccountAddress(), coin1Denom);
-        int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
-        int coin1Decimal = WUtil.getCosmosCoinDecimal(baseData, coin1Denom);
-
-        itemPoolType.setText("#" + otherPool.getId() + " " + WUtil.dpCosmosTokenName(baseData, coin0Denom) + " : " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
-
-        // Total deposit
-        BigDecimal PoolValue = activity.getGdexPoolValue(otherPool);
-        itemTotalDepositValue.setText(WDp.getDpRawDollor(context, PoolValue, 2));
-
-        WUtil.dpCosmosTokenName(context, baseData, itemTotalDepositSymbol0, coin0Denom);
-        WUtil.dpCosmosTokenName(context, baseData, itemTotalDepositSymbol1, coin1Denom);
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, coin0Amount, coin0Decimal, 6));
-        itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, coin1Amount, coin1Decimal, 6));
-
-        BigDecimal availableCoin0 = baseData.getAvailable(coin0Denom);
-        Coin Coin0 = new Coin(coin0Denom, availableCoin0.toPlainString());
-        BigDecimal availableCoin1 = baseData.getAvailable(coin1Denom);
-        Coin Coin1 = new Coin(coin1Denom, availableCoin1.toPlainString());
-
-        WDp.showCoinDp(context, baseData, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.COSMOS_MAIN);
-        WDp.showCoinDp(context, baseData, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.COSMOS_MAIN);
-
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                (activity).onCheckStartDepositPool(otherPool.getId());
             }
         });
     }

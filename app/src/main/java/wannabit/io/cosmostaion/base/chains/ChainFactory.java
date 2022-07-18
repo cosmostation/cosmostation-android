@@ -20,6 +20,9 @@ public class ChainFactory {
                 case IRIS_LEGACY2:
                 case IRIS_MAIN:
                     return new Iris();
+
+                case JUNO_MAIN:
+                    return new Juno();
             }
         }
 //        return null;

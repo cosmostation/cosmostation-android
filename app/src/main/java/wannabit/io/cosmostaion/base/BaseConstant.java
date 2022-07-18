@@ -27,7 +27,6 @@ public class BaseConstant {
     public final static String PRE_APP_LOCK_TIME            = "PRE_APP_LOCK_TIME";
     public final static String PRE_APP_LOCK_LEAVE_TIME      = "PRE_APP_LOCK_LEAVE_TIME";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
-    public final static String PRE_EVENT_HIDE               = "PRE_EVENT_HIDE";
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
     public final static String PRE_USER_EXPENDED_CHAINS     = "PRE_USER_EXPENDED_CHAINS";

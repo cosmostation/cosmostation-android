@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.cosmos;
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Duration;
@@ -14,11 +15,13 @@ import org.bouncycastle.util.encoders.Hex;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.List;
 
 import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryOuterClass;
@@ -48,154 +51,39 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Signer {
 
-    public static String onParseAddress(QueryOuterClass.QueryAccountResponse auth) {
+    public static ArrayList<Serializable> onParseAuthGrpc(QueryOuterClass.QueryAccountResponse auth) {
         try {
-            if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
+            Any rawAccount = auth.getAccount();
+            if (rawAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
+                rawAccount = ModelsProfile.Profile.parseFrom(auth.getAccount().getValue()).getAccount();
+            }
+
+            if (rawAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
                 Auth.BaseAccount account = Auth.BaseAccount.parseFrom(auth.getAccount().getValue());
-                return account.getAddress();
+                return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getAddress();
+            } else if (rawAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+                Auth.BaseAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getAddress();
+            } else if (rawAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+                Auth.BaseAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
-                Vesting.DelayedVestingAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getAddress();
+            } else if (rawAccount.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                Auth.BaseAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
-                // injective
-            } else if (auth.getAccount().getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
-                injective.types.v1beta1.Account.EthAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseAccount().getAddress();
+            } else if (rawAccount.getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
+                Auth.BaseAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue()).getBaseAccount();
+                return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
-                //desmos
-            } else if (auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-                ModelsProfile.Profile profile = ModelsProfile.Profile.parseFrom(auth.getAccount().getValue());
-
-                if (profile.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
-                    Auth.BaseAccount account = Auth.BaseAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getAddress();
-
-                } else if (profile.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                    Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getBaseVestingAccount().getBaseAccount().getAddress();
-
-                } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                    Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getBaseVestingAccount().getBaseAccount().getAddress();
-                }
-
-                // evmos
-            } else if (auth.getAccount().getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
-                ethermint.types.v1.Account.EthAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseAccount().getAddress();
+            } else if (rawAccount.getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
+                Auth.BaseAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue()).getBaseAccount();
+                return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
             }
-        }catch (Exception e) {}
-        return "";
-    }
-
-    public static long onParseAccountNumber(QueryOuterClass.QueryAccountResponse auth) {
-        try {
-            if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Auth.BaseAccount.parseFrom(auth.getAccount().getValue());
-                return account.getAccountNumber();
-
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
-
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
-
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
-                Vesting.DelayedVestingAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
-
-            // injective
-            } else if (auth.getAccount().getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
-                injective.types.v1beta1.Account.EthAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseAccount().getAccountNumber();
-
-                // desmos
-            } else if (auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-                ModelsProfile.Profile profile = ModelsProfile.Profile.parseFrom(auth.getAccount().getValue());
-
-                if (profile.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
-                    Auth.BaseAccount account = Auth.BaseAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getAccountNumber();
-
-                } else if (profile.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                    Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
-
-                } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                    Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
-                }
-            }
-
-            // evmos
-            else if (auth.getAccount().getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
-                ethermint.types.v1.Account.EthAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseAccount().getAccountNumber();
-            }
-
-        }catch (Exception e) {}
-        return 0;
-    }
-
-    public static long onParseSequenceNumber(QueryOuterClass.QueryAccountResponse auth) {
-        try {
-            if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Auth.BaseAccount.parseFrom(auth.getAccount().getValue());
-                return account.getSequence();
-
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getSequence();
-
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getSequence();
-
-            } else if (auth.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
-                Vesting.DelayedVestingAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseVestingAccount().getBaseAccount().getSequence();
-
-                // injective
-            } else if (auth.getAccount().getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
-                injective.types.v1beta1.Account.EthAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseAccount().getSequence();
-
-                // desmos
-            } else if (auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-                ModelsProfile.Profile profile = ModelsProfile.Profile.parseFrom(auth.getAccount().getValue());
-
-                if (profile.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
-                    Auth.BaseAccount account = Auth.BaseAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getSequence();
-
-                } else if (profile.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                    Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getBaseVestingAccount().getBaseAccount().getSequence();
-
-                } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                    Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(profile.getAccount().getValue());
-                    return account.getBaseVestingAccount().getBaseAccount().getSequence();
-                }
-            }
-
-            // evmos
-            else if (auth.getAccount().getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
-                ethermint.types.v1.Account.EthAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
-                return account.getBaseAccount().getSequence();
-            }
-        }catch (Exception e) {}
-        return 0;
+        } catch (Exception e) { }
+        return null;
     }
 
     //gRpc Singer
@@ -210,7 +98,7 @@ public class Signer {
     public static ArrayList<Any> getSendMsg(QueryOuterClass.QueryAccountResponse auth, String toAddress, ArrayList<Coin> amounts) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin toSendCoin = CoinOuterClass.Coin.newBuilder().setAmount(amounts.get(0).amount).setDenom(amounts.get(0).denom).build();
-        cosmos.bank.v1beta1.Tx.MsgSend msgSend = cosmos.bank.v1beta1.Tx.MsgSend.newBuilder().setFromAddress(onParseAddress(auth)).setToAddress(toAddress).addAmount(toSendCoin).build();
+        cosmos.bank.v1beta1.Tx.MsgSend msgSend = cosmos.bank.v1beta1.Tx.MsgSend.newBuilder().setFromAddress((String) onParseAuthGrpc(auth).get(0)).setToAddress(toAddress).addAmount(toSendCoin).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend").setValue(msgSend.toByteString()).build());
         return msgAnys;
     }
@@ -226,7 +114,7 @@ public class Signer {
     public static ArrayList<Any> getDelegateMsg(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin toDelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amounts.amount).setDenom(amounts.denom).build();
-        cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
+        cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build());
         return msgAnys;
     }
@@ -242,7 +130,7 @@ public class Signer {
     public static ArrayList<Any> getUnDelegateMsg(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin toDelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amounts.amount).setDenom(amounts.denom).build();
-        cosmos.staking.v1beta1.Tx.MsgUndelegate msgUnDelegate = cosmos.staking.v1beta1.Tx.MsgUndelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
+        cosmos.staking.v1beta1.Tx.MsgUndelegate msgUnDelegate = cosmos.staking.v1beta1.Tx.MsgUndelegate.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgUndelegate").setValue(msgUnDelegate.toByteString()).build());
         return msgAnys;
     }
@@ -258,7 +146,7 @@ public class Signer {
     public static ArrayList<Any> getClaimRewardsMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<String> toValAddresses) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         for (String valAddr: toValAddresses) {
-            cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(valAddr).build();
+            cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(valAddr).build();
             Any msgClaimRewardAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward").setValue(msgClaimReward.toByteString()).build();
             msgAnys.add(msgClaimRewardAny);
         }
@@ -276,7 +164,7 @@ public class Signer {
     public static ArrayList<Any> getReDelegateMsg(QueryOuterClass.QueryAccountResponse auth, String fromValAddress, String toValAddress, Coin amounts) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin toReDelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amounts.amount).setDenom(amounts.denom).build();
-        cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msgReDelegate = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorSrcAddress(fromValAddress).setValidatorDstAddress(toValAddress).setAmount(toReDelegateCoin).build();
+        cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msgReDelegate = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorSrcAddress(fromValAddress).setValidatorDstAddress(toValAddress).setAmount(toReDelegateCoin).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate").setValue(msgReDelegate.toByteString()).build());
         return msgAnys;
     }
@@ -291,12 +179,12 @@ public class Signer {
 
     public static ArrayList<Any> getReInvestMsg(QueryOuterClass.QueryAccountResponse auth, String valAddress, Coin amounts) {
         ArrayList<Any> msgsAny = new ArrayList<>();
-        cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(valAddress).build();
+        cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(valAddress).build();
         Any msgClaimRewardAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward").setValue(msgClaimReward.toByteString()).build();
         msgsAny.add(msgClaimRewardAny);
 
         CoinOuterClass.Coin toReinvsetCoin = CoinOuterClass.Coin.newBuilder().setAmount(amounts.amount).setDenom(amounts.denom).build();
-        cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(valAddress).setAmount(toReinvsetCoin).build();
+        cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(valAddress).setAmount(toReinvsetCoin).build();
         Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
         msgsAny.add(msgDelegateAny);
         return msgsAny;
@@ -312,7 +200,7 @@ public class Signer {
 
     public static ArrayList<Any> getRewardAddressChangeMsg(QueryOuterClass.QueryAccountResponse auth, String newAddress) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress msgSetWithdrawAddress = cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress.newBuilder().setDelegatorAddress(onParseAddress(auth)).setWithdrawAddress(newAddress).build();
+        cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress msgSetWithdrawAddress = cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setWithdrawAddress(newAddress).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgSetWithdrawAddress").setValue(msgSetWithdrawAddress.toByteString()).build());
         return msgAnys;
     }
@@ -337,7 +225,7 @@ public class Signer {
         } else if (option.equals("Abstain")) {
             msgOption = Gov.VoteOption.VOTE_OPTION_ABSTAIN;
         }
-        Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(proposalId)).setVoter(onParseAddress(auth)).setOption(msgOption).build();
+        Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(proposalId)).setVoter((String) onParseAuthGrpc(auth).get(0)).setOption(msgOption).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build());
         return msgAnys;
     }
@@ -458,7 +346,7 @@ public class Signer {
     public static ArrayList<Any> getSwapInMsg(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, String inputDenom, String inputAmount, String outputAmount) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(inputDenom).setAmount(inputAmount).build();
-        osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn msgSwapExactAmountIn = osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.newBuilder().setSender(onParseAddress(auth)).addRoutes(swapRoute).setTokenIn(inputCoin).setTokenOutMinAmount(outputAmount).build();
+        osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn msgSwapExactAmountIn = osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.newBuilder().setSender((String) onParseAuthGrpc(auth).get(0)).addRoutes(swapRoute).setTokenIn(inputCoin).setTokenOutMinAmount(outputAmount).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgSwapExactAmountIn").setValue(msgSwapExactAmountIn.toByteString()).build());
         return msgAnys;
     }
@@ -478,7 +366,7 @@ public class Signer {
         ArrayList<CoinOuterClass.Coin> tokenMax = new ArrayList<>();
         tokenMax.add(inputCoin0);
         tokenMax.add(inputCoin1);
-        osmosis.gamm.v1beta1.Tx.MsgJoinPool msgJoinPool = osmosis.gamm.v1beta1.Tx.MsgJoinPool.newBuilder().setSender(onParseAddress(auth)).setPoolId(poolId).addAllTokenInMaxs(tokenMax).setShareOutAmount(shareAmount).build();
+        osmosis.gamm.v1beta1.Tx.MsgJoinPool msgJoinPool = osmosis.gamm.v1beta1.Tx.MsgJoinPool.newBuilder().setSender((String) onParseAuthGrpc(auth).get(0)).setPoolId(poolId).addAllTokenInMaxs(tokenMax).setShareOutAmount(shareAmount).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgJoinPool").setValue(msgJoinPool.toByteString()).build());
         return msgAnys;
     }
@@ -498,7 +386,7 @@ public class Signer {
         ArrayList<CoinOuterClass.Coin> tokenMin = new ArrayList<>();
         tokenMin.add(OutputCoin0);
         tokenMin.add(OutputCoin1);
-        osmosis.gamm.v1beta1.Tx.MsgExitPool msgExitPool = osmosis.gamm.v1beta1.Tx.MsgExitPool.newBuilder().setSender(onParseAddress(auth)).setPoolId(poolId).addAllTokenOutMins(tokenMin).setShareInAmount(shareAmount).build();
+        osmosis.gamm.v1beta1.Tx.MsgExitPool msgExitPool = osmosis.gamm.v1beta1.Tx.MsgExitPool.newBuilder().setSender((String) onParseAuthGrpc(auth).get(0)).setPoolId(poolId).addAllTokenOutMins(tokenMin).setShareInAmount(shareAmount).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgExitPool").setValue(msgExitPool.toByteString()).build());
         return msgAnys;
     }
@@ -517,7 +405,7 @@ public class Signer {
         ArrayList<CoinOuterClass.Coin> lockupTokens = new ArrayList<>();
         lockupTokens.add(lockupCoin);
         Duration OsmoDuration = Duration.newBuilder().setSeconds(duration).setNanos(0).build();
-        osmosis.lockup.Tx.MsgLockTokens msgLockTokens = osmosis.lockup.Tx.MsgLockTokens.newBuilder().setOwner(onParseAddress(auth)).setDuration(OsmoDuration).addAllCoins(lockupTokens).build();
+        osmosis.lockup.Tx.MsgLockTokens msgLockTokens = osmosis.lockup.Tx.MsgLockTokens.newBuilder().setOwner((String) onParseAuthGrpc(auth).get(0)).setDuration(OsmoDuration).addAllCoins(lockupTokens).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgLockTokens").setValue(msgLockTokens.toByteString()).build());
         return msgAnys;
     }
@@ -533,63 +421,10 @@ public class Signer {
     public static ArrayList<Any> getBeginUnbondingMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<Long> ids) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         for (Long id: ids) {
-            osmosis.lockup.Tx.MsgBeginUnlocking msgBeginUnlocking = osmosis.lockup.Tx.MsgBeginUnlocking.newBuilder().setOwner(onParseAddress(auth)).setID(id).build();
+            osmosis.lockup.Tx.MsgBeginUnlocking msgBeginUnlocking = osmosis.lockup.Tx.MsgBeginUnlocking.newBuilder().setOwner((String) onParseAuthGrpc(auth).get(0)).setID(id).build();
             Any msgBeginUnbondingAny = Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgBeginUnlocking").setValue(msgBeginUnlocking.toByteString()).build();
             msgAnys.add(msgBeginUnbondingAny);
         }
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcGravitySwapReq(QueryOuterClass.QueryAccountResponse auth, long poolId, int typeId, Coin offerCoin, String demandCoinDenom, Coin feeCoin, String orderPrice, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getGravitySwapMsg(auth, poolId, typeId, offerCoin, demandCoinDenom, feeCoin, orderPrice), fee, memo, pKey, chainId);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcGravitySwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, int typeId, Coin offerCoin, String demandCoinDenom, Coin feeCoin, String orderPrice, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getGravitySwapMsg(auth, poolId, typeId, offerCoin, demandCoinDenom, feeCoin, orderPrice), fee, memo, pKey, chainId);
-    }
-
-    public static ArrayList<Any> getGravitySwapMsg(QueryOuterClass.QueryAccountResponse auth, long poolId, int typeId, Coin offerCoin, String demandCoinDenom, Coin feeCoin, String orderPrice) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(offerCoin.denom).setAmount(offerCoin.amount).build();
-        CoinOuterClass.Coin coinFee = CoinOuterClass.Coin.newBuilder().setDenom(feeCoin.denom).setAmount(feeCoin.amount).build();
-        tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch msgSwapWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch.newBuilder().setSwapRequesterAddress(onParseAddress(auth)).setPoolId(poolId).setSwapTypeId(typeId).setOfferCoin(inputCoin).setDemandCoinDenom(demandCoinDenom).setOfferCoinFee(coinFee).setOrderPrice(orderPrice).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgSwapWithinBatch").setValue(msgSwapWithinBatch.toByteString()).build());
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcGDexDepositReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getGDexDepositMsg(auth, poolId, deposit0Coin, deposit1Coin), fee, memo, pKey, chainId);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcGDexDepositSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getGDexDepositMsg(auth, poolId, deposit0Coin, deposit1Coin), fee, memo, pKey, chainId);
-    }
-
-    public static ArrayList<Any> getGDexDepositMsg(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        CoinOuterClass.Coin inputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(deposit0Coin.denom).setAmount(deposit0Coin.amount).build();
-        CoinOuterClass.Coin inputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(deposit1Coin.denom).setAmount(deposit1Coin.amount).build();
-        ArrayList<CoinOuterClass.Coin> tokenMax = new ArrayList<>();
-        tokenMax.add(inputCoin0);
-        tokenMax.add(inputCoin1);
-        tendermint.liquidity.v1beta1.Tx.MsgDepositWithinBatch msgDepositWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgDepositWithinBatch.newBuilder().setDepositorAddress(onParseAddress(auth)).setPoolId(poolId).addAllDepositCoins(tokenMax).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgDepositWithinBatch").setValue(msgDepositWithinBatch.toByteString()).build());
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcGDexWithdrawReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin WithdrawCoin, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getGDexWithdrawMsg(auth, poolId, WithdrawCoin), fee, memo, pKey, chainId);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcGDexWithdrawSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin WithdrawCoin, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getGDexWithdrawMsg(auth, poolId, WithdrawCoin), fee, memo, pKey, chainId);
-    }
-
-    public static ArrayList<Any> getGDexWithdrawMsg(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin WithdrawCoin) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        CoinOuterClass.Coin OutputCoin = CoinOuterClass.Coin.newBuilder().setDenom(WithdrawCoin.denom).setAmount(WithdrawCoin.amount).build();
-        tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch msgWithdrawWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch.newBuilder().setWithdrawerAddress(onParseAddress(auth)).setPoolId(poolId).setPoolCoin(OutputCoin).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch").setValue(msgWithdrawWithinBatch.toByteString()).build());
         return msgAnys;
     }
 
@@ -607,21 +442,6 @@ public class Signer {
         CoinOuterClass.Coin token = CoinOuterClass.Coin.newBuilder().setAmount(ibcSendAmount).setDenom(ibcSendDenom).build();
         ibc.applications.transfer.v1.Tx.MsgTransfer msgIbcTransfer = ibc.applications.transfer.v1.Tx.MsgTransfer.newBuilder().setSender(sender).setReceiver(receiver).setSourcePort(portId).setSourceChannel(channelId).setToken(token).setTimeoutHeight(height).setTimeoutTimestamp(0).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer").setValue(msgIbcTransfer.toByteString()).build());
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcSifIncentiveReq(QueryOuterClass.QueryAccountResponse auth, String userClaimAddress, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth,getSifIncentiveMsg(userClaimAddress), fee, memo, pKey, chainId);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcSifIncentiveSimulateReq(QueryOuterClass.QueryAccountResponse auth, String userClaimAddress, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getSifIncentiveMsg(userClaimAddress), fee, memo, pKey, chainId);
-    }
-
-    public static ArrayList<Any> getSifIncentiveMsg(String userClaimAddress) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        sifnode.dispensation.v1.Tx.MsgCreateUserClaim msgCreateUserClaim = sifnode.dispensation.v1.Tx.MsgCreateUserClaim.newBuilder().setUserClaimAddress(userClaimAddress).setUserClaimType(sifnode.dispensation.v1.Types.DistributionType.DISTRIBUTION_TYPE_LIQUIDITY_MINING).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/sifnode.dispensation.v1.MsgCreateUserClaim").setValue(msgCreateUserClaim.toByteString()).build());
         return msgAnys;
     }
 
@@ -1104,7 +924,7 @@ public class Signer {
         Any pubKey = WKey.generateGrpcPubKeyFromPriv(auth, pKey.getPrivateKeyAsHex());
         TxOuterClass.ModeInfo.Single singleMode = TxOuterClass.ModeInfo.Single.newBuilder().setMode(SIGN_MODE_DIRECT).build();
         TxOuterClass.ModeInfo modeInfo = TxOuterClass.ModeInfo.newBuilder().setSingle(singleMode).build();
-        return  TxOuterClass.SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo).setSequence(onParseSequenceNumber(auth)).build();
+        return  TxOuterClass.SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo).setSequence((Long) onParseAuthGrpc(auth).get(2)).build();
     }
 
     public static TxOuterClass.AuthInfo getGrpcAuthInfo(TxOuterClass.SignerInfo signerInfo, Fee fee) {
@@ -1114,13 +934,13 @@ public class Signer {
     }
 
     public static TxOuterClass.TxRaw getGrpcRawTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId) {
-        TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(onParseAccountNumber(auth)).build();
+        TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber((Long) onParseAuthGrpc(auth).get(1)).build();
         byte[] sigbyte = Signer.getGrpcByteSingleSignature(auth, pKey, signDoc.toByteArray());
         return TxOuterClass.TxRaw.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
     public static TxOuterClass.Tx getGrpcSimulTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId) {
-        TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(onParseAccountNumber(auth)).build();
+        TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber((Long) onParseAuthGrpc(auth).get(1)).build();
         byte[] sigbyte = Signer.getGrpcByteSingleSignature(auth, pKey, signDoc.toByteArray());
         return TxOuterClass.Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }

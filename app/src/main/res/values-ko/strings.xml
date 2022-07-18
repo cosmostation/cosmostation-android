@@ -57,8 +57,8 @@
     <string name="str_continue">계속</string>
     <string name="str_connect">연결</string>
     <string name="str_wait">기다리기</string>
-    <string name="str_recipient_address">수취인 주소</string>
-    <string name="str_starname_recipient_address">스타네임 또는 수취인 주소</string>
+    <string name="str_recipient_address">받을 주소</string>
+    <string name="str_starname_recipient_address">스타네임 또는 받을 주소</string>
     <string name="str_recipient_chain">수취인 체인</string>
     <string name="str_claim_address">수신 요청 주소</string>
     <string name="str_done">완료</string>

@@ -108,7 +108,6 @@ import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
@@ -125,11 +124,9 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
-import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
-import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -1250,20 +1247,6 @@ public class WUtil {
         return 18;
     }
 
-    public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_ATOM)) {
-            return 6;
-        } else if (denom.startsWith("pool")) {
-            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
-            if (poolInfo != null) {
-                return 6;
-            }
-        } else if (denom.startsWith("ibc/")) {
-            return getIbcDecimal(baseData, denom);
-        }
-        return 6;
-    }
-
     public static int getOsmosisCoinDecimal(BaseData baseData, String denom) {
         if (denom != null) {
             if (denom.equalsIgnoreCase(TOKEN_OSMOSIS) || denom.equalsIgnoreCase(TOKEN_ION)) {
@@ -1305,76 +1288,6 @@ public class WUtil {
     /**
      * Token Name
      */
-    public static String dpCosmosTokenName(BaseData baseData, String denom) {
-        if (denom.equals(TOKEN_ATOM)) {
-            return "ATOM";
-
-        } else if (denom.startsWith("pool")) {
-            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
-            if (poolInfo != null) {
-                return "GDEX-" + poolInfo.getId();
-            } else {
-                return "UnKnown";
-            }
-
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.startsWith("cw20:")) {
-                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets : baseData.mCw20Assets) {
-                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                            return assets.denom.toUpperCase();
-                        }
-                    }
-                } else {
-                    return ibcToken.display_denom.toUpperCase();
-                }
-            } else {
-                return "UnKnown";
-            }
-        }
-        return denom;
-    }
-
-    public static String dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom.equals(TOKEN_ATOM)) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.color_cosmos));
-            textView.setText("ATOM");
-
-        } else if (denom.startsWith("pool")) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
-            if (poolInfo != null) {
-                textView.setText("GDEX-" + poolInfo.getId());
-            } else {
-                textView.setText("UnKnown");
-            }
-
-        } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.startsWith("cw20:")) {
-                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets : baseData.mCw20Assets) {
-                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                            textView.setText(assets.denom.toUpperCase());
-                        }
-                    }
-                } else {
-                    textView.setText(ibcToken.display_denom.toUpperCase());
-                }
-            } else {
-                textView.setText("UnKnown");
-            }
-
-        } else {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            textView.setText("UnKnown");
-        }
-        return denom;
-    }
 
     public static String dpKavaTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
@@ -1639,24 +1552,6 @@ public class WUtil {
     /**
      * Token Img
      */
-    public static void DpCosmosTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_ATOM)) {
-            Picasso.get().cancelRequest(imageView);
-            imageView.setImageResource(R.drawable.token_cosmos);
-        } else if (denom.startsWith("pool")) {
-            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
-            if (poolInfo != null) {
-                imageView.setImageResource(R.drawable.token_gravitydex);
-            }
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            try {
-                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-            } catch (Exception e) {
-            }
-        }
-    }
-
     public static void DpOsmosisTokenImg(BaseData baseData, ImageView imageView, String denom) {
         if (denom != null) {
             if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
@@ -1712,61 +1607,6 @@ public class WUtil {
         }
     }
 
-    // cosmos gravity dex
-    public static GDexManager getGDexManager(BaseData baseData, String address) {
-        for (GDexManager gDexManager : baseData.mGDexManager) {
-            if (gDexManager.address.equalsIgnoreCase(address)) {
-                return gDexManager;
-            }
-        }
-        return null;
-    }
-
-    public static BigDecimal getLpAmount(BaseData baseData, String address, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        if (getGDexManager(baseData, address) != null) {
-            for (Coin coin : getGDexManager(baseData, address).reserve) {
-                if (coin.denom.equalsIgnoreCase(denom)) {
-                    result = new BigDecimal(coin.amount);
-                }
-            }
-        }
-        return result;
-    }
-
-    public static BigDecimal getParamGdexPoolValue(BaseData baseData, ChainParam.GdexStatus pool) {
-        String coin0Denom = pool.tokenPairs.get(0).denom;
-        String coin1Denom = pool.tokenPairs.get(1).denom;
-        String coin0BaseDenom = baseData.getBaseDenom(coin0Denom);
-        String coin1BaseDenom = baseData.getBaseDenom(coin1Denom);
-        BigDecimal coin0Amount = new BigDecimal(pool.tokenPairs.get(0).amount);
-        BigDecimal coin1Amount = new BigDecimal(pool.tokenPairs.get(1).amount);
-        int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
-        int coin1Decimal = WUtil.getCosmosCoinDecimal(baseData, coin1Denom);
-        BigDecimal coin0Price = BigDecimal.ZERO;
-        BigDecimal coin1Price = BigDecimal.ZERO;
-        if (coin0BaseDenom != null) {
-            coin0Price = WDp.perUsdValue(baseData, coin0BaseDenom);
-        }
-        if (coin1BaseDenom != null) {
-            coin1Price = WDp.perUsdValue(baseData, coin1BaseDenom);
-        }
-        BigDecimal coin0Value = coin0Amount.multiply(coin0Price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
-        BigDecimal coin1Value = coin1Amount.multiply(coin1Price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
-        return coin0Value.add(coin1Value);
-    }
-
-    public static BigDecimal getParamGdexLpTokenPerUsdPrice(BaseData baseData, ChainParam.GdexStatus pool) {
-        BigDecimal poolValue = getParamGdexPoolValue(baseData, pool);
-        BigDecimal totalShare = BigDecimal.ZERO;
-        for (Coin coin : baseData.mChainParam.getSupplys()) {
-            if (coin.denom.equalsIgnoreCase(pool.pool_token)) {
-                totalShare = new BigDecimal(coin.amount);
-            }
-        }
-        return poolValue.divide(totalShare.movePointLeft(6).setScale(24, RoundingMode.DOWN), 18, RoundingMode.DOWN);
-    }
-
     /**
      * About Osmosis
      */
@@ -1809,11 +1649,6 @@ public class WUtil {
         }
         return result;
     }
-
-//    public static BigDecimal getCosmosLpTokenPerUsdPrice(BaseData baseData, BigDecimal coin0Amount, BigDecimal coin1Amount) {
-//        BigDecimal totalShare = coin0Amount.add(coin1Amount).movePointLeft(18).setScale(18, RoundingMode.DOWN);
-//        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
-//    }
 
     public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, BalancerPool.Pool pool) {
         try {

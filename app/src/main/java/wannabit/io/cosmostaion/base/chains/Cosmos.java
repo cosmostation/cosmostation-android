@@ -11,8 +11,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.grpc.ManagedChannel;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.network.HistoryApi;
 
 public class Cosmos extends ChainConfig {
 
@@ -40,6 +44,8 @@ public class Cosmos extends ChainConfig {
 
     public String grpcUrl() { return "lcd-cosmos-app-and.cosmostation.io"; }
     public String apiUrl() { return "https://api.cosmostation.io/"; }
+    public ManagedChannel getConnection() { return ChannelBuilder.getCosmosMain(baseChain()); }
+    public HistoryApi getHistoryApi() { return ApiClient.getCosmosApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("7.6597"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "cosmos/"; }
