@@ -147,7 +147,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
             String userInput = mAddressInput.getText().toString().trim();
 
             if (WUtil.isValidStarName(userInput.toLowerCase())) {
-                onCheckNameService(userInput.toLowerCase(), mTochain);
+                onCheckNameService(userInput.toLowerCase(), mChainConfig);
                 return;
             }
 
@@ -155,7 +155,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.isValidChainAddress(mTochain, userInput)) {
+            if (WDp.isValidChainAddress(mChainConfig, userInput)) {
                 getSActivity().mToAddress = userInput;
                 getSActivity().mRecipientAccount = mToAccount;
                 getSActivity().onNextStep();
@@ -228,7 +228,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         }
     }
 
-    private void onCheckNameService(String userInput, BaseChain chain) {
+    private void onCheckNameService(String userInput, ChainConfig chainConfig) {
         QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(userInput).build();
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
@@ -237,7 +237,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        final String matchAddress = WUtil.checkStarnameWithResource(chain, value.getAccount().getResourcesList());
+                        final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
                         if (TextUtils.isEmpty(matchAddress)) {
                             Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
                             return;

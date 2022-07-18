@@ -70,7 +70,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private ImageView mBtnRewardAddressChange;
     private TextView mRewardAddress;
 
-    private View mView;
     private Button mBtnDelete, mBtnCheckKey, mBtnCheck;
 
     @Override
@@ -101,7 +100,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
         mRewardAddress = findViewById(R.id.reward_address);
         mBtnDelete = findViewById(R.id.btn_delete);
-        mView = findViewById(R.id.view);
         mBtnCheckKey = findViewById(R.id.btn_check_key);
         mBtnCheck = findViewById(R.id.btn_check);
 
@@ -193,7 +191,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         if (mAccount.hasPrivateKey && mAccount.fromMnemonic) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
-            mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path), mAccount.customPath));
+            mAccountPath.setText(mChainConfig.getHdPath(mAccount.customPath, mAccount.path));
             mPathLayer.setVisibility(View.VISIBLE);
             mMnemonicLayer.setVisibility(View.VISIBLE);
             mMnemonicName.setText(mWords.getName());

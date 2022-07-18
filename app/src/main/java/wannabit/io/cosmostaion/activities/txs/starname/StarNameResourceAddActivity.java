@@ -24,6 +24,7 @@ import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -71,6 +72,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         } else if (mStarNameAsset != null) {
             if (mStarNameAsset.chainName != null) {
                 mTochain = BaseChain.getChain(mStarNameAsset.chainName);
+                mChainConfig = ChainFactory.getChain(mTochain);
             }
             Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(mStarNameAsset.url)).fit().into(mChainImg);
             mChainName.setText(StarnameAssets.getStarNameChainName(mStarNameAsset.url));
@@ -99,7 +101,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
 
             } else if (mStarNameAsset != null && mStarNameAsset.url != null) {
                 if (mTochain != null) {
-                    if (!WDp.isValidChainAddress(mTochain, userinput)) {
+                    if (!WDp.isValidChainAddress(mChainConfig, userinput)) {
                         Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
                         return;
                     }

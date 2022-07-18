@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.base.chains;
 
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.base.BaseChain;
 
 public class ChainFactory {
@@ -20,6 +22,18 @@ public class ChainFactory {
                     return new Iris();
             }
         }
+//        return null;
         return new Cosmos();
+    }
+
+    public static ArrayList<ChainConfig> SUPPRT_CONFIG() {
+        ArrayList<ChainConfig> result = new ArrayList<>();
+        for (BaseChain baseChain : BaseChain.SUPPORT_CHAINS()) {
+            ChainConfig chainConfig = getChain(baseChain);
+            if (chainConfig != null) {
+                result.add(chainConfig);
+            }
+        }
+        return result;
     }
 }

@@ -327,7 +327,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onStartHTLCSendActivity(String sendDenom) {
-//        WLog.w("onStartHTLCSendActivity " + mBaseChain.getChain() + " " + sendDenom);
         if (mAccount == null) return;
         if (!SUPPORT_BEP3_SWAP) {
             Toast.makeText(getBaseContext(), R.string.error_bep3_swap_temporary_disable, Toast.LENGTH_SHORT).show();
@@ -950,7 +949,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mCw20Assets = (ArrayList<Cw20Assets>) result.resultData;
                 if (getBaseDao().mCw20Assets != null && getBaseDao().mCw20Assets.size() > 0) {
                     for (Cw20Assets assets : getBaseDao().mCw20Assets) {
-                        if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(mBaseChain))) {
+                        if (assets.chain.equalsIgnoreCase(mChainConfig.chainName())) {
                             mTaskCount = mTaskCount + 1;
                             new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }

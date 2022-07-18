@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.fragment.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +31,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.ReDelegationsFromToGrpcTask;
@@ -125,12 +125,12 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         @Override
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
             final Staking.Validator mGrpcValidator = mGRpcTopValidators.get(position);
+            final ChainConfig chainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
             holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), WDp.mainDivideDecimal(getSActivity().mBaseChain), 6));
             holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             try {
-                Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, mGrpcValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e) {
-            }
+                Picasso.get().load(chainConfig.monikerUrl() + mGrpcValidator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+            } catch (Exception e) { }
 
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {

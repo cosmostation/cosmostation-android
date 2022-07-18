@@ -38,11 +38,11 @@ import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
 import wannabit.io.cosmostaion.activities.setting.WatchingWalletAddActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
-import wannabit.io.cosmostaion.utils.WDp;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -230,7 +230,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnNotice)) {
-            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(getMainActivity().mBaseChain);
+            String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).chainName();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
 

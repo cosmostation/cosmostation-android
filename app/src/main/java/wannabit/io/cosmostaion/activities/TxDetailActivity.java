@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcRefundActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -123,6 +124,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mIsGen = getIntent().getBooleanExtra("isGen", false);
         mIsSuccess = getIntent().getBooleanExtra("isSuccess", false);
         mErrorCode = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
@@ -221,17 +223,23 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, WUtil.getTxExplorer(mBaseChain, hash));
+            String url = "";
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                url = mChainConfig.explorerUrl() + "tx/" + hash;
+            } else {
+                url = mChainConfig.explorerUrl() + "txs/" + hash;
+            }
+            shareIntent.putExtra(Intent.EXTRA_TEXT, url);
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
 
         } else if (v.equals(mExplorerBtn)) {
             if (mBaseChain.equals(BNB_MAIN)) {
-                String url = WUtil.getTxExplorer(mBaseChain, mResBnbTxInfo.hash);
+                String url = mChainConfig.explorerUrl() + "txs/" + mResBnbTxInfo.hash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)) {
-                String url = WUtil.getTxExplorer(mBaseChain, mResTxInfo.txhash);
+                String url = mChainConfig.explorerUrl() + "tx/" + mResTxInfo.hash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else {

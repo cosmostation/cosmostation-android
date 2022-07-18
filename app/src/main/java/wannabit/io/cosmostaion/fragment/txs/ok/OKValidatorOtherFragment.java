@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.ok;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +23,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -110,28 +109,25 @@ public class OKValidatorOtherFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull OKOtherValidatorHolder holder, int position) {
             final Validator validator = getBaseDao().mOtherValidators.get(position);
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-                holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
-                holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
+            final ChainConfig chainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
+            holder.itemTvMoniker.setText(validator.description.moniker);
+            holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
+            holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
-                try {
-                    Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e) {
-                }
+            try {
+                Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+            } catch (Exception e) { }
 
-                if (validator.jailed) {
-                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
-                    holder.itemRevoked.setVisibility(View.VISIBLE);
-                } else {
-                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
-                    holder.itemRevoked.setVisibility(View.GONE);
-                }
+            if (validator.jailed) {
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
+                holder.itemRevoked.setVisibility(View.VISIBLE);
+            } else {
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
+                holder.itemRevoked.setVisibility(View.GONE);
+            }
 
-                if (checkIsMyValidator(validator.operator_address)) {
-                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkex));
-                }
-
+            if (checkIsMyValidator(validator.operator_address)) {
+                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkex));
             }
         }
 

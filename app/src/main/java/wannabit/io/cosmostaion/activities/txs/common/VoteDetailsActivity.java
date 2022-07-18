@@ -61,7 +61,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
     private VoteDetailsAdapter mVoteDetailsAdapter;
 
-    private String mChain;
     private String mProposalId;
 
     // proposal api
@@ -86,7 +85,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mChain = WDp.getChainNameByBaseChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -171,7 +169,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     public void onFetch() {
         mTaskCount = 2;
         new ProposalMyVoteGrpcTask(getBaseApplication(), this, mBaseChain, mProposalId, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new MintScanProposalTask(getBaseApplication(), this, mChain, mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new MintScanProposalTask(getBaseApplication(), this, mChainConfig.chainName(), mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

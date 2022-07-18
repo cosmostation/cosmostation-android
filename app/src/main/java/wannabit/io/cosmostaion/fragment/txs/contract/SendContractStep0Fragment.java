@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.txs.contract;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -32,15 +35,13 @@ import starnamed.x.starname.v1beta1.QueryGrpc;
 import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.contract.SendContractActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class SendContractStep0Fragment extends BaseFragment implements View.OnClickListener{
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
@@ -122,11 +123,11 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
             }
 
             if (WUtil.isValidStarName(userInput.toLowerCase())) {
-                onCheckNameService(userInput.toLowerCase(), getSActivity().mBaseChain);
+                onCheckNameService(userInput.toLowerCase(), ChainFactory.getChain(getSActivity().mBaseChain));
                 return;
             }
 
-            if (WDp.isValidChainAddress(getSActivity().mBaseChain, userInput)) {
+            if (WDp.isValidChainAddress(ChainFactory.getChain(getSActivity().mBaseChain), userInput)) {
                 getSActivity().mToAddress = userInput;
                 getSActivity().onNextStep();
             } else {
@@ -184,7 +185,7 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
         }
     }
 
-    private void onCheckNameService(String userInput, BaseChain chain) {
+    private void onCheckNameService(String userInput, ChainConfig chainConfig) {
         QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(userInput).build();
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
@@ -193,7 +194,7 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        final String matchAddress = WUtil.checkStarnameWithResource(chain, value.getAccount().getResourcesList());
+                        final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
                         if (TextUtils.isEmpty(matchAddress)) {
                             Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
                             return;

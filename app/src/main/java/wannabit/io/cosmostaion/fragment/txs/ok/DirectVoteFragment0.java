@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.ok;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +25,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKVoteDirectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -101,54 +99,52 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull ToValidatorHolder holder, @SuppressLint("RecyclerView") int position) {
             final Validator validator = getBaseDao().mAllValidators.get(position);
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
-                holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
-                try {
-                    Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e) {
-                }
+            final ChainConfig chainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
+            holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
+            holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
+            try {
+                Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+            } catch (Exception e) { }
 
-                holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemFree.setVisibility(View.GONE);
+            holder.itemTvMoniker.setText(validator.description.moniker);
+            holder.itemFree.setVisibility(View.GONE);
 
-                if (validator.jailed) {
-                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
-                    holder.itemRevoked.setVisibility(View.VISIBLE);
-                } else {
-                    holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
-                    holder.itemRevoked.setVisibility(View.GONE);
-                }
-
-                holder.itemChecked.setColorFilter(null);
-                if (getSActivity().mValAddesses.contains(validator.operator_address)) {
-                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.color_ok), android.graphics.PorterDuff.Mode.SRC_IN);
-                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                } else {
-                    holder.itemCheckedBorder.setVisibility(View.GONE);
-                }
-
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (getSActivity().mValAddesses.contains(validator.operator_address)) {
-                            if (getSActivity().mValAddesses.size() == 1) {
-                                Toast.makeText(getContext(), R.string.error_min_1_validator, Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            getSActivity().mValAddesses.remove(validator.operator_address);
-                        } else {
-                            if (getSActivity().mValAddesses.size() > 29) {
-                                Toast.makeText(getContext(), R.string.error_max_30_validator, Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            getSActivity().mValAddesses.add(validator.operator_address);
-                        }
-                        onUpdateCnt();
-                        notifyItemChanged(position);
-                    }
-                });
+            if (validator.jailed) {
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
+                holder.itemRevoked.setVisibility(View.VISIBLE);
+            } else {
+                holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorGray3));
+                holder.itemRevoked.setVisibility(View.GONE);
             }
+
+            holder.itemChecked.setColorFilter(null);
+            if (getSActivity().mValAddesses.contains(validator.operator_address)) {
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.color_ok), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+            } else {
+                holder.itemCheckedBorder.setVisibility(View.GONE);
+            }
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getSActivity().mValAddesses.contains(validator.operator_address)) {
+                        if (getSActivity().mValAddesses.size() == 1) {
+                            Toast.makeText(getContext(), R.string.error_min_1_validator, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        getSActivity().mValAddesses.remove(validator.operator_address);
+                    } else {
+                        if (getSActivity().mValAddesses.size() > 29) {
+                            Toast.makeText(getContext(), R.string.error_max_30_validator, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        getSActivity().mValAddesses.add(validator.operator_address);
+                    }
+                    onUpdateCnt();
+                    notifyItemChanged(position);
+                }
+            });
         }
 
         @Override

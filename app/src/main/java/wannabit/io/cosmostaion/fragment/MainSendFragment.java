@@ -39,6 +39,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResNotice;
@@ -70,6 +72,7 @@ public class MainSendFragment extends BaseFragment {
 
     private Account mAccount;
     private BaseChain mBaseChain;
+    private ChainConfig mChainConfig;
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -188,6 +191,7 @@ public class MainSendFragment extends BaseFragment {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         mAccount = getMainActivity().mAccount;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
         onNoticeView();
@@ -206,7 +210,7 @@ public class MainSendFragment extends BaseFragment {
 
     private void onNoticeView() {
         mNoticeView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
-        ApiClient.getMintscan(getContext()).getNotice(WDp.getChainNameByBaseChain(mBaseChain), true).enqueue(new Callback<ResNotice>() {
+        ApiClient.getMintscan(getContext()).getNotice(mChainConfig.chainName(), true).enqueue(new Callback<ResNotice>() {
             @Override
             public void onResponse(Call<ResNotice> call, Response<ResNotice> response) {
                 if (response != null && response.body() != null && response.isSuccessful()) {
@@ -219,7 +223,7 @@ public class MainSendFragment extends BaseFragment {
                         mNoticeInfo.setText(noticeInfo.boards.get(0).title);
 
                         mNoticeView.setOnClickListener(view -> {
-                            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(mBaseChain) + "/" + noticeInfo.boards.get(0).id;
+                            String url = EXPLORER_NOTICE_MINTSCAN + mChainConfig.chainName() + "/" + noticeInfo.boards.get(0).id;
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             startActivity(intent);
                         });

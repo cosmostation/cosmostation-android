@@ -14,10 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HistoryOldHolder extends BaseHolder {
     private CardView historyRoot;
@@ -42,7 +42,7 @@ public class HistoryOldHolder extends BaseHolder {
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.txHash);
+                String url = ChainFactory.getChain(mainActivity.mBaseChain).explorerUrl() + "txs/" + history.txHash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 mainActivity.startActivity(intent);
             }

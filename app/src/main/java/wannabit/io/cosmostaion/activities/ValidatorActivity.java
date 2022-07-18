@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.activities;
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
@@ -59,6 +60,7 @@ import wannabit.io.cosmostaion.activities.txs.common.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
@@ -108,6 +110,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mValOpAddress = getIntent().getStringExtra("valOpAddress");
 
         setSupportActionBar(mToolbar);
@@ -369,7 +372,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onFetchValHistory() {
         mTaskCount++;
-        new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValOpAddress, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ApiStakeTxsHistoryTask(getBaseApplication(), this, mChainConfig, mAccount.address, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -506,14 +509,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String url = "";
                     if (history.data.txhash != null) {
                         if (isGRPC(mBaseChain)) {
-                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                            url = mChainConfig.explorerUrl() + "txs/" + history.data.txhash;
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             startActivity(intent);
                         } else {
                             if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
-                                String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                                if (mBaseChain.equals(OKEX_MAIN)) {
+                                    url = mChainConfig.explorerUrl() + "tx/" + history.data.txhash;
+                                } else {
+                                    url = mChainConfig.explorerUrl() + "txs/" + history.data.txhash;
+                                }
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 startActivity(intent);
 
@@ -579,7 +587,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
             }
             try {
-                Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) {
             }
 
@@ -646,7 +654,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
             }
             try {
-                Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) {
             }
 

@@ -113,9 +113,7 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
              onStartMainActivity(0);
 
         } else if (v.equals(mExplorerBtn)) {
-             String url = WUtil.getTxExplorer(mBaseChain, mTxHash);
-             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-             startActivity(intent);
+
         }
     }
 
