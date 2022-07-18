@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorWhiteDayNight"
-        android:paddingRight="@dimen/space_24"
+        android:paddingRight="@dimen/space_14"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <RelativeLayout
@@ -40,11 +40,22 @@
 
                 <TextView
                     android:id="@+id/toolbar_symbol"
-                    style="@style/font_ssm_17_osmosis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:textSize="@dimen/text_size_17"
+                    android:textColor="@color/colorBlackDayNight"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/toolbar_channel"
+                    style="@style/font_ss_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:layout_toRightOf="@+id/toolbar_symbol"
                     android:text="-" />
 
                 <TextView
@@ -131,9 +142,9 @@
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="11sp"
-                    android:autoSizeMaxTextSize="12sp"
-                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeMinTextSize="11dp"
+                    android:autoSizeMaxTextSize="12dp"
+                    android:autoSizeStepGranularity="1dp"
                     android:text="" />
             </RelativeLayout>
 
@@ -182,14 +193,13 @@
         <RelativeLayout
             android:id="@+id/btn_ibc_send"
             android:layout_width="0dp"
-            android:layout_height="@dimen/space_45"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            android:clickable="true"
-            android:visibility="gone">
+            android:clickable="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -202,7 +212,7 @@
         <RelativeLayout
             android:id="@+id/btn_bep3_send"
             android:layout_width="0dp"
-            android:layout_height="@dimen/space_45"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
@@ -222,7 +232,7 @@
         <RelativeLayout
             android:id="@+id/btn_send"
             android:layout_width="0dp"
-            android:layout_height="@dimen/space_45"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"

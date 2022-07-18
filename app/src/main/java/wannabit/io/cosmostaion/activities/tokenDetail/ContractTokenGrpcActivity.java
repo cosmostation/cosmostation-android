@@ -4,7 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONT
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,8 +31,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.contract.SendContractActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -43,7 +42,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
 
     private Toolbar mToolbar;
     private ImageView mToolbarSymbolImg;
-    private TextView mToolbarSymbol;
+    private TextView mToolbarSymbol, mToolbarChannel;
     private TextView mItemPerPrice;
     private ImageView mItemUpDownImg;
     private TextView mItemUpDownPrice;
@@ -61,16 +60,15 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     private Cw20TokenGrpcAdapter mAdapter;
 
     private Cw20Assets mCw20Asset;
-    private BigDecimal mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail);
-
         mToolbar = findViewById(R.id.tool_bar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mToolbarChannel = findViewById(R.id.toolbar_channel);
         mItemPerPrice = findViewById(R.id.per_price);
         mItemUpDownImg = findViewById(R.id.ic_price_updown);
         mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
@@ -90,15 +88,15 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mCw20Asset = getIntent().getParcelableExtra("cw20Asset");
-        mBtnIbcSend.setVisibility(View.VISIBLE);
+        mToolbarChannel.setVisibility(View.GONE);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new Cw20TokenGrpcAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        //prepare for token history
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -124,12 +122,10 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     }
 
     private void onUpdateView() {
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(ContractTokenGrpcActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         if (mCw20Asset != null) {
             Picasso.get().load(mCw20Asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
             mToolbarSymbol.setText(mCw20Asset.denom.toUpperCase());
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, R.color.colorBlackDayNight));
-            mTotalAmount = mCw20Asset.getAmount();
 
             mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mCw20Asset.denom));
             mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mCw20Asset.denom));
@@ -144,15 +140,9 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }
 
+            isAccountKey(mKeyState);
             mAddress.setText(mAccount.address);
-            if (mAccount.hasPrivateKey) {
-                mKeyState.setImageResource(R.drawable.key_off);
-                mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            } else {
-                mKeyState.setImageResource(R.drawable.watchmode);
-                mKeyState.setColorFilter(null);
-            }
-            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mCw20Asset.denom, mTotalAmount, mCw20Asset.decimal));
+            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mCw20Asset.denom, mCw20Asset.getAmount(), mCw20Asset.decimal));
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
@@ -178,9 +168,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
 
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
+                onInsertKeyDialog();
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendContractActivity.class);
@@ -202,23 +190,14 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     }
 
     private class Cw20TokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_UNKNOWN = -1;
         private static final int TYPE_CW20 = 0;
-
-        private static final int TYPE_HISTORY = 100;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == TYPE_UNKNOWN) {
-
-            } else if (viewType == TYPE_CW20) {
+            if (viewType == TYPE_CW20) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
             }
-
-//            } else if (viewType == TYPE_HISTORY) {
-//                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
-//            }
             return null;
         }
 
@@ -228,10 +207,6 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
                 holder.onBindCw20Token(ContractTokenGrpcActivity.this, mBaseChain, getBaseDao(), mCw20Asset);
             }
-//
-//            } else if (getItemViewType(position) == TYPE_HISTORY) {
-//
-//            } else if (getItemViewType(position) == TYPE_UNKNOWN) {
         }
 
         @Override
@@ -242,7 +217,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
         @Override
         public int getItemViewType(int position) {
             if (position == 0) return TYPE_CW20;
-            else return TYPE_HISTORY;
+            return -1;
         }
     }
 }

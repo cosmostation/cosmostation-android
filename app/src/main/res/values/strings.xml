@@ -9,15 +9,6 @@
     <string name="url_station_testnet" translatable="false">https://api-office.cosmostation.io/utility/</string>
     <string name="url_mintscan" translatable="false">https://api.mintscan.io/</string>
 
-
-    <string name="url_api_cosmos_main" translatable="false">https://api.cosmostation.io/</string>
-
-
-    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>
-
-    <string name="url_api_iris_test" translatable="false">https://api-office.cosmostation.io/bifrost/</string>
-
-
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
 
 
@@ -72,9 +63,6 @@
 
 
     <string name="url_api_emoney" translatable="false">https://api-emoney.cosmostation.io/</string>
-
-
-    <string name="url_api_juno" translatable="false">https://api-juno.cosmostation.io/</string>
 
 
     <string name="url_api_regen" translatable="false">https://api-regen.cosmostation.io/</string>

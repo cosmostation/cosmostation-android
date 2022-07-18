@@ -110,8 +110,10 @@ public class ChainParam {
 
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
-            if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
-                return new BigDecimal(mMintParams.inflation);
+            if (baseChain.equals(BaseChain.IRIS_MAIN)) {
+                if (mMintParams != null && mMintParams.inflation != null) {
+                    return new BigDecimal(mMintParams.inflation);
+                }
 
             } else if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
                 BigDecimal epochProvisions = new BigDecimal(mintingEpochProvision.epoch_provisions);

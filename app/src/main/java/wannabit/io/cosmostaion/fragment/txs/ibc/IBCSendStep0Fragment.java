@@ -21,6 +21,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
@@ -100,9 +102,9 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
     public void onResume() {
         super.onResume();
         if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
-            mIbcSendableRelayers = getBaseDao().getIbcRollbackRelayer(getSActivity().mToIbcDenom);
+            mIbcSendableRelayers = getIbcRollbackRelayer(getSActivity().mToIbcDenom);
         } else {
-            mIbcSendableRelayers = getBaseDao().getIbcSendableRelayers();
+            mIbcSendableRelayers = getIbcSendableRelayers();
         }
 
         if (mIbcSendableRelayers.size() <= 0) {
@@ -113,7 +115,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         mIbcSelectedRelayer = mIbcSendableRelayers.get(0);
 
         if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
-            mIbcSendablePaths = getBaseDao().getIbcRollbackChannel(getSActivity().mToIbcDenom, mIbcSelectedRelayer.paths);
+            mIbcSendablePaths = getIbcRollbackChannel(getSActivity().mToIbcDenom, mIbcSelectedRelayer.paths);
         } else {
             mIbcSendablePaths = mIbcSelectedRelayer.paths;
         }
@@ -246,6 +248,48 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
                 getSActivity().onBeforeStep();
             }
         }, 610);
+    }
+
+    public ArrayList<IbcPath> getIbcSendableRelayers() {
+        ArrayList<IbcPath> result = new ArrayList<>();
+        for (IbcPath ibcPath: getBaseDao().mIbcPaths) {
+            for (IbcPath.Path path: ibcPath.paths) {
+                if (path.auth != null && path.auth) {
+                    result.add(ibcPath);
+                }
+            }
+        }
+        Set<IbcPath> arr2 = new HashSet<>(result);
+        ArrayList<IbcPath> resArr2 = new ArrayList<>(arr2);
+        return resArr2;
+    }
+
+    public ArrayList<IbcPath> getIbcRollbackRelayer(String denom) {
+        ArrayList<IbcPath> result = new ArrayList<>();
+        IbcToken ibcToken = getBaseDao().getIbcToken(denom.replaceAll("ibc/", ""));
+        if (getBaseDao().mIbcPaths != null && getBaseDao().mIbcPaths.size() > 0) {
+            for (IbcPath ibcPath: getBaseDao().mIbcPaths) {
+                for (IbcPath.Path path: ibcPath.paths) {
+                    if (path.channel_id != null && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
+                        result.add(ibcPath);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<IbcPath.Path> getIbcRollbackChannel(String denom, ArrayList<IbcPath.Path> paths) {
+        ArrayList<IbcPath.Path> result = new ArrayList<>();
+        IbcToken ibcToken = getBaseDao().getIbcToken(denom);
+        if (paths != null && paths.size() > 0) {
+            for (IbcPath.Path path: paths) {
+                if (path.auth != null && path.auth && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
+                    result.add(path);
+                }
+            }
+        }
+        return result;
     }
 
     private Handler mHandler = new Handler(Looper.getMainLooper());

@@ -46,7 +46,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
     private Toolbar mToolbar;
     private ImageView mToolbarSymbolImg;
-    private TextView mToolbarSymbol;
+    private TextView mToolbarSymbol, mToolbarChannel;
     private TextView mItemPerPrice;
     private ImageView mItemUpDownImg;
     private TextView mItemUpDownPrice;
@@ -58,25 +58,22 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private StakingTokenGrpcAdapter mAdapter;
 
     private RelativeLayout mBtnIbcSend;
     private RelativeLayout mBtnSend;
 
-    private StakingTokenGrpcAdapter mAdapter;
     private Boolean mHasVesting = false;
     private String mMainDenom;
-
-    private int mDivideDecimal = 6;
-    private BigDecimal mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail);
-
         mToolbar = findViewById(R.id.tool_bar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mToolbarChannel = findViewById(R.id.toolbar_channel);
         mItemPerPrice = findViewById(R.id.per_price);
         mItemUpDownImg = findViewById(R.id.ic_price_updown);
         mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
@@ -97,20 +94,17 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mMainDenom = WDp.mainDenom(mBaseChain);
-        mDivideDecimal = WDp.mainDivideDecimal(mBaseChain);
+        mMainDenom = mChainConfig.mainDenom();
 
         if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) {
             mHasVesting = true;
         }
-        mBtnIbcSend.setVisibility(View.VISIBLE);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new StakingTokenGrpcAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        //prepare for token history
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -136,8 +130,10 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
     }
 
     private void onUpdateView() {
+        mToolbarChannel.setVisibility(View.GONE);
         mToolbarSymbolImg.setImageResource(mChainConfig.mainDenomImg());
-        WDp.DpMainDenom(StakingTokenGrpcActivity.this, mBaseChain, mToolbarSymbol);
+        mToolbarSymbol.setText(mChainConfig.mainSymbol());
+        mToolbarSymbol.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainColor()));
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mMainDenom));
         mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mMainDenom));
@@ -152,17 +148,10 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenGrpcActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainBgColor()));
+        isAccountKey(mKeyState);
         mAddress.setText(mAccount.address);
-        if (mAccount.hasPrivateKey) {
-            mKeyState.setImageResource(R.drawable.key_off);
-            mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        } else {
-            mKeyState.setImageResource(R.drawable.watchmode);
-            mKeyState.setColorFilter(null);
-        }
-        mTotalAmount = getBaseDao().getAllMainAsset(mMainDenom);
-        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mMainDenom, mTotalAmount, mDivideDecimal));
+        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.mainDivideDecimal(mBaseChain)));
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -182,12 +171,8 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
-                return;
+                onInsertKeyDialog();
             }
-
             BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
@@ -212,10 +197,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
-                return;
+                onInsertKeyDialog();
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -245,7 +227,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
         private static final int TYPE_VESTING = 98;
         private static final int TYPE_UNBONDING = 99;
-        private static final int TYPE_HISTORY = 100;
 
         @NonNull
         @Override

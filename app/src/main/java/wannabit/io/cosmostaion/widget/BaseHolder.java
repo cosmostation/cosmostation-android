@@ -16,9 +16,7 @@ import kava.swap.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPool;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.txs.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.activities.txs.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
@@ -91,12 +89,6 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse otherPool) {
-    }
-
-    public void onBindGDexMyPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool mypool) {
-    }
-
-    public void onBindGDexOtherPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool otherPool) {
     }
 
     public void onBindSifMyEthPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool myPool, Querier.LiquidityProviderRes myProvider) {

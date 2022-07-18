@@ -149,8 +149,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (mChainConfig.wcSupport()) {
-            if (mAccount.pushAlarm) {
+        if (getMainActivity().mChainConfig.pushSupport()) {
+            if (getMainActivity().mAccount.pushAlarm) {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
                 getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);

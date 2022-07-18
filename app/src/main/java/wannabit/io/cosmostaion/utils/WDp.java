@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.utils;
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.ASSETMANTLE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -51,18 +50,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ALTHEA_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_BITSONG_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_DESMOS_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LEGACY_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_1;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_2;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_NON_LEDGER_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_LUM_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_MEDI_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_PROVENANCE_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -1773,10 +1760,6 @@ public class WDp {
             BalancerPool.Pool pool = baseData.getOsmosisPoolByDenom(denom);
             return WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
         }
-        if (denom.startsWith("pool") && denom.length() >= 68) {
-            ChainParam.GdexStatus pool = baseData.getParamGravityPoolByDenom(denom);
-            return WUtil.getParamGdexLpTokenPerUsdPrice(baseData, pool);
-        }
         if (denom.equals(TOKEN_EMONEY_EUR) || denom.equals(TOKEN_EMONEY_CHF) || denom.equals(TOKEN_EMONEY_DKK) ||
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
             if (baseData.getPrice("usdt") != null && baseData.getPrice("usdt").prices != null) {
@@ -1848,10 +1831,6 @@ public class WDp {
                 if (coin.denom.equals(mainDenom(baseChain))) {
                     BigDecimal amount = baseData.getAllMainAsset(mainDenom(baseChain));
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, mainDivideDecimal(baseChain));
-                    totalValue = totalValue.add(assetValue);
-                } else if (baseChain.equals(COSMOS_MAIN) && coin.denom.startsWith("pool")) {
-                    BigDecimal amount = baseData.getAvailable(coin.denom);
-                    BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 6);
                     totalValue = totalValue.add(assetValue);
                 } else if (baseChain.equals(OSMOSIS_MAIN) && coin.denom.equals(TOKEN_ION) ||
                         baseChain.equals(CRESCENT_MAIN) && coin.denom.equals(TOKEN_BCRE) ||
@@ -3262,9 +3241,7 @@ public class WDp {
             if (denom.startsWith("ibc/")) {
                 return WUtil.getIbcDecimal(baseData, denom);
             }
-            if (baseChain.equals(COSMOS_MAIN)) {
-                return WUtil.getCosmosCoinDecimal(baseData, denom);
-            } else if (baseChain.equals(OSMOSIS_MAIN)) {
+            if (baseChain.equals(OSMOSIS_MAIN)) {
                 return WUtil.getOsmosisCoinDecimal(baseData, denom);
             } else if (baseChain.equals(SIF_MAIN)) {
                 return WUtil.getSifCoinDecimal(baseData, denom);
