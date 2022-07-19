@@ -9,11 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.WithDrawPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -25,7 +22,6 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
     private TextView        mExitOutput0Amount, mExitOutput0AmountSymbol;
     private TextView        mExitOutput1Amount, mExitOutput1AmountSymbol;
     private TextView        mMemo;
-    private int             mDpDecimal = 6;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -54,8 +50,6 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -63,14 +57,12 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
         mExitMyShare.setText(WDp.getDpAmount2(getSActivity(), getSActivity().mKavaShareAmount, 6, 6));
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mKavaMinTokenA, mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.KAVA_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mKavaMinTokenB, mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.KAVA_MAIN);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mExitOutput0AmountSymbol, mExitOutput0Amount);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mExitOutput1AmountSymbol, mExitOutput1Amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mMemo.setText(getSActivity().mTxMemo);
     }
 

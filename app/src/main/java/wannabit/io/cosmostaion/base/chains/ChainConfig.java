@@ -32,6 +32,7 @@ public class ChainConfig {
     public int mainDenomImg() { return 0; }
     public String mainDenom() { return ""; }
     public String mainSymbol() { return ""; }
+    public int decimal() { return 6; }
     public int sendImgColor() { return R.color.colorWhite; }
     public int sendBgColor() { return chainColor(); }
 

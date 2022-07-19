@@ -30,6 +30,15 @@ public class ChainFactory {
                 case JUNO_MAIN:
                     return new Juno();
 
+                case KAVA_LEGACY1:
+                case KAVA_LEGACY2:
+                case KAVA_LEGACY3:
+                case KAVA_LEGACY4:
+                case KAVA_LEGACY5:
+                case KAVA_LEGACY6:
+                case KAVA_MAIN:
+                    return new Kava();
+
                 case OSMOSIS_MAIN:
                     return new Osmosis();
             }

@@ -34,6 +34,7 @@ public class Injective extends ChainConfig {
     public int mainDenomImg() { return R.drawable.token_injective; }
     public String mainDenom() { return "inj"; }
     public String mainSymbol() { return "INJ"; }
+    public int decimal() { return 18; }
 
     public String addressPrefix() { return "inj"; }
     public String addressHdPath0() { return "m/44'/60'/0'/0/X"; }

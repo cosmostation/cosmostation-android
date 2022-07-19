@@ -485,19 +485,21 @@ public class BaseConstant {
 
 
     //HTLC swap support Token Types
-    public final static String  TOKEN_HTLC_BINANCE_BNB               = "BNB";
-    public final static String  TOKEN_HTLC_KAVA_BNB                  = "bnb";
-    public final static String  TOKEN_HTLC_BINANCE_BTCB             = "BTCB-1DE";
-    public final static String  TOKEN_HTLC_KAVA_BTCB                = "btcb";
-    public final static String  TOKEN_HTLC_BINANCE_XRPB             = "XRP-BF2";
-    public final static String  TOKEN_HTLC_KAVA_XRPB                = "xrpb";
-    public final static String  TOKEN_HTLC_BINANCE_BUSD             = "BUSD-BD1";
-    public final static String  TOKEN_HTLC_KAVA_BUSD                = "busd";
 
-    public final static String TOKEN_HTLC_BINANCE_TEST_BNB          = "BNB";
-    public final static String TOKEN_HTLC_BINANCE_TEST_BTC          = "BTCB-101";
-    public final static String TOKEN_HTLC_KAVA_TEST_BNB             = "bnb";
-    public final static String TOKEN_HTLC_KAVA_TEST_BTC             = "btcb";
+    public final static String TOKEN_HTLC_KAVA_BNB                 = "bnb";
+    public final static String TOKEN_HTLC_KAVA_BTCB                = "btcb";
+    public final static String TOKEN_HTLC_KAVA_XRPB                = "xrpb";
+    public final static String TOKEN_HTLC_KAVA_BUSD                = "busd";
+
+    public final static String TOKEN_HTLC_BINANCE_BNB              = "BNB";
+    public final static String TOKEN_HTLC_BINANCE_BTCB             = "BTCB-1DE";
+    public final static String TOKEN_HTLC_BINANCE_XRPB             = "XRP-BF2";
+    public final static String TOKEN_HTLC_BINANCE_BUSD             = "BUSD-BD1";
+
+    public final static String TOKEN_HTLC_BINANCE_TEST_BNB         = "BNB";
+    public final static String TOKEN_HTLC_BINANCE_TEST_BTC         = "BTCB-101";
+    public final static String TOKEN_HTLC_KAVA_TEST_BNB            = "bnb";
+    public final static String TOKEN_HTLC_KAVA_TEST_BTC            = "btcb";
 
 
     //TODO HardCoding!!
@@ -848,13 +850,12 @@ public class BaseConstant {
     public final static String NYX_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/nyx/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
-    public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
-    public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
-    public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
+//    public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
+//    public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
+//    public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
-    public final static String ASSET_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/assets/images/ethereum/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
@@ -920,6 +921,7 @@ public class BaseConstant {
     public final static String RESOURCE_BASE_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/";
     public final static String MONIKER_URL              = RESOURCE_BASE_URL + "moniker/";
     public final static String UNKNOWN_RELAYER_URL      = RESOURCE_BASE_URL + "relayer/";
+    public final static String ASSET_IMG_URL            = RESOURCE_BASE_URL + "assets/images/ethereum/";
     public final static String COINGECKO_URL            = "https://www.coingecko.com/en/coins/";
 
     public final static String AKASH_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";

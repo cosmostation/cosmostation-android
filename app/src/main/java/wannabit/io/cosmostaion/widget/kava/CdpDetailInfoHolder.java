@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.widget.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
+import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_CDP_IMG_URL;
 
 import android.os.Bundle;
 import android.text.Html;

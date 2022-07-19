@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -30,22 +27,17 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.WithDrawPoolActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
+public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout mProgress;
     private Button mCancelBtn, mNextBtn;
 
     private LinearLayout mLpCoinLayout;
-    private ImageView mLpCoinImg;
-    private TextView mLpCoinSymbol;
     private EditText mLpCoinInput;
     private ImageView mLpCoinClearBtn;
-    private TextView mLpCoinAmount, mLpCoinDenom;
+    private TextView mLpCoinAmount;
     private Button mLpCoin1_4Btn, mLpCoinHalfBtn, mLpCoin3_4Btn, mLpCoinMaxBtn;
 
     private BigDecimal mAvailableMaxAmount;
@@ -74,12 +66,9 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
         mProgress = rootView.findViewById(R.id.progress);
 
         mLpCoinLayout = rootView.findViewById(R.id.exit_pool_input_symbol_layer);
-        mLpCoinImg = rootView.findViewById(R.id.exit_pool_input_icon);
-        mLpCoinSymbol = rootView.findViewById(R.id.exit_pool_input_symbol);
         mLpCoinInput = rootView.findViewById(R.id.exit_pool_input);
         mLpCoinClearBtn = rootView.findViewById(R.id.exit_pool_input_clear);
         mLpCoinAmount = rootView.findViewById(R.id.exit_pool_input_amount);
-        mLpCoinDenom = rootView.findViewById(R.id.exit_pool_input_amount_denom);
         mLpCoin1_4Btn = rootView.findViewById(R.id.exit_pool_input_1_4);
         mLpCoinHalfBtn = rootView.findViewById(R.id.exit_pool_input_half);
         mLpCoin3_4Btn = rootView.findViewById(R.id.exit_pool_input_3_4);
@@ -94,7 +83,7 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
         mNextBtn.setOnClickListener(this);
 
         mLpCoinLayout.setVisibility(View.GONE);
-        onFetchPoolInfo();
+        onInitView();
         return rootView;
     }
 
@@ -211,34 +200,13 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
             BigDecimal coin0Amount = new BigDecimal(getSActivity().mKavaDepositPool.getSharesValue(0).getAmount()).multiply(padding).multiply(depositRate).setScale(0, RoundingMode.DOWN);
             BigDecimal coin1Amount = new BigDecimal(getSActivity().mKavaDepositPool.getSharesValue(1).getAmount()).multiply(padding).multiply(depositRate).setScale(0, RoundingMode.DOWN);
 
-            getSActivity().mKavaMinTokenA = new Coin(getSActivity().mKavaDepositPool.getSharesValue(0).getDenom(), coin0Amount.toPlainString());
-            getSActivity().mKavaMinTokenB = new Coin(getSActivity().mKavaDepositPool.getSharesValue(1).getDenom(), coin1Amount.toPlainString());
+            getSActivity().mKavaPoolTokenA = new Coin(getSActivity().mKavaDepositPool.getSharesValue(0).getDenom(), coin0Amount.toPlainString());
+            getSActivity().mKavaPoolTokenB = new Coin(getSActivity().mKavaDepositPool.getSharesValue(1).getDenom(), coin1Amount.toPlainString());
 
             return true;
 
         } catch (Exception e) {
             return false;
-        }
-    }
-
-
-    private int mTaskCount;
-
-    public void onFetchPoolInfo() {
-        mTaskCount = 1;
-        new KavaSwapPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mKavaSwapPool.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        mTaskCount--;
-        if (result.taskType == TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO) {
-            if (result.isSuccess && result.resultData != null) {
-                mSwapPool = (ArrayList<QueryOuterClass.PoolResponse>) result.resultData;
-            }
-        }
-        if (mTaskCount == 0) {
-            onInitView();
         }
     }
 

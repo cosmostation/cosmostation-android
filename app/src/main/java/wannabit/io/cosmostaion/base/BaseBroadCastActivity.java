@@ -52,15 +52,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSwapInCoin;
     public Coin                         mSwapOutCoin;
 
-    public long                         mGDexPoolId;                                // cosmos
-    public Liquidity.Pool               mGDexPool;
-    public GDexManager                  mGDexManager;
-    public String                       mGDexSwapOrderPrice;
-    public Coin                         mGDexPoolCoinSupply;
-
-
     public String                       mIncentiveMultiplier;
-
 
     public sifnode.clp.v1.Types.Pool    mSifPool;                                   // sif swap
     public Coin                         mSifSwapInCoin;
@@ -99,8 +91,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                                                 mKavaPoolTokenA;
     public Coin                                                 mKavaPoolTokenB;
     public BigDecimal                                           mKavaShareAmount = BigDecimal.ZERO;
-    public Coin                                                 mKavaMinTokenA;
-    public Coin                                                 mKavaMinTokenB;
     public Coin                                                 mCollateral;
     public Coin                                                 mPrincipal;
     public String                                               mCollateralType;

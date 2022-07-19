@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.DepositPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -25,7 +24,6 @@ public class DepositPoolStep3Fragment extends BaseFragment implements View.OnCli
     private TextView        mJoinInput1Amount, mJoinInput1AmountSymbol;
     private TextView        mJoinSlippage;
     private TextView        mMemo;
-    private int             mDpDecimal = 6;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -54,8 +52,6 @@ public class DepositPoolStep3Fragment extends BaseFragment implements View.OnCli
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -63,12 +59,10 @@ public class DepositPoolStep3Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mKavaPoolTokenA,  mJoinInput0AmountSymbol, mJoinInput0Amount, BaseChain.KAVA_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mKavaPoolTokenB,  mJoinInput1AmountSymbol, mJoinInput1Amount, BaseChain.KAVA_MAIN);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mJoinInput0AmountSymbol, mJoinInput0Amount);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mJoinInput1AmountSymbol, mJoinInput1Amount);
         mJoinSlippage.setText(WDp.getPercentDp(new BigDecimal(3)));
         mMemo.setText(getSActivity().mTxMemo);
     }

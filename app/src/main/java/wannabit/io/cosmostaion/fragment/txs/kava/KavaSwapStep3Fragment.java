@@ -27,7 +27,6 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
     private RelativeLayout  mSlippageLayer;
     private TextView        mSlippage;
     private TextView        mMemo;
-    private int             mDpDecimal = 6;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -58,8 +57,6 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
@@ -69,14 +66,12 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         mSlippageLayer.setVisibility(View.VISIBLE);
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
         BigDecimal swapFee = new BigDecimal(getBaseDao().mSwapParams.getSwapFee()).movePointLeft(18);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mKavaSwapIn, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mKavaSwapOut, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
+        WDp.dpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaSwapIn, mSwapInAmountSymbol, mSwapInAmount);
+        WDp.dpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaSwapOut, mSwapOutAmountSymbol, mSwapOutAmount);
         mSlippage.setText(WDp.getPercentDp(new BigDecimal(3)));
         mMemo.setText(getSActivity().mTxMemo);
     }

@@ -249,7 +249,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
             if (derive.status == 2) {
                 holder.accountState.setText("Imported");
-                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_white2_border));
                 holder.accountDimLayer.setVisibility(View.VISIBLE);
                 holder.accountDimLayer.setAlpha(0.5f);
             } else {

@@ -99,9 +99,9 @@
 
     <color name="color_kava">#FF564F</color>
     <color name="color_kava2">#631D1B</color>
-    <color name="colorHard">#8626E1</color>
-    <color name="colorSwp">#5A42FF</color>
-    <color name="colorUsdx">#06D6A0</color>
+    <color name="color_hard">#8626E1</color>
+    <color name="color_swp">#5A42FF</color>
+    <color name="color_usdx">#06D6A0</color>
 
     <color name="color_band">#516FFA</color>
     <color name="color_band2">#2A3C8B</color>
@@ -151,7 +151,7 @@
 
     <color name="color_osmosis">#9248db</color>
     <color name="color_osmosis2">#4e1a82</color>
-    <color name="colorIon">#3C90FC</color>
+    <color name="color_ion">#3C90FC</color>
 
     <color name="color_umee">#bb90f8</color>
     <color name="color_umee2">#7e63a6</color>
@@ -216,7 +216,7 @@
     <color name="color_omniflix2">#3228ab</color>
 
     <color name="color_crescent">#f4bc76</color>
-    <color name="color_crescent2">#ac8a5e</color>
+    <color name="color_bcre">#ac8a5e</color>
     <color name="color_crescent3">#452318</color>
 
     <color name="color_Mantle">#f3b519</color>

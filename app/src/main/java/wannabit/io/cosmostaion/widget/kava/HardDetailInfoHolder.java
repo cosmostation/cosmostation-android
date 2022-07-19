@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget.kava;
 
+import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_HARD_POOL_IMG_URL;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,8 +25,6 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARD_POOL_IMG_URL;
 
 public class HardDetailInfoHolder extends BaseHolder {
     private ImageView   mPoolImg;

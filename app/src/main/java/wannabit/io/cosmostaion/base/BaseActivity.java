@@ -586,7 +586,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mMyRewards.clear();
 
         //kava GRPC
-        getBaseDao().mIncentiveParam5 = null;
+        getBaseDao().mIncentiveParam = null;
         getBaseDao().mIncentiveRewards = null;
         getBaseDao().mMyHardDeposits.clear();
         getBaseDao().mMyHardBorrows.clear();
@@ -908,7 +908,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         //kava
         else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mIncentiveParam5 = (IncentiveParam) result.resultData;
+                getBaseDao().mIncentiveParam = (IncentiveParam) result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {

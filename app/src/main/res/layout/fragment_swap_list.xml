@@ -8,45 +8,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/space_12">
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/space_12">
-
                 <TextView
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_swap_input_coin" />
-
                 <RelativeLayout
                     android:id="@+id/btn_to_input_coin"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_36"
-                    android:layout_marginTop="@dimen/space_10">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/space_50"
-                        android:background="@drawable/btn_trans_with_border" />
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_6"
+                    android:background="@drawable/btn_trans_with_border">
                     <ImageView
                         android:id="@+id/img_input_coin"
                         android:layout_width="@dimen/space_20"
                         android:layout_height="@dimen/space_20"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_10"
+                        android:layout_marginLeft="@dimen/space_6"
                         android:src="@drawable/token_default" />
-
                     <TextView
                         android:id="@+id/txt_input_coin"
                         style="@style/font_ss_14_black_daynight"
@@ -55,8 +45,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_toRightOf="@+id/img_input_coin"
-                        android:text="Coin" />
-
+                        android:text="-" />
                     <TextView
                         android:id="@+id/inpus_amount"
                         style="@style/font_ss_14_black_daynight"
@@ -160,22 +149,16 @@
                 <RelativeLayout
                     android:id="@+id/btn_to_output_coin"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_36"
-                    android:layout_marginTop="@dimen/space_10">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/space_50"
-                        android:background="@drawable/btn_trans_with_border" />
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_6"
+                    android:background="@drawable/btn_trans_with_border">
                     <ImageView
                         android:id="@+id/img_output_coin"
                         android:layout_width="@dimen/space_20"
                         android:layout_height="@dimen/space_20"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_10"
+                        android:layout_marginLeft="@dimen/space_6"
                         android:src="@drawable/token_default" />
-
                     <TextView
                         android:id="@+id/txt_output_coin"
                         style="@style/font_ss_14_black_daynight"
@@ -184,7 +167,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_toRightOf="@+id/img_output_coin"
-                        android:text="Coin" />
+                        android:text="-" />
 
                     <ImageView
                         android:id="@+id/img_output_arrow"
@@ -280,7 +263,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginBottom="@dimen/space_16"
                 android:background="@color/colorGrayDayNight" />

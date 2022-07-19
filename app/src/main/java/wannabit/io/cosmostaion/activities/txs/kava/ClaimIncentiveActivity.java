@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ClaimIncentiveStep0Fragment;
@@ -63,6 +64,7 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_CLAIM_INCENTIVE;
 
         mPageAdapter = new ClaimIncentivePageAdapter(getSupportFragmentManager());
@@ -148,7 +150,7 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
 
     public void onStartIncentiveClaim() {
         Intent intent = new Intent(ClaimIncentiveActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_CLAIM_INCENTIVE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("multiplierName", mIncentiveMultiplier);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);
