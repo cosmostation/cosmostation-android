@@ -162,7 +162,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mTvLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 18));
     }
 
-    public void onBindBridgeToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
+    public void onBindBridgeToken(Context c, BaseData baseData, String denom) {
         final Assets assets = baseData.getAsset(denom);
         if (assets != null) {
             mAvailableAmount = baseData.getAvailable(assets.denom);

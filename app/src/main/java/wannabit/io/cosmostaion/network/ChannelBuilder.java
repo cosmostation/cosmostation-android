@@ -153,9 +153,7 @@ public class ChannelBuilder {
         ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (channel_cosmos_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_cosmos_main = ManagedChannelBuilder.forAddress(chainConfig.grpcUrl(), chainConfig.grpcPort())
-                        .usePlaintext()
-                        .build();
+                channel_cosmos_main = chainConfig.channelMain();
             }
         }
         return channel_cosmos_main;
@@ -166,9 +164,7 @@ public class ChannelBuilder {
         ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (channel_iris_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_iris_main = ManagedChannelBuilder.forAddress(chainConfig.grpcUrl(), chainConfig.grpcPort())
-                        .usePlaintext()
-                        .build();
+                channel_iris_main = chainConfig.channelMain();
             }
         }
         return channel_iris_main;
@@ -232,13 +228,11 @@ public class ChannelBuilder {
 
     //Channel for osmosis main
     private static ManagedChannel channel_osmosis_main = null;
-
-    public static ManagedChannel getOsmosisMain() {
+    public static ManagedChannel getOsmosisMain(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (channel_osmosis_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_osmosis_main = ManagedChannelBuilder.forAddress(GRPC_OSMOSIS_MAIN, PORT_OSMOSIS_MAIN)
-                        .usePlaintext()
-                        .build();
+                channel_osmosis_main = chainConfig.channelMain();
             }
         }
         return channel_osmosis_main;
@@ -361,9 +355,7 @@ public class ChannelBuilder {
         ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (channel_juno_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_juno_main = ManagedChannelBuilder.forAddress(chainConfig.grpcUrl(), chainConfig.grpcPort())
-                        .usePlaintext()
-                        .build();
+                channel_juno_main = chainConfig.channelMain();
             }
         }
         return channel_juno_main;
@@ -481,15 +473,12 @@ public class ChannelBuilder {
         return channel_secret_main;
     }
 
-    //Channel for injective main
     private static ManagedChannel channel_inj_main = null;
-
-    public static ManagedChannel getInjMain() {
+    public static ManagedChannel getInjMain(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (channel_inj_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_inj_main = ManagedChannelBuilder.forAddress(GRPC_INJ_MAIN, PORT_INJ_MAIN)
-                        .usePlaintext()
-                        .build();
+                channel_inj_main = chainConfig.channelMain();
             }
         }
         return channel_inj_main;
@@ -691,15 +680,12 @@ public class ChannelBuilder {
         return channel_mantle_main;
     }
 
-    //Channel for crescent main
     private static ManagedChannel channel_crescent_main = null;
-
-    public static ManagedChannel getCrescentMain() {
+    public static ManagedChannel getCrescentMain(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (channel_crescent_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_crescent_main = ManagedChannelBuilder.forAddress(GRPC_CRESCENT_MAIN, PORT_CRESCENT_MAIN)
-                        .usePlaintext()
-                        .build();
+                channel_crescent_main = chainConfig.channelMain();
             }
         }
         return channel_crescent_main;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -44,6 +45,7 @@ public class ChainConfig {
     public int grpcPort() { return 9090; }
     public String lcdUrl() { return ""; }
     public String apiUrl() { return ""; }
+    public ManagedChannel channelMain() { return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().build(); }
     public ManagedChannel getConnection() { return null; }
     public HistoryApi getHistoryApi() { return null; }
 

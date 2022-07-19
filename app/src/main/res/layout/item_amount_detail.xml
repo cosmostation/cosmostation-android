@@ -52,7 +52,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight"
                 android:layout_marginLeft="@dimen/space_14"
                 android:layout_marginRight="@dimen/space_14"/>
@@ -81,6 +81,8 @@
                         android:layout_marginRight="@dimen/space_2"
                         android:text=""
                         android:layout_alignParentRight="true"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
                         style="@style/font_ss_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>

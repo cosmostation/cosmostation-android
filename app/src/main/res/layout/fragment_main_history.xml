@@ -38,7 +38,7 @@
 
                 <TextView
                     android:id="@+id/wallet_address"
-                    style="@style/font_rmr_12_black_daynight"
+                    style="@style/font_rmr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -47,9 +47,9 @@
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="11sp"
-                    android:autoSizeMaxTextSize="12sp"
-                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeMinTextSize="11dp"
+                    android:autoSizeMaxTextSize="14dp"
+                    android:autoSizeStepGranularity="1dp"
                     android:text="" />
             </RelativeLayout>
 

@@ -95,6 +95,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
         mMainDenom = mChainConfig.mainDenom();
+        mToolbarChannel.setVisibility(View.GONE);
 
         if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) {
             mHasVesting = true;
@@ -130,9 +131,8 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
     }
 
     private void onUpdateView() {
-        mToolbarChannel.setVisibility(View.GONE);
         mToolbarSymbolImg.setImageResource(mChainConfig.mainDenomImg());
-        mToolbarSymbol.setText(mChainConfig.mainSymbol());
+        mToolbarSymbol.setText(WDp.getDisplaySymbol(getBaseDao(), mChainConfig, mMainDenom));
         mToolbarSymbol.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainColor()));
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mMainDenom));

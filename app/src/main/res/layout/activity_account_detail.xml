@@ -187,7 +187,7 @@
 
                             <TextView
                                 android:id="@+id/account_address"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rmr_12_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -200,7 +200,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/space_view"
                         android:layout_marginTop="@dimen/space_12"
                         android:layout_marginRight="@dimen/space_8"
                         android:background="@color/colorGrayDayNight" />
@@ -380,7 +380,7 @@
 
                         <TextView
                             android:id="@+id/reward_address"
-                            style="@style/font_ss_12_black_daynight"
+                            style="@style/font_rmr_12_black_daynight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"

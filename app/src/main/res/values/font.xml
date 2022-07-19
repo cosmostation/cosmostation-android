@@ -653,7 +653,7 @@
 
     <style name="font_ss_14_inj" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_inj</item>
+        <item name="android:textColor">@color/color_injective</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 

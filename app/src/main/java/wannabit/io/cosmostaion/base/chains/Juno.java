@@ -41,7 +41,7 @@ public class Juno extends ChainConfig{
     public String addressPrefix() { return "juno"; }
     public String addressHdPath0() { return "m/44'/118'/0'/0/X"; }
 
-    public boolean pushSupport() { return true; }
+    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 

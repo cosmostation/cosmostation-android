@@ -384,14 +384,13 @@ public class ApiClient {
         return api_ki;
     }
 
-    //Services for osmosis mainnet api
     private static HistoryApi api_osmosis = null;
-
-    public static HistoryApi getOsmosisApi(Context c) {
+    public static HistoryApi getOsmosisApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_osmosis == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_osmosis))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_osmosis = retrofit.create(HistoryApi.class);
@@ -559,14 +558,13 @@ public class ApiClient {
         return api_secret;
     }
 
-    //Services for injective mainnet api
     private static HistoryApi api_inj = null;
-
-    public static HistoryApi getInjApi(Context c) {
+    public static HistoryApi getInjApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_inj == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_inj))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_inj = retrofit.create(HistoryApi.class);
@@ -767,14 +765,13 @@ public class ApiClient {
         return api_omniflix;
     }
 
-    //Services for crescent mainnet api
     private static HistoryApi api_crescent = null;
-
-    public static HistoryApi getCrescentApi(Context c) {
+    public static HistoryApi getCrescentApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_crescent == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_crescent))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_crescent = retrofit.create(HistoryApi.class);

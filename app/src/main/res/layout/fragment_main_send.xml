@@ -95,13 +95,13 @@
 
                     <TextView
                         android:id="@+id/wallet_address"
-                        style="@style/font_rmr_12_black_daynight"
+                        style="@style/font_rmr_14_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_toRightOf="@+id/img_account"
-                        android:autoSizeMaxTextSize="12dp"
+                        android:autoSizeMaxTextSize="14dp"
                         android:autoSizeMinTextSize="11dp"
                         android:autoSizeStepGranularity="1dp"
                         android:autoSizeTextType="uniform"

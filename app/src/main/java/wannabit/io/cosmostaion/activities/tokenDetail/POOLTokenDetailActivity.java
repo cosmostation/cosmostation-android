@@ -85,7 +85,6 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
         mPoolDenom = getIntent().getStringExtra("denom");
-
         mToolbarChannel.setVisibility(View.GONE);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -120,20 +119,17 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
     private void onUpdateView() {
         if (mBaseChain.equals(OSMOSIS_MAIN)) {
             mToolbarSymbolImg.setImageResource(R.drawable.token_pool);
-            String[] split = mPoolDenom.split("/");
-            mToolbarSymbol.setText("GAMM-" + split[split.length - 1]);
             mDivideDecimal = 18;
 
         } else if (mBaseChain.equals(INJ_MAIN)) {
             mToolbarSymbolImg.setImageResource(R.drawable.injectivepool_token);
-            mToolbarSymbol.setText("SHARE" + mPoolDenom.substring(5));
             mDivideDecimal = 18;
 
         } else if (mBaseChain.equals(CRESCENT_MAIN)) {
             mToolbarSymbolImg.setImageResource(R.drawable.token_crescentpool);
-            mToolbarSymbol.setText(mPoolDenom.toUpperCase());
             mDivideDecimal = 12;
         }
+        mToolbarSymbol.setText(WDp.getDisplaySymbol(getBaseDao(), mChainConfig, mPoolDenom));
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, getBaseDao().getAvailable(mPoolDenom), mDivideDecimal));
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mPoolDenom));
@@ -150,8 +146,8 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(POOLTokenDetailActivity.this, mChainConfig.chainBgColor()));
-        mAddress.setText(mAccount.address);
         isAccountKey(mKeyState);
+        mAddress.setText(mAccount.address);
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
