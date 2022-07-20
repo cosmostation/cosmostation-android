@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.DepositPoolStep0Fragment;
@@ -65,6 +66,7 @@ public class DepositPoolActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mPageAdapter = new DepositPoolPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -149,7 +151,7 @@ public class DepositPoolActivity extends BaseBroadCastActivity {
 
     public void onStartJoinPool() {
         Intent intent = new Intent(DepositPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_KAVA_JOIN_POOL);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("mKavaPoolTokenA", mKavaPoolTokenA);
         intent.putExtra("mKavaPoolTokenB", mKavaPoolTokenB);
         intent.putExtra("memo", mTxMemo);

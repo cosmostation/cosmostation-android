@@ -49,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_COIN_IMG_URL;
 
 import android.content.Context;
 import android.content.Intent;
@@ -1294,13 +1295,13 @@ public class WUtil {
             textView.setTextColor(ContextCompat.getColor(c, R.color.color_kava));
             textView.setText(R.string.str_kava_c);
         } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorHard));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.color_hard));
             textView.setText("HARD");
         } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorUsdx));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.color_usdx));
             textView.setText("USDX");
         } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
-            textView.setTextColor(ContextCompat.getColor(c, R.color.colorSwp));
+            textView.setTextColor(ContextCompat.getColor(c, R.color.color_swp));
             textView.setText("SWP");
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
@@ -1455,7 +1456,7 @@ public class WUtil {
                 textView.setText("OSMO");
 
             } else if (denom.equals(TOKEN_ION)) {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.colorIon));
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_ion));
                 textView.setText("ION");
 
             } else if (denom.startsWith("gamm/pool/")) {
@@ -1595,7 +1596,7 @@ public class WUtil {
         if (denom != null) {
             if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
                 Picasso.get().cancelRequest(imageView);
-                imageView.setImageResource(R.drawable.kava_token_img);
+                imageView.setImageResource(R.drawable.token_kava);
             } else if (denom.startsWith("ibc/")) {
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null) {

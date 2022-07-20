@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.KavaSwapStep0Fragment;
@@ -70,6 +71,7 @@ public class StartSwapActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mPageAdapter = new CoinSwapPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -154,7 +156,7 @@ public class StartSwapActivity extends BaseBroadCastActivity {
 
     public void onStartSwap() {
         Intent intent = new Intent(StartSwapActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_KAVA_SWAP);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("kavaSwapIn", mKavaSwapIn);
         intent.putExtra("kavaSwapOut", mKavaSwapOut);
         intent.putExtra("memo", mTxMemo);

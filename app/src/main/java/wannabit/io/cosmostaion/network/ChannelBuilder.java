@@ -540,15 +540,12 @@ public class ChannelBuilder {
         return channel_chihuahua_main;
     }
 
-    //Channel for kava main
     private static ManagedChannel channel_kava_main = null;
-
-    public static ManagedChannel getKavaMain() {
+    public static ManagedChannel getKavaMain(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (channel_kava_main == null) {
             synchronized (ChannelBuilder.class) {
-                channel_kava_main = ManagedChannelBuilder.forAddress(GRPC_KAVA_MAIN, PORT_KAVA_MAIN)
-                        .usePlaintext()
-                        .build();
+                channel_kava_main = chainConfig.channelMain();
             }
         }
         return channel_kava_main;

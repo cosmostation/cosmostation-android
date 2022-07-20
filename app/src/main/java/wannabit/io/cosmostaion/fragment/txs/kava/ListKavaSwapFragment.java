@@ -25,9 +25,8 @@ import kava.swap.v1beta1.Swap;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
+import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ListKavaSwapFragment extends BaseFragment implements View.OnClickListener {
 
@@ -115,7 +114,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         if (mSwapPoolList != null && mSwapParams != null) {
             for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
-                if (pool.getCoins(0).getDenom().equals("ukava") && pool.getCoins(1).getDenom().equals("usdx")) {
+                if (pool.getCoins(0).getDenom().equalsIgnoreCase("ukava") && pool.getCoins(1).getDenom().equalsIgnoreCase("usdx")) {
                     mSelectedPool = pool;
                     mInputCoinDenom = "ukava";
                     mOutputCoinDenom = "usdx";
@@ -130,53 +129,55 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         if (mSelectedPool == null) {
             getSActivity().onBackPressed();
         }
-        WUtil.DpKavaTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
-        WUtil.DpKavaTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
-        int InPutDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom);
-        int OutPutDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom);
+        if (!mInputCoinDenom.isEmpty() && !mOutputCoinDenom.isEmpty()) {
+            WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputImg);
+            WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputImg);
+            WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputCoin);
+            WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputCoin);
+            int inputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom);
+            int outputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom);
 
-        BigDecimal availableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
-        BigDecimal swapFee = new BigDecimal(mSwapParams.getSwapFee()).movePointLeft(18);
-        mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
-        mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
-        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, InPutDecimal, InPutDecimal));
+            BigDecimal availableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
+            BigDecimal swapFee = new BigDecimal(mSwapParams.getSwapFee()).movePointLeft(18);
+            mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
+            mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
+            mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, inputDecimal, inputDecimal));
 
-        BigDecimal inputAmount = BigDecimal.ZERO;
-        BigDecimal outputAmount = BigDecimal.ZERO;
+            BigDecimal inputAmount = BigDecimal.ZERO;
+            BigDecimal outputAmount = BigDecimal.ZERO;
 
-        if (mSelectedPool.getCoins(0).getDenom().equalsIgnoreCase(mInputCoinDenom)) {
-            inputAmount = new BigDecimal(mSelectedPool.getCoins(0).getAmount());
-            outputAmount = new BigDecimal(mSelectedPool.getCoins(1).getAmount());
-        } else {
-            inputAmount = new BigDecimal(mSelectedPool.getCoins(1).getAmount());
-            outputAmount = new BigDecimal(mSelectedPool.getCoins(0).getAmount());
+            if (mSelectedPool.getCoins(0).getDenom().equalsIgnoreCase(mInputCoinDenom)) {
+                inputAmount = new BigDecimal(mSelectedPool.getCoins(0).getAmount());
+                outputAmount = new BigDecimal(mSelectedPool.getCoins(1).getAmount());
+            } else {
+                inputAmount = new BigDecimal(mSelectedPool.getCoins(1).getAmount());
+                outputAmount = new BigDecimal(mSelectedPool.getCoins(0).getAmount());
+            }
+
+            inputAmount = inputAmount.movePointLeft(inputDecimal);
+            outputAmount = outputAmount.movePointLeft(outputDecimal);
+
+            BigDecimal swapRate = outputAmount.divide(inputAmount, 16, RoundingMode.DOWN);
+
+            mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputDecimal));
+            mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, outputDecimal));
+            WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinSymbol);
+            WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinSymbol);
+
+            WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
+            WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
+
+            BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(getSActivity().mChainConfig, mInputCoinDenom));
+            BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(getSActivity().mChainConfig, mOutputCoinDenom));
+            BigDecimal priceRate = BigDecimal.ZERO;
+            if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
+                mSwapOutputCoinExRate.setText("?.??????");
+            } else {
+                priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
+                mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, outputDecimal));
+            }
+            mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputDecimal));
         }
-
-        inputAmount = inputAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom));
-        outputAmount = outputAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom));
-
-        BigDecimal swapRate = outputAmount.divide(inputAmount, 16, RoundingMode.DOWN);
-
-        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, InPutDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, OutPutDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
-
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
-
-        BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), WUtil.getKavaBaseDenom(getBaseDao(), mInputCoinDenom));
-        BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), WUtil.getKavaBaseDenom(getBaseDao(), mOutputCoinDenom));
-        BigDecimal priceRate = BigDecimal.ZERO;
-        if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
-            mSwapOutputCoinExRate.setText("?.??????");
-        } else {
-            priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, OutPutDecimal));
-        }
-        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, InPutDecimal));
     }
 
     @Override
@@ -184,7 +185,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         if (v.equals(mBtnInputCoinList)) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mAllDenoms);
-            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
@@ -209,7 +210,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
-            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -230,8 +231,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop:
-            for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
+            loop : for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
                 for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
                     if (coin.getDenom().equalsIgnoreCase(mInputCoinDenom)) {
                         mSelectedPool = pool;
@@ -248,11 +248,11 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop:
-            for (QueryOuterClass.PoolResponse pool : mSwapablePools) {
+            loop : for (QueryOuterClass.PoolResponse pool : mSwapablePools) {
                 for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
                     if (coin.getDenom().equalsIgnoreCase(mOutputCoinDenom)) {
                         mSelectedPool = pool;
+                        break loop;
                     }
                 }
             }

@@ -67,6 +67,7 @@
                 android:layout_marginTop="@dimen/space_6">
 
                 <TextView
+                    android:id="@+id/total_deposit_value_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,13 +75,15 @@
 
                 <TextView
                     android:id="@+id/mypool_total_liquidity_value"
-                    style="@style/font_ss_15_black_daynight"
+                    style="@style/font_ssm_15_black_daynight"
+                    android:layout_toRightOf="@+id/total_deposit_value_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    android:textStyle="bold" />
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -110,7 +113,9 @@
                             style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="" />
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:text=""/>
 
                         <TextView
                             android:id="@+id/mypool_total_liquidity_symbol1"
@@ -135,6 +140,8 @@
                             style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:text="" />
 
                         <TextView
@@ -153,7 +160,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_14"
                 android:background="@color/colorGrayDayNight" />
 
@@ -163,6 +170,7 @@
                 android:layout_marginTop="@dimen/space_14">
 
                 <TextView
+                    android:id="@+id/my_deposit_value_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -170,13 +178,13 @@
 
                 <TextView
                     android:id="@+id/mypool_deposit_value"
-                    style="@style/font_ss_15_black_daynight"
+                    style="@style/font_ssm_15_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/my_deposit_value_title"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    android:textStyle="bold" />
+                    android:text="-" />
             </RelativeLayout>
 
             <LinearLayout
@@ -206,6 +214,8 @@
                             style="@style/font_ss_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:text="" />
 
                         <TextView
@@ -284,6 +294,8 @@
                                     style="@style/font_ss_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
                                     android:text="-" />
 
                                 <TextView
@@ -309,6 +321,8 @@
                                     style="@style/font_ss_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
                                     android:text="-" />
 
                                 <TextView

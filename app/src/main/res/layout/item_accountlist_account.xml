@@ -11,7 +11,7 @@
         android:layout_height="@dimen/space_68"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_account_unselected"
+        android:background="@drawable/box_white2_border"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_8">
         <RelativeLayout

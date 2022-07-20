@@ -19,6 +19,8 @@ import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -81,23 +83,24 @@ public class PoolOtherHolder extends BaseHolder {
 
     @Override
     public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse otherPool) {
+        final ChainConfig chainConfig = ChainFactory.getChain(activity.mBaseChain);
         CoinOuterClass.Coin coin0 = otherPool.getCoins(0);
         CoinOuterClass.Coin coin1 = otherPool.getCoins(1);
-        int coin0Decimal = WUtil.getKavaCoinDecimal(baseData, coin0.getDenom());
-        int coin1Decimal = WUtil.getKavaCoinDecimal(baseData, coin1.getDenom());
+        int coin0Decimal = WDp.getDenomDecimal(baseData, chainConfig, coin0.getDenom());
+        int coin1Decimal = WDp.getDenomDecimal(baseData, chainConfig, coin1.getDenom());
         BigDecimal coin0price = WDp.getKavaPriceFeed(baseData, coin0.getDenom());
         BigDecimal coin1price = WDp.getKavaPriceFeed(baseData, coin1.getDenom());
         BigDecimal coin0value = new BigDecimal(coin0.getAmount()).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
         BigDecimal coin1value = new BigDecimal(coin1.getAmount()).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
 
-        itemPoolType.setText(WUtil.getKavaTokenName(baseData, coin0.getDenom()) + " : " + WUtil.getKavaTokenName(baseData, coin1.getDenom()));
+        itemPoolType.setText(WDp.getDisplaySymbol(baseData, chainConfig, coin0.getDenom()) + " : " + WDp.getDisplaySymbol(baseData, chainConfig, coin1.getDenom()));
 
         // Total deposit
         BigDecimal poolValue = coin0value.add(coin1value);
         itemTotalDepositValue.setText(WDp.getDpRawDollor(context, poolValue, 2));
 
-        WUtil.dpKavaTokenName(context, baseData, itemTotalDepositSymbol0, coin0.getDenom());
-        WUtil.dpKavaTokenName(context, baseData, itemTotalDepositSymbol1, coin1.getDenom());
+        WDp.dpSymbol(context, baseData, chainConfig, coin0.getDenom(), itemTotalDepositSymbol0);
+        WDp.dpSymbol(context, baseData, chainConfig, coin1.getDenom(), itemTotalDepositSymbol1);
         itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
         itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
 
@@ -105,8 +108,8 @@ public class PoolOtherHolder extends BaseHolder {
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.getDenom());
         BigDecimal availableCoin1 = baseData.getAvailable(coin1.getDenom());
 
-        WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol0, coin0.getDenom());
-        WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol1, coin1.getDenom());
+        WDp.dpSymbol(context, baseData, chainConfig, coin0.getDenom(), itemMyAvailableSymbol0);
+        WDp.dpSymbol(context, baseData, chainConfig, coin1.getDenom(), itemMyAvailableSymbol1);
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
 

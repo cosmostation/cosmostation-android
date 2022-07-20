@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget.kava;
 
+import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_CDP_IMG_URL;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -19,8 +21,6 @@ import wannabit.io.cosmostaion.activities.txs.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
 
 public class CdpOtherHolder extends BaseHolder {
     CardView itemRoot;

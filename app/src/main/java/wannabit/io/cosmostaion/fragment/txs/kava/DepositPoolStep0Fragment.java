@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,7 +27,6 @@ import java.util.ArrayList;
 import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.DepositPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -61,7 +58,6 @@ public class DepositPoolStep0Fragment extends BaseFragment implements View.OnCli
     private BigDecimal mAvailable0MaxAmount, mAvailable1MaxAmount;
     private int mCoin0Decimal = 6, mCoin1Decimal = 6;
     private String mCoin0Denom = "", mCoin1Denom = "";
-    private BigDecimal mCoin0Amount = BigDecimal.ZERO, mCoin1Amount = BigDecimal.ZERO;
     private BigDecimal mDepositRate = BigDecimal.ONE;
 
     private ArrayList<QueryOuterClass.PoolResponse> mSwapPool = new ArrayList<>();
@@ -133,39 +129,41 @@ public class DepositPoolStep0Fragment extends BaseFragment implements View.OnCli
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
+        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxType, 0);
         mCoin0Denom = mSwapPool.get(0).getCoins(0).getDenom();
         mCoin1Denom = mSwapPool.get(0).getCoins(1).getDenom();
-        mCoin0Decimal = WUtil.getKavaCoinDecimal(getBaseDao(), mCoin0Denom);
-        mCoin1Decimal = WUtil.getKavaCoinDecimal(getBaseDao(), mCoin1Denom);
+        mCoin0Decimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mCoin0Denom);
+        mCoin1Decimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mCoin1Denom);
 
+        BigDecimal coin0Amount = BigDecimal.ZERO;
+        BigDecimal coin1Amount = BigDecimal.ZERO;
         if (mSwapPool.get(0).getCoins(0).getDenom().equalsIgnoreCase(mCoin0Denom)) {
-            mCoin0Amount = new BigDecimal(mSwapPool.get(0).getCoins(0).getAmount());
-            mCoin1Amount = new BigDecimal(mSwapPool.get(0).getCoins(1).getAmount());
+            coin0Amount = new BigDecimal(mSwapPool.get(0).getCoins(0).getAmount());
+            coin1Amount = new BigDecimal(mSwapPool.get(0).getCoins(1).getAmount());
         } else {
-            mCoin0Amount = new BigDecimal(mSwapPool.get(0).getCoins(1).getAmount());
-            mCoin1Amount = new BigDecimal(mSwapPool.get(0).getCoins(0).getAmount());
+            coin0Amount = new BigDecimal(mSwapPool.get(0).getCoins(1).getAmount());
+            coin1Amount = new BigDecimal(mSwapPool.get(0).getCoins(0).getAmount());
         }
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(mCoin0Denom);
-        if (mCoin0Denom.equalsIgnoreCase(TOKEN_KAVA)) {
+        if (mCoin0Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
             mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(txFeeAmount);
         }
         mAvailable1MaxAmount = getBaseDao().getAvailable(mCoin1Denom);
-        if (mCoin1Denom.equalsIgnoreCase(TOKEN_KAVA)) {
+        if (mCoin1Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
             mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount);
         }
 
         setDpDecimals(mCoin0Decimal, mCoin1Decimal);
 
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Symbol, mCoin0Denom);
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Symbol, mCoin1Denom);
-        WUtil.DpKavaTokenImg(getBaseDao(), mJoinPoolInput0Img, mCoin0Denom);
-        WUtil.DpKavaTokenImg(getBaseDao(), mJoinPoolInput1Img, mCoin1Denom);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Denom, mCoin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.KAVA_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Denom, mCoin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.KAVA_MAIN);
+        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mJoinPoolInput0Symbol);
+        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mJoinPoolInput1Symbol);
+        WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mJoinPoolInput0Img);
+        WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mJoinPoolInput1Img);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount);
+        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount);
 
-        mDepositRate = mCoin1Amount.divide(mCoin0Amount, 18, RoundingMode.DOWN);
+        mDepositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
 
         onAddAmountWatcher();
 

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
@@ -62,8 +61,6 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private String mInDecimalChecker, mInDecimalSetter;
 
     private ArrayList<QueryOuterClass.PoolResponse> mSwapPool = new ArrayList<>();
-    private BigDecimal mInputCoinAmount = BigDecimal.ZERO;
-    private BigDecimal mOutputCoinAmount = BigDecimal.ZERO;
 
     public static KavaSwapStep0Fragment newInstance(Bundle bundle) {
         KavaSwapStep0Fragment fragment = new KavaSwapStep0Fragment();
@@ -115,6 +112,8 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
+        BigDecimal mInputCoinAmount = BigDecimal.ZERO;
+        BigDecimal mOutputCoinAmount = BigDecimal.ZERO;
         if (mSwapPool.get(0).getCoins(0).getDenom().equalsIgnoreCase(getSActivity().mInputDenom)) {
             mInputCoinAmount = new BigDecimal(mSwapPool.get(0).getCoins(0).getAmount());
             mOutputCoinAmount = new BigDecimal(mSwapPool.get(0).getCoins(1).getAmount());
@@ -123,24 +122,24 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
             mOutputCoinAmount = new BigDecimal(mSwapPool.get(0).getCoins(0).getAmount());
         }
 
-        mInputCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
+        mInputCoinDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom);
+        mOutputCoinDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
 
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, 0);
         if (getSActivity().mInputDenom.equals(TOKEN_KAVA)) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);
 
         mSwapRate = mOutputCoinAmount.divide(mInputCoinAmount, 18, RoundingMode.DOWN);
 
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        WUtil.DpKavaTokenImg(getBaseDao(), mSwapInputImg, getSActivity().mInputDenom);
-        WUtil.DpKavaTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
+        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputSymbol);
+        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputSymbol);
+        WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputImg);
+        WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputImg);
     }
 
     private void onAddAmountWatcher() {
@@ -282,7 +281,6 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private int mTaskCount;
-
     public void onFetchPoolInfo() {
         mTaskCount = 1;
         new KavaSwapPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mKavaSwapPool.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

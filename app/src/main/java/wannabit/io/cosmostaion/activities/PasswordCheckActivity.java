@@ -230,9 +230,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private long mOsmosisLockupDuration;
     private ArrayList<Lock.PeriodLock> mOsmosisLockups = new ArrayList<>();
 
-    private Liquidity.Pool mGDexPool;
-    public String mGDexSwapOrderPrice;
-
     private Coin mSifSwapInCoin;
     private Coin mSifSwapOutCoin;
     private Coin mSifDepositCoin0;
@@ -263,8 +260,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin mKavaPoolTokenA;
     private Coin mKavaPoolTokenB;
     private String mKavaShareAmount;
-    private Coin mKavaMinTokenA;
-    private Coin mKavaMinTokenB;
     private Coin mCollateral;
     private Coin mPrincipal;
     private String mCollateralType;
@@ -354,9 +349,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             mOsmosisLockups = lockupsWrapper.array;
         }
 
-        mGDexPool = (Liquidity.Pool) getIntent().getSerializableExtra("gDexPool");
-        mGDexSwapOrderPrice = getIntent().getStringExtra("gDexSwapOrderPrice");
-
         mSifSwapInCoin = getIntent().getParcelableExtra("SifSwapInCoin");
         mSifSwapOutCoin = getIntent().getParcelableExtra("SifSwapOutCoin");
         mSifDepositCoin0 = getIntent().getParcelableExtra("SifDepositCoin0");
@@ -385,8 +377,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mKavaPoolTokenA = getIntent().getParcelableExtra("mKavaPoolTokenA");
         mKavaPoolTokenB = getIntent().getParcelableExtra("mKavaPoolTokenB");
         mKavaShareAmount = getIntent().getStringExtra("mKavaShare");
-        mKavaMinTokenA = getIntent().getParcelableExtra("mKavaMinTokenA");
-        mKavaMinTokenB = getIntent().getParcelableExtra("mKavaMinTokenB");
+        mKavaPoolTokenA = getIntent().getParcelableExtra("mKavaPoolTokenA");
+        mKavaPoolTokenB = getIntent().getParcelableExtra("mKavaPoolTokenB");
         mCollateral = getIntent().getParcelableExtra("mCollateral");
         mPrincipal = getIntent().getParcelableExtra("mPrincipal");
         mCollateralType = getIntent().getStringExtra("mCollateralType");
@@ -693,7 +685,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
-            new KavaWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaShareAmount, mKavaMinTokenA, mKavaMinTokenB,
+            new KavaWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaShareAmount, mKavaPoolTokenA, mKavaPoolTokenB,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {

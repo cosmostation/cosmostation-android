@@ -233,7 +233,7 @@
             <RelativeLayout
                 android:id="@+id/btn_dex"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true"
@@ -253,7 +253,7 @@
             <RelativeLayout
                 android:id="@+id/btn_wallet_connect"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true"

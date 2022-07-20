@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/box_chain_selected">
+        android:background="@drawable/box_chain_trans_border">
         <LinearLayout
             android:id="@+id/accountContent"
             android:layout_width="match_parent"

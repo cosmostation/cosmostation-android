@@ -1,12 +1,8 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
@@ -31,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Lists;
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -71,8 +66,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private RelativeLayout mBtnSend;
 
     private String mNativeGrpcDenom;
-
-    private int mDivideDecimal = 6;
     private Boolean mHasVesting = false;
 
     @Override
@@ -148,29 +141,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
-        if (mBaseChain.equals(BaseChain.OSMOSIS_MAIN)) {
-            mToolbarSymbolImg.setImageResource(R.drawable.token_ion);
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorIon));
-
-        } else if (mBaseChain.equals(BaseChain.EMONEY_MAIN)) {
-            mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
-            Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
-            Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
-
-        } else if (mBaseChain.equals(CRESCENT_MAIN)) {
-            mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.token_bcre));
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.color_crescent2));
-
-        } else if (mBaseChain.equals(NYX_MAIN)) {
-            mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.token_nym));
-            mToolbarSymbol.setText(R.string.str_nym_c);
-            mToolbarSymbol.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.color_nym));
-        }
-        mToolbarSymbol.setText(WDp.getDisplaySymbol(getBaseDao(), mChainConfig, mNativeGrpcDenom));
-        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, getBaseDao().getAvailable(mNativeGrpcDenom), mDivideDecimal));
+        BigDecimal totalAmount = getBaseDao().getAvailable(mNativeGrpcDenom).add(getBaseDao().getVesting(mNativeGrpcDenom));
+        int decimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mNativeGrpcDenom);
+        WDp.dpSymbolImg(getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbolImg);
+        WDp.dpSymbol(NativeTokenGrpcActivity.this, getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbol);
+        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, totalAmount, decimal));
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mNativeGrpcDenom));
         mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mNativeGrpcDenom));

@@ -35,7 +35,7 @@ public class Osmosis extends ChainConfig {
     public String mainDenom() { return "uosmo"; }
     public String mainSymbol() { return "OSMO"; }
 
-    public String addressPrefix() { return "osmosis"; }
+    public String addressPrefix() { return "osmo"; }
     public String addressHdPath0() { return "m/44'/118'/0'/0/X"; }
 
     public boolean pushSupport() { return false; }

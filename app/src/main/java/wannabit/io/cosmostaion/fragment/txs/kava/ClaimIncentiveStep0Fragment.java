@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.fragment.txs.kava;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_HARD_DENOM;
+import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_SWP_DENOM;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -75,7 +77,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
     }
 
     private void onUpdateView() {
-        mIncentiveParam = getBaseDao().mIncentiveParam5;
+        mIncentiveParam = getBaseDao().mIncentiveParam;
         mIncentiveReward = getBaseDao().mIncentiveRewards;
 
         if (mIncentiveReward != null) {
@@ -104,9 +106,9 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         } else if (v.equals(BtnOption1)) {
             onInitBtnBg();
             BtnOption1.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
-            BigDecimal kavaIncentiveCal = mKavaIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 0)).setScale(0, RoundingMode.DOWN);
-            BigDecimal hardIncentiveCal = mHardIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 0)).setScale(0, RoundingMode.DOWN);
-            BigDecimal swpIncentiveCal = mSwpIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 0)).setScale(0, RoundingMode.DOWN);
+            BigDecimal kavaIncentiveCal = mKavaIncetiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 0)).setScale(0, RoundingMode.DOWN);
+            BigDecimal hardIncentiveCal = mHardIncetiveAmount.multiply(mIncentiveParam.getFactor(KAVA_HARD_DENOM, 0)).setScale(0, RoundingMode.DOWN);
+            BigDecimal swpIncentiveCal = mSwpIncetiveAmount.multiply(mIncentiveParam.getFactor(KAVA_SWP_DENOM, 0)).setScale(0, RoundingMode.DOWN);
             mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveCal, 6, 6));
             mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveCal, 6, 6));
             mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
@@ -117,9 +119,9 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         } else if (v.equals(BtnOption2)) {
             onInitBtnBg();
             BtnOption2.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
-            BigDecimal kavaIncentiveCal = mKavaIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 1)).setScale(0, RoundingMode.DOWN);
-            BigDecimal hardIncentiveCal = mHardIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 1)).setScale(0, RoundingMode.DOWN);
-            BigDecimal swpIncentiveCal = mSwpIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 1)).setScale(0, RoundingMode.DOWN);
+            BigDecimal kavaIncentiveCal = mKavaIncetiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 1)).setScale(0, RoundingMode.DOWN);
+            BigDecimal hardIncentiveCal = mHardIncetiveAmount.multiply(mIncentiveParam.getFactor(KAVA_HARD_DENOM, 1)).setScale(0, RoundingMode.DOWN);
+            BigDecimal swpIncentiveCal = mSwpIncetiveAmount.multiply(mIncentiveParam.getFactor(KAVA_SWP_DENOM, 1)).setScale(0, RoundingMode.DOWN);
             mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveCal, 6, 6));
             mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveCal, 6, 6));
             mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));

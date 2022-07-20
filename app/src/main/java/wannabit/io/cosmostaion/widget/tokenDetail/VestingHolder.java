@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ import cosmos.vesting.v1beta1.Vesting;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -53,42 +56,45 @@ public class VestingHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
-        if (denom.equalsIgnoreCase(WDp.mainDenom(chain))) {
-            mVestingRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
+        final ChainConfig chainConfig = ChainFactory.getChain(chain);
+        if (denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+            mVestingRoot.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
         }
         onBindGRPC(c, chain, baseData, denom);
     }
 
     private void onBindGRPC (Context c, BaseChain chain, BaseData baseData, String denom) {
+        final ChainConfig chainConfig = ChainFactory.getChain(chain);
+        int decimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
         ArrayList<Vesting.Period> vps = baseData.onParseRemainVestingsByDenom(denom);
         mVestingCnt.setText("" + vps.size());
 
         mVestingTime0.setText(WDp.getDpTime(c, vps.get(0).getLength()));
-        mVestingGap0.setText(WDp.getUnbondingTimeleft(c, vps.get(0).getLength()));
-        mVestingAmount0.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(0), denom), 6, 6));
+        mVestingGap0.setText(WDp.getGapTime(c, vps.get(0).getLength()));
+        mVestingAmount0.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(0), denom), decimal, decimal));
         if (vps.size() > 1) {
             mVestingLayer1.setVisibility(View.VISIBLE);
             mVestingTime1.setText(WDp.getDpTime(c, vps.get(1).getLength()));
-            mVestingGap1.setText(WDp.getUnbondingTimeleft(c, vps.get(1).getLength()));
-            mVestingAmount1.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(1), denom), 6, 6));
+            mVestingGap1.setText(WDp.getGapTime(c, vps.get(1).getLength()));
+            mVestingAmount1.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(1), denom), decimal, decimal));
         }
         if (vps.size() > 2) {
             mVestingLayer2.setVisibility(View.VISIBLE);
             mVestingTime2.setText(WDp.getDpTime(c, vps.get(2).getLength()));
-            mVestingGap2.setText(WDp.getUnbondingTimeleft(c, vps.get(2).getLength()));
-            mVestingAmount2.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(2), denom), 6, 6));
+            mVestingGap2.setText(WDp.getGapTime(c, vps.get(2).getLength()));
+            mVestingAmount2.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(2), denom), decimal, decimal));
         }
         if (vps.size() > 3) {
             mVestingLayer3.setVisibility(View.VISIBLE);
             mVestingTime3.setText(WDp.getDpTime(c, vps.get(3).getLength()));
-            mVestingGap3.setText(WDp.getUnbondingTimeleft(c, vps.get(3).getLength()));
-            mVestingAmount3.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(3), denom), 6, 6));
+            mVestingGap3.setText(WDp.getGapTime(c, vps.get(3).getLength()));
+            mVestingAmount3.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(3), denom), decimal, decimal));
         }
         if (vps.size() > 4) {
             mVestingLayer4.setVisibility(View.VISIBLE);
             mVestingTime4.setText(WDp.getDpTime(c, vps.get(4).getLength()));
-            mVestingGap4.setText(WDp.getUnbondingTimeleft(c, vps.get(4).getLength()));
-            mVestingAmount4.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(4), denom), 6, 6));
+            mVestingGap4.setText(WDp.getGapTime(c, vps.get(4).getLength()));
+            mVestingAmount4.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(4), denom), decimal, decimal));
         }
     }
 }

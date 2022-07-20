@@ -23,7 +23,7 @@ import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
+import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -175,7 +175,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         if (v.equals(mBtnInputCoinList)) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mAllDenoms);
-            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
@@ -202,7 +202,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
-            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

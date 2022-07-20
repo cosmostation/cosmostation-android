@@ -5,33 +5,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/dialog_layout">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite2DayNight"
-        android:orientation="vertical"
+        android:background="@drawable/box_white2_border"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         app:layout_constrainedHeight="true"
-        app:layout_constraintHeight_max="@dimen/space_300">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_max="350dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/dialog_title"
+            style="@style/font_ss_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
-            style="@style/font_ss_17_black_daynight"
             android:gravity="center"
-            android:text="title"/>
+            android:text="title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_4"
             android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:layout_marginBottom="@dimen/space_4"/>
+            android:overScrollMode="never" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

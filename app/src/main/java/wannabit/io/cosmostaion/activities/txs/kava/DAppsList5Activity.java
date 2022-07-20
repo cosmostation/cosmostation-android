@@ -8,14 +8,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HAR
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_PARAMS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +41,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListHardFragment;
@@ -56,7 +54,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.KavaHardParamGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapParamsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolsGrpcTask;
-import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
@@ -86,6 +83,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mPageAdapter = new KavaDApp5PageAdapter(getSupportFragmentManager());
         mDappPager.setAdapter(mPageAdapter);
@@ -139,12 +137,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, QueryOuterClass.PoolResponse swapPool) {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
-        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
         if (available.compareTo(txFee) <= 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -177,21 +172,18 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     public void onCheckStartJoinPool(QueryOuterClass.PoolResponse myPool) {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
         String coin0Denom = myPool.getCoins(0).getDenom();
         String coin1Denom = myPool.getCoins(1).getDenom();
 
         BigDecimal available0MaxAmount = getBaseDao().getAvailable(coin0Denom);
-        if (coin0Denom.equalsIgnoreCase(TOKEN_KAVA)) {
+        if (coin0Denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
             available0MaxAmount = available0MaxAmount.subtract(feeAmount);
         }
         BigDecimal available1MaxAmount = getBaseDao().getAvailable(coin1Denom);
-        if (coin1Denom.equalsIgnoreCase(TOKEN_KAVA)) {
+        if (coin1Denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
             available1MaxAmount = available1MaxAmount.subtract(feeAmount);
         }
 
@@ -206,13 +198,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     public void onCheckStartExitPool(QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
-
-        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_KAVA);
+        BigDecimal mainBalance = getBaseDao().getAvailable(mChainConfig.mainDenom());
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_KAVA_EXIT_POOL, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
@@ -227,7 +215,6 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     }
 
     private int mTaskCount = 0;
-
     public void onFetchData() {
         mTaskCount = 5;
         getBaseDao().mSwapParams = null;

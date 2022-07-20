@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
+import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -157,7 +157,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         if (v.equals(mBtnInputCoinList)) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mAllDenoms);
-            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
@@ -170,7 +170,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
             }
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
-            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

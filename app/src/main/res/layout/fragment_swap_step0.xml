@@ -8,13 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="@dimen/space_6">
+        android:layout_marginRight="@dimen/space_10"
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_10">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="@dimen/space_16"
-            android:paddingRight="@dimen/space_16"
+            android:paddingRight="@dimen/space_10"
             android:paddingTop="@dimen/space_8"
             android:paddingBottom="@dimen/space_8"
             android:layout_marginRight="@dimen/space_6"
@@ -29,7 +31,7 @@
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_token_swap_input_coin" />
+                    android:text="Input Coin" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -39,8 +41,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
+                        android:text="-"
+                        android:textSize="@dimen/text_size_12"/>
                     <TextView
                         android:id="@+id/swap_available_amount"
                         android:layout_width="wrap_content"
@@ -59,7 +61,7 @@
                 android:layout_marginTop="@dimen/space_8">
                 <LinearLayout
                     android:id="@+id/swap_available_symbol_layer"
-                    android:layout_width="@dimen/space_50"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:orientation="vertical"
@@ -82,8 +84,7 @@
                     style="@style/font_ss_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/swap_available_symbol_layer"
                     android:background="@drawable/edittext_box"
                     android:gravity="center_vertical|left"
@@ -116,7 +117,7 @@
                     <Button
                         android:id="@+id/swap_input_1_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -126,7 +127,7 @@
                     <Button
                         android:id="@+id/swap_input_half"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -136,7 +137,7 @@
                     <Button
                         android:id="@+id/swap_input_3_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -146,7 +147,7 @@
                     <Button
                         android:id="@+id/swap_input_max"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -161,7 +162,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="@dimen/space_16"
-            android:paddingRight="@dimen/space_16"
+            android:paddingRight="@dimen/space_10"
             android:paddingTop="@dimen/space_8"
             android:paddingBottom="@dimen/space_8"
             android:layout_marginTop="@dimen/space_10"
@@ -186,7 +187,7 @@
                 android:layout_marginTop="@dimen/space_8">
                 <LinearLayout
                     android:id="@+id/swap_output_symbol_layer"
-                    android:layout_width="@dimen/space_50"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:orientation="vertical"
@@ -207,8 +208,7 @@
                     android:id="@+id/swap_pool_output"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/swap_output_symbol_layer"
                     android:maxLength="46"
                     android:textColorHint="@color/colorGray4"

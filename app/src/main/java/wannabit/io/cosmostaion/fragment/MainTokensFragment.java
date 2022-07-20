@@ -51,7 +51,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
@@ -111,6 +110,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
+import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_COIN_IMG_URL;
 
 import android.content.Context;
 import android.content.Intent;
@@ -885,7 +885,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_ION)) {
             holder.itemSymbol.setText(getString(R.string.str_uion_c));
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorIon));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_ion));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Ion Coin");
             holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_ion));
@@ -1190,7 +1190,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Kava Staking Coin");
-            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.kava_token_img));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_kava));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_KAVA);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1198,7 +1198,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_HARD)) {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorHard));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_hard));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("HardPool Gov. Coin");
@@ -1209,7 +1209,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_USDX)) {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorUsdx));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_usdx));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("USD Stable Asset");
@@ -1220,7 +1220,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_SWP)) {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorSwp));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_swp));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Kava Swap Coin");
@@ -1308,7 +1308,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_BCRE)) {
             holder.itemSymbol.setText(getString(R.string.str_bcre_c));
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_crescent2));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_bcre));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Liquidated CRE");
             Picasso.get().cancelRequest(holder.itemImg);
@@ -1389,7 +1389,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_BCRESCENT_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_bcre_c));
-            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_crescent2));
+            holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_bcre));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Liquidated CRE");
             Picasso.get().cancelRequest(holder.itemImg);

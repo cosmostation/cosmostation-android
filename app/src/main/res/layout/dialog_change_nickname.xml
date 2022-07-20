@@ -33,7 +33,7 @@
             android:maxLength="15"
             android:singleLine="true"
             android:textColorHint="@color/colorGray1"
-            android:background="@drawable/box_chain_selected"
+            android:background="@drawable/box_chain_trans_border"
             style="@style/font_ss_14_black_daynight"
             android:imeOptions="actionDone"
             android:gravity="center"/>

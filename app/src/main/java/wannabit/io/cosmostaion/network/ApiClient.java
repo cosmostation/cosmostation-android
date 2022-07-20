@@ -141,9 +141,7 @@ public class ApiClient {
         return service_binance;
     }
 
-    //Services for KAVA chain
     private static KavaChain service_kava = null;
-
     public static KavaChain getKavaChain(Context c) {
         if (service_kava == null) {
             synchronized (ApiClient.class) {
@@ -173,14 +171,13 @@ public class ApiClient {
         return service_certik;
     }
 
-    //Services for KAVA api
     private static HistoryApi api_kava = null;
-
-    public static HistoryApi getKavaApi(Context c) {
+    public static HistoryApi getKavaApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_kava == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_kava_main))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_kava = retrofit.create(HistoryApi.class);
