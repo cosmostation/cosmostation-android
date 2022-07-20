@@ -19,11 +19,12 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-public class Dialog_Safe_Score_Confirm extends DialogFragment {
+public class SafeScoreConfirmDialog extends DialogFragment {
 
-    public static Dialog_Safe_Score_Confirm newInstance(Bundle bundle) {
-        Dialog_Safe_Score_Confirm frag = new Dialog_Safe_Score_Confirm();
+    public static SafeScoreConfirmDialog newInstance(Bundle bundle) {
+        SafeScoreConfirmDialog frag = new SafeScoreConfirmDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -37,7 +38,6 @@ public class Dialog_Safe_Score_Confirm extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_score_confirm, null);
-
         LinearLayout before_risk_layer = view.findViewById(R.id.before_risk_layer);
         TextView before_risk_rate = view.findViewById(R.id.before_risk_rate);
         TextView before_risk_score = view.findViewById(R.id.before_risk_score);
@@ -52,8 +52,8 @@ public class Dialog_Safe_Score_Confirm extends DialogFragment {
         TextView after_liquidation_price_title = view.findViewById(R.id.after_liquidation_price_title);
         TextView after_liquidation_price = view.findViewById(R.id.after_liquidation_price);
 
-        WDp.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("beforeRiskRate")), before_risk_rate, before_risk_score, before_risk_layer);
-        WDp.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("afterRiskRate")), after_risk_rate, after_risk_score, after_risk_layer);
+        WUtil.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("beforeRiskRate")), before_risk_rate, before_risk_score, before_risk_layer);
+        WUtil.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("afterRiskRate")), after_risk_rate, after_risk_score, after_risk_layer);
 
         current_price_title.setText(String.format(getString(R.string.str_current_title3), getArguments().getString("denom").toUpperCase()));
         current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")), 4));

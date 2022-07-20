@@ -7,7 +7,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_TOTAL_SU
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,29 +31,28 @@ import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByOwnerGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.TotalSupplyGrpcTask;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.kava.CdpDetailInfoHolder;
 import wannabit.io.cosmostaion.widget.kava.CdpDetailMyAvailableHolder;
 import wannabit.io.cosmostaion.widget.kava.CdpDetailMyStatusHolder;
 
-public class CdpDetail5Activity extends BaseActivity implements TaskListener, View.OnClickListener {
+public class CdpDetailActivity extends BaseActivity implements TaskListener, View.OnClickListener {
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private CdpDetailAdapter mAdapter;
+
     private Button mBtnOpenCdp;
     private RelativeLayout mLoadingLayer;
-
-    private Account mAccount;
-    private CdpDetailAdapter mAdapter;
 
     private String mCollateralType;
     private Genesis.Params mCdpParams;
@@ -65,7 +63,12 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cdp_detail5);
+        setContentView(R.layout.activity_cdp_detail);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mToolbar = findViewById(R.id.tool_bar);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
@@ -75,13 +78,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
-        mCdpParams = getBaseDao().mCdpParams;
-        mCollateralType = getIntent().getStringExtra("collateralParamType");
-
-        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(CdpDetail5Activity.this, R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(CdpDetailActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -98,8 +95,18 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         mAdapter = new CdpDetailAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        onFetchCdpData();
         mBtnOpenCdp.setOnClickListener(this);
+    }
+
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+
+        mCdpParams = getBaseDao().mCdpParams;
+        mCollateralType = getIntent().getStringExtra("collateralParamType");
+
+        onFetchCdpData();
     }
 
     @Override
@@ -114,7 +121,6 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     }
 
     private int mTaskCount = 0;
-
     public void onFetchCdpData() {
         mTaskCount = 3;
         mMyCdps = null;
@@ -193,7 +199,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         final BigDecimal currentPrice = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
         final BigDecimal cAvailable = getBaseDao().getAvailable(cDenom);
         BigDecimal principalMinAmount = new BigDecimal(mCdpParams.getDebtParam().getDebtFloor());
-        BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(18)).divide(currentPrice, 0, RoundingMode.UP);
+        BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WDp.getDenomDecimal(getBaseDao(), mChainConfig, pDenom) - WDp.getDenomDecimal(getBaseDao(), mChainConfig, cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(18)).divide(currentPrice, 0, RoundingMode.UP);
         if (collateralMinAmount.compareTo(cAvailable) > 0) {
             Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             return;
@@ -232,7 +238,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         final Genesis.CollateralParam collateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
         final BigDecimal currentPrice = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
-        final BigDecimal maxWithdrawableAmount = WUtil.getWithdrawableAmount(getBaseContext(), getBaseDao(), mMyCdps, collateralParam, currentPrice, mSelfDepositAmount);
+        final BigDecimal maxWithdrawableAmount = WUtil.getWithdrawableAmount(getBaseContext(), getBaseDao(), mChainConfig, mMyCdps, collateralParam, currentPrice, mSelfDepositAmount);
 
         if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enought_withdraw_asset, Toast.LENGTH_SHORT).show();
@@ -301,10 +307,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
     private boolean onCommonCheck() {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return false;
+            onInsertKeyDialog();
         }
 
         if (mCdpParams.getCircuitBreaker()) {
@@ -335,11 +338,11 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         @Override
         public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_CDP_INFO) {
-                viewHolder.onBindCdpDetailInfo(CdpDetail5Activity.this, getBaseDao(), mMyCdps, mCollateralType, mDebtAmount);
+                viewHolder.onBindCdpDetailInfo(CdpDetailActivity.this, getBaseDao(), mMyCdps, mCollateralType, mDebtAmount);
             } else if (getItemViewType(position) == TYPE_MY_STATUS) {
-                viewHolder.onBindCdpDetailMyStatus(CdpDetail5Activity.this, getBaseDao(), mMyCdps, mCollateralType, mSelfDepositAmount);
+                viewHolder.onBindCdpDetailMyStatus(CdpDetailActivity.this, getBaseDao(), mMyCdps, mCollateralType, mSelfDepositAmount);
             } else if (getItemViewType(position) == TYPE_MY_AVAILABLE) {
-                viewHolder.onBindCdpDetailAvailable(CdpDetail5Activity.this, getBaseDao(), mCollateralType);
+                viewHolder.onBindCdpDetailAvailable(CdpDetailActivity.this, getBaseDao(), mCollateralType);
             }
         }
 

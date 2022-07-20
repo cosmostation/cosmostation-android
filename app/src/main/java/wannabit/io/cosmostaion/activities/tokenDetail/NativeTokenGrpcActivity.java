@@ -143,8 +143,8 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private void onUpdateView() {
         BigDecimal totalAmount = getBaseDao().getAvailable(mNativeGrpcDenom).add(getBaseDao().getVesting(mNativeGrpcDenom));
         int decimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mNativeGrpcDenom);
-        WDp.dpSymbolImg(getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbolImg);
-        WDp.dpSymbol(NativeTokenGrpcActivity.this, getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbol);
+        WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbolImg);
+        WDp.setDpSymbol(NativeTokenGrpcActivity.this, getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbol);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, totalAmount, decimal));
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mNativeGrpcDenom));

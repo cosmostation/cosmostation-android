@@ -63,7 +63,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     @Override
     public void onRefreshTab() {
         mIncentiveParam = getBaseDao().mIncentiveParam;
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFee);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFee);
 
         BigDecimal kavaIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(getSActivity().mChainConfig.mainDenom());
         BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(KAVA_HARD_DENOM);

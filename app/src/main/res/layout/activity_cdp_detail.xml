@@ -13,7 +13,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_bar_height"
+        android:layout_height="wrap_content"
         android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
         <TextView
@@ -34,7 +34,7 @@
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24"
-        android:background="@drawable/btn_trans_with_border"
+        android:background="@drawable/btn_trans_with_photon_border"
         style="@style/font_ss_14_photon"
         android:textColor="@color/colorPhoton"
         android:textAllCaps="false"
@@ -43,69 +43,28 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
-        android:layout_above="@+id/btn_open_cdp">
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/layer_scrollview"
+        android:layout_above="@+id/btn_open_cdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/space_4"
-                android:paddingBottom="@dimen/space_8"
-                android:orientation="vertical">
-
-                <include
-                    android:id="@+id/card_cdp_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
-                    layout="@layout/layout_cdp_detail_info"
-                    android:visibility="gone"/>
-
-                <include
-                    android:id="@+id/card_cdp_my"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
-                    layout="@layout/layout_cdp_detail_my"
-                    android:visibility="gone"/>
-
-                <include
-                    android:id="@+id/card_cdp_my_empty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
-                    layout="@layout/layout_cdp_detail_available"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+            android:clipToPadding="false"
+            android:overScrollMode="never" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/loadingLayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true">
-        <LinearLayout
+        android:clickable="true">
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ProgressBar
-                android:layout_width="@dimen/space_60"
-                android:layout_height="@dimen/space_60"
-                android:indeterminateDrawable="@drawable/loading"/>
-        </LinearLayout>
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
+
 
 </RelativeLayout>

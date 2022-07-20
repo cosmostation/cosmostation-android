@@ -19,8 +19,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView mWithdrawAmount, mWithdrawDenom, mWithdrawValue;
@@ -71,18 +69,18 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
     @Override
     public void onRefreshTab() {
         final String cDenom = getCParam().getDenom();
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        final int cDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, cDenom);
 
-        WDp.showCoinDp(getContext(), getBaseDao(), cDenom, getSActivity().mCollateral.amount, mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
-        BigDecimal collateralValue = new BigDecimal(getSActivity().mCollateral.amount).movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, cDenom, getSActivity().mCollateral.amount, mWithdrawDenom, mWithdrawAmount);
+        BigDecimal collateralValue = new BigDecimal(getSActivity().mCollateral.amount).movePointLeft(cDecimal).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
         mWithdrawValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
-        WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
-        BigDecimal kavaValue = WDp.usdValue(getBaseDao(), TOKEN_KAVA, feeAmount, 6);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeesDenom, mFeesAmount);
+        BigDecimal kavaValue = WDp.usdValue(getBaseDao(), getSActivity().mChainConfig.mainDenom(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6);
         mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
-        WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
-        WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
+        WUtil.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
+        WUtil.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
 
         mBeforeLiquidationPriceTitle.setText(String.format(getString(R.string.str_before_liquidation_title2), cDenom.toUpperCase()));
         mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(),  4));
@@ -90,8 +88,8 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         mAfterLiquidationPriceTitle.setText(String.format(getString(R.string.str_after_liquidation_title2), cDenom.toUpperCase()));
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
-        WDp.showCoinDp(getContext(), getBaseDao(), cDenom, getSActivity().mTotalDepositAmount.toPlainString(), mTotalDepositDenom, mTotalDepositAmount, getSActivity().mBaseChain);
-        BigDecimal totalCollateralValue = getSActivity().mTotalDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, cDenom, getSActivity().mTotalDepositAmount.toPlainString(), mTotalDepositDenom, mTotalDepositAmount);
+        BigDecimal totalCollateralValue = getSActivity().mTotalDepositAmount.movePointLeft(cDecimal).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
         mTotalDepositValue.setText(WDp.getDpRawDollor(getContext(), totalCollateralValue, 2));
 
         mMemo.setText(getSActivity().mTxMemo);

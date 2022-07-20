@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 
 import kava.cdp.v1beta1.Genesis;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.kava.CdpDetail5Activity;
+import wannabit.io.cosmostaion.activities.txs.kava.CdpDetailActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -55,7 +55,7 @@ public class CdpOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CdpDetail5Activity.class);
+                Intent intent = new Intent(context, CdpDetailActivity.class);
                 intent.putExtra("collateralParamType", otherCdp.getType());
                 context.startActivity(intent);
             }

@@ -156,12 +156,12 @@ public class DepositPoolStep0Fragment extends BaseFragment implements View.OnCli
 
         setDpDecimals(mCoin0Decimal, mCoin1Decimal);
 
-        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mJoinPoolInput0Symbol);
-        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mJoinPoolInput1Symbol);
-        WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mJoinPoolInput0Img);
-        WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mJoinPoolInput1Img);
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount);
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mJoinPoolInput0Symbol);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mJoinPoolInput1Symbol);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mJoinPoolInput0Img);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mJoinPoolInput1Img);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin0Denom, mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCoin1Denom, mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount);
 
         mDepositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
 

@@ -133,7 +133,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private void onUpdateView() {
         final Assets assets = getBaseDao().getAsset(mBridgeDenom);
         Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(mToolbarSymbolImg);
-        mToolbarSymbol.setText(WDp.getDisplaySymbol(getBaseDao(), mChainConfig, mBridgeDenom));
+        mToolbarSymbol.setText(WDp.getDpSymbol(getBaseDao(), mChainConfig, mBridgeDenom));
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), assets.origin_symbol));
         mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), assets.origin_symbol));

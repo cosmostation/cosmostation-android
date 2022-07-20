@@ -129,7 +129,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             mToolbarSymbolImg.setImageResource(R.drawable.token_crescentpool);
             mDivideDecimal = 12;
         }
-        mToolbarSymbol.setText(WDp.getDisplaySymbol(getBaseDao(), mChainConfig, mPoolDenom));
+        mToolbarSymbol.setText(WDp.getDpSymbol(getBaseDao(), mChainConfig, mPoolDenom));
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, getBaseDao().getAvailable(mPoolDenom), mDivideDecimal));
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mPoolDenom));

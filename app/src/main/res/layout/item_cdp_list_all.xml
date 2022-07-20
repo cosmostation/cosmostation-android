@@ -60,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/market_img"
-                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginTop="@dimen/space_6"
                         android:gravity="center" />
                 </LinearLayout>
             </RelativeLayout>
@@ -68,7 +68,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_16"
                 android:background="@color/colorGrayDayNight" />
 
@@ -78,6 +78,7 @@
                 android:layout_marginTop="@dimen/space_16">
 
                 <TextView
+                    android:id="@+id/collateral_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/collateral_title"
                     android:gravity="right"
                     android:text="-" />
             </RelativeLayout>
@@ -99,6 +101,7 @@
                 android:layout_marginTop="@dimen/space_10">
 
                 <TextView
+                    android:id="@+id/stability_fee_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,6 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/stability_fee_title"
                     android:gravity="right"
                     android:text="-" />
             </RelativeLayout>
@@ -120,6 +124,7 @@
                 android:layout_marginTop="@dimen/space_10">
 
                 <TextView
+                    android:id="@+id/liquidation_penalty_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,6 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/liquidation_penalty_title"
                     android:gravity="right"
                     android:text="-" />
             </RelativeLayout>
