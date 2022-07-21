@@ -9,7 +9,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_COIN_IMG_URL;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -39,6 +38,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Send_Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -187,21 +187,21 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB)) {
                 onSetDpDenom("BTC");
                 try {
-                    Picasso.get().load(KAVA_COIN_IMG_URL + "btcb.png").into(mToSendCoinImg);
+                    Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "btcb.png").into(mToSendCoinImg);
                 } catch (Exception e) {
                 }
 
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
                 onSetDpDenom("XRP");
                 try {
-                    Picasso.get().load(KAVA_COIN_IMG_URL + "xrpb.png").into(mToSendCoinImg);
+                    Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "xrpb.png").into(mToSendCoinImg);
                 } catch (Exception e) {
                 }
 
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
                 onSetDpDenom("BUSD");
                 try {
-                    Picasso.get().load(KAVA_COIN_IMG_URL + "busd.png").into(mToSendCoinImg);
+                    Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "busd.png").into(mToSendCoinImg);
                 } catch (Exception e) {
                 }
 

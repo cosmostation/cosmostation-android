@@ -33,11 +33,7 @@ public class Kava extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_kava; }
     public String mainDenom() { return "ukava"; }
-    public String mainSymbol() { return "KAVA"; }
-
     public String addressPrefix() { return "kava"; }
-    public String addressHdPath0() { return "m/44'/118'/0'/0/X"; }
-    public String addressHdPath1() { return "m/44'/459'/0'/0/X"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
@@ -65,7 +61,7 @@ public class Kava extends ChainConfig {
     }
 
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList(addressHdPath0(), addressHdPath1());
+        return Lists.newArrayList("m/44'/118'/0'/0/X", "m/44'/459'/0'/0/X");
     }
 
     public static String KAVA_HARD_DENOM = "hard";

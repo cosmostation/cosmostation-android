@@ -35,9 +35,7 @@ public class Injective extends ChainConfig {
     public String mainDenom() { return "inj"; }
     public String mainSymbol() { return "INJ"; }
     public int decimal() { return 18; }
-
     public String addressPrefix() { return "inj"; }
-    public String addressHdPath0() { return "m/44'/60'/0'/0/X"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
@@ -55,13 +53,12 @@ public class Injective extends ChainConfig {
     public String blogInfoLink() { return  "https://blog.injectiveprotocol.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "injective-protocol"; }
 
-
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList(addressHdPath0());
+        return Lists.newArrayList("m/44'/60'/0'/0/X");
     }
 }
 

@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.HistoryApi;
 
 public class Cosmos extends ChainConfig {
+
     public BaseChain baseChain() { return BaseChain.COSMOS_MAIN; }
     public int chainImg() { return R.drawable.chain_cosmos; }
     public int chainInfoImg() { return R.drawable.infoicon_cosmos; }
@@ -32,13 +33,11 @@ public class Cosmos extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_cosmos; }
     public String mainDenom() { return "uatom"; }
-    public String mainSymbol() { return "ATOM"; }
-
-    public String addressPrefix() { return chainName(); }
 
     public boolean pushSupport() { return true; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+    public String addressPrefix() { return "cosmos"; }
 
     public String grpcUrl() { return "lcd-cosmos-app-and.cosmostation.io"; }
     public String apiUrl() { return "https://api.cosmostation.io/"; }
@@ -51,11 +50,6 @@ public class Cosmos extends ChainConfig {
     public String homeInfoLink() { return  "https://cosmos.network"; }
     public String blogInfoLink() { return  "https://blog.cosmos.network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cosmos"; }
-
-
-    public List<ChildNumber> setParentPath(int customPath) {
-        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");

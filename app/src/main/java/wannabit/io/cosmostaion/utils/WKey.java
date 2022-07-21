@@ -161,7 +161,7 @@ public class WKey {
             ChainConfig chainConfig = ChainFactory.getChain(chain);
             return chainConfig.setParentPath(customPath);
         }
-        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        return null;
 //        if (chain.equals(BNB_MAIN)) {
 //            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 //

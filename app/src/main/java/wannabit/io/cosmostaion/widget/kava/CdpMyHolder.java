@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.widget.kava;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_CDP_IMG_URL;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -21,9 +18,11 @@ import kava.cdp.v1beta1.Genesis;
 import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.CdpDetailActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -56,7 +55,7 @@ public class CdpMyHolder extends BaseHolder {
 
     @Override
     public void onBindMyCdp(Context c, BaseData baseData, QueryOuterClass.CDPResponse myCdp) {
-        final ChainConfig chainConfig = ChainFactory.getChain(KAVA_MAIN);
+        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.KAVA_MAIN);
         final Genesis.CollateralParam collateralParam = baseData.getCollateralParamByType(myCdp.getType());
         final int dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, myCdp.getPrincipal().getDenom());
 
@@ -93,7 +92,7 @@ public class CdpMyHolder extends BaseHolder {
         WUtil.DpRiskRate(c, riskRate, itemRiskScore, itemImgRisk);
 
         try {
-            Picasso.get().load(KAVA_CDP_IMG_URL + collateralParam.getType() + ".png").fit().into(itemImgMarket);
+            Picasso.get().load(Kava.KAVA_CDP_IMG_URL + collateralParam.getType() + ".png").fit().into(itemImgMarket);
         } catch (Exception e) { }
 
         itemRoot.setOnClickListener(new View.OnClickListener() {

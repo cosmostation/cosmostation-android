@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.widget.kava;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_HARD_POOL_IMG_URL;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -26,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -61,12 +59,12 @@ public class HardPoolHolder extends BaseHolder {
     @Override
     public void onBindMyHardPool(Context context, BaseData baseData, Hard.Params hardParams, Hard.MoneyMarket hardMoneyMarket, IncentiveReward incentiveReward,
                                  ArrayList<QueryOuterClass.MoneyMarketInterestRate> HardInterestRates, ArrayList<QueryOuterClass.DepositResponse> myDeposit, ArrayList<QueryOuterClass.BorrowResponse> myBorrow, int position) {
-        final ChainConfig chainConfig = ChainFactory.getChain(KAVA_MAIN);
+        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.KAVA_MAIN);
         String baseDenom = "";
         if (hardMoneyMarket.getDenom().startsWith("ibc/")) baseDenom = baseData.getBaseDenom(chainConfig, hardMoneyMarket.getDenom());
         else baseDenom = hardMoneyMarket.getDenom();
         try {
-            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(hardPoolImg);
+            Picasso.get().load(Kava.KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(hardPoolImg);
         } catch (Exception e) { }
 
         String marketTitle = hardParams.getMoneyMarkets(position).getSpotMarketId().replace(":30", "");

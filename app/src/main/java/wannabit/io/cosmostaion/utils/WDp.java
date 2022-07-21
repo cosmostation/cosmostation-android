@@ -113,12 +113,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
-import static wannabit.io.cosmostaion.base.chains.Crescent.CRESCENT_BCRE_DENOM;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_HARD_DENOM;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_SWP_DENOM;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_USDX_DENOM;
-import static wannabit.io.cosmostaion.base.chains.Osmosis.OSMOSIS_ION_DENOM;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -163,6 +157,9 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Crescent;
+import wannabit.io.cosmostaion.base.chains.Kava;
+import wannabit.io.cosmostaion.base.chains.Osmosis;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.ChainParam;
@@ -213,23 +210,23 @@ public class WDp {
             }
 
         } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            if (denom.equalsIgnoreCase(KAVA_HARD_DENOM)) return "HARD";
-            else if (denom.equalsIgnoreCase(KAVA_USDX_DENOM)) return "USDX";
-            else if (denom.equalsIgnoreCase(KAVA_SWP_DENOM)) return "SWP";
+            if (denom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM)) return "HARD";
+            else if (denom.equalsIgnoreCase(Kava.KAVA_USDX_DENOM)) return "USDX";
+            else if (denom.equalsIgnoreCase(Kava.KAVA_SWP_DENOM)) return "SWP";
             else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) return "BNB";
             else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) return "XPRB";
             else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) return "BUSD";
             else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB)) return "BTCB";
 
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(OSMOSIS_ION_DENOM)) return "ION";
+            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) return "ION";
             else if (denom.startsWith("gamm/pool/")) {
                 String[] split = denom.split("/");
                 return "GAMM-" + split[split.length - 1];
             }
 
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
-            if (denom.equalsIgnoreCase(CRESCENT_BCRE_DENOM)) return "BCRE";
+            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) return "BCRE";
             else if (denom.startsWith("pool")) { return denom.toUpperCase(); }
 
         } else if (chainConfig.baseChain().equals(INJ_MAIN)) {
@@ -246,16 +243,16 @@ public class WDp {
             textView.setTextColor(ContextCompat.getColor(c, chainConfig.chainColor()));
 
         } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            if (denom.equalsIgnoreCase(KAVA_HARD_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_hard));
-            else if (denom.equalsIgnoreCase(KAVA_SWP_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_swp));
-            else if (denom.equalsIgnoreCase(KAVA_USDX_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_usdx));
+            if (denom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_hard));
+            else if (denom.equalsIgnoreCase(Kava.KAVA_SWP_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_swp));
+            else if (denom.equalsIgnoreCase(Kava.KAVA_USDX_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_usdx));
             else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(OSMOSIS_ION_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_ion));
+            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_ion));
 
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
-            if (denom.equalsIgnoreCase(CRESCENT_BCRE_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
+            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
 
         } else {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
@@ -272,7 +269,7 @@ public class WDp {
             return chainConfig.decimal();
 
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(OSMOSIS_ION_DENOM)) return 6;
+            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) return 6;
             else if (denom.startsWith("gamm/pool/")) return 18;
             else return 6;
 
@@ -297,7 +294,7 @@ public class WDp {
             }
 
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
-            if (denom.equalsIgnoreCase(CRESCENT_BCRE_DENOM)) return 6;
+            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) return 6;
             else if (denom.startsWith("pool")) return 12;
         }
         return chainConfig.decimal();
@@ -318,16 +315,16 @@ public class WDp {
             }
 
         } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
+            Picasso.get().load(Kava.KAVA_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
 
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(OSMOSIS_ION_DENOM)) imageView.setImageResource(R.drawable.token_ion);
+            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) imageView.setImageResource(R.drawable.token_ion);
             else if (denom.startsWith("gamm/pool/")) imageView.setImageResource(R.drawable.token_pool);
 
         } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
 
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
-            if (denom.equalsIgnoreCase(CRESCENT_BCRE_DENOM)) imageView.setImageResource(R.drawable.token_bcre);
+            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) imageView.setImageResource(R.drawable.token_bcre);
             else if (denom.startsWith("pool")) imageView.setImageResource(R.drawable.token_crescentpool);
 
         } else if (chainConfig.baseChain().equals(EMONEY_MAIN)) {

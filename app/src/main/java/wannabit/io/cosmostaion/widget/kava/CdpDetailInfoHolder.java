@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.widget.kava;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_CDP_IMG_URL;
-
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -22,9 +19,11 @@ import kava.cdp.v1beta1.Genesis;
 import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.CdpDetailActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.SafeScoreStatusDialog;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -71,13 +70,13 @@ public class CdpDetailInfoHolder extends BaseHolder {
 
     @Override
     public void onBindCdpDetailInfo(CdpDetailActivity context, BaseData baseData, QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal debtAmount) {
-        final ChainConfig chainConfig = ChainFactory.getChain(KAVA_MAIN);
+        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.KAVA_MAIN);
         final Genesis.CollateralParam collateralParam = baseData.getCollateralParamByType(collateralType);
         final String cDenom = collateralParam.getDenom();
         final BigDecimal currentPrice = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
 
         try {
-            Picasso.get().load(KAVA_CDP_IMG_URL + collateralParam.getType() + ".png").fit().into(mInfoMarketImg);
+            Picasso.get().load(Kava.KAVA_CDP_IMG_URL + collateralParam.getType() + ".png").fit().into(mInfoMarketImg);
         } catch (Exception e) { }
 
         mInfoMarketType.setText(collateralParam.getType().toUpperCase());

@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.base.chains;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+
+import com.google.common.collect.ImmutableList;
+
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
@@ -39,20 +43,14 @@ abstract public class ChainConfig {
         return chainName().toUpperCase();
     }
 
-    public String chainIdPrefix() {
-        return "";
-    }
+    public abstract String chainIdPrefix();
 
-    public int mainDenomImg() {
-        return 0;
-    }
+    public abstract int mainDenomImg();
 
-    public String mainDenom() {
-        return "";
-    }
+    public abstract String mainDenom();
 
     public String mainSymbol() {
-        return "";
+        return mainDenom().substring(1).toUpperCase();
     }
 
     public int decimal() {
@@ -67,25 +65,15 @@ abstract public class ChainConfig {
         return chainColor();
     }
 
-    public String addressPrefix() {
-        return "";
-    }
+    public abstract String addressPrefix();
 
-    public boolean pushSupport() {
-        return false;
-    }
+    public abstract boolean pushSupport();
 
-    public boolean dexSupport() {
-        return false;
-    }
+    public abstract boolean dexSupport();
 
-    public boolean wcSupport() {
-        return false;
-    }
+    public abstract boolean wcSupport();
 
-    public String grpcUrl() {
-        return "";
-    }
+    public abstract String grpcUrl();
 
     public int grpcPort() {
         return 9090;
@@ -95,9 +83,7 @@ abstract public class ChainConfig {
         return "";
     }
 
-    public String apiUrl() {
-        return "";
-    }
+    public abstract String apiUrl();
 
     public ManagedChannel channelMain() {
         return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().build();
@@ -109,33 +95,20 @@ abstract public class ChainConfig {
         return BigDecimal.ZERO;
     }
 
-    public String explorerUrl() {
-        return "";
-    }
+    public abstract String explorerUrl();
 
-    public String monikerUrl() {
-        return "";
-    }
+    public abstract String monikerUrl();
 
-    public String relayerImgUrl() {
-        return "";
-    }
+    public abstract String relayerImgUrl();
 
-    public String homeInfoLink() {
-        return "";
-    }
+    public abstract String homeInfoLink();
 
-    public String blogInfoLink() {
-        return "";
-    }
+    public abstract String blogInfoLink();
 
-    public String coingeckoLink() {
-        return "";
-    }
-
+    public abstract String coingeckoLink();
 
     public List<ChildNumber> setParentPath(int customPath) {
-        return null;
+        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
     public abstract ArrayList<String> supportHdPaths();

@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.widget.kava;
 
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_CDP_IMG_URL;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -18,6 +16,7 @@ import java.math.BigDecimal;
 import kava.cdp.v1beta1.Genesis;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.CdpDetailActivity;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -49,7 +48,7 @@ public class CdpOtherHolder extends BaseHolder {
         itemLiquidationPenalty.setText(WDp.getPercentDp(new BigDecimal(otherCdp.getLiquidationPenalty()).movePointLeft(16), 2));
 
         try {
-            Picasso.get().load(KAVA_CDP_IMG_URL + otherCdp.getType() + ".png") .fit().into(itemImgMarket);
+            Picasso.get().load(Kava.KAVA_CDP_IMG_URL + otherCdp.getType() + ".png") .fit().into(itemImgMarket);
         } catch (Exception e) { }
 
         itemRoot.setOnClickListener(new View.OnClickListener() {

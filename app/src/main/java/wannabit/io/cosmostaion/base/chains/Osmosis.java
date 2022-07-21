@@ -33,10 +33,7 @@ public class Osmosis extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_osmosis; }
     public String mainDenom() { return "uosmo"; }
-    public String mainSymbol() { return "OSMO"; }
-
     public String addressPrefix() { return "osmo"; }
-    public String addressHdPath0() { return "m/44'/118'/0'/0/X"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
@@ -54,14 +51,11 @@ public class Osmosis extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/osmosis"; }
     public String coingeckoLink() { return  COINGECKO_URL + "osmosis"; }
 
-
-    public List<ChildNumber> setParentPath(int customPath) {
-        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList(addressHdPath0());
+        return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
+
+
 
     public static String OSMOSIS_ION_DENOM = "uion";
 }

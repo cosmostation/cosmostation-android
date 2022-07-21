@@ -36,10 +36,7 @@ public class Juno extends ChainConfig{
 
     public int mainDenomImg() { return R.drawable.token_juno; }
     public String mainDenom() { return "ujuno"; }
-    public String mainSymbol() { return "JUNO"; }
-
     public String addressPrefix() { return "juno"; }
-    public String addressHdPath0() { return "m/44'/118'/0'/0/X"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
@@ -57,12 +54,7 @@ public class Juno extends ChainConfig{
     public String blogInfoLink() { return  "https://medium.com/@JunoNetwork"; }
     public String coingeckoLink() { return  COINGECKO_URL + "juno-network"; }
 
-
-    public List<ChildNumber> setParentPath(int customPath) {
-        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList(addressHdPath0());
+        return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 }

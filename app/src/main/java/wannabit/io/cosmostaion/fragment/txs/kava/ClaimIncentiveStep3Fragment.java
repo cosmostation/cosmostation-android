@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_HARD_DENOM;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_SWP_DENOM;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +15,7 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -66,20 +64,20 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFee);
 
         BigDecimal kavaIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(getSActivity().mChainConfig.mainDenom());
-        BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(KAVA_HARD_DENOM);
-        BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(KAVA_SWP_DENOM);
+        BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_HARD_DENOM);
+        BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM);
 
         if (getSActivity().mIncentiveMultiplier.equalsIgnoreCase("small")) {
             mLockTime.setText("1 Month");
             kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 0)).setScale(0, RoundingMode.DOWN);
-            hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(KAVA_HARD_DENOM, 0)).setScale(0, RoundingMode.DOWN);
-            swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(KAVA_SWP_DENOM, 0)).setScale(0, RoundingMode.DOWN);
+            hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_HARD_DENOM, 0)).setScale(0, RoundingMode.DOWN);
+            swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_SWP_DENOM, 0)).setScale(0, RoundingMode.DOWN);
 
         } else {
             mLockTime.setText("12 Month");
             kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 1)).setScale(0, RoundingMode.DOWN);
-            hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(KAVA_HARD_DENOM, 1)).setScale(0, RoundingMode.DOWN);
-            swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(KAVA_SWP_DENOM, 1)).setScale(0, RoundingMode.DOWN);
+            hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_HARD_DENOM, 1)).setScale(0, RoundingMode.DOWN);
+            swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_SWP_DENOM, 1)).setScale(0, RoundingMode.DOWN);
         }
 
         mKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveAmount, 6, 6));

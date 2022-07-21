@@ -33,12 +33,9 @@ public class Crescent extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_crescent; }
     public String mainDenom() { return "ucre"; }
-    public String mainSymbol() { return "CRE"; }
     public int sendImgColor() { return chainColor(); }
     public int sendBgColor() { return R.color.color_crescent3; }
-
     public String addressPrefix() { return "cre"; }
-    public String addressHdPath0() { return "m/44'/118'/0'/0/X"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
@@ -56,13 +53,8 @@ public class Crescent extends ChainConfig {
     public String blogInfoLink() { return  "https://crescentnetwork.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "crescent-network"; }
 
-
-    public List<ChildNumber> setParentPath(int customPath) {
-        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList(addressHdPath0());
+        return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 
 

@@ -110,7 +110,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_COIN_IMG_URL;
 
 import android.content.Context;
 import android.content.Intent;
@@ -154,6 +153,7 @@ import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -1197,7 +1197,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_HARD)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
+            Picasso.get().load(Kava.KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_hard));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
@@ -1208,7 +1208,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_USDX)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
+            Picasso.get().load(Kava.KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_usdx));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
@@ -1219,7 +1219,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_SWP)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
+            Picasso.get().load(Kava.KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
             holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.color_swp));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
@@ -1573,7 +1573,7 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava bep2 tokens with gRPC
     private void onBindKavaBep2Token(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mKavaBep2Grpc.get(position);
-        Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
+        Picasso.get().load(Kava.KAVA_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
         holder.itemSymbol.setText(coin.denom.toUpperCase());
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
         holder.itemInnerSymbol.setText("");
@@ -1598,7 +1598,7 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava etc tokens with gRPC
     private void onBindEtcGrpcToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mEtcGrpc.get(position);
-        Picasso.get().load(KAVA_COIN_IMG_URL + "hbtc.png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
+        Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "hbtc.png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
         holder.itemSymbol.setText(coin.denom.toUpperCase());
         holder.itemInnerSymbol.setText("(" + coin.denom + ")");

@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.widget.kava;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_HARD_POOL_IMG_URL;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +20,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -60,7 +58,7 @@ public class HardDetailInfoHolder extends BaseHolder {
     @Override
     public void onBindHardDetailInfo(HardDetailActivity context, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<QueryOuterClass.MoneyMarketInterestRate> HardInterestRates,
                                      ArrayList<CoinOuterClass.Coin> totalDeposit, ArrayList<CoinOuterClass.Coin> totalborrow, ArrayList<Coin> moduleCoins, ArrayList<CoinOuterClass.Coin> reserveCoin) {
-        final ChainConfig chainConfig           = ChainFactory.getChain(KAVA_MAIN);
+        final ChainConfig chainConfig           = ChainFactory.getChain(BaseChain.KAVA_MAIN);
         final Hard.Params hardParam             = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
 
@@ -68,7 +66,7 @@ public class HardDetailInfoHolder extends BaseHolder {
         if (hardMoneyMarket.getDenom().startsWith("ibc/")) baseDenom = baseData.getBaseDenom(chainConfig, hardMoneyMarket.getDenom());
         else baseDenom = hardMoneyMarket.getDenom();
         try {
-            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(mPoolImg);
+            Picasso.get().load(Kava.KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(mPoolImg);
         } catch (Exception e) { }
 
         String marketTitle = hardMoneyMarket.getSpotMarketId().replace(":30", "");;
