@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -77,22 +75,22 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
     public void onRefreshTab() {
         final String cDenom = getCParam().getDenom();
         final String pDenom = getCParam().getDebtLimit().getDenom();
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        final int cDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, cDenom);
+        final int pDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, pDenom);
 
-        WDp.showCoinDp(getContext(), getBaseDao(), cDenom, getSActivity().toCollateralAmount.toPlainString(), mCollateralDenom, mCollateralAmount, getSActivity().mBaseChain);
-        BigDecimal collateralValue = getSActivity().toCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).setScale(2, RoundingMode.DOWN);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, cDenom, getSActivity().toCollateralAmount.toPlainString(), mCollateralDenom, mCollateralAmount);
+        BigDecimal collateralValue = getSActivity().toCollateralAmount.movePointLeft(cDecimal).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).setScale(2, RoundingMode.DOWN);
         mCollateralValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
-        WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().toPrincipalAmount.toPlainString(), mPrincipalDenom, mPrincipalAmount, getSActivity().mBaseChain);
-        BigDecimal principalValue = getSActivity().toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom)).setScale(2, RoundingMode.DOWN);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, pDenom, getSActivity().toPrincipalAmount.toPlainString(), mPrincipalDenom, mPrincipalAmount);
+        BigDecimal principalValue = getSActivity().toPrincipalAmount.movePointLeft(pDecimal).setScale(2, RoundingMode.DOWN);
         mPrincipalValue.setText(WDp.getDpRawDollor(getContext(), principalValue, 2));
 
-        WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
-        BigDecimal kavaValue = WDp.usdValue(getBaseDao(), TOKEN_KAVA, feeAmount, 6);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeesDenom, mFeesAmount);
+        BigDecimal kavaValue = WDp.usdValue(getBaseDao(), getSActivity().mChainConfig.mainDenom(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6);
         mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
-
-        WDp.DpRiskRate(getContext(), getSActivity().mRiskRate, mRiskRate, null);
+        WUtil.DpRiskRate(getContext(), getSActivity().mRiskRate, mRiskRate, null);
 
         mCurrentPriceTitle.setText(String.format(getString(R.string.str_current_title3), cDenom.toUpperCase()));
         mCurrentPrice.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getPrice().getPrice()).movePointLeft(18).toPlainString(), 4));

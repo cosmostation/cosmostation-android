@@ -374,7 +374,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
-            android:name=".activities.txs.kava.CdpDetail5Activity"
+            android:name=".activities.txs.kava.CdpDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />

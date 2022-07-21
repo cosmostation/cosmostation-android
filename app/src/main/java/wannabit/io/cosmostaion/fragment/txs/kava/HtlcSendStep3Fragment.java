@@ -126,7 +126,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
 
             mSendAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount, 0, 8));
             mSendFeeAmountTv.setText(WDp.getDpAmount2(getContext(), sendFeeAmount, 0, 8));
-            mReceiveChainTv.setText(WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
+            mReceiveChainTv.setText(WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain));
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
@@ -136,7 +136,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
 
             mSendAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount, mDecimal, mDecimal));
             mSendFeeAmountTv.setText(WDp.getDpAmount2(getContext(), sendFeeAmount, 6, 6));
-            mReceiveChainTv.setText(WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
+            mReceiveChainTv.setText(WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain));
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
         }
 

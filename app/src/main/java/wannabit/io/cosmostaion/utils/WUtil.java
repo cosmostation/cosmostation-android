@@ -50,16 +50,22 @@ import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
+import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
+import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -80,12 +86,14 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.nio.ByteBuffer;
 import java.security.cert.CertificateException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -132,8 +140,10 @@ import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 
@@ -1955,7 +1965,6 @@ public class WUtil {
     /**
      * About KAVA
      */
-
     //CDP
     public static BigDecimal getDpStabilityFee(Genesis.CollateralParam collateralParam) {
         return (new BigDecimal(collateralParam.getStabilityFee()).movePointLeft(18).subtract(BigDecimal.ONE)).multiply(new BigDecimal("31536000")).movePointRight(2);
@@ -1970,26 +1979,26 @@ public class WUtil {
     }
 
     public static BigDecimal getEstimatedTotalFee(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam collateralParam) {
-        BigDecimal hiddenFeeValue = WDp.getCdpGrpcHiddenFee(c, getRawDebtAmount(myCdp), collateralParam, myCdp);
+        BigDecimal hiddenFeeValue = getCdpGrpcHiddenFee(c, getRawDebtAmount(myCdp), collateralParam, myCdp);
         return new BigDecimal(myCdp.getAccumulatedFees().getAmount()).add(hiddenFeeValue);
     }
 
     public static BigDecimal getEstimatedTotalDebt(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam) {
-        BigDecimal hiddenFeeValue = WDp.getCdpGrpcHiddenFee(c, getRawDebtAmount(myCdp), cParam, myCdp);
+        BigDecimal hiddenFeeValue = getCdpGrpcHiddenFee(c, getRawDebtAmount(myCdp), cParam, myCdp);
         return getRawDebtAmount(myCdp).add(hiddenFeeValue);
     }
 
-    public static BigDecimal getLiquidationPrice(Context c, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam) {
-        int denomCDecimal = WUtil.getKavaCoinDecimal(baseData, myCdp.getCollateral().getDenom());
-        int denomPDecimal = WUtil.getKavaCoinDecimal(baseData, myCdp.getPrincipal().getDenom());
+    public static BigDecimal getLiquidationPrice(Context c, BaseData baseData, ChainConfig chainConfig, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam) {
+        int denomCDecimal = WDp.getDenomDecimal(baseData, chainConfig, myCdp.getCollateral().getDenom());
+        int denomPDecimal = WDp.getDenomDecimal(baseData, chainConfig, myCdp.getPrincipal().getDenom());
         BigDecimal collateralAmount = new BigDecimal(myCdp.getCollateral().getAmount()).movePointLeft(denomCDecimal);
         BigDecimal estimatedDebtAmount = getEstimatedTotalDebt(c, myCdp, cParam).multiply(new BigDecimal(cParam.getLiquidationRatio())).movePointLeft(denomPDecimal);
         return estimatedDebtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN).movePointLeft(18);
     }
 
-    public static BigDecimal getWithdrawableAmount(Context c, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
-        int denomCDecimal = WUtil.getKavaCoinDecimal(baseData, cParam.getDenom());
-        int denomPDecimal = WUtil.getKavaCoinDecimal(baseData, cParam.getDebtLimit().getDenom());
+    public static BigDecimal getWithdrawableAmount(Context c, BaseData baseData, ChainConfig chainConfig, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
+        int denomCDecimal = WDp.getDenomDecimal(baseData, chainConfig, cParam.getDenom());
+        int denomPDecimal = WDp.getDenomDecimal(baseData, chainConfig, cParam.getDebtLimit().getDenom());
         BigDecimal cValue = new BigDecimal(myCdp.getCollateralValue().getAmount());
         BigDecimal minCValue = getEstimatedTotalDebt(c, myCdp, cParam).multiply(new BigDecimal(cParam.getLiquidationRatio()).movePointLeft(18)).divide(new BigDecimal("0.95"), 0, BigDecimal.ROUND_DOWN);
         BigDecimal maxWithdrawableValue = cValue.subtract(minCValue);
@@ -2013,6 +2022,140 @@ public class WUtil {
         }
         return maxDebtValue;
 
+    }
+
+    public static int getDpRiskColor(Context c, BigDecimal riskRate) {
+        if (riskRate.longValue() <= 50) {
+            return ContextCompat.getColor(c, R.color.colorCdpSafe);
+        } else if (riskRate.longValue() < 80) {
+            return ContextCompat.getColor(c, R.color.colorCdpStable);
+        } else {
+            return ContextCompat.getColor(c, R.color.colorCdpDanger);
+        }
+    }
+
+    public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
+        textView.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        if (riskRate.floatValue() <= 50) {
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));
+            if (imageview != null) {
+                imageview.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.img_safe));
+            }
+
+        } else if (riskRate.floatValue() < 80) {
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorCdpStable));
+            if (imageview != null) {
+                imageview.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.img_stable));
+            }
+
+        } else {
+            textView.setTextColor(ContextCompat.getColor(c, R.color.colorCdpDanger));
+            if (imageview != null) {
+                imageview.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.img_danger));
+
+            }
+        }
+
+    }
+
+    public static void DpRiskButton(Context c, BigDecimal riskRate, Button button) {
+        if (riskRate.longValue() <= 50) {
+            button.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_safe_fill));
+            button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("SAFE " + riskRate.toPlainString());
+
+        } else if (riskRate.longValue() < 80) {
+            button.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_stable_fill));
+            button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("STABLE " + riskRate.toPlainString());
+
+        } else {
+            button.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_danger_fill));
+            button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("DANGER " + riskRate.toPlainString());
+        }
+    }
+
+    public static void DpRiskButton2(Context c, BigDecimal riskRate, Button button) {
+        if (riskRate.longValue() <= 50) {
+            button.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_safe_fill));
+            button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("SAFE");
+
+        } else if (riskRate.longValue() < 80) {
+            button.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_stable_fill));
+            button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("STABLE");
+
+        } else {
+            button.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_danger_fill));
+            button.setTextColor(ContextCompat.getColor(c, R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("DANGER");
+        }
+    }
+
+    public static void DpRiskRate2(Context c, BigDecimal riskRate, TextView text, TextView rate, LinearLayout layer) {
+        rate.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        if (riskRate.longValue() <= 50) {
+            text.setText("SAFE");
+            layer.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_safe_fill));
+
+        } else if (riskRate.longValue() < 80) {
+            text.setText("STABLE");
+            layer.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_stable_fill));
+
+        } else {
+            text.setText("DANGER");
+            layer.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_danger_fill));
+        }
+    }
+
+    public static void DpRiskRate3(Context c, BigDecimal riskRate, TextView score, TextView rate) {
+        score.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        if (riskRate.longValue() <= 50) {
+            rate.setText("SAFE");
+            rate.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));
+            score.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));
+
+        } else if (riskRate.longValue() < 80) {
+            rate.setText("STABLE");
+            rate.setTextColor(ContextCompat.getColor(c, R.color.colorCdpStable));
+            score.setTextColor(ContextCompat.getColor(c, R.color.colorCdpStable));
+
+        } else {
+            rate.setText("DANGER");
+            rate.setTextColor(ContextCompat.getColor(c, R.color.colorCdpDanger));
+            score.setTextColor(ContextCompat.getColor(c, R.color.colorCdpDanger));
+        }
+    }
+
+    public static BigDecimal getCdpGrpcHiddenFee(Context c, BigDecimal outstandingDebt, Genesis.CollateralParam paramCdp, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            long now = Calendar.getInstance().getTimeInMillis();
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            long start = blockDateFormat.parse(myCdp.getFeesUpdated().toString()).getTime();
+            Long gap = (now - start) / 1000;
+            //TODO 냥냥하게 패딩
+            gap = gap + 30;
+
+            Double double1 = Double.parseDouble(paramCdp.getStabilityFee());
+            Double double2 = gap.doubleValue();
+
+            Double pow = Math.pow(double1, double2);
+            result = outstandingDebt.multiply(new BigDecimal(pow.toString())).setScale(0, RoundingMode.UP).subtract(outstandingDebt);
+            return result;
+        } catch (Exception e) {
+            WLog.w("e " + e.getMessage());
+        }
+        return result;
     }
 
     //Hard
@@ -2247,6 +2390,82 @@ public class WUtil {
 
         BigDecimal finalBorrowableValue = totalBorrowAbleValue.min(SystemBorrowableValue);
         return finalBorrowableValue;
+    }
+
+    // HTLC using
+    public static String getDpChainName(Context c, BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return c.getString(R.string.str_cosmos_hub_2);
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            return c.getString(R.string.str_iris_net_2);
+
+        } else if (chain.equals(BNB_MAIN)) {
+            return c.getString(R.string.str_binance_net_2);
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            return c.getString(R.string.str_kava_net_2);
+
+        } else if (chain.equals(IOV_MAIN)) {
+            return c.getString(R.string.str_iov_net_2);
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return c.getString(R.string.str_band_chain_2);
+
+        } else if (chain.equals(CERTIK_MAIN)) {
+            return c.getString(R.string.str_certik_chain_2);
+
+        } else if (chain.equals(OKEX_MAIN)) {
+            return c.getString(R.string.str_ok_net2);
+
+        }
+        return "";
+
+    }
+
+    // HTLC using
+    public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
+        if (chain.equals(BNB_MAIN)) {
+            if (imgView != null)
+                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
+            txtView.setText("BINANCE");
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            if (imgView != null)
+                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_kava));
+            txtView.setText(c.getString(R.string.str_kava_c));
+        }
+    }
+
+    public static void onDpSwapChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
+        if (chain.equals(BNB_MAIN)) {
+            if (imgView != null)
+                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
+            txtView.setText(c.getString(R.string.str_binance));
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            if (imgView != null)
+                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_kava));
+            txtView.setText(c.getString(R.string.str_kava));
+        }
+    }
+
+    public static String getBnbHtlcStatus(Context c, ResBnbSwapInfo resBnbSwapInfo, ResNodeInfo resNodeInfo) {
+        if (resBnbSwapInfo == null || resNodeInfo == null) {
+            return "-";
+        }
+        if (resBnbSwapInfo.status == BNB_STATUS_REFUNDED) {
+            return c.getString(R.string.str_bep3_status_refunded);
+
+        } else if (resBnbSwapInfo.status == BNB_STATUS_COMPLETED) {
+            return c.getString(R.string.str_bep3_status_completed);
+
+        } else if (resBnbSwapInfo.status == BNB_STATUS_OPEN && resBnbSwapInfo.expireHeight < resNodeInfo.getCHeight()) {
+            return c.getString(R.string.str_bep3_status_expired);
+
+        }
+        return c.getString(R.string.str_bep3_status_open);
+
     }
 
     public static String getDuputyKavaAddress(String denom) {

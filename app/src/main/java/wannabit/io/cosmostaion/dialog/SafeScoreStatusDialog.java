@@ -17,11 +17,12 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-public class Dialog_Safe_Score_Status extends DialogFragment {
+public class SafeScoreStatusDialog extends DialogFragment {
 
-    public static Dialog_Safe_Score_Status newInstance(Bundle bundle) {
-        Dialog_Safe_Score_Status frag = new Dialog_Safe_Score_Status();
+    public static SafeScoreStatusDialog newInstance(Bundle bundle) {
+        SafeScoreStatusDialog frag = new SafeScoreStatusDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -35,7 +36,6 @@ public class Dialog_Safe_Score_Status extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_score_status, null);
-
         LinearLayout risk_layer = view.findViewById(R.id.risk_layer);
         TextView risk_rate = view.findViewById(R.id.risk_rate);
         TextView risk_score = view.findViewById(R.id.risk_score);
@@ -45,7 +45,7 @@ public class Dialog_Safe_Score_Status extends DialogFragment {
         TextView liquidation_price_title = view.findViewById(R.id.liquidation_price_title);
         TextView liquidation_price = view.findViewById(R.id.liquidation_price);
 
-        WDp.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("riskRate")), risk_rate, risk_score, risk_layer);
+        WUtil.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("riskRate")), risk_rate, risk_score, risk_layer);
 
         current_price_title.setText(String.format(getString(R.string.str_current_title3), getArguments().getString("denom").toUpperCase()));
         current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")), 4));

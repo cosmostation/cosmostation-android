@@ -167,7 +167,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }
         }
-        mToolbarSymbol.setText(WDp.getDisplaySymbol(getBaseDao(), mChainConfig, mIbcDenom));
+        mToolbarSymbol.setText(WDp.getDpSymbol(getBaseDao(), mChainConfig, mIbcDenom));
         mToolbarChannel.setText("(" + mIbcToken.channel_id + ")");
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(IBCTokenDetailActivity.this, mChainConfig.chainBgColor()));

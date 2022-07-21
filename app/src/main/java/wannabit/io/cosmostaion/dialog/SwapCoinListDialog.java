@@ -80,8 +80,8 @@ public class SwapCoinListDialog extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, @SuppressLint("RecyclerView") int position) {
             final String inputCoin = mSwapCoinList.get(position);
-            WDp.dpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.chainImg);
-            WDp.dpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.chainName);
+            WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.chainImg);
+            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.chainName);
 //            IbcToken ibcToken = getSActivity().getBaseDao().getIbcToken(inputCoin);
 //            if (inputCoin.startsWith("ibc/")) {
 //                if (ibcToken.auth) {

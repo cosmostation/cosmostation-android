@@ -18,8 +18,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView mLoanAmount, mLoanDenom, mLoanValue;
@@ -71,18 +69,18 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
     public void onRefreshTab() {
         final String cDenom = getCParam().getDenom();
         final String pDenom = getCParam().getDebtLimit().getDenom();
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        final int pDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, pDenom);
 
-        WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mPrincipal.amount, mLoanDenom, mLoanAmount, getSActivity().mBaseChain);
-        BigDecimal moreLoanValue = new BigDecimal(getSActivity().mPrincipal.amount).movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, pDenom, getSActivity().mPrincipal.amount, mLoanDenom, mLoanAmount);
+        BigDecimal moreLoanValue = new BigDecimal(getSActivity().mPrincipal.amount).movePointLeft(pDecimal);
         mLoanValue.setText(WDp.getDpRawDollor(getContext(), moreLoanValue, 2));
 
-        WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
-        BigDecimal kavaValue = WDp.usdValue(getBaseDao(), TOKEN_KAVA, feeAmount, 6);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeesDenom, mFeesAmount);
+        BigDecimal kavaValue = WDp.usdValue(getBaseDao(), getSActivity().mChainConfig.mainDenom(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6);
         mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
-        WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
-        WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
+        WUtil.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
+        WUtil.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
 
         mBeforeLiquidationPriceTitle.setText(String.format(getString(R.string.str_before_liquidation_title2), cDenom.toUpperCase()));
         mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(),  4));
@@ -90,8 +88,8 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
         mAfterLiquidationPriceTitle.setText(String.format(getString(R.string.str_after_liquidation_title2), cDenom.toUpperCase()));
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
-        WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mMoreAddedLoanAmount.toPlainString(), mTotalDebtDenom, mTotalDebtAmount, getSActivity().mBaseChain);
-        BigDecimal totalLaonValue = getSActivity().mMoreAddedLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, pDenom, getSActivity().mMoreAddedLoanAmount.toPlainString(), mTotalDebtDenom, mTotalDebtAmount);
+        BigDecimal totalLaonValue = getSActivity().mMoreAddedLoanAmount.movePointLeft(pDecimal);
         mTotalDebtValue.setText(WDp.getDpRawDollor(getContext(), totalLaonValue, 2));
 
         mMemo.setText(getSActivity().mTxMemo);

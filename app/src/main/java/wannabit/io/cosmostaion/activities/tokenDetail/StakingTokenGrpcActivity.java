@@ -132,8 +132,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
     private void onUpdateView() {
         mToolbarSymbolImg.setImageResource(mChainConfig.mainDenomImg());
-        mToolbarSymbol.setText(WDp.getDisplaySymbol(getBaseDao(), mChainConfig, mMainDenom));
-        mToolbarSymbol.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainColor()));
+        WDp.setDpSymbol(StakingTokenGrpcActivity.this, getBaseDao(), mChainConfig, mMainDenom, mToolbarSymbol);
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mMainDenom));
         mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mMainDenom));

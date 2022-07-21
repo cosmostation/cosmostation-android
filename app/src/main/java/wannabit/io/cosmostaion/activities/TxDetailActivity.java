@@ -695,7 +695,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 WDp.showCoinDp(getBaseContext(), getBaseDao(), sendCoin, holder.itemSendDenom, holder.itemSendAmount, mBaseChain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
-                holder.itemStatus.setText(WDp.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo, mResBnbNodeInfo));
+                holder.itemStatus.setText(WUtil.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo, mResBnbNodeInfo));
 
                 if (mResBnbSwapInfo != null &&
                         mResBnbNodeInfo != null &&

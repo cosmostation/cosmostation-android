@@ -17,7 +17,7 @@ import osmosis.gamm.v1beta1.BalancerPool;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.txs.kava.CdpDetail5Activity;
+import wannabit.io.cosmostaion.activities.txs.kava.CdpDetailActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -59,13 +59,13 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, Hard.Params hardParams, Hard.MoneyMarket hardMoneyMarket, IncentiveReward incentiveReward, ArrayList<kava.hard.v1beta1.QueryOuterClass.MoneyMarketInterestRate> HardInterestRates, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit, ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow, int postion) {
     }
 
-    public void onBindCdpDetailInfo(CdpDetail5Activity context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal debtAmount) {
+    public void onBindCdpDetailInfo(CdpDetailActivity context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal debtAmount) {
     }
 
-    public void onBindCdpDetailMyStatus(CdpDetail5Activity context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal selfDepositAmount) {
+    public void onBindCdpDetailMyStatus(CdpDetailActivity context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal selfDepositAmount) {
     }
 
-    public void onBindCdpDetailAvailable(CdpDetail5Activity context, BaseData baseData, String collateralType) {
+    public void onBindCdpDetailAvailable(CdpDetailActivity context, BaseData baseData, String collateralType) {
     }
 
     public void onBindHardDetailInfo(HardDetailActivity context, BaseChain chain, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<kava.hard.v1beta1.QueryOuterClass.MoneyMarketInterestRate> HardInterestRates,

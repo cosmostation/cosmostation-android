@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_DESTINATION_CHAIN = 9100;
@@ -141,8 +142,8 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         if (mToChain == null) {
             getSActivity().onBeforeStep();
         }
-        WDp.onDpSwapChain(getContext(), getSActivity().mBaseChain, mFromChainImg, mFromChainTv);
-        WDp.onDpSwapChain(getContext(), mToChain, mToChainImg, mToChainTv);
+        WUtil.onDpSwapChain(getContext(), getSActivity().mBaseChain, mFromChainImg, mFromChainTv);
+        WUtil.onDpSwapChain(getContext(), mToChain, mToChainImg, mToChainTv);
         mToSendCoindenom.setText("(" + mToSwapDenom + ")");
 
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {

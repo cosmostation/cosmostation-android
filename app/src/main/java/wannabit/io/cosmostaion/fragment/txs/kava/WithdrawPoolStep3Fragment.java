@@ -57,11 +57,11 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onRefreshTab() {
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
         mExitMyShare.setText(WDp.getDpAmount2(getSActivity(), getSActivity().mKavaShareAmount, 6, 6));
 
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mExitOutput0AmountSymbol, mExitOutput0Amount);
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mExitOutput1AmountSymbol, mExitOutput1Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mExitOutput0AmountSymbol, mExitOutput0Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mExitOutput1AmountSymbol, mExitOutput1Amount);
 
         mMemo.setText(getSActivity().mTxMemo);
     }

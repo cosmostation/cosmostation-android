@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Accounts;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_ACCOUNT = 9101;
@@ -86,10 +87,10 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         super.onRefreshTab();
         mToAccountList = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(getSActivity().mRecipientChain);
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
+            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain)));
 
         } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
+            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain)));
         }
     }
 
@@ -116,12 +117,12 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
             } else {
-                String title = String.format(getString(R.string.error_can_not_bep3_account_title), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
+                String title = String.format(getString(R.string.error_can_not_bep3_account_title), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 String msg = "";
                 if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
+                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
+                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 }
                 AlertDialogUtils.showSingleButtonDialog(getSActivity(), title, msg, getContext().getString(R.string.str_ok), null);
             }

@@ -19,11 +19,12 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-public class Dialog_Safe_Score_Create extends DialogFragment {
+public class SafeScoreCreateDialog extends DialogFragment {
 
-    public static Dialog_Safe_Score_Create newInstance(Bundle bundle) {
-        Dialog_Safe_Score_Create frag = new Dialog_Safe_Score_Create();
+    public static SafeScoreCreateDialog newInstance(Bundle bundle) {
+        SafeScoreCreateDialog frag = new SafeScoreCreateDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -47,7 +48,7 @@ public class Dialog_Safe_Score_Create extends DialogFragment {
         TextView liquidation_price_title = view.findViewById(R.id.liquidation_price_title);
         TextView liquidation_price = view.findViewById(R.id.liquidation_price);
 
-        WDp.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("riskRate")), risk_rate, risk_score, risk_layer);
+        WUtil.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("riskRate")), risk_rate, risk_score, risk_layer);
 
         current_price_title.setText(String.format(getString(R.string.str_current_title3), getArguments().getString("denom").toUpperCase()));
         current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")).movePointLeft(18), 4));

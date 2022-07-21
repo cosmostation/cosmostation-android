@@ -132,14 +132,14 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);
 
         mSwapRate = mOutputCoinAmount.divide(mInputCoinAmount, 18, RoundingMode.DOWN);
 
-        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputSymbol);
-        WDp.dpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputSymbol);
-        WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputImg);
-        WDp.dpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputImg);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputSymbol);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputSymbol);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputImg);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputImg);
     }
 
     private void onAddAmountWatcher() {

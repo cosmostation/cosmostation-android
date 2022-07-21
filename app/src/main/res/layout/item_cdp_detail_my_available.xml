@@ -40,7 +40,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight"
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginBottom="@dimen/space_12"/>
@@ -51,8 +51,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/collateral_icon"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="@dimen/space_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/collateral_denom"
@@ -60,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/collateral_icon"
                     android:layout_marginLeft="@dimen/space_8"
+                    android:layout_centerVertical="true"
                     android:text="COIN"
                     style="@style/font_ss_14_black_daynight"/>
                 <TextView
@@ -67,9 +68,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/collateral_denom"
                     android:gravity="right"
+                    android:layout_centerVertical="true"
                     android:text="-"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -81,18 +84,11 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="-2dp">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
-                        android:text="@string/str_approximate_value"
-                        android:visibility="gone"/>
-                    <TextView
                         android:id="@+id/collateral_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_10_gray1"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -103,8 +99,8 @@
                 android:layout_marginTop="@dimen/space_2">
                 <ImageView
                     android:id="@+id/principal_icon"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="@dimen/space_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/principal_denom"
@@ -112,6 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/principal_icon"
                     android:layout_marginLeft="@dimen/space_8"
+                    android:layout_centerVertical="true"
                     android:text="USDX"
                     style="@style/font_ss_14_black_daynight"/>
                 <TextView
@@ -119,9 +116,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/principal_denom"
                     android:gravity="right"
+                    android:layout_centerVertical="true"
                     android:text="-"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -133,30 +132,24 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="-2dp">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
-                        android:text="@string/str_approximate_value"
-                        android:visibility="gone"/>
-                    <TextView
                         android:id="@+id/principal_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_10_gray1"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/kava_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2">
                 <ImageView
                     android:id="@+id/kava_icon"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="@dimen/space_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/token_kava"/>
                 <TextView
                     android:id="@+id/kava_denom"
@@ -164,18 +157,23 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/kava_icon"
                     android:layout_marginLeft="@dimen/space_8"
+                    android:layout_centerVertical="true"
                     android:text="KAVA"
-                    style="@style/font_ss_14_kava"/>
+                    android:textSize="@dimen/text_size_14"
+                    android:textColor="@color/color_kava"/>
                 <TextView
                     android:id="@+id/kava_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/kava_denom"
+                    android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_ssl_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/kava_value_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -185,18 +183,11 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="-2dp">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
-                        android:text="@string/str_approximate_value"
-                        android:visibility="gone"/>
-                    <TextView
                         android:id="@+id/kava_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_10_gray1"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>

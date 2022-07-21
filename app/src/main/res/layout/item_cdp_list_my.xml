@@ -74,9 +74,11 @@
 
                     <TextView
                         android:id="@+id/cdp_market_type"
-                        style="@style/font_ssm_17_kava"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_kava"
+                        android:textSize="@dimen/text_size_17"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/market_title"
@@ -84,14 +86,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/market_img"
-                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginTop="@dimen/space_6"
                         android:gravity="center" />
                 </LinearLayout>
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_16"
                 android:background="@color/colorGrayDayNight" />
 
@@ -110,10 +112,11 @@
 
                 <TextView
                     android:id="@+id/cdp_debt_value"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_ssl_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/cdp_debt_value_title"
                     android:gravity="right"
                     android:text="-" />
             </RelativeLayout>
@@ -132,54 +135,11 @@
 
                 <TextView
                     android:id="@+id/cdp_collateral_value"
-                    style="@style/font_ss_14_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="-" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_10"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/font_ss_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_stability_fee" />
-
-                <TextView
-                    android:id="@+id/cdp_stability_fee"
-                    style="@style/font_ss_14_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="-" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_10"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/font_ss_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_liquidation_penalty" />
-
-                <TextView
-                    android:id="@+id/cdp_str_liquidation_penalty"
                     style="@style/font_ssl_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/cdp_collateral_value_title"
                     android:gravity="right"
                     android:text="-" />
             </RelativeLayout>
@@ -199,9 +159,10 @@
 
                 <TextView
                     android:id="@+id/current_price"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_ssl_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/current_price_title"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:gravity="right"
@@ -224,11 +185,12 @@
 
                 <TextView
                     android:id="@+id/liquidation_price"
-                    style="@style/font_ss_14_kava"
+                    android:textSize="@dimen/text_size_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/liquidation_price_title"
                     android:gravity="right"
                     android:text="-" />
             </RelativeLayout>

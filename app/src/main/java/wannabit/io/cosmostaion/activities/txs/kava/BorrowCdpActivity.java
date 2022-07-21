@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.DrawDebtCdpStep0Fragment;
@@ -60,6 +61,11 @@ public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
@@ -74,20 +80,6 @@ public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskList
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(BorrowCdpActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_1));
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mTxType = CONST_PW_TX_DRAW_DEBT_CDP;
-
-        mCollateralType = getIntent().getStringExtra("collateralParamType");
-        mMaketId = getIntent().getStringExtra("marketId");
-        mCdpParams = getBaseDao().mCdpParams;
-        mCollateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
-        if (mCdpParams == null || mCollateralParam == null) {
-            WLog.e("ERROR No cdp param data");
-            onBackPressed();
-            return;
-        }
 
         mPageAdapter = new DrawDebtCdpPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -129,6 +121,24 @@ public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskList
                 onHideKeyboard();
             }
         });
+    }
+
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mTxType = CONST_PW_TX_DRAW_DEBT_CDP;
+
+        mCollateralType = getIntent().getStringExtra("collateralParamType");
+        mMaketId = getIntent().getStringExtra("marketId");
+        mCdpParams = getBaseDao().mCdpParams;
+        mCollateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
+        if (mCdpParams == null || mCollateralParam == null) {
+            WLog.e("ERROR No cdp param data");
+            onBackPressed();
+            return;
+        }
+
         onFetchCdpInfo();
     }
 
@@ -171,7 +181,7 @@ public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskList
 
     public void onStartDrawDebtCdp() {
         Intent intent = new Intent(BorrowCdpActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_DRAW_DEBT_CDP);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("mPrincipal", mPrincipal);
         intent.putExtra("mCollateralType", mCollateralType);
         intent.putExtra("fee", mTxFee);
@@ -223,7 +233,6 @@ public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskList
     }
 
     private int mTaskCount = 0;
-
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         mTaskCount = 1;

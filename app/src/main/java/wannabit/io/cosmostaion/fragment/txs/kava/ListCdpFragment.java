@@ -35,11 +35,11 @@ import wannabit.io.cosmostaion.widget.kava.CdpOtherHolder;
 public class ListCdpFragment extends BaseFragment implements TaskListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private CdpMarketAdapter mAdapter;
     private RelativeLayout mProgress;
 
     private Account mAccount;
     private BaseChain mBaseChain;
-    private CdpMarketAdapter mAdapter;
 
     private Genesis.Params mCdpParams;
     private ArrayList<QueryOuterClass.CDPResponse> mMyCdps = new ArrayList<>();
@@ -91,7 +91,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     }
 
     private int mTaskCount = 0;
-
     public void onFetchCdpInfo() {
         mTaskCount = 1;
         new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -125,7 +124,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
             mProgress.setVisibility(View.GONE);
             mSwipeRefreshLayout.setRefreshing(false);
         }
-
     }
 
     private class CdpMarketAdapter extends RecyclerView.Adapter<BaseHolder> {

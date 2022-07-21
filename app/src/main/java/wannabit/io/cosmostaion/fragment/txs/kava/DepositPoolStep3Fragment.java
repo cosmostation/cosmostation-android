@@ -59,10 +59,10 @@ public class DepositPoolStep3Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
 
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mJoinInput0AmountSymbol, mJoinInput0Amount);
-        WDp.dpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mJoinInput1AmountSymbol, mJoinInput1Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mJoinInput0AmountSymbol, mJoinInput0Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mJoinInput1AmountSymbol, mJoinInput1Amount);
         mJoinSlippage.setText(WDp.getPercentDp(new BigDecimal(3)));
         mMemo.setText(getSActivity().mTxMemo);
     }

@@ -41,21 +41,22 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/collateral_amount_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/collateral_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ss_14_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/collateral_amount_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="COIN"
-                                style="@style/font_ss_14_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
                     <RelativeLayout
@@ -88,22 +89,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@+id/principal_amount_title"
                             android:layout_centerVertical="true"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/principal_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ss_14_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/principal_amount_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="COIN"
-                                style="@style/font_ss_14_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
                     <RelativeLayout
@@ -126,6 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_10">
                         <TextView
+                            android:id="@+id/fee_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_fees"
@@ -134,22 +137,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@+id/fee_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/fees_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ss_14_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/fees_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="KAVA"
-                                style="@style/font_ss_14_kava"/>
+                                android:textColor="@color/color_kava"
+                                android:textSize="@dimen/text_size_12"/>
                         </LinearLayout>
                     </RelativeLayout>
                     <RelativeLayout
@@ -168,7 +173,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/space_view"
                         android:background="@color/colorGrayDayNight"
                         android:layout_marginTop="@dimen/space_16"/>
 
@@ -182,6 +187,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/str_risk_rate"
                             android:layout_alignBaseline="@+id/risk_rate"
+
                             style="@style/font_ss_12_gray1"/>
                         <TextView
                             android:id="@+id/risk_rate_txt"
@@ -218,8 +224,9 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ss_14_black_daynight"
-                            android:gravity="right"
+                            android:layout_toRightOf="@+id/current_price_title"
+                            style="@style/font_ssl_12_black_daynight"
+                            android:gravity="end"
                             android:text="-"/>
                     </RelativeLayout>
 
@@ -241,8 +248,9 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ss_14_black_daynight"
-                            android:gravity="right"
+                            android:layout_toRightOf="@+id/liquidation_price_title"
+                            style="@style/font_ssl_12_black_daynight"
+                            android:gravity="end"
                             android:text="-"/>
                     </RelativeLayout>
 
