@@ -46,7 +46,6 @@ public class Kava extends ChainConfig {
     public String grpcUrl() { return "lcd-kava-app.cosmostation.io"; }
     public String lcdUrl() { return "https://lcd-kava-app.cosmostation.io/"; }
     public String apiUrl() { return "https://api-kava.cosmostation.io/"; }
-    public ManagedChannel getConnection() { return ChannelBuilder.getKavaMain(baseChain()); }
     public HistoryApi getHistoryApi() { return ApiClient.getKavaApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("6.7262"); }
@@ -68,11 +67,6 @@ public class Kava extends ChainConfig {
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList(addressHdPath0(), addressHdPath1());
     }
-
-    public String getHdPath(int customPath, String path) {
-        return supportHdPaths().get(customPath).replace("X", path);
-    }
-
 
     public static String KAVA_HARD_DENOM = "hard";
     public static String KAVA_USDX_DENOM = "usdx";

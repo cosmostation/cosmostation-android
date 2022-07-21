@@ -44,7 +44,6 @@ public class Iris extends ChainConfig {
 
     public String grpcUrl() { return "lcd-iris-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-iris.cosmostation.io/"; }
-    public ManagedChannel getConnection() { return ChannelBuilder.getIrisMain(baseChain()); }
     public HistoryApi getHistoryApi() { return ApiClient.getIrisApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("6.7884"); }
@@ -62,9 +61,4 @@ public class Iris extends ChainConfig {
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList(addressHdPath0());
     }
-
-    public String getHdPath(int customPath, String path) {
-        return supportHdPaths().get(customPath).replace("X", path);
-    }
-
 }

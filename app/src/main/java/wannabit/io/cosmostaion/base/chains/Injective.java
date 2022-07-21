@@ -45,7 +45,6 @@ public class Injective extends ChainConfig {
 
     public String grpcUrl() { return "lcd-inj-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-inj.cosmostation.io/"; }
-    public ManagedChannel getConnection() { return ChannelBuilder.getInjMain(baseChain()); }
     public HistoryApi getHistoryApi() { return ApiClient.getInjApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("2.4865"); }
@@ -63,10 +62,6 @@ public class Injective extends ChainConfig {
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList(addressHdPath0());
-    }
-
-    public String getHdPath(int customPath, String path) {
-        return supportHdPaths().get(customPath).replace("X", path);
     }
 }
 

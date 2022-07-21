@@ -19,7 +19,6 @@ import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.HistoryApi;
 
 public class Cosmos extends ChainConfig {
-
     public BaseChain baseChain() { return BaseChain.COSMOS_MAIN; }
     public int chainImg() { return R.drawable.chain_cosmos; }
     public int chainInfoImg() { return R.drawable.infoicon_cosmos; }
@@ -35,8 +34,7 @@ public class Cosmos extends ChainConfig {
     public String mainDenom() { return "uatom"; }
     public String mainSymbol() { return "ATOM"; }
 
-    public String addressPrefix() { return "cosmos"; }
-    public String addressHdPath0() { return "m/44'/118'/0'/0/X"; }
+    public String addressPrefix() { return chainName(); }
 
     public boolean pushSupport() { return true; }
     public boolean dexSupport() { return false; }
@@ -44,7 +42,6 @@ public class Cosmos extends ChainConfig {
 
     public String grpcUrl() { return "lcd-cosmos-app-and.cosmostation.io"; }
     public String apiUrl() { return "https://api.cosmostation.io/"; }
-    public ManagedChannel getConnection() { return ChannelBuilder.getCosmosMain(baseChain()); }
     public HistoryApi getHistoryApi() { return ApiClient.getCosmosApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("7.6597"); }
@@ -61,10 +58,6 @@ public class Cosmos extends ChainConfig {
     }
 
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList(addressHdPath0());
-    }
-
-    public String getHdPath(int customPath, String path) {
-        return supportHdPaths().get(customPath).replace("X", path);
+        return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 }

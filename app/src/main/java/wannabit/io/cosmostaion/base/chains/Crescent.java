@@ -46,7 +46,6 @@ public class Crescent extends ChainConfig {
 
     public String grpcUrl() { return "lcd-crescent-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-crescent.cosmostation.io/"; }
-    public ManagedChannel getConnection() { return ChannelBuilder.getCrescentMain(baseChain()); }
     public HistoryApi getHistoryApi() { return ApiClient.getCrescentApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("6.355"); }
@@ -64,10 +63,6 @@ public class Crescent extends ChainConfig {
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList(addressHdPath0());
-    }
-
-    public String getHdPath(int customPath, String path) {
-        return supportHdPaths().get(customPath).replace("X", path);
     }
 
 

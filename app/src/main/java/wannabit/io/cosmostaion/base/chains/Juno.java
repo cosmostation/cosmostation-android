@@ -47,7 +47,6 @@ public class Juno extends ChainConfig{
 
     public String grpcUrl() { return "lcd-juno-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-juno.cosmostation.io/"; }
-    public ManagedChannel getConnection() { return ChannelBuilder.getJunoMain(baseChain()); }
     public HistoryApi getHistoryApi() { return ApiClient.getJunoApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("6.3104"); }
@@ -65,9 +64,5 @@ public class Juno extends ChainConfig{
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList(addressHdPath0());
-    }
-
-    public String getHdPath(int customPath, String path) {
-        return supportHdPaths().get(customPath).replace("X", path);
     }
 }

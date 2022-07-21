@@ -1,11 +1,9 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import cosmos.bank.v1beta1.QueryGrpc;
 import cosmos.bank.v1beta1.QueryOuterClass;
-import cosmos.base.v1beta1.CoinOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ChannelBuilder;

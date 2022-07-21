@@ -44,7 +44,6 @@ public class Osmosis extends ChainConfig {
 
     public String grpcUrl() { return "lcd-osmosis-app-and.cosmostation.io"; }
     public String apiUrl() { return "https://api-osmosis.cosmostation.io/"; }
-    public ManagedChannel getConnection() { return ChannelBuilder.getOsmosisMain(baseChain()); }
     public HistoryApi getHistoryApi() { return ApiClient.getOsmosisApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("6.5324"); }
@@ -63,11 +62,6 @@ public class Osmosis extends ChainConfig {
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList(addressHdPath0());
     }
-
-    public String getHdPath(int customPath, String path) {
-        return supportHdPaths().get(customPath).replace("X", path);
-    }
-
 
     public static String OSMOSIS_ION_DENOM = "uion";
 }
