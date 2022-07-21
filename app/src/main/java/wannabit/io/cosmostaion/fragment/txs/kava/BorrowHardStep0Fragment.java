@@ -80,16 +80,16 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
         // display borrowable amount with padding 5%
         mMaxAvailable = WUtil.getHardBorrowableAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom,
                 getBaseDao().mMyHardDeposits, getBaseDao().mMyHardBorrows, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
 
-        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
-        WUtil.DpKavaTokenImg(getBaseDao(), mBorrowImg, mHardMoneyMarketDenom);
-        WUtil.dpKavaTokenName(getContext(), getBaseDao(), mBorrowSymbol, mHardMoneyMarketDenom);
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mBorrowImg);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mBorrowSymbol);
 
         mBorrowInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -148,7 +148,6 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
         });
         return rootView;
     }
-
 
     @Override
     public void onClick(View v) {

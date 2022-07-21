@@ -81,16 +81,16 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
         mBorrowedAmount = WUtil.getHardBorrowedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardBorrows).multiply(new BigDecimal("1.05")).setScale(0, RoundingMode.DOWN);
         BigDecimal availableAmount = getBaseDao().getAvailable(mHardMoneyMarketDenom);
         mMaxAvailable = mBorrowedAmount.min(availableAmount);
-        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mRepayDenomTx, mRepayMaxTx, getSActivity().mBaseChain);
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mRepayDenomTx, mRepayMaxTx);
 
-        WUtil.DpKavaTokenImg(getBaseDao(), mRepayImg, mHardMoneyMarketDenom);
-        WUtil.dpKavaTokenName(getContext(), getBaseDao(), mRepaySymbol, mHardMoneyMarketDenom);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mRepayImg);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mRepaySymbol);
 
         mRepayInput.addTextChangedListener(new TextWatcher() {
             @Override

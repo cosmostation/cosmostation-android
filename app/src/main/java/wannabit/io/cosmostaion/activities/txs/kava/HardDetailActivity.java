@@ -34,6 +34,7 @@ import kava.hard.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
@@ -63,7 +64,6 @@ public class HardDetailActivity extends BaseActivity {
     private BaseChain mBaseChain;
 
     private String mHardMoneyMarketDenom;
-    private Hard.Params mHardParams;
     private ArrayList<QueryOuterClass.MoneyMarketInterestRate> mInterestRates = new ArrayList<>();
     private ArrayList<Coin> mModuleCoins = new ArrayList<>();
     private ArrayList<CoinOuterClass.Coin> mReserveCoins = new ArrayList<>();
@@ -77,6 +77,11 @@ public class HardDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hard_detail);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mToolbar = findViewById(R.id.tool_bar);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
@@ -84,12 +89,6 @@ public class HardDetailActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mHardMoneyMarketDenom = getIntent().getStringExtra("hard_money_market_denom");
-        mHardParams = getBaseDao().mHardParams;
-        mIncentiveRewards = getBaseDao().mIncentiveRewards;
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(HardDetailActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -107,6 +106,14 @@ public class HardDetailActivity extends BaseActivity {
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new HardDetailAdapter();
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mHardMoneyMarketDenom = getIntent().getStringExtra("hard_money_market_denom");
+        mIncentiveRewards = getBaseDao().mIncentiveRewards;
 
         onFetchHardInfo();
     }
@@ -123,7 +130,6 @@ public class HardDetailActivity extends BaseActivity {
     }
 
     private int mTaskCount = 0;
-
     public void onFetchHardInfo() {
         mInterestRates.clear();
         mModuleCoins.clear();
@@ -253,9 +259,9 @@ public class HardDetailActivity extends BaseActivity {
     private boolean onCommonCheck() {
         if (!mAccount.hasPrivateKey) {
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), view -> {
-                    });
+            });
             return false;
         }
         return true;
@@ -282,11 +288,11 @@ public class HardDetailActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_HARD_INFO) {
-                holder.onBindHardDetailInfo(HardDetailActivity.this, mBaseChain, getBaseDao(), mHardMoneyMarketDenom, mIncentiveRewards, mInterestRates, mTotalDeposit, mTotalBorrow, mModuleCoins, mReserveCoins, position);
+                holder.onBindHardDetailInfo(HardDetailActivity.this, getBaseDao(), mHardMoneyMarketDenom, mIncentiveRewards, mInterestRates, mTotalDeposit, mTotalBorrow, mModuleCoins, mReserveCoins);
             } else if (getItemViewType(position) == TYPE_MY_STATUS) {
-                holder.onBindHardDetailMyStatus(HardDetailActivity.this, getBaseDao(), mBaseChain, mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
+                holder.onBindHardDetailMyStatus(HardDetailActivity.this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
             } else if (getItemViewType(position) == TYPE_MY_AVAILABLE) {
-                holder.onBindHardDetailAvailable(HardDetailActivity.this, getBaseDao(), mBaseChain, mHardMoneyMarketDenom);
+                holder.onBindHardDetailAvailable(HardDetailActivity.this, getBaseDao(), mHardMoneyMarketDenom);
             }
         }
 

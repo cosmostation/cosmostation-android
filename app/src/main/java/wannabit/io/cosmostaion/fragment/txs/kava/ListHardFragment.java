@@ -6,7 +6,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HAR
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -101,7 +99,6 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     }
 
     private int mTaskCount = 0;
-
     public void onFetchHardInfo() {
         mMyDeposits.clear();
         mMyBorrows.clear();
@@ -139,16 +136,6 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
         }
     }
 
-
-    public void onCheckStartClaimIncentive() {
-        if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> getSActivity().onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
-        }
-    }
-
     private class HardPoolAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_MY_HARD_STATUS = 1;
         private static final int TYPE_HARD_POOL = 2;
@@ -171,7 +158,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_HARD_POOL) {
                 Hard.MoneyMarket hardMoneyMarket = mHardParams.getMoneyMarkets(position - 1);
-                viewHolder.onBindMyHardPool(getContext(), mBaseChain, getBaseDao(), mHardParams, hardMoneyMarket, mIncentiveRewards, mInterestRates, mMyDeposits, mMyBorrows, position - 1);
+                viewHolder.onBindMyHardPool(getContext(), getBaseDao(), mHardParams, hardMoneyMarket, mIncentiveRewards, mInterestRates, mMyDeposits, mMyBorrows, position - 1);
             }
         }
 

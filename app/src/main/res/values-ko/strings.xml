@@ -188,7 +188,7 @@
     <string name="str_copy_to">Copy to Clipboard</string>
     <string name="str_copied">클립보드에 복사하였습니다.</string>
     <string name="str_safe_copied">안전 모드로 복사되었습니다.</string>
-    <string name="str_add_mnemonics">복구 단어 입력</string>
+    <string name="str_add_mnemonics">니모닉 추가</string>
     <string name="str_back">뒤로</string>
     <string name="str_with_qr">QR 코드 공유</string>
     <string name="str_with_text">주소 공유</string>
@@ -847,7 +847,7 @@
     <string name="str_create_warn1">고객님의 자산 보호를 위해 \n복구 단어를 반드시 종이에 적어 따로 보관해주세요.\n이 단어들을 이용하여 지갑을 복원할 수 있습니다.\n(지갑관리에서 다시 확인하실 수 있습니다.)</string>
     <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
     <string name="str_only_observe_title">관찰 모드 지갑</string>
-    <string name="str_only_observe_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
+    <string name="str_only_observe_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.\n</string>
     <string name="str_all_validators">모든 검증인</string>
     <string name="str_top_100_validators">상위 검증인</string>
     <string name="str_other_validators">기타 노드</string>

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.widget.kava;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_HARD_POOL_IMG_URL;
 
 import android.view.View;
@@ -20,6 +21,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -55,16 +58,19 @@ public class HardDetailInfoHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindHardDetailInfo(HardDetailActivity context, BaseChain chain, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<QueryOuterClass.MoneyMarketInterestRate> HardInterestRates,
-                                     ArrayList<CoinOuterClass.Coin> totalDeposit, ArrayList<CoinOuterClass.Coin> totalborrow, ArrayList<Coin> moduleCoins, ArrayList<CoinOuterClass.Coin> reserveCoin, int position) {
-
+    public void onBindHardDetailInfo(HardDetailActivity context, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<QueryOuterClass.MoneyMarketInterestRate> HardInterestRates,
+                                     ArrayList<CoinOuterClass.Coin> totalDeposit, ArrayList<CoinOuterClass.Coin> totalborrow, ArrayList<Coin> moduleCoins, ArrayList<CoinOuterClass.Coin> reserveCoin) {
+        final ChainConfig chainConfig           = ChainFactory.getChain(KAVA_MAIN);
         final Hard.Params hardParam             = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
 
-        String baseDenom = baseData.getBaseDenom(hardMoneyMarket.getDenom());
+        String baseDenom = "";
+        if (hardMoneyMarket.getDenom().startsWith("ibc/")) baseDenom = baseData.getBaseDenom(chainConfig, hardMoneyMarket.getDenom());
+        else baseDenom = hardMoneyMarket.getDenom();
         try {
             Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(mPoolImg);
         } catch (Exception e) { }
+
         String marketTitle = hardMoneyMarket.getSpotMarketId().replace(":30", "");;
         mPoolTitle.setText(marketTitle.toUpperCase());
 
@@ -97,12 +103,11 @@ public class HardDetailInfoHolder extends BaseHolder {
 
         }
         if (totalDepositCoin != null) {
-            WDp.showCoinDp(context, baseData, totalDepositCoin, mPoolSupplyAmountDenom, mPoolSupplyAmount, chain);
-            int decimal =  WUtil.getKavaCoinDecimal(baseData, totalDepositCoin.denom);
+            WDp.setDpCoin(context, baseData, chainConfig, totalDepositCoin, mPoolSupplyAmountDenom, mPoolSupplyAmount);
+            int decimal = WDp.getDenomDecimal(baseData, chainConfig, totalDepositCoin.denom);
             totalDepositValue = (new BigDecimal(totalDepositCoin.amount)).movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParam, totalDepositCoin.denom)));
-
         } else {
-            WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), "0", mPoolSupplyAmountDenom, mPoolSupplyAmount, chain);
+            WDp.setDpCoin(context, baseData, chainConfig, hardMoneyMarket.getDenom(), "0", mPoolSupplyAmountDenom, mPoolSupplyAmount);
         }
         mPoolSupplyValue.setText(WDp.getDpRawDollor(context, totalDepositValue, 2));
 
@@ -118,15 +123,13 @@ public class HardDetailInfoHolder extends BaseHolder {
             }
         }
         if (totalBorrowCoin != null) {
-            WDp.showCoinDp(context, baseData, totalBorrowCoin, mPoolBorrowedAmountDenom, mPoolBorrowedAmount, chain);
-            int decimal =  WUtil.getKavaCoinDecimal(baseData, totalBorrowCoin.denom);
+            WDp.setDpCoin(context, baseData, chainConfig, totalBorrowCoin, mPoolBorrowedAmountDenom, mPoolBorrowedAmount);
+            int decimal = WDp.getDenomDecimal(baseData, chainConfig, totalBorrowCoin.denom);
             totalBorrowValue = (new BigDecimal(totalBorrowCoin.amount)).movePointLeft(decimal).multiply( baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParam, totalBorrowCoin.denom)));
-
         } else {
-            WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), "0", mPoolBorrowedAmountDenom, mPoolBorrowedAmount, chain);
+            WDp.setDpCoin(context, baseData, chainConfig, hardMoneyMarket.getDenom(), "0", mPoolBorrowedAmountDenom, mPoolBorrowedAmount);
         }
         mPoolBorrowedValue.setText(WDp.getDpRawDollor(context, totalBorrowValue, 2));
-
 
         // display system remain borrowable
         BigDecimal SystemBorrowableAmount   = BigDecimal.ZERO;
@@ -153,9 +156,9 @@ public class HardDetailInfoHolder extends BaseHolder {
         } else {
             SystemBorrowableAmount = moduleBorrowable;
         }
-        WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), SystemBorrowableAmount.toPlainString(), mRemainBorrowableAmountDenom, mRemainBorrowableAmount, chain);
+        WDp.setDpCoin(context, baseData, chainConfig, hardMoneyMarket.getDenom(), SystemBorrowableAmount.toPlainString(), mRemainBorrowableAmountDenom, mRemainBorrowableAmount);
 
-        int decimal =  WUtil.getKavaCoinDecimal(baseData, hardMoneyMarket.getDenom());
+        int decimal = WDp.getDenomDecimal(baseData, chainConfig, hardMoneyMarket.getDenom());
         SystemBorrowableValue = SystemBorrowableAmount.movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParam, hardMoneyMarket.getDenom())));
         mRemainBorrowableValue.setText(WDp.getDpRawDollor(context, SystemBorrowableValue, 2));
     }
