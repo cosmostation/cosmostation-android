@@ -436,6 +436,8 @@
     <string name="str_wc_transfer_price">가격</string>
     <string name="str_quorum">정족율</string>
     <string name="str_turnout">투표율</string>
+    <string name="str_voting_period">Voting Period</string>
+    <string name="str_vote_proposals">Proposals</string>
     <string name="str_vote_yes">찬성</string>
     <string name="str_vote_no">반대</string>
     <string name="str_vote_veto">절대반대</string>
@@ -864,6 +866,7 @@
     <string name="str_delegate">위임 하기</string>
     <string name="str_get_reward">위임 하기</string>
     <string name="str_vote_to">투표 하기</string>
+    <string name="str_vote_multi">Multi Vote</string>
     <string name="str_governance">거버넌스</string>
     <string name="str_commission">검증인 수수료</string>
     <string name="str_voting_power">전체 위임량</string>

@@ -328,17 +328,34 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     String voteOption = mResMyProposal.vote.options.get(0).option;
                     if (voteOption.equalsIgnoreCase("VOTE_OPTION_YES")) {
                         holder.itemYesDone.setVisibility(View.VISIBLE);
+                        holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteYes));
+                        holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
                         holder.itemYesCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
+
                     } else if (voteOption.equals("VOTE_OPTION_NO")) {
                         holder.itemNoDone.setVisibility(View.VISIBLE);
+                        holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteNo));
+                        holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
                         holder.itemNoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals("VOTE_OPTION_NO_WITH_VETO")) {
                         holder.itemVetoDone.setVisibility(View.VISIBLE);
+                        holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteVeto));
+                        holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
                         holder.itemVetoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals("VOTE_OPTION_ABSTAIN")) {
                         holder.itemAbstainDone.setVisibility(View.VISIBLE);
+                        holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain));
                         holder.itemAbstainCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                     }
 
@@ -346,18 +363,34 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     Gov.VoteOption voteOption = mMyVote_gRPC.getOption();
                     if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_YES)) {
                         holder.itemYesDone.setVisibility(View.VISIBLE);
+                        holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteYes));
+                        holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
                         holder.itemYesCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_NO)) {
                         holder.itemNoDone.setVisibility(View.VISIBLE);
+                        holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteNo));
+                        holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
                         holder.itemNoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO)) {
                         holder.itemVetoDone.setVisibility(View.VISIBLE);
+                        holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteVeto));
+                        holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
                         holder.itemVetoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
 
                     } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_ABSTAIN)) {
                         holder.itemAbstainDone.setVisibility(View.VISIBLE);
+                        holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
+                        holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain));
                         holder.itemAbstainCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                     }
                 }
@@ -420,7 +453,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             private RelativeLayout itemYesCard, itemNoCard, itemVetoCard, itemAbstainCard;
             private ImageView itemYesDone, itemNoDone, itemVetoDone, itemAbstainDone;
             private ProgressBar itemYesProgress, itemNoProgress, itemVetoProgress, itemAbstainProgress;
-            private TextView itemYesRate, itemYesCnt, itemNoRate, itemNoCnt, itemVetoRate, itemVetoCnt, itemAbstainRate, itemAbstainCnt;
+            private TextView itemYesRate, itemYesCnt, itemNoRate, itemNoCnt, itemVetoRate, itemVetoCnt, itemAbstainRate, itemAbstainCnt, itemYesTitle, itemNoTitle, itemVetoTitle, itemAbstainTitle;
             private ImageView itemYesCntImg, itemNoCntImg, itemVetoCntImg, itemAbstainCntImg;
             private LinearLayout itemTurnoutLayer;
             private TextView itemTurnout, itemQuorum;
@@ -454,6 +487,10 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 itemTurnoutLayer = itemView.findViewById(R.id.turnout_layer);
                 itemTurnout = itemView.findViewById(R.id.current_turnout);
                 itemQuorum = itemView.findViewById(R.id.current_quorum);
+                itemYesTitle = itemView.findViewById(R.id.vote_yes_title);
+                itemNoTitle = itemView.findViewById(R.id.vote_no_title);
+                itemVetoTitle = itemView.findViewById(R.id.vote_veto_title);
+                itemAbstainTitle = itemView.findViewById(R.id.vote_abstain_title);
             }
         }
     }

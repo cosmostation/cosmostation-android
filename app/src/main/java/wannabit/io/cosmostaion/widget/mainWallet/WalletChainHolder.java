@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
+import wannabit.io.cosmostaion.activities.VoteList2Activity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -104,7 +105,7 @@ public class WalletChainHolder extends BaseHolder {
         mBtnVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
+                Intent proposals = new Intent(mainActivity, VoteList2Activity.class);
                 mainActivity.startActivity(proposals);
             }
         });

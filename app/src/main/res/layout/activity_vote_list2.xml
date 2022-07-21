@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:src="@color/colorWhiteDayNight">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorWhiteDayNight"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_rr_17_black_daynight"
+            android:text="@string/str_proposal_list"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/layer_refresher"
+        android:layout_width="match_parent"
+        android:layout_height="600dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/empty_proposal"
+                style="@style/font_ss_14_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/str_no_proposal"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never" />
+        </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16">
+        <Button
+            android:id="@+id/btn_multiVote"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:minHeight="@dimen/space_45"
+            android:background="@drawable/btn_trans_with_photon_border"
+            style="@style/font_ss_14_photon"
+            android:textAllCaps="false"
+            android:text="@string/str_vote_multi"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_black_daynight"
+            android:textAllCaps="false"
+            android:text="@string/str_cancel"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_photon_border"
+            style="@style/font_ss_14_photon"
+            android:textColor="@color/color_btn_photon"
+            android:textAllCaps="false"
+            android:text="@string/str_next"
+            android:visibility="gone"/>
+    </LinearLayout>
+</LinearLayout>

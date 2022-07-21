@@ -201,6 +201,12 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
+            android:name=".activities.VoteList2Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
             android:name=".activities.VoteDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

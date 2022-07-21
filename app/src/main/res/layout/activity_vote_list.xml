@@ -16,12 +16,13 @@
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
+            style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_daynight"
-            android:text="@string/str_proposal_list"/>
+            android:text="@string/str_proposal_list" />
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
@@ -52,28 +53,27 @@
                     android:clipToPadding="false"
                     android:overScrollMode="never"
                     android:visibility="gone" />
+
+                <RelativeLayout
+                    android:id="@+id/loadingLayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ProgressBar
+                            android:layout_width="@dimen/space_60"
+                            android:layout_height="@dimen/space_60"
+                            android:indeterminateDrawable="@drawable/loading" />
+                    </LinearLayout>
+                </RelativeLayout>
             </RelativeLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/loadingLayer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:layout_width="@dimen/space_60"
-                android:layout_height="@dimen/space_60"
-                android:indeterminateDrawable="@drawable/loading" />
-        </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>

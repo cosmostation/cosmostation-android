@@ -848,6 +848,8 @@
     <string name="str_wc_transfer_price">Price</string>
     <string name="str_quorum">Quorum</string>
     <string name="str_turnout">Turnout</string>
+    <string name="str_voting_period">Voting Period</string>
+    <string name="str_vote_proposals">Proposals</string>
     <string name="str_vote_yes">YES</string>
     <string name="str_vote_no">NO</string>
     <string name="str_vote_veto">NoWithVeto</string>
@@ -1277,6 +1279,7 @@
     <string name="str_unclaimed_incentive">Unclaimed Incentive</string>
     <string name="str_get_reward">Delegate</string>
     <string name="str_vote_to">Vote</string>
+    <string name="str_vote_multi">Multi Vote</string>
     <string name="str_governance">Governance</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>

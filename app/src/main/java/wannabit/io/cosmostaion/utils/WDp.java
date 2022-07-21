@@ -2754,6 +2754,29 @@ public class WDp {
         }
     }
 
+    public static String getGapTime(Context c, long finishTime) {
+        String result = "??";
+        try {
+            long now = Calendar.getInstance().getTimeInMillis();
+            long left = finishTime - now;
+
+            if (left >= BaseConstant.CONSTANT_D) {
+                result = "(D-" + (left / BaseConstant.CONSTANT_D) + ")";
+            } else if (left >= BaseConstant.CONSTANT_H) {
+                result = "(" + (left / BaseConstant.CONSTANT_H) + " hours ago)";
+            } else if (left >= BaseConstant.CONSTANT_M) {
+                result = "(" + (left / BaseConstant.CONSTANT_M) + " minutes ago)";
+            } else if (left >= BaseConstant.CONSTANT_S) {
+                result =  "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
+            } else {
+                result = "Soon";
+            }
+
+        } catch (Exception e) { }
+
+        return result;
+    }
+
     public static String getUnbondingTimeleft(Context c, long finishTime) {
         String result = "??";
         try {
@@ -2834,6 +2857,18 @@ public class WDp {
         long result = 0;
         try {
             SimpleDateFormat blockDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = blockDateFormat.parse(rawValue).getTime();
+        } catch (Exception e) {
+        }
+        ;
+        return result;
+    }
+
+    public static long dateToLong3(Context c, String rawValue) {
+        long result = 0;
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_vote_time_format));
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             result = blockDateFormat.parse(rawValue).getTime();
         } catch (Exception e) {

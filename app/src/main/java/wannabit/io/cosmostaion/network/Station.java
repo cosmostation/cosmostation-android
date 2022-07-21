@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.network.res.ResIbcTokens;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 
 public interface Station {
 
@@ -38,6 +39,9 @@ public interface Station {
 
     @GET("v1/{chain}/proposals/{proposalId}")
     Call<ResProposal> getProposal(@Path("chain") String chain, @Path("proposalId") String proposalId);
+
+    @GET("v1/{chain}/proposals/{proposalId}/votes")
+    Call<ArrayList<ResVoteStatus>> getVoteStatus(@Path("chain") String chain, @Path("proposalId") int proposalId, @Query("voter") String voter);
 
     @GET("v1/{chain}/proposals")
     Call<ArrayList<ResProposal>> getProposalList(@Path("chain") String chain);

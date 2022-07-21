@@ -162,7 +162,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
 
             voteHolder.proposal_title.setText(proposal.title);
-            voteHolder.proposal_details.setText(proposal.description);
 
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -196,7 +195,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 proposal_id = itemView.findViewById(R.id.proposal_id);
                 proposal_status = itemView.findViewById(R.id.proposal_status);
                 proposal_title = itemView.findViewById(R.id.proposal_title);
-                proposal_details = itemView.findViewById(R.id.proposal_details);
                 proposal_status_img = itemView.findViewById(R.id.proposal_status_img);
 
             }

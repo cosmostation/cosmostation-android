@@ -239,6 +239,18 @@
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
+    <style name="font_rm_11_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
+    <style name="font_rr_11_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
 
 
     <style name="font_ss_12_white" parent="@android:style/TextAppearance">
@@ -415,6 +427,11 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_rm_12_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
 
     <style name="font_ss_14_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
@@ -809,26 +826,26 @@
     </style>
 
 
-    <style name="font_ss_14_vote_yes" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_vote_yes" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorVoteYes</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_vote_no" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_vote_no" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorVoteNo</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_vote_veto" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_vote_veto" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorVoteVeto</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_vote_abstain" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_vote_abstain" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorVoteAbstain</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -863,6 +880,17 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_rb_14_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_rr_14_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
 
 
     <style name="font_ss_15_white" parent="@android:style/TextAppearance">
@@ -1007,6 +1035,12 @@
 
     <style name="font_ss_17_black_daynight" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="font_rr_17_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
