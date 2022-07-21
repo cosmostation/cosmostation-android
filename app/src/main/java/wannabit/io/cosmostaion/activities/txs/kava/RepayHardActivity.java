@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.RepayHardStep0Fragment;
@@ -45,6 +46,11 @@ public class RepayHardActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
@@ -59,11 +65,6 @@ public class RepayHardActivity extends BaseBroadCastActivity {
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(RepayHardActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_reapy_hard_step_1));
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mTxType = CONST_PW_TX_REPAY_HARD;
-        mHardMoneyMarketDenom = getIntent().getStringExtra("hardPoolDemon");
 
         mPageAdapter = new RepayHardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -98,6 +99,14 @@ public class RepayHardActivity extends BaseBroadCastActivity {
             }
         });
         mViewPager.setCurrentItem(0);
+    }
+
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mTxType = CONST_PW_TX_REPAY_HARD;
+        mHardMoneyMarketDenom = getIntent().getStringExtra("hardPoolDemon");
     }
 
     @Override
@@ -139,7 +148,7 @@ public class RepayHardActivity extends BaseBroadCastActivity {
 
     public void onStartRepayHard() {
         Intent intent = new Intent(RepayHardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REPAY_HARD);
+        intent.putExtra(CONST_PW_PURPOSE, mTxType);
         intent.putExtra("hardPoolCoins", mHardPoolCoins);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);

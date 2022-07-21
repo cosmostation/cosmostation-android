@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -24,6 +23,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.BorrowHardStep0Fragment;
@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.fragment.txs.kava.BorrowHardStep3Fragment;
 
 public class BorrowHardActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout mRootView;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -45,7 +44,11 @@ public class BorrowHardActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView = findViewById(R.id.root_view);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -59,11 +62,6 @@ public class BorrowHardActivity extends BaseBroadCastActivity {
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(BorrowHardActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_borrow_hard_step_1));
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mTxType = CONST_PW_TX_BORROW_HARD;
-        mHardMoneyMarketDenom = getIntent().getStringExtra("hardPoolDemon");
 
         mPageAdapter = new BorrowHardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -98,6 +96,14 @@ public class BorrowHardActivity extends BaseBroadCastActivity {
             }
         });
         mViewPager.setCurrentItem(0);
+    }
+
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mTxType = CONST_PW_TX_BORROW_HARD;
+        mHardMoneyMarketDenom = getIntent().getStringExtra("hardPoolDemon");
     }
 
     @Override
@@ -139,7 +145,7 @@ public class BorrowHardActivity extends BaseBroadCastActivity {
 
     public void onStartBorrowHard() {
         Intent intent = new Intent(BorrowHardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_BORROW_HARD);
+        intent.putExtra(CONST_PW_PURPOSE, mTxType);
         intent.putExtra("hardPoolCoins", mHardPoolCoins);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);

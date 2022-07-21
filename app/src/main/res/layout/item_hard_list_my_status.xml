@@ -57,13 +57,14 @@
 
                 <TextView
                     android:id="@+id/total_deposit_value"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/total_deposit_title"
                     android:layout_alignParentRight="true"
-                    android:layout_toLeftOf="@+id/total_deposit_title"
-                    android:text="-" />
+                    android:layout_toRightOf="@+id/total_deposit_title"
+                    android:text="-"
+                    android:gravity="end"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -80,18 +81,19 @@
 
                 <TextView
                     android:id="@+id/total_borrow_value"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/total_borrow_title"
                     android:layout_alignParentRight="true"
-                    android:layout_toLeftOf="@+id/total_borrow_title"
-                    android:text="-" />
+                    android:layout_toRightOf="@+id/total_borrow_title"
+                    android:text="-"
+                    android:gravity="end"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_14"
                 android:background="@color/colorGrayDayNight" />
 
@@ -109,13 +111,14 @@
 
                 <TextView
                     android:id="@+id/ltv_value"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/ltv_title"
                     android:layout_alignParentRight="true"
-                    android:layout_toLeftOf="@+id/ltv_title"
-                    android:text="-" />
+                    android:layout_toRightOf="@+id/ltv_title"
+                    android:text="-"
+                    android:gravity="end"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -132,13 +135,14 @@
 
                 <TextView
                     android:id="@+id/borrowable_value"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/borrowable_title"
                     android:layout_alignParentRight="true"
-                    android:layout_toLeftOf="@+id/borrowable_title"
-                    android:text="-" />
+                    android:layout_toRightOf="@+id/borrowable_title"
+                    android:text="-"
+                    android:gravity="end"/>
             </RelativeLayout>
 
         </LinearLayout>

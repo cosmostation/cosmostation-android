@@ -80,13 +80,13 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
         mMaxAvailable = WUtil.getHardSuppliedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardDeposits);
-        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mWithdrawDenomTx, mDWithdrawMaxTx, getSActivity().mBaseChain);
-        WUtil.DpKavaTokenImg(getBaseDao(), mWithdrawImg, mHardMoneyMarketDenom);
-        WUtil.dpKavaTokenName(getContext(), getBaseDao(), mWithdrawSymbol, mHardMoneyMarketDenom);
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mWithdrawDenomTx, mDWithdrawMaxTx);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mWithdrawImg);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mWithdrawSymbol);
 
         mWithdrawInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -233,7 +233,6 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
             mDecimalSetter = mDecimalSetter + "0";
         }
     }
-
 
     private WithdrawHardActivity getSActivity() {
         return (WithdrawHardActivity) getBaseActivity();

@@ -25,7 +25,6 @@ import wannabit.io.cosmostaion.activities.txs.kava.DepositHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class DepositHardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -80,13 +79,13 @@ public class DepositHardStep0Fragment extends BaseFragment implements View.OnCli
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
         mMaxAvailable = getBaseDao().getAvailable(mHardMoneyMarketDenom);
-        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mDepositDenomTx, mDepositMaxTx, getSActivity().mBaseChain);
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mDepositDenomTx, mDepositMaxTx);
 
-        WUtil.DpKavaTokenImg(getBaseDao(), mDepositImg, mHardMoneyMarketDenom);
-        WUtil.dpKavaTokenName(getContext(), getBaseDao(), mDepositSymbol, mHardMoneyMarketDenom);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mDepositImg);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mHardMoneyMarketDenom, mDepositSymbol);
 
         mDepositInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -218,7 +217,6 @@ public class DepositHardStep0Fragment extends BaseFragment implements View.OnCli
         }
 
     }
-
 
     private void setDpDecimals(int decimals) {
         mDecimalChecker = "0.";

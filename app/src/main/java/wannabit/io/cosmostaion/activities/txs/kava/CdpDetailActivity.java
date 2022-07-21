@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -307,7 +308,11 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
     private boolean onCommonCheck() {
         if (!mAccount.hasPrivateKey) {
-            onInsertKeyDialog();
+            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                    getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                    getString(R.string.str_close), view -> {
+            });
+            return false;
         }
 
         if (mCdpParams.getCircuitBreaker()) {

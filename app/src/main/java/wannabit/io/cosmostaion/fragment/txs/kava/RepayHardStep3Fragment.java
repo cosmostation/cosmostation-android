@@ -9,14 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.RepayHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class RepayHardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -53,11 +49,9 @@ public class RepayHardStep3Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mHardPoolCoins.get(0), mRepayDenom, mRepayAmount, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mHardPoolCoins.get(0), mRepayDenom, mRepayAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeesDenom, mFeesAmount);
         mMemo.setText(getSActivity().mTxMemo);
-
     }
 
     @Override

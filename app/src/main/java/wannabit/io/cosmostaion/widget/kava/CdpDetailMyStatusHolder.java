@@ -92,7 +92,7 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
         final BigDecimal currentPrice = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
 
         mMySelfDepositAmount.setText(WDp.getDpAmount2(context, selfDepositAmount, cDpDecimal, cDpDecimal));
-        BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(baseData, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+        BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WDp.getDenomDecimal(baseData, chainConfig, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mMySelfDepositValue.setText(WDp.getDpRawDollor(context, selfDepositValue, 2));
 
         mMyTotalDepositAmount.setText(WDp.getDpAmount2(context, new BigDecimal(myCdp.getCollateral().getAmount()),cDpDecimal, cDpDecimal));

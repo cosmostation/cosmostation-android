@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.widget.kava;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,13 +15,12 @@ import java.math.BigDecimal;
 import kava.hard.v1beta1.Hard;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.HardDetailActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class HardDetailMyAvailableHolder extends BaseHolder {
     private RelativeLayout      mAssetDepositLayer;
@@ -41,7 +43,8 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
+    public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, String denom) {
+        final ChainConfig chainConfig           = ChainFactory.getChain(KAVA_MAIN);
         final Hard.Params hardParam             = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
 
@@ -50,7 +53,7 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
             mDepositValue.setVisibility(View.GONE);
         }
         BigDecimal targetAvailable = baseData.getAvailable(denom);
-        BigDecimal kavaAvailable = baseData.getAvailable(TOKEN_KAVA);
+        BigDecimal kavaAvailable = baseData.getAvailable(chainConfig.mainDenom());
 
         // Display each usd value
         BigDecimal targetPrice = BigDecimal.ZERO;
@@ -59,14 +62,14 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
         } else {
             targetPrice = BigDecimal.ONE;
         }
-        BigDecimal targetValue = targetAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, denom)).multiply(targetPrice);
-        WDp.showCoinDp(context, baseData, denom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount, chain);
+        BigDecimal targetValue = targetAvailable.movePointLeft(WDp.getDenomDecimal(baseData, chainConfig, denom)).multiply(targetPrice);
+        WDp.setDpCoin(context, baseData, chainConfig, denom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount);
         mDepositValue.setText(WDp.getDpRawDollor(context, targetValue, 2));
-        WUtil.DpKavaTokenImg(baseData, mAssetDepositImg, denom);
+        WDp.setDpSymbolImg(baseData, chainConfig, denom, mAssetDepositImg);
 
         BigDecimal kavaValue = BigDecimal.ZERO;
         kavaValue = kavaAvailable.movePointLeft(6).multiply(baseData.getKavaOraclePrice("kava:usd:30"));
-        WDp.showCoinDp(context, baseData, TOKEN_KAVA, kavaAvailable.toPlainString(), mAssetKavaDenom, mAssetKavaAmount, chain);
+        WDp.setDpCoin(context, baseData, chainConfig, chainConfig.mainDenom(), kavaAvailable.toPlainString(), mAssetKavaDenom, mAssetKavaAmount);
         mKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
 
     }

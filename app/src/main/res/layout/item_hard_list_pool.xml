@@ -131,7 +131,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight"
                 android:layout_marginTop="@dimen/space_16"/>
 
@@ -155,10 +155,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="UNKNOWN"
+                        android:text="-"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                     <TextView
                         android:id="@+id/deposited_amount"
                         android:layout_width="wrap_content"
@@ -167,7 +167,7 @@
                         android:layout_toLeftOf="@+id/deposited_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -200,8 +200,8 @@
                         android:layout_alignParentRight="true"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        android:text="UNKNOWN"
-                        style="@style/font_ss_12_black_daynight"/>
+                        android:text="-"
+                        style="@style/font_ssl_12_black_daynight"/>
                     <TextView
                         android:id="@+id/borrow_amount"
                         android:layout_width="wrap_content"
@@ -210,7 +210,7 @@
                         android:layout_toLeftOf="@+id/borrow_denom"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
