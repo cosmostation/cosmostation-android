@@ -43,8 +43,28 @@ public class ChainFactory {
                 case BITSONG_MAIN:
                     return new Bitsong();
 
+                case CERBERUS_MAIN:
+                    return new Cerberus();
+
+                case CERTIK_LEGACY1:
+                case CERTIK_LEGACY2:
+                case CERTIK_MAIN:
+                    return new Certik();
+
+                case CHIHUAHUA_MAIN:
+                    return new Chihuahua();
+
+                case COMDEX_MAIN:
+                    return new Comdex();
+
                 case CRESCENT_MAIN:
                     return new Crescent();
+
+                case CRYPTO_MAIN:
+                    return new Crytoorg();
+
+                case CUDOS_MAIN:
+                    return new Cudos();
 
                 case INJ_MAIN:
                     return new Injective();
