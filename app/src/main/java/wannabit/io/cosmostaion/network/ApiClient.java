@@ -2,9 +2,13 @@ package wannabit.io.cosmostaion.network;
 
 import android.content.Context;
 
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Map;
+
+import io.grpc.ManagedChannel;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -94,6 +98,19 @@ public class ApiClient {
         return cosmostation;
     }
 
+    static Map<String, HistoryApi> apiMap = Maps.newHashMap();
+
+    public static HistoryApi getChainApi(BaseChain baseChain) {
+        if (apiMap.containsKey(baseChain.getChain())) {
+            return apiMap.get(baseChain.getChain());
+        } else {
+            ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            HistoryApi historyApi = chainConfig.apiMain().create(HistoryApi.class);
+            apiMap.put(baseChain.getChain(), historyApi);
+            return historyApi;
+        }
+    }
+
     private static HistoryApi api_cosmos = null;
     public static HistoryApi getCosmosApi(BaseChain baseChain) {
         ChainConfig chainConfig = ChainFactory.getChain(baseChain);
@@ -108,22 +125,6 @@ public class ApiClient {
         }
         return api_cosmos;
     }
-
-    private static HistoryApi api_iris = null;
-    public static HistoryApi getIrisApi(BaseChain baseChain) {
-        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
-        if (api_iris == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(chainConfig.apiUrl())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_iris = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_iris;
-    }
-
 
     //Services for Binance net
     private static BinanceChain service_binance = null;
@@ -267,14 +268,13 @@ public class ApiClient {
         return api_certik;
     }
 
-    //Services for Akash mainnet api
     private static HistoryApi api_akash = null;
-
-    public static HistoryApi getAkashApi(Context c) {
+    public static HistoryApi getAkashApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_akash == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_akash))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_akash = retrofit.create(HistoryApi.class);

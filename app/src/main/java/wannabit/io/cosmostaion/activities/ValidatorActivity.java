@@ -372,7 +372,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onFetchValHistory() {
         mTaskCount++;
-        new ApiStakeTxsHistoryTask(getBaseApplication(), this, mChainConfig, mAccount.address, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ApiStakeTxsHistoryTask(getBaseApplication(), this, mBaseChain, mAccount.address, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

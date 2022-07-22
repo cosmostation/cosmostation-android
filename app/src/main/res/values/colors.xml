@@ -52,7 +52,7 @@
     <color name="colorTransBgCerberus">#faf5e3</color>
     <color name="colorTransBgOmniflix">#f1f0ff</color>
     <color name="colorTransBgCrescent">#fbf2e9</color>
-    <color name="colorTransBgMantle">#fef8e8</color>
+    <color name="colorTransBgAssetmantle">#fef8e8</color>
     <color name="colorTransBgStation">#e6f9fa</color>
     <color name="colorTransBgNyx">#fff1ef</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -169,7 +169,7 @@
     <color name="color_regen2">#27643e</color>
 
     <color name="color_bitcanna">#00b786</color>
-    <color name="color_bitcann2">#04684f</color>
+    <color name="color_bitcanna2">#04684f</color>
 
     <color name="color_stargaze">#e38cd4</color>
     <color name="color_stargaze2">#8a5a84</color>
@@ -219,8 +219,8 @@
     <color name="color_bcre">#ac8a5e</color>
     <color name="color_crescent3">#452318</color>
 
-    <color name="color_Mantle">#f3b519</color>
-    <color name="color_Mantle2">#a48e59</color>
+    <color name="color_assetmantle">#f3b519</color>
+    <color name="color_assetmantle2">#a48e59</color>
 
     <color name="color_station">#05c3cd</color>
     <color name="color_station2">#007d84</color>

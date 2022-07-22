@@ -829,7 +829,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Akash Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.akash_token_img));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_akash));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_AKASH);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
