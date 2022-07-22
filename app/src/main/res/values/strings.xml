@@ -691,7 +691,7 @@
     <string name="str_front_guide_title_cerberus"><![CDATA[CERBERUS]]></string>
     <string name="str_front_guide_title_omniflix"><![CDATA[OMNIFLIX]]></string>
     <string name="str_front_guide_title_crescent"><![CDATA[CRESCENT]]></string>
-    <string name="str_front_guide_title_mantle"><![CDATA[ASSETMANTLE]]></string>
+    <string name="str_front_guide_title_assetmantle"><![CDATA[ASSETMANTLE]]></string>
     <string name="str_front_guide_title_station"><![CDATA[STATION]]></string>
     <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
@@ -735,7 +735,7 @@
     <string name="str_front_guide_msg_cerberus"><![CDATA[Cerberus is a community-led tri-headed dog meme coin in Cosmos ecosystem.]]></string>
     <string name="str_front_guide_msg_omniflix"><![CDATA[OmniFlix Network is a blockchain specifically designed for creators and communities, powered by NFTs.]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[Crescent is a Tendermint-based DeFi hub powered by $CRE tokens & Inter-Blockchain Communication protocol.]]></string>
-    <string name="str_front_guide_msg_mantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
+    <string name="str_front_guide_msg_assetmantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
     <string name="str_front_guide_msg_station"><![CDATA[Station Test]]></string>
     <string name="str_front_guide_msg_nyx"><![CDATA[Nyx is a decentralized and incentivized infrastructure providing next generation privacy infrastructure.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>

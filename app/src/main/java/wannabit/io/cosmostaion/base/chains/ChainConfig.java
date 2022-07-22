@@ -10,9 +10,10 @@ import java.util.List;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.network.HistoryApi;
 
 abstract public class ChainConfig {
     public abstract BaseChain baseChain();
@@ -87,7 +88,9 @@ abstract public class ChainConfig {
         return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().build();
     }
 
-    public abstract HistoryApi getHistoryApi();
+    public Retrofit apiMain() {
+        return new Retrofit.Builder().baseUrl(apiUrl()).addConverterFactory(GsonConverterFactory.create()).build();
+    }
 
     public BigDecimal blockTime() {
         return BigDecimal.ZERO;

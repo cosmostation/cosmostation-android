@@ -2,21 +2,13 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
-import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
-import io.grpc.ManagedChannel;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.ChannelBuilder;
-import wannabit.io.cosmostaion.network.HistoryApi;
 
 public class Osmosis extends ChainConfig {
 
@@ -41,7 +33,6 @@ public class Osmosis extends ChainConfig {
 
     public String grpcUrl() { return "lcd-osmosis-app-and.cosmostation.io"; }
     public String apiUrl() { return "https://api-osmosis.cosmostation.io/"; }
-    public HistoryApi getHistoryApi() { return ApiClient.getOsmosisApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("6.5324"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "osmosis/"; }

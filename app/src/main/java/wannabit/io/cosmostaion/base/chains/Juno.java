@@ -1,24 +1,15 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
-import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
-import io.grpc.ManagedChannel;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.HistoryApi;
 
 public class Juno extends ChainConfig{
@@ -44,7 +35,6 @@ public class Juno extends ChainConfig{
 
     public String grpcUrl() { return "lcd-juno-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-juno.cosmostation.io/"; }
-    public HistoryApi getHistoryApi() { return ApiClient.getJunoApi(baseChain()); }
 
     public BigDecimal blockTime() { return new BigDecimal("6.3104"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "juno/"; }
