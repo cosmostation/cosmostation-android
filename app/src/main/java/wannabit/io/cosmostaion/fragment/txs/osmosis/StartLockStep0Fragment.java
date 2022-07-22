@@ -21,7 +21,6 @@ import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.StartEarningActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -87,7 +86,7 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
         mAvailableMaxAmount = getBaseDao().getAvailable(mLpDenom);
         setDpDecimals(mCoinDecimal);
 
-        WDp.showCoinDp(getSActivity(), getBaseDao(), mLpDenom, mAvailableMaxAmount.toString(), mLpCoinDenom, mLpCoinAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mLpDenom, mAvailableMaxAmount.toString(), mLpCoinDenom, mLpCoinAmount);
         onAddAmountWatcher();
     }
 

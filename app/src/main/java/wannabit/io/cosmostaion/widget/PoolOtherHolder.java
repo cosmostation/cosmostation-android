@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class PoolOtherHolder extends BaseHolder {
     CardView itemRoot;
@@ -50,28 +49,29 @@ public class PoolOtherHolder extends BaseHolder {
 
     @Override
     public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, BalancerPool.Pool otherPool) {
+        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         Coin coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), otherPool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), otherPool.getPoolAssets(1).getToken().getAmount());
 
-        itemPoolType.setText("#" + otherPool.getId() + " " + WUtil.dpOsmosisTokenName(baseData, coin0.denom) + "/" + WUtil.dpOsmosisTokenName(baseData, coin1.denom));
+        itemPoolType.setText("#" + otherPool.getId() + " " + WDp.getDpSymbol(baseData, chainConfig, coin0.denom) + "/" + WDp.getDpSymbol(baseData, chainConfig, coin1.denom));
 
-        itemTotalDepositValue.setText("" + WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(baseData, coin0.denom)));
+        itemTotalDepositValue.setText("" + WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom)));
 
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(baseData, coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(baseData, coin1.denom));
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
         BigDecimal PoolValue = coin0Value.add(coin1Value);
         itemTotalDepositValue.setText(WDp.getDpRawDollor(context, PoolValue, 2));
 
-        WDp.showCoinDp(context, baseData, coin0, itemTotalDepositSymbol0, itemTotalDepositAmount0, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(context, baseData, coin1, itemTotalDepositSymbol1, itemTotalDepositAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpCoin(context, baseData, chainConfig, coin0, itemTotalDepositSymbol0, itemTotalDepositAmount0);
+        WDp.setDpCoin(context, baseData, chainConfig, coin1, itemTotalDepositSymbol1, itemTotalDepositAmount1);
 
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.denom);
         Coin Coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), availableCoin0.toPlainString());
         BigDecimal availableCoin1 = baseData.getAvailable(coin1.denom);
         Coin Coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), availableCoin1.toPlainString());
 
-        WDp.showCoinDp(context, baseData, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(context, baseData, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpCoin(context, baseData, chainConfig, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0);
+        WDp.setDpCoin(context, baseData, chainConfig, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1);
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override

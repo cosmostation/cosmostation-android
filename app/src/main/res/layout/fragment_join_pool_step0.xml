@@ -31,17 +31,18 @@
 
                     <ImageView
                         android:id="@+id/join_pool_input_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/space_28"
+                        android:layout_height="@dimen/space_28"
                         android:src="@drawable/token_default" />
                     <TextView
                         android:id="@+id/join_pool_input_symbol"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:text="COIN"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        style="@style/font_ss_10_black_daynight"/>
+                        style="@style/font_ss_10_black_daynight"
+                        android:gravity="center"/>
                 </LinearLayout>
 
                 <EditText
@@ -166,12 +167,13 @@
                         android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/join_pool_output_symbol"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
                         android:text="COIN"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        style="@style/font_ss_10_black_daynight"/>
+                        style="@style/font_ss_10_black_daynight"
+                        android:gravity="center"/>
                 </LinearLayout>
                 <EditText
                     android:id="@+id/join_pool_output"

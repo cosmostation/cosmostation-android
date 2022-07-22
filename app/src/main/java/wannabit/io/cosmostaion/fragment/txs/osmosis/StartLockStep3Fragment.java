@@ -9,11 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.StartEarningActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -25,7 +22,6 @@ public class StartLockStep3Fragment extends BaseFragment implements View.OnClick
     private TextView        mLockCoinAmount, mLockCoinSymbol;
     private TextView        mLockUnbondingDuraion;
     private TextView        mMemo;
-    private int             mDpDecimal = 18;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -53,8 +49,6 @@ public class StartLockStep3Fragment extends BaseFragment implements View.OnClick
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
@@ -63,13 +57,11 @@ public class StartLockStep3Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         final Coin LpCoin = new Coin(getSActivity().mLpToken.denom, getSActivity().mLpToken.amount);
         long UnbondingDuraion = getSActivity().mOsmosisLockupDuration;
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.showCoinDp(getSActivity(), getBaseDao(), LpCoin, mLockCoinSymbol, mLockCoinAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, LpCoin, mLockCoinSymbol, mLockCoinAmount);
         if (UnbondingDuraion == 86400) {
             mLockUnbondingDuraion.setText("1 Day");
         } else if (UnbondingDuraion == 604800) {

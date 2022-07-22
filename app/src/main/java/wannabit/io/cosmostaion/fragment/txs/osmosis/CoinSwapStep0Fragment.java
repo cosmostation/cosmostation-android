@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.osmosis;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -111,21 +109,21 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
+        mInputCoinDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom);
+        mOutputCoinDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
-        if (getSActivity().mInputDenom.equals(TOKEN_OSMOSIS)) {
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, 0);
+        if (getSActivity().mInputDenom.equals(getSActivity().mChainConfig.mainDenom())) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpOsmosisTokenName(getContext(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+        WDp.setDpSymbol(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);
 
-        WUtil.dpOsmosisTokenName(getContext(), getBaseDao(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.DpOsmosisTokenImg(getBaseDao(), mSwapInputImg, getSActivity().mInputDenom);
-        WUtil.dpOsmosisTokenName(getContext(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        WUtil.DpOsmosisTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
+        WDp.setDpSymbol(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputSymbol);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputImg);
+        WDp.setDpSymbol(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputSymbol);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputImg);
 
         BigDecimal inputAssetAmount = BigDecimal.ZERO;
         BigDecimal inputAssetWeight = BigDecimal.ZERO;

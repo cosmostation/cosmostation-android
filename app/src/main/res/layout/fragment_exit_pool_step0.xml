@@ -24,7 +24,7 @@
                 android:layout_marginTop="@dimen/space_12">
                 <LinearLayout
                     android:id="@+id/exit_pool_input_symbol_layer"
-                    android:layout_width="@dimen/space_50"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:orientation="vertical"
@@ -54,6 +54,7 @@
                     android:maxLength="46"
                     android:background="@drawable/edittext_box"
                     android:paddingRight="@dimen/space_60"
+                    android:paddingLeft="@dimen/space_14"
                     style="@style/font_ss_12_black_daynight"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionDone"

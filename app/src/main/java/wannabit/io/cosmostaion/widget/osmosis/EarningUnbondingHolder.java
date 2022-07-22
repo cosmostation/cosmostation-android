@@ -17,7 +17,6 @@ import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -47,8 +46,7 @@ public class EarningUnbondingHolder extends RecyclerView.ViewHolder {
         itemRewardAmount    = itemView.findViewById(R.id.next_reward_amount);
     }
 
-    public void onBindView(Context c, BaseActivity activity, BaseData baseData,
-                           BalancerPool.Pool pool, Lock.PeriodLock lockup, ArrayList<GaugeOuterClass.Gauge> gauges) {
+    public void onBindView(Context c, BaseData baseData, BalancerPool.Pool pool, Lock.PeriodLock lockup, ArrayList<GaugeOuterClass.Gauge> gauges) {
         BigDecimal totalShare = new BigDecimal(pool.getTotalShares().getAmount());
         BigDecimal lpCoinPrice = WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
         Coin myLpCoin = new Coin(lockup.getCoins(0).getDenom(), lockup.getCoins(0).getAmount());

@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.osmosis;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,14 +26,12 @@ import java.math.RoundingMode;
 import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.JoinPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
@@ -128,31 +124,31 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
-        WLog.w("pool " + getSActivity().mOsmosisPool.getId());
 
-        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
+        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxType, 0);
         String coin0Denom = getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getDenom();
         String coin1Denom = getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getDenom();
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(coin0Denom);
-        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+        if (coin0Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
             mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(txFeeAmount);
         }
         mAvailable1MaxAmount = getBaseDao().getAvailable(coin1Denom);
-        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+        if (coin1Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
             mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount);
         }
 
-        mCoin0Decimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), coin0Denom);
-        mCoin1Decimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), coin1Denom);
+        mCoin0Decimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, coin0Denom);
+        mCoin1Decimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, coin1Denom);
         setDpDecimals(mCoin0Decimal, mCoin1Decimal);
 
-        WUtil.DpOsmosisTokenImg(getBaseDao(), mJoinPoolInput0Img, coin0Denom);
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Symbol, coin0Denom);
-        WUtil.DpOsmosisTokenImg(getBaseDao(), mJoinPoolInput1Img, coin1Denom);
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Symbol, coin1Denom);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Denom, coin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Denom, coin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, coin0Denom, mJoinPoolInput0Img);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, coin0Denom, mJoinPoolInput0Symbol);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, coin1Denom, mJoinPoolInput1Img);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, coin1Denom, mJoinPoolInput1Symbol);
+
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, coin0Denom, mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, coin1Denom, mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount);
 
         BigDecimal coin0Amount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getAmount());
         BigDecimal coin1Amount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getAmount());
@@ -296,7 +292,6 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onUpdateInput0Et(String outputs) {
-        WLog.w("onUpdateInput0Et " + outputs + "  " + mIsInput0Focused);
         if (!mIsInput0Focused) {
             try {
                 final BigDecimal outputAmount = new BigDecimal(outputs).movePointRight(mCoin1Decimal);
@@ -314,7 +309,6 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onUpdateInput1Et(String inputs) {
-        WLog.w("onUpdateInput1Et " + inputs + "  " + mIsInput0Focused);
         if (mIsInput0Focused) {
             try {
                 final BigDecimal inputAmount = new BigDecimal(inputs).movePointRight(mCoin0Decimal);

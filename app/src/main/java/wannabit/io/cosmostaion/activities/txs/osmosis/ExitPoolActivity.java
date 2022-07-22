@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.ExitPoolStep0Fragment;
@@ -44,6 +45,11 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
@@ -52,18 +58,12 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_exit));
 
-        mTxType = CONST_PW_TX_OSMOSIS_EXIT_POOL;
-        mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(ExitPoolActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_exit_pool_step_0));
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mPageAdapter = new ExitPoolPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -108,6 +108,13 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         });
     }
 
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mTxType = CONST_PW_TX_OSMOSIS_EXIT_POOL;
+        mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -148,7 +155,7 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
 
     public void onStartExitPool() {
         Intent intent = new Intent(ExitPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_EXIT_POOL);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("mPoolId", mOsmosisPoolId);
         intent.putExtra("mPoolCoin0", mPoolCoin0);
         intent.putExtra("mPoolCoin1", mPoolCoin1);

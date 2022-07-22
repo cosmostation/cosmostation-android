@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-
 import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;

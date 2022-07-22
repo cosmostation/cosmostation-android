@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.StartLockStep0Fragment;
@@ -47,7 +48,11 @@ public class StartEarningActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        initView();
+        loadData();
+    }
 
+    public void initView() {
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
@@ -56,24 +61,12 @@ public class StartEarningActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_start_lock_osmosis));
 
-        mTxType = CONST_PW_TX_OSMOSIS_EARNING;
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(StartEarningActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_osmosis_start_lock_step_0));
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
-        try {
-            mOsmosisPool = BalancerPool.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
-            mOsmosisLockupDuration = getIntent().getLongExtra("osmosisDuration", -1);
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
 
         mPageAdapter = new EarningPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -118,6 +111,19 @@ public class StartEarningActivity extends BaseBroadCastActivity {
         });
     }
 
+    public void loadData() {
+        mTxType = CONST_PW_TX_OSMOSIS_EARNING;
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+
+        try {
+            mOsmosisPool = BalancerPool.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
+            mOsmosisLockupDuration = getIntent().getLongExtra("osmosisDuration", -1);
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -158,7 +164,7 @@ public class StartEarningActivity extends BaseBroadCastActivity {
 
     public void onStartEarning() {
         Intent intent = new Intent(StartEarningActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_EARNING);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("mOsmoDuraion", mOsmosisLockupDuration);
         intent.putExtra("mLpToken", mLpToken);
         intent.putExtra("memo", mTxMemo);

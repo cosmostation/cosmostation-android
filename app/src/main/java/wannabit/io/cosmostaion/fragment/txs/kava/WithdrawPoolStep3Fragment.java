@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,10 +19,12 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnClickListener{
 
     private TextView        mFeeAmount;
-    private TextView        mFeeAmountSymbol;
+    private TextView        mFeeSymbol;
+    private LinearLayout    mLpLayer;
+    private RelativeLayout  mShareLayer;
     private TextView        mExitMyShare;
-    private TextView        mExitOutput0Amount, mExitOutput0AmountSymbol;
-    private TextView        mExitOutput1Amount, mExitOutput1AmountSymbol;
+    private TextView        mExitOutput0Amount, mExitOutput0Symbol;
+    private TextView        mExitOutput1Amount, mExitOutput1Symbol;
     private TextView        mMemo;
 
     private Button          mBeforeBtn, mConfirmBtn;
@@ -38,14 +42,16 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_withdraw_pool_step3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_exit_pool_step3, container, false);
         mFeeAmount                  = rootView.findViewById(R.id.exit_fee_amount);
-        mFeeAmountSymbol            = rootView.findViewById(R.id.exit_fee_amount_symbol);
-        mExitMyShare                = rootView.findViewById(R.id.tx_kava_my_share);
-        mExitOutput0Amount          = rootView.findViewById(R.id.tx_kava_withdraw_amount0);
-        mExitOutput0AmountSymbol    = rootView.findViewById(R.id.tx_kava_withdraw_symbol0);
-        mExitOutput1Amount          = rootView.findViewById(R.id.tx_kava_withdraw_amount1);
-        mExitOutput1AmountSymbol    = rootView.findViewById(R.id.tx_kava_withdraw_symbol1);
+        mFeeSymbol                  = rootView.findViewById(R.id.exit_fee_symbol);
+        mLpLayer                    = rootView.findViewById(R.id.lp_layer);
+        mShareLayer                 = rootView.findViewById(R.id.share_layer);
+        mExitMyShare                = rootView.findViewById(R.id.tx_my_share);
+        mExitOutput0Amount          = rootView.findViewById(R.id.exit_output0_amount);
+        mExitOutput0Symbol          = rootView.findViewById(R.id.exit_output0_symbol);
+        mExitOutput1Amount          = rootView.findViewById(R.id.exit_output1_amount);
+        mExitOutput1Symbol          = rootView.findViewById(R.id.exit_output1_symbol);
         mMemo                       = rootView.findViewById(R.id.memo);
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
@@ -57,11 +63,13 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onRefreshTab() {
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
+        mLpLayer.setVisibility(View.GONE);
+        mShareLayer.setVisibility(View.VISIBLE);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeSymbol, mFeeAmount);
         mExitMyShare.setText(WDp.getDpAmount2(getSActivity(), getSActivity().mKavaShareAmount, 6, 6));
 
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mExitOutput0AmountSymbol, mExitOutput0Amount);
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mExitOutput1AmountSymbol, mExitOutput1Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mExitOutput0Symbol, mExitOutput0Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mExitOutput1Symbol, mExitOutput1Amount);
 
         mMemo.setText(getSActivity().mTxMemo);
     }

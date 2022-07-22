@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.StartUnbondingStep0Fragment;
@@ -48,7 +49,11 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        initView();
+        loadData();
+    }
 
+    public void initView() {
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
@@ -65,12 +70,6 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(StartUnbondingActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_osmosis_start_unbonding_step_0));
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
-        OsmosisPeriodLockWrapper lockupsWrapper = (OsmosisPeriodLockWrapper) getIntent().getSerializableExtra("osmosislockups");
-        mOsmosisLockups = lockupsWrapper.array;
 
         mPageAdapter = new UnBondingPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -115,6 +114,14 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
         });
     }
 
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+
+        OsmosisPeriodLockWrapper lockupsWrapper = (OsmosisPeriodLockWrapper) getIntent().getSerializableExtra("osmosislockups");
+        mOsmosisLockups = lockupsWrapper.array;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -155,7 +162,7 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
 
     public void onStartUnBonding() {
         Intent intent = new Intent(StartUnbondingActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(mOsmosisLockups);
         intent.putExtra("osmosislockups", lockupsWrapper);
         intent.putExtra("memo", mTxMemo);

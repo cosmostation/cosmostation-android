@@ -1184,7 +1184,7 @@
     <string name="str_gravity_swap_order_price">Order Price</string>
     <string name="str_gravity_withdraw_address">Withdraw Address</string>
     <string name="str_gravity_withdraw_pool_id">Pool ID</string>
-    <string name="str_osmosis_defi_lab"><![CDATA[오스모시스 DeFi]]> </string>
+    <string name="str_osmosis_defi_lab"><![CDATA[Osmosis DeFi]]> </string>
     <string name="str_crescent_app"><![CDATA[Crescent App]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>
@@ -1287,7 +1287,6 @@
     <string name="str_osmosis_to_unlock_amount">To UnLock Amount</string>
     <string name="str_earing_bonded_header">Bonded</string>
     <string name="str_earing_unbonding_header">Unbonding</string>
-    <string name="str_earing_unbonded_header">Unbonded</string>
     <string name="str_kava_incentive_info_title">Incentive Info</string>
     <string name="str_to_deposit_coin_title">To Deposit Coin (Max)</string>
     <string name="str_kava_slippage_title">Slippage</string>

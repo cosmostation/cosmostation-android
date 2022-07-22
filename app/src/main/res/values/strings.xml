@@ -1682,7 +1682,6 @@
     <string name="str_osmosis_to_unlock_amount">To UnLock Amount</string>
     <string name="str_earing_bonded_header">Bonded</string>
     <string name="str_earing_unbonding_header">Unbonding</string>
-    <string name="str_earing_unbonded_header">Unbonded</string>
     <string name="str_kava_incentive_info_title">Incentive Info</string>
     <string name="str_to_deposit_coin_title">To Deposit Coin (Max)</string>
     <string name="str_kava_slippage_title">Slippage</string>

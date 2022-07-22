@@ -178,6 +178,4 @@ public class ListFarmingFragment extends BaseFragment {
     private LabsListActivity getSActivity() {
         return (LabsListActivity) getBaseActivity();
     }
-
-
 }
