@@ -49,7 +49,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
-import static wannabit.io.cosmostaion.base.chains.Kava.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
@@ -129,6 +128,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -1523,17 +1523,15 @@ public class WUtil {
     }
 
     public static BigDecimal getPoolValue(BaseData baseData, BalancerPool.Pool pool) {
+        ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(baseData, coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(baseData, coin1.denom));
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
         return coin0Value.add(coin1Value);
     }
 
     public static BigDecimal getNextIncentiveAmount(ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
-        if (gauges.size() != 3) {
-            return BigDecimal.ZERO;
-        }
         BigDecimal incentive1Day = BigDecimal.ZERO;
         BigDecimal incentive7Day = BigDecimal.ZERO;
         BigDecimal incentive14Day = BigDecimal.ZERO;
@@ -1542,8 +1540,6 @@ public class WUtil {
         } else {
             for (CoinOuterClass.Coin coin : gauges.get(0).getCoinsList()) {
                 if (coin.getDenom().equalsIgnoreCase(gauges.get(0).getDistributedCoins(0).getDenom())) {
-                    WLog.w("test0 : " + coin.getAmount());
-                    WLog.w("test1 : " + gauges.get(0).getDistributedCoins(0).getAmount());
                     incentive1Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
                 }
             }
@@ -1576,9 +1572,10 @@ public class WUtil {
     }
 
     public static BigDecimal getPoolArp(BaseData baseData, BalancerPool.Pool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
+        ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         BigDecimal poolValue = getPoolValue(baseData, pool);
         BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
-        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(TOKEN_OSMOSIS), incentiveAmount, WUtil.getOsmosisCoinDecimal(baseData, TOKEN_OSMOSIS));
+        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, chainConfig.mainDenom()), incentiveAmount, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()));
         try {
             return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
         } catch (Exception e) {

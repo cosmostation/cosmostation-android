@@ -25,8 +25,6 @@ import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ListSwapFragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_INPUT_CHAIN = 8500;
@@ -117,57 +115,57 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void onUpdateView() {
-        int inputDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), mInputCoinDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
-        WUtil.DpOsmosisTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
-        WUtil.DpOsmosisTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
+        if (mInputCoinDenom != null && mOutputCoinDenom != null) {
+            int inputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom);
+            int outputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom);
+            WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputImg);
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputCoin);
+            WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputImg);
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputCoin);
 
-        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
-        mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
-        BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
-        mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
+            mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
+            mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
+            BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
+            mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
 
-        final int inputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), mInputCoinDenom);
-        final int outCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), mOutputCoinDenom);
+            BigDecimal inputAssetAmount = BigDecimal.ZERO;
+            BigDecimal inputAssetWeight = BigDecimal.ZERO;
+            BigDecimal outputAssetAmount = BigDecimal.ZERO;
+            BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
-        BigDecimal inputAssetAmount = BigDecimal.ZERO;
-        BigDecimal inputAssetWeight = BigDecimal.ZERO;
-        BigDecimal outputAssetAmount = BigDecimal.ZERO;
-        BigDecimal outputAssetWeight = BigDecimal.ZERO;
-
-        for (BalancerPool.PoolAsset asset: mSelectedPool.getPoolAssetsList()) {
-            if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
-                inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
-                inputAssetWeight = new BigDecimal(asset.getWeight());
+            for (BalancerPool.PoolAsset asset: mSelectedPool.getPoolAssetsList()) {
+                if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
+                    inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
+                    inputAssetWeight = new BigDecimal(asset.getWeight());
+                }
+                if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
+                    outputAssetAmount = new BigDecimal(asset.getToken().getAmount());
+                    outputAssetWeight = new BigDecimal(asset.getWeight());
+                }
             }
-            if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
-                outputAssetAmount = new BigDecimal(asset.getToken().getAmount());
-                outputAssetWeight = new BigDecimal(asset.getWeight());
+            inputAssetAmount = inputAssetAmount.movePointLeft(inputDecimal);
+            outputAssetAmount = outputAssetAmount.movePointLeft(outputDecimal);
+            BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
+
+            mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinSymbol);
+            mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, 6));
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinSymbol);
+
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
+
+            BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(getSActivity().mChainConfig, mInputCoinDenom));
+            BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(getSActivity().mChainConfig, mOutputCoinDenom));
+            BigDecimal priceRate = BigDecimal.ZERO;
+            if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
+                mSwapOutputCoinExRate.setText("??????");
+            } else {
+                priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
+                mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, 6));
             }
+            mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
         }
-        inputAssetAmount = inputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(getBaseDao(), mInputCoinDenom));
-        outputAssetAmount = outputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(getBaseDao(), mOutputCoinDenom));
-        BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
-
-        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, 6));
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
-
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
-
-        BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
-        BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
-        BigDecimal priceRate = BigDecimal.ZERO;
-        if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
-            mSwapOutputCoinExRate.setText("??????");
-        } else {
-            priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, 6));
-        }
-        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
     }
 
     @Override
@@ -190,7 +188,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
                     }
                 }
             }
-            WLog.w("mSwapablePools " +  mSwapablePools.size());
+
             for (BalancerPool.Pool sPool: mSwapablePools) {
                 for (BalancerPool.PoolAsset  asset: sPool.getPoolAssetsList()) {
                     if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
@@ -198,7 +196,6 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
                     }
                 }
             }
-            WLog.w("mSwapableDenoms " + mSwapableDenoms.size());
 
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);

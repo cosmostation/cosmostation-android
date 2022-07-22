@@ -250,9 +250,11 @@ public class WDp {
 
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
             if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_ion));
+            else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
             if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
+            else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));

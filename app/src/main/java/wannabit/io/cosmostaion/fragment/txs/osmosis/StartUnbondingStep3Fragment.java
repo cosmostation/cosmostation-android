@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.StartUnbondingActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -25,7 +24,6 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
     private TextView        mUnbondingAmount, mUnbondingSymbol;
     private TextView        mUnbondingDuraion;
     private TextView        mMemo;
-    private int             mDpDecimal = 18;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -54,8 +52,6 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
@@ -64,8 +60,6 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         long toUnbondingDuration = getSActivity().mOsmosisLockups.get(0).getDuration().getSeconds();
         String toUnbondingDenom = getSActivity().mOsmosisLockups.get(0).getCoins(0).getDenom();
         String ids = "";
@@ -75,9 +69,9 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
             toUnbondingAmount = toUnbondingAmount.add(new BigDecimal(lockup.getCoins(0).getAmount()));
         }
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
         mUnbondingIds.setText(ids);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), toUnbondingDenom, toUnbondingAmount.toPlainString(), mUnbondingSymbol, mUnbondingAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toUnbondingDenom, toUnbondingAmount.toPlainString(), mUnbondingSymbol, mUnbondingAmount);
         if (toUnbondingDuration == 86400) {
             mUnbondingDuraion.setText("1 Day");
         } else if (toUnbondingDuration == 604800) {

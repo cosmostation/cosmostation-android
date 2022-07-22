@@ -49,9 +49,9 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
         mFeeAmount                  = rootView.findViewById(R.id.join_fee_amount);
         mFeeAmountSymbol            = rootView.findViewById(R.id.join_fee_amount_symbol);
         mJoinInput0Amount           = rootView.findViewById(R.id.join_input0_amount);
-        mJoinInput0AmountSymbol     = rootView.findViewById(R.id.join_input0_amount_symbol);
+        mJoinInput0AmountSymbol     = rootView.findViewById(R.id.join_input0_symbol);
         mJoinInput1Amount           = rootView.findViewById(R.id.join_input1_amount);
-        mJoinInput1AmountSymbol     = rootView.findViewById(R.id.join_input1_amount_symbol);
+        mJoinInput1AmountSymbol     = rootView.findViewById(R.id.join_input1_symbol);
 
         mLpAmountTitle              = rootView.findViewById(R.id.lp_amount_title);
         mLpAmountLayer              = rootView.findViewById(R.id.lp_amount);

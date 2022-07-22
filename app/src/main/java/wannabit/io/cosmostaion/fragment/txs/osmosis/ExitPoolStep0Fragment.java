@@ -26,14 +26,12 @@ import java.math.RoundingMode;
 import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.ExitPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -99,9 +97,9 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mAvailableMaxAmount = getBaseDao().getAvailable(lpDenom);
         setDpDecimals(mCoinDecimal);
 
-        WUtil.DpOsmosisTokenImg(getBaseDao(), mLpCoinImg, lpDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mLpCoinSymbol, lpDenom);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), lpDenom, mAvailableMaxAmount.toString(), mLpCoinDenom, mLpCoinAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, lpDenom, mLpCoinImg);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, lpDenom, mLpCoinSymbol);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, lpDenom, mAvailableMaxAmount.toString(), mLpCoinDenom, mLpCoinAmount);
         onAddAmountWatcher();
     }
 

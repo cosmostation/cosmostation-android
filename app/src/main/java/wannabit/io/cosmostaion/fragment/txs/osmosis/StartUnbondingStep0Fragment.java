@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.StartUnbondingActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -66,7 +65,7 @@ public class StartUnbondingStep0Fragment extends BaseFragment implements View.On
         }
 
         mToUnbondingIds.setText(ids);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), toUnbondingDenom, toUnbondingAmount.toPlainString(), mToUnbondingDenom, mToUnbondingAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toUnbondingDenom, toUnbondingAmount.toPlainString(), mToUnbondingDenom, mToUnbondingAmount);
         if (toUnbondingDuration == 86400) {
             mToUnbondingDuration.setText("1 Day");
         } else if (toUnbondingDuration == 604800) {

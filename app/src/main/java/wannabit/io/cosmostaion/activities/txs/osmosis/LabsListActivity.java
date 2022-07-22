@@ -7,14 +7,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +39,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.ListFarmingFragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.ListPoolFragment;
@@ -52,8 +50,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.OsmosisActiveGaugesGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisIncentivizedPoolsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisLockupStatusGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolListGrpcTask;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class LabsListActivity extends BaseActivity implements TaskListener {
@@ -76,6 +72,11 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_labs_list);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mToolbar = findViewById(R.id.tool_bar);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
@@ -83,9 +84,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mPageAdapter = new LabsListActivity.OsmoLabPageAdapter(getSupportFragmentManager());
         mLabPager.setAdapter(mPageAdapter);
@@ -127,6 +125,13 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
+    }
+
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+
         onShowWaitDialog();
         onFetchPoolListInfo();
     }
@@ -143,7 +148,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     }
 
     public void onClickMyPool(long poolId) {
-        WLog.w("onClickMyPool " + poolId);
         PaddedVerticalButtonAlertDialog.showDoubleButton(this, null, null,
                 getString(R.string.str_title_pool_join), view -> onCheckStartJoinPool(poolId),
                 getString(R.string.str_title_pool_exit), view -> onCheckStartExitPool(poolId));
@@ -151,13 +155,10 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId) {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
 
-        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
         if (available.compareTo(txFee) < 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -172,12 +173,8 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     }
 
     public void onCheckStartJoinPool(long poolId) {
-        WLog.w("onCheckStartJoinPool " + poolId);
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
 
         BalancerPool.Pool tempPool = null;
@@ -193,10 +190,10 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
         BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
 
-        if (coin0denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+        if (coin0denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
             coin0Available = coin0Available.subtract(feeAmount);
         }
-        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+        if (coin1Denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
             coin1Available = coin1Available.subtract(feeAmount);
         }
 
@@ -211,15 +208,11 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     }
 
     public void onCheckStartExitPool(long poolId) {
-        WLog.w("onCheckStartExitPool " + poolId);
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+           onInsertKeyDialog();
         }
 
-        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_OSMOSIS);
+        BigDecimal mainBalance = getBaseDao().getAvailable(mChainConfig.mainDenom());
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_OSMOSIS_EXIT_POOL, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
@@ -234,7 +227,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
 
     public void onFetchPoolListInfo() {
-        WLog.w("onFetchPoolListInfo ");
         mTaskCount = 4;
         mPoolList = new ArrayList<>();
         mPoolMyList = new ArrayList<>();
