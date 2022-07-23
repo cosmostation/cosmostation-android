@@ -28,11 +28,11 @@ public class Certik extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_certik; }
     public String mainDenom() { return "uctk"; }
+    public String addressPrefix() { return "certik"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "certik"; }
 
     public String grpcUrl() { return "lcd-certik-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-certik.cosmostation.io/"; }

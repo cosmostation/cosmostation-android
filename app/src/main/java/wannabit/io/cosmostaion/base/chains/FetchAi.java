@@ -32,11 +32,11 @@ public class FetchAi extends ChainConfig {
     public int decimal() {
         return 18;
     }
+    public String addressPrefix() { return "fetch"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "fetch"; }
 
     public String grpcUrl() { return "lcd-fetchai-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-fetchai.cosmostation.io/"; }

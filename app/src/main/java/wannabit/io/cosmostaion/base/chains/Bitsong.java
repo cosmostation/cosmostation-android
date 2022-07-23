@@ -32,11 +32,11 @@ public class Bitsong extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_bitsong; }
     public String mainDenom() { return "ubtsg"; }
+    public String addressPrefix() { return "bitsong"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "bitsong"; }
 
     public String grpcUrl() { return "lcd-bitsong-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-bitsong.cosmostation.io/"; }

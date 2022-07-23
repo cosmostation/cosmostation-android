@@ -25,11 +25,11 @@ public class Cosmos extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_cosmos; }
     public String mainDenom() { return "uatom"; }
+    public String addressPrefix() { return "cosmos"; }
 
     public boolean pushSupport() { return true; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "cosmos"; }
 
     public String grpcUrl() { return "lcd-cosmos-app-and.cosmostation.io"; }
     public String apiUrl() { return "https://api.cosmostation.io/"; }

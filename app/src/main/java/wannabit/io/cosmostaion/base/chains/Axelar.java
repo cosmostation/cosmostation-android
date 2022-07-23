@@ -25,11 +25,11 @@ public class Axelar extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_axelar; }
     public String mainDenom() { return "uaxl"; }
+    public String addressPrefix() { return "axelar"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "axelar"; }
 
     public String grpcUrl() { return "lcd-axelar-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-axelar.cosmostation.io/"; }

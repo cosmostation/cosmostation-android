@@ -912,7 +912,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Sif Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokensifchain));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_sif));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_SIF);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));

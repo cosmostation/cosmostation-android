@@ -25,11 +25,11 @@ public class GravityBridge extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_gravitybridge; }
     public String mainDenom() { return "ugraviton"; }
+    public String addressPrefix() { return "gravity"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "gravity"; }
 
     public String grpcUrl() { return "lcd-gravity-bridge-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-gravity-bridge.cosmostation.io/"; }

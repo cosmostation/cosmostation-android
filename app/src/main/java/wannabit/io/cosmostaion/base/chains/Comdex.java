@@ -25,11 +25,11 @@ public class Comdex extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_comdex; }
     public String mainDenom() { return "ucmdx"; }
+    public String addressPrefix() { return "comdex"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "comdex"; }
 
     public String grpcUrl() { return "lcd-comdex-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-comdex.cosmostation.io/"; }

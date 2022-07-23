@@ -36,11 +36,11 @@ public class Crytoorg extends ChainConfig {
     public int decimal() {
         return 8;
     }
+    public String addressPrefix() { return "cro"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "cro"; }
 
     public String grpcUrl() { return "lcd-cryptocom-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-cryptocom.cosmostation.io/"; }

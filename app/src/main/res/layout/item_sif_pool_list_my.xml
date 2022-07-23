@@ -39,7 +39,7 @@
                     android:layout_height="@dimen/space_30"
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/tokensifchain" />
+                    android:src="@drawable/token_sif" />
 
                 <ImageView
                     android:id="@+id/mypool_external_img"

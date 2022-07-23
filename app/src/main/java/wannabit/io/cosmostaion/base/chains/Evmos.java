@@ -32,11 +32,11 @@ public class Evmos extends ChainConfig {
     public int decimal() {
         return 18;
     }
+    public String addressPrefix() { return "evmos"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
-    public String addressPrefix() { return "evmos"; }
 
     public String grpcUrl() { return "lcd-evmos-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-evmos.cosmostation.io/"; }

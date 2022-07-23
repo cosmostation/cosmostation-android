@@ -28,11 +28,11 @@ public class Cudos extends ChainConfig {
     public int decimal() {
         return 18;
     }
+    public String addressPrefix() { return "cudos"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "cudos"; }
 
     public String grpcUrl() { return "lcd-cudos-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-cudos.cosmostation.io/"; }
