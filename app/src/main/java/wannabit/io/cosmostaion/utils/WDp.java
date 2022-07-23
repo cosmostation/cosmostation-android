@@ -155,6 +155,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Crescent;
 import wannabit.io.cosmostaion.base.chains.Emoney;
 import wannabit.io.cosmostaion.base.chains.Kava;
+import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -232,6 +233,10 @@ public class WDp {
         } else if (chainConfig.baseChain().equals(INJ_MAIN)) {
             if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).origin_symbol;
             else if (denom.startsWith("share")) return denom.toUpperCase();
+
+        } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
+            if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) return "NYM";
+            else return "UNKNOWN";
         }
         return denom.toUpperCase();
     }
@@ -256,6 +261,10 @@ public class WDp {
             if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
             else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
+        } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
+            if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_nym));
+            else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
+
         } else {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
         }
@@ -277,7 +286,10 @@ public class WDp {
 
         } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
 
+
         } else if (chainConfig.baseChain().equals(GRABRIDGE_MAIN)) {
+            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).decimal;
+            else return 18;
 
         } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
             if (denom.equalsIgnoreCase("btc")) return 8;
@@ -298,6 +310,7 @@ public class WDp {
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
             if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) return 6;
             else if (denom.startsWith("pool")) return 12;
+
         }
         return chainConfig.decimal();
     }
@@ -346,6 +359,8 @@ public class WDp {
             }
 
         } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
+            if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) imageView.setImageResource(R.drawable.token_nym);
+            else imageView.setImageResource(R.drawable.token_default);
 
         } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
 
