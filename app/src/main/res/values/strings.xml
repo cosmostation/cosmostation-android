@@ -660,7 +660,7 @@
     <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
     <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
-    <string name="str_front_guide_title_persis"><![CDATA[PERSISTENCE NETWORK]]></string>
+    <string name="str_front_guide_title_persistence"><![CDATA[PERSISTENCE NETWORK]]></string>
     <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL HUB]]></string>
     <string name="str_front_guide_title_fetch"><![CDATA[FETCH AI NETWORK]]></string>
     <string name="str_front_guide_title_crypto"><![CDATA[CRYPTO.ORG CHAIN]]></string>
@@ -704,7 +704,7 @@
     <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>
     <string name="str_front_guide_msg_secret"><![CDATA[First Proof-of-Stake network to enable privacy-preserving smart contracts. Secret allows private, secure computation.]]></string>
-    <string name="str_front_guide_msg_persis"><![CDATA[A protocol enabling exposure to multiple asset classes such as Liquid Staking, NFTs and Synthetics.]]></string>
+    <string name="str_front_guide_msg_persistence"><![CDATA[A protocol enabling exposure to multiple asset classes such as Liquid Staking, NFTs and Synthetics.]]></string>
     <string name="str_front_guide_msg_sentinel"><![CDATA[Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.]]></string>
     <string name="str_front_guide_msg_fetch"><![CDATA[Open access, decentralized machine learning network built with the Cosmos SDK.]]></string>
     <string name="str_front_guide_msg_crypto"><![CDATA[Cosmos SDK based public blockchain network for payments, DeFi, and NFTs.]]></string>

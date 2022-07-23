@@ -841,7 +841,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Sentinel Native Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokensentinel));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_sentinel));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_DVPN);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1124,7 +1124,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
             holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText("Secret Native Coin");
-            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokensecret));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_secret));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_SECRET);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1267,7 +1267,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), PROVENANCE_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Provenance Staking Coin");
-            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_hash));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_provenance));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_HASH);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 9, 6));

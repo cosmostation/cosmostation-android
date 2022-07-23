@@ -116,6 +116,25 @@ public class ChainFactory {
 
                 case OSMOSIS_MAIN:
                     return new Osmosis();
+
+                case PERSIS_MAIN:
+                    return new Persistence();
+
+                case PROVENANCE_MAIN:
+                    return new Provenance();
+
+                case REGEN_MAIN:
+                    return new Regen();
+
+                case RIZON_MAIN:
+                    return new Rizon();
+
+                case SECRET_LEGACY1:
+                case SECRET_MAIN:
+                    return new Secret();
+
+                case SENTINEL_MAIN:
+                    return new Sentinel();
             }
         }
 //        return null;
