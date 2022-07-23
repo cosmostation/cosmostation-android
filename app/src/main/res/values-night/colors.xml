@@ -25,7 +25,7 @@
     <color name="colorTransBghard">#328626E1</color>
     <color name="colorTransBgusdx">#3206D6A0</color>
     <color name="colorTransBgswp">#325A42FF</color>
-    <color name="colorTransBgPersis">#2D2929</color>
+    <color name="colorTransBgPersistence">#2D2929</color>
     <color name="colorTransBgSentinel">#122746</color>
     <color name="colorTransBgFetch">#0c2d28</color>
     <color name="colorTransBgCryto">#072133</color>
@@ -121,8 +121,8 @@
     <color name="color_akash">#c71e10</color>
     <color name="color_akash2">#631008</color>
 
-    <color name="color_persis">#e50a13</color>
-    <color name="color_persis2">#670000</color>
+    <color name="color_persistence">#e50a13</color>
+    <color name="color_persistence2">#670000</color>
 
     <color name="color_sentinel">#5b8ed7</color>
     <color name="color_sentinel2">#1e447b</color>

@@ -271,7 +271,7 @@
     <string name="str_front_guide_title_certik"><![CDATA[써틱 체인]]></string>
     <string name="str_front_guide_title_akash"><![CDATA[아카시 네트워크]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[시크릿 네트워크]]></string>
-    <string name="str_front_guide_title_persis"><![CDATA[퍼시스턴스 네트워크]]></string>
+    <string name="str_front_guide_title_persistence"><![CDATA[퍼시스턴스 네트워크]]></string>
     <string name="str_front_guide_title_sentinel"><![CDATA[센티넬 허브]]></string>
     <string name="str_front_guide_title_fetch"><![CDATA[페치 에이아이 네트워크]]></string>
     <string name="str_front_guide_title_crypto"><![CDATA[CRYPTO.ORG 체인]]></string>
@@ -315,7 +315,7 @@
     <string name="str_front_guide_msg_certik"><![CDATA[Certik Foundation의 고유 한 공식 검증 보안 시스템을 기반으로하는 공용 플랫폼입니다. Certik은 보안 중심 체인에서 스마트 계약 실행 및 상호 작용을 허용합니다.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[DeFi 용 DeCloud와 세계 최초의 분산 형 클라우드 컴퓨팅 마켓입니다.]]></string>
     <string name="str_front_guide_msg_secret"><![CDATA[프라이버시를 보호하는 스마트 계약을 가능하게하는 최초의 지분 증명 네트워크. 비밀은 개인적이고 안전한 계산을 허용합니다.]]></string>
-    <string name="str_front_guide_msg_persis"><![CDATA[유동성 스테이킹, NFT, 합성 자산 등 다수의 자산 클래스를 다루는 블록체인 프로토콜.]]></string>
+    <string name="str_front_guide_msg_persistence"><![CDATA[유동성 스테이킹, NFT, 합성 자산 등 다수의 자산 클래스를 다루는 블록체인 프로토콜.]]></string>
     <string name="str_front_guide_msg_sentinel"><![CDATA[탈중앙화 오픈소스 VPN 서비스를 호스팅하여 유저들에게 프라이버시와 보안을 제공하는 Cosmos SDK 기반의 PoS 네트워크.]]></string>
     <string name="str_front_guide_msg_fetch"><![CDATA[코스모스 SDK 기반, 개방형 및 분산형 머신 러닝 네트워크]]></string>
     <string name="str_front_guide_msg_crypto"><![CDATA[결제, DeFi 및 NFT를위한 Cosmos SDK 기반 퍼블릭 블록 체인 네트워크.]]></string>
