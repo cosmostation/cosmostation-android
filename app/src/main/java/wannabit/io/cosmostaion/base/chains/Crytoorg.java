@@ -5,10 +5,14 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+
+import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -48,6 +52,10 @@ public class Crytoorg extends ChainConfig {
     public String homeInfoLink() { return  "https://crypto.org"; }
     public String blogInfoLink() { return  "https://blog.crypto.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cronos"; }
+
+    public List<ChildNumber> setParentPath(int customPath) {
+        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+    }
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/394'/0'/0/X");

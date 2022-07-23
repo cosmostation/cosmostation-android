@@ -66,6 +66,21 @@ public class ChainFactory {
                 case CUDOS_MAIN:
                     return new Cudos();
 
+                case DESMOS_MAIN:
+                    return new Desmos();
+
+                case EMONEY_MAIN:
+                    return new Emoney();
+
+                case EVMOS_MAIN:
+                    return new Evmos();
+
+                case FETCHAI_MAIN:
+                    return new FetchAi();
+
+                case GRABRIDGE_MAIN:
+                    return new GravityBridge();
+
                 case INJ_MAIN:
                     return new Injective();
 

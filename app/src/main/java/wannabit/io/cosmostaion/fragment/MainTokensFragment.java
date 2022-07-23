@@ -1007,7 +1007,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Fetch,ai Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.tokenfetchai));
+            holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_fetchai));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_FET);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
