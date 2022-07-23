@@ -96,6 +96,24 @@ public class ChainFactory {
                 case KAVA_MAIN:
                     return new Kava();
 
+                case KI_MAIN:
+                    return new Ki();
+
+                case KONSTELL_MAIN:
+                    return new Konstellation();
+
+                case LUM_MAIN:
+                    return new Lum();
+
+                case MEDI_MAIN:
+                    return new Medibloc();
+
+                case NYX_MAIN:
+                    return new Nyx();
+
+                case OMNIFLIX_MAIN:
+                    return new Omniflix();
+
                 case OSMOSIS_MAIN:
                     return new Osmosis();
             }
