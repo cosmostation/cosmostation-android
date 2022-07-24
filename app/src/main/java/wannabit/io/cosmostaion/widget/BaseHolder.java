@@ -41,12 +41,6 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindTokenHolder(Context context, BaseChain chain, BaseData baseData, String denom) {
     }
 
-    public void onBindUsdxIncentive(Context context, ListCdpFragment fragment, IncentiveReward incentiveReward) {
-    }
-
-    public void onBindHardIncentive(Context context, ListHardFragment fragment, IncentiveReward incentiveReward) {
-    }
-
     public void onBindMyCdp(Context context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp) {
     }
 
@@ -91,10 +85,10 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse otherPool) {
     }
 
-    public void onBindSifMyEthPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool myPool, Querier.LiquidityProviderRes myProvider) {
+    public void onBindSifMyPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool myPool, Querier.LiquidityProviderRes myProvider) {
     }
 
-    public void onBindSifOtherEthPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool otherPool) {
+    public void onBindSifOtherPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool otherPool) {
     }
 
 }

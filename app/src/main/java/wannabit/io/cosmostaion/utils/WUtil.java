@@ -1600,7 +1600,8 @@ public class WUtil {
 
     public static BigDecimal getPoolLpAmount(sifnode.clp.v1.Types.Pool pool, String denom) {
         if (denom != null) {
-            if (denom.equals(TOKEN_SIF)) {
+            ChainConfig chainConfig = ChainFactory.getChain(SIF_MAIN);
+            if (denom.equals(chainConfig.mainDenom())) {
                 return getNativeAmount(pool);
             } else {
                 return getExternalAmount(pool);
@@ -1611,7 +1612,8 @@ public class WUtil {
 
     public static BigDecimal getSifPoolPrice(sifnode.clp.v1.Types.Pool pool, String denom) {
         if (denom != null) {
-            if (denom.equals(TOKEN_SIF)) {
+            ChainConfig chainConfig = ChainFactory.getChain(SIF_MAIN);
+            if (denom.equals(chainConfig.mainDenom())) {
                 return new BigDecimal(pool.getSwapPriceNative());
             } else {
                 return new BigDecimal(pool.getSwapPriceExternal());
@@ -1621,13 +1623,15 @@ public class WUtil {
     }
 
     public static BigDecimal getSifPoolValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool) {
-        int rowanDecimal = getSifCoinDecimal(baseData, TOKEN_SIF);
-        BigDecimal rowanAmount = new BigDecimal(pool.getNativeAssetBalance());
-        BigDecimal rowanPrice = WDp.perUsdValue(baseData, TOKEN_SIF);
+        final ChainConfig chainConfig = ChainFactory.getChain(SIF_MAIN);
 
-        int externalDecimal = getSifCoinDecimal(baseData, pool.getExternalAsset().getSymbol());
+        int rowanDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
+        BigDecimal rowanAmount = new BigDecimal(pool.getNativeAssetBalance());
+        BigDecimal rowanPrice = WDp.perUsdValue(baseData, chainConfig.mainDenom());
+
+        int externalDecimal = WDp.getDenomDecimal(baseData, chainConfig, pool.getExternalAsset().getSymbol());
         BigDecimal externalAmount = new BigDecimal(pool.getExternalAssetBalance());
-        String exteranlBaseDenom = baseData.getBaseDenom(pool.getExternalAsset().getSymbol());
+        String exteranlBaseDenom = baseData.getBaseDenom(chainConfig, pool.getExternalAsset().getSymbol());
         BigDecimal exteranlPrice = WDp.perUsdValue(baseData, exteranlBaseDenom);
 
         BigDecimal rowanValue = rowanAmount.multiply(rowanPrice).movePointLeft(rowanDecimal);

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.fragment.txs.sif;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -108,25 +107,25 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
 
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
+        if (getSActivity().mInputDenom != null && getSActivity().mOutputDenom != null) {
+            mInputCoinDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom);
+            mOutputCoinDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom);
+            setDpDecimals(mInputCoinDecimal);
 
-        mInputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
-        setDpDecimals(mInputCoinDecimal);
+            mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
+            if (getSActivity().mInputDenom.equals(getSActivity().mChainConfig.mainDenom())) {
+                mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
+            }
 
-        mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
-        if (getSActivity().mInputDenom.equals(TOKEN_SIF)) {
-            mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
+            mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);
+
+            WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputImg);
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputSymbol);
+            WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputImg);
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputSymbol);
         }
-
-        mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpSifTokenName(getContext(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
-
-        WUtil.dpSifTokenName(getContext(), getBaseDao(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.DpSifTokenImg(getBaseDao(), mSwapInputImg, getSActivity().mInputDenom);
-        WUtil.dpSifTokenName(getContext(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        WUtil.DpSifTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
-
     }
 
     private void onAddAmountWatcher() {

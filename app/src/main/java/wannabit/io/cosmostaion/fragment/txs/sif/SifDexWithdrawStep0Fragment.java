@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
     private RelativeLayout mProgress;
     private Button mCancelBtn, mNextBtn;
 
+    private LinearLayout mLpCoinLayout;
     private EditText mLpCoinInput;
     private ImageView mLpCoinClearBtn;
     private TextView mLpCoinAmount, mLpCoinDenom;
@@ -53,11 +55,12 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_sif_withdraw_pool_step0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_exit_pool_step0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mProgress = rootView.findViewById(R.id.progress);
 
+        mLpCoinLayout = rootView.findViewById(R.id.exit_pool_input_symbol_layer);
         mLpCoinInput = rootView.findViewById(R.id.exit_pool_input);
         mLpCoinClearBtn = rootView.findViewById(R.id.exit_pool_input_clear);
         mLpCoinAmount = rootView.findViewById(R.id.exit_pool_input_amount);
@@ -75,6 +78,7 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
+        mLpCoinLayout.setVisibility(View.GONE);
         onInitView();
         return rootView;
     }

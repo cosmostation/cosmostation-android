@@ -121,25 +121,25 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateView() {
-        mInPutDecimal = WUtil.getSifCoinDecimal(getBaseDao(), mInputCoinDenom);
-        mOutPutDecimal = WUtil.getSifCoinDecimal(getBaseDao(), mOutputCoinDenom);
+        mInPutDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom);
+        mOutPutDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom);
 
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), mInPutDecimal, mInPutDecimal));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("2")));
 
-        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
-        WUtil.DpSifTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
-        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
-        WUtil.DpSifTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputImg);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputCoin);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputImg);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputCoin);
 
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
-        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
-        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinSymbol);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinSymbol);
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), WUtil.getSifPoolPrice(mSelectedPool, mInputCoinDenom).movePointLeft(18), 0, 6));
 
         mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
-        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
@@ -163,10 +163,10 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
 
         } else if (v.equals(mBtnOutputCoinList)) {
             mSwapableDenoms.clear();
-            if (mInputCoinDenom.equals(BaseConstant.TOKEN_SIF)) {
+            if (mInputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
                 mSwapableDenoms = (ArrayList<String>) mAllDenoms.clone();
             } else {
-                mSwapableDenoms.add(BaseConstant.TOKEN_SIF);
+                mSwapableDenoms.add(getSActivity().mChainConfig.mainDenom());
             }
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
@@ -190,7 +190,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            if (mInputCoinDenom.equals(BaseConstant.TOKEN_SIF)) {
+            if (mInputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
                 mSelectedPool = mPoolList.get(0);
                 mOutputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
             } else {
@@ -205,7 +205,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
 
         } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            if (mOutputCoinDenom.equals(BaseConstant.TOKEN_SIF)) {
+            if (mOutputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
                 mSelectedPool = mPoolList.get(0);
                 mInputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
             } else {

@@ -227,13 +227,17 @@ public class WDp {
                 return "GAMM-" + split[split.length - 1];
             }
 
+        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
+            if (denom.startsWith("c")) return denom.substring(1).toUpperCase();
+            else denom.toUpperCase();
+
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
             if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) return "BCRE";
             else if (denom.startsWith("pool")) { return denom.toUpperCase(); }
 
         } else if (chainConfig.baseChain().equals(GRABRIDGE_MAIN)) {
             if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).origin_symbol;
-            else return "UNKNOWN";
+            else return denom.toUpperCase();
 
         } else if (chainConfig.baseChain().equals(INJ_MAIN)) {
             if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).origin_symbol;
@@ -241,15 +245,15 @@ public class WDp {
 
         } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
             if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) return "NYM";
-            else return "UNKNOWN";
+            else return denom.toUpperCase();
 
         } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
             if (baseData.getBnbToken(denom) != null) return baseData.getBnbToken(denom).original_symbol.toUpperCase();
-            else return "UNKNOWN";
+            else return denom.toUpperCase();
 
         } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
             if (baseData.okToken(denom) != null) return baseData.okToken(denom).original_symbol.toUpperCase();
-            else return "UNKNOWN";
+            else return denom.toUpperCase();
         }
         return denom.toUpperCase();
     }
@@ -298,7 +302,8 @@ public class WDp {
             else return 6;
 
         } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
-
+            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).decimal;
+            else return 18;
 
         } else if (chainConfig.baseChain().equals(GRABRIDGE_MAIN)) {
             if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).decimal;
@@ -350,6 +355,10 @@ public class WDp {
             else if (denom.startsWith("gamm/pool/")) imageView.setImageResource(R.drawable.token_pool);
 
         } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
+            if (baseData.getAsset(denom) != null) {
+                Assets asset = baseData.getAsset(denom);
+                Picasso.get().load(ASSET_IMG_URL + asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
+            }
 
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
             if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) imageView.setImageResource(R.drawable.token_bcre);

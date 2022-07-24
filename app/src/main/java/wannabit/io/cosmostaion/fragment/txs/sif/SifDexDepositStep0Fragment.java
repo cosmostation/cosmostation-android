@@ -25,7 +25,6 @@ import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDepositPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -127,18 +126,18 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
 
         String externalDenom = getSActivity().mSifPool.getExternalAsset().getSymbol();
         mExternalMaxAmount = getBaseDao().getAvailable(externalDenom);
-        mExternalDecimal = WUtil.getSifCoinDecimal(getBaseDao(), externalDenom);
+        mExternalDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, externalDenom);
         setDpDecimals(mRowanDecimal, mExternalDecimal);
 
-        WUtil.DpSifTokenImg(getBaseDao(), mJoinPoolInput0Img, TOKEN_SIF);
-        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Symbol, TOKEN_SIF);
-        WUtil.DpSifTokenImg(getBaseDao(), mJoinPoolInput1Img, externalDenom);
-        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Symbol, externalDenom);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mJoinPoolInput0Img);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mJoinPoolInput0Symbol);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, externalDenom, mJoinPoolInput1Img);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, externalDenom, mJoinPoolInput1Symbol);
 
-        WDp.showCoinDp(getSActivity(), getBaseDao(), TOKEN_SIF, mRowanMaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.SIF_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), externalDenom, mExternalMaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.SIF_MAIN);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mRowanMaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, externalDenom, mExternalMaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount);
 
-        BigDecimal lpNativeAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, TOKEN_SIF);
+        BigDecimal lpNativeAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mChainConfig.mainDenom());
         BigDecimal lpExternalAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, externalDenom);
         mDepositRate = lpExternalAmount.divide(lpNativeAmount, 24, RoundingMode.DOWN);
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -14,8 +15,6 @@ import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.sif.SifWithdrawPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -24,11 +23,11 @@ public class SifDexWithdrawStep3Fragment extends BaseFragment implements View.On
 
     private TextView        mFeeAmount;
     private TextView        mFeeAmountSymbol;
+    private RelativeLayout  mShareLayer;
     private TextView        mExitInAmount;
     private TextView        mExitOutput0Amount, mExitOutput0AmountSymbol;
     private TextView        mExitOutput1Amount, mExitOutput1AmountSymbol;
     private TextView        mMemo;
-    private int             mDpDecimal = 18;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -45,19 +44,18 @@ public class SifDexWithdrawStep3Fragment extends BaseFragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_sif_withdraw_pool_step3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_exit_pool_step3, container, false);
         mFeeAmount                  = rootView.findViewById(R.id.exit_fee_amount);
-        mFeeAmountSymbol            = rootView.findViewById(R.id.exit_fee_amount_symbol);
+        mFeeAmountSymbol            = rootView.findViewById(R.id.exit_fee_symbol);
+        mShareLayer                 = rootView.findViewById(R.id.share_layer);
         mExitInAmount               = rootView.findViewById(R.id.exit_in_amount);
         mExitOutput0Amount          = rootView.findViewById(R.id.exit_output0_amount);
-        mExitOutput0AmountSymbol    = rootView.findViewById(R.id.exit_output0_amount_symbol);
+        mExitOutput0AmountSymbol    = rootView.findViewById(R.id.exit_output0_symbol);
         mExitOutput1Amount          = rootView.findViewById(R.id.exit_output1_amount);
-        mExitOutput1AmountSymbol    = rootView.findViewById(R.id.exit_output1_amount_symbol);
+        mExitOutput1AmountSymbol    = rootView.findViewById(R.id.exit_output1_symbol);
         mMemo                       = rootView.findViewById(R.id.memo);
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
-
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -66,9 +64,7 @@ public class SifDexWithdrawStep3Fragment extends BaseFragment implements View.On
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-
+        mShareLayer.setVisibility(View.GONE);
         BigDecimal lpRoWanAmount = WUtil.getNativeAmount(getSActivity().mSifPool);
         BigDecimal lpExternalAmount = WUtil.getExternalAmount(getSActivity().mSifPool);
         BigDecimal lpUnitAmount = WUtil.getUnitAmount(getSActivity().mSifPool);
@@ -76,10 +72,10 @@ public class SifDexWithdrawStep3Fragment extends BaseFragment implements View.On
         BigDecimal rowanWithAmount = lpRoWanAmount.multiply(myShareAmount).divide(lpUnitAmount, 0, RoundingMode.DOWN);
         BigDecimal externalWithDrawAmount = lpExternalAmount.multiply(myShareAmount).divide(lpUnitAmount, 0, RoundingMode.DOWN);
 
-        mExitInAmount.setText(WDp.getDpAmount2(getSActivity(), lpUnitAmount, mDpDecimal, mDpDecimal));
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.showCoinDp(getSActivity(), getBaseDao(), BaseConstant.TOKEN_SIF, rowanWithAmount.toPlainString(), mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.SIF_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mSifPool.getExternalAsset().getSymbol(), externalWithDrawAmount.toPlainString(), mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.SIF_MAIN);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
+        mExitInAmount.setText(WDp.getDpAmount2(getSActivity(), lpUnitAmount, 18, 18));
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), rowanWithAmount.toPlainString(), mExitOutput0AmountSymbol, mExitOutput0Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mSifPool.getExternalAsset().getSymbol(), externalWithDrawAmount.toPlainString(), mExitOutput1AmountSymbol, mExitOutput1Amount);
         mMemo.setText(getSActivity().mTxMemo);
 
     }

@@ -20,9 +20,7 @@ import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 
-import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.WithDrawPoolActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -44,8 +42,6 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
 
     private int mCoinDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
-
-    private ArrayList<QueryOuterClass.PoolResponse> mSwapPool = new ArrayList<>();
 
     public static WithdrawPoolStep0Fragment newInstance(Bundle bundle) {
         WithdrawPoolStep0Fragment fragment = new WithdrawPoolStep0Fragment();

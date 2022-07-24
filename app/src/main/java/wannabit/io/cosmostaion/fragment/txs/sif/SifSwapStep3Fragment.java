@@ -27,7 +27,6 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
     private TextView        mSwapOutAmount, mSwapOutAmountSymbol;
     private RelativeLayout  mSlippageLayer;
     private TextView        mMemo;
-    private int             mDpDecimal = 6, mInputCoinDecimal = 6, mOutputCoinDecimal =6;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -58,8 +57,6 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -69,12 +66,8 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
     public void onRefreshTab() {
         mSlippageLayer.setVisibility(View.GONE);
         mSwapFeeSymbol.setVisibility(View.VISIBLE);
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        mInputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
         BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mInputDenom);
         BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mOutputDenom);
         BigDecimal input = new BigDecimal(getSActivity().mSifSwapInCoin.amount);
@@ -82,11 +75,10 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
         BigDecimal divider = input.add(lpInputAmount);
         BigDecimal denominator = divider.multiply(divider);
         BigDecimal lpFee = numerator.divide(denominator, 0, RoundingMode.DOWN);
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mOutputDenom, lpFee.toPlainString(), mSwapFeeSymbol, mSwapFee, getSActivity().mBaseChain);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, lpFee.toPlainString(), mSwapFeeSymbol, mSwapFee);
 
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSifSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSifSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
-
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mSifSwapInCoin, mSwapInAmountSymbol, mSwapInAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mSifSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount);
         mMemo.setText(getSActivity().mTxMemo);
     }
 
