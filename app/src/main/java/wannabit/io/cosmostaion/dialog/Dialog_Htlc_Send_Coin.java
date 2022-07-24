@@ -91,7 +91,7 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
             final String tosendCoin = mSwappableCoinList.get(position);
             if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BNB)) {
-                    holder.coinImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.bnb_token_img));
+                    holder.coinImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.token_binance));
                     holder.coinName.setText(getString(R.string.str_bnb_c));
                 } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BTCB)) {
                     holder.coinName.setText("BTC");

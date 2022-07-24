@@ -2276,7 +2276,7 @@ public class WUtil {
     public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
         if (chain.equals(BNB_MAIN)) {
             if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
+                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_binance));
             txtView.setText("BINANCE");
 
         } else if (chain.equals(KAVA_MAIN)) {
@@ -2289,7 +2289,7 @@ public class WUtil {
     public static void onDpSwapChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
         if (chain.equals(BNB_MAIN)) {
             if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.binance_ch_img));
+                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_binance));
             txtView.setText(c.getString(R.string.str_binance));
 
         } else if (chain.equals(KAVA_MAIN)) {
@@ -2773,8 +2773,8 @@ public class WUtil {
 //
 //        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
 //            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_okx));
-//            guideTitle.setText(R.string.str_front_guide_title_ok);
-//            guideMsg.setText(R.string.str_front_guide_msg_ok);
+//            guideTitle.setText(R.string.str_front_guide_title_okx);
+//            guideMsg.setText(R.string.str_fstr_front_guide_msg_okx);
 //
 //        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
 //            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.certik_img));

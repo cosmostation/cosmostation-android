@@ -18,7 +18,7 @@
     <color name="colorTransBgStarname">#212543</color>
     <color name="colorTransBgKava">#401514</color>
     <color name="colorTransBgBand">#071246</color>
-    <color name="colorTransBgOkex">#13223b</color>
+    <color name="colorTransBgOkx">#13223b</color>
     <color name="colorTransBgCertik">#38280b</color>
     <color name="colorTransBgAkash">#3a0c08</color>
     <color name="colorTransBgSecret">#262729</color>
@@ -94,8 +94,8 @@
     <color name="color_iris">#00A8FF</color>
     <color name="color_iris2">#003870</color>
 
-    <color name="color_bnb">#E9BC00</color>
-    <color name="color_bnb2">#634C04</color>
+    <color name="color_binance">#E9BC00</color>
+    <color name="color_binance2">#634C04</color>
 
     <color name="color_starname">#6e7cde</color>
     <color name="color_starname2">#2c367e</color>
@@ -109,8 +109,8 @@
     <color name="color_band">#516FFA</color>
     <color name="color_band2">#2A3C8B</color>
 
-    <color name="color_ok">#4d87ee</color>
-    <color name="color_ok2">#365fa7</color>
+    <color name="color_okx">#4d87ee</color>
+    <color name="color_okx2">#365fa7</color>
 
     <color name="color_certik">#E1AA4C</color>
     <color name="color_certik2">#59441E</color>

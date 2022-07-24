@@ -113,7 +113,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mDenomTitle.setText(getString(R.string.str_bnb_c));
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_bnb));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_binance));
                 mMaxAvailable = getSActivity().getAvailable().subtract(new BigDecimal(FEE_BNB_SEND));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
                 mDenomTitle.setText(getString(R.string.str_btc_c));
@@ -147,7 +147,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             setDpDecimals(mDecimal);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
                 mDenomTitle.setText(getString(R.string.str_bnb_c));
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_bnb));
+                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_binance));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
                 mDenomTitle.setText(getString(R.string.str_btc_c));
                 mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));

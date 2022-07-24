@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
-public class Nyx extends ChainConfig {
+public class  Nyx extends ChainConfig {
 
     public BaseChain baseChain() { return BaseChain.NYX_MAIN; }
     public int chainImg() { return R.drawable.chain_nyx; }

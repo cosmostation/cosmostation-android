@@ -109,13 +109,12 @@ public class OKValidatorOtherFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull OKOtherValidatorHolder holder, int position) {
             final Validator validator = getBaseDao().mOtherValidators.get(position);
-            final ChainConfig chainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
             holder.itemTvMoniker.setText(validator.description.moniker);
             holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
             holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
             try {
-                Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(getSActivity().mChainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
             if (validator.jailed) {
@@ -127,7 +126,7 @@ public class OKValidatorOtherFragment extends BaseFragment {
             }
 
             if (checkIsMyValidator(validator.operator_address)) {
-                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkex));
+                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkx));
             }
         }
 

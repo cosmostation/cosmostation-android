@@ -111,7 +111,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mSendDenomTv.setText(getString(R.string.str_bnb_c));
-                mSendDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_bnb));
+                mSendDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_binance));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
                 mSendDenomTv.setText(getString(R.string.str_btc_c));
                 mSendDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
@@ -146,8 +146,8 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             mReceiveAmountDenomTv.setText(getSActivity().mToSwapDenom.toUpperCase());
             mRelayFeeAmountDenomTv.setText(getSActivity().mToSwapDenom.toUpperCase());
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
-                mReceiveAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_bnb));
-                mRelayFeeAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_bnb));
+                mReceiveAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_binance));
+                mRelayFeeAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_binance));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
                 mReceiveAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
                 mRelayFeeAmountDenomTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));

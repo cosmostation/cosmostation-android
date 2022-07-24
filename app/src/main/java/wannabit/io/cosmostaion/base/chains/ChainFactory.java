@@ -37,6 +37,10 @@ public class ChainFactory {
                 case BAND_MAIN:
                     return new Band();
 
+                case BNB_LEGACY1:
+                case BNB_MAIN:
+                    return new Binance();
+
                 case BITCANNA_MAIN:
                     return new Bitcanna();
 
@@ -111,6 +115,10 @@ public class ChainFactory {
                 case NYX_MAIN:
                     return new Nyx();
 
+                case OKEX_LEGACY1:
+                case OKEX_MAIN:
+                    return new Okc();
+
                 case OMNIFLIX_MAIN:
                     return new Omniflix();
 
@@ -153,8 +161,7 @@ public class ChainFactory {
                     return new StationTest();
             }
         }
-//        return null;
-        return new Cosmos();
+        return null;
     }
 
     public static ArrayList<ChainConfig> SUPPRT_CONFIG() {
