@@ -149,7 +149,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.VISIBLE);
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB)) {
-                mToSendCoinImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.bnb_token_img));
+                mToSendCoinImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.token_binance));
                 onSetDpDenom(getString(R.string.str_bnb_c));
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB)) {
                 onSetDpDenom("BTC");

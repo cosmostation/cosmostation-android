@@ -51,6 +51,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -150,15 +152,18 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Crescent;
 import wannabit.io.cosmostaion.base.chains.Emoney;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
+import wannabit.io.cosmostaion.base.chains.Okc;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
@@ -236,6 +241,14 @@ public class WDp {
 
         } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
             if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) return "NYM";
+            else return "UNKNOWN";
+
+        } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
+            if (baseData.getBnbToken(denom) != null) return baseData.getBnbToken(denom).original_symbol.toUpperCase();
+            else return "UNKNOWN";
+
+        } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
+            if (baseData.okToken(denom) != null) return baseData.okToken(denom).original_symbol.toUpperCase();
             else return "UNKNOWN";
         }
         return denom.toUpperCase();
@@ -363,8 +376,16 @@ public class WDp {
             else imageView.setImageResource(R.drawable.token_default);
 
         } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
+            BnbToken bnbToken = baseData.getBnbToken(denom);
+            if (bnbToken != null) {
+                Picasso.get().load(Binance.BINANCE_COIN_IMG_URL + bnbToken.original_symbol + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
+            }
 
         } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
+            OkToken okToken = baseData.okToken(denom);
+            if (okToken != null) {
+                Picasso.get().load(Okc.OKC_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_default).error(R.drawable.token_default).fit().into(imageView);
+            }
 
         } else {
             imageView.setImageResource(R.drawable.token_default);
@@ -1214,7 +1235,7 @@ public class WDp {
 //            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_iris));
 //            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
 //        } else if (baseChain.equals(BNB_MAIN)) {
-//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_bnb));
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_binance));
 //            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
 //        } else if (baseChain.equals(KAVA_MAIN)) {
 //            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_kava));
@@ -1235,7 +1256,7 @@ public class WDp {
 //            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_akash));
 //            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
 //        } else if (baseChain.equals(OKEX_MAIN)) {
-//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_ok));
+//            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.color_okx));
 //            floatBtn.setImageTintList(ContextCompat.getColorStateList(c, R.color.colorWhite));
 //        } else if (baseChain.equals(PERSIS_MAIN)) {
 //            floatBtn.setBackgroundTintList(ContextCompat.getColorStateList(c, R.color.colorBlack2));
@@ -1748,8 +1769,7 @@ public class WDp {
         return null;
     }
 
-    public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain
-            chain, BigDecimal commission) {
+    public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = BigDecimal.ZERO;
         if (param != null) {
@@ -1760,8 +1780,7 @@ public class WDp {
         return getPercentDp(aprCommission);
     }
 
-    public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal
-            commission, BigDecimal delegated, BaseChain chain) {
+    public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = BigDecimal.ZERO;
         if (param != null) {
@@ -1777,8 +1796,7 @@ public class WDp {
         return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
     }
 
-    public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal
-            commission, BigDecimal delegated, BaseChain chain) {
+    public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = BigDecimal.ZERO;
         if (param != null) {
@@ -2809,7 +2827,7 @@ public class WDp {
 //            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
 //                return ContextCompat.getColor(c, R.color.color_iris);
 //            } else if (chain.equals(BNB_MAIN)) {
-//                return ContextCompat.getColor(c, R.color.color_bnb);
+//                return ContextCompat.getColor(c, R.color.color_binance);
 //            } else if (chain.equals(KAVA_MAIN)) {
 //                return ContextCompat.getColor(c, R.color.color_kava);
 //            } else if (chain.equals(IOV_MAIN)) {
@@ -2817,7 +2835,7 @@ public class WDp {
 //            } else if (chain.equals(BAND_MAIN)) {
 //                return ContextCompat.getColor(c, R.color.color_band);
 //            } else if (chain.equals(OKEX_MAIN)) {
-//                return ContextCompat.getColor(c, R.color.color_ok);
+//                return ContextCompat.getColor(c, R.color.color_okx);
 //            } else if (chain.equals(CERTIK_MAIN)) {
 //                return ContextCompat.getColor(c, R.color.color_certik);
 //            } else if (chain.equals(SECRET_MAIN)) {
@@ -3014,7 +3032,7 @@ public class WDp {
 //            textview.setText(c.getString(R.string.s_iris));
 //
 //        } else if (getChain(chain).equals(BNB_MAIN)) {
-//            textview.setTextColor(ContextCompat.getColor(c, R.color.color_bnb));
+//            textview.setTextColor(ContextCompat.getColor(c, R.color.color_binance));
 //            textview.setText(c.getString(R.string.s_bnb));
 //
 //        } else if (getChain(chain).equals(KAVA_MAIN)) {
@@ -3030,7 +3048,7 @@ public class WDp {
 //            textview.setText(c.getString(R.string.s_band));
 //
 //        } else if (getChain(chain).equals(OKEX_MAIN)) {
-//            textview.setTextColor(ContextCompat.getColor(c, R.color.color_ok));
+//            textview.setTextColor(ContextCompat.getColor(c, R.color.color_okx));
 //            textview.setText(c.getString(R.string.s_okt));
 //
 //        } else if (getChain(chain).equals(CERTIK_MAIN)) {

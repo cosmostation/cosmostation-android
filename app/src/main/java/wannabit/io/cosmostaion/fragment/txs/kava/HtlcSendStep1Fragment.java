@@ -72,7 +72,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
         }
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-            mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_bnb), android.graphics.PorterDuff.Mode.SRC_IN);
+            mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_binance), android.graphics.PorterDuff.Mode.SRC_IN);
 
         } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_kava), android.graphics.PorterDuff.Mode.SRC_IN);

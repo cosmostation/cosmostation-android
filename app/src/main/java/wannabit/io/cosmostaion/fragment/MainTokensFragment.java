@@ -1661,7 +1661,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
                 holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
                 holder.itemFullName.setText("Binance Chain Native Coin");
-                holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.bnb_token_img));
+                holder.itemImg.setImageDrawable(ContextCompat.getDrawable(getMainActivity(), R.drawable.token_binance));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, amount, 0));

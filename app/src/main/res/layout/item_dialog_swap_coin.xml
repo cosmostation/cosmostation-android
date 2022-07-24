@@ -27,7 +27,7 @@
             android:layout_marginLeft="@dimen/space_8"
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginBottom="@dimen/space_8"
-            android:src="@drawable/bnb_token_img"/>
+            android:src="@drawable/token_binance"/>
         <TextView
             android:id="@+id/coinName"
             android:layout_width="wrap_content"

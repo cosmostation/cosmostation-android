@@ -72,7 +72,7 @@ abstract public class ChainConfig {
 
     public abstract boolean wcSupport();
 
-    public abstract String grpcUrl();
+    public String grpcUrl() { return ""; }
 
     public int grpcPort() {
         return 9090;

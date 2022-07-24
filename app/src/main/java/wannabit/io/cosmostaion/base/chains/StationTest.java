@@ -19,6 +19,8 @@ public class StationTest extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgStation; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_station; }
     public String chainName() { return "station"; }
+    public String chainTitle() { return "(Station Testnet)"; }
+    public String chainTitleToUp() { return "STATION TEST"; }
     public String chainIdPrefix() { return "station"; }
 
     public int mainDenomImg() { return R.drawable.token_iss; }
