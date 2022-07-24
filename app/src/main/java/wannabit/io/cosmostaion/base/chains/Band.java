@@ -29,11 +29,11 @@ public class Band extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_band; }
     public String mainDenom() { return "uband"; }
+    public String addressPrefix() { return "band"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "band"; }
 
     public String grpcUrl() { return "lcd-band-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-band.cosmostation.io/"; }

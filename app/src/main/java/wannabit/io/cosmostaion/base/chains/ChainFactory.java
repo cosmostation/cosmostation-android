@@ -135,6 +135,22 @@ public class ChainFactory {
 
                 case SENTINEL_MAIN:
                     return new Sentinel();
+
+                case SIF_MAIN:
+                    return new Sif();
+
+                case STARGAZE_MAIN:
+                    return new Stargaze();
+
+                case IOV_LEGACY1:
+                case IOV_MAIN:
+                    return new Starname();
+
+                case UMEE_MAIN:
+                    return new Umee();
+
+                case STATION_TEST:
+                    return new StationTest();
             }
         }
 //        return null;

@@ -654,7 +654,7 @@
     <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
     <string name="str_front_guide_title_binance"><![CDATA[BINANCE CHAIN]]></string>
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
-    <string name="str_front_guide_title_iov"><![CDATA[Starname Service]]></string>
+    <string name="str_front_guide_title_starname"><![CDATA[Starname Service]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_title_ok"><![CDATA[OKC CHAIN]]></string>
     <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
@@ -698,7 +698,7 @@
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
-    <string name="str_front_guide_msg_iov">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
+    <string name="str_front_guide_msg_starname">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
     <string name="str_front_guide_msg_ok">OKC Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>

@@ -25,11 +25,11 @@ public class Akash extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_akash; }
     public String mainDenom() { return "uakt"; }
+    public String addressPrefix() { return "akash"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "akash"; }
 
     public String grpcUrl() { return "lcd-akash-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-akash.cosmostation.io/"; }

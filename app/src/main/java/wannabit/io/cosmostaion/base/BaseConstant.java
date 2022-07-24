@@ -479,7 +479,6 @@ public class BaseConstant {
 
 
     //HTLC swap support Token Types
-
     public final static String TOKEN_HTLC_KAVA_BNB                 = "bnb";
     public final static String TOKEN_HTLC_KAVA_BTCB                = "btcb";
     public final static String TOKEN_HTLC_KAVA_XRPB                = "xrpb";
@@ -501,37 +500,12 @@ public class BaseConstant {
     public final static long COSMOS_UNBONDING_DAY = 3;
 
 
-    public final static String KEY_BNB_PATH                 = "m/44'/714'/0'/0/";
-    public final static String KEY_IOV_PATH                 = "m/44'/234'/0'/0/";
-    public final static String KEY_NEW_OK_PATH              = "m/44'/996'/0'/0/";
-    public final static String KEY_NEW_SECRET_PATH          = "m/44'/529'/0'/0/";
-    public final static String KEY_PERSIS_PATH              = "m/44'/750'/0'/0/";
-    public final static String KEY_CRYPTO_PATH              = "m/44'/394'/0'/0/";
-    public final static String KEY_MEDI_PATH                = "m/44'/371'/0'/0/";
-    public final static String KEY_ALTHEA_PATH              = "m/44'/60'/0'/0/";
-    public final static String KEY_FETCH_BASE_PATH          = "m/44'/118'/0'/0/";
-    public final static String KEY_ETH_NON_LEDGER_PATH      = "m/44'/60'/0'/0/";
-    public final static String KEY_ETH_LEDGER_LIVE_PATH_1   = "m/44'/60'/";
-    public final static String KEY_ETH_LEDGER_LIVE_PATH_2   = "'/0/0";
-    public final static String KEY_ETH_LEDGER_LEGACY_PATH   = "m/44'/60'/0'/";
-    public final static String KEY_ETH_PATH                 = "m/44'/60'/0'/0/";
-    public final static String KEY_PROVENANCE_PATH          = "m/44'/505'/0'/0/";
-    public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
-
-
     public final static long CONSTANT_S = 1000l;
     public final static long CONSTANT_10S = CONSTANT_S * 10;
     public final static long CONSTANT_30S = CONSTANT_S * 30;
     public final static long CONSTANT_M = CONSTANT_S * 60;
     public final static long CONSTANT_H = CONSTANT_M * 60;
     public final static long CONSTANT_D = CONSTANT_H * 24;
-
-
-    public final static int MEMO_ATOM = 255;
-    public final static int MEMO_BNB = 100;
-
-
-
 
 
     public final static String FEE_BNB_SEND                             = "0.000075";
@@ -794,26 +768,15 @@ public class BaseConstant {
 
     public final static String CHAIN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/chains/logo/";
 
-    public final static String IOV_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
     public final static String OKEX_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
-    public final static String SIF_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
-    public final static String RIZON_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/rizon/";
-    public final static String ALTHEA_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
-    public final static String UMEE_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
-    public final static String STARGAZE_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/stargaze/";
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
 
 
-    public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
-    public final static String EXPLORER_SIF_MAIN        = "https://www.mintscan.io/sifchain/";
     public final static String EXPLORER_RIZON_MAIN      = "https://www.mintscan.io/rizon/";
-    public final static String EXPLORER_ALTHEA_MAIN     = "https://www.mintscan.io/althea/";
-    public final static String EXPLORER_STARGAZE_MAIN   = "https://www.mintscan.io/stargaze/";
-    public final static String EXPLORER_UMEE_MAIN       = "https://www.mintscan.io/umee/";
     public final static String EXPLORER_STATION_TEST    = "https://testnet.mintscan.io/station/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
@@ -823,11 +786,7 @@ public class BaseConstant {
 
     public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
 
-
-    public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
-    public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
     public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
-    public final static String EXPLORER_CRESCENT_TEST   = "https://testnet.mintscan.io/crescent/";
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_BASE_URL        = "https://www.mintscan.io/";
@@ -837,24 +796,15 @@ public class BaseConstant {
     public final static String ASSET_IMG_URL            = RESOURCE_BASE_URL + "assets/images/ethereum/";
     public final static String COINGECKO_URL            = "https://www.coingecko.com/en/coins/";
 
-    public final static String SIFCHAIN_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/sifchain/relay-sifchain-unknown.png";
-    public final static String STARNAME_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/starname/relay-starname-unknown.png";
-    public final static String STARGAZE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/stargaze/relay-stargaze-unknown.png";
-    public final static String UMEE_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM            = "station";
-
 
 
     public final static BigDecimal DAY_SEC                  = new BigDecimal("86400");
     public final static BigDecimal MONTH_SEC                = DAY_SEC.multiply(new BigDecimal("30"));
     public final static BigDecimal YEAR_SEC                 = DAY_SEC.multiply(new BigDecimal("365"));
 
-    public final static BigDecimal BLOCK_TIME_IOV           = new BigDecimal("6.0124");
-    public final static BigDecimal BLOCK_TIME_SIF           = new BigDecimal("5.7246");
-    public final static BigDecimal BLOCK_TIME_STARGAZE      = new BigDecimal("5.8129");
     public final static BigDecimal BLOCK_TIME_OKEX          = new BigDecimal("4.0286");
     public final static BigDecimal BLOCK_TIME_BNB           = new BigDecimal("0.4124");
-    public final static BigDecimal BLOCK_TIME_UMEE          = new BigDecimal("5.658");
 }

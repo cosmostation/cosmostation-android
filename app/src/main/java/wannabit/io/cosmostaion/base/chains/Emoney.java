@@ -25,11 +25,11 @@ public class Emoney extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_emoney; }
     public String mainDenom() { return "ungm"; }
+    public String addressPrefix() { return "emoney"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "emoney"; }
 
     public String grpcUrl() { return "lcd-emoney-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-emoney.cosmostation.io/"; }

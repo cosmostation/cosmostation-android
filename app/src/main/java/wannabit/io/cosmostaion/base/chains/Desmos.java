@@ -29,11 +29,11 @@ public class Desmos extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_desmos; }
     public String mainDenom() { return "udsm"; }
+    public String addressPrefix() { return "desmos"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "desmos"; }
 
     public String grpcUrl() { return "lcd-desmos-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-desmos.cosmostation.io/"; }

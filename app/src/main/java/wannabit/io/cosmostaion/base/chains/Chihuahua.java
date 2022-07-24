@@ -25,11 +25,11 @@ public class Chihuahua extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_chihuahua; }
     public String mainDenom() { return "uhuahua"; }
+    public String addressPrefix() { return "chihuahua"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public String addressPrefix() { return "chihuahua"; }
 
     public String grpcUrl() { return "lcd-chihuahua-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-chihuahua.cosmostation.io/"; }

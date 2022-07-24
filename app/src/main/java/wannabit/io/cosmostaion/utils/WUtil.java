@@ -1126,9 +1126,9 @@ public class WUtil {
      */
     public static int getMaxMemoSize(BaseChain chain) {
         if (chain.equals(BNB_MAIN)) {
-            return BaseConstant.MEMO_BNB;
+            return 100;
         }
-        return BaseConstant.MEMO_ATOM;
+        return 255;
     }
 
     public static int getCharSize(String memo) {
@@ -1454,7 +1454,7 @@ public class WUtil {
         if (denom != null) {
             if (denom.equalsIgnoreCase(TOKEN_SIF)) {
                 Picasso.get().cancelRequest(imageView);
-                imageView.setImageResource(R.drawable.tokensifchain);
+                imageView.setImageResource(R.drawable.token_sif);
             } else if (denom.startsWith("c")) {
                 Assets assets = baseData.getAsset(denom);
                 if (assets != null) {
@@ -2763,8 +2763,8 @@ public class WUtil {
 //
 //        } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
 //            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.iov_img));
-//            guideTitle.setText(R.string.str_front_guide_title_iov);
-//            guideMsg.setText(R.string.str_front_guide_msg_iov);
+//            guideTitle.setText(R.string.str_front_guide_title_starname);
+//            guideMsg.setText(R.string.str_front_guide_msg_starname);
 //
 //        } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
 //            guideImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_bandprotocol));
@@ -3204,7 +3204,7 @@ public class WUtil {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
         } else if (chain.equals(STATION_TEST)) {
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.infoicon_station), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.connect_ic), null, null, null);
             dexTitle.setText("Cosmostation Dapps");
         } else if (chain.equals(CRESCENT_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_crescentapp), null, null, null);
