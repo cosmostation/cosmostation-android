@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_Htlc_Receive_Chain extends DialogFragment {
 
@@ -71,7 +72,7 @@ public class Dialog_Htlc_Receive_Chain extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull DestinationChainHolder holder, int position) {
             final BaseChain baseChain = mToChainList.get(position);
-            WDp.onDpChain(getContext(), baseChain, holder.chainImg, holder.chainName);
+            WUtil.onDpChain(getContext(), baseChain, holder.chainImg, holder.chainName);
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

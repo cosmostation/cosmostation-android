@@ -18,9 +18,12 @@ import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.osmosis.EarningDetailActivity;
+import wannabit.io.cosmostaion.activities.txs.osmosis.EarningDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
@@ -38,7 +41,6 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
     TextView itemUnBondedAmount, itemUnBondedDenom, itemUnBondedValue;
     TextView itemRewardAmount;
     TextView itemAvailableAmount, itemAvailableDenom, itemAvailableValue;
-
 
     public EarningMyHolder(@NonNull View itemView) {
         super(itemView);
@@ -63,7 +65,7 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
 
     public void onBindView(Context c, BaseActivity activity, BaseData baseData,
                            BalancerPool.Pool pool, ArrayList<Lock.PeriodLock> lockups, ArrayList<GaugeOuterClass.Gauge> gauges) {
-
+        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
         BigDecimal lpCoinPrice = WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
@@ -71,7 +73,7 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
         BigDecimal totalShare = new BigDecimal(pool.getTotalShares().getAmount());
 
         itemPoolId.setText("#" + pool.getId() + " MY EARNING");
-        itemPoolCoinPair.setText(WUtil.dpOsmosisTokenName(baseData, coin0.denom) + " / " + WUtil.dpOsmosisTokenName(baseData, coin1.denom));
+        itemPoolCoinPair.setText(WDp.getDpSymbol(baseData, chainConfig, coin0.denom) + " / " + WDp.getDpSymbol(baseData, chainConfig, coin1.denom));
         itemPoolApr.setText(WDp.getPercentDp(apr));
 
         //pool incentives

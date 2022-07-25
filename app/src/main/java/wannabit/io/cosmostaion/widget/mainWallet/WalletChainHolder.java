@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.gun0912.tedpermission.PermissionListener;
@@ -24,9 +25,11 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
-import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.activities.txs.common.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -66,10 +69,9 @@ public class WalletChainHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
+        final String denom = chainConfig.mainDenom();
         final int decimal = WDp.mainDivideDecimal(mainActivity.mBaseChain);
-        mTvChainCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, mainActivity.mBaseChain));
-        WUtil.getWalletData(mainActivity, mainActivity.mBaseChain, mTvChainIcon, mTvChainDenom);
 
         final BigDecimal availableAmount = baseData.getAvailable(denom);
         final BigDecimal vestingAmount = baseData.getVesting(denom);
@@ -77,6 +79,11 @@ public class WalletChainHolder extends BaseHolder {
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
+
+        mTvChainCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, mainActivity.mBaseChain));
+        mTvChainIcon.setImageResource(chainConfig.mainDenomImg());
+        mTvChainDenom.setText(chainConfig.mainSymbol());
+        mTvChainDenom.setTextColor(ContextCompat.getColor(mainActivity, chainConfig.chainColor()));
 
         mTvChainTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, decimal, 6));
         mTvChainAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, decimal, 6));
@@ -109,8 +116,12 @@ public class WalletChainHolder extends BaseHolder {
             }
         });
 
-        // dex, nft, desmos profile setting
-        WUtil.getDexTitle(mainActivity, mainActivity.mBaseChain, mBtnDex, mBtnDexTitle);
+        if (chainConfig.dexSupport()) {
+            mBtnDex.setVisibility(View.VISIBLE);
+        } else {
+            mBtnDex.setVisibility(View.GONE);
+        }
+        WUtil.setDexTitle(mainActivity, mainActivity.mBaseChain, mBtnDexTitle);
         mBtnDex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,8 +133,7 @@ public class WalletChainHolder extends BaseHolder {
             }
         });
 
-        if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
-                mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.STATION_TEST) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
+        if (chainConfig.wcSupport()) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
         } else {
             mBtnWalletConnect.setVisibility(View.GONE);
@@ -131,32 +141,25 @@ public class WalletChainHolder extends BaseHolder {
         mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.OSMOSIS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.EVMOS_MAIN) ||
-                        mainActivity.mBaseChain.equals(BaseChain.CRESCENT_MAIN) || mainActivity.mBaseChain.equals(BaseChain.STATION_TEST) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
-                    if (!mainActivity.mAccount.hasPrivateKey) {
-                        AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                                Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
-                                mainActivity.getString(R.string.str_close), null);
-                        return;
-                    } else {
-                        new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
-                            @Override
-                            public void onPermissionGranted() {
-                                IntentIntegrator integrator = new IntentIntegrator(mainActivity);
-                                integrator.setOrientationLocked(true);
-                                integrator.initiateScan();
-                            }
-
-                            @Override
-                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                                Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
-                            }
-                        }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(mainActivity.getString(R.string.str_permission_qr)).check();
-                    }
-
-                } else {
-                    Toast.makeText(mainActivity, mainActivity.getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
+                if (!mainActivity.mAccount.hasPrivateKey) {
+                    AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+                            Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
+                            mainActivity.getString(R.string.str_close), null);
                     return;
+                } else {
+                    new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
+                        @Override
+                        public void onPermissionGranted() {
+                            IntentIntegrator integrator = new IntentIntegrator(mainActivity);
+                            integrator.setOrientationLocked(true);
+                            integrator.initiateScan();
+                        }
+
+                        @Override
+                        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                            Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
+                        }
+                    }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(mainActivity.getString(R.string.str_permission_qr)).check();
                 }
             }
         });

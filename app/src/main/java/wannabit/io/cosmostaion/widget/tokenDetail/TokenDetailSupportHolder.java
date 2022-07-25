@@ -102,9 +102,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindPoolToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            dpDecimal = 6;
-        } else if (baseChain.equals(CRESCENT_MAIN)) {
+        if (baseChain.equals(CRESCENT_MAIN)) {
             dpDecimal = 12;
         } else {
             dpDecimal = 18;
@@ -164,7 +162,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mTvLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 18));
     }
 
-    public void onBindBridgeToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
+    public void onBindBridgeToken(Context c, BaseData baseData, String denom) {
         final Assets assets = baseData.getAsset(denom);
         if (assets != null) {
             mAvailableAmount = baseData.getAvailable(assets.denom);

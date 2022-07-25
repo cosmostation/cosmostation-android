@@ -26,9 +26,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -92,6 +93,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mMainDenom = WDp.mainDenom(mBaseChain);
         mDivideDecimal = WDp.mainDivideDecimal(mBaseChain);
 
@@ -130,7 +132,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     }
 
     private void onUpdateView() {
-        WDp.getStakingTokenImg(mBaseChain, mToolbarSymbolImg);
+        mToolbarSymbolImg.setImageResource(mChainConfig.mainDenomImg());
         WDp.DpMainDenom(StakingTokenDetailActivity.this, mBaseChain, mToolbarSymbol);
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mMainDenom));
@@ -148,7 +150,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
-        mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setImageResource(R.drawable.key_off);
             mKeyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);

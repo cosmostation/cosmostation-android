@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_msgs_renewaccount"
-                    app:tint="@color/color_iov" />
+                    app:tint="@color/color_starname" />
 
                 <TextView
                     android:id="@+id/tx_msg_text"

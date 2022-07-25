@@ -16,16 +16,8 @@ import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResNodeInfo;
-import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface KavaChain {
-
-    @GET("node_info")
-    Call<ResNodeInfo> getNodeInfo();
-
-    @GET("txs/{hash}")
-    Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
     @GET("auth/accounts/{address}")
     Call<ResLcdKavaAccountInfo> getAccountInfo(@Path("address") String address);
@@ -40,9 +32,6 @@ public interface KavaChain {
 
     @GET("bep3/swap/{swapId}")
     Call<ResKavaSwapInfo> getSwapById(@Path("swapId") String swapId);
-
-    @GET("bep3/swaps")
-    Call<String> getSwaps();
 
     @GET("bep3/supplies")
     Call<ResKavaSwapSupply> getSupplies2();

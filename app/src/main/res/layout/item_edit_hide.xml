@@ -45,8 +45,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:layout_toRightOf="@+id/chain_add_img"
-                        android:src="@drawable/chain_cosmos"/>
+                        android:layout_toRightOf="@+id/chain_add_img"/>
 
                     <TextView
                         android:id="@+id/chain_name"

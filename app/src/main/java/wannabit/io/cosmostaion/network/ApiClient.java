@@ -2,19 +2,25 @@ package wannabit.io.cosmostaion.network;
 
 import android.content.Context;
 
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Map;
+
+import io.grpc.ManagedChannel;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 
 public class ApiClient {
 
     //Services for station wallet api
     private static Station station = null;
-
     public static Station getStation(Context c) {
         if (station == null) {
             synchronized (ApiClient.class) {
@@ -30,7 +36,6 @@ public class ApiClient {
 
     //Services for station wallet test api
     private static Station stationTest = null;
-
     public static Station getStationTest(Context c) {
         if (stationTest == null) {
             synchronized (ApiClient.class) {
@@ -46,7 +51,6 @@ public class ApiClient {
 
     //Services for station mintscan api
     private static Station mintscan = null;
-
     public static Station getMintscan(Context c) {
         if (mintscan == null) {
             synchronized (ApiClient.class) {
@@ -62,7 +66,6 @@ public class ApiClient {
 
     //Services for station airdrop api
     private static Station airdrop = null;
-
     public static Station getAirDrop(Context c) {
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -82,7 +85,6 @@ public class ApiClient {
 
     //Services for Cosmostation wallet api
     private static Cosmostation cosmostation = null;
-
     public static Cosmostation getCosmostationOld(Context c) {
         if (cosmostation == null) {
             synchronized (ApiClient.class) {
@@ -96,15 +98,26 @@ public class ApiClient {
         return cosmostation;
     }
 
+    static Map<String, HistoryApi> apiMap = Maps.newHashMap();
 
-    //Services for Cosmos api
+    public static HistoryApi getChainApi(BaseChain baseChain) {
+        if (apiMap.containsKey(baseChain.getChain())) {
+            return apiMap.get(baseChain.getChain());
+        } else {
+            ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            HistoryApi historyApi = chainConfig.apiMain().create(HistoryApi.class);
+            apiMap.put(baseChain.getChain(), historyApi);
+            return historyApi;
+        }
+    }
+
     private static HistoryApi api_cosmos = null;
-
-    public static HistoryApi getCosmosApi(Context c) {
+    public static HistoryApi getCosmosApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_cosmos == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_cosmos_main))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_cosmos = retrofit.create(HistoryApi.class);
@@ -112,24 +125,6 @@ public class ApiClient {
         }
         return api_cosmos;
     }
-
-
-    //Services for Iris history api mainnet
-    private static HistoryApi api_iris = null;
-
-    public static HistoryApi getIrisApi(Context c) {
-        if (api_iris == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_iris_main))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_iris = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_iris;
-    }
-
 
     //Services for Binance net
     private static BinanceChain service_binance = null;
@@ -147,9 +142,7 @@ public class ApiClient {
         return service_binance;
     }
 
-    //Services for KAVA chain
     private static KavaChain service_kava = null;
-
     public static KavaChain getKavaChain(Context c) {
         if (service_kava == null) {
             synchronized (ApiClient.class) {
@@ -179,14 +172,13 @@ public class ApiClient {
         return service_certik;
     }
 
-    //Services for KAVA api
     private static HistoryApi api_kava = null;
-
-    public static HistoryApi getKavaApi(Context c) {
+    public static HistoryApi getKavaApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_kava == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_kava_main))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_kava = retrofit.create(HistoryApi.class);
@@ -276,14 +268,13 @@ public class ApiClient {
         return api_certik;
     }
 
-    //Services for Akash mainnet api
     private static HistoryApi api_akash = null;
-
-    public static HistoryApi getAkashApi(Context c) {
+    public static HistoryApi getAkashApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_akash == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_akash))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_akash = retrofit.create(HistoryApi.class);
@@ -390,14 +381,13 @@ public class ApiClient {
         return api_ki;
     }
 
-    //Services for osmosis mainnet api
     private static HistoryApi api_osmosis = null;
-
-    public static HistoryApi getOsmosisApi(Context c) {
+    public static HistoryApi getOsmosisApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_osmosis == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_osmosis))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_osmosis = retrofit.create(HistoryApi.class);
@@ -438,14 +428,13 @@ public class ApiClient {
         return api_emoney;
     }
 
-    //Services for Juno mainnet api
     private static HistoryApi api_juno = null;
-
-    public static HistoryApi getJunoApi(Context c) {
+    public static HistoryApi getJunoApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_juno == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_juno))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_juno = retrofit.create(HistoryApi.class);
@@ -566,14 +555,13 @@ public class ApiClient {
         return api_secret;
     }
 
-    //Services for injective mainnet api
     private static HistoryApi api_inj = null;
-
-    public static HistoryApi getInjApi(Context c) {
+    public static HistoryApi getInjApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_inj == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_inj))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_inj = retrofit.create(HistoryApi.class);
@@ -774,14 +762,13 @@ public class ApiClient {
         return api_omniflix;
     }
 
-    //Services for crescent mainnet api
     private static HistoryApi api_crescent = null;
-
-    public static HistoryApi getCrescentApi(Context c) {
+    public static HistoryApi getCrescentApi(BaseChain baseChain) {
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
         if (api_crescent == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_crescent))
+                        .baseUrl(chainConfig.apiUrl())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_crescent = retrofit.create(HistoryApi.class);
@@ -884,55 +871,6 @@ public class ApiClient {
             }
         }
         return api_althea_test;
-    }
-
-    //Services for Crescent test api
-    private static HistoryApi api_crescent_test = null;
-
-    public static HistoryApi getCrescentTestApi(Context c) {
-        if (api_crescent_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_crescent_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_crescent_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_crescent_test;
-    }
-
-    //Services for Cosmos Test api
-    private static HistoryApi api_cosmos_test = null;
-
-    public static HistoryApi getCosmosTestApi(Context c) {
-        if (api_cosmos_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_cosmos_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_cosmos_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_cosmos_test;
-    }
-
-
-    //Services for Iris Test api
-    private static HistoryApi api_iris_test = null;
-
-    public static HistoryApi getIrisTestApi(Context c) {
-        if (api_iris_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_iris_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_iris_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_iris_test;
     }
 
     //Services for Station testnet api

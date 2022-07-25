@@ -3,19 +3,21 @@ package wannabit.io.cosmostaion.base;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
@@ -38,11 +40,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
@@ -54,8 +53,9 @@ import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPool;
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
@@ -72,10 +72,8 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
-import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
-import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
@@ -188,7 +186,7 @@ public class BaseData {
         ArrayList<Cw20Assets> result = new ArrayList<>();
         if (mCw20Assets != null && mCw20Assets.size() > 0) {
             for (Cw20Assets assets: mCw20Assets) {
-                if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(baseChain)) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                if (assets.chain.equalsIgnoreCase(ChainFactory.getChain(baseChain).chainName()) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
                     result.add(assets);
                 }
             }
@@ -207,15 +205,55 @@ public class BaseData {
         return null;
     }
 
+    public String getBaseDenom(ChainConfig chainConfig, String denom) {
+        if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken != null && ibcToken.auth) {
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets : mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom;
+                        } else {
+                            return ibcToken.base_denom;
+                        }
+                    }
+                } else {
+                    return ibcToken.base_denom;
+                }
+            } else {
+                return "UNKNOWN";
+            }
+        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
+            if (denom.startsWith("c") || denom.startsWith("x")) return denom.substring(1);
+
+        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
+            if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+                return "bnb";
+            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+                return "xrp";
+            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+                return "busd";
+            } else if (denom.contains("btc")) {
+                return "btc";
+            } else {
+                return denom;
+            }
+        }
+        return denom;
+    }
+
     public String getBaseDenom(String denom) {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
                 if (ibcToken.base_denom.startsWith("cw20:")) {
                     String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets: mCw20Assets) {
+                    for (Cw20Assets assets : mCw20Assets) {
                         if (assets.contract_address.equalsIgnoreCase(cAddress)) {
                             return assets.denom;
+                        } else {
+                            return ibcToken.base_denom;
                         }
                     }
                 } else {
@@ -228,58 +266,6 @@ public class BaseData {
             return denom.substring(1);
         }
         return denom;
-    }
-
-    public String getIbcRelayerImg(BaseChain baseChain, String channelId) {
-        String url = "";
-        if (getIbcPath(channelId).relayer_img != null) {
-            url = getIbcPath(channelId).relayer_img;
-        } else {
-            url = WDp.getDefaultRelayerImg(baseChain);
-        }
-        return url;
-    }
-
-    public ArrayList<IbcPath> getIbcSendableRelayers() {
-        ArrayList<IbcPath> result = new ArrayList<>();
-        for (IbcPath ibcPath: mIbcPaths) {
-            for (IbcPath.Path path: ibcPath.paths) {
-                if (path.auth != null && path.auth) {
-                    result.add(ibcPath);
-                }
-            }
-        }
-        Set<IbcPath> arr2 = new HashSet<>(result);
-        ArrayList<IbcPath> resArr2 = new ArrayList<>(arr2);
-        return resArr2;
-    }
-
-    public ArrayList<IbcPath> getIbcRollbackRelayer(String denom) {
-        ArrayList<IbcPath> result = new ArrayList<>();
-        IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
-        if (mIbcPaths != null && mIbcPaths.size() > 0) {
-            for (IbcPath ibcPath: mIbcPaths) {
-                for (IbcPath.Path path: ibcPath.paths) {
-                    if (path.channel_id != null && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
-                        result.add(ibcPath);
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
-    public ArrayList<IbcPath.Path> getIbcRollbackChannel(String denom, ArrayList<IbcPath.Path> paths) {
-        ArrayList<IbcPath.Path> result = new ArrayList<>();
-        IbcToken ibcToken = getIbcToken(denom);
-        if (paths != null && paths.size() > 0) {
-            for (IbcPath.Path path: paths) {
-                if (path.auth != null && path.auth && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
-                    result.add(path);
-                }
-            }
-        }
-        return result;
     }
 
     //COMMON DATA
@@ -307,12 +293,9 @@ public class BaseData {
     public ResOkTickersList         mOkTickersList;
     public BigDecimal               mOKBPrice = BigDecimal.ZERO;
 
-    //INCENTIVE DATA FOR SIF
-    public SifIncentive.User        mSifLmIncentive;
-
     //GRPC for KAVA
     public HashMap<String, QueryOuterClass.CurrentPriceResponse>        mKavaTokenPrice = new HashMap<>();
-    public IncentiveParam                                               mIncentiveParam5;
+    public IncentiveParam                                               mIncentiveParam;
     public IncentiveReward                                              mIncentiveRewards;
     public Swap.Params                                                  mSwapParams;
     public Genesis.Params                                               mCdpParams;
@@ -519,15 +502,6 @@ public class BaseData {
     //Osmosis pool list
     public ArrayList<BalancerPool.Pool>                         mGrpcOsmosisPool = new ArrayList<>();
 
-    //Gravity pool list
-    public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
-    public Liquidity.Params                                     mParams;
-
-    //Gravity GDex Manager
-    public ArrayList<GDexManager>                               mGDexManager = new ArrayList<>();
-    //Gravity GDex Denom Supply
-    public ArrayList<Coin>                                      mGDexPoolTokens = new ArrayList<>();
-
     //gRPC funcs
     public String getChainIdGrpc() {
         if (mGRpcNodeInfo != null) {
@@ -631,7 +605,7 @@ public class BaseData {
     }
 
     public BigDecimal getDelegatable(BaseChain baseChain, String denom) {
-        if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+        if (baseChain.equals(CRESCENT_MAIN)) {
             return getAvailable(denom);
         }
         return getAvailable(denom).add(getVesting(denom));
@@ -843,25 +817,6 @@ public class BaseData {
         return 0;
     }
 
-    public Liquidity.Pool getGravityPoolByDenom(String denom) {
-        for (Liquidity.Pool pool: mGrpcGravityPools) {
-            if (pool.getPoolCoinDenom().equals(denom)) {
-                return pool;
-            }
-        }
-        return null;
-    }
-
-    public ChainParam.GdexStatus getParamGravityPoolByDenom(String denom) {
-        for (ChainParam.GdexStatus gdexStatus: mChainParam.getmGdexList()) {
-            if (gdexStatus.pool_token.equals(denom)) {
-                return gdexStatus;
-            }
-        }
-        return null;
-    }
-
-
     public BalancerPool.Pool getOsmosisPoolByDenom(String denom) {
         for (BalancerPool.Pool pool: mGrpcOsmosisPool) {
             if (pool.getTotalShares().getDenom().equals(denom)) {
@@ -1056,22 +1011,6 @@ public class BaseData {
 
     public String getFCMToken() {
         return  getSharedPreferences().getString(BaseConstant.PRE_FCM_TOKEN, "");
-    }
-
-    public void setEventTime() {
-        Date dt = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, 1);
-        getSharedPreferences().edit().putLong(PRE_EVENT_HIDE, c.getTimeInMillis()).commit();
-    }
-
-    public boolean getEventTime() {
-        Date dt = new Date();
-        if (dt.getTime() > getSharedPreferences().getLong(PRE_EVENT_HIDE, 1)) {
-            return true;
-        }
-        return false;
     }
 
     public void setDBVersion(int version) {
@@ -1541,14 +1480,6 @@ public class BaseData {
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
-    public void onUpdateAccountOrders(ArrayList<Account> accounts) {
-        for (Account account:accounts) {
-            ContentValues values = new ContentValues();
-            values.put("sortOrder",          account.sortOrder);
-            getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
-        }
-    }
-
     public Account onUpdatePushEnabled(Account account, boolean using) {
         ContentValues values = new ContentValues();
         values.put("pushAlarm",          using);
@@ -1846,170 +1777,4 @@ public class BaseData {
     public boolean onDeleteBalance(String accountId) {
         return getBaseDB().delete(BaseConstant.DB_TABLE_BALANCE, "accountId = ?", new String[]{accountId}) > 0;
     }
-
-
-
-//    public ArrayList<BondingState> onSelectBondingStates(long accountId) {
-//        ArrayList<BondingState> result = new ArrayList<>();
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
-//        if(cursor != null && cursor.moveToFirst()) {
-//            do {
-//                BondingState delegate = new BondingState(
-//                        cursor.getLong(0),
-//                        cursor.getString(1),
-//                        new BigDecimal(cursor.getString(2)),
-//                        cursor.getLong(3));
-//                result.add(delegate);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return result;
-//    }
-//
-//    public BondingState onSelectBondingState(long accountId, String vAddr) {
-//        BondingState result = null;
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
-//        if(cursor != null && cursor.moveToFirst()) {
-//            result = new BondingState(
-//                    cursor.getLong(0),
-//                    cursor.getString(1),
-//                    new BigDecimal(cursor.getString(2)),
-//                    cursor.getLong(3));
-//        }
-//        cursor.close();
-//        return result;
-//    }
-//
-//
-//    public long onInsertBondingStates(BondingState bonding) {
-//        ContentValues values = new ContentValues();
-//        values.put("accountId",         bonding.accountId);
-//        values.put("validatorAddress",  bonding.validatorAddress);
-//        values.put("shares",            bonding.shares.toPlainString());
-//        values.put("fetchTime",         bonding.fetchTime);
-//        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_BONDING, null, values);
-//
-//    }
-//
-//    public void onUpdateBondingStates(long accountId, ArrayList<BondingState> bondings) {
-//        onDeleteBondingStates(accountId);
-//        for(BondingState bonding: bondings) {
-//            onInsertBondingStates(bonding);
-//        }
-//    }
-//
-//    public void onUpdateBondingState(long accountId, BondingState bonding) {
-//        onDeleteBondingState(accountId, bonding.validatorAddress);
-//        onInsertBondingStates(bonding);
-//    }
-//
-//    public boolean onHasBondingStates(BondingState bondingState) {
-//        boolean existed = false;
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ? AND validatorAddress == ?", new String[]{""+bondingState.accountId, bondingState.validatorAddress}, null, null, null);
-//        if(cursor != null && cursor.getCount() > 0) {
-//            existed = true;
-//        }
-//        cursor.close();
-//        return existed;
-//    }
-//
-//    public boolean onDeleteBondingStates(long accountId) {
-//        return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ?", new String[]{""+accountId}) > 0;
-//    }
-//
-//    public boolean onDeleteBondingState(long accountId, String vAddr) {
-//        return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}) > 0;
-//    }
-//
-//
-//
-//    public ArrayList<UnBondingState> onSelectUnbondingStates(long accountId) {
-//        ArrayList<UnBondingState> result = new ArrayList<>();
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
-//        if(cursor != null && cursor.moveToFirst()) {
-//            do {
-//                UnBondingState temp = new UnBondingState(
-//                        cursor.getLong(0),
-//                        cursor.getString(1),
-//                        cursor.getString(2),
-//                        cursor.getLong(3),
-//                        new BigDecimal(cursor.getString(4)),
-//                        new BigDecimal(cursor.getString(5)),
-//                        cursor.getLong(6));
-//                result.add(temp);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return result;
-//    }
-//
-//    public UnBondingState onSelectUnbondingState(long accountId, String vAddr) {
-//        UnBondingState result = null;
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
-//        if(cursor != null && cursor.moveToFirst()) {
-//            result = new UnBondingState(
-//                    cursor.getLong(0),
-//                    cursor.getString(1),
-//                    cursor.getString(2),
-//                    cursor.getLong(3),
-//                    new BigDecimal(cursor.getString(4)),
-//                    new BigDecimal(cursor.getString(5)),
-//                    cursor.getLong(6));
-//        }
-//        cursor.close();
-//        return result;
-//    }
-//
-//    public ArrayList<UnBondingState> onSelectUnbondingStates(long accountId, String vAddr) {
-//        ArrayList<UnBondingState> result = new ArrayList<>();
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
-//        if(cursor != null && cursor.moveToFirst()) {
-//            do {
-//                UnBondingState temp = new UnBondingState(
-//                        cursor.getLong(0),
-//                        cursor.getString(1),
-//                        cursor.getString(2),
-//                        cursor.getLong(3),
-//                        new BigDecimal(cursor.getString(4)),
-//                        new BigDecimal(cursor.getString(5)),
-//                        cursor.getLong(6));
-//                result.add(temp);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return result;
-//    }
-//
-//    public long onInsertUnbondingStates(UnBondingState unbonding) {
-//        ContentValues values = new ContentValues();
-//        values.put("accountId",         unbonding.accountId);
-//        values.put("validatorAddress",  unbonding.validatorAddress);
-//        values.put("creationHeight",    unbonding.creationHeight);
-//        values.put("completionTime",    unbonding.completionTime);
-//        values.put("initialBalance",    unbonding.initialBalance.toPlainString());
-//        values.put("balance",           unbonding.balance.toPlainString());
-//        values.put("fetchTime",         unbonding.fetchTime);
-//        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_UNBONDING, null, values);
-//    }
-//
-//    public boolean onDeleteUnbondingStates(long accountId) {
-//        return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ?", new String[]{""+accountId}) > 0;
-//    }
-//
-//    public boolean onDeleteUnbondingState(long accountId, String vAddr) {
-//        return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}) > 0;
-//    }
-//
-//    public void onUpdateUnbondingStates(long accountId, ArrayList<UnBondingState> unbondings) {
-//        onDeleteUnbondingStates(accountId);
-//        for(UnBondingState unbond: unbondings) {
-//            onInsertUnbondingStates(unbond);
-//        }
-//    }
-//
-//    public void onUpdateUnbondingState(long accountId, UnBondingState unbonding) {
-//        onDeleteUnbondingState(accountId, unbonding.validatorAddress);
-//        onInsertUnbondingStates(unbonding);
-//    }
-
 }

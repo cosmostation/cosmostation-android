@@ -18,9 +18,9 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.chains.ok.OKStakingActivity;
-import wannabit.io.cosmostaion.activities.chains.ok.OKUnbondingActivity;
-import wannabit.io.cosmostaion.activities.chains.ok.OKValidatorListActivity;
+import wannabit.io.cosmostaion.activities.txs.ok.OKStakingActivity;
+import wannabit.io.cosmostaion.activities.txs.ok.OKUnbondingActivity;
+import wannabit.io.cosmostaion.activities.txs.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;

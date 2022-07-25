@@ -18,12 +18,11 @@
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:background="@drawable/box_chain_selected">
+        android:background="@drawable/box_chain_trans_border">
         <ImageView
             android:id="@+id/chainImg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/chain_cosmos"/>
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/chainName"
             android:layout_width="wrap_content"

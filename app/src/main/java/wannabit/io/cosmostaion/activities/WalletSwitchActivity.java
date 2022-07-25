@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -104,9 +106,10 @@ public class WalletSwitchActivity extends BaseActivity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             final ChainHolder holder = (ChainHolder) viewHolder;
             final ChainAccounts data = mChainAccounts.get(position);
+            final ChainConfig chainConfig = ChainFactory.getChain(data.baseChain);
             holder.accountCard.setCardBackgroundColor(WDp.getChainBgColor(WalletSwitchActivity.this, data.baseChain));
-            WDp.getChainImg(WalletSwitchActivity.this, data.baseChain, holder.accountChainImg);
-            WDp.getChainTitle2(WalletSwitchActivity.this, data.baseChain, holder.accountChainName);
+            holder.accountChainImg.setImageResource(chainConfig.chainImg());
+            holder.accountChainName.setText(chainConfig.chainTitleToUp());
             holder.accountWalletCnt.setText("" + data.accounts.size());
 
             if (data.opened && data.accounts.size() > 0) {

@@ -31,7 +31,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
@@ -94,17 +93,17 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPool;
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
-import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
-import wannabit.io.cosmostaion.activities.SendActivity;
-import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
+import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
+import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
+import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -158,7 +157,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.Cw20BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolListGrpcTask;
@@ -181,6 +179,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public View mRootview;
     public Account mAccount;
     public BaseChain mBaseChain;
+    public ChainConfig mChainConfig;
 
     protected int mTaskCount;
     private FetchCallBack mFetchCallback;
@@ -261,6 +260,27 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
     }
 
+    public void onInsertKeyDialog() {
+        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
+                getString(R.string.str_close), null);
+        return;
+    }
+
+    public void onAddMnemonicForAccount() {
+        startActivity(new Intent(BaseActivity.this, MnemonicRestoreActivity.class));
+    }
+
+    public void isAccountKey(ImageView keyState) {
+        if (mAccount.hasPrivateKey) {
+            keyState.setImageResource(R.drawable.key_off);
+            keyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            keyState.setImageResource(R.drawable.watchmode);
+            keyState.setColorFilter(null);
+        }
+    }
+
     public void onHideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         View v = getCurrentFocus();
@@ -281,10 +301,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public void onStartSendMainDenom() {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
 
         if (isGRPC(mBaseChain)) {
@@ -325,17 +342,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onStartHTLCSendActivity(String sendDenom) {
-//        WLog.w("onStartHTLCSendActivity " + mBaseChain.getChain() + " " + sendDenom);
         if (mAccount == null) return;
         if (!SUPPORT_BEP3_SWAP) {
             Toast.makeText(getBaseContext(), R.string.error_bep3_swap_temporary_disable, Toast.LENGTH_SHORT).show();
             return;
         }
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
 
         boolean hasbalance = true;
@@ -485,10 +498,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
     }
 
-    public void onAddMnemonicForAccount() {
-        startActivity(new Intent(BaseActivity.this, MnemonicRestoreActivity.class));
-    }
-
     public void onUpdateUserAlarm(Account account, boolean useAlarm) {
         new PushUpdateTask(getBaseApplication(), this, account, getBaseDao().getFCMToken(), useAlarm).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -565,8 +574,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mAssets.clear();
         getBaseDao().mCw20Assets.clear();
 
-        getBaseDao().mSifLmIncentive = null;
-
         getBaseDao().mNodeInfo = null;
         getBaseDao().mAllValidators.clear();
         getBaseDao().mMyValidators.clear();
@@ -579,7 +586,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mMyRewards.clear();
 
         //kava GRPC
-        getBaseDao().mIncentiveParam5 = null;
+        getBaseDao().mIncentiveParam = null;
         getBaseDao().mIncentiveRewards = null;
         getBaseDao().mMyHardDeposits.clear();
         getBaseDao().mMyHardBorrows.clear();
@@ -608,8 +615,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         getBaseDao().mGrpcStarNameFee = null;
         getBaseDao().mGrpcStarNameConfig = null;
-
-        getBaseDao().mGrpcGravityPools.clear();
 
 
         if (mBaseChain.equals(BNB_MAIN)) {
@@ -642,22 +647,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         // grpc
-        else if (mBaseChain.equals(COSMOS_MAIN)) {
-            mTaskCount = 10;
-            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new GravityDexPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(IOV_MAIN)) {
+        if (mBaseChain.equals(IOV_MAIN)) {
             mTaskCount = 11;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -908,12 +898,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config) result.resultData);
             }
 
-        } else if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_LIST) {
-            if (result.isSuccess && result.resultData != null) {
-                List<Liquidity.Pool> pools = (List<Liquidity.Pool>) result.resultData;
-                getBaseDao().mGrpcGravityPools = new ArrayList<Liquidity.Pool>(pools);
-            }
-        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
+        } if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
                 List<BalancerPool.Pool> pools = (List<BalancerPool.Pool>) result.resultData;
                 getBaseDao().mGrpcOsmosisPool = new ArrayList<BalancerPool.Pool>(pools);
@@ -923,7 +908,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         //kava
         else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mIncentiveParam5 = (IncentiveParam) result.resultData;
+                getBaseDao().mIncentiveParam = (IncentiveParam) result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
@@ -948,7 +933,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mCw20Assets = (ArrayList<Cw20Assets>) result.resultData;
                 if (getBaseDao().mCw20Assets != null && getBaseDao().mCw20Assets.size() > 0) {
                     for (Cw20Assets assets : getBaseDao().mCw20Assets) {
-                        if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(mBaseChain))) {
+                        if (assets.chain.equalsIgnoreCase(mChainConfig.chainName())) {
                             mTaskCount = mTaskCount + 1;
                             new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }

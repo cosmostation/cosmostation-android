@@ -32,16 +32,16 @@
                     android:id="@+id/chain_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/atom_ic" />
+                    android:src="@drawable/token_cosmos" />
 
                 <TextView
                     android:id="@+id/chain_denom"
-                    style="@style/font_ss_14_atom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_8"
+                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/chain_icon"
-                    android:text="ATOM" />
+                    android:textSize="@dimen/text_size_14"
+                    tools:text="ATOM"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_12"
                 android:background="@color/colorGrayDayNight" />
 
@@ -189,12 +189,11 @@
                 <RelativeLayout
                     android:id="@+id/btn_delegate"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_40"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="@dimen/space_5"
                     android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
-                    android:clickable="true"
                     android:minHeight="@dimen/space_40">
 
                     <TextView
@@ -211,7 +210,7 @@
                 <RelativeLayout
                     android:id="@+id/btn_vote"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_40"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_5"
                     android:layout_marginTop="16dp"
                     android:layout_weight="1"
@@ -234,7 +233,7 @@
             <RelativeLayout
                 android:id="@+id/btn_dex"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true"
@@ -247,16 +246,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:drawableLeft="@drawable/icon_gravitydex"
                     android:drawablePadding="@dimen/space_8"
-                    android:gravity="center"
-                    android:text="Gravity Dex" />
+                    android:gravity="center" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/btn_wallet_connect"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true"

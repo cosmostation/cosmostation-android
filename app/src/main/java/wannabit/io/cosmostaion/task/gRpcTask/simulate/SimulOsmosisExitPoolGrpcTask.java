@@ -24,9 +24,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_JOIN_POOL;
 
 public class SimulOsmosisExitPoolGrpcTask extends CommonTask {
 

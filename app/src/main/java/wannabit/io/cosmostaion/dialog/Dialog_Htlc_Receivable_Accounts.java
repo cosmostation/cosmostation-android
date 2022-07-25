@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.dialog;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,34 +77,31 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
+        public void onBindViewHolder(@NonNull AccountHolder holder, @SuppressLint("RecyclerView") int position) {
             final Account account = mAccounts.get(position);
             final BaseChain baseChain = BaseChain.getChain(account.baseChain);
+            holder.accountKeyState.setColorFilter(WDp.getChainColor(getSActivity(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             holder.accountAddress.setText(account.address);
 
             if (TextUtils.isEmpty(account.nickName))
                 holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
             if (baseChain.equals(BaseChain.BNB_MAIN)) {
-                holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_bnb), android.graphics.PorterDuff.Mode.SRC_IN);
                 WDp.showCoinDp(getContext(), getSActivity().getBaseDao(), TOKEN_BNB, account.getBnbBalanceScale().toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
 
             } else if (baseChain.equals(BaseChain.KAVA_MAIN)) {
-                holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_kava), android.graphics.PorterDuff.Mode.SRC_IN);
                 WDp.showCoinDp(getContext(), getSActivity().getBaseDao(), TOKEN_KAVA, account.getTokenBalance(TOKEN_KAVA).toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
             }
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("position", position);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                     getDialog().dismiss();
                 }
             });
-
         }
 
         @Override

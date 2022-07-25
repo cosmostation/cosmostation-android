@@ -29,10 +29,12 @@ import androidx.core.content.ContextCompat;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
-import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
+import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
+import wannabit.io.cosmostaion.activities.txs.common.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
@@ -68,7 +70,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private ImageView mBtnRewardAddressChange;
     private TextView mRewardAddress;
 
-    private View mView;
     private Button mBtnDelete, mBtnCheckKey, mBtnCheck;
 
     @Override
@@ -99,7 +100,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
         mRewardAddress = findViewById(R.id.reward_address);
         mBtnDelete = findViewById(R.id.btn_delete);
-        mView = findViewById(R.id.view);
         mBtnCheckKey = findViewById(R.id.btn_check_key);
         mBtnCheck = findViewById(R.id.btn_check);
 
@@ -168,10 +168,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         MWords mWords = getBaseDao().onSelectMnemonicById(mAccount.mnemonicId);
         if (mAccount == null) onBackPressed();
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         onUpdatePushStatusUI();
-        WDp.showChainDp(AccountDetailActivity.this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
-        WDp.getChainImg(AccountDetailActivity.this, mBaseChain, mChainImg);
+        WDp.showChainDp(this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
+        mChainImg.setImageResource(mChainConfig.chainImg());
 
         if (isGRPC(mBaseChain)) {
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -190,7 +191,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         if (mAccount.hasPrivateKey && mAccount.fromMnemonic) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
-            mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path), mAccount.customPath));
+            mAccountPath.setText(mChainConfig.getHdPath(mAccount.customPath, mAccount.path));
             mPathLayer.setVisibility(View.VISIBLE);
             mMnemonicLayer.setVisibility(View.VISIBLE);
             mMnemonicName.setText(mWords.getName());
@@ -293,7 +294,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
             } else {
-                Intent restoreIntent = new Intent(AccountDetailActivity.this, RestoreKeyActivity.class);
+                Intent restoreIntent = new Intent(AccountDetailActivity.this, PrivateKeyRestoreActivity.class);
                 restoreIntent.putExtra("chain", mBaseChain.getChain());
                 startActivity(restoreIntent);
             }

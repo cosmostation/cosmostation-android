@@ -150,7 +150,7 @@
                 android:id="@+id/kava_icon"
                 android:layout_width="@dimen/space_20"
                 android:layout_height="@dimen/space_20"
-                android:src="@drawable/kava_token_img"/>
+                android:src="@drawable/token_kava"/>
             <TextView
                 android:id="@+id/kava_denom"
                 android:layout_width="wrap_content"

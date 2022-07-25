@@ -28,7 +28,7 @@
                     android:id="@+id/atom_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/atom_ic"/>
+                    android:src="@drawable/token_cosmos"/>
                 <TextView
                     android:id="@+id/atom_title"
                     android:layout_width="wrap_content"

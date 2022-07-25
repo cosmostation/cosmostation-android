@@ -4,10 +4,6 @@
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#7A7f88</color>
 
-    <!--<color name="colorPrimary">#5b72c5</color>-->
-    <!--<color name="colorPrimaryDark">#234794</color>-->
-    <!--<color name="colorAccent">#dcb86b</color>-->
-
     <color name="colorTrans">#00000000</color>
     <color name="colorTransBg">#f5f5f5</color>
     <color name="colorTransBg0">#222E2E2E</color>
@@ -18,14 +14,14 @@
     <color name="colorTransBgStarname">#e5e7f9</color>
     <color name="colorTransBgKava">#ffeeed</color>
     <color name="colorTransBgBand">#eef1ff</color>
-    <color name="colorTransBgOkex">#e9f0fd</color>
+    <color name="colorTransBgOkx">#e9f0fd</color>
     <color name="colorTransBgCertik">#f9f3e8</color>
     <color name="colorTransBgAkash">#fceceb</color>
     <color name="colorTransBgSecret">#eaeaea</color>
     <color name="colorTransBghard">#328626E1</color>
     <color name="colorTransBgusdx">#3206D6A0</color>
     <color name="colorTransBgswp">#325A42FF</color>
-    <color name="colorTransBgPersis">#e7e7e7</color>
+    <color name="colorTransBgPersistence">#e7e7e7</color>
     <color name="colorTransBgSentinel">#edf3fb</color>
     <color name="colorTransBgFetch">#e9f3f2</color>
     <color name="colorTransBgCryto">#e5f4ff</color>
@@ -44,7 +40,7 @@
     <color name="colorTransBgStargaze">#fdf4fb</color>
     <color name="colorTransBgGraBridge">#d9edf7</color>
     <color name="colorTransBgComdex">#d9e6f7</color>
-    <color name="colorTransBgInj">#eaf8fa</color>
+    <color name="colorTransBgInjective">#eaf8fa</color>
     <color name="colorTransBgBitsong">#ffebf2</color>
     <color name="colorTransBgDesmos">#fff2f0</color>
     <color name="colorTransBgLum">#e7ecfe</color>
@@ -56,7 +52,7 @@
     <color name="colorTransBgCerberus">#faf5e3</color>
     <color name="colorTransBgOmniflix">#f1f0ff</color>
     <color name="colorTransBgCrescent">#fbf2e9</color>
-    <color name="colorTransBgMantle">#fef8e8</color>
+    <color name="colorTransBgAssetmantle">#fef8e8</color>
     <color name="colorTransBgStation">#e6f9fa</color>
     <color name="colorTransBgNyx">#fff1ef</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -77,7 +73,7 @@
     <color name="colorGray11">#242627</color>
     <color name="colorGray12">#f5f5f5</color>
 
-
+    <color name="colorBorderGray">#565b60</color>
     <color name="colorWhiteDayNight">#ffffff</color>
     <color name="colorWhite2DayNight">#f5f5f5</color>
     <color name="colorGrayDayNight">#bec6d1</color>
@@ -95,23 +91,23 @@
     <color name="color_iris">#00A8FF</color>
     <color name="color_iris2">#003870</color>
 
-    <color name="color_bnb">#E9BC00</color>
-    <color name="color_bnb2">#634C04</color>
+    <color name="color_binance">#E9BC00</color>
+    <color name="color_binance2">#634C04</color>
 
-    <color name="color_iov">#6e7cde</color>
-    <color name="color_iov2">#2c367e</color>
+    <color name="color_starname">#6e7cde</color>
+    <color name="color_starname2">#2c367e</color>
 
     <color name="color_kava">#FF564F</color>
     <color name="color_kava2">#631D1B</color>
-    <color name="colorHard">#8626E1</color>
-    <color name="colorSwp">#5A42FF</color>
-    <color name="colorUsdx">#06D6A0</color>
+    <color name="color_hard">#8626E1</color>
+    <color name="color_swp">#5A42FF</color>
+    <color name="color_usdx">#06D6A0</color>
 
     <color name="color_band">#516FFA</color>
     <color name="color_band2">#2A3C8B</color>
 
-    <color name="color_ok">#4d87ee</color>
-    <color name="color_ok2">#365fa7</color>
+    <color name="color_okx">#4d87ee</color>
+    <color name="color_okx2">#365fa7</color>
 
     <color name="color_certik">#E1AA4C</color>
     <color name="color_certik2">#59441E</color>
@@ -122,8 +118,8 @@
     <color name="color_akash">#c71e10</color>
     <color name="color_akash2">#631008</color>
 
-    <color name="color_persis">#e50a13</color>
-    <color name="color_persis2">#670000</color>
+    <color name="color_persistence">#e50a13</color>
+    <color name="color_persistence2">#670000</color>
 
     <color name="color_sentinel">#5b8ed7</color>
     <color name="color_sentinel2">#1e447b</color>
@@ -155,7 +151,7 @@
 
     <color name="color_osmosis">#9248db</color>
     <color name="color_osmosis2">#4e1a82</color>
-    <color name="colorIon">#3C90FC</color>
+    <color name="color_ion">#3C90FC</color>
 
     <color name="color_umee">#bb90f8</color>
     <color name="color_umee2">#7e63a6</color>
@@ -173,7 +169,7 @@
     <color name="color_regen2">#27643e</color>
 
     <color name="color_bitcanna">#00b786</color>
-    <color name="color_bitcann2">#04684f</color>
+    <color name="color_bitcanna2">#04684f</color>
 
     <color name="color_stargaze">#e38cd4</color>
     <color name="color_stargaze2">#8a5a84</color>
@@ -185,7 +181,7 @@
     <color name="color_comdex2">#802938</color>
     <color name="color_comdex3">#005ac5</color>
 
-    <color name="color_inj">#00bbdd</color>
+    <color name="color_injective">#00bbdd</color>
     <color name="color_inj2">#016c80</color>
 
     <color name="color_bitsong">#ff005c</color>
@@ -220,11 +216,11 @@
     <color name="color_omniflix2">#3228ab</color>
 
     <color name="color_crescent">#f4bc76</color>
-    <color name="color_crescent2">#ac8a5e</color>
+    <color name="color_bcre">#ac8a5e</color>
     <color name="color_crescent3">#452318</color>
 
-    <color name="color_Mantle">#f3b519</color>
-    <color name="color_Mantle2">#a48e59</color>
+    <color name="color_assetmantle">#f3b519</color>
+    <color name="color_assetmantle2">#a48e59</color>
 
     <color name="color_station">#05c3cd</color>
     <color name="color_station2">#007d84</color>

@@ -39,13 +39,13 @@
                     android:layout_toRightOf="@+id/img_account"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_rmr_12_black_daynight"
+                    style="@style/font_rmr_14_black_daynight"
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="11sp"
-                    android:autoSizeMaxTextSize="12sp"
-                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeMinTextSize="11dp"
+                    android:autoSizeMaxTextSize="14dp"
+                    android:autoSizeStepGranularity="1dp"
                     android:text=""/>
             </RelativeLayout>
             <TextView

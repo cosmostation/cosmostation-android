@@ -45,7 +45,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_12"
                 android:background="@color/colorGrayDayNight"/>
 
@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap0"
                     android:layout_width="wrap_content"
@@ -74,6 +74,8 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
@@ -89,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap1"
                     android:layout_width="wrap_content"
@@ -104,6 +106,8 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
@@ -119,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap2"
                     android:layout_width="wrap_content"
@@ -134,6 +138,8 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
@@ -149,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap3"
                     android:layout_width="wrap_content"
@@ -164,6 +170,8 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
@@ -179,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_ss_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap4"
                     android:layout_width="wrap_content"
@@ -194,6 +202,8 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
