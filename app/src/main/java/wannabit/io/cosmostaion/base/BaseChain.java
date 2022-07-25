@@ -84,7 +84,6 @@ public enum BaseChain {
     IRIS_TEST_LEGACY1("bifrost-2"),
     IRIS_TEST("iris-testnet"),
     OK_TEST("okexchain-testnet"),
-    RIZON_TEST("rizon-testnet2"),
     ALTHEA_TEST("althea-testnet"),
     CRESCENT_TEST("crescent-testnet");
 
