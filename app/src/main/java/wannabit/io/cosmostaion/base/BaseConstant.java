@@ -86,12 +86,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
 
-    public final static int TASK_HDAC_NODE_INFO                         = 2900;
-    public final static int TASK_HDAC_UTXO                              = 2901;
-    public final static int TASK_HDAC_TX_DETAIL                         = 2902;
-    public final static int TASK_HDAC_BROAD_BURN                        = 2903;
-    public final static int TASK_RIZON_SWAP_STATUS                      = 2904;
-
 
     //gRPC
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
@@ -388,7 +382,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5036;
     public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5037;
     public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5038;
-    public final static int CONST_PW_TX_RIZON_SWAP                          = 5039;
     public final static int CONST_PW_TX_OSMOSIS_EARNING                     = 5040;
     public final static int CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING             = 5041;
     public final static int CONST_PW_TX_OSMOSIS_UNLOCK                      = 5042;
@@ -773,17 +766,11 @@ public class BaseConstant {
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
 
-    public final static String EXPLORER_RIZON_MAIN      = "https://www.mintscan.io/rizon/";
-    public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
-
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
 
     public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
 
     public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
-
-    public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
-    public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_BASE_URL        = "https://www.mintscan.io/";
     public final static String RESOURCE_BASE_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/";
