@@ -37,6 +37,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TextView
+                                android:id="@+id/fee_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_fees"
@@ -45,15 +46,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
+                                android:layout_toRightOf="@+id/fee_title"
                                 android:orientation="horizontal"
-                                android:gravity="center">
+                                android:gravity="end">
                                 <TextView
                                     android:id="@+id/send_fees"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:text="-"
-                                    style="@style/font_ss_12_black_daynight"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/send_fees_type"
                                     android:layout_width="wrap_content"
@@ -61,7 +63,7 @@
                                     android:layout_marginLeft="@dimen/space_4"
                                     android:gravity="right"
                                     android:text="-"
-                                    style="@style/font_ss_12_black_daynight"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -70,6 +72,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16">
                             <TextView
+                                android:id="@+id/send_amount_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_to_send_amount"
@@ -79,14 +82,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/send_amount_title"
                                 android:orientation="horizontal"
-                                android:gravity="center">
+                                android:gravity="end">
                                 <TextView
                                     android:id="@+id/send_amount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    style="@style/font_ss_12_black_daynight"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/send_amount_symbol"
                                     android:layout_width="wrap_content"
@@ -94,13 +98,13 @@
                                     android:layout_marginLeft="@dimen/space_4"
                                     android:gravity="right"
                                     android:text="-"
-                                    style="@style/font_ss_12_black_daynight"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                             </LinearLayout>
                         </RelativeLayout>
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
+                            android:layout_height="@dimen/space_view"
                             android:background="@color/colorGrayDayNight"
                             android:layout_marginTop="@dimen/space_16"/>
 

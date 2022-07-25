@@ -271,7 +271,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(new Intent(BaseActivity.this, MnemonicRestoreActivity.class));
     }
 
-    public void isAccountKey(ImageView keyState) {
+    public void setAccountKeyStatus(ImageView keyState) {
         if (mAccount.hasPrivateKey) {
             keyState.setImageResource(R.drawable.key_off);
             keyState.setColorFilter(WDp.getChainColor(this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);

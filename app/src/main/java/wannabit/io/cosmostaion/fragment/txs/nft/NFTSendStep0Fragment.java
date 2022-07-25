@@ -38,7 +38,7 @@ import wannabit.io.cosmostaion.activities.txs.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
+import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -210,7 +210,7 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                         Bundle bundle = new Bundle();
                         bundle.putString("starname", userInput);
                         bundle.putString("originAddress", matchAddress);
-                        Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
+                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
                         dialog.setCancelable(true);
                         dialog.setTargetFragment(NFTSendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
                         getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

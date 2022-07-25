@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 
@@ -61,18 +62,15 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefreshTab() {
-        int mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         BigDecimal toSendAmount = new BigDecimal(getSActivity().mAmounts.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeAmountSymbol);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mToIbcDenom, toSendAmount.toPlainString(), mSendAmountSymbol, mSendAmount, getSActivity().mBaseChain);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mToIbcDenom, toSendAmount.toPlainString(), mSendAmountSymbol, mSendAmount);
 
         BaseChain toChain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
         ChainConfig chainConfig = ChainFactory.getChain(toChain);
         mRecipientChain.setText(chainConfig.chainTitle());
-        mRecipientChain.setTextColor(WDp.getChainColor(getSActivity(), toChain));
+        mRecipientChain.setTextColor(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()));
         mRecipientAddress.setText(getSActivity().mToAddress);
     }
 

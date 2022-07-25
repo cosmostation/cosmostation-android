@@ -140,7 +140,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             }
 
             mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, mChainConfig.chainBgColor()));
-            isAccountKey(mKeyState);
+            setAccountKeyStatus(mKeyState);
             mAddress.setText(mAccount.address);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mCw20Asset.denom, mCw20Asset.getAmount(), mCw20Asset.decimal));
             mSwipeRefreshLayout.setRefreshing(false);

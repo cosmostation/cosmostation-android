@@ -162,7 +162,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         mAddress.setText(mAccount.address);
-        isAccountKey(mKeyState);
+        setAccountKeyStatus(mKeyState);
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

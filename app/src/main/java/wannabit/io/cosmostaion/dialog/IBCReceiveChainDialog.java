@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,22 +23,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_IBC_Receive_Chain extends DialogFragment {
+public class IBCReceiveChainDialog extends DialogFragment {
 
+    private ConstraintLayout mDialogLayout;
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private RelayerListAdapter mRelayerListAdapter;
     private ArrayList<IbcPath> mIbcSendableRelayers = new ArrayList<>();
 
-    public static Dialog_IBC_Receive_Chain newInstance(Bundle bundle) {
-        Dialog_IBC_Receive_Chain frag = new Dialog_IBC_Receive_Chain();
+    public static IBCReceiveChainDialog newInstance(Bundle bundle) {
+        IBCReceiveChainDialog frag = new IBCReceiveChainDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -51,15 +52,18 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_ibc_destination);
         mRecyclerView = view.findViewById(R.id.recycler);
         mIbcSendableRelayers = (ArrayList<IbcPath>) getArguments().getSerializable("chain");
 
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogTitle.setText(R.string.str_select_ibc_destination);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRelayerListAdapter = new RelayerListAdapter();
         mRecyclerView.setAdapter(mRelayerListAdapter);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
@@ -111,9 +115,4 @@ public class Dialog_IBC_Receive_Chain extends DialogFragment {
         }
 
     }
-
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
-    }
-
 }

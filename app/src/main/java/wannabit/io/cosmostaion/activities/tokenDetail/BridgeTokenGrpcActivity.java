@@ -148,7 +148,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(BridgeTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         mAddress.setText(mAccount.address);
-        isAccountKey(mKeyState);
+        setAccountKeyStatus(mKeyState);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.origin_symbol, getBaseDao().getAvailable(mBridgeDenom), assets.decimal));
         mSwipeRefreshLayout.setRefreshing(false);
     }

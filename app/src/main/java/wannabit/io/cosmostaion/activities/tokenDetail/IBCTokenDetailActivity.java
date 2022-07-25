@@ -171,7 +171,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         mToolbarChannel.setText("(" + mIbcToken.channel_id + ")");
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(IBCTokenDetailActivity.this, mChainConfig.chainBgColor()));
-        isAccountKey(mKeyState);
+        setAccountKeyStatus(mKeyState);
         mAddress.setText(mAccount.address);
         mSwipeRefreshLayout.setRefreshing(false);
     }

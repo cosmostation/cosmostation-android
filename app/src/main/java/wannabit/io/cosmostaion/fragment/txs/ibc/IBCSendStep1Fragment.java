@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.ibc;
 
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.app.Activity;
@@ -42,8 +41,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receivable_Accouts;
-import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
+import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
+import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -173,7 +172,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
             } else {
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", mTochain.getChain());
-                Dialog_IBC_Receivable_Accouts dialog = Dialog_IBC_Receivable_Accouts.newInstance(bundle);
+                IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundle);
                 dialog.setCancelable(true);
                 dialog.setTargetFragment(this, SELECT_ACCOUNT);
                 getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -186,9 +185,9 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -207,7 +206,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
             mToAccount = mToAccountList.get(data.getIntExtra("position" , 0));
             onUpdateView();
 
@@ -217,7 +216,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if(result != null) {
+            if (result != null) {
                 if(result.getContents() != null) {
                     mAddressInput.setText(result.getContents().trim());
                     mAddressInput.setSelection(mAddressInput.getText().length());
@@ -229,7 +228,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onCheckNameService(String userInput, ChainConfig chainConfig) {
-        QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(BaseChain.IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(userInput).build();
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
             @Override
@@ -251,7 +250,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                         Bundle bundle = new Bundle();
                         bundle.putString("starname", userInput);
                         bundle.putString("originAddress", matchAddress);
-                        Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
+                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
                         dialog.setCancelable(true);
                         dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
                         getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -273,7 +272,5 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onCompleted() { }
         });
-
-
     }
 }
