@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.sif.SifDexWithdrawStep0Fragment;
@@ -46,6 +47,11 @@ public class SifWithdrawPoolActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
@@ -54,19 +60,12 @@ public class SifWithdrawPoolActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_exit));
 
-        mTxType = CONST_PW_TX_SIF_EXIT_POOL;
-        mSifPool = (Types.Pool) getIntent().getSerializableExtra("mSifPool");
-        mMyProvider = (Querier.LiquidityProviderRes) getIntent().getSerializableExtra("myProvider");
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(SifWithdrawPoolActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_sif_withdraw_pool_step_0));
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mPageAdapter = new ExitPoolPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -111,6 +110,15 @@ public class SifWithdrawPoolActivity extends BaseBroadCastActivity {
         });
     }
 
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+
+        mTxType = CONST_PW_TX_SIF_EXIT_POOL;
+        mSifPool = (Types.Pool) getIntent().getSerializableExtra("mSifPool");
+        mMyProvider = (Querier.LiquidityProviderRes) getIntent().getSerializableExtra("myProvider");
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -151,7 +159,7 @@ public class SifWithdrawPoolActivity extends BaseBroadCastActivity {
 
     public void onStartExitPool() {
         Intent intent = new Intent(SifWithdrawPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIF_EXIT_POOL);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("SifWithdrawCoin", mSifWithdrawCoin);
         intent.putExtra("MyProvider", mMyProvider);
         intent.putExtra("memo", mTxMemo);

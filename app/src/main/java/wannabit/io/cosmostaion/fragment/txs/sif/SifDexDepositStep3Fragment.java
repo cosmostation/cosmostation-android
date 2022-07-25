@@ -10,11 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDepositPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -28,7 +25,6 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
     private TextView        mLpAmountTitle;
     private LinearLayout    mLpAmountLayer;
     private TextView        mMemo;
-    private int             mDpDecimal = 6;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -59,8 +55,6 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
@@ -71,14 +65,10 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
     public void onRefreshTab() {
         mLpAmountTitle.setVisibility(View.GONE);
         mLpAmountLayer.setVisibility(View.GONE);
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
 
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mSifDepositCoin0, mJoinInput0AmountSymbol, mJoinInput0Amount, BaseChain.SIF_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mSifDepositCoin1, mJoinInput1AmountSymbol, mJoinInput1Amount, BaseChain.SIF_MAIN);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mSifDepositCoin0, mJoinInput0AmountSymbol, mJoinInput0Amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mSifDepositCoin1, mJoinInput1AmountSymbol, mJoinInput1Amount);
         mMemo.setText(getSActivity().mTxMemo);
     }
 

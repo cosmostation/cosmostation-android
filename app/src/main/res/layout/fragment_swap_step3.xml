@@ -30,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tx_fee_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_tx_fee"
@@ -39,8 +40,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tx_fee_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_fee_amount"
                             android:layout_width="wrap_content"
@@ -63,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16">
                     <TextView
+                        android:id="@+id/swap_fee_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_fee"
@@ -71,8 +74,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/swap_fee_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_fee"
                             android:layout_width="wrap_content"
@@ -82,11 +86,11 @@
                             style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_fee_symbol"
-                            android:layout_width="@dimen/space_50"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_atom"
+                            android:text="-"
+                            style="@style/font_ss_12_black_daynight"
                             android:gravity="end"
                             android:visibility="gone"/>
                     </LinearLayout>
@@ -109,6 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/swap_in_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_in"
@@ -118,8 +123,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/swap_in_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_in_amount"
                             android:layout_width="wrap_content"
@@ -141,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16">
                     <TextView
+                        android:id="@+id/swap_out_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_out"
@@ -150,8 +157,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/swap_out_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_out_amount"
                             android:layout_width="wrap_content"
@@ -174,6 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16">
                     <TextView
+                        android:id="@+id/slippage_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_kava_slippage_title"
@@ -183,8 +192,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/slippage_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_slippage"
                             android:layout_width="wrap_content"

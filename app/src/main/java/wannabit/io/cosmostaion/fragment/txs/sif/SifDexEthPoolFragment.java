@@ -28,8 +28,8 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.SifDexMyProviderGrpcTask;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.SifPoolMyHolder;
-import wannabit.io.cosmostaion.widget.SifPoolOtherHolder;
+import wannabit.io.cosmostaion.widget.PoolMyHolder;
+import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
 public class SifDexEthPoolFragment extends BaseFragment implements TaskListener {
 
@@ -87,7 +87,6 @@ public class SifDexEthPoolFragment extends BaseFragment implements TaskListener 
     }
 
     int mTaskCount;
-
     public void onFetchEthListInfo() {
         mTaskCount = 1;
         for (String symbol : getSActivity().mMyEthAssets) {
@@ -122,9 +121,9 @@ public class SifDexEthPoolFragment extends BaseFragment implements TaskListener 
         @Override
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_MY_POOL) {
-                return new SifPoolMyHolder(getLayoutInflater().inflate(R.layout.item_sif_pool_list_my, viewGroup, false));
+                return new PoolMyHolder(getLayoutInflater().inflate(R.layout.item_pool_list_my, viewGroup, false));
             } else if (viewType == TYPE_OTHER_POOL) {
-                return new SifPoolOtherHolder(getLayoutInflater().inflate(R.layout.item_sif_pool_list_other, viewGroup, false));
+                return new PoolOtherHolder(getLayoutInflater().inflate(R.layout.item_pool_list_other, viewGroup, false));
             }
             return null;
         }
@@ -139,10 +138,10 @@ public class SifDexEthPoolFragment extends BaseFragment implements TaskListener 
                         myProvider = provider;
                     }
                 }
-                viewHolder.onBindSifMyEthPool(getContext(), getSActivity(), getBaseDao(), myPool, myProvider);
+                viewHolder.onBindSifMyPool(getContext(), getSActivity(), getBaseDao(), myPool, myProvider);
             } else if (getItemViewType(position) == TYPE_OTHER_POOL) {
                 final Types.Pool otherPool = mOtherEthPools.get(position - mMyEthPools.size());
-                viewHolder.onBindSifOtherEthPool(getContext(), getSActivity(), getBaseDao(), otherPool);
+                viewHolder.onBindSifOtherPool(getContext(), getSActivity(), getBaseDao(), otherPool);
             }
         }
 

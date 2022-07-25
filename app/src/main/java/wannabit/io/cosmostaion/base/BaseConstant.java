@@ -773,11 +773,7 @@ public class BaseConstant {
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
 
-
-    public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
-    public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
     public final static String EXPLORER_RIZON_MAIN      = "https://www.mintscan.io/rizon/";
-    public final static String EXPLORER_STATION_TEST    = "https://testnet.mintscan.io/station/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
@@ -805,6 +801,4 @@ public class BaseConstant {
     public final static BigDecimal MONTH_SEC                = DAY_SEC.multiply(new BigDecimal("30"));
     public final static BigDecimal YEAR_SEC                 = DAY_SEC.multiply(new BigDecimal("365"));
 
-    public final static BigDecimal BLOCK_TIME_OKEX          = new BigDecimal("4.0286");
-    public final static BigDecimal BLOCK_TIME_BNB           = new BigDecimal("0.4124");
 }

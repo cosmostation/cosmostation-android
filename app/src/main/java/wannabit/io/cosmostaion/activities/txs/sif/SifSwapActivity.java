@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.sif.SifSwapStep0Fragment;
@@ -48,6 +49,11 @@ public class SifSwapActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
@@ -56,20 +62,12 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_swap));
 
-        mTxType = CONST_PW_TX_SIF_SWAP;
-        mInputDenom = getIntent().getStringExtra("inputDenom");
-        mOutputDenom = getIntent().getStringExtra("outputDenom");
-        mSifPool = (Types.Pool) getIntent().getSerializableExtra("sifPool");
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(SifSwapActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_sif_swap_step_0));
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mPageAdapter = new CoinSwapPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -114,6 +112,16 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         });
     }
 
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+
+        mTxType = CONST_PW_TX_SIF_SWAP;
+        mInputDenom = getIntent().getStringExtra("inputDenom");
+        mOutputDenom = getIntent().getStringExtra("outputDenom");
+        mSifPool = (Types.Pool) getIntent().getSerializableExtra("sifPool");
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -154,7 +162,7 @@ public class SifSwapActivity extends BaseBroadCastActivity {
 
     public void onStartSwap() {
         Intent intent = new Intent(SifSwapActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIF_SWAP);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("SifSwapInCoin", mSifSwapInCoin);
         intent.putExtra("SifSwapOutCoin", mSifSwapOutCoin);
         intent.putExtra("memo", mTxMemo);

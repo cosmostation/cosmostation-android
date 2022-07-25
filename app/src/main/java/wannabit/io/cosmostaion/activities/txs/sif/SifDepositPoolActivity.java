@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.sif.SifDexDepositStep0Fragment;
@@ -45,6 +46,11 @@ public class SifDepositPoolActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
@@ -53,9 +59,6 @@ public class SifDepositPoolActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_join));
 
-        mTxType = CONST_PW_TX_SIF_JOIN_POOL;
-        mSifPool = (Types.Pool) getIntent().getSerializableExtra("mSifPool");
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,8 +66,6 @@ public class SifDepositPoolActivity extends BaseBroadCastActivity {
         mIvStep.setImageDrawable(ContextCompat.getDrawable(SifDepositPoolActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_sif_deposit_pool_step_0));
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mPageAdapter = new JoinPoolPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -109,6 +110,15 @@ public class SifDepositPoolActivity extends BaseBroadCastActivity {
         });
     }
 
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+
+        mTxType = CONST_PW_TX_SIF_JOIN_POOL;
+        mSifPool = (Types.Pool) getIntent().getSerializableExtra("mSifPool");
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -149,7 +159,7 @@ public class SifDepositPoolActivity extends BaseBroadCastActivity {
 
     public void onStartJoinPool() {
         Intent intent = new Intent(SifDepositPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIF_JOIN_POOL);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("SifDepositCoin0", mSifDepositCoin0);
         intent.putExtra("SifDepositCoin1", mSifDepositCoin1);
         intent.putExtra("memo", mTxMemo);

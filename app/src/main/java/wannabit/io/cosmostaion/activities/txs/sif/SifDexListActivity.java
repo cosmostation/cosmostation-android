@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +36,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.sif.SifDexEthPoolFragment;
 import wannabit.io.cosmostaion.fragment.txs.sif.SifDexIbcPoolFragment;
@@ -70,6 +69,11 @@ public class SifDexListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sif_dex_list);
+        initView();
+        loadData();
+    }
+
+    public void initView() {
         mToolbar = findViewById(R.id.tool_bar);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
@@ -77,9 +81,6 @@ public class SifDexListActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mPageAdapter = new SifDexPageAdapter(getSupportFragmentManager());
         mLabPager.setAdapter(mPageAdapter);
@@ -122,15 +123,19 @@ public class SifDexListActivity extends BaseActivity {
             }
         });
         onShowWaitDialog();
+    }
+
+    public void loadData() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+
         onFetchPoolListInfo();
     }
 
     public void onStartSwap(String inCoinDenom, String outCoinDenom, Types.Pool pool) {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
 
         BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -164,15 +169,12 @@ public class SifDexListActivity extends BaseActivity {
 
     public void onCheckStartDepositPool(Types.Pool pool) {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+            onInsertKeyDialog();
         }
 
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_JOIN_POOL, 0);
         String externalDenom = pool.getExternalAsset().getSymbol();
-        BigDecimal rowanAvailable = getBaseDao().getAvailable(TOKEN_SIF);
+        BigDecimal rowanAvailable = getBaseDao().getAvailable(mChainConfig.mainDenom());
         rowanAvailable = rowanAvailable.subtract(feeAmount);
         BigDecimal externalAvailable = getBaseDao().getAvailable(externalDenom);
 
@@ -188,10 +190,7 @@ public class SifDexListActivity extends BaseActivity {
 
     public void onCheckStartWithdrawPool(Types.Pool pool, Querier.LiquidityProviderRes myProvider) {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
+           onInsertKeyDialog();
         }
 
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_EXIT_POOL, 0);

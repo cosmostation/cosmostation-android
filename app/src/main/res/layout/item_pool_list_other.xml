@@ -28,6 +28,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/pool_type_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -54,6 +55,46 @@
                         android:text="ATMO / OSMO"
                         android:layout_marginTop="@dimen/space_8"
                         style="@style/font_ss_17_black_daynight"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/pool_img_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/pool_native_img"
+                    android:layout_width="@dimen/space_30"
+                    android:layout_height="@dimen/space_30"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/token_sif" />
+
+                <ImageView
+                    android:id="@+id/pool_external_img"
+                    android:layout_width="@dimen/space_30"
+                    android:layout_height="@dimen/space_30"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:src="@drawable/token_default" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:layout_toRightOf="@+id/pool_external_img">
+
+                    <TextView
+                        android:id="@+id/pool_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="COIN / COIN"
+                        android:textColor="@color/colorBlackDayNight"
+                        android:textSize="@dimen/space_18" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -109,7 +150,7 @@
                         <TextView
                             android:id="@+id/pool_total_liquidity_symbol1"
                             style="@style/font_ssl_12_black_daynight"
-                            android:layout_width="@dimen/space_45"
+                            android:layout_width="@dimen/space_48"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
@@ -133,7 +174,7 @@
                         <TextView
                             android:id="@+id/pool_total_liquidity_symbol2"
                             style="@style/font_ssl_12_black_daynight"
-                            android:layout_width="@dimen/space_45"
+                            android:layout_width="@dimen/space_48"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
@@ -188,7 +229,7 @@
                                 <TextView
                                     android:id="@+id/mypool_symbol1"
                                     style="@style/font_ssl_12_black_daynight"
-                                    android:layout_width="@dimen/space_45"
+                                    android:layout_width="@dimen/space_48"
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end"
@@ -212,7 +253,7 @@
                                 <TextView
                                     android:id="@+id/mypool_symbol2"
                                     style="@style/font_ssl_12_black_daynight"
-                                    android:layout_width="@dimen/space_45"
+                                    android:layout_width="@dimen/space_48"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end"
