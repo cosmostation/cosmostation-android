@@ -12,21 +12,22 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16">
+
         <EditText
             android:id="@+id/et_memo"
+            style="@style/font_ss_12_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/space_80"
-            android:maxHeight="@dimen/space_120"
-            android:textCursorDrawable="@drawable/white_cursor"
-            android:maxLength="255"
-            android:textColorHint="@color/colorGray4"
             android:background="@drawable/edittext_box"
-            android:paddingEnd="@dimen/space_12"
-            style="@style/font_ss_12_black_daynight"
+            android:gravity="top"
             android:imeOptions="actionNext"
+            android:maxHeight="@dimen/space_120"
+            android:maxLength="255"
+            android:minHeight="@dimen/space_80"
+            android:paddingEnd="@dimen/space_12"
             android:scrollbars="vertical"
-            android:gravity="top"/>
+            android:textColorHint="@color/colorGray4"
+            android:textCursorDrawable="@drawable/white_cursor" />
         <TextView
             android:id="@+id/tv_memoCnt"
             android:layout_width="wrap_content"

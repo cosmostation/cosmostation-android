@@ -377,6 +377,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         } else if (getSActivity().mTxType == CONST_PW_TX_VOTE) {
             new SimulVoteGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mProposalId, getSActivity().mOpinion,
                     getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         } else if (getSActivity().mTxType == CONST_PW_TX_REGISTER_DOMAIN) {
             new SimulRegisterDomainGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                     getSActivity().mStarNameDomain, getSActivity().mStarNameDomainType,

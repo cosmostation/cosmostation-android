@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -185,7 +188,19 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 voteIntent.putExtra("proposal", new Gson().toJson(selectedSet));
                 startActivity(voteIntent);
             } else {
-                Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getString(R.string.error_not_selected_vote), Toast.LENGTH_SHORT).show();
+            }
+
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
+            List<String> availableFeeDenomList = Lists.newArrayList();
+            for (String denom : WDp.getGasDenomList(mBaseChain)) {
+                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
+                    availableFeeDenomList.add(denom);
+                }
+            }
+            if (availableFeeDenomList.isEmpty()) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
             }
         }
     }
@@ -245,30 +260,30 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             });
         }
 
-        public void onBindProposalItemViewHolder(VoteListViewHolder voteListViewHolder, int position) {
+        public void onBindProposalItemViewHolder(VoteListViewHolder holder, int position) {
             ResProposal item = mExtraProposalsList.get(position - mVotingPeriodProposalsList.size() - (mVotingPeriodProposalsList.isEmpty() ? 0 : 1) - (mExtraProposalsList.isEmpty() ? 0 : 1));
-            voteListViewHolder.proposal_id.setText("# " + item.id);
-            voteListViewHolder.proposal_title.setText(item.title);
+            holder.proposal_id.setText("# " + item.id);
+            holder.proposal_title.setText(item.title);
             if (item.proposal_status.contains("DEPOSIT")) {
-                voteListViewHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_deposit_img));
-                voteListViewHolder.proposal_status.setText("DepositPeriod");
+                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_deposit_img));
+                holder.proposal_status.setText("DepositPeriod");
             } else if (item.proposal_status.contains("REJECTED")) {
-                voteListViewHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_rejected_img));
-                voteListViewHolder.proposal_status.setText("Rejected");
+                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_rejected_img));
+                holder.proposal_status.setText("Rejected");
             } else if (item.proposal_status.contains("PASSED")) {
-                voteListViewHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_passed_img));
-                voteListViewHolder.proposal_status.setText("Passed");
+                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_passed_img));
+                holder.proposal_status.setText("Passed");
             } else if (item.proposal_status.contains("FAILED")) {
-                voteListViewHolder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.failed));
-                voteListViewHolder.proposal_status.setText("Failed");
+                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.failed));
+                holder.proposal_status.setText("Failed");
             }
 
-            voteListViewHolder.proposal_id.setText("# " + item.id);
-            voteListViewHolder.proposal_title.setText(item.title);
+            holder.proposal_id.setText("# " + item.id);
+            holder.proposal_title.setText(item.title);
 
-            bindVoteStatus(voteListViewHolder, position, item);
+            bindVoteStatus(holder, position, item);
 
-            voteListViewHolder.card_proposal.setOnClickListener(v -> {
+            holder.card_proposal.setOnClickListener(v -> {
                 String url = WUtil.getExplorer(mBaseChain) + "proposals/" + item.id;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
@@ -297,33 +312,33 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             });
         }
 
-        private void bindVoteStatus(VoteListViewHolder voteListViewHolder, int position, ResProposal item) {
-            voteListViewHolder.vote_status.setVisibility(View.INVISIBLE);
-            voteListViewHolder.vote_select.setVisibility(View.INVISIBLE);
-            voteListViewHolder.vote_not_select.setVisibility(View.INVISIBLE);
+        private void bindVoteStatus(VoteListViewHolder holder, int position, ResProposal item) {
+            holder.vote_status.setVisibility(View.INVISIBLE);
+            holder.vote_select.setVisibility(View.INVISIBLE);
+            holder.vote_not_select.setVisibility(View.INVISIBLE);
 
             if (statusMap.containsKey(item.id)) {
                 Set<String> status = statusMap.get(item.id);
                 if (status.contains("VOTE_OPTION_YES")) {
-                    voteListViewHolder.vote_status.setVisibility(View.VISIBLE);
-                    voteListViewHolder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_yes));
+                    holder.vote_status.setVisibility(View.VISIBLE);
+                    holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_yes));
                 } else if (status.contains("VOTE_OPTION_NO")) {
-                    voteListViewHolder.vote_status.setVisibility(View.VISIBLE);
-                    voteListViewHolder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_no));
+                    holder.vote_status.setVisibility(View.VISIBLE);
+                    holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_no));
                 } else if (status.contains("VOTE_OPTION_NO_WITH_VETO")) {
-                    voteListViewHolder.vote_status.setVisibility(View.VISIBLE);
-                    voteListViewHolder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_nowithveto));
+                    holder.vote_status.setVisibility(View.VISIBLE);
+                    holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_nowithveto));
                 } else if (status.contains("VOTE_OPTION_ABSTATIN")) {
-                    voteListViewHolder.vote_status.setVisibility(View.VISIBLE);
-                    voteListViewHolder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_abstain));
+                    holder.vote_status.setVisibility(View.VISIBLE);
+                    holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_abstain));
                 } else if (status.size() > 1) {
-                    voteListViewHolder.vote_status.setVisibility(View.VISIBLE);
-                    voteListViewHolder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_weight));
+                    holder.vote_status.setVisibility(View.VISIBLE);
+                    holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_weight));
                 } else {
-                    voteListViewHolder.vote_status.setVisibility(View.INVISIBLE);
+                    holder.vote_status.setVisibility(View.INVISIBLE);
                 }
             } else {
-                voteListViewHolder.vote_status.setVisibility(View.INVISIBLE);
+                holder.vote_status.setVisibility(View.INVISIBLE);
                 loadStatus(item, position);
                 statusMap.put(item.id, Sets.newHashSet());
             }

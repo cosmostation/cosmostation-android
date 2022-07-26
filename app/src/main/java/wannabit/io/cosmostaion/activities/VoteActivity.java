@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -40,7 +38,6 @@ import wannabit.io.cosmostaion.fragment.VoteStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class VoteActivity extends BaseBroadCastActivity {
 
@@ -56,7 +53,6 @@ public class VoteActivity extends BaseBroadCastActivity {
     private String mUserInput = "";
 
     public ArrayList<ResProposal> mProposal;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +82,7 @@ public class VoteActivity extends BaseBroadCastActivity {
 
         mTargetMemo = getIntent().getStringExtra("memo");
         mTargetFee = getIntent().getParcelableExtra("fee");
+
 
         mPageAdapter = new VotePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

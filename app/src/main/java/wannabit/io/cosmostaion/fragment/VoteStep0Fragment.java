@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -79,20 +80,20 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
 
-    public VoteActivity getMainActivity() {
+    public VoteActivity getSActivity() {
         return (VoteActivity) getBaseActivity();
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mCancelBtn)) {
-            getMainActivity().onBeforeStep();
+            getSActivity().onBeforeStep();
         } else if (v.equals(mNextBtn)) {
             if (selectedMap.size() == mProposalList.size()) {
-                getMainActivity().mSelectedOpinion = selectedMap;
-                getMainActivity().onNextStep();
+                getSActivity().mSelectedOpinion = selectedMap;
+                getSActivity().onNextStep();
             } else {
-                Toast.makeText(getMainActivity(), R.string.error_no_option, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getSActivity(), R.string.error_no_option, Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -128,28 +129,28 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
                 switch (selected) {
                     case "VOTE_OPTION_YES":
                         holder.yesBtnLayout.setAlpha(1f);
-                        holder.selectedYesImage.setColorFilter(WDp.getChainColor(getMainActivity(), getMainActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+                        holder.selectedYesImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
                         holder.selectedNoImage.clearColorFilter();
                         holder.selectedNoWithVetoImage.clearColorFilter();
                         holder.selectedAbstainImage.clearColorFilter();
                         break;
                     case "VOTE_OPTION_NO":
                         holder.noBtnLayout.setAlpha(1f);
-                        holder.selectedNoImage.setColorFilter(WDp.getChainColor(getMainActivity(), getMainActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+                        holder.selectedNoImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
                         holder.selectedYesImage.clearColorFilter();
                         holder.selectedNoWithVetoImage.clearColorFilter();
                         holder.selectedAbstainImage.clearColorFilter();
                         break;
                     case "VOTE_OPTION_NO_WITH_VETO":
                         holder.noWithVetoBtnLayout.setAlpha(1f);
-                        holder.selectedNoWithVetoImage.setColorFilter(WDp.getChainColor(getMainActivity(), getMainActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+                        holder.selectedNoWithVetoImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
                         holder.selectedYesImage.clearColorFilter();
                         holder.selectedNoImage.clearColorFilter();
                         holder.selectedAbstainImage.clearColorFilter();
                         break;
-                    case "VOTE_OPTION_ABSTATIN":
+                    case "VOTE_OPTION_ABSTAIN":
                         holder.abstainBtnLayout.setAlpha(1f);
-                        holder.selectedAbstainImage.setColorFilter(WDp.getChainColor(getMainActivity(), getMainActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+                        holder.selectedAbstainImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
                         holder.selectedYesImage.clearColorFilter();
                         holder.selectedNoWithVetoImage.clearColorFilter();
                         holder.selectedNoImage.clearColorFilter();
@@ -187,10 +188,10 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
             });
 
             holder.abstainBtnLayout.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_ABSTATIN".equals(selectedMap.get(item.id))) {
+                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_ABSTAIN".equals(selectedMap.get(item.id))) {
                     selectedMap.remove(item.id);
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_ABSTATIN");
+                    selectedMap.put(item.id, "VOTE_OPTION_ABSTAIN");
                 }
                 mProposalSelectionAdapter.notifyItemChanged(position);
             });

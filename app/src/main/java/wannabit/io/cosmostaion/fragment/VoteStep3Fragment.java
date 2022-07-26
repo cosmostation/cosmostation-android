@@ -9,7 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.google.common.collect.Lists;
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.VoteActivity;
@@ -22,8 +27,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     private TextView mFeeAmount, mDenomFeeType;
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
-    private int             mDpDecimal = 6;
-
+    private int mDpDecimal = 6;
 
     public static VoteStep3Fragment newInstance(Bundle bundle) {
         VoteStep3Fragment fragment = new VoteStep3Fragment();
@@ -57,8 +61,35 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mDenomFeeType);
-        mOpinion.setText(getSActivity().mOpinion);
+
+        List<String> texts = Lists.newArrayList();
+        getSActivity().mSelectedOpinion.forEach((key, value) -> {
+            texts.add(String.format("# %s - %s", key, voteOptionConvert(value)));
+        });
+        String opinionText = StringUtils.join(texts, "\n");
+
+        mOpinion.setText(opinionText);
         mMemo.setText(getSActivity().mTxMemo);
+    }
+
+    private String voteOptionConvert(String value) {
+        switch (value) {
+            case "VOTE_OPTION_YES":
+                value = "Yes";
+                break;
+            case "VOTE_OPTION_NO":
+                value = "No";
+                break;
+            case "VOTE_OPTION_NO_WITH_VETO":
+                value = "NoWithVeto";
+                break;
+            case "VOTE_OPTION_ABSTAIN":
+                value = "Abstain";
+                break;
+            default:
+                break;
+        }
+        return value;
     }
 
     @Override
@@ -68,12 +99,10 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mConfirmBtn)) {
             getSActivity().onStartVote();
-
         }
-
     }
 
     private VoteActivity getSActivity() {
-        return (VoteActivity)getBaseActivity();
+        return (VoteActivity) getBaseActivity();
     }
 }
