@@ -49,16 +49,6 @@
                         android:layout_height="@dimen/space_50"
                         android:layout_centerInParent="true"
                         android:src="@drawable/jailed_img" />
-
-                    <ImageView
-                        android:id="@+id/avatar_validator_free"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/space_4"
-                        android:layout_marginRight="@dimen/space_4"
-                        android:src="@drawable/free_ic"
-                        android:visibility="gone" />
                 </RelativeLayout>
 
             </LinearLayout>

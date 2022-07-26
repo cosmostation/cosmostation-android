@@ -1,10 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -45,10 +40,8 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static DelegateStep0Fragment newInstance(Bundle bundle) {
-        DelegateStep0Fragment fragment = new DelegateStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DelegateStep0Fragment newInstance() {
+        return new DelegateStep0Fragment();
     }
 
     @Override
@@ -88,11 +81,12 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         super.onResume();
         if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null)
             getSActivity().onBackPressed();
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom());
         setDpDecimals(mDpDecimal);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-        mMaxAvailable = getSActivity().getBaseDao().getDelegatable(getSActivity().mBaseChain, WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mDenomTitle);
+
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, 0);
+        mMaxAvailable = getSActivity().getBaseDao().getDelegatable(getSActivity().mBaseChain, getSActivity().mChainConfig.mainDenom()).subtract(feeAmount);
         mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
         onAddAmountWatcher();
     }
@@ -208,15 +202,9 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAmountInput.setText(half.toPlainString());
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(FETCHAI_MAIN)) {
-                BigDecimal max = mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
-                mAmountInput.setText(max.toPlainString());
-
-            } else {
-                BigDecimal max = mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
-                mAmountInput.setText(max.toPlainString());
-                onShowEmptyBalanceWarnDialog();
-            }
+            BigDecimal max = mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
+            mAmountInput.setText(max.toPlainString());
+            onShowEmptyBalanceWarnDialog();
 
         } else if (v.equals(mClearAll)) {
             mAmountInput.setText("");
@@ -231,7 +219,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
                 return false;
-            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
+            Coin coin = new Coin(getSActivity().mChainConfig.mainDenom(), amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
             getSActivity().mAmount = coin;
             return true;
 
@@ -242,7 +230,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onShowEmptyBalanceWarnDialog() {
-        AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+        AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_close), null);
     }
 
     private void setDpDecimals(int decimals) {

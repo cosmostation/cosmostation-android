@@ -47,10 +47,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
     private ArrayList<Staking.Validator> mGRpcTopValidators = new ArrayList<>();
     private Staking.Validator mCheckedGRpcValidator = null;
 
-    public static RedelegateStep1Fragment newInstance(Bundle bundle) {
-        RedelegateStep1Fragment fragment = new RedelegateStep1Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RedelegateStep1Fragment newInstance() {
+        return new RedelegateStep1Fragment();
     }
 
     @Override
@@ -74,11 +72,6 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         mToValidatorAdapter = new ToValidatorAdapter();
         mRecyclerView.setAdapter(mToValidatorAdapter);
         return rootView;
-    }
-
-
-    private RedelegateActivity getSActivity() {
-        return (RedelegateActivity) getBaseActivity();
     }
 
     @Override
@@ -119,14 +112,13 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         @Override
         public ToValidatorHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             return new ToValidatorHolder(getLayoutInflater().inflate(R.layout.item_redelegate_validator, viewGroup, false));
-
         }
 
         @Override
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
             final Staking.Validator mGrpcValidator = mGRpcTopValidators.get(position);
             final ChainConfig chainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
-            holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), WDp.mainDivideDecimal(getSActivity().mBaseChain), 6));
+            holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), WDp.getDenomDecimal(getBaseDao(), chainConfig, chainConfig.mainDenom()), 6));
             holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             try {
                 Picasso.get().load(chainConfig.monikerUrl() + mGrpcValidator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
@@ -149,7 +141,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             }
             holder.itemChecked.setColorFilter(null);
             if (mCheckedGRpcValidator != null && mGrpcValidator.getOperatorAddress().equals(mCheckedGRpcValidator.getOperatorAddress())) {
-                holder.itemChecked.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mBaseChain), PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
             } else {
                 holder.itemCheckedBorder.setVisibility(View.GONE);
@@ -165,7 +157,6 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             CardView itemRoot;
             CircleImageView itemAvatar;
             ImageView itemRevoked;
-            ImageView itemFree;
             ImageView itemChecked;
             TextView itemTvMoniker;
             TextView itemTvVotingPower;
@@ -177,7 +168,6 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 itemRoot = itemView.findViewById(R.id.card_validator);
                 itemAvatar = itemView.findViewById(R.id.avatar_validator);
                 itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree = itemView.findViewById(R.id.avatar_validator_free);
                 itemChecked = itemView.findViewById(R.id.checked_validator);
                 itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
@@ -185,5 +175,9 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 itemCheckedBorder = itemView.findViewById(R.id.check_border);
             }
         }
+    }
+
+    private RedelegateActivity getSActivity() {
+        return (RedelegateActivity) getBaseActivity();
     }
 }

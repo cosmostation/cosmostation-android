@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.UndelegateStep0Fragment;
@@ -57,6 +58,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_SIMPLE_UNDELEGATE;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
@@ -143,7 +145,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_UNDELEGATE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("toAddress", mValAddress);
         intent.putExtra("uAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
@@ -153,7 +155,6 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
     }
 
-
     private class UndelegatePageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
@@ -162,10 +163,10 @@ public class UndelegateActivity extends BaseBroadCastActivity {
         public UndelegatePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(UndelegateStep0Fragment.newInstance(null));
+            mFragments.add(UndelegateStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(UndelegateStep3Fragment.newInstance(null));
+            mFragments.add(UndelegateStep3Fragment.newInstance());
         }
 
         @Override

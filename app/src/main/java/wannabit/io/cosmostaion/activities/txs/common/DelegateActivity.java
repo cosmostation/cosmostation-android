@@ -25,10 +25,11 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.txs.common.DelegateStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.common.DelegateStep3Fragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
+import wannabit.io.cosmostaion.fragment.txs.common.DelegateStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.DelegateStep3Fragment;
 
 public class DelegateActivity extends BaseBroadCastActivity {
 
@@ -63,6 +64,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_SIMPLE_DELEGATE;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
@@ -155,7 +157,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
 
     public void onStartDelegate() {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_DELEGATE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("toAddress", mValAddress);
         intent.putExtra("dAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
@@ -163,7 +165,6 @@ public class DelegateActivity extends BaseBroadCastActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
-
 
     private class DelegatePageAdapter extends FragmentPagerAdapter {
 
@@ -173,10 +174,10 @@ public class DelegateActivity extends BaseBroadCastActivity {
         public DelegatePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(DelegateStep0Fragment.newInstance(null));
+            mFragments.add(DelegateStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(DelegateStep3Fragment.newInstance(null));
+            mFragments.add(DelegateStep3Fragment.newInstance());
         }
 
         @Override

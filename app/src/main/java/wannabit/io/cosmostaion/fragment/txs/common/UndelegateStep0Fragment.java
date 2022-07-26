@@ -36,10 +36,8 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static UndelegateStep0Fragment newInstance(Bundle bundle) {
-        UndelegateStep0Fragment fragment = new UndelegateStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static UndelegateStep0Fragment newInstance() {
+        return new UndelegateStep0Fragment();
     }
 
     @Override
@@ -79,9 +77,9 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         super.onResume();
         if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null)
             getSActivity().onBackPressed();
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom());
         setDpDecimals(mDpDecimal);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mDenomTitle);
 
         mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValAddress);
         mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
@@ -211,7 +209,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(mDpDecimal).setScale(0);
             if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (userInput.compareTo(mMaxAvailable) > 0) return false;
-            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), userInput.toPlainString());
+            Coin coin = new Coin(getSActivity().mChainConfig.mainDenom(), userInput.toPlainString());
             getSActivity().mAmount = coin;
             return true;
 
