@@ -38,10 +38,8 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
     private String mDecimalChecker, mDecimalSetter;
     private RelativeLayout mProgress;
 
-    public static RedelegateStep0Fragment newInstance(Bundle bundle) {
-        RedelegateStep0Fragment fragment = new RedelegateStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RedelegateStep0Fragment newInstance() {
+        return new RedelegateStep0Fragment();
     }
 
     @Override
@@ -80,9 +78,9 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom());
         setDpDecimals(mDpDecimal);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mDenomTitle);
         mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
         mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
         mProgress.setVisibility(View.GONE);
@@ -215,7 +213,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
             BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(mDpDecimal).setScale(0);
             if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (userInput.compareTo(mMaxAvailable) > 0) return false;
-            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), userInput.toPlainString());
+            Coin coin = new Coin(getSActivity().mChainConfig.mainDenom(), userInput.toPlainString());
             getSActivity().mAmount = coin;
             return true;
 

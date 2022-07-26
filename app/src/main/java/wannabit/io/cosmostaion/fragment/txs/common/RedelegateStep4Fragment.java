@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -27,12 +25,9 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     private TextView        mFeeAmount, mFeeDenom;
     private TextView        mFromValidatorName, mToValidatorName, mMemo;
     private Button          mBeforeBtn, mConfirmBtn;
-    private int             mDpDecimal = 6;
 
-    public static RedelegateStep4Fragment newInstance(Bundle bundle) {
-        RedelegateStep4Fragment fragment = new RedelegateStep4Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RedelegateStep4Fragment newInstance() {
+        return new RedelegateStep4Fragment();
     }
 
     @Override
@@ -44,7 +39,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_redelegate_step4, container, false);
         mTvRedelegateAmount     = rootView.findViewById(R.id.redelegate_amount);
-        mTvRedelegateDenom      = rootView.findViewById(R.id.redelegate_amount_title);
+        mTvRedelegateDenom      = rootView.findViewById(R.id.redelegate_denom);
         mFeeAmount              = rootView.findViewById(R.id.redelegate_fees);
         mFeeDenom               = rootView.findViewById(R.id.redelegate_fees_type);
         mFromValidatorName      = rootView.findViewById(R.id.redelegate_from_moniker);
@@ -53,8 +48,6 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvRedelegateDenom);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -62,12 +55,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
-        BigDecimal feeAmount= new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, mDpDecimal, mDpDecimal));
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeDenom);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), getSActivity().mAmount.amount, mTvRedelegateDenom, mTvRedelegateAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
         mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
         mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValAddress).getDescription().getMoniker());
@@ -90,7 +79,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
                     getString(R.string.str_yes), view -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(REDELEGATE_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
-                    });
+            });
         }
     }
 

@@ -27,11 +27,12 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RedelegateStep4Fragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
@@ -71,6 +72,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_SIMPLE_REDELEGATE;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
@@ -160,7 +162,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
     public void onStartRedelegate() {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("fromValidatorAddr", mValAddress);
         intent.putExtra("toValidatorAddr", mToValAddress);
         intent.putExtra("rAmount", mAmount);
@@ -171,7 +173,6 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
 
     }
-
 
     private void onFetchValidtors() {
         if (mTaskCount > 0) return;
@@ -203,7 +204,6 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         }
     }
 
-
     private class RedelegatePageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
@@ -212,11 +212,11 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         public RedelegatePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(RedelegateStep0Fragment.newInstance(null));
-            mFragments.add(RedelegateStep1Fragment.newInstance(null));
+            mFragments.add(RedelegateStep0Fragment.newInstance());
+            mFragments.add(RedelegateStep1Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(RedelegateStep4Fragment.newInstance(null));
+            mFragments.add(RedelegateStep4Fragment.newInstance());
         }
 
         @Override

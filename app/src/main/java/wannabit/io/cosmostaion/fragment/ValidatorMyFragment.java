@@ -296,7 +296,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         public class RewardMyValidatorHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
             CircleImageView itemAvatar;
-            ImageView itemFree;
             ImageView itemRevoked, itemBandOracleOff;
             TextView itemTvMoniker;
             TextView itemTvDelegateAmount;
@@ -307,7 +306,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 super(itemView);
                 itemRoot = itemView.findViewById(R.id.card_validator);
                 itemAvatar = itemView.findViewById(R.id.avatar_validator);
-                itemFree = itemView.findViewById(R.id.avatar_validator_free);
                 itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemBandOracleOff = itemView.findViewById(R.id.band_oracle_off);

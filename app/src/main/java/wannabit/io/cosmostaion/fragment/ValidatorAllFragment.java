@@ -182,7 +182,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemFree.setVisibility(View.GONE);
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -231,7 +230,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
             CardView itemRoot;
             CircleImageView itemAvatar;
             ImageView itemRevoked, itemBandOracleOff;
-            ImageView itemFree;
             TextView itemTvMoniker;
             TextView itemTvVotingPower;
             TextView itemTvCommission;
@@ -241,7 +239,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 itemRoot = itemView.findViewById(R.id.card_validator);
                 itemAvatar = itemView.findViewById(R.id.avatar_validator);
                 itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemBandOracleOff = itemView.findViewById(R.id.band_oracle_off);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);

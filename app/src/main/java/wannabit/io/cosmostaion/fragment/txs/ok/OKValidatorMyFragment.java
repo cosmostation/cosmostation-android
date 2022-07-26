@@ -169,7 +169,6 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
             CardView itemRoot;
             CircleImageView itemAvatar;
             ImageView itemRevoked;
-            ImageView itemFree;
             TextView itemTvMoniker;
             TextView itemTvVotingPower;
             TextView itemTvCommission;
@@ -179,7 +178,6 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
                 itemRoot = itemView.findViewById(R.id.card_validator);
                 itemAvatar = itemView.findViewById(R.id.avatar_validator);
                 itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
                 itemTvCommission = itemView.findViewById(R.id.delegate_commission_validator);

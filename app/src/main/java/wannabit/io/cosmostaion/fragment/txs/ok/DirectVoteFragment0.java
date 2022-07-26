@@ -107,7 +107,6 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
             } catch (Exception e) { }
 
             holder.itemTvMoniker.setText(validator.description.moniker);
-            holder.itemFree.setVisibility(View.GONE);
 
             if (validator.jailed) {
                 holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));
@@ -156,7 +155,6 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
             CardView itemRoot;
             CircleImageView itemAvatar;
             ImageView itemRevoked;
-            ImageView itemFree;
             ImageView itemChecked;
             TextView itemTvMoniker;
             TextView itemTvVotingPower;
@@ -168,7 +166,6 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
                 itemRoot = itemView.findViewById(R.id.card_validator);
                 itemAvatar = itemView.findViewById(R.id.avatar_validator);
                 itemRevoked = itemView.findViewById(R.id.avatar_validator_revoke);
-                itemFree = itemView.findViewById(R.id.avatar_validator_free);
                 itemChecked = itemView.findViewById(R.id.checked_validator);
                 itemTvMoniker = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
