@@ -145,9 +145,9 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -174,7 +174,6 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_STAR_NAME_ADDRESS) {
             if (resultCode == Activity.RESULT_OK) {
-                getSActivity().mStarName = data.getStringExtra("starname");
                 getSActivity().mToAddress = data.getStringExtra("originAddress");
                 getSActivity().onNextStep();
             }

@@ -25,13 +25,9 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
     private Button          mBeforeBtn, mConfirmBtn;
 
     private Cw20Assets      mCw20Assets;
-    private int             mDpdecimal = 6;
-    private int             mCw20Decimal = 6;
 
-    public static SendContractStep4Fragment newInstance(Bundle bundle) {
-        SendContractStep4Fragment fragment = new SendContractStep4Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SendContractStep4Fragment newInstance() {
+        return new SendContractStep4Fragment();
     }
 
     @Override
@@ -45,7 +41,7 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
         mFeeAmount          = rootView.findViewById(R.id.send_fees);
         mFeeDenom           = rootView.findViewById(R.id.send_fees_type);
         mSendAmount         = rootView.findViewById(R.id.send_amount);
-        mSendDenom          = rootView.findViewById(R.id.send_amount_title);
+        mSendDenom          = rootView.findViewById(R.id.send_denom);
         mRecipientAddress   = rootView.findViewById(R.id.recipient_address);
         mMemo               = rootView.findViewById(R.id.memo);
         mBeforeBtn          = rootView.findViewById(R.id.btn_before);
@@ -56,23 +52,14 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
         return rootView;
     }
 
-
     @Override
     public void onRefreshTab() {
-        BigDecimal toSendAmount   = new BigDecimal(getSActivity().mAmounts.get(0).amount);
-        BigDecimal feeAmount      = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-
-        mDpdecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpdecimal, mDpdecimal));
-        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeDenom);
-
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
         mCw20Assets = getBaseDao().getCw20_gRPC(getSActivity().mContractAddress);
         if (mCw20Assets != null) {
-            mCw20Decimal = mCw20Assets.decimal;
-            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, mCw20Decimal, mCw20Decimal));
+            mSendAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmounts.get(0).amount), mCw20Assets.decimal, mCw20Assets.decimal));
             mSendDenom.setText(mCw20Assets.denom.toUpperCase());
         }
-
         mRecipientAddress.setText(getSActivity().mToAddress);
         mMemo.setText(getSActivity().mTxMemo);
     }
@@ -81,6 +68,7 @@ public class SendContractStep4Fragment extends BaseFragment implements View.OnCl
     public void onClick(View v) {
         if(v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
+
         } else if (v.equals(mConfirmBtn)) {
             getSActivity().onStartSendContract();
         }

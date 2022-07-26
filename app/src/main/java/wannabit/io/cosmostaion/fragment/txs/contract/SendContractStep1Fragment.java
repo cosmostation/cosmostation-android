@@ -42,10 +42,8 @@ public class SendContractStep1Fragment extends BaseFragment implements View.OnCl
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static SendContractStep1Fragment newInstance(Bundle bundle) {
-        SendContractStep1Fragment fragment = new SendContractStep1Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SendContractStep1Fragment newInstance() {
+        return new SendContractStep1Fragment();
     }
 
     @Override

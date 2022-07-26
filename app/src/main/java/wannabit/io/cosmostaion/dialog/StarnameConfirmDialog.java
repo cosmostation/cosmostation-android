@@ -33,21 +33,17 @@ public class StarnameConfirmDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_confirm, null);
+        TextView starname_info = view.findViewById(R.id.starname_info);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_posi = view.findViewById(R.id.btn_posi);
 
-        TextView starnameTv = view.findViewById(R.id.tv_startname);
-        TextView addressTv = view.findViewById(R.id.tv_address);
-        starnameTv.setText(getArguments().getString("starname"));
-        addressTv.setText(getArguments().getString("originAddress"));
-
+        starname_info.setText(String.format(getString(R.string.str_starname_confirm_msg), getArguments().getString("starname"), getArguments().getString("originAddress")));
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getDialog().dismiss();
             }
         });
-
 
         btn_posi.setOnClickListener(new View.OnClickListener() {
             @Override

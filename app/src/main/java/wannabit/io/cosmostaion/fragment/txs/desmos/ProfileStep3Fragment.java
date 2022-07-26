@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.desmos.ProfileActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -27,13 +25,10 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
     private TextView        mProfileCoverUri;
     private TextView        mMemo;
 
-    private int             mDpDecimal = 6;
-    private Button mBeforeBtn, mConfirmBtn;
+    private Button          mBeforeBtn, mConfirmBtn;
 
-    public static ProfileStep3Fragment newInstance(Bundle bundle) {
-        ProfileStep3Fragment fragment = new ProfileStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ProfileStep3Fragment newInstance() {
+        return new ProfileStep3Fragment();
     }
 
     @Override
@@ -52,11 +47,8 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
         mProfileUri             = rootView.findViewById(R.id.profile_uri);
         mProfileCoverUri        = rootView.findViewById(R.id.profile_cover_uri);
         mMemo                   = rootView.findViewById(R.id.memo);
-
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
-
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -65,10 +57,8 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mProfileDtag.setText(getSActivity().mDtag);
         mProfileNick.setText(getSActivity().mNickname);
         mProfileBio.setText(getSActivity().mBio);

@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -18,20 +16,17 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class NFTSendStep3Fragment extends BaseFragment implements View.OnClickListener{
 
-    private TextView mFeeAmount;
+    private TextView        mFeeAmount;
     private TextView        mFeeAmountSymbol;
     private TextView        mNftAddress;
     private TextView        mNftDenomId;
     private TextView        mNffTokenId;
     private TextView        mMemo;
-    private int             mDpDecimal = 6;
 
     private Button mBeforeBtn, mConfirmBtn;
 
-    public static NFTSendStep3Fragment newInstance(Bundle bundle) {
-        NFTSendStep3Fragment fragment = new NFTSendStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static NFTSendStep3Fragment newInstance() {
+        return new NFTSendStep3Fragment();
     }
 
     @Override
@@ -59,11 +54,7 @@ public class NFTSendStep3Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeAmountSymbol);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
 
         mNftAddress.setText(getSActivity().mToAddress);
         mNftDenomId.setText(getSActivity().mNftDenomId);

@@ -42,7 +42,6 @@ public class SendActivity extends BaseBroadCastActivity {
     private ViewPager mViewPager;
     private SendPageAdapter mPageAdapter;
 
-    public String mStarName;
     public BnbToken mBnbToken;
 
     @Override

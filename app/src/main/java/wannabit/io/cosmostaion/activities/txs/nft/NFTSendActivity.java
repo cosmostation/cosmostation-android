@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.nft.NFTSendStep0Fragment;
@@ -58,6 +59,7 @@ public class NFTSendActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_SEND_NFT;
 
         mNftDenomId = getIntent().getStringExtra("mDenomId");
@@ -138,7 +140,7 @@ public class NFTSendActivity extends BaseBroadCastActivity {
 
     public void onSendNFT() {
         Intent intent = new Intent(NFTSendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SEND_NFT);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("toAddress", mToAddress);
         intent.putExtra("nftDenomId", mNftDenomId);
         intent.putExtra("nftTokenId", mNftTokenId);
@@ -156,10 +158,10 @@ public class NFTSendActivity extends BaseBroadCastActivity {
         public NFTSendAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(NFTSendStep0Fragment.newInstance(null));
+            mFragments.add(NFTSendStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(NFTSendStep3Fragment.newInstance(null));
+            mFragments.add(NFTSendStep3Fragment.newInstance());
         }
 
         @Override

@@ -51,12 +51,8 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
     private LinearLayout    mStarNameLayer;
     private LinearLayout    mBtnQr, mBtnPaste;
 
-    private String          mStarName;
-
-    public static NFTSendStep0Fragment newInstance(Bundle bundle) {
-        NFTSendStep0Fragment fragment = new NFTSendStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static NFTSendStep0Fragment newInstance() {
+        return new NFTSendStep0Fragment();
     }
 
     @Override
@@ -164,12 +160,10 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
         return (NFTSendActivity)getBaseActivity();
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_STAR_NAME_ADDRESS) {
             if (resultCode == Activity.RESULT_OK) {
-                mStarName = data.getStringExtra("starname");
                 getSActivity().mToAddress = data.getStringExtra("originAddress");
                 getSActivity().onNextStep();
             }

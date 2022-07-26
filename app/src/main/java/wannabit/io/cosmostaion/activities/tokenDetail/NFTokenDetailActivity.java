@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
 
 import android.content.Intent;
@@ -73,9 +71,9 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        if (mBaseChain.equals(IRIS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mIrisResponse = (QueryOuterClass.QueryNFTResponse) getIntent().getSerializableExtra("irisResponse");
-        } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.CRYPTO_MAIN)) {
             myCryptoNftInfo = (chainmain.nft.v1.Nft.BaseNFT) getIntent().getSerializableExtra("myNftInfo");
         }
         mDenomId = getIntent().getStringExtra("mDenomId");
@@ -105,10 +103,10 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
     private void onUpdateView() {
         try {
-            if (mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Glide.with(this).load(mIrisResponse.getNft().getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
                         placeholder(R.drawable.nft_none_img).error(R.drawable.nft_none_img).fitCenter().into(mNftImg);
-            } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.CRYPTO_MAIN)) {
                 Glide.with(this).load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).diskCacheStrategy(DiskCacheStrategy.ALL).
                         placeholder(R.drawable.nft_none_img).error(R.drawable.nft_none_img).fitCenter().into(mNftImg);
             }
@@ -120,20 +118,18 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.equals(mNftImg)) {
-            if (mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mIrisResponse.getNft().getUri()));
                 startActivity(intent);
-            } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.CRYPTO_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WUtil.getNftImgUrl(myCryptoNftInfo.getData())));
                 startActivity(intent);
             }
 
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
-                return;
+               onInsertKeyDialog();
+               return;
             } else {
                 Toast.makeText(NFTokenDetailActivity.this, R.string.error_prepare, Toast.LENGTH_SHORT).show();
                 return;
@@ -141,9 +137,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
+                onInsertKeyDialog();
                 return;
 
             } else {

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.txs.desmos;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -41,8 +43,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.DesmosProfileGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
-
 public class ProfileStep0Fragment extends BaseFragment implements View.OnClickListener {
     private File        tempFile;
 
@@ -53,14 +53,12 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
 
     private EditText    mProfileDtag, mProfileNickname, mProfileBio;
 
-    private boolean                 misProfile = true;
-    private String                  mCoverHash;
-    private String                  mProfileHash;
+    private boolean     misProfile = true;
+    private String      mCoverHash;
+    private String      mProfileHash;
 
-    public static ProfileStep0Fragment newInstance(Bundle bundle) {
-        ProfileStep0Fragment fragment = new ProfileStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ProfileStep0Fragment newInstance() {
+        return new ProfileStep0Fragment();
     }
 
     @Override

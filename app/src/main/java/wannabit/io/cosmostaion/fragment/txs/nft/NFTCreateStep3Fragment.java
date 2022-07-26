@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTCreateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -25,14 +23,11 @@ public class NFTCreateStep3Fragment extends BaseFragment implements View.OnClick
     private TextView        mNftUri;
     private TextView        mNftId;
     private TextView        mMemo;
-    private int             mDpDecimal = 6;
 
     private Button mBeforeBtn, mConfirmBtn;
 
-    public static NFTCreateStep3Fragment newInstance(Bundle bundle) {
-        NFTCreateStep3Fragment fragment = new NFTCreateStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static NFTCreateStep3Fragment newInstance() {
+        return new NFTCreateStep3Fragment();
     }
 
     @Override
@@ -53,8 +48,6 @@ public class NFTCreateStep3Fragment extends BaseFragment implements View.OnClick
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
@@ -63,10 +56,8 @@ public class NFTCreateStep3Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mNftName.setText(getSActivity().mNftName);
         mNftDescription.setText(getSActivity().mNftDescription);
         mNftUri.setText(getSActivity().mNftHash);
