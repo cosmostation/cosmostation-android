@@ -1,22 +1,32 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -27,6 +37,10 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.VoteStep0Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class VoteActivity extends BaseBroadCastActivity {
 
@@ -37,10 +51,12 @@ public class VoteActivity extends BaseBroadCastActivity {
     private TextView mTvStep;
     private ViewPager mViewPager;
     private VotePageAdapter mPageAdapter;
+    private Fee mTargetFee;
+    private String mTargetMemo;
+    private String mUserInput = "";
 
+    public ArrayList<ResProposal> mProposal;
 
-    public String mProposeTitle;
-    public String mProposer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +81,11 @@ public class VoteActivity extends BaseBroadCastActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_VOTE;
 
-        mProposalId = getIntent().getStringExtra("proposalId");
-        mProposeTitle = getIntent().getStringExtra("title");
-        mProposer = getIntent().getStringExtra("proposer");
+        mProposal = new Gson().fromJson(getIntent().getStringExtra("selectedProposal"), new TypeToken<List<ResProposal>>() {
+        }.getType());
+
+        mTargetMemo = getIntent().getStringExtra("memo");
+        mTargetFee = getIntent().getParcelableExtra("fee");
 
         mPageAdapter = new VotePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -149,18 +167,23 @@ public class VoteActivity extends BaseBroadCastActivity {
         }
     }
 
-
     public void onStartVote() {
         Intent intent = new Intent(VoteActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_VOTE);
-        intent.putExtra("proposal_id", mProposalId);
-        intent.putExtra("opinion", mOpinion);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
+        mStartForResult.launch(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    onShowWaitDialog();
+                    new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
+                            getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                }
+            }
+    );
 
     private class VotePageAdapter extends FragmentPagerAdapter {
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();

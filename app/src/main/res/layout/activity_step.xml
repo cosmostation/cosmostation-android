@@ -33,6 +33,7 @@
         android:layout_below="@+id/tool_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_6"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 

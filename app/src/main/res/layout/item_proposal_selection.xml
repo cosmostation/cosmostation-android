@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_proposal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_6"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorTransBg"
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_12">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_8"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/proposal_id"
+                        style="@style/font_rb_14_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="#1" />
+
+                    <TextView
+                        android:id="@+id/proposal_title"
+                        style="@style/font_rr_14_black_daynight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/proposal_deadline"
+                        style="@style/font_rr_12_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_6" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:background="@color/colorGrayDayNight" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/check_btn_yes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:layout_marginTop="@dimen/space_16"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:layout_marginBottom="@dimen/space_4"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/box_vote_quorum"
+                            android:clickable="true">
+
+                            <TextView
+                                style="@style/font_ss_14_black_daynight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/space_12"
+                                android:text="YES" />
+
+                            <ImageView
+                                android:id="@+id/checkImg_selected_yes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/icon_vote_not_selection" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/check_btn_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:layout_marginTop="@dimen/space_16"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:layout_marginBottom="@dimen/space_4"
+                            android:layout_toRightOf="@+id/checkBtn_yes"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/box_vote_quorum"
+                            android:clickable="true">
+
+                            <TextView
+                                style="@style/font_ss_14_black_daynight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/space_12"
+                                android:text="NO" />
+
+                            <ImageView
+                                android:id="@+id/checkImg_selected_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/icon_vote_not_selection" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/check_btn_nowithveto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:layout_marginRight="@dimen/space_4"
+                        android:layout_marginBottom="@dimen/space_4"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/box_vote_quorum"
+                        android:clickable="true">
+
+                        <TextView
+                            style="@style/font_ss_14_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/space_12"
+                            android:text="NoWithVeto" />
+
+                        <ImageView
+                            android:id="@+id/checkImg_selected_nowithveto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/icon_vote_not_selection" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/check_btn_abstain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:layout_marginRight="@dimen/space_4"
+                        android:layout_marginBottom="@dimen/space_4"
+                        android:layout_toRightOf="@+id/checkBtn_yes"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/box_vote_quorum"
+                        android:clickable="true">
+
+                        <TextView
+                            style="@style/font_ss_14_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/space_12"
+                            android:text="Abstain" />
+
+                        <ImageView
+                            android:id="@+id/checkImg_selected_abstain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/icon_vote_not_selection" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

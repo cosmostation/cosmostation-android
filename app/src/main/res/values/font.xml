@@ -433,6 +433,12 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_rr_12_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
     <style name="font_ss_14_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorWhite</item>

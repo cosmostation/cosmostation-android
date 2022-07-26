@@ -362,6 +362,7 @@
     <string name="str_dismiss">Dismiss</string>
     <string name="str_explorer">Explorer</string>
     <string name="str_memo">Memo</string>
+    <string name="str_my_opinion">My Opinion</string>
     <string name="str_fees">Fee</string>
     <string name="str_fees_c">FEE</string>
     <string name="str_to_send_amount">Send Amount</string>
@@ -884,6 +885,7 @@
     <string name="str_tx_status">Status</string>
     <string name="str_tx_height">Block Height</string>
     <string name="str_tx_time">Time</string>
+    <string name="str_tx_fee">Fee</string>
     <string name="str_tx_fee_info">Fee (used/limit)</string>
     <string name="str_tx_fee_used">Fee Used</string>
     <string name="str_tx_fee_limit">Fee Limit</string>
@@ -1892,6 +1894,7 @@
     <string name="error_no_bonding_no_vote">This proposal can only vote on delegators.</string>
     <string name="error_iris_already_voted">Already voted.</string>
     <string name="error_not_voting_period">Not voting period.</string>
+    <string name="error_not_selected_vote">Please select proposals to vote.</string>
     <string name="error_no_option">Please select your opinion.</string>
     <string name="error_no_tx">Tx does not exist.</string>
     <string name="error_not_yet">Coming soon!</string>

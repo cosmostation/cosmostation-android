@@ -59,6 +59,7 @@ import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFU
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
@@ -1117,100 +1118,102 @@ public class WDp {
         }
     }
 
-    public static void getLayoutColor(Context c, BaseChain baseChain, LinearLayout[] wordsLayer) {
-        for (int i = 0; i < wordsLayer.length; i++) {
+    public static Drawable getLayoutColor(Context c, BaseChain baseChain, Button button) {
+        if (baseChain != null){
             if (baseChain.equals(COSMOS_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_atom));
+                button.setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_atom));
             } else if (baseChain.equals(IRIS_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_iris));
+                button.setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_iris));
             } else if (baseChain.equals(BNB_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_bnb));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_bnb);
             } else if (baseChain.equals(KAVA_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_kava));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_kava);
             } else if (baseChain.equals(IOV_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_iov));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_iov);
             } else if (baseChain.equals(BAND_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_band));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_band);
             } else if (baseChain.equals(CERTIK_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_certik));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_certik);
             } else if (baseChain.equals(AKASH_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_akash));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_akash);
             } else if (baseChain.equals(SECRET_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_secret));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_secret);
             } else if (baseChain.equals(OKEX_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_okex));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_okex);
             } else if (baseChain.equals(PERSIS_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_persis));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_persis);
             } else if (baseChain.equals(SENTINEL_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_sentinel));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_sentinel);
             } else if (baseChain.equals(FETCHAI_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_fetch));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_fetch);
             } else if (baseChain.equals(CRYPTO_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_cryto));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_cryto);
             } else if (baseChain.equals(SIF_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_sif));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_sif);
             } else if (baseChain.equals(KI_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_ki));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_ki);
             } else if (baseChain.equals(OSMOSIS_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_osmosis));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_osmosis);
             } else if (baseChain.equals(MEDI_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_medi));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_medi);
             } else if (baseChain.equals(EMONEY_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_emoney));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_emoney);
             } else if (baseChain.equals(RIZON_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_rizon));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_rizon);
             } else if (baseChain.equals(JUNO_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_juno));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_juno);
             } else if (baseChain.equals(REGEN_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_regen));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_regen);
             } else if (baseChain.equals(BITCANNA_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_bitcanna));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_bitcanna);
             } else if (baseChain.equals(ALTHEA_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_althea));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_althea);
             } else if (baseChain.equals(STARGAZE_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_stargaze));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_stargaze);
             } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_grabridge));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_grabridge);
             } else if (baseChain.equals(COMDEX_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_comdex));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_comdex);
             } else if (baseChain.equals(INJ_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_inj));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_inj);
             } else if (baseChain.equals(BITSONG_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_bitsong));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_bitsong);
             } else if (baseChain.equals(DESMOS_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_desmos));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_desmos);
             } else if (baseChain.equals(LUM_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_lum));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_lum);
             } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_chihuahua));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_chihuahua);
             } else if (baseChain.equals(UMEE_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_umee));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_umee);
             } else if (baseChain.equals(AXELAR_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_axelar));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_axelar);
             } else if (baseChain.equals(KONSTELL_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_konstellattion));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_konstellattion);
             } else if (baseChain.equals(EVMOS_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_evmos));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_evmos);
             } else if (baseChain.equals(CUDOS_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_cudos));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_cudos);
             } else if (baseChain.equals(PROVENANCE_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_provenance));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_provenance);
             } else if (baseChain.equals(CERBERUS_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_cerberus));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_cerberus);
             } else if (baseChain.equals(OMNIFLIX_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_omniflix));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_omniflix);
             } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_crescent));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_crescent);
             } else if (baseChain.equals(ASSETMANTLE_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_mantle));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_mantle);
             } else if (baseChain.equals(STATION_TEST)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_station));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_station);
             } else if (baseChain.equals(NYX_MAIN)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_nym));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_nym);
             } else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
-                wordsLayer[i].setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_darkgray_daynight));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_darkgray_daynight);
             }
         }
+        return ContextCompat.getDrawable(c, R.drawable.box_round_darkgray_daynight);
+
     }
 
     public static void setLayoutColor(Context c, BaseChain

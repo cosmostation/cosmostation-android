@@ -30,10 +30,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
@@ -65,6 +68,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
     // proposal api
     private ResProposal mApiProposal;
+    private Set<ResProposal> selectedSet = Sets.newHashSet();
+
     //gRPC
     private Gov.Vote mMyVote_gRPC;
     //Certik
@@ -159,9 +164,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             }
 
             Intent intent = new Intent(VoteDetailsActivity.this, VoteActivity.class);
-            intent.putExtra("proposalId", mProposalId);
-            intent.putExtra("title", "# " + mApiProposal.id + ". " + mApiProposal.title);
-            intent.putExtra("proposer", mApiProposal.proposer);
+            intent.putExtra("proposal", new Gson().toJson(selectedSet));
             startActivity(intent);
         }
     }
@@ -187,6 +190,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         } else if (result.taskType == TASK_FETCH_MINTSCAN_PROPOSAL) {
             if (result.resultData != null) {
                 mApiProposal = (ResProposal) result.resultData;
+                selectedSet.add(mApiProposal);
             }
         }
         if (mTaskCount == 0) {

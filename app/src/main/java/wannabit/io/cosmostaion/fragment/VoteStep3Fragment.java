@@ -18,8 +18,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class VoteStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mProposalTitle;
-    private TextView mProposer;
     private TextView mOpinion;
     private TextView mFeeAmount, mDenomFeeType;
     private TextView mMemo;
@@ -41,17 +39,13 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_vote_step3, container, false);
-        mProposalTitle = rootView.findViewById(R.id.vote_title);
-        mProposer = rootView.findViewById(R.id.vote_proposer);
-        mOpinion = rootView.findViewById(R.id.vote_to);
+        mOpinion = rootView.findViewById(R.id.my_opinion);
         mFeeAmount = rootView.findViewById(R.id.vote_fees);
         mDenomFeeType = rootView.findViewById(R.id.vote_fees_type);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        mProposalTitle.setText(getSActivity().mProposeTitle);
-        mProposer.setText(getSActivity().mProposer);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
