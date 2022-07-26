@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -23,15 +21,12 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
     public final static int CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG = 6016;
 
-    private TextView        mFeeAmount, mFeeType;
-    private TextView        mCurrentAddress, mNewAddress, mMemo;
-    private Button          mBeforeBtn, mConfirmBtn;
-    private int             mDpDecimal = 6;
+    private TextView mFeeAmount, mFeeType;
+    private TextView mCurrentAddress, mNewAddress, mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
 
-    public static RewardAddressChangeStep3Fragment newInstance(Bundle bundle) {
-        RewardAddressChangeStep3Fragment fragment = new RewardAddressChangeStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RewardAddressChangeStep3Fragment newInstance() {
+        return new RewardAddressChangeStep3Fragment();
     }
 
     @Override
@@ -57,10 +52,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mFeeType);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeType, mFeeAmount);
         mCurrentAddress.setText(getSActivity().mCurrentRewardAddress);
         mNewAddress.setText(getSActivity().mNewRewardAddress);
         mMemo.setText(getSActivity().mTxMemo);
@@ -77,7 +69,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
                     getString(R.string.str_continue), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
-                    }, true);
+                        }, true);
         }
     }
 
@@ -91,5 +83,4 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
             getSActivity().onStartRewardAddressChange();
         }
     }
-
 }

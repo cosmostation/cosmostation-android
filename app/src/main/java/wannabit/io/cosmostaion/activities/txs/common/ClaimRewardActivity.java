@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
@@ -26,11 +25,13 @@ import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.txs.common.RewardStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.common.RewardStep3Fragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
+import wannabit.io.cosmostaion.fragment.txs.common.RewardStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.RewardStep3Fragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
@@ -38,7 +39,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 
 public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskListener {
 
-    private ImageView mChainBg;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -53,7 +53,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg = findViewById(R.id.chain_bg);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -70,6 +69,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_SIMPLE_REWARD;
 
         mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
@@ -165,7 +165,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
     public void onStartReward() {
         Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REWARD);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("valOpAddresses", mValAddresses);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
@@ -176,7 +176,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
     @Override
     public void onTaskResponse(TaskResult result) {
-//        WLog.w("onTaskResponse " + result.taskType + " " + mTaskCount);
         mTaskCount--;
         if (isFinishing()) return;
         if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
@@ -187,7 +186,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
         } else if (result.taskType == TASK_GRPC_FETCH_WITHDRAW_ADDRESS) {
             mWithdrawAddress = (String) result.resultData;
-
         }
 
         if (mTaskCount == 0) {
@@ -203,10 +201,10 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         public RewardPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(RewardStep0Fragment.newInstance(null));
+            mFragments.add(RewardStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(RewardStep3Fragment.newInstance(null));
+            mFragments.add(RewardStep3Fragment.newInstance());
         }
 
         @Override

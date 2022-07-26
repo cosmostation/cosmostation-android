@@ -264,7 +264,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                 getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
                 getString(R.string.str_close), null);
-        return;
     }
 
     public void onAddMnemonicForAccount() {
@@ -302,6 +301,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         if (isGRPC(mBaseChain)) {
@@ -349,6 +349,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         boolean hasbalance = true;

@@ -193,6 +193,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
+                return;
             }
             final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
@@ -214,6 +215,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
+                return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);

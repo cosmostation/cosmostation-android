@@ -171,6 +171,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
+                return;
             }
             BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
@@ -197,6 +198,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
+                return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));

@@ -1,10 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -103,7 +99,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnCheckKey = findViewById(R.id.btn_check_key);
         mBtnCheck = findViewById(R.id.btn_check);
 
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -147,13 +142,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onStartChangeRewardAddress() {
-        if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
-        }
-
         getBaseDao().setLastUser(mAccount.id);
         Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
         changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
@@ -174,7 +162,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         WDp.showChainDp(this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
         mChainImg.setImageResource(mChainConfig.chainImg());
 
-        if (isGRPC(mBaseChain)) {
+        if (BaseChain.isGRPC(mBaseChain)) {
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
@@ -209,7 +197,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mBtnCheck.setVisibility(View.VISIBLE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
             mBtnCheckKey.setText(getString(R.string.str_check_private_key));
-            if (mBaseChain.equals(OKEX_MAIN)) {
+            if (mBaseChain.equals(BaseChain.OKEX_MAIN)) {
                 mPathLayer.setVisibility(View.VISIBLE);
                 mAccountPathTitle.setText("Address Type");
                 if (mAccount.customPath > 0) {
@@ -323,9 +311,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnRewardAddressChange)) {
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
+                onInsertKeyDialog();
                 return;
             }
 
@@ -336,7 +322,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_reward_address_change_title),
                     Html.fromHtml(getString(R.string.str_reward_address_change_msg) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(getString(R.string.str_reward_address_change_market_no) + "</font>")),
-                    AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
+                    getString(R.string.str_cancel), null,
                     getString(R.string.str_continue), view -> onStartChangeRewardAddress(), true);
         }
 

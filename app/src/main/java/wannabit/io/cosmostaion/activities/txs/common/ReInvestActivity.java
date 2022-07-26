@@ -29,15 +29,15 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.txs.common.ReInvestStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.common.ReInvestStep3Fragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
+import wannabit.io.cosmostaion.fragment.txs.common.ReInvestStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.ReInvestStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
-import wannabit.io.cosmostaion.utils.WDp;
 
 public class ReInvestActivity extends BaseBroadCastActivity implements TaskListener {
 
@@ -70,6 +70,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_REINVEST;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
@@ -162,7 +163,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
 
     public void onStartReInvest() {
         Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REINVEST);
+        intent.putExtra(CONST_PW_PURPOSE, mTxType);
         intent.putExtra("reInvestValAddr", mValAddress);
         mAmount.amount = new BigDecimal(mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
         intent.putExtra("reInvestAmount", mAmount);
@@ -179,14 +180,13 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
             if (rewards != null) {
                 getBaseDao().mGrpcRewards = rewards;
-                mAmount = new Coin(WDp.mainDenom(mBaseChain), getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValAddress).toPlainString());
+                mAmount = new Coin(mChainConfig.mainDenom(), getBaseDao().getReward(mChainConfig.mainDenom(), mValAddress).toPlainString());
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             } else {
                 onBackPressed();
             }
         }
     }
-
 
     private class ReInvestPageAdapter extends FragmentPagerAdapter {
 
@@ -196,10 +196,10 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
         public ReInvestPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ReInvestStep0Fragment.newInstance(null));
+            mFragments.add(ReInvestStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(ReInvestStep3Fragment.newInstance(null));
+            mFragments.add(ReInvestStep3Fragment.newInstance());
         }
 
         @Override

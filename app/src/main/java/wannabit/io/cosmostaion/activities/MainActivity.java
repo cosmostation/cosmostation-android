@@ -303,6 +303,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             } else {
                 if (!mAccount.hasPrivateKey) {
                     onInsertKeyDialog();
+                    return;
                 }
                 BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
                 BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
@@ -316,6 +317,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
+                return;
             }
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
@@ -361,6 +363,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onClickIncentive() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));

@@ -27,10 +27,8 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     private Button          mCancelBtn, mNextBtn;
     private int             mDpDecimal = 6;
 
-    public static ReInvestStep0Fragment newInstance(Bundle bundle) {
-        ReInvestStep0Fragment fragment = new ReInvestStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ReInvestStep0Fragment newInstance() {
+        return new ReInvestStep0Fragment();
     }
 
     @Override
@@ -43,13 +41,11 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
         View rootView = inflater.inflate(R.layout.fragment_reinvest_step0, container, false);
         mCardReward             = rootView.findViewById(R.id.reward_card);
         mTvRewardAmount         = rootView.findViewById(R.id.reward_amount);
-        mTvRewardDenom          = rootView.findViewById(R.id.reward_amount_title);
+        mTvRewardDenom          = rootView.findViewById(R.id.reward_denom);
         mTvFromValidators       = rootView.findViewById(R.id.reward_moniker);
         mProgressBar            = rootView.findViewById(R.id.reward_progress);
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
-
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvRewardDenom);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -62,12 +58,11 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         if (getSActivity().mAmount != null) {
             BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
+            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), rewardSum.toPlainString(), mTvRewardDenom, mTvRewardAmount);
         }
         mTvFromValidators.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
         mProgressBar.setVisibility(View.GONE);
         mNextBtn.setClickable(true);
-
     }
 
     @Override
