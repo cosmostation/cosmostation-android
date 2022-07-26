@@ -33,8 +33,8 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
-import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
+import wannabit.io.cosmostaion.dialog.IBCReceiveChainDialog;
+import wannabit.io.cosmostaion.dialog.IBCRelayerChannelDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -139,7 +139,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
             mToChainLayer.setBackgroundResource(R.drawable.btn_trans_with_border);
             mDialogImg.setVisibility(View.VISIBLE);
         }
-        ChainConfig fromChainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
+        ChainConfig fromChainConfig = getSActivity().mChainConfig;
         mFromChainImg.setImageResource(fromChainConfig.chainImg());
         mFromChainTv.setText(fromChainConfig.chainTitleToUp());
 
@@ -179,7 +179,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mToChainLayer)) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("chain", mIbcSendableRelayers);
-            Dialog_IBC_Receive_Chain dialog = Dialog_IBC_Receive_Chain.newInstance(bundle);
+            IBCReceiveChainDialog dialog = IBCReceiveChainDialog.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -187,7 +187,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mToRelayer)) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("channel", mIbcSendablePaths);
-            Dialog_IBC_Relayer_Channel dialog = Dialog_IBC_Relayer_Channel.newInstance(bundle);
+            IBCRelayerChannelDialog dialog = IBCRelayerChannelDialog.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_RELAYER);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

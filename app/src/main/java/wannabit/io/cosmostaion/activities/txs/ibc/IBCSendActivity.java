@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
@@ -33,7 +34,6 @@ import wannabit.io.cosmostaion.fragment.txs.ibc.IBCSendStep4Fragment;
 
 public class IBCSendActivity extends BaseBroadCastActivity {
 
-    private ImageView mChainBg;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -50,7 +50,6 @@ public class IBCSendActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg = findViewById(R.id.chain_bg);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -62,9 +61,10 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTvStep.setText(getString(R.string.str_send_step_0));
+        mTvStep.setText(getString(R.string.str_ibc_transfer_step_0));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mToIbcDenom = getIntent().getStringExtra("sendTokenDenom");
         mTxType = CONST_PW_TX_IBC_TRANSFER;
 
@@ -114,7 +114,6 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         if (mAccount == null) finish();
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -154,7 +153,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
 
     public void onStartIbcSend() {
         Intent intent = new Intent(IBCSendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_IBC_TRANSFER);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("toAddress", mToAddress);
         intent.putParcelableArrayListExtra("amount", mAmounts);
         intent.putExtra("channelId", mPath.channel_id);

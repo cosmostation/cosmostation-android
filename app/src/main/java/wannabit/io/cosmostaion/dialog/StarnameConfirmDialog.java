@@ -16,10 +16,10 @@ import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 
-public class Dialog_StarName_Confirm extends DialogFragment {
+public class StarnameConfirmDialog extends DialogFragment {
 
-    public static Dialog_StarName_Confirm newInstance(Bundle bundle) {
-        Dialog_StarName_Confirm frag = new Dialog_StarName_Confirm();
+    public static StarnameConfirmDialog newInstance(Bundle bundle) {
+        StarnameConfirmDialog frag = new StarnameConfirmDialog();
         frag.setArguments(bundle);
         return frag;
     }

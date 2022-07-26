@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,19 +27,22 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
+public class IBCReceiveAccountsDialog extends DialogFragment {
 
+    private ConstraintLayout mDialogLayout;
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private AccountListAdapter mAccountListAdapter;
 
     private ArrayList<Account> mAccounts = new ArrayList<>();
 
-    public static Dialog_IBC_Receivable_Accouts newInstance(Bundle bundle) {
-        Dialog_IBC_Receivable_Accouts frag = new Dialog_IBC_Receivable_Accouts();
+    public static IBCReceiveAccountsDialog newInstance(Bundle bundle) {
+        IBCReceiveAccountsDialog frag = new IBCReceiveAccountsDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -51,14 +56,18 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView = view.findViewById(R.id.recycler);
+
         mAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(getArguments().getString("chainName")));
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
         mRecyclerView.setAdapter(mAccountListAdapter);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
@@ -74,22 +83,23 @@ public class Dialog_IBC_Receivable_Accouts extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull AccountListAdapter.AccountHolder holder, int position) {
+        public void onBindViewHolder(@NonNull AccountListAdapter.AccountHolder holder, @SuppressLint("RecyclerView") int position) {
             final Account account = mAccounts.get(position);
             final BaseChain baseChain = BaseChain.getChain(account.baseChain);
-            holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
             holder.accountAddress.setText(account.address);
 
-            if (TextUtils.isEmpty(account.nickName))
-                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
+            if (TextUtils.isEmpty(account.nickName)) holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
+
             if (account.hasPrivateKey) {
-                holder.accountKeyState.setColorFilter(WDp.getChainColor(getContext(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.accountKeyState.setImageResource(R.drawable.key_off);
+                holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
                 holder.accountKeyState.setImageResource(R.drawable.watchmode);
                 holder.accountKeyState.setColorFilter(null);
             }
-            WDp.DpMainDenom(getSActivity(), baseChain, holder.accountDenom);
+            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override

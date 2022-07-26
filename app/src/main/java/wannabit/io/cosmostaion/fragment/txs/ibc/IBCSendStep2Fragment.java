@@ -88,20 +88,20 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
     public void onRefreshTab() {
         super.onRefreshTab();
         mToIbcDenom = getSActivity().mToIbcDenom;
-        mDpDecimal = WDp.tokenDivideDecimal(getBaseDao(), getSActivity().mBaseChain, mToIbcDenom);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mToIbcDenom);
         setDisplayDecimals(mDpDecimal);
         onUpdateInitInfo();
     }
 
     private void onUpdateInitInfo() {
-        final String mainDenom = WDp.mainDenom(getSActivity().mBaseChain);
+        final String mainDenom = getSActivity().mChainConfig.mainDenom();
         final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
         mMaxAvailable = getBaseDao().getAvailable(getSActivity().mToIbcDenom);
         if (mainDenom.equalsIgnoreCase(getSActivity().mToIbcDenom)) {
             mMaxAvailable = mMaxAvailable.subtract(feeAmount);
         }
-        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mToIbcDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
+        WDp.setDpCoin(getSActivity(), getBaseDao(),getSActivity().mChainConfig, getSActivity().mToIbcDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
 
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -236,7 +236,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onShowEmptyBalanceWarnDialog() {
-        if (WDp.mainDenom(getSActivity().mBaseChain).equalsIgnoreCase(getSActivity().mToIbcDenom)) {
+        if (getSActivity().mChainConfig.mainDenom().equalsIgnoreCase(getSActivity().mToIbcDenom)) {
             AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
             return;
         }

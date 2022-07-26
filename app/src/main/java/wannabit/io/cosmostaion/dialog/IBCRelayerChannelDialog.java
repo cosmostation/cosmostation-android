@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,18 +23,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.IbcPath;
 
-public class Dialog_IBC_Relayer_Channel extends DialogFragment {
+public class IBCRelayerChannelDialog extends DialogFragment {
 
+    private ConstraintLayout mDialogLayout;
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private RelayerListAdapter mRelayerListAdapter;
     private ArrayList<IbcPath.Path> mIbcSendablePaths = new ArrayList<>();
 
-    public static Dialog_IBC_Relayer_Channel newInstance(Bundle bundle) {
-        Dialog_IBC_Relayer_Channel frag = new Dialog_IBC_Relayer_Channel();
+    public static IBCRelayerChannelDialog newInstance(Bundle bundle) {
+        IBCRelayerChannelDialog frag = new IBCRelayerChannelDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -46,15 +48,18 @@ public class Dialog_IBC_Relayer_Channel extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_ibc_relayer);
         mRecyclerView = view.findViewById(R.id.recycler);
         mIbcSendablePaths = (ArrayList<IbcPath.Path>) getArguments().getSerializable("channel");
 
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogTitle.setText(R.string.str_select_ibc_relayer);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRelayerListAdapter = new RelayerListAdapter();
         mRecyclerView.setAdapter(mRelayerListAdapter);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
@@ -69,13 +74,13 @@ public class Dialog_IBC_Relayer_Channel extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RelayerListAdapter.RelayerListHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RelayerListAdapter.RelayerListHolder holder, @SuppressLint("RecyclerView") int position) {
             final IbcPath.Path path = mIbcSendablePaths.get(position);
             holder.channelTitle.setText(path.channel_id);
             if (path.auth == null) {
-                holder.channelStatus.setImageDrawable(getSActivity().getDrawable(R.drawable.unknown));
+                holder.channelStatus.setImageResource(R.drawable.unknown);
             } else if (path.auth) {
-                holder.channelStatus.setImageDrawable(getSActivity().getDrawable(R.drawable.wellknown));
+                holder.channelStatus.setImageResource(R.drawable.wellknown);
             }
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,9 +111,5 @@ public class Dialog_IBC_Relayer_Channel extends DialogFragment {
             }
         }
 
-    }
-
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
     }
 }

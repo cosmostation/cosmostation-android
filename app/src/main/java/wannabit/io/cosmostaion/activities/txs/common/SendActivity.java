@@ -24,17 +24,17 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.fragment.txs.common.SendStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.common.SendStep1Fragment;
-import wannabit.io.cosmostaion.fragment.txs.common.SendStep4Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
+import wannabit.io.cosmostaion.fragment.txs.common.SendStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.SendStep1Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.SendStep4Fragment;
 
 public class SendActivity extends BaseBroadCastActivity {
 
-    private ImageView mChainBg;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -45,14 +45,10 @@ public class SendActivity extends BaseBroadCastActivity {
     public String mStarName;
     public BnbToken mBnbToken;
 
-    //V1 .40 version
-//    public Token                    mIrisToken;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg = findViewById(R.id.chain_bg);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -67,13 +63,12 @@ public class SendActivity extends BaseBroadCastActivity {
         mTvStep.setText(getString(R.string.str_send_step_0));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_SIMPLE_SEND;
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mBnbToken = getBaseDao().getBnbToken(mDenom);
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.IRIS_TEST)) {
-//            mIrisToken = getBaseDao().getIrisToken(mDenom);
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
@@ -121,7 +116,6 @@ public class SendActivity extends BaseBroadCastActivity {
         if (mAccount == null) finish();
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -161,7 +155,7 @@ public class SendActivity extends BaseBroadCastActivity {
 
     public void onStartSend() {
         Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_SEND);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("toAddress", mToAddress);
         intent.putParcelableArrayListExtra("amount", mAmounts);
         intent.putExtra("memo", mTxMemo);
@@ -169,7 +163,6 @@ public class SendActivity extends BaseBroadCastActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
-
 
     private class SendPageAdapter extends FragmentPagerAdapter {
 
